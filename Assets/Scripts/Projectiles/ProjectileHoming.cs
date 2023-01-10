@@ -18,8 +18,7 @@ public class ProjectileHoming : Projectile
             Character victim = collision.GetComponent<Character>();
             //checks that the collision isn't the shooter since the projectile will damage the shooter otherwise
             if (victim != shooter) {
-                Debug.Log(victim.gameObject.name);
-                victim.HP -= dmg;
+                 victim.HP -= dmg;
                 Destroy(gameObject);
             }
         }

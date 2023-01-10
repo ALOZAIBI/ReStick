@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 716371585}
   - component: {fileID: 716371587}
   - component: {fileID: 716371586}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1083182110}
   - component: {fileID: 1083182109}
   - component: {fileID: 1083182108}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 1922694424}
   - component: {fileID: 1922694426}
   - component: {fileID: 1922694425}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,12 +362,15 @@ MonoBehaviour:
   AS: 0.5
   MS: 1
   Range: 1
+  alive: 1
   canMove: 1
   canAttack: 1
-  AtkAvailable: 1
+  usesProjectile: 0
+  projectile: {fileID: 0}
   team: 0
   targetStrategy: 0
   target: {fileID: 0}
+  uiManager: {fileID: 0}
 --- !u!114 &2772588609081670021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +409,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
 --- !u!50 &1105442034894872178
 Rigidbody2D:

@@ -14,9 +14,12 @@ public class Character : MonoBehaviour
     public int MS;
     public int Range;
 
+    public bool alive = true;
+
     //used for stuns/debuffs etc..
     public bool canMove=true;
     public bool canAttack=true;
+    
 
     
     private bool AtkAvailable = true;
@@ -59,6 +62,7 @@ public class Character : MonoBehaviour
         Attack,
         Ability1
     }
+    [SerializeField] private UIManager uiManager;
     //for the character to detect which zone it's in
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Zone") {
@@ -69,13 +73,15 @@ public class Character : MonoBehaviour
     void Start() {
         //Initialising HPMax on start
         HPMax = HP;
+        //Connect to UIManager
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
     }
     private void movement() {
         //kiting
         //IF ATTACK NOT READY AND TARGET IS WITHIN RANGE by a margin|| ATTACK NOT READY AND won't be anytime soon   && canMove
         if ((!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15)) && canMove) {
             //move away from target at a slighlty slower speed
-            transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, (-MS*0.9f) * Time.fixedDeltaTime));    
+            transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, (-MS*0.7f) * Time.fixedDeltaTime));    
         }
         else
         //if canMove && distance more than range walk towards target 
@@ -121,16 +127,16 @@ public class Character : MonoBehaviour
 
     private void attack() {
         selectTarget();
-        //deal Damage when target is within range and Attack is available and player can Attack
-        if (AtkAvailable && canAttack && Vector2.Distance(target.transform.position, transform.position) <= Range ) {
-            //if character uses projectile launch the projectile
+        //deal Damage when target is within range and Attack is available and player can Attack and the target is alive
+        if (AtkAvailable && canAttack && Vector2.Distance(target.transform.position, transform.position) <= Range && target.alive) {
+            //if character uses projectile launch the projectile the projectile will deal the damage
             if (usesProjectile) {
                 GameObject temp = Instantiate(projectile,transform.position,transform.rotation);
                 Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
                 instantiatedProjectile.shooter = this;
                 instantiatedProjectile.dmg = DMG;
-                instantiatedProjectile.speed = 4;
-                instantiatedProjectile.lifetime = 10;
+                instantiatedProjectile.speed = 4;       //can make this an attribute to character
+                instantiatedProjectile.lifetime = 3;    //can make this an attribute to character
                 instantiatedProjectile.target = target;
             }
             else {
@@ -150,13 +156,24 @@ public class Character : MonoBehaviour
                 AtkAvailable = true;
                 break;
         }
-        
+    }
+    
+    public void handleDeath() {
+        if (HP <= 0) {
+            //remove character from the zone's character list
+            zone.charactersInside.Remove(this);
+            gameObject.SetActive(false);
+            alive = false;
+        }
     }
 
-
-    // Update is called once per frame
+    //When Character is clicked opens character Screen with information of this cahracter
+    private void OnMouseDown() {
+        uiManager.viewCharacter(this);
+    }
     void FixedUpdate()
     {
+        handleDeath();
         attack();
         movement();
     }
