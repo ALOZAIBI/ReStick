@@ -8,9 +8,9 @@ public abstract class Projectile : MonoBehaviour
     public Character target;
     //the instantiating character
     public Character shooter;
-    public int speed;
-    public int lifetime;
-    public int dmg;
+    public float speed;
+    public float lifetime;
+    public float dmg;
 
     //handles the trajectory of the projectile
     public abstract void trajectory();

@@ -8,6 +8,7 @@ public class Zone : MonoBehaviour
     public List<Character> charactersInside = new List<Character>();
 
     //to detect which players in the zone
+
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Character")) {
             charactersInside.Add(collision.GetComponent<Character>());

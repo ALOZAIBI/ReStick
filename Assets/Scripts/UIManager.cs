@@ -14,6 +14,10 @@ public class UIManager : MonoBehaviour
     //Character Screen Stuff
     public Image characterScreen;
     public TextMeshProUGUI characterName;
+    //stats texts
+    public TextMeshProUGUI DMG, AS, MS, RNG, LS;
+    //cool stats texts
+    public TextMeshProUGUI totalKills;
 
     public Button pausePlayBtn;
     //true if paused
@@ -36,6 +40,17 @@ public class UIManager : MonoBehaviour
         pausePlayBtn.gameObject.SetActive(false);
         //sets the attributes to the character's
         characterName.text = currChar.name;
+        displayStats(currChar);
+    }
+    //displays the stats and cool stats of the character and character screen
+    private void displayStats(Character currChar) {
+        //the empty quotes is to convert float to str
+        DMG.text = currChar.DMG+"";
+        AS.text = currChar.AS + "";
+        MS.text = currChar.MS + "";
+        RNG.text = currChar.Range + "";
+        LS.text = currChar.LS + "";
+        totalKills.text = currChar.totalKills+"";
     }
     private void closeUI() {
         //closes all UIScreens
