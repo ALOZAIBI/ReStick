@@ -22,8 +22,10 @@ public class Character : MonoBehaviour
     public bool canAttack=true;
     
 
-    
+    //used for cooldowns
     private bool AtkAvailable = true;
+    private float AtkNext = 0;
+    private float MovNext = 0;
 
     //projectile stuff
     public bool usesProjectile;
@@ -138,6 +140,9 @@ public class Character : MonoBehaviour
                         }
                     }
                 }
+                //if there's only allies remaining target nothing
+                if (closest.team == team)
+                    closest = null;
                 target = closest;
                 break;
 
@@ -168,15 +173,46 @@ public class Character : MonoBehaviour
                 }
             }
             //start cooldown of attack
-            StartCoroutine(StartCooldown(1/AS, (int)actionAvailable.Attack));
-            
+            startCooldown(1 / AS, (int)actionAvailable.Attack);
+
             //start cooldown of movement(Character stops moving for a bit after attack)
             //When character has more than 5 AS there is no stopping movement
-            if(AS<5)
-                StartCoroutine(StartCooldown(1/(AS*2), (int)actionAvailable.Moving));
+            if (AS < 5)
+                startCooldown(1 / (AS * 2), (int)actionAvailable.Moving);
         }
     }
+    //used to set the ActionNext value to CD value. It will actually be cooled down in teh cooldown function
+    private void startCooldown(float cooldownDuration,int action) {
+        switch (action) {
+            case (int)actionAvailable.Attack:
+                AtkNext = cooldownDuration;
+                AtkAvailable = false;
+                break;
 
+            case (int)actionAvailable.Moving:
+                MovNext = cooldownDuration;
+                canMove = false;
+                break;
+        }
+    }
+    //coolsdown everything
+    private void cooldown() {
+        if (AtkNext > 0) {
+            AtkNext -= Time.fixedDeltaTime;
+        }
+        else {
+            AtkAvailable = true;
+            AtkNext = 0;
+        }
+
+        if (MovNext > 0) {
+            MovNext -= Time.fixedDeltaTime;
+        }
+        else {
+            canMove = true;
+            MovNext = 0;
+        }
+    }
     //executes all available abilities
     private void doAbilities() {
         foreach(Ability temp in abilities) {
@@ -188,25 +224,7 @@ public class Character : MonoBehaviour
     private void resetKillsLastFrame() {
         killsLastFrame = 0;
     }
-    //Function Starts Coroutine of cooldown, Cooldown will render the appropriate available variable to false until cooldown duration is over
-    public IEnumerator StartCooldown(float CooldownDuration,int actionIsAvailable) {
-        switch (actionIsAvailable) {
-            case (int)actionAvailable.Attack:
-                AtkAvailable = false;
-                yield return new WaitForSeconds(CooldownDuration);
-                AtkAvailable = true;
-                break;
-            case (int)actionAvailable.Moving:
-                //the if statement is used to not have multipled WaitForSeconds at the same time since one of these instances can make canMove true while another still supposes its false
-                if (canMove) {
-                    canMove = false;
-                    yield return new WaitForSeconds(CooldownDuration);
-                    canMove = true;
-                }
-                break;
-        }
-    }
-    
+   
     public void handleDeath() {
         if (HP <= 0) {
             //remove character from the zone's character list
@@ -228,6 +246,7 @@ public class Character : MonoBehaviour
     {
         handleDeath();
         attack();
+        cooldown();
         movement();
         doAbilities();
         capHP();

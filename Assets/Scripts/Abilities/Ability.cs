@@ -10,6 +10,7 @@ public abstract class Ability : MonoBehaviour
     public float CD;
 
     public bool available;
+    public float abilityNext = 0;
 
     //player can choose to add delay before an ability is executed
     public float delay;
@@ -21,13 +22,22 @@ public abstract class Ability : MonoBehaviour
     //executes this ability
     public abstract void doAbility();
 
-    //Use StartCoroutine(StartCooldown()); at the end of doAbility to make the ability go on CD if it is an ability that goes on CD
 
 
-    public IEnumerator StartCooldown() {
+    public void startCooldown() {
+        abilityNext = CD;
         available = false;
-        yield return new WaitForSeconds(CD);
-        available = true;
-            
+    }
+    public void cooldown() {
+        if (abilityNext > 0) {
+            abilityNext -= Time.deltaTime;
+        }
+        else {
+            abilityNext = 0;
+            available = true;
+        }
+    }
+    private void Update() {
+        
     }
 }
