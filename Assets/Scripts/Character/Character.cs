@@ -72,8 +72,14 @@ public class Character : MonoBehaviour
         public List<Ability> abilities = new List<Ability>();
         //This is needed for abilities that apply on kill for example heal after a kill
         public int killsLastFrame = 0;
+    //Bonus Stats
+    public List<BonusStats> bonusStats = new List<BonusStats>();
     //Interesting Stats
     public int totalKills = 0;
+
+
+
+
     //for the character to detect which zone it's in
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Zone") {
@@ -94,6 +100,11 @@ public class Character : MonoBehaviour
         //Tells the abilities that this owns them
         foreach(Ability temp in abilities) {
             temp.character = this;
+        }
+
+        foreach(BonusStats temp in bonusStats) {
+            temp.character = this;
+            temp.applyStats();
         }
 
     }
@@ -162,10 +173,12 @@ public class Character : MonoBehaviour
                 instantiatedProjectile.speed = 4;       //can make this an attribute to character
                 instantiatedProjectile.lifetime = 2;    //can make this an attribute to character
                 instantiatedProjectile.target = target;
+                instantiatedProjectile.LS = LS;
             }
             else {
                 //deal damage to target
                 target.HP -= DMG;
+                HP += DMG * LS;
                 //detect if target is killed to increase totalKills stat
                 if (target.HP <= 0) {
                     totalKills++;

@@ -18,7 +18,9 @@ public class ProjectileHoming : Projectile
             Character victim = collision.GetComponent<Character>();
             //checks that the collision isn't the shooter since the projectile will damage the shooter otherwise
             if (victim != shooter) {
-                 victim.HP -= dmg;
+                victim.HP -= dmg;
+                //heals shooter thanks to life steal
+                shooter.HP += dmg * LS;
                 if (victim.HP <= 0) {
                     shooter.totalKills++;
                     shooter.killsLastFrame++;

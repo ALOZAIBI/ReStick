@@ -11,6 +11,7 @@ public abstract class Projectile : MonoBehaviour
     public float speed;
     public float lifetime;
     public float dmg;
+    public float LS;
 
     //handles the trajectory of the projectile
     public abstract void trajectory();
