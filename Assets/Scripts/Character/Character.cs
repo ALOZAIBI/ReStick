@@ -20,6 +20,8 @@ public class Character : MonoBehaviour
     //used for stuns/debuffs etc..
     public bool canMove=true;
     public bool canAttack=true;
+
+    public bool targetable = true;
     
 
     //used for cooldowns
