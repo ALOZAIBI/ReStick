@@ -362,15 +362,21 @@ MonoBehaviour:
   AS: 0.5
   MS: 1
   Range: 1
+  LS: 0
   alive: 1
   canMove: 1
   canAttack: 1
+  targetable: 1
   usesProjectile: 0
   projectile: {fileID: 0}
   team: 0
   targetStrategy: 0
   target: {fileID: 0}
   uiManager: {fileID: 0}
+  abilities: []
+  killsLastFrame: 0
+  bonusStats: []
+  totalKills: 0
 --- !u!114 &2772588609081670021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +435,6 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0

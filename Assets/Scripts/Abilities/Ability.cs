@@ -15,15 +15,15 @@ public abstract class Ability : MonoBehaviour
     //player can choose to add delay before an ability is executed
     public float delay;
 
-    //the int value used in a skill
-    public int amt;
+    //the float value used in an ability what it is used for depends on the ability
+    public float amt;
 
 
     //executes this ability
     public abstract void doAbility();
 
 
-
+    //if an ability has a cooldown call the below functions inside doAbility()
     public void startCooldown() {
         abilityNext = CD;
         available = false;

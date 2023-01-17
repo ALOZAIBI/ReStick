@@ -92,9 +92,10 @@ public class Character : MonoBehaviour
     void Start() {
         //Initialising HPMax on start
         HPMax = HP;
+        initRoundStart();
         //Connect to UIManager
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        initRoundStart();
+        
     }
 
     //used on every round start to prepare the character for round start
@@ -112,14 +113,14 @@ public class Character : MonoBehaviour
     }
     private void movement() {
         //kiting
-        //IF ATTACK NOT READY AND TARGET IS WITHIN RANGE by a margin|| ATTACK NOT READY AND won't be anytime soon   && canMove
-        if (canMove&& (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
-            //move away from target at a slighlty slower speed
-            transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, (-MS*0.7f) * Time.fixedDeltaTime));    
+        //if target alive&& IF ATTACK NOT READY AND TARGET IS WITHIN RANGE by a margin|| ATTACK NOT READY AND won't be anytime soon   && canMove
+        if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
+            //move away from target
+            transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, -MS * Time.fixedDeltaTime));    
         }
         else
         //if canMove && distance more than range walk towards target 
-        if (canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
+        if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
             transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
         }
     }
@@ -196,7 +197,7 @@ public class Character : MonoBehaviour
                 startCooldown(1 / (AS * 2), (int)actionAvailable.Moving);
         }
     }
-    //used to set the ActionNext value to CD value. It will actually be cooled down in teh cooldown function
+    //used to set the ActionNext value to CD value. It will actually be cooled down in the cooldown function which is called in the update function
     private void startCooldown(float cooldownDuration,int action) {
         switch (action) {
             case (int)actionAvailable.Attack:
@@ -253,13 +254,44 @@ public class Character : MonoBehaviour
         if (HP > HPMax)
             HP = HPMax;
     }
-    //When Character is clicked opens character Screen with information of this cahracter
+    //When Character is clicked checks if the click is held or if it's just a quick click. If it's a quick click open cahracter screen otherwise do nothing since holding is used for panning camera
     private void OnMouseDown() {
-        uiManager.viewCharacter(this);
+        
+        //if game is paused just show character screen directly even if held cuz programming skill issue.
+        if (Time.timeScale == 0) {
+            uiManager.viewCharacter(this);
+        }
+        else //if game is not paused check if mouseclickednotheld
+            click = true;
+    }
+    private float mouseHoldDuration = 0;
+    private bool click = false;
+    private void mouseClickedNotHeld() {
+        //if this function is called by OnMouseDown
+        if (click) {
+            //if click is still held increment time
+            if (Input.GetMouseButton(0)) {
+                mouseHoldDuration += Time.fixedDeltaTime;
+            }
+            //if click is not held check how long it was held for. If it was held for less than 0.2 seconds open character screen
+            else if (mouseHoldDuration < 0.2f) {
+                uiManager.viewCharacter(this);
+                //reset values
+                mouseHoldDuration = 0;
+                click = false;
+            }
+            //if click is held too long
+            else {
+                //reset values
+                mouseHoldDuration = 0;
+                click = false;
+            }
+        }
     }
     void FixedUpdate()
     {
         handleDeath();
+        mouseClickedNotHeld();
         attack();
         cooldown();
         movement();
@@ -268,3 +300,9 @@ public class Character : MonoBehaviour
         resetKillsLastFrame();//always keep me last in update
     }
 }
+
+/***
+ * RigidBody's sleeping mode has been set to never sleep. Because otherwise the ontrigger enter of the zone and character 
+ * won't work unless 1 of the 2 move. However this might cause some optimization issues. So in the future maybe set it to never sleep on 
+ * zone start and switch it back to start awake
+ */

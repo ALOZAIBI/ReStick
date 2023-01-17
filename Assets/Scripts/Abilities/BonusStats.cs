@@ -12,14 +12,20 @@ public class BonusStats : MonoBehaviour
     public float LS=0;
 
     public Character character;
+    public bool applied = false;
 
+    //applies stats once ( if applystats is called again applied would be true so nothing would happen)
     public void applyStats() {
-        character.DMG += DMG;
-        character.HP += HP;
-        character.HPMax += HP;
-        character.AS += AS;
-        character.MS += MS;
-        character.Range += Range;
-        character.LS += LS;
+        if (!applied) {
+            character.DMG += DMG;
+            character.HP += HP;
+            character.HPMax += HP;
+            character.AS += AS;
+            character.MS += MS;
+            character.Range += Range;
+            character.LS += LS;
+            applied = true;
+        }
+
     }
 }
