@@ -66,6 +66,7 @@ public class Character : MonoBehaviour
     public enum actionAvailable {
         Attack,
         Moving,
+        RandomMovement,
         Ability1
     }
 
@@ -79,8 +80,17 @@ public class Character : MonoBehaviour
     //Interesting Stats
     public int totalKills = 0;
 
-
-
+    //idling stuff
+        //position in last frame used to check idling
+        public Vector2 lastPosition;
+        //wether or not has been idle
+        public bool idling;
+        //how many seconds have been idle
+        public float secondsIdle;
+        //A direction used to move when idling or when hitting obstacle
+        public Vector2 direction;
+        //to be used in cooldown to determine how long the direction will be taken when idling
+        public float moveDuration;
 
     //for the character to detect which zone it's in
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -111,15 +121,43 @@ public class Character : MonoBehaviour
         }
 
     }
+
+    //sends position to next frame to be used to check for idling
+    private void lastFramePosition() {
+        lastPosition = transform.position;
+    }
+
+    //compares current position to last frames position to check if idle
+    private void isIdle() {
+        //if not idle check if idle.If it is in fact Idle Idle will be set back to false in the movement function
+        if (idling == false) {
+            if (Vector2.SqrMagnitude((Vector2)transform.position-lastPosition)<0.000001){
+                secondsIdle += Time.fixedDeltaTime;
+            }
+            else
+                secondsIdle = 0;
+            if (secondsIdle >= 1) {
+                idling = true;
+                //generates random direction
+                direction = new Vector2(Random.Range(0, 1), Random.Range(0, 1));
+                direction.Normalize();
+            }
+        }
+    }
     private void movement() {
-        //kiting
-        //if target alive&& IF ATTACK NOT READY AND TARGET IS WITHIN RANGE by a margin|| ATTACK NOT READY AND won't be anytime soon   && canMove
+        //if idling move this character in direction for 1 second.
+        if (idling) {
+            startCooldown(1, (int)actionAvailable.RandomMovement);
+            transform.position = (Vector2)transform.position+ (direction) * (MS * Time.fixedDeltaTime);
+        }
+        else
+        //Kiting(Moves away from target when attack not ready)
         if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
             //move away from target
             transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, -MS * Time.fixedDeltaTime));    
         }
         else
-        //if canMove && distance more than range walk towards target 
+        //walks towards target till in range
         if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
             transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
         }
@@ -160,6 +198,8 @@ public class Character : MonoBehaviour
                 target = closest;
                 break;
 
+            default:
+                break;
         }
     }
 
@@ -209,6 +249,12 @@ public class Character : MonoBehaviour
                 MovNext = cooldownDuration;
                 canMove = false;
                 break;
+
+            case (int)actionAvailable.RandomMovement:
+                moveDuration = cooldownDuration;
+                //idling has been set to true in the isIdle function
+                break;
+
         }
     }
     //coolsdown everything
@@ -227,6 +273,14 @@ public class Character : MonoBehaviour
         else {
             canMove = true;
             MovNext = 0;
+        }
+
+        if (moveDuration > 0) {
+            moveDuration -= Time.fixedDeltaTime;
+        }
+        else {
+            idling = false; //idling will be set back to false after cooldown time
+            moveDuration = 0;
         }
     }
     //executes all available abilities
@@ -290,6 +344,8 @@ public class Character : MonoBehaviour
     }
     void FixedUpdate()
     {
+        
+
         handleDeath();
         mouseClickedNotHeld();
         attack();
@@ -297,7 +353,14 @@ public class Character : MonoBehaviour
         movement();
         doAbilities();
         capHP();
+
+        
         resetKillsLastFrame();//always keep me last in update
+    }
+
+    private void Update() {
+        isIdle();//receives last frame position
+        lastFramePosition();//sends last frame position
     }
 }
 
