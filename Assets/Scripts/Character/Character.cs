@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
     public enum actionAvailable {
         Attack,
         Moving,
-        RandomMovement,
+        isIdle,
         Ability1
     }
 
@@ -80,16 +80,18 @@ public class Character : MonoBehaviour
     //Interesting Stats
     public int totalKills = 0;
 
-    //idling stuff
-        //position in last frame used to check idling
+    //isIdle stuff
+        //position in last frame used to check isIdle
         public Vector2 lastPosition;
         //wether or not has been idle
-        public bool idling;
+        public bool isIdle;
+        //wether or not currently moving cause idle
+        public bool idleMov;
         //how many seconds have been idle
         public float secondsIdle;
-        //A direction used to move when idling or when hitting obstacle
+        //A direction used to move when isIdle or when hitting obstacle
         public Vector2 direction;
-        //to be used in cooldown to determine how long the direction will be taken when idling
+        //to be used in cooldown to determine how long the direction will be taken when isIdle
         public float moveDuration;
 
     //for the character to detect which zone it's in
@@ -122,44 +124,47 @@ public class Character : MonoBehaviour
 
     }
 
-    //sends position to next frame to be used to check for idling
+    //sends position to next frame to be used to check for isIdle
     private void lastFramePosition() {
         lastPosition = transform.position;
     }
 
     //compares current position to last frames position to check if idle
-    private void isIdle() {
+    private void checkIdle(float randomMovDuration,float timeToConsiderIdle) {
         //if not idle check if idle.If it is in fact Idle Idle will be set back to false in the movement function
-        if (idling == false) {
-            if (Vector2.SqrMagnitude((Vector2)transform.position-lastPosition)<0.000001){
-                secondsIdle += Time.fixedDeltaTime;
+        
+            if (Vector2.SqrMagnitude((Vector2)transform.position - lastPosition) < 0.000001) {
+                secondsIdle += Time.deltaTime;  //keep this delta time since checkIdle is in the update and not fixedupdate
             }
             else
                 secondsIdle = 0;
-            if (secondsIdle >= 1) {
-                idling = true;
+        if (isIdle == false) {
+            if (secondsIdle >= timeToConsiderIdle) {
+                startCooldown(randomMovDuration, (int)actionAvailable.isIdle);
                 //generates random direction
-                direction = new Vector2(Random.Range(0, 1), Random.Range(0, 1));
+                direction = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
                 direction.Normalize();
+                Debug.Log("checkIdle");
             }
         }
+        
     }
     private void movement() {
-        //if idling move this character in direction for 1 second.
-        if (idling) {
-            startCooldown(1, (int)actionAvailable.RandomMovement);
-            transform.position = (Vector2)transform.position+ (direction) * (MS * Time.fixedDeltaTime);
+        if (isIdle) {
+            transform.position = (Vector2)transform.position + (direction * (MS * Time.fixedDeltaTime));
         }
-        else
-        //Kiting(Moves away from target when attack not ready)
-        if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
-            //move away from target
-            transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, -MS * Time.fixedDeltaTime));    
-        }
-        else
-        //walks towards target till in range
-        if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
-            transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
+        
+        else {
+            //Kiting(Moves away from target when attack not ready)
+            if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
+                //move away from target
+                transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, -MS * Time.fixedDeltaTime));
+            }
+            else
+            //walks towards target till in range
+            if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
+                transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
+            }
         }
     }
 
@@ -250,9 +255,10 @@ public class Character : MonoBehaviour
                 canMove = false;
                 break;
 
-            case (int)actionAvailable.RandomMovement:
+            case (int)actionAvailable.isIdle:
                 moveDuration = cooldownDuration;
-                //idling has been set to true in the isIdle function
+                //idleMov = true;
+                isIdle = true;
                 break;
 
         }
@@ -279,8 +285,10 @@ public class Character : MonoBehaviour
             moveDuration -= Time.fixedDeltaTime;
         }
         else {
-            idling = false; //idling will be set back to false after cooldown time
-            moveDuration = 0;
+            //resets isIdle to exit idle movement loop and resets idleMov like other cooldowns
+            //idleMov = false;
+            //secondsIdle = 0;
+            isIdle = false;
         }
     }
     //executes all available abilities
@@ -345,7 +353,6 @@ public class Character : MonoBehaviour
     void FixedUpdate()
     {
         
-
         handleDeath();
         mouseClickedNotHeld();
         attack();
@@ -354,12 +361,11 @@ public class Character : MonoBehaviour
         doAbilities();
         capHP();
 
-        
         resetKillsLastFrame();//always keep me last in update
     }
 
     private void Update() {
-        isIdle();//receives last frame position
+        checkIdle(0.5f,2f);//receives last frame position
         lastFramePosition();//sends last frame position
     }
 }
