@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Character : MonoBehaviour
 {
@@ -131,14 +132,15 @@ public class Character : MonoBehaviour
 
     //compares current position to last frames position to check if idle
     private void checkIdle(float randomMovDuration,float timeToConsiderIdle) {
-        //if not idle check if idle.If it is in fact Idle Idle will be set back to false in the movement function
-        
+        //checks if same position
             if (Vector2.SqrMagnitude((Vector2)transform.position - lastPosition) < 0.000001) {
                 secondsIdle += Time.deltaTime;  //keep this delta time since checkIdle is in the update and not fixedupdate
             }
             else
                 secondsIdle = 0;
+            
         if (isIdle == false) {
+            //once the character is deemed to be idle make the character move for randomMovDuration in direction direction
             if (secondsIdle >= timeToConsiderIdle) {
                 startCooldown(randomMovDuration, (int)actionAvailable.isIdle);
                 //generates random direction
@@ -150,8 +152,9 @@ public class Character : MonoBehaviour
         
     }
     private void movement() {
+        //if the character is idle move towards direction that was randomly generated in checkIdle
         if (isIdle) {
-            transform.position = (Vector2)transform.position + (direction * (MS * Time.fixedDeltaTime));
+            transform.position = (Vector2)transform.position + (direction * (MS*0.5f * Time.fixedDeltaTime));
         }
         
         else {
@@ -318,7 +321,11 @@ public class Character : MonoBehaviour
     }
     //When Character is clicked checks if the click is held or if it's just a quick click. If it's a quick click open cahracter screen otherwise do nothing since holding is used for panning camera
     private void OnMouseDown() {
-        
+        //prevent clijcking through UI
+        if (IsPointerOverGameObject()) {
+            Debug.Log("UI STUFF CLICKING THROu");
+            return;
+        }
         //if game is paused just show character screen directly even if held cuz programming skill issue.
         if (Time.timeScale == 0) {
             uiManager.viewCharacter(this);
@@ -365,8 +372,29 @@ public class Character : MonoBehaviour
     }
 
     private void Update() {
-        checkIdle(0.5f,2f);//receives last frame position
+        checkIdle(0.2f,2f);//receives last frame position
         lastFramePosition();//sends last frame position
+    }
+
+    //to prevent clicking thorugh UI
+    //https://answers.unity.com/questions/1115464/ispointerovergameobject-not-working-with-touch-inp.html
+    public static bool IsPointerOverGameObject() {
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return true;
+        }
+
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++) {
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began) {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
 

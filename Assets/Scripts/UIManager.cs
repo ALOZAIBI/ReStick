@@ -20,6 +20,12 @@ public class UIManager : MonoBehaviour
     //cool stats texts
     public TextMeshProUGUI totalKills;
 
+    
+    //Used to instantiate AbilityDisplay prefab
+    public GameObject abilityDisplay;
+    //Instantiate abilityDisplay as child of this
+    public GameObject abilityDisplayPanel;
+
     //Game Won Screen Stuff
     public Image gameWonScreen;
     public Button parentSceneBtn;
@@ -50,6 +56,21 @@ public class UIManager : MonoBehaviour
         //sets the attributes to the character's
         characterName.text = currChar.name;
         displayStats(currChar);
+        displayCharacterAbilities(currChar);
+    }
+
+    public void displayCharacterAbilities(Character currChar) {
+        foreach(Ability ability in currChar.abilities) {
+            GameObject temp = Instantiate(abilityDisplay);
+            //sets the instantiated object as child
+            temp.transform.parent = abilityDisplayPanel.transform;
+            AbilityDisplay displayTemp = temp.GetComponent<AbilityDisplay>();
+            //sets the displays name and description
+            displayTemp.abilityName.text = ability.abilityName;
+            displayTemp.description.text = ability.description;
+            //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
+            temp.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
     //displays the stats and cool stats of the character and character screen
     private void displayStats(Character currChar) {
@@ -90,6 +111,11 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
+
+        //destroys all ability displays
+        foreach(Transform toDestroy in abilityDisplayPanel.transform) {
+            GameObject.Destroy(toDestroy.gameObject);
+        }
     }
     private void pausePlay() {
         //Flips the pause switch then pauses or unpauses

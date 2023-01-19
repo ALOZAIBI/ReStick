@@ -5,8 +5,10 @@ using UnityEngine;
 public abstract class Ability : MonoBehaviour
 {
     public Character character;
-    //ability's description
+    public string abilityName;
     public string description;
+
+    //abilities cd
     public float CD;
 
     public bool available;
