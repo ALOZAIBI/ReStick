@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI DMG, AS, MS, RNG, LS;
     //cool stats texts
     public TextMeshProUGUI totalKills;
+    public CharacterHealthBar healthBar;
 
     
     //Used to instantiate AbilityDisplay prefab
@@ -81,6 +82,8 @@ public class UIManager : MonoBehaviour
         RNG.text = currChar.Range + "";
         LS.text = currChar.LS + "";
         totalKills.text = currChar.totalKills+"";
+        //fills the HP bar correctly
+        healthBar.character = currChar;
     }
 
     //displays the game won screen and prompts the player to click to go back to the scene with name sceneName

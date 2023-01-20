@@ -37,7 +37,8 @@ public class Character : MonoBehaviour
     public int team;
 
     //Current targeting strategy
-    public int targetStrategy=(int)targetList.DefaultEnemy;
+    public int attackTargetStrategy=(int)targetList.DefaultEnemy;   //who to attack
+    public int movementTargetStrategy = (int)targetList.DefaultEnemy;   //By default is the same as attackTarget
 
     public Character target;
     public enum teamList {
@@ -158,6 +159,7 @@ public class Character : MonoBehaviour
         }
         
         else {
+            selectTarget(movementTargetStrategy);
             //Kiting(Moves away from target when attack not ready)
             if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
                 //move away from target
@@ -174,8 +176,8 @@ public class Character : MonoBehaviour
    
 
     //does targetting logic to select target
-    private void selectTarget() {
-        switch (targetStrategy) {
+    private void selectTarget(int whatStrategy) {
+        switch (whatStrategy) {
             case (int)targetList.DefaultEnemy:
                 //loops through all characters
                 foreach (Character temp in zone.charactersInside) {  
@@ -206,13 +208,31 @@ public class Character : MonoBehaviour
                 target = closest;
                 break;
 
+            case (int)targetList.ClosestAlly:
+                //initially assume that this is the closest ally
+                Character closestAlly = zone.charactersInside[0];
+                //loops through all characters
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and is not itself
+                    if (temp.team == team&& temp!=this) {
+                        Debug.Log(temp + "Is a potential closest Ally");
+                        //sets closestAlly
+                        if (closestAlly.team == team || Vector2.Distance(temp.transform.position, transform.position) < Vector2.Distance(closestAlly.transform.position, transform.position)) {
+                            closestAlly = temp;
+                        }
+                    }
+                }
+                target = closestAlly;
+                break;
+
             default:
                 break;
         }
+        Debug.Log(this.gameObject.name +target);
     }
 
     private void attack() {
-        selectTarget();
+        selectTarget(attackTargetStrategy);
         //deal Damage when target is within range and Attack is available and player can Attack and the target is alive
         if (AtkAvailable && canAttack && Vector2.Distance(target.transform.position, transform.position) <= Range && target.alive) {
             //if character uses projectile launch the projectile the projectile will deal the damage and detect if target is killed
@@ -221,7 +241,8 @@ public class Character : MonoBehaviour
                 Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
                 instantiatedProjectile.shooter = this;
                 instantiatedProjectile.dmg = DMG;
-                instantiatedProjectile.speed = 4;       //can make this an attribute to character
+                //THE SPEED IS SET IN THE PROJECTILE OBJECT ITSELF
+                //instantiatedProjectile.speed = 4;       //can make this an attribute to character
                 instantiatedProjectile.lifetime = 2;    //can make this an attribute to character
                 instantiatedProjectile.target = target;
                 instantiatedProjectile.LS = LS;

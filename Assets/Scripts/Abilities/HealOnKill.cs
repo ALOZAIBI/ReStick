@@ -9,6 +9,6 @@ public class HealOnKill : Ability {
     }
     public override void doAbility() {
         character.HP += character.killsLastFrame * amt;
-        Debug.Log(character.gameObject.name);
+        Debug.Log(character.killsLastFrame+ character.gameObject.name);
     }
 }
