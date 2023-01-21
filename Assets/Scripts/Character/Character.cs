@@ -51,18 +51,24 @@ public class Character : MonoBehaviour
     public enum targetList {
         //simply selects first Character from List that isn't on same team
         DefaultEnemy,    
-        //selects the closest enemy by distance
+        //selects the closest enemy
         ClosestEnemy,
         LowestHPEnemy,
         HighestDMGEnemy,
         HighestHPEnemy,
 
+        
+
         //selects a character in same team
         DefaultAlly,        
+        //selects closest ally 
         ClosestAlly,
         LowestHPAlly,
         HighestDMGAlly,
-        HighestHPAlly
+        HighestHPAlly,
+
+        //dont select anyting
+        None
     }
     //A function passes what action it wants a cooldown on then the cooldown function using a switch case does the appropriate thing
     public enum actionAvailable {
@@ -118,7 +124,7 @@ public class Character : MonoBehaviour
         foreach(Ability temp in abilities) {
             temp.character = this;
         }
-
+        //applies the stats
         foreach(BonusStats temp in bonusStats) {
             temp.character = this;
             temp.applyStats();
@@ -147,7 +153,6 @@ public class Character : MonoBehaviour
                 //generates random direction
                 direction = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
                 direction.Normalize();
-                Debug.Log("checkIdle");
             }
         }
         
@@ -176,7 +181,7 @@ public class Character : MonoBehaviour
    
 
     //does targetting logic to select target
-    private void selectTarget(int whatStrategy) {
+    public void selectTarget(int whatStrategy) {
         switch (whatStrategy) {
             case (int)targetList.DefaultEnemy:
                 //loops through all characters
@@ -215,7 +220,6 @@ public class Character : MonoBehaviour
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
                     if (temp.team == team&& temp!=this) {
-                        Debug.Log(temp + "Is a potential closest Ally");
                         //sets closestAlly
                         if (closestAlly.team == team || Vector2.Distance(temp.transform.position, transform.position) < Vector2.Distance(closestAlly.transform.position, transform.position)) {
                             closestAlly = temp;
@@ -225,10 +229,13 @@ public class Character : MonoBehaviour
                 target = closestAlly;
                 break;
 
+            case (int)targetList.None:
+                target = null;
+                break;
+
             default:
                 break;
         }
-        Debug.Log(this.gameObject.name +target);
     }
 
     private void attack() {
@@ -344,7 +351,6 @@ public class Character : MonoBehaviour
     private void OnMouseDown() {
         //prevent clijcking through UI
         if (IsPointerOverGameObject()) {
-            Debug.Log("UI STUFF CLICKING THROu");
             return;
         }
         //if game is paused just show character screen directly even if held cuz programming skill issue.

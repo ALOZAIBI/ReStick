@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class ProjectileHoming : Projectile
 {
-    private void Start() {
-        //destroys projectile after lifetime
-        Destroy(gameObject, lifetime);
-    }
+    
     public override void trajectory() {
         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.fixedDeltaTime);
     }

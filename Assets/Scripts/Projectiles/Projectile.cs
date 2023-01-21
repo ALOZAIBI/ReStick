@@ -13,8 +13,18 @@ public abstract class Projectile : MonoBehaviour
     public float dmg;
     public float LS;
 
+    //direction that the projectile is to be fired
+    //direction = targ.position - transform. position;
+    public Vector2 direction;
+
     //handles the trajectory of the projectile
     public abstract void trajectory();
 
+    public virtual void Start() {
+        //destroys projectile after lifetime
+        //lifetime thing is not frame independent I think so if need to be fixed in the future use a custom timer that is incremented
+        //woith fixed update think cooldown that is used in character smthn like that
+        Destroy(gameObject, lifetime);
+    }
 
 }
