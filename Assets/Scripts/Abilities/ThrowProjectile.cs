@@ -10,6 +10,7 @@ public class ThrowProjectile : Ability
 
     public override void doAbility() {
         if (available) {
+            Debug.Log("ABILITY DONE WHAT");
             //selects target
             character.selectTarget(targetStrategy);
             //creates the projectile
