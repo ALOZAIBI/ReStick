@@ -16,6 +16,7 @@ public class Zone : MonoBehaviour
     //connects to UImanager
     private void Start() {
         uIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        uIManager.displayCharacterPlacing();
         
     }
     //to detect which players in the zone

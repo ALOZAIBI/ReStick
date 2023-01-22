@@ -242,7 +242,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1512837582050368341}
   - {fileID: 7536819776331158627}
@@ -309,6 +309,7 @@ MonoBehaviour:
   character: {fileID: 0}
   characerPortrait: {fileID: 1280629702882042803}
   healthBar: {fileID: 1883029219496076468}
+  name: {fileID: 7504278474282679174}
 --- !u!1 &7674486543783257610
 GameObject:
   m_ObjectHideFlags: 0

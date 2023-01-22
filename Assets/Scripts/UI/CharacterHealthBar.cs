@@ -18,7 +18,7 @@ public class CharacterHealthBar : MonoBehaviour
     private void handleHealthText() {
         //trycatch used since we won't always be displaying text so HPtext would be empty etc...
         try {
-            HPtext.text = character.HPMax + "/" + (int)character.HP;
+            HPtext.text = (int)character.HP + "/" + (int)character.HPMax;
         }
         catch {
             return;

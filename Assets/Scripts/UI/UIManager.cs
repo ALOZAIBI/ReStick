@@ -29,16 +29,27 @@ public class UIManager : MonoBehaviour
     //Instantiate abilityDisplay as child of this
     public GameObject abilityDisplayPanel;
 
+    //The playerCharacters are children of this
+    public GameObject playerParty;
+    //screen that pops up oin lelve start
+    public GameObject characterPlacingScreen;
+    //the prefab to be instantiated
+    public GameObject characterDisplay;
+    
+
     //Game Won Screen Stuff
     public Image gameWonScreen;
     public Button parentSceneBtn;
     public string mapSceneName;
+
 
     public Button pausePlayBtn;
     //true if paused
     public bool pause=false;
     //used to check if the game was paused before clicking on viewCharacter
     public bool wasPause = false;
+
+    
 
     private void Start() {
         parentSceneBtn.onClick.AddListener(loadMap);
@@ -96,6 +107,30 @@ public class UIManager : MonoBehaviour
         gameWonScreen.gameObject.SetActive(true);
         pausePlayBtn.gameObject.SetActive(false);
         mapSceneName = sceneName;
+    }
+
+    //still not working 
+    public void displayCharacterPlacing() {
+        //activate the screen and pause
+        characterPlacingScreen.SetActive(true);
+        pause = true;
+        Time.timeScale = 0;
+        //loops through children of playerParty
+        foreach(Transform child in playerParty.transform) {
+            Debug.Log(child.name);
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                if (temp.alive) {
+                    //instantiates a charcaterDisplay
+                    CharacterDisplay display = Instantiate(characterDisplay).GetComponent<CharacterDisplay>();
+                    display.character = temp;
+                    //sets this display as child of the charPlacing Screen
+                    display.transform.parent = characterPlacingScreen.transform;
+                    //sets the scale for some reason if I dont do this the scale is set to 167
+                    display.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                }
+            }
+        }
     }
     //this is triggered by a button
     //loads map and reset cam position
