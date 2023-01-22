@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI totalKills;
     public CharacterHealthBar healthBar;
 
+    public Image characterPortrait;
+
     
     //Used to instantiate AbilityDisplay prefab
     public GameObject abilityDisplay;
@@ -56,6 +58,9 @@ public class UIManager : MonoBehaviour
         pausePlayBtn.gameObject.SetActive(false);
         //sets the attributes to the character's
         characterName.text = currChar.name;
+        //sets the image of character
+        characterPortrait.sprite = currChar.GetComponent<SpriteRenderer>().sprite;
+        characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
         displayStats(currChar);
         displayCharacterAbilities(currChar);
     }

@@ -350,9 +350,9 @@ public class Character : MonoBehaviour
     //When Character is clicked checks if the click is held or if it's just a quick click. If it's a quick click open cahracter screen otherwise do nothing since holding is used for panning camera
     private void OnMouseDown() {
         //prevent clijcking through UI
-        if (IsPointerOverGameObject()) {
-            return;
-        }
+        //if (IsPointerOverGameObject()) {
+        //    return;
+        //}
         //if game is paused just show character screen directly even if held cuz programming skill issue.
         if (Time.timeScale == 0) {
             uiManager.viewCharacter(this);
