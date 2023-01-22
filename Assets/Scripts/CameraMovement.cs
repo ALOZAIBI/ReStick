@@ -10,7 +10,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Vector2 dragDifference;
 
     //pannalbe is set to off when dragging a character from the characterPlacingScreen so it is set to off in the CharacterDisplay Script
-    public bool pannable;
+    public bool pannable=true;
 
     //tutorial used https://www.youtube.com/watch?v=R6scxu1BHhs
     private void panCamera() {

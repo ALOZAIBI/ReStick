@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: -5528427615354320772}
   m_Layer: 5
   m_Name: Character Display
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,6 +311,9 @@ MonoBehaviour:
   characerPortrait: {fileID: 1280629702882042803}
   healthBar: {fileID: 1883029219496076468}
   name: {fileID: 7504278474282679174}
+  selected: 0
+  cam: {fileID: 0}
+  camMov: {fileID: 0}
 --- !u!61 &-5528427615354320772
 BoxCollider2D:
   m_ObjectHideFlags: 0

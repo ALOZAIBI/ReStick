@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     //Game Won Screen Stuff
     public Image gameWonScreen;
     public Button parentSceneBtn;
+    //the scene to be loaded
     public string mapSceneName;
 
 
@@ -79,13 +80,14 @@ public class UIManager : MonoBehaviour
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
         gameWonScreen.gameObject.SetActive(false);
         pausePlayBtn.gameObject.SetActive(true);
+        //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(mapSceneName);
     }
     private void closeUI() {
         //closes all UIScreens
         characterScreen.gameObject.SetActive(false);
         gameWonScreen.gameObject.SetActive(false);
-        characterPlacingScreen.gameObject.SetActive(false);
+        //characterPlacingScreen.gameObject.SetActive(false);
         //Hides the close Button and shows the pause Button
         closeUIBtn.gameObject.SetActive(false);
         pausePlayBtn.gameObject.SetActive(true);
@@ -97,7 +99,7 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 1;
 
         characterScreen.close();
-        characterPlacingScreen.close();
+        //characterPlacingScreen.close();
     }
     private void pausePlay() {
         //Flips the pause switch then pauses or unpauses

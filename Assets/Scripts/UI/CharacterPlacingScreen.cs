@@ -1,13 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterPlacingScreen : MonoBehaviour
 {
+    //the characterDisplay script handles the drag and wdrop stuff
     public UIManager uiManager;
 
     //the prefab to be instantiated
     public GameObject characterDisplay;
+
+    public Button startBtn;
+
+    private void Start() {
+        startBtn.onClick.AddListener(startZone);
+    }
+
     
     //displays the characters
     public void displayCharacters() {
@@ -31,11 +40,37 @@ public class CharacterPlacingScreen : MonoBehaviour
         }
     }
 
-    //deletes all the created instances
+    //deletes all the created instances and hides button and screen
     public void close() {
         foreach(Transform child in transform) {
-            //Debug.Log("destroying "+child.name);
             GameObject.Destroy(child.gameObject);
         }
+        startBtn.gameObject.SetActive(false);
+    }
+
+    //starts the zone precondition = atleast 1 playerCharacter is in Map
+    private void startZone() {
+        uiManager.pause = false;
+        Time.timeScale = 1;
+        close();
+        //hides the screen
+        this.gameObject.SetActive(false);
+    }
+
+    private void zoneStartableHmm() {
+        //loops through player characters
+        foreach(Transform child in uiManager.playerParty.transform) {
+            //if atleast 1 character is active display startBtn
+            if (child.tag == "Character") {
+                if (child.gameObject.activeSelf) {
+                    startBtn.gameObject.SetActive(true);
+                    return;
+                }
+            }
+        }
+    }
+    private void Update() {
+        zoneStartableHmm();
     }
 }
+

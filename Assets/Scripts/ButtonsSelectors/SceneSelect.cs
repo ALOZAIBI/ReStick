@@ -14,8 +14,10 @@ public class SceneSelect : MonoBehaviour
     [SerializeField] private Button startBtn;
     [SerializeField] private Button details;
     [SerializeField] private Button closeUI;
+    [SerializeField] private GameObject playerParty;
 
     private void Start() {
+        playerParty = GameObject.FindGameObjectWithTag("PlayerParty");
         startBtn.onClick.AddListener(goTo);
         closeUI.onClick.AddListener(close);
         dontDestroys = GameObject.FindGameObjectWithTag("dontDestroys");
@@ -30,8 +32,9 @@ public class SceneSelect : MonoBehaviour
         click = true;
     }
 
+    //checks wether the click is held or not
     private void mouseClickedNotHeld() {
-        //if this function is called by OnMouseDown
+        
         if (click) {
             //if click is still held increment time
             if (Input.GetMouseButton(0)) {
@@ -53,8 +56,14 @@ public class SceneSelect : MonoBehaviour
         }
     }
 
-    //jumps to scene and keeps the dontDestroys objects
+    //jumps to scene and sets all characters to inactive
     private void goTo() {
+        foreach (Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                //Debug.Log(child.name + "Disabled fuckl");
+                child.gameObject.SetActive(false);
+            }
+        }
         DontDestroyOnLoad(dontDestroys);
         SceneManager.LoadScene(sceneToLoad);
     }

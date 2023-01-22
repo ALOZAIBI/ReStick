@@ -35,12 +35,17 @@ public class CharacterDisplay : MonoBehaviour
         camMov.pannable = false;
         selected = true;
     }
-    //drop
+    //drops the character in mouse position
     private void OnMouseUp() {
         camMov.pannable = true;
         if (selected) {
+            character.gameObject.SetActive(true);
             character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
             selected = false;
+            Image image = this.gameObject.GetComponent<Image>();
+            Color temp = image.color;
+            temp.a = 0.1f;
+            image.color = temp;
         }
     }
     private void Update() {
