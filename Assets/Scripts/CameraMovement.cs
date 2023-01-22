@@ -9,6 +9,9 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Vector2 dragOrigin;
     [SerializeField] private Vector2 dragDifference;
 
+    //pannalbe is set to off when dragging a character from the characterPlacingScreen so it is set to off in the CharacterDisplay Script
+    public bool pannable;
+
     //tutorial used https://www.youtube.com/watch?v=R6scxu1BHhs
     private void panCamera() {
         //prevent clicking through UI
@@ -27,7 +30,9 @@ public class CameraMovement : MonoBehaviour
         }
     }
     private void Update() {
-        panCamera();
+        if (pannable) {
+            panCamera();
+        }
     }
 
     //used to prevent clicking through UI

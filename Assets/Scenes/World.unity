@@ -1358,6 +1358,7 @@ GameObject:
   - component: {fileID: 562557055}
   - component: {fileID: 562557054}
   - component: {fileID: 562557056}
+  - component: {fileID: 562557057}
   m_Layer: 5
   m_Name: CharacterPlacing
   m_TagString: Untagged
@@ -1447,6 +1448,20 @@ MonoBehaviour:
   m_Spacing: {x: 50, y: 50}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &562557057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562557052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51298e7a3191084ca13d4c3cb06f819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiManager: {fileID: 1128562973}
+  characterDisplay: {fileID: 5763673684709246824, guid: 3db134d8b49574b43b0f6dd3077a0126, type: 3}
 --- !u!1 &582433245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2781,21 +2796,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 519420031}
   closeUIBtn: {fileID: 96600496}
-  characterScreen: {fileID: 1428940829}
-  characterName: {fileID: 227766818}
-  DMG: {fileID: 1643753814}
-  AS: {fileID: 1924276486}
-  MS: {fileID: 262554645}
-  RNG: {fileID: 1439232047}
-  LS: {fileID: 1701758658}
-  totalKills: {fileID: 1471966746}
-  healthBar: {fileID: 1690885643}
-  characterPortrait: {fileID: 1743024148}
-  abilityDisplay: {fileID: 576495221301038506, guid: 9888101af0b16cd418eba9fbe51799f9, type: 3}
-  abilityDisplayPanel: {fileID: 959462220}
+  characterScreen: {fileID: 1428940832}
   playerParty: {fileID: 1619638292}
-  characterPlacingScreen: {fileID: 562557052}
-  characterDisplay: {fileID: 5763673684709246824, guid: 3db134d8b49574b43b0f6dd3077a0126, type: 3}
+  characterPlacingScreen: {fileID: 562557057}
   gameWonScreen: {fileID: 977697066}
   parentSceneBtn: {fileID: 865785625}
   mapSceneName: 
@@ -3390,6 +3393,7 @@ GameObject:
   - component: {fileID: 1428940830}
   - component: {fileID: 1428940829}
   - component: {fileID: 1428940831}
+  - component: {fileID: 1428940832}
   m_Layer: 5
   m_Name: Character Screen
   m_TagString: Untagged
@@ -3487,6 +3491,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1428940832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428940827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca7a1f1112bd454781cebfe17a69ce5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: {fileID: 227766818}
+  DMG: {fileID: 1643753814}
+  AS: {fileID: 1924276486}
+  MS: {fileID: 262554645}
+  RNG: {fileID: 1439232047}
+  LS: {fileID: 1701758658}
+  totalKills: {fileID: 1255521160}
+  healthBar: {fileID: 1690885643}
+  characterPortrait: {fileID: 1743024148}
+  abilityDisplay: {fileID: 576495221301038506, guid: 9888101af0b16cd418eba9fbe51799f9, type: 3}
+  abilityDisplayPanel: {fileID: 959462220}
 --- !u!1 &1439232045
 GameObject:
   m_ObjectHideFlags: 0
@@ -5435,6 +5462,10 @@ PrefabInstance:
     - target: {fileID: 3326347214946854558, guid: a073f7f3d6b2a6d47b1d891a27f2e9f9, type: 3}
       propertyPath: m_Name
       value: Map Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326347215803399951, guid: a073f7f3d6b2a6d47b1d891a27f2e9f9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a073f7f3d6b2a6d47b1d891a27f2e9f9, type: 3}
