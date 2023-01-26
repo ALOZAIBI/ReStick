@@ -50,13 +50,13 @@ public class CharacterPlacingScreen : MonoBehaviour
 
     //starts the zone precondition = atleast 1 playerCharacter is in Map
     private void startZone() {
-        uiManager.pause = false;
-        Time.timeScale = 1;
+        uiManager.pausePlay();
         close();
         //hides the screen
         this.gameObject.SetActive(false);
     }
 
+    //checks if zone is startable(if atleast 1 playerCharacter)
     private void zoneStartableHmm() {
         //loops through player characters
         foreach(Transform child in uiManager.playerParty.transform) {
@@ -69,6 +69,9 @@ public class CharacterPlacingScreen : MonoBehaviour
             }
         }
     }
+
+
+
     private void Update() {
         zoneStartableHmm();
     }

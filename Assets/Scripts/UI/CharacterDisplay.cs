@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class CharacterDisplay : MonoBehaviour
-{
+public class CharacterDisplay : MonoBehaviour {
     public Character character;
-    
+
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
 
-    public bool selected = false;
 
     //to get position of mouse to be used in MOuseUp
     public Camera cam;
     public CameraMovement camMov;
     private void Start() {
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         camMov = cam.GetComponent<CameraMovement>();
         //sets the image
@@ -32,24 +32,46 @@ public class CharacterDisplay : MonoBehaviour
     //when the characterDisplay is clicked
     //drag
     private void OnMouseDown() {
-        camMov.pannable = false;
-        selected = true;
+        click = true;
+
     }
-    //drops the character in mouse position
-    private void OnMouseUp() {
-        camMov.pannable = true;
-        if (selected) {
-            character.gameObject.SetActive(true);
-            character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-            selected = false;
-            Image image = this.gameObject.GetComponent<Image>();
-            Color temp = image.color;
-            temp.a = 0.1f;
-            image.color = temp;
+
+    private float mouseHoldDuration = 0;
+    private bool click = false;
+
+    private void mouseClickedNotHeld() {
+        if (click) {
+            if (Input.GetMouseButton(0)) {
+                mouseHoldDuration += Time.unscaledDeltaTime;
+                //if held drag character to mouse Position
+                if (mouseHoldDuration > 0.2f) {
+                    //to maybe optimise in future only keep the asterisk'd function here and move the others to be executed once instead of in Update
+                    camMov.pannable = false;
+                    character.gameObject.SetActive(true);
+                    character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);//asterisk'd
+                    Image image = this.gameObject.GetComponent<Image>();
+                    Color temp = image.color;
+                    temp.a = 0.1f;
+                    image.color = temp;
+                }
+            }
+           
+            else{
+                //if just a click display characterScreen
+                if (mouseHoldDuration < 0.2f) {
+                    uiManager.viewCharacter(character);
+                    mouseHoldDuration = 0;
+                }
+                //resets values
+                click = false;
+                camMov.pannable = true;
+            }
+
+
         }
     }
     private void Update() {
-        
+        mouseClickedNotHeld();
     }
 
 }

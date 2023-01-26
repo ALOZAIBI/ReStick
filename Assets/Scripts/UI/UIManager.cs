@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+//THIS IS A CHILD OF CAMERA SINCE HIDEUI NEEDS LOCAL POSITION RELATIVE TO PARENT WHICH IS CAMERA
 public class UIManager : MonoBehaviour
 {
     //used to reset cam position when changing scenes 
@@ -36,9 +37,11 @@ public class UIManager : MonoBehaviour
     //used to check if the game was paused before clicking on viewCharacter
     public bool wasPause = false;
 
-    
 
+    //to know if hidden or not
+    private HideUI placingScreenHidden;
     private void Start() {
+        placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         parentSceneBtn.onClick.AddListener(loadMap);
         pausePlayBtn.onClick.AddListener(pausePlay);
         closeUIBtn.onClick.AddListener(closeUI);
@@ -68,8 +71,9 @@ public class UIManager : MonoBehaviour
     public void displayCharacterPlacing() {
         //activate the screen and pause
         characterPlacingScreen.gameObject.SetActive(true);
-        pause = true;
-        Time.timeScale = 0;
+        //pause = true;
+        //Time.timeScale = 0;
+        pausePlay();
 
         characterPlacingScreen.displayCharacters();
     }
@@ -101,7 +105,7 @@ public class UIManager : MonoBehaviour
         characterScreen.close();
         //characterPlacingScreen.close();
     }
-    private void pausePlay() {
+    public void pausePlay() {
         //Flips the pause switch then pauses or unpauses
         pause = !pause;
         if (pause) {
@@ -111,5 +115,20 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 1;
         //wasPause = pause
         wasPause = pause;
+    }
+
+    
+    //to deal with hiding and unhiding UI
+    private void hide() {
+        //if characterScreen is up hide placing screen otherwise don't hide shit
+        if (characterScreen.gameObject.activeSelf && characterPlacingScreen.gameObject.activeSelf) {
+            placingScreenHidden.hidden = true;
+        }
+        else {
+            placingScreenHidden.hidden = false;
+        }
+    }
+    private void Update() {
+        hide();
     }
 }

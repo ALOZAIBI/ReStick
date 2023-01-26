@@ -353,12 +353,8 @@ public class Character : MonoBehaviour
         //if (IsPointerOverGameObject()) {
         //    return;
         //}
-        //if game is paused just show character screen directly even if held cuz programming skill issue.
-        if (Time.timeScale == 0) {
-            uiManager.viewCharacter(this);
-        }
-        else //if game is not paused check if mouseclickednotheld
-            click = true;
+        //to start mouseClickedNotHeld Function
+        click = true;
     }
     private float mouseHoldDuration = 0;
     private bool click = false;
@@ -367,7 +363,8 @@ public class Character : MonoBehaviour
         if (click) {
             //if click is still held increment time
             if (Input.GetMouseButton(0)) {
-                mouseHoldDuration += Time.fixedDeltaTime;
+                //using unscaled time since it should work even when timescale is 0 i.e when game is paused.
+                mouseHoldDuration += Time.unscaledDeltaTime;
             }
             //if click is not held check how long it was held for. If it was held for less than 0.2 seconds open character screen
             else if (mouseHoldDuration < 0.2f) {
@@ -388,7 +385,6 @@ public class Character : MonoBehaviour
     {
         
         handleDeath();
-        mouseClickedNotHeld();
         attack();
         cooldown();
         movement();
@@ -399,6 +395,8 @@ public class Character : MonoBehaviour
     }
 
     private void Update() {
+        mouseClickedNotHeld();
+
         checkIdle(0.2f,2f);//receives last frame position
         lastFramePosition();//sends last frame position
     }

@@ -38,7 +38,7 @@ public class SceneSelect : MonoBehaviour
         if (click) {
             //if click is still held increment time
             if (Input.GetMouseButton(0)) {
-                mouseHoldDuration += Time.fixedDeltaTime;
+                mouseHoldDuration += Time.unscaledDeltaTime;
             }
             //if click is not held check how long it was held for. If it was held for less than 0.2 seconds show goToScene screen
             else if (mouseHoldDuration < 0.2f) {
@@ -71,7 +71,7 @@ public class SceneSelect : MonoBehaviour
     private void close() {
         goToScene.gameObject.SetActive(false);
     }
-    private void FixedUpdate() {
+    private void Update() {
 
         mouseClickedNotHeld();
     }
