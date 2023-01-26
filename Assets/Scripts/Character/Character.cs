@@ -6,7 +6,9 @@ using UnityEngine.EventSystems;
 public class Character : MonoBehaviour
 {
     //zone the character is currently In;
-    [SerializeField] private Zone zone; 
+    [SerializeField] private Zone zone;
+    [SerializeField] private Camera cam;
+    [SerializeField] private CameraMovement camMov;
 
     public float DMG;              
     public float HP;
@@ -115,7 +117,10 @@ public class Character : MonoBehaviour
         initRoundStart();
         //Connect to UIManager
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        
+
+        //Connect to camera
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        camMov = cam.GetComponent<CameraMovement>();
     }
 
     //used on every round start to prepare the character for round start
@@ -225,6 +230,10 @@ public class Character : MonoBehaviour
                             closestAlly = temp;
                         }
                     }
+                }
+                //if the only remaining characters are enemies don't select anyone
+                if(closestAlly.team != team) {
+                    closestAlly = null;
                 }
                 target = closestAlly;
                 break;
@@ -358,6 +367,8 @@ public class Character : MonoBehaviour
     }
     private float mouseHoldDuration = 0;
     private bool click = false;
+    //if held on character
+    public bool held;
     private void mouseClickedNotHeld() {
         //if this function is called by OnMouseDown
         if (click) {
@@ -365,19 +376,36 @@ public class Character : MonoBehaviour
             if (Input.GetMouseButton(0)) {
                 //using unscaled time since it should work even when timescale is 0 i.e when game is paused.
                 mouseHoldDuration += Time.unscaledDeltaTime;
+
+                //Every thing commented out is to be able to reposition character after it has been placed before game starts.
+
+                ////zone is usually detected in the ontrigger however when loading a new zone the game is initially paused so ontrigger won't work
+                //if(zone == null) {
+                //    zone = GameObject.FindGameObjectWithTag("Zone").GetComponent<Zone>();
+                //}
+                ////if drag and zone didn't start and is playercharacter then move character
+                //if (!zone.started && team == (int)teamList.Player && mouseHoldDuration > 0.2f) {
+                //    //hide the placing screen and be able to move the character
+                //    //uiManager.placingScreenHidden.hidden = true;
+                //    held = true;
+                //    transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+                //    camMov.pannable = false;
+                //}
+
             }
-            //if click is not held check how long it was held for. If it was held for less than 0.2 seconds open character screen
-            else if (mouseHoldDuration < 0.2f) {
-                uiManager.viewCharacter(this);
-                //reset values
-                mouseHoldDuration = 0;
-                click = false;
-            }
-            //if click is held too long
+            //else(mouse is not clicked)
             else {
+                //if is a click and not hold
+                if (mouseHoldDuration < 0.2f) {
+                    uiManager.viewCharacter(this);
+
+                }
                 //reset values
                 mouseHoldDuration = 0;
                 click = false;
+                //uiManager.placingScreenHidden.hidden = false;
+                //camMov.pannable = true;
+                //held = false;
             }
         }
     }

@@ -20,6 +20,8 @@ public class CharacterScreen : MonoBehaviour
     //Instantiate abilityDisplay as child of this
     public GameObject abilityDisplayPanel;
 
+    //Selecting target for attacking and also moving for now.
+    public AttackTargetSelector attackTargetSelector;
     //this function displays the information in the characterscreen
     public void viewCharacter(Character currChar) {
         //sets the attributes to the character's
@@ -27,6 +29,11 @@ public class CharacterScreen : MonoBehaviour
         //sets the image of character
         characterPortrait.sprite = currChar.GetComponent<SpriteRenderer>().sprite;
         characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
+        //Debug.Log("Is this causing bug?:" + GetComponent<TargetNames>().getName(currChar.attackTargetStrategy));
+        //sets the text of the targetting
+        attackTargetSelector.target.text = getTargetStrategyName(currChar.attackTargetStrategy);
+        attackTargetSelector.character = currChar;
+
         displayStats(currChar);
         displayCharacterAbilities(currChar);
     }
@@ -62,5 +69,19 @@ public class CharacterScreen : MonoBehaviour
         foreach (Transform toDestroy in abilityDisplayPanel.transform) {
             GameObject.Destroy(toDestroy.gameObject);
         }
+    }
+
+    private string getTargetStrategyName(int target) {
+            switch (target) {
+                case (int)Character.targetList.ClosestEnemy:
+                    return "Closest Enemy";
+
+                case (int)Character.targetList.ClosestAlly:
+                    return "Closest Ally";
+
+                case (int)Character.targetList.DefaultEnemy:
+                    return "Default Enemy";
+            }
+            return "";
     }
 }

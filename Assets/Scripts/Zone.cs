@@ -11,6 +11,9 @@ public class Zone : MonoBehaviour
     //the map that this zone belongs to 
     public string belongsToMap;
 
+    //zone started or not. This is used to be able to move playerCharacter's before zone has started
+    public bool started = false;
+
     [SerializeField] private UIManager uIManager;
     [SerializeField] private GameObject playerParty;
     //connects to UImanager

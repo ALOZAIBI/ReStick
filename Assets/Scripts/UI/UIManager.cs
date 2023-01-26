@@ -37,9 +37,10 @@ public class UIManager : MonoBehaviour
     //used to check if the game was paused before clicking on viewCharacter
     public bool wasPause = false;
 
+    public Zone zone;
 
     //to know if hidden or not
-    private HideUI placingScreenHidden;
+    public HideUI placingScreenHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         parentSceneBtn.onClick.AddListener(loadMap);
@@ -54,6 +55,8 @@ public class UIManager : MonoBehaviour
         characterScreen.gameObject.SetActive(true);
         pause = true;
         Time.timeScale = 0;
+        //hides placing screen
+        placingScreenHidden.hidden = true;
         //the close button pops up and the pause button is hidden
         closeUIBtn.gameObject.SetActive(true);
         pausePlayBtn.gameObject.SetActive(false);
@@ -86,11 +89,16 @@ public class UIManager : MonoBehaviour
         pausePlayBtn.gameObject.SetActive(true);
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(mapSceneName);
+        
     }
     private void closeUI() {
         //closes all UIScreens
         characterScreen.gameObject.SetActive(false);
         gameWonScreen.gameObject.SetActive(false);
+
+        //unhides placing screen
+        placingScreenHidden.hidden = false;
+
         //characterPlacingScreen.gameObject.SetActive(false);
         //Hides the close Button and shows the pause Button
         closeUIBtn.gameObject.SetActive(false);
@@ -121,7 +129,7 @@ public class UIManager : MonoBehaviour
     //to deal with hiding and unhiding UI
     private void hide() {
         //if characterScreen is up hide placing screen otherwise don't hide shit
-        if (characterScreen.gameObject.activeSelf && characterPlacingScreen.gameObject.activeSelf) {
+        if (characterScreen.gameObject.activeSelf && characterPlacingScreen.gameObject.activeSelf ) {
             placingScreenHidden.hidden = true;
         }
         else {
@@ -129,6 +137,9 @@ public class UIManager : MonoBehaviour
         }
     }
     private void Update() {
-        hide();
+        if(zone == null) {
+            zone = GameObject.FindGameObjectWithTag("Zone").GetComponent<Zone>();
+        }
+        //hide();
     }
 }

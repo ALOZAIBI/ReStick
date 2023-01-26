@@ -42,6 +42,7 @@ public class CharacterDisplay : MonoBehaviour {
     private void mouseClickedNotHeld() {
         if (click) {
             if (Input.GetMouseButton(0)) {
+                camMov.pannable = false;
                 mouseHoldDuration += Time.unscaledDeltaTime;
                 //if held drag character to mouse Position
                 if (mouseHoldDuration > 0.2f) {
@@ -71,7 +72,12 @@ public class CharacterDisplay : MonoBehaviour {
         }
     }
     private void Update() {
-        mouseClickedNotHeld();
+        //if placing screen is not hidden check if clicked and not held
+        //this is important since pannable will be changed in Character script
+        //without this conditional pannable will always be set by this function
+        if (!uiManager.placingScreenHidden.hidden) {
+            mouseClickedNotHeld();
+        }
     }
 
 }
