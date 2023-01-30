@@ -249,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersInside: []
   belongsToMap: Map1
+  started: 0
   uIManager: {fileID: 0}
   playerParty: {fileID: 0}
 --- !u!1001 &927537179
@@ -441,6 +442,10 @@ PrefabInstance:
     - target: {fileID: 7658055425116858088, guid: 310d77f46e62b3047a70796d599e5d0f, type: 3}
       propertyPath: CD
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658055425116858088, guid: 310d77f46e62b3047a70796d599e5d0f, type: 3}
+      propertyPath: targetStrategy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7658055425116858089, guid: 310d77f46e62b3047a70796d599e5d0f, type: 3}
       propertyPath: m_RootOrder

@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     
 
     //The playerCharacters are children of this
-    public GameObject playerParty;
+    public PlayerManager playerParty;
     //screen that pops up oin lelve start
     public CharacterPlacingScreen characterPlacingScreen;
     
@@ -26,7 +26,13 @@ public class UIManager : MonoBehaviour
 
     //Game Won Screen Stuff
     public Image gameWonScreen;
-    public Button parentSceneBtn;
+    public Button wonToMapBtn;
+
+    //Game Lost Screen Stuff
+    public Image gameLostScreen;
+    public Button lostToMapBtn;
+    public Button lostToRestartBtn;
+
     //the scene to be loaded
     public string mapSceneName;
 
@@ -43,7 +49,13 @@ public class UIManager : MonoBehaviour
     public HideUI placingScreenHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
-        parentSceneBtn.onClick.AddListener(loadMap);
+
+        //
+        wonToMapBtn.onClick.AddListener(loadMap);
+        lostToMapBtn.onClick.AddListener(loadMap);
+
+        lostToRestartBtn.onClick.AddListener(restartZone);
+
         pausePlayBtn.onClick.AddListener(pausePlay);
         closeUIBtn.onClick.AddListener(closeUI);
     }
@@ -70,7 +82,13 @@ public class UIManager : MonoBehaviour
         mapSceneName = sceneName;
     }
 
-   
+    public void displayGameLost(string sceneName) {
+        gameLostScreen.gameObject.SetActive(true);
+        pausePlayBtn.gameObject.SetActive(false);
+        mapSceneName = sceneName;
+    }
+
+
     public void displayCharacterPlacing() {
         //activate the screen and pause
         characterPlacingScreen.gameObject.SetActive(true);
@@ -90,6 +108,26 @@ public class UIManager : MonoBehaviour
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(mapSceneName);
         
+    }
+    //tis is triggered by a button;
+    //reloads zone decrease zoneLives and if no more zone lives decrease total lives and reset zone Lives.(Notebook Page 24)
+    //for now only deal with total lives.
+    private void restartZone() {
+        //sets all playerCharacters to inactive then heals to full hp and make alive
+        foreach (Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                child.gameObject.SetActive(false);
+                Character currChar = child.GetComponent<Character>();
+                currChar.HP = currChar.HPMax;
+                currChar.alive = true;
+            }
+        }
+        //hides the screen and shows pause again
+        gameLostScreen.gameObject.SetActive(false);
+        //shows the pauseplaybtn
+        pausePlayBtn.gameObject.SetActive(true);
+        DontDestroyOnLoad(playerParty);
+        SceneManager.LoadScene(zone.zoneName);
     }
     private void closeUI() {
         //closes all UIScreens
