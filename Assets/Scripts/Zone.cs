@@ -62,19 +62,26 @@ public class Zone : MonoBehaviour
             //otherwise zone is lost
             uIManager.displayGameLost(belongsToMap);
             playerParty.totalLives--;
+            //started is re set to false to prevent totallives to decrement infintely
+            started = false;
         }
     }
     void FixedUpdate()
     {
         //counts characters alive
+        //using temp since otherwise I'd have to reinitalise the values to 0 and I dont want that since I might use enemiesAlive and alliesAlive as a display and I don't want it randomly resseting to 0
+        int enemiesTemp=0;
+        int alliesTemp=0;
         foreach (Character temp in charactersInside) {
             if (temp.alive) {
                 if (temp.team != (int)Character.teamList.Player)
-                    enemiesAlive++;
+                    enemiesTemp++;
                 if (temp.team == (int)Character.teamList.Player)
-                    alliesAlive++;
+                    alliesTemp++;
             }
         }
+        enemiesAlive = enemiesTemp;
+        alliesAlive = alliesTemp;
         zoneWon();
         zoneLost();
     }

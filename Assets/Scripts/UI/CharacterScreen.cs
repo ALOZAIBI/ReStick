@@ -81,6 +81,9 @@ public class CharacterScreen : MonoBehaviour
 
                 case (int)Character.targetList.DefaultEnemy:
                     return "Default Enemy";
+
+                case (int)Character.targetList.HighestDMGEnemy:
+                    return "Highest DMG Enemy";
             }
             return "";
     }

@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AttackTargetSelector : MonoBehaviour
-{
+public class AttackTargetSelector : MonoBehaviour {
     public UIManager uiManager;
     public TextMeshProUGUI target;
     public Character character;
@@ -21,7 +20,7 @@ public class AttackTargetSelector : MonoBehaviour
         openTargetSelectionBtn.onClick.AddListener(openTargetSelection);
         closestEnemyBtn.onClick.AddListener(selectClosestEnemy);
         closestAllyBtn.onClick.AddListener(selectClosestAlly);
-
+        highestDmgEnemyBtn.onClick.AddListener(selectHighestDmgEnemy);
     }
 
     private void closeAndUpdateCharScreen() {
@@ -30,7 +29,12 @@ public class AttackTargetSelector : MonoBehaviour
         //updates the characterscreenview
         uiManager.viewCharacter(character);
     }
+    private void selectHighestDmgEnemy() {
+        character.attackTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
+        character.movementTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
+        closeAndUpdateCharScreen();
 
+    }
     //the buttons change the targetting then closes the selection screen
     private void selectClosestEnemy() {
         Debug.Log("Closesetnemay");

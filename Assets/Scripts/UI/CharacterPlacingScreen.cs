@@ -50,6 +50,9 @@ public class CharacterPlacingScreen : MonoBehaviour
 
     //starts the zone precondition = atleast 1 playerCharacter is in Map
     private void startZone() {
+        //unhides these 2
+        uiManager.pausePlayBtn.gameObject.SetActive(true);
+        uiManager.timeControl.gameObject.SetActive(true);
         uiManager.pausePlay();
         close();
         uiManager.zone.started = true;

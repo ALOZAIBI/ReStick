@@ -165,9 +165,9 @@ public class Character : MonoBehaviour
     private void movement() {
         //if the character is idle move towards direction that was randomly generated in checkIdle
         if (isIdle) {
-            transform.position = (Vector2)transform.position + (direction * (MS*0.5f * Time.fixedDeltaTime));
+            transform.position = (Vector2)transform.position + (direction * (MS * 0.5f * Time.fixedDeltaTime));
         }
-        
+
         else {
             selectTarget(movementTargetStrategy);
             //Kiting(Moves away from target when attack not ready)
@@ -218,6 +218,25 @@ public class Character : MonoBehaviour
                 target = closest;
                 break;
 
+            case (int)targetList.HighestDMGEnemy:
+                //initially assume that this is the MaxDmg Character
+                Character maxDmg = zone.charactersInside[0];
+                foreach(Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if(temp.team != team) {
+                        //maxDmg.team == team is done in case the MaxDmg init was actually an ally
+                        if (maxDmg.team == team|| temp.DMG > maxDmg.DMG) {
+                            maxDmg = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (maxDmg.team == team)
+                    maxDmg = null;
+                target = maxDmg;
+                break;
+                break;
+
             case (int)targetList.ClosestAlly:
                 //initially assume that this is the closest ally
                 Character closestAlly = zone.charactersInside[0];
@@ -241,6 +260,9 @@ public class Character : MonoBehaviour
             case (int)targetList.None:
                 target = null;
                 break;
+
+            
+
 
             default:
                 break;

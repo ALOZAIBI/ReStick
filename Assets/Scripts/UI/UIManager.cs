@@ -38,11 +38,14 @@ public class UIManager : MonoBehaviour
 
 
     public Button pausePlayBtn;
+
+    public TimeControl timeControl;
     //true if paused
     public bool pause=false;
     //used to check if the game was paused before clicking on viewCharacter
     public bool wasPause = false;
 
+    //used to restartZone
     public Zone zone;
 
     //to know if hidden or not
@@ -69,8 +72,10 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
         //hides placing screen
         placingScreenHidden.hidden = true;
-        //the close button pops up and the pause button is hidden
+        timeControl.gameObject.SetActive(false);
+        //the close button pops up and the pause button+time control is hidden
         closeUIBtn.gameObject.SetActive(true);
+        timeControl.gameObject.SetActive(false);
         pausePlayBtn.gameObject.SetActive(false);
         characterScreen.viewCharacter(currChar);
     }
@@ -90,10 +95,12 @@ public class UIManager : MonoBehaviour
 
 
     public void displayCharacterPlacing() {
+        //hides pausePlay and timeControl
+        pausePlayBtn.gameObject.SetActive(false);
+        timeControl.gameObject.SetActive(false);
         //activate the screen and pause
         characterPlacingScreen.gameObject.SetActive(true);
-        //pause = true;
-        //Time.timeScale = 0;
+
         pausePlay();
 
         characterPlacingScreen.displayCharacters();
@@ -101,7 +108,7 @@ public class UIManager : MonoBehaviour
     //this is triggered by a button
     //loads map and reset cam position
     private void loadMap() {
-        //resets position of axes except Z 
+        //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
         gameWonScreen.gameObject.SetActive(false);
         pausePlayBtn.gameObject.SetActive(true);
@@ -113,6 +120,9 @@ public class UIManager : MonoBehaviour
     //reloads zone decrease zoneLives and if no more zone lives decrease total lives and reset zone Lives.(Notebook Page 24)
     //for now only deal with total lives.
     private void restartZone() {
+        //resets position of camera
+        cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
+
         //sets all playerCharacters to inactive then heals to full hp and make alive
         foreach (Transform child in playerParty.transform) {
             if (child.tag == "Character") {
@@ -141,12 +151,13 @@ public class UIManager : MonoBehaviour
         //Hides the close Button and shows the pause Button
         closeUIBtn.gameObject.SetActive(false);
         pausePlayBtn.gameObject.SetActive(true);
+        timeControl.gameObject.SetActive(true);
         //go back to the game paused or unpaused determined by if it waspaused before UI was opened
         pause = wasPause;
         if (pause)
             Time.timeScale = 0;
         else
-            Time.timeScale = 1;
+            Time.timeScale = timeControl.currTimeScale;
 
         characterScreen.close();
         //characterPlacingScreen.close();
@@ -158,7 +169,7 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
         }
         else
-            Time.timeScale = 1;
+            Time.timeScale = timeControl.currTimeScale;
         //wasPause = pause
         wasPause = pause;
     }
