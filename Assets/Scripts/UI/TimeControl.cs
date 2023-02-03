@@ -33,7 +33,7 @@ public class TimeControl : MonoBehaviour
 
     private void scaleDown() {
         //can change scale if game not pauysed
-        if (Time.timeScale != 0)  {
+        if (Time.timeScale != 0) {
             if (currTimeScale > minScale) {
                 currTimeScale -= 0.5f;
             }

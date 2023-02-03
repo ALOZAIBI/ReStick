@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     //Game Won Screen Stuff
     public Image gameWonScreen;
     public Button wonToMapBtn;
+    public RewardSelect rewardSelectScreen;
 
     //Game Lost Screen Stuff
     public Image gameLostScreen;
@@ -80,11 +81,20 @@ public class UIManager : MonoBehaviour
         characterScreen.viewCharacter(currChar);
     }
 
+    //so that displayGameWon isn't executed infinitely
+    private bool displayed=false;
     //displays the game won screen and prompts the player to click to go back to the scene with name sceneName
     public void displayGameWon(string sceneName) {
-        gameWonScreen.gameObject.SetActive(true);
-        pausePlayBtn.gameObject.SetActive(false);
-        mapSceneName = sceneName;
+        if (!displayed) {
+            Debug.Log("Disaplyed");
+            //gameWonScreen.gameObject.SetActive(true);
+            rewardSelectScreen.gameObject.SetActive(true);
+            rewardSelectScreen.displayAbilities();
+            pausePlayBtn.gameObject.SetActive(false);
+            mapSceneName = sceneName;
+            displayed = true;
+            //turn display back to false when gamewonscreen button is clicked
+        }
     }
 
     public void displayGameLost(string sceneName) {

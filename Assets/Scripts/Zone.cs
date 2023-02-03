@@ -23,6 +23,9 @@ public class Zone : MonoBehaviour
     //initialized to one so that
     private int alliesAlive = 0;
 
+    //list of abilities that can be rewarded here
+    public List<Ability> abilityRewardPool = new List<Ability>();
+
     //connects to UImanager
     private void Start() {
         uIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
