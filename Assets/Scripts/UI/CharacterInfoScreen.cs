@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CharacterScreen : MonoBehaviour
+public class CharacterInfoScreen : MonoBehaviour
 {
     public TextMeshProUGUI characterName;
     //stats texts
@@ -22,7 +22,7 @@ public class CharacterScreen : MonoBehaviour
 
     //Selecting target for attacking and also moving for now.
     public AttackTargetSelector attackTargetSelector;
-    //this function displays the information in the characterscreen
+    //this function displays the information in the characterInfoScreen
     public void viewCharacter(Character currChar) {
         //sets the attributes to the character's
         characterName.text = currChar.name;

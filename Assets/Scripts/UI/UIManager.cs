@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     public Button closeUIBtn;
 
     //Character Screen Stuff
-    public CharacterScreen characterScreen;
+    public CharacterInfoScreen characterInfoScreen;
     
 
     //The playerCharacters are children of this
@@ -49,10 +49,13 @@ public class UIManager : MonoBehaviour
     //used to restartZone
     public Zone zone;
 
-    //to know if hidden or not
+    //used to deal with Hiding and unHiding UI ELEMENTS
     public HideUI placingScreenHidden;
+    public HideUI timeControlHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
+        timeControlHidden = timeControlHidden.GetComponent<HideUI>();
+
 
         //
         wonToMapBtn.onClick.AddListener(loadMap);
@@ -68,17 +71,16 @@ public class UIManager : MonoBehaviour
     //to next character
     public void viewCharacter(Character currChar) {
         //opens the screen and pauses the game
-        characterScreen.gameObject.SetActive(true);
+        characterInfoScreen.gameObject.SetActive(true);
         pause = true;
         Time.timeScale = 0;
         //hides placing screen
         placingScreenHidden.hidden = true;
-        timeControl.gameObject.SetActive(false);
         //the close button pops up and the pause button+time control is hidden
         closeUIBtn.gameObject.SetActive(true);
-        timeControl.gameObject.SetActive(false);
+        timeControlHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(false);
-        characterScreen.viewCharacter(currChar);
+        characterInfoScreen.viewCharacter(currChar);
     }
 
     //so that displayGameWon isn't executed infinitely
@@ -107,7 +109,7 @@ public class UIManager : MonoBehaviour
     public void displayCharacterPlacing() {
         //hides pausePlay and timeControl
         pausePlayBtn.gameObject.SetActive(false);
-        timeControl.gameObject.SetActive(false);
+        timeControlHidden.hidden = true;
         //activate the screen and pause
         characterPlacingScreen.gameObject.SetActive(true);
 
@@ -127,7 +129,7 @@ public class UIManager : MonoBehaviour
         
     }
     //tis is triggered by a button;
-    //reloads zone decrease zoneLives and if no more zone lives decrease total lives and reset zone Lives.(Notebook Page 24)
+    //reloads zone decrease zoneLives and if no more zone lives decrease total lives and reset zone Lives.(in the Zone script)(Notebook Page 24)
     //for now only deal with total lives.
     private void restartZone() {
         //resets position of camera
@@ -151,7 +153,7 @@ public class UIManager : MonoBehaviour
     }
     private void closeUI() {
         //closes all UIScreens
-        characterScreen.gameObject.SetActive(false);
+        characterInfoScreen.gameObject.SetActive(false);
         gameWonScreen.gameObject.SetActive(false);
 
         //unhides placing screen
@@ -160,8 +162,11 @@ public class UIManager : MonoBehaviour
         //characterPlacingScreen.gameObject.SetActive(false);
         //Hides the close Button and shows the pause Button
         closeUIBtn.gameObject.SetActive(false);
-        pausePlayBtn.gameObject.SetActive(true);
-        timeControl.gameObject.SetActive(true);
+        //if game has started show these
+        if (zone.started == true) {
+            pausePlayBtn.gameObject.SetActive(true);
+            timeControlHidden.hidden = false;
+        }
         //go back to the game paused or unpaused determined by if it waspaused before UI was opened
         pause = wasPause;
         if (pause)
@@ -169,7 +174,7 @@ public class UIManager : MonoBehaviour
         else
             Time.timeScale = timeControl.currTimeScale;
 
-        characterScreen.close();
+        characterInfoScreen.close();
         //characterPlacingScreen.close();
     }
     public void pausePlay() {
@@ -187,8 +192,8 @@ public class UIManager : MonoBehaviour
     
     //to deal with hiding and unhiding UI
     private void hide() {
-        //if characterScreen is up hide placing screen otherwise don't hide shit
-        if (characterScreen.gameObject.activeSelf && characterPlacingScreen.gameObject.activeSelf ) {
+        //if characterInfoScreen is up hide placing screen otherwise don't hide shit
+        if (characterInfoScreen.gameObject.activeSelf && characterPlacingScreen.gameObject.activeSelf ) {
             placingScreenHidden.hidden = true;
         }
         else {

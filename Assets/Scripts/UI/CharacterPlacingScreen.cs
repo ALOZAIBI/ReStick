@@ -52,7 +52,7 @@ public class CharacterPlacingScreen : MonoBehaviour
     private void startZone() {
         //unhides these 2
         uiManager.pausePlayBtn.gameObject.SetActive(true);
-        uiManager.timeControl.gameObject.SetActive(true);
+        uiManager.timeControlHidden.hidden = false;
         uiManager.pausePlay();
         close();
         uiManager.zone.started = true;

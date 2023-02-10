@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class HideUI : MonoBehaviour
 {
-    [SerializeField] private GameObject btn;
+    //just to be able to hide multiple objects in 1 script this is rarely used currently it is used for CharacterPlacingscreen and it's button is other
+    [SerializeField] private GameObject other;
     [SerializeField] private Vector3 initPos;
-    [SerializeField] private Vector3 btnInitPos;
+    [SerializeField] private Vector3 otherInitPos;
     //position difference from initPos
     [SerializeField] private Vector3 targetPosDelta;
     public bool hidden;
@@ -15,7 +16,13 @@ public class HideUI : MonoBehaviour
 
     private void Start() {
         initPos = transform.localPosition;
-        btnInitPos = btn.transform.position;
+        otherInitPos = other.transform.position;
+
+        //if it's hidden immediately move this to the target so that once game starts there is immediately nothing on screen
+        if (hidden) {
+            transform.localPosition = initPos + targetPosDelta;
+            other.transform.localPosition = otherInitPos + targetPosDelta;
+        }
     }
 
     // Update is called once per frame
@@ -23,14 +30,15 @@ public class HideUI : MonoBehaviour
     {
 
         //local position since child of cmaera
-        //if this is to be hidden move it towards targetPosDelta;
+        //if this is to be hidden move it towards init - targetPosDelta;
         if (hidden) {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosDelta, speed * Time.unscaledDeltaTime);
-            btn.transform.localPosition = Vector3.MoveTowards(btn.transform.localPosition, targetPosDelta, speed * Time.unscaledDeltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition,initPos +targetPosDelta, speed * Time.unscaledDeltaTime);
+            other.transform.localPosition = Vector3.MoveTowards(other.transform.localPosition, otherInitPos +targetPosDelta, speed * Time.unscaledDeltaTime);
         }
+        //else return to init
         else {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, initPos, speed * Time.unscaledDeltaTime);
-            btn.transform.localPosition = Vector3.MoveTowards(btn.transform.localPosition, btnInitPos, speed * Time.unscaledDeltaTime);
+            other.transform.localPosition = Vector3.MoveTowards(other.transform.localPosition, otherInitPos, speed * Time.unscaledDeltaTime);
 
         }
     }

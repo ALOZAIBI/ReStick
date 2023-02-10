@@ -32,6 +32,7 @@ public class CharacterDisplay : MonoBehaviour {
     //when the characterDisplay is clicked
     //drag
     private void OnMouseDown() {
+        Debug.Log("BEING CLICKED");
         click = true;
 
     }
@@ -58,7 +59,7 @@ public class CharacterDisplay : MonoBehaviour {
             }
            
             else{
-                //if just a click display characterScreen
+                //if just a click display characterInfoScreen
                 if (mouseHoldDuration < 0.2f) {
                     uiManager.viewCharacter(character);
                     mouseHoldDuration = 0;
