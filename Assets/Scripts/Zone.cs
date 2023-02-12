@@ -23,8 +23,8 @@ public class Zone : MonoBehaviour
     //initialized to one so that
     private int alliesAlive = 0;
 
-    //list of abilities that can be rewarded here
-    public List<Ability> abilityRewardPool = new List<Ability>();
+    //list of gameObject that contain ability that can be rewarded here
+    public List<GameObject> abilityRewardPool = new List<GameObject>();
 
     //connects to UImanager
     private void Start() {
@@ -33,6 +33,16 @@ public class Zone : MonoBehaviour
 
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty").GetComponent<PlayerManager>();
         zoneName = gameObject.scene.name;
+
+        //fill the abilityRewardPool
+        foreach(Transform objPool in transform) {
+            if(objPool.tag == "ZoneRewards") {
+                foreach(GameObject tempAb in objPool) {
+                    Debug.Log("Ability Name" + tempAb.name);
+                    abilityRewardPool.Add(tempAb);
+                }
+            }
+        }
     }
     //to detect which players in the zone
     private void OnTriggerEnter2D(Collider2D collision) {

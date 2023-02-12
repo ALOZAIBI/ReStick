@@ -18,18 +18,23 @@ public class RewardSelect : MonoBehaviour
 
     public Button confirmSelection;
 
+
+
     private void Start() {
         confirmSelection.onClick.AddListener(addToInventory);
     }
 
     //adds the selected ability to inventory then leaves to UIManager's SceneName
     public void addToInventory() {
+        //index will be used to know which ability from zoneRewards to send to AbilityInventory
+        int index = 0;
         foreach(AbilityDisplayReward traversal in listReward) {
             //once it reaches a selected one add the ability to inventory
             if(traversal.selected == true) {
-                playerManager.abilityInventory.Add(traversal.ability);
-                
+                GameObject temp = uiManager.zone.abilityRewardPool[index];
+                temp.transform.parent = playerManager.abilityInventory.transform;
             }
+            index++;
         }
         //deletes all displayws
         foreach (AbilityDisplayReward toBeDeleted in listReward) {
@@ -50,7 +55,8 @@ public class RewardSelect : MonoBehaviour
             listReward.Add(rewardDisplay);
             //to connect this to the reward
             rewardDisplay.rewardSelect = this;
-            Ability temp = uiManager.zone.abilityRewardPool[i];
+            //gets the ability from zone
+            Ability temp = uiManager.zone.abilityRewardPool[i].GetComponent<Ability>();
             rewardDisplay.ability = temp;
             rewardDisplay.abilityName.text = temp.abilityName;
             rewardDisplay.description.text = temp.description;
