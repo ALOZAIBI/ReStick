@@ -28,18 +28,17 @@ public class RewardSelect : MonoBehaviour
             //once it reaches a selected one add the ability to inventory
             if(traversal.selected == true) {
                 playerManager.abilityInventory.Add(traversal.ability);
-                //deletes all displayws
-                foreach(AbilityDisplayReward toBeDeleted in listReward) {
-                    Destroy(toBeDeleted);
-                }
-                //then clears the list to be reinitialized in another zone
-                listReward.Clear();
+                
             }
         }
+        //deletes all displayws
+        foreach (AbilityDisplayReward toBeDeleted in listReward) {
+            Destroy(toBeDeleted.gameObject);
+        }
+        //then clears the list to be reinitialized in another zone
+        listReward.Clear();
         //loads map
         uiManager.loadMap();
-        //then closes the screen
-        this.gameObject.SetActive(false);
     }
     //Displays the abilities and greys out the Button.
     public void displayAbilities() {
