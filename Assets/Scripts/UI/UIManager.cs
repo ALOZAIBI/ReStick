@@ -52,9 +52,11 @@ public class UIManager : MonoBehaviour
     //used to deal with Hiding and unHiding UI ELEMENTS
     public HideUI placingScreenHidden;
     public HideUI timeControlHidden;
+    public HideUI charInfoScreenHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
+        charInfoScreenHidden = characterInfoScreen.GetComponent<HideUI>();
 
 
         //
@@ -71,7 +73,7 @@ public class UIManager : MonoBehaviour
     //to next character
     public void viewCharacter(Character currChar) {
         //opens the screen and pauses the game
-        characterInfoScreen.gameObject.SetActive(true);
+        charInfoScreenHidden.hidden = false;
         pause = true;
         Time.timeScale = 0;
         //hides placing screen
@@ -89,13 +91,14 @@ public class UIManager : MonoBehaviour
     public void displayGameWon(string sceneName) {
         if (!displayed) {
             Debug.Log("Disaplyed");
-            //gameWonScreen.gameObject.SetActive(true);
-            rewardSelectScreen.gameObject.SetActive(true);
+            //displayGameWon and display the rewards
+            gameWonScreen.gameObject.SetActive(true);
             rewardSelectScreen.displayAbilities();
             pausePlayBtn.gameObject.SetActive(false);
             mapSceneName = sceneName;
             displayed = true;
-            //turn display back to false when gamewonscreen button is clicked
+            //the rewardSelectScreen contains the Button. The button waits for an ability to be selected. Once it is selected
+            //the button can be clicked to add it to inventory and go back to mapSceneName
         }
     }
 
@@ -111,7 +114,7 @@ public class UIManager : MonoBehaviour
         pausePlayBtn.gameObject.SetActive(false);
         timeControlHidden.hidden = true;
         //activate the screen and pause
-        characterPlacingScreen.gameObject.SetActive(true);
+        placingScreenHidden.hidden = false;
 
         pausePlay();
 
@@ -119,11 +122,13 @@ public class UIManager : MonoBehaviour
     }
     //this is triggered by a button
     //loads map and reset cam position
-    private void loadMap() {
+    public void loadMap() {
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
         gameWonScreen.gameObject.SetActive(false);
         pausePlayBtn.gameObject.SetActive(true);
+        Debug.Log("Should load this map" + mapSceneName);
+        displayed = false;
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(mapSceneName);
         
@@ -153,7 +158,7 @@ public class UIManager : MonoBehaviour
     }
     private void closeUI() {
         //closes all UIScreens
-        characterInfoScreen.gameObject.SetActive(false);
+        charInfoScreenHidden.hidden = true;
         gameWonScreen.gameObject.SetActive(false);
 
         //unhides placing screen

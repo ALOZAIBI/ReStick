@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class RewardSelect : MonoBehaviour
 {
-    //need to add grid display to this screen so that the AbilityDisplayReward is displayed correctly
     public UIManager uiManager;
 
     //object to be instantiated
@@ -17,13 +16,13 @@ public class RewardSelect : MonoBehaviour
     //to send the ability to playerInventory
     public PlayerManager playerManager;
 
-    public Button confirmtSelection;
+    public Button confirmSelection;
 
     private void Start() {
-        confirmtSelection.onClick.AddListener(addToInventory);
+        confirmSelection.onClick.AddListener(addToInventory);
     }
 
-    //adds the selected ability to inventory
+    //adds the selected ability to inventory then leaves to UIManager's SceneName
     public void addToInventory() {
         foreach(AbilityDisplayReward traversal in listReward) {
             //once it reaches a selected one add the ability to inventory
@@ -35,11 +34,14 @@ public class RewardSelect : MonoBehaviour
                 }
                 //then clears the list to be reinitialized in another zone
                 listReward.Clear();
-                //then closes the screen
-                this.gameObject.SetActive(false);
             }
         }
+        //loads map
+        uiManager.loadMap();
+        //then closes the screen
+        this.gameObject.SetActive(false);
     }
+    //Displays the abilities and greys out the Button.
     public void displayAbilities() {
         //creates 3 reward Displays
         for(int i = 0; i < 3; i++) {
@@ -56,5 +58,17 @@ public class RewardSelect : MonoBehaviour
             //sets the scale for some reason if I dont do this the scale is set to 167
             rewardDisplay.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
+        //greys out the button;
+        greyOutBtn();
+        //the button will be ungreyed out in AbilityRewardDisplayScript
+    }
+
+    public void greyOutBtn() {
+        Image image = confirmSelection.GetComponent<Image>();
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0.3f);
+    }
+    public void unGreyOutBtn() {
+        Image image = confirmSelection.GetComponent<Image>();
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }
 }

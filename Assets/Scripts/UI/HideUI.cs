@@ -16,7 +16,7 @@ public class HideUI : MonoBehaviour
 
     private void Start() {
         initPos = transform.localPosition;
-        otherInitPos = other.transform.position;
+        otherInitPos = other.transform.localPosition;
 
         //if it's hidden immediately move this to the target so that once game starts there is immediately nothing on screen
         if (hidden) {

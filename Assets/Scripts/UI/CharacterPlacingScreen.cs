@@ -57,7 +57,7 @@ public class CharacterPlacingScreen : MonoBehaviour
         close();
         uiManager.zone.started = true;
         //hides the screen
-        this.gameObject.SetActive(false);
+        GetComponent<HideUI>().hidden = true;
     }
 
     //checks if zone is startable(if atleast 1 playerCharacter)
