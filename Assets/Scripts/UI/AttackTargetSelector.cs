@@ -26,7 +26,7 @@ public class AttackTargetSelector : MonoBehaviour {
     private void closeAndUpdateCharScreen() {
         //closes the windows
         targetSelection.SetActive(false);
-        //updates the CharacterInfoScreenview
+        //updates the characterInfoScreenview
         uiManager.viewCharacter(character);
     }
     private void selectHighestDmgEnemy() {

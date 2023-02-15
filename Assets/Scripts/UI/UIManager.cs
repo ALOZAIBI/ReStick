@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour
     //Btn used to close all UI
     public Button closeUIBtn;
 
+    public Button openInventoryBtn;
+
+    public InventoryScreen inventoryScreen;
+
     //Character Screen Stuff
     public CharacterInfoScreen characterInfoScreen;
     
@@ -67,6 +71,7 @@ public class UIManager : MonoBehaviour
 
         pausePlayBtn.onClick.AddListener(pausePlay);
         closeUIBtn.onClick.AddListener(closeUI);
+        openInventoryBtn.onClick.AddListener(openInventory);
     }
 
     //This function is called in Character with currChar being the character that triggered it. Find Index of character to be able to scroll
@@ -194,6 +199,10 @@ public class UIManager : MonoBehaviour
         wasPause = pause;
     }
 
+    public void openInventory() {
+        inventoryScreen.gameObject.SetActive(true);
+        inventoryScreen.setupInventoryScreen();
+    }
     
     //to deal with hiding and unhiding UI
     private void hide() {
@@ -207,7 +216,10 @@ public class UIManager : MonoBehaviour
     }
     private void Update() {
         if(zone == null) {
-            zone = GameObject.FindGameObjectWithTag("Zone").GetComponent<Zone>();
+            try {
+                zone = GameObject.FindGameObjectWithTag("Zone").GetComponent<Zone>();
+            }
+            catch { }
         }
         //hide();
     }
