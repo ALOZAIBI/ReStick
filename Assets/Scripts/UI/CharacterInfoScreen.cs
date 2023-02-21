@@ -47,6 +47,7 @@ public class CharacterInfoScreen : MonoBehaviour
             //sets the displays name and description
             displayTemp.abilityName.text = ability.abilityName;
             displayTemp.description.text = ability.description;
+            displayTemp.ability = ability;
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
@@ -87,4 +88,6 @@ public class CharacterInfoScreen : MonoBehaviour
             }
             return "";
     }
+
+
 }

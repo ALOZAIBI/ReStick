@@ -23,6 +23,9 @@ public class Zone : MonoBehaviour
     //initialized to one so that
     private int alliesAlive = 0;
 
+    //gold to be added to playerparty on level completion
+    public int goldSoFar=0;
+
     //list of gameObject that contain ability that can be rewarded here
     public List<GameObject> abilityRewardPool = new List<GameObject>();
 

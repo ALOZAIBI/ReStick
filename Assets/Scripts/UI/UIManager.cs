@@ -25,8 +25,9 @@ public class UIManager : MonoBehaviour
     public PlayerManager playerParty;
     //screen that pops up oin lelve start
     public CharacterPlacingScreen characterPlacingScreen;
-    
-    
+
+    //displays how much gold player has
+    public TextMeshProUGUI goldtext;
 
     //Game Won Screen Stuff
     public Image gameWonScreen;
@@ -57,10 +58,12 @@ public class UIManager : MonoBehaviour
     public HideUI placingScreenHidden;
     public HideUI timeControlHidden;
     public HideUI charInfoScreenHidden;
+    public HideUI inventoryScreenHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
         charInfoScreenHidden = characterInfoScreen.GetComponent<HideUI>();
+        inventoryScreenHidden = inventoryScreen.GetComponent<HideUI>();
 
 
         //
@@ -164,10 +167,17 @@ public class UIManager : MonoBehaviour
     private void closeUI() {
         //closes all UIScreens
         charInfoScreenHidden.hidden = true;
+        inventoryScreenHidden.hidden = true;
+        inventoryScreen.closeHeader();
         gameWonScreen.gameObject.SetActive(false);
 
-        //unhides placing screen
-        placingScreenHidden.hidden = false;
+        //unhides placing screen if zone not started
+        try {
+            if (!zone.started) {
+                placingScreenHidden.hidden = false;
+            }
+        } catch { }
+        
 
         //characterPlacingScreen.gameObject.SetActive(false);
         //Hides the close Button and shows the pause Button
@@ -200,7 +210,9 @@ public class UIManager : MonoBehaviour
     }
 
     public void openInventory() {
-        inventoryScreen.gameObject.SetActive(true);
+        Debug.Log("Open inventory");
+        closeUIBtn.gameObject.SetActive(true);
+        inventoryScreenHidden.hidden = false;
         inventoryScreen.setupInventoryScreen();
     }
     
@@ -221,6 +233,12 @@ public class UIManager : MonoBehaviour
             }
             catch { }
         }
+        //display gold if in zone with goldgainedsofar in zone if possible
+        try {
+            goldtext.text = "G:" + (playerParty.gold + zone.goldSoFar);
+        }
+        catch { goldtext.text = "G:" + playerParty.gold; }
         //hide();
+
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryScreen : MonoBehaviour
 {
@@ -12,22 +13,36 @@ public class InventoryScreen : MonoBehaviour
     //object to be instantiated
     public GameObject inventoryCharacterDisplay;
     //the char screen is in body
-    public CharacterInfoScreen inventoryCharacterScreen;
+    public InventoryCharacterInfoScreen inventoryCharacterScreen;
     public Character characterSelected;
     public Ability abilitySelected;
 
-    public UIManager uiManager;
+    public Button backToScreenBtn;
+
+    public PlayerManager playerParty;
 
     private void Start() {
+        backToScreenBtn.onClick.AddListener(backToScreen);
+    }
+    //goes back to landing page
+    public void backToScreen() {
+        Header.SetActive(true);
+        Body.SetActive(true);
+        inventoryCharacterScreen.close();
+        inventoryCharacterScreen.gameObject.SetActive(false);
+        characterSelected = null;
+        abilitySelected = null;
+        //hide the back button
+        backToScreenBtn.gameObject.SetActive(false);
     }
     public void setupInventoryScreen() {
         setupHeader();
         setupBody();
     }
-
+    //displays playerParty Characters
     private void setupHeader() {
         //loops through children of playerParty
-        foreach (Transform child in uiManager.playerParty.transform) {
+        foreach (Transform child in playerParty.transform) {
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
                 //instantiates a charcaterDisplay
@@ -42,6 +57,13 @@ public class InventoryScreen : MonoBehaviour
         }
     }
 
+    public void closeHeader() {
+        //destroys all ability displays
+        foreach (Transform toDestroy in Header.transform) {
+            GameObject.Destroy(toDestroy.gameObject);
+        }
+    }
+
     private void setupBody() {
 
     }
@@ -49,5 +71,7 @@ public class InventoryScreen : MonoBehaviour
         Header.SetActive(false);
         inventoryCharacterScreen.gameObject.SetActive(true);
         inventoryCharacterScreen.viewCharacter(characterSelected);
+        //unhides back button
+        backToScreenBtn.gameObject.SetActive(true);
     }
 }

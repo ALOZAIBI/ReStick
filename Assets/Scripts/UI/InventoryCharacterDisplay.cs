@@ -27,6 +27,7 @@ public class InventoryCharacterDisplay : MonoBehaviour
 
     public void viewCharacter() {
         inventoryScreen.characterSelected = character;
+        inventoryScreen.viewCharacter();
         //and also open CharacterScreen with character
     }
     

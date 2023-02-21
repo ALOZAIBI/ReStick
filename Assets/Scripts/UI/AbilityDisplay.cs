@@ -7,4 +7,5 @@ public class AbilityDisplay : MonoBehaviour
 {
     public TextMeshProUGUI abilityName;
     public TextMeshProUGUI description;
+    public Ability ability;
 }
