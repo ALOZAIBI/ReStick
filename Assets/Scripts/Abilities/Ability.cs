@@ -4,7 +4,9 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
+    //this is set in initroundstart in character
     public Character character;
+
     public string abilityName;
     public string description;
 

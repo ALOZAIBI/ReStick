@@ -82,11 +82,13 @@ public class Character : MonoBehaviour
 
     [SerializeField] private UIManager uiManager;
     //Ability Stuff
-        public List<Ability> abilities = new List<Ability>();
-        //This is needed for abilities that apply on kill for example heal after a kill
-        public int killsLastFrame = 0;
+    public List<Ability> abilities = new List<Ability>();
+    //This is needed for abilities that apply on kill for example heal after a kill
+    public int killsLastFrame = 0;
     //Bonus Stats
     public List<BonusStats> bonusStats = new List<BonusStats>();
+    //Buffs/Debuffs
+    public List<Buff> buffs = new List<Buff>();
     //Interesting Stats
     public int totalKills = 0;
 
@@ -123,10 +125,12 @@ public class Character : MonoBehaviour
         camMov = cam.GetComponent<CameraMovement>();
     }
 
-    //used on every round start to prepare the character for round start
-    private void initRoundStart() {
+    //used on every round start(Start button pressed in Character Placing Screen) to prepare the character for round start
+    //sets all ablities' cahracter to this character.
+    public void initRoundStart() {
         //Tells the abilities that this owns them
         foreach(Ability temp in abilities) {
+            Debug.Log(temp.abilityName);
             temp.character = this;
         }
         //applies the stats
