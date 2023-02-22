@@ -61,7 +61,6 @@ public class CharacterPlacingScreen : MonoBehaviour
             Debug.Log("try");
             foreach (Transform temp in uiManager.playerParty.transform) {
                 if (temp.tag == "Character") {
-                    Debug.Log(temp.name);
                     Character tempChar = temp.GetComponent<Character>();
                     tempChar.initRoundStart();
                 }

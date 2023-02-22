@@ -31,7 +31,6 @@ public class UIManager : MonoBehaviour
 
     //Game Won Screen Stuff
     public Image gameWonScreen;
-    public Button wonToMapBtn;
     public RewardSelect rewardSelectScreen;
 
     //Game Lost Screen Stuff
@@ -59,15 +58,15 @@ public class UIManager : MonoBehaviour
     public HideUI timeControlHidden;
     public HideUI charInfoScreenHidden;
     public HideUI inventoryScreenHidden;
+    public HideUI gameWonScreenHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
         charInfoScreenHidden = characterInfoScreen.GetComponent<HideUI>();
         inventoryScreenHidden = inventoryScreen.GetComponent<HideUI>();
-
+        gameWonScreenHidden = gameWonScreen.GetComponent<HideUI>();
 
         //
-        wonToMapBtn.onClick.AddListener(loadMap);
         lostToMapBtn.onClick.AddListener(loadMap);
 
         lostToRestartBtn.onClick.AddListener(restartZone);
@@ -98,9 +97,8 @@ public class UIManager : MonoBehaviour
     //displays the game won screen and prompts the player to click to go back to the scene with name sceneName
     public void displayGameWon(string sceneName) {
         if (!displayed) {
-            Debug.Log("Disaplyed");
             //displayGameWon and display the rewards
-            gameWonScreen.gameObject.SetActive(true);
+            gameWonScreenHidden.hidden = false;
             rewardSelectScreen.displayAbilities();
             pausePlayBtn.gameObject.SetActive(false);
             mapSceneName = sceneName;
@@ -133,9 +131,11 @@ public class UIManager : MonoBehaviour
     public void loadMap() {
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
-        gameWonScreen.gameObject.SetActive(false);
+        gameWonScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
-        Debug.Log("Should load this map" + mapSceneName);
+        //hides timecontrol
+        timeControlHidden.hidden = true;
+
         displayed = false;
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(mapSceneName);
@@ -169,7 +169,7 @@ public class UIManager : MonoBehaviour
         charInfoScreenHidden.hidden = true;
         inventoryScreenHidden.hidden = true;
         inventoryScreen.closeHeader();
-        gameWonScreen.gameObject.SetActive(false);
+        gameWonScreenHidden.hidden = true;
 
         //unhides placing screen if zone not started
         try {
@@ -210,7 +210,6 @@ public class UIManager : MonoBehaviour
     }
 
     public void openInventory() {
-        Debug.Log("Open inventory");
         closeUIBtn.gameObject.SetActive(true);
         inventoryScreenHidden.hidden = false;
         inventoryScreen.setupInventoryScreen();

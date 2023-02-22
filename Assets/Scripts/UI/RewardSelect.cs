@@ -28,22 +28,27 @@ public class RewardSelect : MonoBehaviour
     public void addToInventory() {
         //index will be used to know which ability from zoneRewards to send to AbilityInventory
         int index = 0;
+        bool aSelectionIsMade=false;
         foreach(AbilityDisplayReward traversal in listReward) {
             //once it reaches a selected one add the ability to inventory
             if(traversal.selected == true) {
+                aSelectionIsMade = true;
                 GameObject temp = uiManager.zone.abilityRewardPool[index];
                 temp.transform.parent = playerManager.abilityInventory.transform;
             }
             index++;
         }
-        //deletes all displayws
-        foreach (AbilityDisplayReward toBeDeleted in listReward) {
-            Destroy(toBeDeleted.gameObject);
+        if (aSelectionIsMade) {
+            //Debug.Log("as election is made");
+            //deletes all displayws
+            foreach (AbilityDisplayReward toBeDeleted in listReward) {
+                Destroy(toBeDeleted.gameObject);
+            }
+            //then clears the list to be reinitialized in another zone
+            listReward.Clear();
+            //loads map
+            uiManager.loadMap();
         }
-        //then clears the list to be reinitialized in another zone
-        listReward.Clear();
-        //loads map
-        uiManager.loadMap();
     }
     //Displays the abilities and greys out the Button.
     public void displayAbilities() {

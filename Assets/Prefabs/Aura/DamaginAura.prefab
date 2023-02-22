@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4074138880490405865}
   - component: {fileID: -8314342649618097796}
   m_Layer: 0
-  m_Name: HealingAura
+  m_Name: DamaginAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.3247433, g: 0.9150943, b: 0.27107507, a: 0.3254902}
+  m_Color: {r: 0.9137255, g: 0.47672102, b: 0.27058828, a: 0.3254902}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -115,6 +115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caster: {fileID: 0}
-  amt: 1
-  enemy: 0
-  ally: 1
+  amt: -2
+  enemy: 1
+  ally: 0

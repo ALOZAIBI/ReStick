@@ -41,7 +41,6 @@ public class Zone : MonoBehaviour
         foreach(Transform objPool in transform) {
             if(objPool.tag == "ZoneRewards") {
                 foreach(GameObject tempAb in objPool) {
-                    Debug.Log("Ability Name" + tempAb.name);
                     abilityRewardPool.Add(tempAb);
                 }
             }
@@ -58,7 +57,6 @@ public class Zone : MonoBehaviour
     private void zoneWon() {
 
         if (enemiesAlive == 0 && alliesAlive>0) {
-            Debug.Log("Game Over");
             uIManager.displayGameWon(belongsToMap);
         }
     }

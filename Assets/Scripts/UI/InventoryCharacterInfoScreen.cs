@@ -29,9 +29,19 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
         inventoryScreen.characterSelected.abilities.Add(inventoryScreen.abilitySelected);
         //adds ability to activeAbilities in playermanager
         //Debug.Log(inventoryScreen.playerParty.activeAbilities.name);
-        inventoryScreen.abilitySelected.gameObject.transform.parent = inventoryScreen.playerParty.activeAbilities.transform;  
-        //then goes back
-        inventoryScreen.backToScreen();
+        inventoryScreen.abilitySelected.gameObject.transform.parent = inventoryScreen.playerParty.activeAbilities.transform;
+        //if ability was selected first go back to inventory screen landing page
+        if (inventoryScreen.abilitySelected != null && inventoryScreen.characterSelected != null && inventoryScreen.AbilityHeader.activeSelf) {
+            //goes back 2 steps(back to landing page)
+            inventoryScreen.backToScreen();
+            inventoryScreen.backToScreen();
+        }
+        else {
+            //else if character was selected first delete the inventory ablity displays then
+            close();
+            //update the character's ability display and 
+            displayCharacterAbilities(inventoryScreen.characterSelected);
+        }
         //then reverts to display add ability and not confirm add ability
         addAbilityBtn.gameObject.SetActive(true);
         confirmAddAbilityBtn.gameObject.SetActive(false);
