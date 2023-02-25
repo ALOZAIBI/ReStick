@@ -69,6 +69,8 @@ public class CharacterPlacingScreen : MonoBehaviour
         catch { }
         //hides the screen
         GetComponent<HideUI>().hidden = true;
+        //hides inventory
+        uiManager.openInventoryBtn.gameObject.SetActive(false);
     }
 
     //checks if zone is startable(if atleast 1 playerCharacter)

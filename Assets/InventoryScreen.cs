@@ -7,6 +7,7 @@ public class InventoryScreen : MonoBehaviour
 {
     //contains character displays
     public GameObject Header;
+    public GameObject pickCharacterToolTip;
     //contains ability displays
     public GameObject Body;
     public GameObject AbilityHeader;
@@ -31,14 +32,17 @@ public class InventoryScreen : MonoBehaviour
         //clicking the back button in this case keeps ability in ability header and prompts to pick character so basically 
         //going back 1 step its intuitive trust me.
         if (abilitySelected != null && characterSelected != null && AbilityHeader.activeSelf ) {
+            pickCharacterToolTip.SetActive(true);
             characterSelected = null;
             Body.SetActive(false);
             Header.SetActive(true);
             inventoryCharacterScreen.close();
             closeHeader();
             setupHeader();
+            makeCharDisplayGlow();
         }
         else {
+            pickCharacterToolTip.SetActive(false);
             Header.SetActive(true);
             Body.SetActive(true);
             AbilityHeader.SetActive(false);
@@ -78,7 +82,16 @@ public class InventoryScreen : MonoBehaviour
     public void closeHeader() {
         //destroys all ability displays
         foreach (Transform toDestroy in Header.transform) {
-            GameObject.Destroy(toDestroy.gameObject);
+            if(toDestroy.tag=="Button")
+                GameObject.Destroy(toDestroy.gameObject);
+        }
+    }
+
+    public void makeCharDisplayGlow() {
+        foreach (Transform toDestroy in Header.transform) {
+            if (toDestroy.tag == "Button") {
+                toDestroy.GetComponent<InventoryCharacterDisplay>().glow = true;
+            }
         }
     }
 
@@ -116,6 +129,7 @@ public class InventoryScreen : MonoBehaviour
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
     }
+
     public void viewCharacter() {
         Header.SetActive(false);
         //deletes the abilities

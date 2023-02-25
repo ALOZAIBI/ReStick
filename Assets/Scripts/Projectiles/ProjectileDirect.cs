@@ -2,32 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileHoming : Projectile
-{
-    //projectile that homes towards target
+public class ProjectileDirect : Projectile {
+    //projectile that homes but doesn't hit except the target
     public override void trajectory() {
         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.fixedDeltaTime);
     }
-
-    //on collision with a character the projectile deals the damage and gets destroyed
+    //on collision with target deal damage then destroy the projectile
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Character") {
+        if(collision.tag == "Character") {
             Character victim = collision.GetComponent<Character>();
-            //checks that the collision isn't the shooter since the projectile will damage the shooter otherwise
-            if (victim != shooter) {
+            if(victim == target) {
                 victim.HP -= dmg;
-                //heals shooter thanks to life steal
                 shooter.HP += dmg * LS;
-                if (victim.HP <= 0) {
+                if(victim.HP <= 0) {
                     shooter.totalKills++;
                     shooter.killsLastFrame++;
                 }
                 Destroy(gameObject);
             }
+
         }
     }
-
-    void FixedUpdate() {
+    private void FixedUpdate() {
         trajectory();
     }
 }

@@ -59,12 +59,14 @@ public class UIManager : MonoBehaviour
     public HideUI charInfoScreenHidden;
     public HideUI inventoryScreenHidden;
     public HideUI gameWonScreenHidden;
+    public HideUI gameLostScreenHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
         charInfoScreenHidden = characterInfoScreen.GetComponent<HideUI>();
         inventoryScreenHidden = inventoryScreen.GetComponent<HideUI>();
         gameWonScreenHidden = gameWonScreen.GetComponent<HideUI>();
+        gameLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
 
         //
         lostToMapBtn.onClick.AddListener(loadMap);
@@ -109,8 +111,9 @@ public class UIManager : MonoBehaviour
     }
 
     public void displayGameLost(string sceneName) {
-        gameLostScreen.gameObject.SetActive(true);
+        gameLostScreenHidden.hidden = false;
         pausePlayBtn.gameObject.SetActive(false);
+        timeControlHidden.hidden = true;
         mapSceneName = sceneName;
     }
 
@@ -132,10 +135,12 @@ public class UIManager : MonoBehaviour
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
         gameWonScreenHidden.hidden = true;
+        gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
         //hides timecontrol
         timeControlHidden.hidden = true;
-
+        //unhides inventory but it will be hidden again when start button is clicked in characte rplacing
+        openInventoryBtn.gameObject.SetActive(true);
         displayed = false;
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(mapSceneName);
@@ -158,8 +163,7 @@ public class UIManager : MonoBehaviour
             }
         }
         //hides the screen and shows pause again
-        gameLostScreen.gameObject.SetActive(false);
-        //shows the pauseplaybtn
+        gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
         DontDestroyOnLoad(playerParty);
         SceneManager.LoadScene(zone.zoneName);
@@ -169,6 +173,7 @@ public class UIManager : MonoBehaviour
         charInfoScreenHidden.hidden = true;
         inventoryScreenHidden.hidden = true;
         inventoryScreen.closeHeader();
+        inventoryScreen.closeBody();
         gameWonScreenHidden.hidden = true;
 
         //unhides placing screen if zone not started

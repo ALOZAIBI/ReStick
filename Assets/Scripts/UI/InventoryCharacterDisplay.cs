@@ -12,6 +12,10 @@ public class InventoryCharacterDisplay : MonoBehaviour
     [SerializeField] private Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
+
+    //to make the button glow
+    public bool glow;
+    public ColorBlock defaultColor;
     void Start()
     {
         inventoryScreen = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>().inventoryScreen;
@@ -23,6 +27,7 @@ public class InventoryCharacterDisplay : MonoBehaviour
         healthBar.character = character;
         //sets the name
         name.text = character.name;
+        defaultColor = btn.colors;
     }
 
     public void viewCharacter() {
@@ -44,5 +49,17 @@ public class InventoryCharacterDisplay : MonoBehaviour
         }
         //and also open CharacterScreen with character
     }
-    
+    private void Update() {
+        if (glow) {
+            float x = Mathf.PingPong(Time.unscaledTime * 0.3f, 0.5f);
+            new Color(x, x, x);
+            ColorBlock cb = btn.colors;
+            cb.normalColor = defaultColor.normalColor + new Color(x, x, x);
+            btn.colors = cb;
+        }
+        else {
+            btn.colors = defaultColor;
+        }
+    }
+
 }

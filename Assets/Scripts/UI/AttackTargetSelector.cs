@@ -28,6 +28,7 @@ public class AttackTargetSelector : MonoBehaviour {
         targetSelection.SetActive(false);
         //updates the characterInfoScreenview
         uiManager.viewCharacter(character);
+        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(character);
     }
     private void selectHighestDmgEnemy() {
         character.attackTargetStrategy = (int)Character.targetList.HighestDMGEnemy;

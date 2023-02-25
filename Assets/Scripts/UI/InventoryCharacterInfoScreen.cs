@@ -12,9 +12,11 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
 
     public Button addAbilityBtn;
     public Button confirmAddAbilityBtn;
+    public Image confirmAddAbilityBtnImage;
     private void Start() {
         addAbilityBtn.onClick.AddListener(addAbility);
         confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
+        confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
     }
     //displays the abilities in inventory when clicked
     private void addAbility() {
@@ -47,6 +49,7 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
         confirmAddAbilityBtn.gameObject.SetActive(false);
     }
 
+    
     public void displayInventoryAbilities() {
         //loops thorugh the abilities in abilityInventory
         foreach (Transform child in inventoryScreen.playerParty.abilityInventory.transform) {
@@ -54,13 +57,20 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
             GameObject temp = Instantiate(inventoryAbilityDisplay);
             //sets the instantiated object as child
             temp.transform.parent = abilityDisplayPanel.transform;
-            AbilityDisplay displayTemp = temp.GetComponent<AbilityDisplay>();
+            InventoryAbilityDisplay displayTemp = temp.GetComponent<InventoryAbilityDisplay>();
             //sets the displays name and description
             displayTemp.abilityName.text = ability.abilityName;
             displayTemp.description.text = ability.description;
             displayTemp.ability = ability;
+            displayTemp.glow = true;
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
+    }
+
+    private void Update() {
+        //to make the button glow in and out for emphasis
+        float x = 0.5f+Mathf.PingPong(Time.unscaledTime*0.5f,0.7f);
+        confirmAddAbilityBtnImage.color = new Color(x,x ,x );
     }
 }

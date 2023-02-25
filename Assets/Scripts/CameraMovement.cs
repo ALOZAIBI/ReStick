@@ -9,6 +9,9 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Vector2 dragOrigin;
     [SerializeField] private Vector2 dragDifference;
 
+    [SerializeField] private float zoomMin;
+    [SerializeField] private float zoomMax;
+
     //pannalbe is set to off when dragging a character from the characterPlacingScreen so it is set to off in the CharacterDisplay Script
     public bool pannable=true;
 
@@ -32,7 +35,30 @@ public class CameraMovement : MonoBehaviour
     private void Update() {
         if (pannable) {
             panCamera();
+            
+            //scroll using touch https://www.youtube.com/watch?v=K_aAnBn5khA
+            if (Input.touchCount == 2) {
+                Touch touchZero = Input.GetTouch(0);
+                Touch touchOne = Input.GetTouch(1);
+
+                Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+                Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+                float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+                float currMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+                float difference = currMagnitude - prevMagnitude;
+
+                zoom(difference * 0.01f);
+            }
+            else
+            //multiplied by 2 just to increase sens
+            zoom(Input.GetAxis("Mouse ScrollWheel") * 2);
         }
+    }
+
+    public void zoom(float amount) {
+        cam.orthographicSize = Mathf.Clamp(cam.orthographicSize-amount, zoomMin, zoomMax);
     }
 
     //used to prevent clicking through UI

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6468747481978311471}
   - component: {fileID: 5963948891303349439}
-  - component: {fileID: 7013358355468885802}
+  - component: {fileID: 2509004060812701461}
   - component: {fileID: -321386040354039246}
   m_Layer: 2
-  m_Name: Projectile
+  m_Name: Projectile Direct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.8584906, g: 0.7407278, b: 0.05993233, a: 1}
+  m_Color: {r: 0.2264151, g: 0.026486285, b: 0.10664888, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7013358355468885802
+--- !u!114 &2509004060812701461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,15 +95,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4082228363635627907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e59823735bb4f0419af6c0b37654cf1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df14023bb3007e40a9cdddfe78834e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   shooter: {fileID: 0}
-  speed: 7
+  speed: 8
   lifetime: 0
   dmg: 0
   LS: 0
+  direction: {x: 0, y: 0}
 --- !u!61 &-321386040354039246
 BoxCollider2D:
   m_ObjectHideFlags: 0

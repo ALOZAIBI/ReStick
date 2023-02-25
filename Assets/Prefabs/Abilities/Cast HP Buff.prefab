@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3504329789301417765}
   - component: {fileID: 3504329789301417770}
   m_Layer: 0
-  m_Name: Cast Buff
+  m_Name: Cast HP Buff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,13 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   abilityName: Cast Buff Innit
-  description: Does buff tings
-  CD: 0.5
+  description: HP BUFF
+  CD: 10
   available: 1
   abilityNext: 0
   delay: 0
   amt: 0
-  prefabObject: {fileID: 0}
+  prefabObject: {fileID: 4146658564243946326, guid: 085fdacb9821447458918758c10f98c6, type: 3}
   targetStrategy: 0
   code: 
-  buffDuration: 2
+  buffDuration: 6
