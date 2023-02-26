@@ -8,6 +8,10 @@ public class ApplyBuff : Ability
     public string code;
     public float buffDuration;
 
+    private void Start() {
+        updateDescription();
+        code = Random.state+"";
+    }
     public override void doAbility() {
         //selects target
         character.selectTarget(targetStrategy);
@@ -26,6 +30,23 @@ public class ApplyBuff : Ability
             //cooldown this ability
             startCooldown();
         }
+    }
+
+    public override void updateDescription() {
+        Buff temp = prefabObject.GetComponent<Buff>();
+        description = "Give target ";
+        if (temp.DMG != 0)
+            description += temp.DMG + " DMG ";
+        if (temp.HP != 0)
+            description += temp.HP + " HP ";
+        if (temp.AS != 0)
+            description += temp.AS + " AS ";
+        if (temp.MS != 0)
+            description += temp.MS + " MS ";
+        if (temp.Range != 0)
+            description += temp.Range + " Range";
+        if (temp.LS != 0)
+            description += temp.LS + " LS ";
     }
 
     public bool buffNotOnTarget() {

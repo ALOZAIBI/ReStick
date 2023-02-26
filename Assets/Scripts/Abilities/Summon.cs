@@ -18,6 +18,10 @@ public class Summon : Ability
             startCooldown();
         }
     }
+    //WIP description
+    public override void updateDescription() {
+        description = "Summon character";
+    }
 
     // Update is called once per frame
     void FixedUpdate()

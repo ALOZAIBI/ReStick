@@ -7,7 +7,9 @@ public class ThrowProjectile : Ability
     //Summons a projectile
     //can do cool shit depending on the projectile
     //for example a projectile that throws an AOE that heals
-
+    private void Start() {
+        updateDescription();
+    }
     public override void doAbility() {
         if (available) {
             Debug.Log("ABILITY DONE WHAT");
@@ -27,6 +29,9 @@ public class ThrowProjectile : Ability
             startCooldown();
         }
 
+    }
+    public override void updateDescription() {
+        description = "Throws a thing that deals " + amt + " DMG to all characters within";
     }
 
     private void FixedUpdate() {

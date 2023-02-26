@@ -29,6 +29,8 @@ public abstract class Ability : MonoBehaviour
 
     //executes this ability
     public abstract void doAbility();
+
+    public abstract void updateDescription();
     //Abilities targetStrategy
     public int targetStrategy;
 

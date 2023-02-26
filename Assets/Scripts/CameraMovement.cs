@@ -12,6 +12,9 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float zoomMin;
     [SerializeField] private float zoomMax;
 
+    //used to get first touch to be used in dragOrigin
+    private bool touching = false;
+
     //pannalbe is set to off when dragging a character from the characterPlacingScreen so it is set to off in the CharacterDisplay Script
     public bool pannable=true;
 
@@ -22,21 +25,36 @@ public class CameraMovement : MonoBehaviour
             Debug.Log("Camera clickign through");
             return;
         }
-        //gets position of initial click
-        if (Input.GetMouseButtonDown(0)) {
-            dragOrigin = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+        //to prevent weird stuff when two touches happen(to zoom for instance) we seperate the functionality of mouse and touch
+        if (Input.touchCount > 0) {
+            if(!touching)
+                dragOrigin = (Vector2)cam.ScreenToWorldPoint(Input.GetTouch(0).position);
+            touching = true;
+            if (touching) {
+                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(Input.GetTouch(0).position);
+                cam.transform.position += (Vector3)dragDifference;
+            }
+        }
+        else {
+            //resets touching to false ot be able to find first touch
+            touching = false;
+            //gets position of initial click
+            if (Input.GetMouseButtonDown(0)) {
+                dragOrigin = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+            }
+
+            if (Input.GetMouseButton(0)) {
+                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+                cam.transform.position += (Vector3)dragDifference;
+            }
         }
 
-        if (Input.GetMouseButton(0)) {
-            dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-            cam.transform.position += (Vector3)dragDifference;
-        }
     }
     private void Update() {
         if (pannable) {
             panCamera();
             
-            //scroll using touch https://www.youtube.com/watch?v=K_aAnBn5khA
+            //zoom using touch https://www.youtube.com/watch?v=K_aAnBn5khA
             if (Input.touchCount == 2) {
                 Touch touchZero = Input.GetTouch(0);
                 Touch touchOne = Input.GetTouch(1);

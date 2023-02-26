@@ -10,6 +10,10 @@ public class CastAura : Ability
     public float durationRemaining=0;
     public bool active = false;
     Aura aura;
+
+    private void Start() {
+        updateDescription();
+    }
     public override void doAbility() {
         if (available) {
             aura = Instantiate(prefabObject).GetComponent<Aura>();
@@ -23,6 +27,13 @@ public class CastAura : Ability
         }
     }
 
+    public override void updateDescription() {
+        if (amt > 0) {
+            description = "Heals nearby characters by " + amt;
+        }
+        else
+            description = "Deals " + amt + " to nearby characters";
+    }
     public void startActiveDuration() {
         durationRemaining = duration;
     }
