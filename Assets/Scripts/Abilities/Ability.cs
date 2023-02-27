@@ -23,6 +23,10 @@ public abstract class Ability : MonoBehaviour
     //the float value used in an ability what it is used for depends on the ability
     public float amt;
 
+    //to be used if this ability uses target(In order to display target in abilityDisplay) for example in healing aura there is no target
+    //this still isn't used
+    public bool hasTarget;
+
     //someAbilities can instantiate prefabs or object
     public GameObject prefabObject;
 

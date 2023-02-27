@@ -15,6 +15,11 @@ public class AttackTargetSelector : MonoBehaviour {
     public Button closestAllyBtn;
     public Button highestDmgEnemyBtn;
 
+    //the ability to have it's target change.
+    public Ability ability;
+    //if true then the selector selects for ability target otherwise it selects for regular attack
+    public bool abilityTarget;
+
     private void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         openTargetSelectionBtn.onClick.AddListener(openTargetSelection);
@@ -38,7 +43,6 @@ public class AttackTargetSelector : MonoBehaviour {
     }
     //the buttons change the targetting then closes the selection screen
     private void selectClosestEnemy() {
-        Debug.Log("Closesetnemay");
         character.attackTargetStrategy = (int)Character.targetList.ClosestEnemy;
         character.movementTargetStrategy = (int)Character.targetList.ClosestEnemy;
         closeAndUpdateCharScreen();

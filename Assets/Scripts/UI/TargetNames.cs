@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetNames : MonoBehaviour
 {
-    public string getName(int target) {
+    public static string getName(int target) {
         switch (target) {
             case (int)Character.targetList.ClosestEnemy:
                 return "Closest Enemy";
@@ -14,6 +14,9 @@ public class TargetNames : MonoBehaviour
 
             case (int)Character.targetList.DefaultEnemy:
                 return "Default Enemy";
+
+            case (int)Character.targetList.HighestDMGEnemy:
+                return "Highest DMG Enemy";
         }
         return "";
     }
