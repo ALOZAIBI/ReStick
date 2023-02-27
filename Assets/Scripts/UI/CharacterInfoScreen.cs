@@ -6,6 +6,7 @@ using TMPro;
 
 public class CharacterInfoScreen : MonoBehaviour
 {
+    public UIManager uiManager;
     public TextMeshProUGUI characterName;
     //stats texts
     public TextMeshProUGUI DMG, AS, MS, RNG, LS;
@@ -21,7 +22,18 @@ public class CharacterInfoScreen : MonoBehaviour
     public GameObject abilityDisplayPanel;
 
     //Selecting target for attacking and also moving for now.
-    public AttackTargetSelector attackTargetSelector;
+    public AttackTargetSelector targetSelector;
+
+    //character that is currently being viewed
+    public Character character;
+
+    public Button openTargetSelectionBtn;
+
+
+    public void Start() {
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
+    }
     //this function displays the information in the characterInfoScreen
     public void viewCharacter(Character currChar) {
         //sets the attributes to the character's
@@ -31,11 +43,13 @@ public class CharacterInfoScreen : MonoBehaviour
         characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
         //Debug.Log("Is this causing bug?:" + GetComponent<TargetNames>().getName(currChar.attackTargetStrategy));
         //sets the text of the targetting
-        attackTargetSelector.target.text = getTargetStrategyName(currChar.attackTargetStrategy);
-        attackTargetSelector.character = currChar;
+        targetSelector.target.text = TargetNames.getName(currChar.attackTargetStrategy);
+        targetSelector.character = currChar;
 
         displayStats(currChar);
         displayCharacterAbilities(currChar);
+
+        character = currChar;
     }
 
     public void displayCharacterAbilities(Character currChar) {
@@ -73,21 +87,23 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
 
-    private string getTargetStrategyName(int target) {
-            switch (target) {
-                case (int)Character.targetList.ClosestEnemy:
-                    return "Closest Enemy";
+    //opens target selector for normal attacks
+    public void openTargetSelectorNormal() {
+        Debug.Log("OPen target selector");
+        if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
+            //to indicate that it isnt for an ability
+            targetSelector.isAbilityTargetSelector = false;
+            targetSelector.targetSelection.SetActive(true);
+        }
+    }
 
-                case (int)Character.targetList.ClosestAlly:
-                    return "Closest Ally";
-
-                case (int)Character.targetList.DefaultEnemy:
-                    return "Default Enemy";
-
-                case (int)Character.targetList.HighestDMGEnemy:
-                    return "Highest DMG Enemy";
-            }
-            return "";
+    //this function is called in abilityDisplay
+    public void openTargetSelectorAbility() {
+        if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
+            //to indicate that it is for an ability
+            targetSelector.isAbilityTargetSelector = true;
+            targetSelector.targetSelection.SetActive(true);
+        }
     }
 
 

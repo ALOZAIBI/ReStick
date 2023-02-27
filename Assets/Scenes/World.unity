@@ -3935,10 +3935,10 @@ RectTransform:
   m_Father: {fileID: 1607762647}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -277.04453}
-  m_SizeDelta: {x: 1030, y: 17.727005}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &316948229
 MonoBehaviour:
@@ -4157,10 +4157,10 @@ RectTransform:
   m_Father: {fileID: 1607762647}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -161.59052}
-  m_SizeDelta: {x: 1030, y: 57.727005}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &350850011
 MonoBehaviour:
@@ -6496,10 +6496,10 @@ RectTransform:
   m_Father: {fileID: 1607762647}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -229.3175}
-  m_SizeDelta: {x: 1030, y: 67.727005}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &568948567
 MonoBehaviour:
@@ -6779,10 +6779,10 @@ RectTransform:
   m_Father: {fileID: 350850010}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 773.75, y: -28.863503}
-  m_SizeDelta: {x: 512.5, y: 57.727005}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &608260229
 BoxCollider2D:
@@ -8305,10 +8305,10 @@ RectTransform:
   m_Father: {fileID: 1759274966}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 773.75, y: -171.12994}
-  m_SizeDelta: {x: 512.5, y: 342.2599}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &806255524
 MonoBehaviour:
@@ -10785,11 +10785,12 @@ MonoBehaviour:
   uiManager: {fileID: 0}
   target: {fileID: 1666828364}
   character: {fileID: 0}
-  openTargetSelectionBtn: {fileID: 1117823871}
   targetSelection: {fileID: 108551638}
   closestEnemyBtn: {fileID: 1913175946}
   closestAllyBtn: {fileID: 1453185723}
   highestDmgEnemyBtn: {fileID: 28629070}
+  ability: {fileID: 0}
+  isAbilityTargetSelector: 0
 --- !u!114 &1117823871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11918,10 +11919,10 @@ RectTransform:
   m_Father: {fileID: 1536561535}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -39.59529}
-  m_SizeDelta: {x: 1030, y: 79.19059}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1248154951
 MonoBehaviour:
@@ -13135,7 +13136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1350514455
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13279,6 +13280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4595b819332ce0d4bb0d951a0af98d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
   characterName: {fileID: 726450697}
   DMG: {fileID: 565023976}
   AS: {fileID: 490100997}
@@ -13290,7 +13292,9 @@ MonoBehaviour:
   characterPortrait: {fileID: 526369509}
   abilityDisplay: {fileID: 576495221301038506, guid: 9888101af0b16cd418eba9fbe51799f9, type: 3}
   abilityDisplayPanel: {fileID: 1332092646}
-  attackTargetSelector: {fileID: 1861183799}
+  targetSelector: {fileID: 1861183799}
+  character: {fileID: 0}
+  openTargetSelectionBtn: {fileID: 1861183798}
   inventoryAbilityDisplay: {fileID: 576495221301038506, guid: 46c9e8be30bcae84db83533777169da4, type: 3}
   inventoryScreen: {fileID: 145981577}
   addAbilityBtn: {fileID: 1366525834}
@@ -13474,10 +13478,10 @@ RectTransform:
   m_Father: {fileID: 1607762647}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -63.863503}
-  m_SizeDelta: {x: 1030, y: 127.727005}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1366525833
 MonoBehaviour:
@@ -13615,10 +13619,10 @@ RectTransform:
   m_Father: {fileID: 1759274966}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 256.25, y: -171.12994}
-  m_SizeDelta: {x: 512.5, y: 342.2599}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1385725770
 MonoBehaviour:
@@ -13837,10 +13841,10 @@ RectTransform:
   m_Father: {fileID: 1350514455}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -745.58374}
-  m_SizeDelta: {x: 1030, y: 598.2665}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1428874777
 MonoBehaviour:
@@ -14022,6 +14026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca7a1f1112bd454781cebfe17a69ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
   characterName: {fileID: 227766818}
   DMG: {fileID: 1643753814}
   AS: {fileID: 1924276486}
@@ -14033,7 +14038,9 @@ MonoBehaviour:
   characterPortrait: {fileID: 1743024148}
   abilityDisplay: {fileID: 576495221301038506, guid: 9888101af0b16cd418eba9fbe51799f9, type: 3}
   abilityDisplayPanel: {fileID: 959462220}
-  attackTargetSelector: {fileID: 1117823870}
+  targetSelector: {fileID: 1117823870}
+  character: {fileID: 0}
+  openTargetSelectionBtn: {fileID: 1117823871}
 --- !u!114 &1428940833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14639,10 +14646,10 @@ RectTransform:
   m_Father: {fileID: 1350514455}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -213.22523}
-  m_SizeDelta: {x: 1030, y: 426.45047}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1536561536
 MonoBehaviour:
@@ -14951,10 +14958,10 @@ RectTransform:
   m_Father: {fileID: 1350514455}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -1207.6709}
-  m_SizeDelta: {x: 1030, y: 285.90802}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1607762648
 MonoBehaviour:
@@ -17047,10 +17054,10 @@ RectTransform:
   m_Father: {fileID: 1536561535}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 515, y: -255.32053}
-  m_SizeDelta: {x: 1030, y: 342.2599}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1759274967
 MonoBehaviour:
@@ -17625,10 +17632,10 @@ RectTransform:
   m_Father: {fileID: 350850010}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 256.25, y: -28.863503}
-  m_SizeDelta: {x: 512.5, y: 57.727005}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1861183798
 MonoBehaviour:
@@ -17689,11 +17696,12 @@ MonoBehaviour:
   uiManager: {fileID: 0}
   target: {fileID: 81196326}
   character: {fileID: 0}
-  openTargetSelectionBtn: {fileID: 1861183798}
   targetSelection: {fileID: 1804223779}
   closestEnemyBtn: {fileID: 56165875}
   closestAllyBtn: {fileID: 2013025748}
   highestDmgEnemyBtn: {fileID: 911935711}
+  ability: {fileID: 0}
+  isAbilityTargetSelector: 0
 --- !u!114 &1861183800
 MonoBehaviour:
   m_ObjectHideFlags: 0

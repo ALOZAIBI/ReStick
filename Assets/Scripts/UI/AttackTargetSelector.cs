@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 
 public class AttackTargetSelector : MonoBehaviour {
+    //for somereason this component is placed on the attackTargetting btn
     public UIManager uiManager;
     public TextMeshProUGUI target;
     public Character character;
-    public Button openTargetSelectionBtn;
     public GameObject targetSelection;
 
     public Button closestEnemyBtn;
@@ -18,11 +18,10 @@ public class AttackTargetSelector : MonoBehaviour {
     //the ability to have it's target change.
     public Ability ability;
     //if true then the selector selects for ability target otherwise it selects for regular attack
-    public bool abilityTarget;
+    public bool isAbilityTargetSelector;
 
     private void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        openTargetSelectionBtn.onClick.AddListener(openTargetSelection);
         closestEnemyBtn.onClick.AddListener(selectClosestEnemy);
         closestAllyBtn.onClick.AddListener(selectClosestAlly);
         highestDmgEnemyBtn.onClick.AddListener(selectHighestDmgEnemy);
@@ -32,31 +31,50 @@ public class AttackTargetSelector : MonoBehaviour {
         //closes the windows
         targetSelection.SetActive(false);
         //updates the characterInfoScreenview
-        uiManager.viewCharacter(character);
-        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(character);
+        //do for regular charInfoScreen
+        if (uiManager.inventoryScreenHidden.hidden) {
+            uiManager.characterInfoScreen.close();
+            uiManager.viewCharacter(character);
+        }
+        //do for inventory charInfoScreen
+        else {
+            uiManager.inventoryScreen.inventoryCharacterScreen.close();
+            uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(character);
+        }
     }
     private void selectHighestDmgEnemy() {
-        character.attackTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
-        character.movementTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestDMGEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
+        }
         closeAndUpdateCharScreen();
 
     }
     //the buttons change the targetting then closes the selection screen
     private void selectClosestEnemy() {
-        character.attackTargetStrategy = (int)Character.targetList.ClosestEnemy;
-        character.movementTargetStrategy = (int)Character.targetList.ClosestEnemy;
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.ClosestEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.ClosestEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.ClosestEnemy;
+        }
         closeAndUpdateCharScreen();
     }
 
     private void selectClosestAlly() {
-        character.attackTargetStrategy = (int)Character.targetList.ClosestAlly;
-        character.movementTargetStrategy = (int)Character.targetList.ClosestAlly;
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.ClosestAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.ClosestAlly;
+            character.movementTargetStrategy = (int)Character.targetList.ClosestAlly;
+        }
         closeAndUpdateCharScreen();
     }
-    public void openTargetSelection() {
-        //the conditions are true on zone start 
-        if(uiManager.zone == null || uiManager.zone.started ==false && character.team == (int)Character.teamList.Player)
-            targetSelection.SetActive(true);
-    }
+
     
 }

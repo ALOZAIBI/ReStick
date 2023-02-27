@@ -14,6 +14,7 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
     private void Start() {
+        base.Start();
         addAbilityBtn.onClick.AddListener(addAbility);
         confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
         confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
