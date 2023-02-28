@@ -55,19 +55,29 @@ public class Character : MonoBehaviour
         DefaultEnemy,    
         //selects the closest enemy
         ClosestEnemy,
-        LowestHPEnemy,
-        HighestDMGEnemy,
-        HighestHPEnemy,
 
+        HighestDMGEnemy,
+        LowestDMGEnemy,
         
+        HighestHPEnemy,
+        LowestHPEnemy,
+
+
 
         //selects a character in same team
         DefaultAlly,        
         //selects closest ally 
         ClosestAlly,
-        LowestHPAlly,
+        LowestDMGAlly,
         HighestDMGAlly,
         HighestHPAlly,
+        LowestHPAlly,
+
+        //I will add highestMaxHP variants
+        //and lowest maxHP ...          still working on what to call them. Highest total HP? Highest Full Health?
+
+
+        //maybe also add highest/lowest AS
 
         //dont select anyting
         None
@@ -238,7 +248,61 @@ public class Character : MonoBehaviour
                     maxDmg = null;
                 target = maxDmg;
                 break;
+
+            case (int)targetList.LowestDMGEnemy:
+                //initially assume that this is the MaxDmg Character
+                Character minDmg = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //minDmg.team == team is done in case the MaxDmg init was actually an ally
+                        if (minDmg.team == team || temp.DMG < minDmg.DMG) {
+                            minDmg = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (minDmg.team == team)
+                    minDmg = null;
+                target = minDmg;
                 break;
+
+            case (int)targetList.HighestHPEnemy:
+                //initially assume that this is the MaxHP Character
+                Character maxHP = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //maxHP.team == team is done in case the MaxHP init was actually an ally
+                        if (maxHP.team == team || temp.HP > maxHP.HP) {
+                            maxHP = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (maxHP.team == team)
+                    maxHP = null;
+                target = maxHP;
+                break;
+
+            case (int)targetList.LowestHPEnemy:
+                //initially assume that this is the minHP Character
+                Character minHP = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //minHP.team == team is done in case the minHP init was actually an ally
+                        if (minHP.team == team || temp.HP > minHP.HP) {
+                            minHP = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (minHP.team == team)
+                    minHP = null;
+                target = minHP;
+                break;
+
 
             case (int)targetList.ClosestAlly:
                 //initially assume that this is the closest ally
@@ -247,8 +311,8 @@ public class Character : MonoBehaviour
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
                     if (temp.team == team&& temp!=this) {
-                        //sets closestAlly
-                        if (closestAlly.team == team || Vector2.Distance(temp.transform.position, transform.position) < Vector2.Distance(closestAlly.transform.position, transform.position)) {
+                        //closest.team !=team is done in case closest was actually an enemy
+                        if (closestAlly.team != team || Vector2.Distance(temp.transform.position, transform.position) < Vector2.Distance(closestAlly.transform.position, transform.position)) {
                             closestAlly = temp;
                         }
                     }
@@ -260,11 +324,63 @@ public class Character : MonoBehaviour
                 target = closestAlly;
                 break;
 
+            case (int)targetList.HighestDMGAlly:
+                //initially assume that this is the MaxDmg Character
+                Character maxDmgAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and is not itself
+                    if (temp.team == team && temp!=this) {
+                        //maxDmg.team == team is done in case the MaxDmg init was actually an enemy
+                        if (maxDmgAlly.team != team || temp.DMG > maxDmgAlly.DMG) {
+                            maxDmgAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (maxDmgAlly.team != team)
+                    maxDmgAlly = null;
+                target = maxDmgAlly;
+                break;
+
+            case (int)targetList.LowestDMGAlly:
+                //initially assume that this is the MaxDmg Character
+                Character minDmgAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not itself
+                    if (temp.team == team && temp!=this) {
+                        //minDmgAlly.team != team is done in case the MaxDmg init was actually an enemy
+                        if (minDmgAlly.team != team || temp.DMG < minDmgAlly.DMG) {
+                            minDmgAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (minDmgAlly.team != team)
+                    minDmgAlly = null;
+                target = minDmgAlly;
+                break;
+
+            case (int)targetList.HighestHPAlly:
+                //initially assume that this is the maxHPAlly Character
+                Character maxHPAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not self
+                    if (temp.team == team && temp!=this) {
+                        //maxHPAlly.team != team is done in case the maxHPAlly init was actually an enemy
+                        if (maxHPAlly.team != team || temp.HP > maxHPAlly.HP) {
+                            maxHPAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemy remaining target nothing
+                if (maxHPAlly.team != team)
+                    maxHPAlly = null;
+                target = maxHPAlly;
+                break;
+
             case (int)targetList.None:
                 target = null;
                 break;
-
-            
 
 
             default:
