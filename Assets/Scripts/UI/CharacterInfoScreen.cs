@@ -98,7 +98,7 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     //this function is called in abilityDisplay
-    public void openTargetSelectorAbility() {
+    public void openTargetSelectorAbility() {                   //change back to false. only true for testingf purposes
         if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
             //to indicate that it is for an ability
             targetSelector.isAbilityTargetSelector = true;
