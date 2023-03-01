@@ -29,7 +29,21 @@ public class CharacterInfoScreen : MonoBehaviour
 
     public Button openTargetSelectionBtn;
 
+    public int pageIndex = 0;
+    //0 landing page
+    //1 target selection
+    //3 is in inventoryCharacterInfoScreen
 
+    //base page wehn opening charinfoscreen
+    public void openLandingPage() {
+        close();
+        targetSelector.targetSelection.SetActive(false);
+        pageIndex = 0;
+    }
+    public void openTargetSelectionPage() {
+        targetSelector.targetSelection.SetActive(true);
+        pageIndex = 1;
+    }
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
@@ -46,6 +60,7 @@ public class CharacterInfoScreen : MonoBehaviour
         targetSelector.target.text = TargetNames.getName(currChar.attackTargetStrategy);
         targetSelector.character = currChar;
 
+        openLandingPage();
         displayStats(currChar);
         displayCharacterAbilities(currChar);
 
@@ -93,7 +108,7 @@ public class CharacterInfoScreen : MonoBehaviour
         if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
             //to indicate that it isnt for an ability
             targetSelector.isAbilityTargetSelector = false;
-            targetSelector.targetSelection.SetActive(true);
+            openTargetSelectionPage();
         }
     }
 
@@ -102,7 +117,7 @@ public class CharacterInfoScreen : MonoBehaviour
         if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
             //to indicate that it is for an ability
             targetSelector.isAbilityTargetSelector = true;
-            targetSelector.targetSelection.SetActive(true);
+            openTargetSelectionPage();
         }
     }
 

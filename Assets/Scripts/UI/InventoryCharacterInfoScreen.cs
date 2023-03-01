@@ -13,6 +13,21 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     public Button addAbilityBtn;
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
+
+    //pageindex 3 = prompt to add ability
+    //pageindex 4 = confirm ability adding
+
+    public void addAbilityPage() {
+        addAbilityBtn.gameObject.SetActive(true);
+        confirmAddAbilityBtn.gameObject.SetActive(false);
+        pageIndex = 3;
+    }
+
+    public void confirmAddAbilityPage() {
+        addAbilityBtn.gameObject.SetActive(false);
+        confirmAddAbilityBtn.gameObject.SetActive(true);
+        pageIndex = 4;
+    }
     private void Start() {
         base.Start();
         addAbilityBtn.onClick.AddListener(addAbility);
@@ -34,10 +49,8 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
         //Debug.Log(inventoryScreen.playerParty.activeAbilities.name);
         inventoryScreen.abilitySelected.gameObject.transform.parent = inventoryScreen.playerParty.activeAbilities.transform;
         //if ability was selected first go back to inventory screen landing page
-        if (inventoryScreen.abilitySelected != null && inventoryScreen.characterSelected != null && inventoryScreen.AbilityHeader.activeSelf) {
-            //goes back 2 steps(back to landing page)
-            inventoryScreen.backToScreen();
-            inventoryScreen.backToScreen();
+        if (inventoryScreen.pageIndex == 2) {
+            inventoryScreen.openLandingPage();
         }
         else {
             //else if character was selected first delete the inventory ablity displays then

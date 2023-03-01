@@ -20,30 +20,22 @@ public class InventoryAbilityDisplay : AbilityDisplay
     private void selectAbility() {
         //if character had already been selected I.E character is selected first
         //when clicked set the inventorySCreen's ability selected to this. and prompt to confirm
-        if(inventoryScreen.characterSelected != null) {
+        if(inventoryScreen.pageIndex == 3) {
             inventoryScreen.abilitySelected = ability;
             //prompt to confirm
-            inventoryScreen.inventoryCharacterScreen.addAbilityBtn.gameObject.SetActive(false);
-            inventoryScreen.inventoryCharacterScreen.confirmAddAbilityBtn.gameObject.SetActive(true);
+            inventoryScreen.inventoryCharacterScreen.confirmAddAbilityPage();
         }
-        //if character hadn't been selected. I.E ability is selected first
-        else if(inventoryScreen.characterSelected == null) {
+        //if character hadn't been selected. I.E ability is selected first(still in landingPage)
+        else if(inventoryScreen.pageIndex == 0) {
             //deletes other displays
             inventoryScreen.closeAbilityHeader();
-            //displays the tooltip
-            inventoryScreen.pickCharacterToolTip.SetActive(true);
             //moves the display to ability header
-            inventoryScreen.AbilityHeader.gameObject.SetActive(true);
             transform.parent = inventoryScreen.AbilityHeader.transform;
-            //then deletes all other ability displays
-            inventoryScreen.closeBody();
-            inventoryScreen.Body.gameObject.SetActive(false);
+            ////ability header has to manuallly be set to active so that I can move the transform
+            //inventoryScreen.AbilityHeader.SetActive(true);
             //selects the ability
             inventoryScreen.abilitySelected = ability;
-            inventoryScreen.backToScreenBtn.gameObject.SetActive(true);
-            //the player can then click on a character display to open character screen then from there. Confirm adding the ability.
-            //make char display glow
-            inventoryScreen.makeCharDisplayGlow();
+            inventoryScreen.openAbilityPickedPage();
         }
             
     }

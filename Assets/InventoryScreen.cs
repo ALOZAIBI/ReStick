@@ -23,6 +23,65 @@ public class InventoryScreen : MonoBehaviour
 
     public PlayerManager playerParty;
 
+    public int pageIndex = 0;
+
+    public void openLandingPage() {
+        backToScreenBtn.gameObject.SetActive(false);
+        inventoryCharacterScreen.gameObject.SetActive(false);
+        AbilityHeader.SetActive(false);
+        pickCharacterToolTip.SetActive(false);
+
+        //Body.SetActive(true);
+        Header.SetActive(true);
+        pageIndex = 0;
+
+        closeHeader();
+        closeBody();
+
+        setupHeader();
+        setupBody();
+    }
+
+    public void openAbilityPickedPage() {
+        //deletes other ability displays
+        closeBody();
+        makeCharDisplayGlow();
+        backToScreenBtn.gameObject.SetActive(true);
+        inventoryCharacterScreen.gameObject.SetActive(false);
+        AbilityHeader.SetActive(true);
+        pickCharacterToolTip.SetActive(true);
+
+        Body.SetActive(false);
+        Header.SetActive(true);
+
+        pageIndex = 1;
+    }
+
+    //when ability is picked then character is picked
+    public void openAbilityCharacterPage() {
+        backToScreenBtn.gameObject.SetActive(true);
+        inventoryCharacterScreen.gameObject.SetActive(true);
+        AbilityHeader.SetActive(true);
+        pickCharacterToolTip.SetActive(false);
+
+        Body.SetActive(true);
+        Header.SetActive(false);
+
+        pageIndex = 2;
+    }
+    //when character is selected first
+    public void openCharacterSelectedPage() {
+        backToScreenBtn.gameObject.SetActive(true);
+        inventoryCharacterScreen.gameObject.SetActive(true);
+        AbilityHeader.SetActive(false);
+        pickCharacterToolTip.SetActive(false);
+
+        Body.SetActive(true);
+        Header.SetActive(false);
+
+        pageIndex = 3;
+    }
+
     private void Start() {
         backToScreenBtn.onClick.AddListener(backToScreen);
     }
@@ -31,35 +90,25 @@ public class InventoryScreen : MonoBehaviour
         //if ability selected first then character selected.
         //clicking the back button in this case keeps ability in ability header and prompts to pick character so basically 
         //going back 1 step its intuitive trust me.
-        if (abilitySelected != null && characterSelected != null && AbilityHeader.activeSelf ) {
-            pickCharacterToolTip.SetActive(true);
-            characterSelected = null;
-            Body.SetActive(false);
-            Header.SetActive(true);
-            inventoryCharacterScreen.close();
-            closeHeader();
-            setupHeader();
-            makeCharDisplayGlow();
-        }
-        else {
-            pickCharacterToolTip.SetActive(false);
-            Header.SetActive(true);
-            Body.SetActive(true);
-            AbilityHeader.SetActive(false);
-            inventoryCharacterScreen.close();
-            closeHeader();
-            inventoryCharacterScreen.gameObject.SetActive(false);
-            characterSelected = null;
-            abilitySelected = null;
-            //hide the back button
-            backToScreenBtn.gameObject.SetActive(false);
-            //sets up the stuff again.
-            setupInventoryScreen();
+
+        //if character selected back brings back to landingPage
+        switch (pageIndex) {
+            case 1:
+                openLandingPage();
+                break;
+            case 2:
+                openAbilityPickedPage();
+                break;
+            case 3:
+                openLandingPage();
+                break;
+            default:
+                openLandingPage();
+                break;
         }
     }
     public void setupInventoryScreen() {
-        setupHeader();
-        setupBody();
+        openLandingPage();
     }
     //displays playerParty Characters
     private void setupHeader() {
@@ -131,13 +180,9 @@ public class InventoryScreen : MonoBehaviour
     }
 
     public void viewCharacter() {
-        Header.SetActive(false);
         //deletes the abilities
         closeBody();
-        //then displays inventoryscreen
-        inventoryCharacterScreen.gameObject.SetActive(true);
         inventoryCharacterScreen.viewCharacter(characterSelected);
-        //unhides back button
-        backToScreenBtn.gameObject.SetActive(true);
+        openCharacterSelectedPage();
     }
 }

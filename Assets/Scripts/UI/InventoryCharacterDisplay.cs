@@ -32,20 +32,18 @@ public class InventoryCharacterDisplay : MonoBehaviour
 
     public void viewCharacter() {
         //if character selectetd first
-        if (inventoryScreen.abilitySelected == null) {
+        //(Still in landingPage
+        if (inventoryScreen.pageIndex == 0) {
             inventoryScreen.characterSelected = character;
             inventoryScreen.viewCharacter();
-            inventoryScreen.inventoryCharacterScreen.addAbilityBtn.gameObject.SetActive(true);
-            inventoryScreen.inventoryCharacterScreen.confirmAddAbilityBtn.gameObject.SetActive(false);
+            inventoryScreen.inventoryCharacterScreen.addAbilityPage();
         }
-        //if ability selected first
-        if(inventoryScreen.abilitySelected != null) {
+        //if ability selected first then character selected
+        if(inventoryScreen.pageIndex == 1) {
             inventoryScreen.characterSelected = character;
-            inventoryScreen.Body.SetActive(true);
             inventoryScreen.viewCharacter();
-            //then enables confirm button only and not add ability button since ability already selected
-            inventoryScreen.inventoryCharacterScreen.addAbilityBtn.gameObject.SetActive(false);
-            inventoryScreen.inventoryCharacterScreen.confirmAddAbilityBtn.gameObject.SetActive(true);
+            inventoryScreen.openAbilityCharacterPage();
+            inventoryScreen.inventoryCharacterScreen.confirmAddAbilityPage();
         }
         //and also open CharacterScreen with character
     }
