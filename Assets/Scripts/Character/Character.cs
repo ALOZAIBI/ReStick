@@ -292,7 +292,7 @@ public class Character : MonoBehaviour
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         //minHP.team == team is done in case the minHP init was actually an ally
-                        if (minHP.team == team || temp.HP > minHP.HP) {
+                        if (minHP.team == team || temp.HP < minHP.HP) {
                             minHP = temp;
                         }
                     }
@@ -378,6 +378,24 @@ public class Character : MonoBehaviour
                 target = maxHPAlly;
                 break;
 
+            case (int)targetList.LowestHPAlly:
+                //initially assume that this is the minHPAlly Character
+                Character minHPAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not self
+                    if (temp.team == team && temp != this) {
+                        //minHPAlly.team != team is done in case the minHPAlly init was actually an enemy
+                        if (minHPAlly.team != team || temp.HP < minHPAlly.HP) {
+                            minHPAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemy remaining target nothing
+                if (minHPAlly.team != team)
+                    minHPAlly = null;
+                target = minHPAlly;
+                break;
+
             case (int)targetList.None:
                 target = null;
                 break;
@@ -388,6 +406,10 @@ public class Character : MonoBehaviour
         }
     }
 
+    //idea to incorporate animation
+    //when attack is supposed to happen instead of doing the damage and stuff call another function that 
+    //runs the attack animation then on the specified frame deal the damage and stuff.
+    //look into animation events
     private void attack() {
         selectTarget(attackTargetStrategy);
         //deal Damage when target is within range and Attack is available and player can Attack and the target is alive
