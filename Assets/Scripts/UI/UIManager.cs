@@ -165,6 +165,7 @@ public class UIManager : MonoBehaviour
         //hides the screen and shows pause again
         gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
+        openInventoryBtn.gameObject.SetActive(true);
         DontDestroyOnLoad(playerParty);
         SceneManager.LoadScene(zone.zoneName);
     }

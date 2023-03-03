@@ -135,8 +135,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 19169435
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &5892780057989553797
 MonoBehaviour:
@@ -356,6 +356,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zone: {fileID: 0}
+  cam: {fileID: 0}
+  camMov: {fileID: 0}
   DMG: 0.5
   HP: 2
   HPMax: 0
@@ -377,6 +379,7 @@ MonoBehaviour:
   abilities: []
   killsLastFrame: 0
   bonusStats: []
+  buffs: []
   totalKills: 0
   lastPosition: {x: 0, y: 0}
   isIdle: 0
@@ -384,6 +387,7 @@ MonoBehaviour:
   secondsIdle: 0
   direction: {x: 0, y: 0}
   moveDuration: 0
+  held: 0
 --- !u!114 &8628169679358290717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 6813961152882052331}
   health: {fileID: 5892780058760769409}
+  HPtext: {fileID: 0}
 --- !u!61 &6813961152882052329
 BoxCollider2D:
   m_ObjectHideFlags: 0

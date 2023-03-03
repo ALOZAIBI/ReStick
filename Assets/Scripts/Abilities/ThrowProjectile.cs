@@ -22,10 +22,10 @@ public class ThrowProjectile : Ability
             projectile.shooter = character;
             //sets the damage amount
             projectile.dmg = amt;
-            //sets the projectiles direction
-            projectile.direction = character.target.transform.position - character.transform.position;
-            //normalises the direction so that projectile speed won't be affected by target distance
-            projectile.direction = (10 * projectile.direction).normalized;
+            ////sets the projectiles direction
+            //projectile.direction = character.target.transform.position - character.transform.position;
+            ////normalises the direction so that projectile speed won't be affected by target distance
+            //projectile.direction = (10 * projectile.direction).normalized;
             startCooldown();
         }
 

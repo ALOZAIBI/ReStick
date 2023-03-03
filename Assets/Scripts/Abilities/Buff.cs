@@ -58,6 +58,8 @@ public class Buff : MonoBehaviour
             target.Range += Range;
             target.LS += LS;
             target.gameObject.transform.localScale += new Vector3(size, size, size);
+            //adds this buff to buff list
+            target.buffs.Add(this);
             startDuration();
             applied = true;
         }

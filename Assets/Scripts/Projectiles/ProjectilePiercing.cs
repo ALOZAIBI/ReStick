@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileAOECircle : Projectile
+public class ProjectilePiercing : Projectile
 {
-    //doesn't apply lifesteal
-
-    //direction is set in the Ability ThrowProjectile
+    //lifesteal applies at 1/3 effectiveness
     private void Start() {
         //sets the projectiles direction
         direction = shooter.target.transform.position - shooter.transform.position;
@@ -19,13 +17,14 @@ public class ProjectileAOECircle : Projectile
         transform.position = (Vector2)transform.position + (direction * (speed * Time.fixedDeltaTime));
     }
 
-    //deals damage to enemies that this passes over
-    private void OnTriggerStay2D(Collider2D collision) {
+    //deals dmg once to every enemy hit
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Character") {
             Character victim = collision.GetComponent<Character>();
             //deals damage to everyhing not in the shooters team
             if (victim.team != shooter.team) {
-                victim.HP -= dmg*Time.fixedDeltaTime;
+                victim.HP -= dmg;
+                shooter.HP += dmg * LS * 0.33f;
                 if (victim.HP <= 0) {
                     shooter.totalKills++;
                     shooter.killsLastFrame++;
