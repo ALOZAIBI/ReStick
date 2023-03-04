@@ -69,9 +69,7 @@ public class ApplyBuff : Ability
 
     public bool buffNotOnTarget() {
         try {
-            Debug.Log("try");
             foreach(Buff temp in character.target.buffs) {
-                Debug.Log(temp.code);
                 //if buff is already applied refresh it's duration
                 if (temp.code == code) {
                     temp.durationRemaining = buffDuration;
@@ -81,7 +79,6 @@ public class ApplyBuff : Ability
             } 
         }
         catch { Debug.Log("catch)"); return true; };
-        Debug.Log("Last true");
         //otherwise return True which does doAbility()
         return true;
     }

@@ -14,18 +14,25 @@ public class BuffOnKIll : Ability
     public float size;
 
     public float buffDuration;
+    //code used to identify duplicate buffs to refresh duration when a new stack is added
+    public string code;
 
-
+    //gives buff to character on kill
+    //can stack infintely
+    //when a new stack is added refresh duration of previous stacks
     private void Start() {
+        code = Random.Range(-50, 500) + "";
         updateDescription();
     }
 
     public override void doAbility() {
         if (character.killsLastFrame > 0) {
+            Debug.Log("There was a kill last frame");
             for (int i = 0; i < character.killsLastFrame; i++) {
                 //creates buff for every kill last frame
                 Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
-                Debug.Log("kills>0"+ buff.transform.parent.name);
+                //Debug.Log("kills>0"+ buff.transform.parent.name);
+                //Debug.Log("Arrived here");
                 buff.DMG = DMG;
                 buff.HP = HP;
                 buff.AS = AS;
@@ -37,7 +44,17 @@ public class BuffOnKIll : Ability
                 buff.caster = character;
                 buff.target = character;
 
+                buff.code = code;
+
                 buff.duration = buffDuration;
+
+                //refreshes duration of buff when a new stack is added
+                foreach (Buff temp in character.buffs) {
+                    if (temp.code == code) {
+                        temp.durationRemaining = buffDuration;
+                        Debug.Log("try first if");
+                    }
+                }
                 buff.applyBuff();
             }
         }
