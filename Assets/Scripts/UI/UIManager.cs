@@ -132,6 +132,7 @@ public class UIManager : MonoBehaviour
     //this is triggered by a button
     //loads map and reset cam position
     public void loadMap() {
+        clearBuffs();
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
         gameWonScreenHidden.hidden = true;
@@ -162,6 +163,8 @@ public class UIManager : MonoBehaviour
                 currChar.alive = true;
             }
         }
+
+        clearBuffs();
         //hides the screen and shows pause again
         gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
@@ -221,14 +224,18 @@ public class UIManager : MonoBehaviour
         inventoryScreen.setupInventoryScreen();
     }
     
-    //to deal with hiding and unhiding UI
-    private void hide() {
-        //if characterInfoScreen is up hide placing screen otherwise don't hide shit
-        if (characterInfoScreen.gameObject.activeSelf && characterPlacingScreen.gameObject.activeSelf ) {
-            placingScreenHidden.hidden = true;
-        }
-        else {
-            placingScreenHidden.hidden = false;
+    //removes buffs from player characters. To be called in loadZone and on Restart
+    public void clearBuffs() {
+        foreach (Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                if (temp.buffs.Count > 0) {
+                    //the .ToArray is needed to prevent the error of collection is modified while accessing it
+                    foreach (Buff buff in temp.buffs.ToArray()) {
+                        buff.removeBuff();
+                    }
+                }
+            }
         }
     }
     private void Update() {
