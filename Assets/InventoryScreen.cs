@@ -26,7 +26,7 @@ public class InventoryScreen : MonoBehaviour
     public PlayerManager playerParty;
 
     public int pageIndex = 0;
-
+    //t
     private void Start() {
         backToScreenBtn.onClick.AddListener(backToScreen);
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
