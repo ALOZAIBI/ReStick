@@ -19,17 +19,26 @@ public class InventoryScreen : MonoBehaviour
     public Character characterSelected;
     public Ability abilitySelected;
 
+    public UIManager uiManager;
+
     public Button backToScreenBtn;
 
     public PlayerManager playerParty;
 
     public int pageIndex = 0;
 
+    private void Start() {
+        backToScreenBtn.onClick.AddListener(backToScreen);
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+    }
     public void openLandingPage() {
         backToScreenBtn.gameObject.SetActive(false);
         inventoryCharacterScreen.gameObject.SetActive(false);
         AbilityHeader.SetActive(false);
         pickCharacterToolTip.SetActive(false);
+
+        //shows the close button
+        uiManager.closeUIBtn.gameObject.SetActive(true);
 
         //Body.SetActive(true);
         Header.SetActive(true);
@@ -51,6 +60,9 @@ public class InventoryScreen : MonoBehaviour
         AbilityHeader.SetActive(true);
         pickCharacterToolTip.SetActive(true);
 
+        //hides the close button
+        uiManager.closeUIBtn.gameObject.SetActive(false);
+
         Body.SetActive(false);
         Header.SetActive(true);
 
@@ -64,6 +76,9 @@ public class InventoryScreen : MonoBehaviour
         AbilityHeader.SetActive(true);
         pickCharacterToolTip.SetActive(false);
 
+        //hides the close button
+        uiManager.closeUIBtn.gameObject.SetActive(false);
+
         Body.SetActive(true);
         Header.SetActive(false);
 
@@ -76,15 +91,15 @@ public class InventoryScreen : MonoBehaviour
         AbilityHeader.SetActive(false);
         pickCharacterToolTip.SetActive(false);
 
+        //hides the close button
+        uiManager.closeUIBtn.gameObject.SetActive(false);
+
         Body.SetActive(true);
         Header.SetActive(false);
 
         pageIndex = 3;
     }
 
-    private void Start() {
-        backToScreenBtn.onClick.AddListener(backToScreen);
-    }
     //goes back to landing page
     public void backToScreen() {
         //if ability selected first then character selected.

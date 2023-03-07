@@ -364,9 +364,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032ce9e3ff4fbc54892a31bdc43c1710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
   abilityName: {fileID: 576495221018037300}
   description: {fileID: 576495220231388258}
   ability: {fileID: 0}
+  btn: {fileID: 0}
+  targettingStrategyText: {fileID: 0}
   button: {fileID: -7214323297607935626}
   inventoryScreen: {fileID: 0}
   glow: 0
@@ -438,7 +441,7 @@ MonoBehaviour:
   m_MinWidth: 1000
   m_MinHeight: 170
   m_PreferredWidth: 900
-  m_PreferredHeight: 170
+  m_PreferredHeight: 370
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1

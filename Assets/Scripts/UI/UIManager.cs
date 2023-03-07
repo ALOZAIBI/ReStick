@@ -23,6 +23,10 @@ public class UIManager : MonoBehaviour
 
     //The playerCharacters are children of this
     public PlayerManager playerParty;
+
+    //currently selected character
+    public Character character;
+
     //screen that pops up oin lelve start
     public CharacterPlacingScreen characterPlacingScreen;
 
@@ -41,6 +45,7 @@ public class UIManager : MonoBehaviour
     //the scene to be loaded
     public string mapSceneName;
 
+    public TopStatDisplay topStatDisplay;
 
     public Button pausePlayBtn;
 
@@ -60,6 +65,7 @@ public class UIManager : MonoBehaviour
     public HideUI inventoryScreenHidden;
     public HideUI gameWonScreenHidden;
     public HideUI gameLostScreenHidden;
+    public HideUI topStatDisplayHidden;
     private void Start() {
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
@@ -67,6 +73,7 @@ public class UIManager : MonoBehaviour
         inventoryScreenHidden = inventoryScreen.GetComponent<HideUI>();
         gameWonScreenHidden = gameWonScreen.GetComponent<HideUI>();
         gameLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
+        topStatDisplayHidden = topStatDisplay.GetComponent<HideUI>();
 
         //
         lostToMapBtn.onClick.AddListener(loadMap);
@@ -77,10 +84,22 @@ public class UIManager : MonoBehaviour
         closeUIBtn.onClick.AddListener(closeUI);
         openInventoryBtn.onClick.AddListener(openInventory);
     }
-
-    //This function is called in Character with currChar being the character that triggered it. Find Index of character to be able to scroll
-    //to next character
-    public void viewCharacter(Character currChar) {
+    //on first time clicking character Display its info in the topstatDisplay
+    //then if character is clicked again or more info button was clicked open the charInfoScreen
+    
+    public void viewCharacter(Character charSel) {
+        //if the character to be viewed is already selected or zone hasn't started open character info
+        if (charSel == character || !zone.started) {
+            viewCharacterInfo(charSel);
+        }
+        //if character wasn't already selected
+        else {
+            character = charSel;
+            topStatDisplay.character = character;
+            topStatDisplayHidden.hidden = false;
+        }
+    }
+    public void viewCharacterInfo(Character currChar) {
         //opens the screen and pauses the game
         charInfoScreenHidden.hidden = false;
         pause = true;
@@ -94,6 +113,11 @@ public class UIManager : MonoBehaviour
         characterInfoScreen.viewCharacter(currChar);
     }
 
+    //when the player taps zone i.e the player taps nothing hide hte topstatdisplay
+    public void hideCharacter() {
+        topStatDisplayHidden.hidden = true;
+        topStatDisplay.character = null;
+    }
     //so that displayGameWon isn't executed infinitely
     private bool displayed=false;
     //displays the game won screen and prompts the player to click to go back to the scene with name sceneName
@@ -137,7 +161,8 @@ public class UIManager : MonoBehaviour
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
         gameWonScreenHidden.hidden = true;
         gameLostScreenHidden.hidden = true;
-        pausePlayBtn.gameObject.SetActive(true);
+        hideCharacter();
+        //pausePlayBtn.gameObject.SetActive(true);
         //hides timecontrol
         timeControlHidden.hidden = true;
         //unhides inventory but it will be hidden again when start button is clicked in characte rplacing
@@ -191,6 +216,8 @@ public class UIManager : MonoBehaviour
         //characterPlacingScreen.gameObject.SetActive(false);
         //Hides the close Button and shows the pause Button
         closeUIBtn.gameObject.SetActive(false);
+        //and shows open inventory btn again
+        openInventoryBtn.gameObject.SetActive(true);
         //if game has started show these
         if (zone.started == true) {
             pausePlayBtn.gameObject.SetActive(true);
@@ -220,6 +247,7 @@ public class UIManager : MonoBehaviour
 
     public void openInventory() {
         closeUIBtn.gameObject.SetActive(true);
+        openInventoryBtn.gameObject.SetActive(false);
         inventoryScreenHidden.hidden = false;
         inventoryScreen.setupInventoryScreen();
     }

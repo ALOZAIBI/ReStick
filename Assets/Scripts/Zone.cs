@@ -33,6 +33,7 @@ public class Zone : MonoBehaviour
     private void Start() {
         uIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         uIManager.displayCharacterPlacing();
+        uIManager.hideCharacter();
 
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty").GetComponent<PlayerManager>();
         zoneName = gameObject.scene.name;
