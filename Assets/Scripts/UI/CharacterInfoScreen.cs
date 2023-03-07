@@ -83,13 +83,64 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
     //displays the stats and cool stats of the character and character screen
+
+    private void handleColor(Character currChar) {
+        if (currChar.DMG > currChar.rsDMG)
+            DMG.color = ColorPalette.buff;
+        else
+        if (currChar.DMG < currChar.rsDMG)
+            DMG.color = ColorPalette.debuff;
+        else
+            DMG.color = ColorPalette.defaultColor;
+
+        if (currChar.AS > currChar.rsAS)
+            AS.color = ColorPalette.buff;
+        else
+        if (currChar.AS < currChar.rsAS)
+            AS.color = ColorPalette.debuff;
+        else
+            AS.color = ColorPalette.defaultColor;
+
+        if (currChar.MS > currChar.rsMS)
+            MS.color = ColorPalette.buff;
+        else
+        if (currChar.MS < currChar.rsMS)
+            MS.color = ColorPalette.debuff;
+        else
+            MS.color = ColorPalette.defaultColor;
+
+        if (currChar.Range > currChar.rsRange)
+            RNG.color = ColorPalette.buff;
+        else
+        if (currChar.Range < currChar.rsRange)
+            RNG.color = ColorPalette.debuff;
+        else
+            RNG.color = ColorPalette.defaultColor;
+
+        if (currChar.Range > currChar.rsRange)
+            RNG.color = ColorPalette.buff;
+        else
+        if (currChar.Range < currChar.rsRange)
+            RNG.color = ColorPalette.debuff;
+        else
+            RNG.color = ColorPalette.defaultColor;
+
+        if (currChar.LS > currChar.rsLS)
+            LS.color = ColorPalette.buff;
+        else
+        if (currChar.LS < currChar.rsLS)
+            LS.color = ColorPalette.debuff;
+        else
+            LS.color = ColorPalette.defaultColor;
+    }
     private void displayStats(Character currChar) {
+        handleColor(currChar);
         //the empty quotes is to convert float to str
-        DMG.text = currChar.DMG + "";
-        AS.text = currChar.AS + "";
-        MS.text = currChar.MS + "";
-        RNG.text = currChar.Range + "";
-        LS.text = currChar.LS + "";
+        DMG.text = currChar.DMG.ToString("F1");
+        AS.text = currChar.AS.ToString("F1");
+        MS.text = currChar.MS.ToString("F1");
+        RNG.text = currChar.Range.ToString("F1");
+        LS.text = currChar.LS.ToString("F1");
         totalKills.text = currChar.totalKills + "";
         //fills the HP bar correctly
         healthBar.character = currChar;

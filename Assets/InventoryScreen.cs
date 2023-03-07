@@ -40,7 +40,7 @@ public class InventoryScreen : MonoBehaviour
         //shows the close button
         uiManager.closeUIBtn.gameObject.SetActive(true);
 
-        //Body.SetActive(true);
+        Body.SetActive(true);
         Header.SetActive(true);
         pageIndex = 0;
 
@@ -115,6 +115,7 @@ public class InventoryScreen : MonoBehaviour
                 openAbilityPickedPage();
                 break;
             case 3:
+                Debug.Log("Fixing bug");
                 openLandingPage();
                 break;
             default:

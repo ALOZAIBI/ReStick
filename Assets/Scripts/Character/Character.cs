@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private CameraMovement camMov;
 
+    //Current stats
     public float DMG;              
     public float HP;
     public float HPMax;
@@ -19,6 +20,20 @@ public class Character : MonoBehaviour
     public float LS;
 
     public bool alive = true;
+
+    //Interesting Stats
+    public int totalKills = 0;
+
+    //on Round start stats. (Used to emphaseize buffs and debuffs in the UI and will be used to reset interesting stats on loss
+    public float rsDMG;
+    public float rsHP;
+    public float rsHPMax;
+    public float rsAS;
+    public float rsMS;
+    public float rsRange;
+    public float rsLS;
+
+    public int rsTotalKills;
 
     //used for stuns/debuffs etc..
     public bool canMove=true;
@@ -99,8 +114,6 @@ public class Character : MonoBehaviour
     public List<BonusStats> bonusStats = new List<BonusStats>();
     //Buffs/Debuffs
     public List<Buff> buffs = new List<Buff>();
-    //Interesting Stats
-    public int totalKills = 0;
 
     //isIdle stuff
         //position in last frame used to check isIdle
@@ -147,6 +160,14 @@ public class Character : MonoBehaviour
             temp.character = this;
             temp.applyStats();
         }
+        //gets the stats on round start
+        rsDMG  = DMG;  
+        rsHP   = HP;
+        rsHPMax= HPMax;
+        rsAS   = AS;   
+        rsMS   = MS;
+        rsRange= Range;
+        rsLS   = LS;
 
     }
 

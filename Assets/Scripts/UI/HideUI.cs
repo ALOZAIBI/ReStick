@@ -16,12 +16,12 @@ public class HideUI : MonoBehaviour
 
     private void Start() {
         initPos = transform.localPosition;
-        otherInitPos = other.transform.localPosition;
+        try { otherInitPos = other.transform.localPosition; } catch { }
 
         //if it's hidden immediately move this to the target so that once game starts there is immediately nothing on screen
         if (hidden) {
             transform.localPosition = initPos + targetPosDelta;
-            other.transform.localPosition = otherInitPos + targetPosDelta;
+            try { other.transform.localPosition = otherInitPos + targetPosDelta; } catch { }
         }
     }
 
@@ -33,12 +33,12 @@ public class HideUI : MonoBehaviour
         //if this is to be hidden move it towards init - targetPosDelta;
         if (hidden) {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition,initPos +targetPosDelta, speed * Time.unscaledDeltaTime);
-            other.transform.localPosition = Vector3.MoveTowards(other.transform.localPosition, otherInitPos +targetPosDelta, speed * Time.unscaledDeltaTime);
+            try { other.transform.localPosition = Vector3.MoveTowards(other.transform.localPosition, otherInitPos + targetPosDelta, speed * Time.unscaledDeltaTime); } catch { }
         }
         //else return to init
         else {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, initPos, speed * Time.unscaledDeltaTime);
-            other.transform.localPosition = Vector3.MoveTowards(other.transform.localPosition, otherInitPos, speed * Time.unscaledDeltaTime);
+            try { other.transform.localPosition = Vector3.MoveTowards(other.transform.localPosition, otherInitPos, speed * Time.unscaledDeltaTime); } catch { }
 
         }
     }
