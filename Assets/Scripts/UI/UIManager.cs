@@ -89,7 +89,7 @@ public class UIManager : MonoBehaviour
     
     public void viewCharacter(Character charSel) {
         //if the character to be viewed is already selected or zone hasn't started open character info
-        if (charSel == character || !zone.started) {
+        if (charSel == topStatDisplay.character || !zone.started) {
             viewCharacterInfo(charSel);
         }
         //if character wasn't already selected
@@ -113,7 +113,6 @@ public class UIManager : MonoBehaviour
         characterInfoScreen.viewCharacter(currChar);
     }
 
-    //when the player taps zone i.e the player taps nothing hide hte topstatdisplay
     public void hideCharacter() {
         topStatDisplayHidden.hidden = true;
         topStatDisplay.character = null;
@@ -188,7 +187,7 @@ public class UIManager : MonoBehaviour
                 currChar.alive = true;
             }
         }
-
+        hideCharacter();
         clearBuffs();
         //hides the screen and shows pause again
         gameLostScreenHidden.hidden = true;
