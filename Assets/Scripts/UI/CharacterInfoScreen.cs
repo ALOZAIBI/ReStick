@@ -78,6 +78,8 @@ public class CharacterInfoScreen : MonoBehaviour
             displayTemp.description.text = ability.description;
             displayTemp.ability = ability;
             displayTemp.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
+            //sets the icon fill amount to CD remaining
+            displayTemp.icon.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             temp.transform.localScale = new Vector3(1, 1, 1);
         }

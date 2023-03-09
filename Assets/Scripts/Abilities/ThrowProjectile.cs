@@ -13,7 +13,7 @@ public class ThrowProjectile : Ability
     public override void doAbility() {
         if (available) {
             Debug.Log("ABILITY DONE WHAT");
-            //selects target
+            //selects target based on the ability's targetting strategy;
             character.selectTarget(targetStrategy);
             //creates the projectile
             GameObject objProjectile = Instantiate(prefabObject, character.transform.position, character.transform.rotation);
@@ -22,6 +22,8 @@ public class ThrowProjectile : Ability
             projectile.shooter = character;
             //sets the damage amount
             projectile.dmg = amt;
+            //sets the target
+            projectile.target = character.target;
             ////sets the projectiles direction
             //projectile.direction = character.target.transform.position - character.transform.position;
             ////normalises the direction so that projectile speed won't be affected by target distance

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class AbilityDisplay : MonoBehaviour
 {
     public UIManager uiManager;
+    public Image icon;
     public TextMeshProUGUI abilityName;
     public TextMeshProUGUI description;
     public Ability ability;

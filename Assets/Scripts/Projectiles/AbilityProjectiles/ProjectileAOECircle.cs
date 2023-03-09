@@ -8,8 +8,10 @@ public class ProjectileAOECircle : Projectile
 
     //direction is set in the Ability ThrowProjectile
     private void Start() {
+        //does base start to make the projectile die after lifetime
+        base.Start();
         //sets the projectiles direction
-        direction = shooter.target.transform.position - shooter.transform.position;
+        direction = target.transform.position - shooter.transform.position;
         //normalises the direction so that projectile speed won't be affected by target distance
         direction = (10 * direction).normalized;
     }
