@@ -117,20 +117,17 @@ public class UIManager : MonoBehaviour
         topStatDisplayHidden.hidden = true;
         topStatDisplay.character = null;
     }
-    //so that displayGameWon isn't executed infinitely
-    private bool displayed=false;
     //displays the game won screen and prompts the player to click to go back to the scene with name sceneName
     public void displayGameWon(string sceneName) {
-        if (!displayed) {
+        //if (!displayed) {
             //displayGameWon and display the rewards
             gameWonScreenHidden.hidden = false;
             rewardSelectScreen.displayAbilities();
             pausePlayBtn.gameObject.SetActive(false);
             mapSceneName = sceneName;
-            displayed = true;
             //the rewardSelectScreen contains the Button. The button waits for an ability to be selected. Once it is selected
             //the button can be clicked to add it to inventory and go back to mapSceneName
-        }
+        //}
     }
 
     public void displayGameLost(string sceneName) {
@@ -148,7 +145,8 @@ public class UIManager : MonoBehaviour
         //activate the screen and pause
         placingScreenHidden.hidden = false;
 
-        pausePlay();
+        pausePlay(true);
+        wasPause = true;
 
         characterPlacingScreen.displayCharacters();
     }
@@ -166,7 +164,6 @@ public class UIManager : MonoBehaviour
         timeControlHidden.hidden = true;
         //unhides inventory but it will be hidden again when start button is clicked in characte rplacing
         openInventoryBtn.gameObject.SetActive(true);
-        displayed = false;
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(mapSceneName);
         
@@ -223,15 +220,15 @@ public class UIManager : MonoBehaviour
             timeControlHidden.hidden = false;
         }
         //go back to the game paused or unpaused determined by if it waspaused before UI was opened
-        pause = wasPause;
-        if (pause)
-            Time.timeScale = 0;
-        else
-            Time.timeScale = timeControl.currTimeScale;
+        pausePlay(wasPause);
+
 
         characterInfoScreen.close();
         //characterPlacingScreen.close();
     }
+    //i should improve the pausePlay function to take a bool pausePlay(true) makes the game paused pausePlay(false) makes the game continue 
+    //if no parameter is given just flip the switch so pausePlay() would go from paused to unpaused and vice versa
+
     public void pausePlay() {
         //Flips the pause switch then pauses or unpauses
         pause = !pause;
@@ -242,6 +239,23 @@ public class UIManager : MonoBehaviour
             Time.timeScale = timeControl.currTimeScale;
         //wasPause = pause
         wasPause = pause;
+    }
+    /// <summary>
+    /// If true pause the game
+    /// </summary>
+    /// <param name="yesPause"></param>
+    public void pausePlay(bool yesPause) {
+        if (yesPause) {
+            wasPause = pause;
+            pause = yesPause;
+            Time.timeScale = 0;
+            Debug.Log("game should pause");
+        }
+        else {
+            wasPause = pause;
+            pause = yesPause;
+            Time.timeScale = timeControl.currTimeScale;
+        }
     }
 
     public void openInventory() {

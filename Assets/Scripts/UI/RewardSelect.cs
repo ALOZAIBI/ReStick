@@ -44,6 +44,8 @@ public class RewardSelect : MonoBehaviour
             foreach (AbilityDisplayReward toBeDeleted in listReward) {
                 Destroy(toBeDeleted.gameObject);
             }
+            //saves the zone
+            SaveSystem.saveZone(uiManager.zone);
             //then clears the list to be reinitialized in another zone
             listReward.Clear();
             //loads map

@@ -15,6 +15,9 @@ public class Zone : MonoBehaviour
     //zone started or not. This is used to be able to move playerCharacter's before zone has started
     public bool started = false;
 
+    //zone completed or not
+    public bool completed = false;
+
     [SerializeField] private UIManager uIManager;
 
     [SerializeField] private PlayerManager playerParty;
@@ -38,6 +41,9 @@ public class Zone : MonoBehaviour
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty").GetComponent<PlayerManager>();
         zoneName = gameObject.scene.name;
 
+        //loads Zone
+        SaveSystem.loadZone(this);
+
         //fill the abilityRewardPool
         foreach(Transform objPool in transform) {
             if(objPool.tag == "ZoneRewards") {
@@ -59,7 +65,13 @@ public class Zone : MonoBehaviour
 
         if (enemiesAlive == 0 && alliesAlive>0) {
             uIManager.displayGameWon(belongsToMap);
+            //marks zone as completed then saves
+            completed = true;
+            SaveSystem.saveZone(this);
+            //then pauses the game
+            uIManager.pausePlay(true);
         }
+        
     }
     //if all player Character's in play died decrease totallives and displaygamelost
     private void zoneLost() {
@@ -77,8 +89,17 @@ public class Zone : MonoBehaviour
             //otherwise zone is lost
             uIManager.displayGameLost(belongsToMap);
             playerParty.totalLives--;
+            uIManager.pausePlay(true);
             //started is re set to false to prevent totallives to decrement infintely
             started = false;
+
+            //if !completed keep it that way otherwise if it is completed also keep it that way so in other words
+            //what is written below is useless but keep it for now I guess just to know where I should be saving data
+            if (!completed) {
+                //marks zone as completed then saves
+                completed = false;
+                SaveSystem.saveZone(this);
+            }
         }
     }
     void FixedUpdate()
