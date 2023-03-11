@@ -73,12 +73,11 @@ public class ApplyBuff : Ability
                 //if buff is already applied refresh it's duration
                 if (temp.code == code) {
                     temp.durationRemaining = buffDuration;
-                    Debug.Log("try first if");
                     return false;
                 }
             } 
         }
-        catch { Debug.Log("catch)"); return true; };
+        catch { return true; };
         //otherwise return True which does doAbility()
         return true;
     }

@@ -46,6 +46,7 @@ using System;
                 ZoneData data = JsonConvert.DeserializeObject<ZoneData>(reader.ReadString());
                 data.dataToZone(zone);
             }
+            Debug.Log("file loaded from " + path);
             return true;
         }
         else {

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 //THIS IS A CHILD OF CAMERA SINCE HIDEUI NEEDS LOCAL POSITION RELATIVE TO PARENT WHICH IS CAMERA
+
+//this is also a gameManager it manages lots of stuff wtf
 public class UIManager : MonoBehaviour
 {
     //used to reset cam position when changing scenes 
@@ -57,6 +59,9 @@ public class UIManager : MonoBehaviour
 
     //used to restartZone
     public Zone zone;
+
+    //used to fetch random abilities for rewards and shop
+    public AbilityFactory abilityFactory;
 
     //used to deal with Hiding and unHiding UI ELEMENTS
     public HideUI placingScreenHidden;
@@ -249,7 +254,6 @@ public class UIManager : MonoBehaviour
             wasPause = pause;
             pause = yesPause;
             Time.timeScale = 0;
-            Debug.Log("game should pause");
         }
         else {
             wasPause = pause;

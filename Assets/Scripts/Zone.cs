@@ -35,6 +35,10 @@ public class Zone : MonoBehaviour
     //contains the abilities to be rewarded as children
     public GameObject abilityContainer;
 
+    //string containing ability names. This list is filled when zone save file is loaded.
+    //These string names will be used to fetch abilities from ability factory
+    public List<string> abilityNames = new List<string>();
+
     //connects to UImanager
     private void Start() {
         uIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
@@ -47,21 +51,14 @@ public class Zone : MonoBehaviour
         //loads Zone if possible
         if (SaveSystem.loadZone(this)) {
             //then extracts the ability names from the save file then fetches them from ability factory to add to reward pool
+            uIManager.abilityFactory.addRequestedAbilityToZone(this, abilityNames);
         }
         //if there is no saveFile for this zone. get abilities from ablity factory to add to reward pool
         else {
-
+            //adds 3 random abilities to the zone
+            uIManager.abilityFactory.addRandomAbilityToZone(this, 3);
         }
         
-
-        //fill the abilityRewardPool
-        foreach (Transform objPool in transform) {
-            if(objPool.tag == "ZoneRewards") {
-                foreach(GameObject tempAb in objPool) {
-                    abilityRewardPool.Add(tempAb);
-                }
-            }
-        }
     }
     //to detect which players in the zone
     private void OnTriggerEnter2D(Collider2D collision) {

@@ -37,7 +37,6 @@ public class ProjectileSlowPointToExplode : Projectile
     }
 
     private void implosion() {
-        Debug.Log("Imploding");
         timeSinceImplosion += Time.fixedDeltaTime;
         float time = timeSinceImplosion / implosionDuration;
         //in this case we took localScale.x because why the fuck not x y z scale should all be the same anyways
@@ -86,7 +85,6 @@ public class ProjectileSlowPointToExplode : Projectile
                 //if implosion completed destroy the object
                 if (transform.localScale.x == ogSize) {
                     Destroy(gameObject);
-                    Debug.Log("This is where I die");
                 }
             }
             //otherwise continue explosion

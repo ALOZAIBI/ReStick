@@ -54,8 +54,8 @@ public class RewardSelect : MonoBehaviour
     }
     //Displays the abilities and greys out the Button.
     public void displayAbilities() {
-        //creates 3 reward Displays
-        for(int i = 0; i < 3; i++) {
+        //creates reward Displays
+        for(int i = 0; i < uiManager.zone.abilityRewardPool.Count; i++) {
             AbilityDisplayReward rewardDisplay = Instantiate(abilityDisplayReward).GetComponent<AbilityDisplayReward>();
             //make it a child
             rewardDisplay.transform.parent = gameObject.transform;

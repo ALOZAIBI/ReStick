@@ -29,5 +29,9 @@ public class ZoneData
 
     public void dataToZone(Zone zone) {
         zone.completed = completed;
+        //loads abilityNames
+        foreach(string name in abilities) {
+            zone.abilityNames.Add(name);
+        }
     }
 }
