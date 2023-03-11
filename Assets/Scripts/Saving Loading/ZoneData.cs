@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+
 
 [System.Serializable]
 public class ZoneData
@@ -20,5 +22,12 @@ public class ZoneData
         }
 
         completed = zone.completed;
+    }
+    //this is needed for SaveSystem to be able to deserialize it
+    public ZoneData() { }
+ 
+
+    public void dataToZone(Zone zone) {
+        zone.completed = completed;
     }
 }

@@ -32,6 +32,9 @@ public class Zone : MonoBehaviour
     //list of gameObject that contain ability that can be rewarded here
     public List<GameObject> abilityRewardPool = new List<GameObject>();
 
+    //contains the abilities to be rewarded as children
+    public GameObject abilityContainer;
+
     //connects to UImanager
     private void Start() {
         uIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
@@ -41,11 +44,18 @@ public class Zone : MonoBehaviour
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty").GetComponent<PlayerManager>();
         zoneName = gameObject.scene.name;
 
-        //loads Zone
-        SaveSystem.loadZone(this);
+        //loads Zone if possible
+        if (SaveSystem.loadZone(this)) {
+            //then extracts the ability names from the save file then fetches them from ability factory to add to reward pool
+        }
+        //if there is no saveFile for this zone. get abilities from ablity factory to add to reward pool
+        else {
+
+        }
+        
 
         //fill the abilityRewardPool
-        foreach(Transform objPool in transform) {
+        foreach (Transform objPool in transform) {
             if(objPool.tag == "ZoneRewards") {
                 foreach(GameObject tempAb in objPool) {
                     abilityRewardPool.Add(tempAb);
@@ -67,7 +77,6 @@ public class Zone : MonoBehaviour
             uIManager.displayGameWon(belongsToMap);
             //marks zone as completed then saves
             completed = true;
-            SaveSystem.saveZone(this);
             //then pauses the game
             uIManager.pausePlay(true);
         }
