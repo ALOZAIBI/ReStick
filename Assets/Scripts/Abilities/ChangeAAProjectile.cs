@@ -10,6 +10,7 @@ public class ChangeAAProjectile : Ability {
         if (!applied) {
             character.usesProjectile = true;
             character.projectile = prefabObject;
+            applied = true;
         }
     }
 

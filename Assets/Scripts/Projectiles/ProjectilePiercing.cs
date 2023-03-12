@@ -6,8 +6,9 @@ public class ProjectilePiercing : Projectile
 {
     //lifesteal applies at 1/3 effectiveness
     private void Start() {
+        base.Start();
         //sets the projectiles direction
-        direction = shooter.target.transform.position - shooter.transform.position;
+        direction = target.transform.position - shooter.transform.position;
         //normalises the direction so that projectile speed won't be affected by target distance
         direction = (10 * direction).normalized;
     }

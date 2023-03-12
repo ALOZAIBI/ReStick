@@ -366,6 +366,15 @@ MonoBehaviour:
   Range: 1
   LS: 0
   alive: 1
+  totalKills: 0
+  rsDMG: 0
+  rsHP: 0
+  rsHPMax: 0
+  rsAS: 0
+  rsMS: 0
+  rsRange: 0
+  rsLS: 0
+  rsTotalKills: 0
   canMove: 1
   canAttack: 1
   targetable: 1
@@ -380,7 +389,6 @@ MonoBehaviour:
   killsLastFrame: 0
   bonusStats: []
   buffs: []
-  totalKills: 0
   lastPosition: {x: 0, y: 0}
   isIdle: 0
   idleMov: 0

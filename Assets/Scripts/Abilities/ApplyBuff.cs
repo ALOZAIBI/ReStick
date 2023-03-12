@@ -25,7 +25,7 @@ public class ApplyBuff : Ability
     public override void doAbility() {
         //selects target
         character.selectTarget(targetStrategy);
-        if (available && buffNotOnTarget()) {
+        if (character.target!=null && available && buffNotOnTarget()) {
             //creates buff
             Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
             buff.DMG = DMG;

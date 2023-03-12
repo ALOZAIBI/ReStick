@@ -8,11 +8,13 @@ public class TopStatDisplay : MonoBehaviour
     //stats texts
     public UIManager uiManager;
 
-    
 
     public TextMeshProUGUI DMG, AS, MS, RNG, LS;
+    public TextMeshProUGUI charName;
+
 
     public Character character;
+    public CharacterHealthBar healthBar;
 
     public Button moreInfoBtn;
     //the character will be assigned when the character is clicked
@@ -78,6 +80,7 @@ public class TopStatDisplay : MonoBehaviour
         uiManager.viewCharacterInfo(character);
     }
     private void displayStats() {
+        //f1 formats it to 1 decimal point
         DMG.text = character.DMG.ToString("F1");
         AS.text = character.AS.ToString("F1");
         MS.text = character.MS.ToString("F1");
@@ -87,6 +90,12 @@ public class TopStatDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        try {
+            healthBar.character = character;
+            charName.text = character.name;
+        }
+        catch { }
+        
         handleColor();
         displayStats();
     }

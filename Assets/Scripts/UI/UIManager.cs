@@ -93,8 +93,8 @@ public class UIManager : MonoBehaviour
     //then if character is clicked again or more info button was clicked open the charInfoScreen
     
     public void viewCharacter(Character charSel) {
-        //if the character to be viewed is already selected or zone hasn't started open character info
-        if (charSel == topStatDisplay.character || !zone.started) {
+        //if the character to be viewed is already selected
+        if (charSel == topStatDisplay.character) {
             viewCharacterInfo(charSel);
         }
         //if character wasn't already selected
@@ -111,6 +111,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
         //hides placing screen
         placingScreenHidden.hidden = true;
+        topStatDisplay.moreInfoBtn.gameObject.SetActive(false);
         //the close button pops up and the pause button+time control is hidden
         closeUIBtn.gameObject.SetActive(true);
         timeControlHidden.hidden = true;
@@ -212,7 +213,9 @@ public class UIManager : MonoBehaviour
                 placingScreenHidden.hidden = false;
             }
         } catch { }
-        
+
+        topStatDisplay.moreInfoBtn.gameObject.SetActive(true);
+
 
         //characterPlacingScreen.gameObject.SetActive(false);
         //Hides the close Button and shows the pause Button
