@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Character : MonoBehaviour
-{
+public class Character : MonoBehaviour {
     //zone the character is currently In;
     [SerializeField] private Zone zone;
     [SerializeField] private Camera cam;
     [SerializeField] private CameraMovement camMov;
 
     //Current stats
-    public float DMG;              
+    public float DMG;
     public float HP;
     public float HPMax;
-    public float AS;               
+    public float AS;
     public float MS;
     public float Range;
     public float LS;
@@ -24,23 +23,23 @@ public class Character : MonoBehaviour
     //Interesting Stats
     public int totalKills = 0;
 
-    //on Round start stats. (Used to emphaseize buffs and debuffs in the UI and will be used to reset interesting stats on loss
-    public float rsDMG;
-    public float rsHP;
-    public float rsHPMax;
-    public float rsAS;
-    public float rsMS;
-    public float rsRange;
-    public float rsLS;
+    //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI and will be used to reset interesting stats on loss_
+    public float zsDMG;
+    public float zsHP;
+    public float zsHPMax;
+    public float zsAS;
+    public float zsMS;
+    public float zsRange;
+    public float zsLS;
 
-    public int rsTotalKills;
+    public int zsTotalKills;
 
     //used for stuns/debuffs etc..
-    public bool canMove=true;
-    public bool canAttack=true;
+    public bool canMove = true;
+    public bool canAttack = true;
 
     public bool targetable = true;
-    
+
 
     //used for cooldowns
     private bool AtkAvailable = true;
@@ -50,13 +49,24 @@ public class Character : MonoBehaviour
     //projectile stuff
     public bool usesProjectile;
     public GameObject projectile;
+
+    //level stuff
+    public int level=1;
+    //how much xp in current level
+    public int xpProgress=0;
+    //how much xp needed to level up
+    public int xpCap;
+    //points that can be used on stats (gained wen leveling up)
+    public int statPoints;
+    #region
     //Character's team
     public int team;
 
     //Current targeting strategy
-    public int attackTargetStrategy=(int)targetList.DefaultEnemy;   //who to attack
+    public int attackTargetStrategy = (int)targetList.DefaultEnemy;   //who to attack
     public int movementTargetStrategy = (int)targetList.DefaultEnemy;   //By default is the same as attackTarget
 
+    
     public Character target;
     public enum teamList {
         Player,
@@ -142,6 +152,8 @@ public class Character : MonoBehaviour
         initRoundStart();
         //Connect to UIManager
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        //setup level cap
+        xpCap = level + (level * ((level - 1) / 2));
 
         //Connect to camera
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -161,13 +173,13 @@ public class Character : MonoBehaviour
             temp.applyStats();
         }
         //gets the stats on round start
-        rsDMG  = DMG;  
-        rsHP   = HP;
-        rsHPMax= HPMax;
-        rsAS   = AS;   
-        rsMS   = MS;
-        rsRange= Range;
-        rsLS   = LS;
+        zsDMG  = DMG;  
+        zsHP   = HP;
+        zsHPMax= HPMax;
+        zsAS   = AS;   
+        zsMS   = MS;
+        zsRange= Range;
+        zsLS   = LS;
 
     }
 
@@ -453,8 +465,7 @@ public class Character : MonoBehaviour
                 HP += DMG * LS;
                 //detect if target is killed to increase totalKills stat
                 if (target.HP <= 0) {
-                    totalKills++;
-                    killsLastFrame++;
+                    kill(target);
                 }
             }
             //start cooldown of attack
@@ -593,6 +604,23 @@ public class Character : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    //increase killer's kill stats and xp
+    public void kill(Character victim) {
+        totalKills++;
+        killsLastFrame++;
+        //level progress will depend on victim's level the equation is open to changing
+        xpProgress += victim.level;
+    }
+    private void levelUp() {
+        xpProgress -= xpCap;
+        level++;
+        //maybe give more stats every 10 levels or smthn level cap setup is done in start method as well.
+        statPoints++;
+        xpCap = level + (level * ((level - 1) / 2));
+        //update xpCap depending on level
+    }
     void FixedUpdate()
     {
         
@@ -602,6 +630,8 @@ public class Character : MonoBehaviour
         movement();
         doAbilities();
         capHP();
+        if (xpProgress >= xpCap)
+            levelUp();
 
         resetKillsLastFrame();//always keep me last in update
     }

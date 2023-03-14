@@ -9,6 +9,9 @@ public class CastAura : Ability
     //duration remaining
     public float durationRemaining=0;
     public bool active = false;
+    //wether it targets enemy or ally or both
+    public bool enemy;
+    public bool ally;
     Aura aura;
 
     private void Start() {
@@ -21,6 +24,8 @@ public class CastAura : Ability
             aura.amt = amt;
             //sets the caster
             aura.caster = character;
+            aura.ally = ally;
+            aura.enemy = enemy;
             prefabObject.SetActive(true);
             startCooldown();
             startActiveDuration();

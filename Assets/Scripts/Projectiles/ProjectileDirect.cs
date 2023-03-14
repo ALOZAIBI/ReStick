@@ -15,8 +15,7 @@ public class ProjectileDirect : Projectile {
                 victim.HP -= dmg;
                 shooter.HP += dmg * LS;
                 if(victim.HP <= 0) {
-                    shooter.totalKills++;
-                    shooter.killsLastFrame++;
+                    shooter.kill(victim);
                 }
                 Destroy(gameObject);
             }

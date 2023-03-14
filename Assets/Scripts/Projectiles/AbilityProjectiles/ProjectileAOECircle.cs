@@ -29,8 +29,7 @@ public class ProjectileAOECircle : Projectile
             if (victim.team != shooter.team) {
                 victim.HP -= dmg*Time.fixedDeltaTime;
                 if (victim.HP <= 0) {
-                    shooter.totalKills++;
-                    shooter.killsLastFrame++;
+                    shooter.kill(victim);
                 }
             }
         }

@@ -27,8 +27,7 @@ public class ProjectilePiercing : Projectile
                 victim.HP -= dmg;
                 shooter.HP += dmg * LS * 0.33f;
                 if (victim.HP <= 0) {
-                    shooter.totalKills++;
-                    shooter.killsLastFrame++;
+                    shooter.kill(victim);
                 }
             }
         }
