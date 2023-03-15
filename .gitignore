@@ -112,7 +112,9 @@
 /Temp
 /Stick.sln
 /PsdPlugin.csproj
-/ProjectSettings
+# Ignores all files except the tagmanager
+/ProjectSettings/*
+!/ProjectSettings/TagManager.asset
 /Packages
 /obj
 /Logs
