@@ -87,50 +87,50 @@ public class CharacterInfoScreen : MonoBehaviour
     //displays the stats and cool stats of the character and character screen
 
     private void handleColor(Character currChar) {
-        if (currChar.DMG > currChar.rsDMG)
+        if (currChar.DMG > currChar.zsDMG)
             DMG.color = ColorPalette.buff;
         else
-        if (currChar.DMG < currChar.rsDMG)
+        if (currChar.DMG < currChar.zsDMG)
             DMG.color = ColorPalette.debuff;
         else
             DMG.color = ColorPalette.defaultColor;
 
-        if (currChar.AS > currChar.rsAS)
+        if (currChar.AS > currChar.zsAS)
             AS.color = ColorPalette.buff;
         else
-        if (currChar.AS < currChar.rsAS)
+        if (currChar.AS < currChar.zsAS)
             AS.color = ColorPalette.debuff;
         else
             AS.color = ColorPalette.defaultColor;
 
-        if (currChar.MS > currChar.rsMS)
+        if (currChar.MS > currChar.zsMS)
             MS.color = ColorPalette.buff;
         else
-        if (currChar.MS < currChar.rsMS)
+        if (currChar.MS < currChar.zsMS)
             MS.color = ColorPalette.debuff;
         else
             MS.color = ColorPalette.defaultColor;
 
-        if (currChar.Range > currChar.rsRange)
+        if (currChar.Range > currChar.zsRange)
             RNG.color = ColorPalette.buff;
         else
-        if (currChar.Range < currChar.rsRange)
+        if (currChar.Range < currChar.zsRange)
             RNG.color = ColorPalette.debuff;
         else
             RNG.color = ColorPalette.defaultColor;
 
-        if (currChar.Range > currChar.rsRange)
+        if (currChar.Range > currChar.zsRange)
             RNG.color = ColorPalette.buff;
         else
-        if (currChar.Range < currChar.rsRange)
+        if (currChar.Range < currChar.zsRange)
             RNG.color = ColorPalette.debuff;
         else
             RNG.color = ColorPalette.defaultColor;
 
-        if (currChar.LS > currChar.rsLS)
+        if (currChar.LS > currChar.zsLS)
             LS.color = ColorPalette.buff;
         else
-        if (currChar.LS < currChar.rsLS)
+        if (currChar.LS < currChar.zsLS)
             LS.color = ColorPalette.debuff;
         else
             LS.color = ColorPalette.defaultColor;
