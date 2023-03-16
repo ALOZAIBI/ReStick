@@ -29,6 +29,10 @@ public class CharacterInfoScreen : MonoBehaviour
 
     public Button openTargetSelectionBtn;
 
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI levelProgress;
+    public Image levelBar;
+
     public int pageIndex = 0;
     //0 landing page
     //1 target selection
@@ -146,6 +150,11 @@ public class CharacterInfoScreen : MonoBehaviour
         totalKills.text = currChar.totalKills + "";
         //fills the HP bar correctly
         healthBar.character = currChar;
+
+        //
+        levelText.text = "LVL: "+currChar.level;
+        levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
+        levelProgress.text = currChar.xpProgress + "/"+currChar.xpCap;
     }
 
     public void close() {

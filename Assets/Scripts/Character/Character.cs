@@ -55,7 +55,7 @@ public class Character : MonoBehaviour {
     //how much xp in current level
     public int xpProgress=0;
     //how much xp needed to level up
-    public int xpCap;
+    public int xpCap=1;
     //points that can be used on stats (gained wen leveling up)
     public int statPoints;
     #region

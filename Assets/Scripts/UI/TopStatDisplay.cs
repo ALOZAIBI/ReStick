@@ -17,6 +17,9 @@ public class TopStatDisplay : MonoBehaviour
     public CharacterHealthBar healthBar;
 
     public Button moreInfoBtn;
+
+    public TextMeshProUGUI levelText;
+    public Image levelBar;
     //the character will be assigned when the character is clicked
     //on zone's start hide me
     void Start()
@@ -93,6 +96,9 @@ public class TopStatDisplay : MonoBehaviour
         try {
             healthBar.character = character;
             charName.text = character.name;
+
+            levelText.text = "LVL: " + character.level;
+            levelBar.fillAmount = (float)character.xpProgress / character.xpCap;
         }
         catch { }
         
