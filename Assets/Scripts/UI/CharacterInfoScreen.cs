@@ -29,6 +29,9 @@ public class CharacterInfoScreen : MonoBehaviour
 
     public Button openTargetSelectionBtn;
 
+    //Stat point stuff
+    [SerializeField]private StatPointUI statPointUI;
+
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI levelProgress;
     public Image levelBar;
@@ -54,6 +57,8 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     //this function displays the information in the characterInfoScreen
     public void viewCharacter(Character currChar) {
+        
+        
         //sets the attributes to the character's
         characterName.text = currChar.name;
         //sets the image of character
@@ -64,11 +69,12 @@ public class CharacterInfoScreen : MonoBehaviour
         targetSelector.target.text = TargetNames.getName(currChar.attackTargetStrategy);
         targetSelector.character = currChar;
 
+        character = currChar;
+
         openLandingPage();
         displayStats(currChar);
         displayCharacterAbilities(currChar);
 
-        character = currChar;
     }
 
     public void displayCharacterAbilities(Character currChar) {
@@ -139,7 +145,9 @@ public class CharacterInfoScreen : MonoBehaviour
         else
             LS.color = ColorPalette.defaultColor;
     }
-    private void displayStats(Character currChar) {
+    public void displayStats(Character currChar) {
+        
+
         handleColor(currChar);
         //the empty quotes is to convert float to str
         DMG.text = currChar.DMG.ToString("F1");
@@ -147,6 +155,14 @@ public class CharacterInfoScreen : MonoBehaviour
         MS.text = currChar.MS.ToString("F1");
         RNG.text = currChar.Range.ToString("F1");
         LS.text = currChar.LS.ToString("F1");
+
+        //displays statPoints if zone hasn't started and if the character has statpoints available
+        if (currChar.statPoints > 0) {
+            Debug.Log("More than 0 stat points");
+            statPointUI.gameObject.SetActive(!uiManager.zone.started);
+            statPointUI.fakeStatDisplay();
+        }
+
         totalKills.text = currChar.totalKills + "";
         //fills the HP bar correctly
         healthBar.character = currChar;
