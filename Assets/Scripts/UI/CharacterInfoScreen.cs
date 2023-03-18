@@ -74,7 +74,7 @@ public class CharacterInfoScreen : MonoBehaviour
         openLandingPage();
         displayStats(currChar);
         displayCharacterAbilities(currChar);
-
+        healthBar.manualDisplayHealth();
     }
 
     public void displayCharacterAbilities(Character currChar) {
@@ -159,8 +159,12 @@ public class CharacterInfoScreen : MonoBehaviour
         //displays statPoints if zone hasn't started and if the character has statpoints available
         if (currChar.statPoints > 0) {
             Debug.Log("More than 0 stat points");
-            statPointUI.gameObject.SetActive(!uiManager.zone.started);
-            statPointUI.fakeStatDisplay();
+            if (!uiManager.zoneStarted()) {
+                statPointUI.gameObject.SetActive(true);
+                statPointUI.fakeStatDisplay();
+            }
+            else
+                statPointUI.gameObject.SetActive(false);
         }
 
         totalKills.text = currChar.totalKills + "";

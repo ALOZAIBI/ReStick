@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.TextCore.Text;
+using System;
 
 public class StatPointUI : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
@@ -30,13 +31,18 @@ public class StatPointUI : MonoBehaviour {
 
     [SerializeField] private Button addLS;
     [SerializeField] private Button subLS;
-    
+
+    [SerializeField] private Button addHP;
+    [SerializeField] private Button subHP;
+
     //the amount that clicking the button adds/removes
     [SerializeField] private float DMGAmt;
     [SerializeField] private float ASAmt;
     [SerializeField] private float MSAmt;
     [SerializeField] private float RNGAmt;
     [SerializeField] private float LSAmt;
+    [SerializeField] private float HPAmt;
+
 
     [SerializeField] private Button applyChangesBtn;
     [SerializeField] private Button resetChangesBtn;
@@ -46,6 +52,8 @@ public class StatPointUI : MonoBehaviour {
     private float MSbuffer;
     private float RNGbuffer;
     private float LSbuffer;
+    private float HPbuffer;
+
 
     //How much SP used
     private int SPUsedBuffer;
@@ -65,6 +73,8 @@ public class StatPointUI : MonoBehaviour {
         subRNG.gameObject.SetActive(false);
         addLS.gameObject.SetActive(false);
         subLS.gameObject.SetActive(false);
+        addHP.gameObject.SetActive(false);
+        subHP.gameObject.SetActive(false);
     }
 
     public void show() {
@@ -81,6 +91,8 @@ public class StatPointUI : MonoBehaviour {
         subRNG.gameObject.SetActive(true);
         addLS.gameObject.SetActive(true);
         subLS.gameObject.SetActive(true);
+        addHP.gameObject.SetActive(true);
+        subHP.gameObject.SetActive(true);
     }
 
     private void Start() {
@@ -95,6 +107,8 @@ public class StatPointUI : MonoBehaviour {
         subRNG.onClick.AddListener(OnSubRNGButtonClicked);
         addLS.onClick.AddListener(OnAddLSButtonClicked);
         subLS.onClick.AddListener(OnSubLSButtonClicked);
+        addHP.onClick.AddListener(OnAddHPButtonClicked);
+        subHP.onClick.AddListener(OnSubHPButtonClicked);
 
         applyChangesBtn.onClick.AddListener(applyChanges);
         resetChangesBtn.onClick.AddListener(resetChanges);
@@ -108,6 +122,8 @@ public class StatPointUI : MonoBehaviour {
         characterInfoScreen.character.MS += MSbuffer;
         characterInfoScreen.character.Range += RNGbuffer;
         characterInfoScreen.character.LS += LSbuffer;
+        characterInfoScreen.character.HPMax += HPbuffer;
+        characterInfoScreen.character.HP += HPbuffer;
 
         characterInfoScreen.character.statPoints -= SPUsedBuffer;
 
@@ -117,6 +133,7 @@ public class StatPointUI : MonoBehaviour {
         MSbuffer = 0;
         RNGbuffer = 0;
         LSbuffer = 0;
+        HPbuffer = 0;
         SPUsedBuffer = 0;
 
         characterInfoScreen.displayStats(characterInfoScreen.character);
@@ -128,6 +145,8 @@ public class StatPointUI : MonoBehaviour {
         MSbuffer = 0;
         RNGbuffer = 0;
         LSbuffer = 0;
+        HPbuffer = 0;
+
         SPUsedBuffer = 0;
 
         characterInfoScreen.displayStats(characterInfoScreen.character);
@@ -224,6 +243,24 @@ public class StatPointUI : MonoBehaviour {
         }
     }
 
+    // OnAdd function for HP
+    public void OnAddHPButtonClicked() {
+        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+            HPbuffer += HPAmt;
+            SPUsedBuffer++;
+            fakeStatDisplay();
+        }
+    }
+
+    // OnSub function for HP
+    public void OnSubHPButtonClicked() {
+        if (HPbuffer > 0) {
+            HPbuffer -= HPAmt;
+            SPUsedBuffer--;
+            fakeStatDisplay();
+        }
+    }
+
 
 
 
@@ -236,6 +273,7 @@ public class StatPointUI : MonoBehaviour {
         characterInfoScreen.MS.text = (characterInfoScreen.character.MS + MSbuffer).ToString("F1");
         characterInfoScreen.RNG.text = (characterInfoScreen.character.Range + RNGbuffer).ToString("F1");
         characterInfoScreen.LS.text = (characterInfoScreen.character.LS + LSbuffer).ToString("F1");
+        characterInfoScreen.healthBar.HPtext.text=((characterInfoScreen.character.HP+HPbuffer).ToString("F1") + "/" + (characterInfoScreen.character.HPMax+HPbuffer).ToString("F1"));
     }
 
     private void Update() {

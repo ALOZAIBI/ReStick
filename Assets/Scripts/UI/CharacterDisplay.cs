@@ -30,7 +30,7 @@ public class CharacterDisplay : MonoBehaviour {
     }
 
     private float mouseHoldDuration = 0;
-    private bool click = false;
+    public bool click = false;
     //when the characterDisplay is clicked
     //drag
     private void OnMouseDown() {

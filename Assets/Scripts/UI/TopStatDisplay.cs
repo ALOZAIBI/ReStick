@@ -89,6 +89,7 @@ public class TopStatDisplay : MonoBehaviour
         MS.text = character.MS.ToString("F1");
         RNG.text = character.Range.ToString("F1");
         LS.text = character.LS.ToString("F1");
+        healthBar.manualDisplayHealth();
     }
     // Update is called once per frame
     void Update()

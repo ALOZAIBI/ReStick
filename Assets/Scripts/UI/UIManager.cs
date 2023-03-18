@@ -286,6 +286,18 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    //returns if zone started or not
+    public bool zoneStarted() {
+        //this test is done when game isn;t in zone and hence zone.started cant be tested 
+        if (zone == null) {
+            Debug.Log("Zone not started");
+            return false;
+        }
+        else {
+            Debug.Log("Other not started");
+            return zone.started;
+        }
+    }
     private void Update() {
         if(zone == null) {
             try {
@@ -299,6 +311,7 @@ public class UIManager : MonoBehaviour
         }
         catch { goldtext.text = "G:" + playerParty.gold; }
         //hide();
+
 
     }
 }
