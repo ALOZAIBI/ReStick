@@ -157,15 +157,13 @@ public class CharacterInfoScreen : MonoBehaviour
         LS.text = currChar.LS.ToString("F1");
 
         //displays statPoints if zone hasn't started and if the character has statpoints available
-        if (currChar.statPoints > 0) {
-            Debug.Log("More than 0 stat points");
-            if (!uiManager.zoneStarted()) {
-                statPointUI.gameObject.SetActive(true);
-                statPointUI.fakeStatDisplay();
-            }
-            else
-                statPointUI.gameObject.SetActive(false);
+        if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
+            Debug.Log("showing");
+            statPointUI.show();
+            statPointUI.fakeStatDisplay();
         }
+        else
+            statPointUI.hide();
 
         totalKills.text = currChar.totalKills + "";
         //fills the HP bar correctly

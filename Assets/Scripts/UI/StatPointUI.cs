@@ -56,7 +56,7 @@ public class StatPointUI : MonoBehaviour {
 
 
     //How much SP used
-    private int SPUsedBuffer;
+    [SerializeField] private int SPUsedBuffer;
 
     //thanks chatGPT
     public void hide() {
@@ -277,11 +277,6 @@ public class StatPointUI : MonoBehaviour {
     }
 
     private void Update() {
-        if (characterInfoScreen.character.statPoints > 0) {
-            show();
-        }
-        else
-            hide();
     }
 
 }
