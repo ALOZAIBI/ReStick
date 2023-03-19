@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class CharacterDisplay : MonoBehaviour {
+using UnityEngine.EventSystems;
+
+public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     public Character character;
 
     [SerializeField] private UIManager uiManager;
     [SerializeField] private Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private Button btn;
 
 
     //to get position of mouse to be used in MOuseUp
@@ -26,24 +29,19 @@ public class CharacterDisplay : MonoBehaviour {
         healthBar.character = character;
         //sets the name
         name.text = character.name;
-        
+
     }
 
     private float mouseHoldDuration = 0;
     public bool click = false;
+
     //when the characterDisplay is clicked
     //drag
-    private void OnMouseDown() {
-        Debug.Log("BEING CLICKED");
-        click = true;
-
-    }
-
-
     private void mouseClickedNotHeld() {
         if (click) {
+            camMov.pannable = false;
+            Debug.Log("Mouse clicking?" + Input.GetMouseButton(0));
             if (Input.GetMouseButton(0)) {
-                camMov.pannable = false;
                 mouseHoldDuration += Time.unscaledDeltaTime;
                 //if held drag character to mouse Position
                 if (mouseHoldDuration > 0.2f) {
@@ -69,8 +67,9 @@ public class CharacterDisplay : MonoBehaviour {
                 camMov.pannable = true;
             }
 
-
         }
+        else
+            mouseHoldDuration = 0;
     }
     private void Update() {
         //if placing screen is not hidden check if clicked and not held
@@ -81,4 +80,8 @@ public class CharacterDisplay : MonoBehaviour {
         }
     }
 
+    public void OnPointerDown(PointerEventData eventData) {
+        Debug.Log("Pointer down test" + character.name);
+        click = true;
+    }
 }
