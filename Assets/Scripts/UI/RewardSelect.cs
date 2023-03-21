@@ -49,7 +49,7 @@ public class RewardSelect : MonoBehaviour
             //then clears the list to be reinitialized in another zone
             listReward.Clear();
             //loads map
-            uiManager.loadMap();
+            uiManager.loadScene();
         }
     }
     //Displays the abilities and greys out the Button.

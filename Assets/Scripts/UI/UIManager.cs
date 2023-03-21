@@ -35,9 +35,13 @@ public class UIManager : MonoBehaviour
     //displays how much gold player has
     public TextMeshProUGUI goldtext;
 
-    //Game Won Screen Stuff
+    //Zone Won Screen Stuff
     public Image gameWonScreen;
     public RewardSelect rewardSelectScreen;
+
+    //Map Won Screen Stuff
+    public Image mapWonScreen;
+    public Button backToWorldBtn;
 
     //Game Lost Screen Stuff
     public Image gameLostScreen;
@@ -45,7 +49,7 @@ public class UIManager : MonoBehaviour
     public Button lostToRestartBtn;
 
     //the scene to be loaded
-    public string mapSceneName;
+    public string sceneToLoad;
 
     public TopStatDisplay topStatDisplay;
 
@@ -69,6 +73,7 @@ public class UIManager : MonoBehaviour
     public HideUI charInfoScreenHidden;
     public HideUI inventoryScreenHidden;
     public HideUI gameWonScreenHidden;
+    public HideUI mapWonScreenHidden;
     public HideUI gameLostScreenHidden;
     public HideUI topStatDisplayHidden;
     private void Start() {
@@ -77,11 +82,13 @@ public class UIManager : MonoBehaviour
         charInfoScreenHidden = characterInfoScreen.GetComponent<HideUI>();
         inventoryScreenHidden = inventoryScreen.GetComponent<HideUI>();
         gameWonScreenHidden = gameWonScreen.GetComponent<HideUI>();
+        mapWonScreenHidden = mapWonScreen.GetComponent<HideUI>();
         gameLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
         topStatDisplayHidden = topStatDisplay.GetComponent<HideUI>();
 
         //
-        lostToMapBtn.onClick.AddListener(loadMap);
+        lostToMapBtn.onClick.AddListener(loadScene);
+        backToWorldBtn.onClick.AddListener(loadScene);
 
         lostToRestartBtn.onClick.AddListener(restartZone);
 
@@ -130,7 +137,7 @@ public class UIManager : MonoBehaviour
             gameWonScreenHidden.hidden = false;
             rewardSelectScreen.displayAbilities();
             pausePlayBtn.gameObject.SetActive(false);
-            mapSceneName = sceneName;
+            sceneToLoad = sceneName;
             //the rewardSelectScreen contains the Button. The button waits for an ability to be selected. Once it is selected
             //the button can be clicked to add it to inventory and go back to mapSceneName
         //}
@@ -140,7 +147,7 @@ public class UIManager : MonoBehaviour
         gameLostScreenHidden.hidden = false;
         pausePlayBtn.gameObject.SetActive(false);
         timeControlHidden.hidden = true;
-        mapSceneName = sceneName;
+        sceneToLoad = sceneName;
     }
 
 
@@ -158,7 +165,7 @@ public class UIManager : MonoBehaviour
     }
     //this is triggered by a button
     //loads map and reset cam position
-    public void loadMap() {
+    public void loadScene() {
         clearBuffs();
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
@@ -171,7 +178,8 @@ public class UIManager : MonoBehaviour
         //unhides inventory but it will be hidden again when start button is clicked in characte rplacing
         openInventoryBtn.gameObject.SetActive(true);
         //characters are set to inactive in Scene Select        
-        SceneManager.LoadScene(mapSceneName);
+        SceneManager.LoadScene(sceneToLoad);
+        closeUI();
         
     }
     //tis is triggered by a button;
@@ -206,6 +214,7 @@ public class UIManager : MonoBehaviour
         inventoryScreen.closeHeader();
         inventoryScreen.closeBody();
         gameWonScreenHidden.hidden = true;
+        mapWonScreenHidden.hidden=true;
 
         //unhides placing screen if zone not started
         try {

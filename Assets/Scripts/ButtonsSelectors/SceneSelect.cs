@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//To make this Start function execute Before Map's Start function
+[DefaultExecutionOrder(-100)]
+
 public class SceneSelect : MonoBehaviour
 {
     //holds empty parent object that contains children objects that are to be kept between scenes
@@ -27,13 +30,15 @@ public class SceneSelect : MonoBehaviour
         }
     }
     private void Start() {
+        if(map == zone) {
+            throw new CannotBeMapAndZone("can't be Map AND zone");
+        }
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty");
         startBtn.onClick.AddListener(goTo);
         closeUI.onClick.AddListener(close);
         dontDestroys = GameObject.FindGameObjectWithTag("dontDestroys");
-        if(map == zone) {
-            throw new CannotBeMapAndZone("can't be Map AND zone");
-        }
+
+        SaveSystem.loadCompletionSceneSelect(this);
     }
 
     //clicky stuff
