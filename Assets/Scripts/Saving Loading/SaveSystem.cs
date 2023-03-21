@@ -53,6 +53,29 @@ using System;
             Debug.Log("file doesn't exist in " + path);
             return false;
         }
+    }
+    //loads wether or not a Zone has been completed to SceneSelect
+    public static bool loadCompletionSceneSelect(SceneSelect sceneSelect) {
+        string path = Application.persistentDataPath + "/" + sceneSelect.sceneToLoad + ".xrt";
+        if (File.Exists(path)) {
+            using (FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+                //the 2 lines that follow are the encrypted version
+                //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                //ZoneData data = JsonConvert.DeserializeObject<ZoneData>(Encoding.UTF8.GetString(encodedBytes));
 
+                //this is the non encrypted version
+                ZoneData data = JsonConvert.DeserializeObject<ZoneData>(reader.ReadString());
+                //the actual loading
+                sceneSelect.completed = data.completed;
+            }
+            Debug.Log("file loaded from " + path);
+            return true;
+        }
+        else {
+            Debug.Log("Zone hasn't been completed ");
+            sceneSelect.completed = false;
+            return false;
+        }
     }
 }

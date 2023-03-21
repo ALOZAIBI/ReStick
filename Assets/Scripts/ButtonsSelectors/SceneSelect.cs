@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,11 +17,23 @@ public class SceneSelect : MonoBehaviour
     [SerializeField] private Button closeUI;
     [SerializeField] private GameObject playerParty;
 
+    public bool map;
+    public bool zone;
+
+    public bool completed;
+    public class CannotBeMapAndZone : Exception {
+        public CannotBeMapAndZone(string message) : base(message) {
+
+        }
+    }
     private void Start() {
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty");
         startBtn.onClick.AddListener(goTo);
         closeUI.onClick.AddListener(close);
         dontDestroys = GameObject.FindGameObjectWithTag("dontDestroys");
+        if(map == zone) {
+            throw new CannotBeMapAndZone("can't be Map AND zone");
+        }
     }
 
     //clicky stuff
