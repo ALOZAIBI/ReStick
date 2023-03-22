@@ -332,7 +332,7 @@ SpriteRenderer:
   m_SortingLayerID: 19169435
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f069f52a15175fa4d98346a7c4c26d4b, type: 3}
   m_Color: {r: 0.7264151, g: 0.37158597, b: 0.15350655, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -366,11 +366,24 @@ MonoBehaviour:
   Range: 1
   LS: 0
   alive: 1
+  totalKills: 0
+  zsDMG: 0
+  zsHP: 0
+  zsHPMax: 0
+  zsAS: 0
+  zsMS: 0
+  zsRange: 0
+  zsLS: 0
+  zsTotalKills: 0
   canMove: 1
   canAttack: 1
   targetable: 1
   usesProjectile: 0
   projectile: {fileID: 0}
+  level: 1
+  xpProgress: 0
+  xpCap: 1
+  statPoints: 0
   team: 0
   attackTargetStrategy: 0
   movementTargetStrategy: 0
@@ -380,7 +393,6 @@ MonoBehaviour:
   killsLastFrame: 0
   bonusStats: []
   buffs: []
-  totalKills: 0
   lastPosition: {x: 0, y: 0}
   isIdle: 0
   idleMov: 0
@@ -400,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f87536a656ffd46b3d50a4c75df6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
   character: {fileID: 6813961152882052331}
   health: {fileID: 5892780058760769409}
   HPtext: {fileID: 0}
@@ -420,7 +433,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10.8, y: 10.8}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
