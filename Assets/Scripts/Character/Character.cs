@@ -216,13 +216,14 @@ public class Character : MonoBehaviour {
     
     private void movement() {
         if (!canMove) {
-            animationManager.move(false);
-            return;
+            try { animationManager.move(false);} 
+            catch { /*IF this character has no animation manager it's okay*/}
+            
         }
         //if the character is idle move towards direction that was randomly generated in checkIdle
         if (isIdle) {
-            animationManager.move(true);
-            animationManager.move(true);
+            try { animationManager.move(true); }
+            catch { /*IF this character has no animation manager it's okay*/}
             transform.position = (Vector2)transform.position + (direction * (MS * 0.5f * Time.fixedDeltaTime));
         }
 
@@ -230,18 +231,22 @@ public class Character : MonoBehaviour {
             selectTarget(movementTargetStrategy);
             //Kiting(Moves away from target when attack not ready)
             if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
-                animationManager.move(true);
+                try { animationManager.move(true); }
+                catch { /*IF this character has no animation manager it's okay*/}
                 //move away from target
                 transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, -MS * Time.fixedDeltaTime));
             }
             else
             //walks towards target till in range
             if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
-                animationManager.move(true);
+                try { animationManager.move(true); }
+                catch { /*IF this character has no animation manager it's okay*/}
                 transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
             }
-            else
-                animationManager.move(false);
+            else {
+                try { animationManager.move(false); }
+                catch { /*IF this character has no animation manager it's okay*/}
+            }
         }
     }
 
