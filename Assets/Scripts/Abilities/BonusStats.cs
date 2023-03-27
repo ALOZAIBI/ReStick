@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BonusStats : MonoBehaviour
 {
-    public float DMG=0;
+    public float PD=0;
     public float HP=0;
     public float AS=0;
     public float MS=0;
@@ -17,7 +17,7 @@ public class BonusStats : MonoBehaviour
     //applies stats once ( if applystats is called again applied would be true so nothing would happen)
     public void applyStats() {
         if (!applied) {
-            character.DMG += DMG;
+            character.PD += PD;
             character.HP += HP;
             character.HPMax += HP;
             character.AS += AS;

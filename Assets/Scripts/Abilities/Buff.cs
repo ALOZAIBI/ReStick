@@ -6,9 +6,11 @@ public class Buff : MonoBehaviour
 {
     public bool applied;
 
-    public float DMG;
+    public float PD;
+    public float MD;
     public float HP;
     public float AS;
+    public float CDR;
     public float MS;
     public float Range;
     public float LS;
@@ -16,7 +18,7 @@ public class Buff : MonoBehaviour
     public float size;
 
     //to be applied in the future either deals damage over time or heals over time
-    //kinda like darius blood for the dmg
+    //kinda like darius blood for the PD
     public float dps;
     public Character caster;
     public Character target;
@@ -48,12 +50,14 @@ public class Buff : MonoBehaviour
     //applies the buff
     public void applyBuff() {
         if (!applied) {
-            target.DMG += DMG;
+            target.PD += PD;
+            target.MD += MD;
             //increases HP cap and HP
             target.HPMax += HP;
             target.HP += HP;
 
             target.AS += AS;
+            target.CDR += CDR;
             target.MS += MS;
             target.Range += Range;
             target.LS += LS;
@@ -67,10 +71,12 @@ public class Buff : MonoBehaviour
 
     //removes the applied stats then deletes this gameobject
     public void removeBuff() {
-        target.DMG -= DMG;
+        target.PD -= PD;
+        target.MD -= MD;
         //just decrements HP cap
         target.HPMax -= HP;
         target.AS -= AS;
+        target.CDR -= CDR;
         target.MS -= MS;
         target.Range -= Range;
         target.LS -= LS;

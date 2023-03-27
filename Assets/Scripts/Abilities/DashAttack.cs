@@ -19,6 +19,7 @@ public class DashAttack : Ability
     }
     public override void doAbility() {
         if (available) {
+            calculateAmt();
             //selects target
             character.selectTarget(targetStrategy);
             //dashes to target
@@ -30,8 +31,7 @@ public class DashAttack : Ability
                 //apply life steal
                 character.HP += amt * character.LS;
                 if (character.target.HP < 0) {
-                    character.totalKills++;
-                    character.killsLastFrame++;
+                    character.kill(character.target);
                     //reset cd
                     startCooldown();
                     CD = cdReset;
@@ -47,7 +47,11 @@ public class DashAttack : Ability
     }
 
     public override void updateDescription() {
-        description = "Dash towards target dealing " + amt + "DMG reset CD if this kills";
+        try {
+            calculateAmt();
+        }
+        catch { /* avoids null character issue*/}
+        description = "Dash towards target dealing " + amt + "PD reset CD if this kills";
     }
 
 

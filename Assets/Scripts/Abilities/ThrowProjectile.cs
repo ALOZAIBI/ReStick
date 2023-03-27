@@ -12,6 +12,7 @@ public class ThrowProjectile : Ability
     }
     public override void doAbility() {
         if (available) {
+            calculateAmt();
             Debug.Log("ABILITY DONE WHAT");
             //selects target based on the ability's targetting strategy;
             character.selectTarget(targetStrategy);
@@ -21,7 +22,7 @@ public class ThrowProjectile : Ability
             //sets the shooter to be the caster of this ability
             projectile.shooter = character;
             //sets the damage amount
-            projectile.dmg = amt;
+            projectile.PD = amt;
             //sets the target
             projectile.target = character.target;
             ////sets the projectiles direction
@@ -33,7 +34,11 @@ public class ThrowProjectile : Ability
 
     }
     public override void updateDescription() {
-        description = "Throws a thing that deals " + amt + " DMG to all characters within";
+        try {
+            calculateAmt();
+        }
+        catch { /* avoids null character issue*/}
+        description = "Throws a thing that deals " + amt + " PD to all characters within";
     }
 
     private void FixedUpdate() {

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ApplyBuff : Ability
 {
-    public float DMG;
+    public float PD;
+    public float MD;
     public float HP;
     public float AS;
+    public float CDR;
     public float MS;
     public float Range;
     public float LS;
@@ -26,11 +28,14 @@ public class ApplyBuff : Ability
         //selects target
         character.selectTarget(targetStrategy);
         if (character.target!=null && available && buffNotOnTarget()) {
+            calculateAmt();
             //creates buff
             Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
-            buff.DMG = DMG;
+            buff.PD = PD;
+            buff.MD = MD;
             buff.HP = HP;
             buff.AS = AS;
+            buff.CDR = CDR;
             buff.MS = MS;
             buff.Range = Range;
             buff.LS = LS;
@@ -53,12 +58,16 @@ public class ApplyBuff : Ability
 
     public override void updateDescription() {
         description = "Give target ";
-        if (DMG != 0)
-            description += DMG + " DMG ";
+        if (PD != 0)
+            description += PD + " PD ";
+        if (MD != 0)
+            description += MD + " MD ";
         if (HP != 0)
             description += HP + " HP ";
         if (AS != 0)
             description += AS + " AS ";
+        if (CDR != 0)
+            description += CDR + " CDR ";
         if (MS != 0)
             description += MS + " MS ";
         if (Range != 0)

@@ -18,14 +18,14 @@ public class ProjectilePiercing : Projectile
         transform.position = (Vector2)transform.position + (direction * (speed * Time.fixedDeltaTime));
     }
 
-    //deals dmg once to every enemy hit
+    //deals PD once to every enemy hit
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Character") {
             Character victim = collision.GetComponent<Character>();
             //deals damage to everyhing not in the shooters team
             if (victim.team != shooter.team) {
-                victim.HP -= dmg;
-                shooter.HP += dmg * LS * 0.33f;
+                victim.HP -= PD;
+                shooter.HP += PD * LS * 0.33f;
                 if (victim.HP <= 0) {
                     shooter.kill(victim);
                 }

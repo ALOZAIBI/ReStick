@@ -15,13 +15,13 @@ public class AttackTargetSelector : MonoBehaviour {
     public Button closestEnemyBtn;
     public Button closestAllyBtn;
 
-    public Button highestDmgEnemyBtn;
-    public Button lowestDmgEnemyBtn;
+    public Button highestPDEnemyBtn;
+    public Button lowestPDEnemyBtn;
     public Button highestHPEnemyBtn;
     public Button lowestHPEnemyBtn;
 
-    public Button highestDmgAllyBtn;
-    public Button lowestDmgAllyBtn;
+    public Button highestPDAllyBtn;
+    public Button lowestPDAllyBtn;
     public Button highestHPAllyBtn;
     public Button lowestHPAllyBtn;
 
@@ -37,13 +37,13 @@ public class AttackTargetSelector : MonoBehaviour {
         closestEnemyBtn.onClick.AddListener(selectClosestEnemy);
         closestAllyBtn.onClick.AddListener(selectClosestAlly);
 
-        highestDmgEnemyBtn.onClick.AddListener(selectHighestDmgEnemy);
-        lowestDmgEnemyBtn.onClick.AddListener(selectLowestDmgEnemy);
+        highestPDEnemyBtn.onClick.AddListener(selectHighestPDEnemy);
+        lowestPDEnemyBtn.onClick.AddListener(selectLowestPDEnemy);
         highestHPEnemyBtn.onClick.AddListener(selectHighestHPEnemy);
         lowestHPEnemyBtn.onClick.AddListener(selectLowestHPEnemy);
 
-        highestDmgAllyBtn.onClick.AddListener(selectHighestDmgAlly);
-        lowestDmgAllyBtn.onClick.AddListener(selectLowestDmgAlly);
+        highestPDAllyBtn.onClick.AddListener(selectHighestPDAlly);
+        lowestPDAllyBtn.onClick.AddListener(selectLowestPDAlly);
         highestHPAllyBtn.onClick.AddListener(selectHighestHPAlly);
         lowestHPAllyBtn.onClick.AddListener(selectLowestHPAlly);
 
@@ -75,25 +75,25 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         closeAndUpdateCharScreen();
     }
-    private void selectHighestDmgEnemy() {
+    private void selectHighestPDEnemy() {
         if (isAbilityTargetSelector) {
-            ability.targetStrategy = (int)Character.targetList.HighestDMGEnemy;
+            ability.targetStrategy = (int)Character.targetList.HighestPDEnemy;
         }
         else {
-            character.attackTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.HighestDMGEnemy;
+            character.attackTargetStrategy = (int)Character.targetList.HighestPDEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.HighestPDEnemy;
         }
         closeAndUpdateCharScreen();
 
     }
 
-    private void selectLowestDmgEnemy() {
+    private void selectLowestPDEnemy() {
         if (isAbilityTargetSelector) {
-            ability.targetStrategy = (int)Character.targetList.LowestDMGEnemy;
+            ability.targetStrategy = (int)Character.targetList.LowestPDEnemy;
         }
         else {
-            character.attackTargetStrategy = (int)Character.targetList.LowestDMGEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.LowestDMGEnemy;
+            character.attackTargetStrategy = (int)Character.targetList.LowestPDEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.LowestPDEnemy;
         }
         closeAndUpdateCharScreen();
 
@@ -122,25 +122,25 @@ public class AttackTargetSelector : MonoBehaviour {
 
     }
 
-    private void selectHighestDmgAlly() {
+    private void selectHighestPDAlly() {
         if (isAbilityTargetSelector) {
-            ability.targetStrategy = (int)Character.targetList.HighestDMGAlly;
+            ability.targetStrategy = (int)Character.targetList.HighestPDAlly;
         }
         else {
-            character.attackTargetStrategy = (int)Character.targetList.HighestDMGAlly;
-            character.movementTargetStrategy = (int)Character.targetList.HighestDMGAlly;
+            character.attackTargetStrategy = (int)Character.targetList.HighestPDAlly;
+            character.movementTargetStrategy = (int)Character.targetList.HighestPDAlly;
         }
         closeAndUpdateCharScreen();
 
     }
 
-    private void selectLowestDmgAlly() {
+    private void selectLowestPDAlly() {
         if (isAbilityTargetSelector) {
-            ability.targetStrategy = (int)Character.targetList.LowestDMGAlly;
+            ability.targetStrategy = (int)Character.targetList.LowestPDAlly;
         }
         else {
-            character.attackTargetStrategy = (int)Character.targetList.LowestDMGAlly;
-            character.movementTargetStrategy = (int)Character.targetList.LowestDMGAlly;
+            character.attackTargetStrategy = (int)Character.targetList.LowestPDAlly;
+            character.movementTargetStrategy = (int)Character.targetList.LowestPDAlly;
         }
         closeAndUpdateCharScreen();
 

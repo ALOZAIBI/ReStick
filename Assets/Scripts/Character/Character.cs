@@ -10,10 +10,13 @@ public class Character : MonoBehaviour {
     [SerializeField] private CameraMovement camMov;
 
     //Current stats
-    public float DMG;
+    public float PD;
+    public float MD;
     public float HP;
     public float HPMax;
     public float AS;
+    //CDR is a percentage if it is at 1.00 it iss (100%) 
+    public float CDR;
     public float MS;
     public float Range;
     public float LS;
@@ -24,10 +27,12 @@ public class Character : MonoBehaviour {
     public int totalKills = 0;
 
     //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI and will be used to reset interesting stats on loss_
-    public float zsDMG;
+    public float zsPD;
+    public float zsMD;
     public float zsHP;
     public float zsHPMax;
     public float zsAS;
+    public float zsCDR;
     public float zsMS;
     public float zsRange;
     public float zsLS;
@@ -85,8 +90,8 @@ public class Character : MonoBehaviour {
         //selects the closest enemy
         ClosestEnemy,
 
-        HighestDMGEnemy,
-        LowestDMGEnemy,
+        HighestPDEnemy,
+        LowestPDEnemy,
         
         HighestHPEnemy,
         LowestHPEnemy,
@@ -97,8 +102,8 @@ public class Character : MonoBehaviour {
         DefaultAlly,        
         //selects closest ally 
         ClosestAlly,
-        LowestDMGAlly,
-        HighestDMGAlly,
+        LowestPDAlly,
+        HighestPDAlly,
         HighestHPAlly,
         LowestHPAlly,
 
@@ -177,7 +182,7 @@ public class Character : MonoBehaviour {
             temp.applyStats();
         }
         //gets the stats on round start
-        zsDMG  = DMG;  
+        zsPD  = PD;  
         zsHP   = HP;
         zsHPMax= HPMax;
         zsAS   = AS;   
@@ -285,40 +290,40 @@ public class Character : MonoBehaviour {
                 target = closest;
                 break;
 
-            case (int)targetList.HighestDMGEnemy:
-                //initially assume that this is the MaxDmg Character
-                Character maxDmg = zone.charactersInside[0];
+            case (int)targetList.HighestPDEnemy:
+                //initially assume that this is the MaxPD Character
+                Character maxPD = zone.charactersInside[0];
                 foreach(Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if(temp.team != team) {
-                        //maxDmg.team == team is done in case the MaxDmg init was actually an ally
-                        if (maxDmg.team == team|| temp.DMG > maxDmg.DMG) {
-                            maxDmg = temp;
+                        //maxPD.team == team is done in case the MaxPD init was actually an ally
+                        if (maxPD.team == team|| temp.PD > maxPD.PD) {
+                            maxPD = temp;
                         }
                     }
                 }
                 //if there's only allies remaining target nothing
-                if (maxDmg.team == team)
-                    maxDmg = null;
-                target = maxDmg;
+                if (maxPD.team == team)
+                    maxPD = null;
+                target = maxPD;
                 break;
 
-            case (int)targetList.LowestDMGEnemy:
-                //initially assume that this is the MaxDmg Character
-                Character minDmg = zone.charactersInside[0];
+            case (int)targetList.LowestPDEnemy:
+                //initially assume that this is the MaxPD Character
+                Character minPD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //minDmg.team == team is done in case the MaxDmg init was actually an ally
-                        if (minDmg.team == team || temp.DMG < minDmg.DMG) {
-                            minDmg = temp;
+                        //minPD.team == team is done in case the MaxPD init was actually an ally
+                        if (minPD.team == team || temp.PD < minPD.PD) {
+                            minPD = temp;
                         }
                     }
                 }
                 //if there's only allies remaining target nothing
-                if (minDmg.team == team)
-                    minDmg = null;
-                target = minDmg;
+                if (minPD.team == team)
+                    minPD = null;
+                target = minPD;
                 break;
 
             case (int)targetList.HighestHPEnemy:
@@ -378,40 +383,40 @@ public class Character : MonoBehaviour {
                 target = closestAlly;
                 break;
 
-            case (int)targetList.HighestDMGAlly:
-                //initially assume that this is the MaxDmg Character
-                Character maxDmgAlly = zone.charactersInside[0];
+            case (int)targetList.HighestPDAlly:
+                //initially assume that this is the MaxPD Character
+                Character maxPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
                     if (temp.team == team && temp!=this) {
-                        //maxDmg.team == team is done in case the MaxDmg init was actually an enemy
-                        if (maxDmgAlly.team != team || temp.DMG > maxDmgAlly.DMG) {
-                            maxDmgAlly = temp;
+                        //maxPD.team == team is done in case the MaxPD init was actually an enemy
+                        if (maxPDAlly.team != team || temp.PD > maxPDAlly.PD) {
+                            maxPDAlly = temp;
                         }
                     }
                 }
                 //if there's only enemies remaining target nothing
-                if (maxDmgAlly.team != team)
-                    maxDmgAlly = null;
-                target = maxDmgAlly;
+                if (maxPDAlly.team != team)
+                    maxPDAlly = null;
+                target = maxPDAlly;
                 break;
 
-            case (int)targetList.LowestDMGAlly:
-                //initially assume that this is the MaxDmg Character
-                Character minDmgAlly = zone.charactersInside[0];
+            case (int)targetList.LowestPDAlly:
+                //initially assume that this is the MaxPD Character
+                Character minPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not itself
                     if (temp.team == team && temp!=this) {
-                        //minDmgAlly.team != team is done in case the MaxDmg init was actually an enemy
-                        if (minDmgAlly.team != team || temp.DMG < minDmgAlly.DMG) {
-                            minDmgAlly = temp;
+                        //minPDAlly.team != team is done in case the MaxPD init was actually an enemy
+                        if (minPDAlly.team != team || temp.PD < minPDAlly.PD) {
+                            minPDAlly = temp;
                         }
                     }
                 }
                 //if there's only enemies remaining target nothing
-                if (minDmgAlly.team != team)
-                    minDmgAlly = null;
-                target = minDmgAlly;
+                if (minPDAlly.team != team)
+                    minPDAlly = null;
+                target = minPDAlly;
                 break;
 
             case (int)targetList.HighestHPAlly:
@@ -473,7 +478,7 @@ public class Character : MonoBehaviour {
                 GameObject temp = Instantiate(projectile,transform.position,transform.rotation);
                 Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
                 instantiatedProjectile.shooter = this;
-                instantiatedProjectile.dmg = DMG;
+                instantiatedProjectile.PD = PD;
                 //THE SPEED IS SET IN THE PROJECTILE OBJECT ITSELF
                 //instantiatedProjectile.speed = 4;       //can make this an attribute to character
                 instantiatedProjectile.lifetime = 2;    //can make this an attribute to character
@@ -482,8 +487,8 @@ public class Character : MonoBehaviour {
             }
             else {
                 //deal damage to target
-                target.HP -= DMG;
-                HP += DMG * LS;
+                target.HP -= PD;
+                HP += PD * LS;
                 //detect if target is killed to increase totalKills stat
                 if (target.HP <= 0) {
                     kill(target);

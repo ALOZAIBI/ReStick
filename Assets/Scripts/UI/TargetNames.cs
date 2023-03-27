@@ -12,11 +12,11 @@ public class TargetNames : MonoBehaviour
             case (int)Character.targetList.ClosestEnemy:
                 return "Closest Enemy";
 
-            case (int)Character.targetList.HighestDMGEnemy:
-                return "Highest DMG Enemy";
+            case (int)Character.targetList.HighestPDEnemy:
+                return "Highest PD Enemy";
 
-            case (int)Character.targetList.LowestDMGEnemy:
-                return "Lowest DMG Enemy";
+            case (int)Character.targetList.LowestPDEnemy:
+                return "Lowest PD Enemy";
 
             case (int)Character.targetList.HighestHPEnemy:
                 return "Highest HP Enemy";
@@ -27,11 +27,11 @@ public class TargetNames : MonoBehaviour
             case (int)Character.targetList.ClosestAlly:
                 return "Closest Ally";
 
-            case (int)Character.targetList.HighestDMGAlly:
-                return "Highest DMG Ally";
+            case (int)Character.targetList.HighestPDAlly:
+                return "Highest PD Ally";
 
-            case (int)Character.targetList.LowestDMGAlly:
-                return "Lowest DMG Ally";
+            case (int)Character.targetList.LowestPDAlly:
+                return "Lowest PD Ally";
 
             case (int)Character.targetList.HighestHPAlly:
                 return "Highest HP Ally";

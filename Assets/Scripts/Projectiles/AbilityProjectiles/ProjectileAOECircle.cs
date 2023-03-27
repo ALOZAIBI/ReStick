@@ -27,7 +27,7 @@ public class ProjectileAOECircle : Projectile
             Character victim = collision.GetComponent<Character>();
             //deals damage to everyhing not in the shooters team
             if (victim.team != shooter.team) {
-                victim.HP -= dmg*Time.fixedDeltaTime;
+                victim.HP -= PD*Time.fixedDeltaTime;
                 if (victim.HP <= 0) {
                     shooter.kill(victim);
                 }

@@ -20,6 +20,11 @@ public abstract class Ability : MonoBehaviour
     //player can choose to add delay before an ability is executed
     public float delay;
 
+    //used to calculate amt     //consider adding more ratios such as HPMax HP MS AS etc...
+    public float baseAmt;
+    public float PDRatio;
+    public float MDRatio;
+    //amt = baseamt+charPD*PDratio+charMD*MDratio
     //the float value used in an ability what it is used for depends on the ability
     public float amt;
 
@@ -39,10 +44,17 @@ public abstract class Ability : MonoBehaviour
     //Abilities targetStrategy
     public int targetStrategy;
 
+    //call this in doAbility();
+    /// <summary>
+    /// Calculates amt by adding stat ratios
+    /// </summary>
+    public void calculateAmt() {
+        amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio;
+    }
 
     //if an ability has a cooldown call this inside doAbility()
     public void startCooldown() {
-        abilityNext = CD;
+        abilityNext = CD - CD*character.CDR;
         available = false;
     }
     //and put this in the fixedupdate function

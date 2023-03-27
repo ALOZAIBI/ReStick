@@ -9,7 +9,7 @@ public class TopStatDisplay : MonoBehaviour
     public UIManager uiManager;
 
 
-    public TextMeshProUGUI DMG, AS, MS, RNG, LS;
+    public TextMeshProUGUI PD, MD, AS, CDR, MS, RNG, LS;
     public TextMeshProUGUI charName;
 
 
@@ -29,13 +29,21 @@ public class TopStatDisplay : MonoBehaviour
     }
 
     private void handleColor() {
-        if (character.DMG > character.zsDMG)
-            DMG.color = ColorPalette.buff;
+        if (character.PD > character.zsPD)
+            PD.color = ColorPalette.buff;
         else
-        if (character.DMG < character.zsDMG)
-            DMG.color = ColorPalette.debuff;
+        if (character.PD < character.zsPD)
+            PD.color = ColorPalette.debuff;
         else
-            DMG.color = ColorPalette.defaultColor;
+            PD.color = ColorPalette.defaultColor;
+
+        if (character.MD > character.zsMD)
+            MD.color = ColorPalette.buff;
+        else
+        if (character.MD < character.zsMD)
+            MD.color = ColorPalette.debuff;
+        else
+            MD.color = ColorPalette.defaultColor;
 
         if (character.AS > character.zsAS)
             AS.color = ColorPalette.buff;
@@ -44,6 +52,14 @@ public class TopStatDisplay : MonoBehaviour
             AS.color = ColorPalette.debuff;
         else
             AS.color = ColorPalette.defaultColor;
+
+        if (character.CDR > character.zsCDR)
+            CDR.color = ColorPalette.buff;
+        else
+        if (character.CDR < character.zsCDR)
+            CDR.color = ColorPalette.debuff;
+        else
+            CDR.color = ColorPalette.defaultColor;
 
         if (character.MS > character.zsMS)
             MS.color = ColorPalette.buff;
@@ -96,11 +112,13 @@ public class TopStatDisplay : MonoBehaviour
     }
     private void displayStats() {
         //f1 formats it to 1 decimal point
-        DMG.text = character.DMG.ToString("F1");
+        PD.text = character.PD.ToString("F1");
+        MD.text = character.MD.ToString("F1");
         AS.text = character.AS.ToString("F1");
+        CDR.text = (character.CDR*100).ToString("F1");
         MS.text = character.MS.ToString("F1");
         RNG.text = character.Range.ToString("F1");
-        LS.text = character.LS.ToString("F1");
+        LS.text = (character.LS*100).ToString("F1");
         healthBar.manualDisplayHealth();
     }
     // Update is called once per frame

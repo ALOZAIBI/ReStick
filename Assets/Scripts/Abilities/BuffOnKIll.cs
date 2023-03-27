@@ -5,9 +5,11 @@ using UnityEngine;
 public class BuffOnKIll : Ability
 {
     //on kill instantiate a buff with the following stats, then add it to the character
-    public float DMG;
+    public float PD;
+    public float MD;
     public float HP;
     public float AS;
+    public float CDR;
     public float MS;
     public float Range;
     public float LS;
@@ -27,15 +29,18 @@ public class BuffOnKIll : Ability
 
     public override void doAbility() {
         if (character.killsLastFrame > 0) {
+            calculateAmt();
             Debug.Log("There was a kill last frame");
             for (int i = 0; i < character.killsLastFrame; i++) {
                 //creates buff for every kill last frame
                 Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
                 //Debug.Log("kills>0"+ buff.transform.parent.name);
                 //Debug.Log("Arrived here");
-                buff.DMG = DMG;
+                buff.PD = PD;
+                buff.MD = MD;
                 buff.HP = HP;
                 buff.AS = AS;
+                buff.CDR = CDR;
                 buff.MS = MS;
                 buff.Range = Range;
                 buff.LS = LS;
@@ -61,9 +66,13 @@ public class BuffOnKIll : Ability
     }
 
     public override void updateDescription() {
+        try {
+            calculateAmt();
+        }
+        catch { /* avoids null character issue*/}
         description = "On Kill give me ";
-        if (DMG != 0)
-            description += DMG + " DMG ";
+        if (PD != 0)
+            description += PD + " PD ";
         if (HP != 0)
             description += HP + " HP ";
         if (AS != 0)

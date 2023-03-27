@@ -9,7 +9,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public UIManager uiManager;
     public TextMeshProUGUI characterName;
     //stats texts
-    public TextMeshProUGUI DMG, AS, MS, RNG, LS;
+    public TextMeshProUGUI PD, MD, AS, CDR, MS, RNG, LS;
     //cool stats texts
     public TextMeshProUGUI totalKills;
     public CharacterHealthBar healthBar;
@@ -78,7 +78,10 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     public void displayCharacterAbilities(Character currChar) {
+        close();
         foreach (Ability ability in currChar.abilities) {
+            //updates description
+            ability.updateDescription();
             GameObject temp = Instantiate(abilityDisplay);
             //sets the instantiated object as child
             temp.transform.parent = abilityDisplayPanel.transform;
@@ -97,13 +100,21 @@ public class CharacterInfoScreen : MonoBehaviour
     //displays the stats and cool stats of the character and character screen
 
     private void handleColor(Character currChar) {
-        if (currChar.DMG > currChar.zsDMG)
-            DMG.color = ColorPalette.buff;
+        if (currChar.PD > currChar.zsPD)
+            PD.color = ColorPalette.buff;
         else
-        if (currChar.DMG < currChar.zsDMG)
-            DMG.color = ColorPalette.debuff;
+        if (currChar.PD < currChar.zsPD)
+            PD.color = ColorPalette.debuff;
         else
-            DMG.color = ColorPalette.defaultColor;
+            PD.color = ColorPalette.defaultColor;
+
+        if (currChar.MD > currChar.zsMD)
+            MD.color = ColorPalette.buff;
+        else
+       if (currChar.MD < currChar.zsMD)
+            MD.color = ColorPalette.debuff;
+        else
+            MD.color = ColorPalette.defaultColor;
 
         if (currChar.AS > currChar.zsAS)
             AS.color = ColorPalette.buff;
@@ -112,6 +123,14 @@ public class CharacterInfoScreen : MonoBehaviour
             AS.color = ColorPalette.debuff;
         else
             AS.color = ColorPalette.defaultColor;
+
+        if (currChar.CDR > currChar.zsCDR)
+            CDR.color = ColorPalette.buff;
+        else
+        if (currChar.CDR < currChar.zsCDR)
+            CDR.color = ColorPalette.debuff;
+        else
+            CDR.color = ColorPalette.defaultColor;
 
         if (currChar.MS > currChar.zsMS)
             MS.color = ColorPalette.buff;
@@ -162,15 +181,17 @@ public class CharacterInfoScreen : MonoBehaviour
 
         handleColor(currChar);
         //the empty quotes is to convert float to str
-        DMG.text = currChar.DMG.ToString("F1");
+        PD.text = currChar.PD.ToString("F1");
+        MD.text = currChar.MD.ToString("F1");
         AS.text = currChar.AS.ToString("F1");
+        CDR.text = (currChar.CDR*100).ToString("F1");
         MS.text = currChar.MS.ToString("F1");
         RNG.text = currChar.Range.ToString("F1");
-        LS.text = currChar.LS.ToString("F1");
+        LS.text = (currChar.LS*100).ToString("F1");
 
         //displays statPoints if zone hasn't started and if the character has statpoints available
         if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
-            Debug.Log("showing");
+            //Debug.Log("showing");
             statPointUI.show();
             statPointUI.fakeStatDisplay();
         }

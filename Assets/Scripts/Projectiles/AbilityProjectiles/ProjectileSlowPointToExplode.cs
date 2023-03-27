@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileSlowPointToExplode : Projectile
 {
     //this ability is basically ursus shock (Bartholomew Kuma)
-    //Travels to target without dealing Dmg then explodes(size expands quickly) and deals damage ontriggerEnter
+    //Travels to target without dealing PD then explodes(size expands quickly) and deals damage ontriggerEnter
 
     public bool exploded;
     public Vector2 targetPosition;
@@ -54,7 +54,7 @@ public class ProjectileSlowPointToExplode : Projectile
                 Character victim = collision.GetComponent<Character>();
                 //deals damage to everyhing not in the shooters team
                 if (victim.team != shooter.team) {
-                    victim.HP -= dmg * Time.fixedDeltaTime;
+                    victim.HP -= PD * Time.fixedDeltaTime;
                     if (victim.HP <= 0) {
                         shooter.kill(victim);
                     }

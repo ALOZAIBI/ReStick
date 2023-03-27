@@ -20,6 +20,10 @@ public class Summon : Ability
     }
     //WIP description
     public override void updateDescription() {
+        try {
+            calculateAmt();
+        }
+        catch { /* avoids null character issue*/}
         description = "Summon character";
     }
 

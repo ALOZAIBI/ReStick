@@ -19,6 +19,7 @@ public class CastAura : Ability
     }
     public override void doAbility() {
         if (available) {
+            calculateAmt();
             aura = Instantiate(prefabObject).GetComponent<Aura>();
             //sets the amt 
             aura.amt = amt;
@@ -33,6 +34,10 @@ public class CastAura : Ability
     }
 
     public override void updateDescription() {
+        try {
+            calculateAmt();
+        }
+        catch { /* avoids null character issue*/}
         if (amt > 0) {
             description = "Heals nearby characters by " + amt;
         }

@@ -10,7 +10,7 @@ public abstract class Projectile : MonoBehaviour
     public Character shooter;
     public float speed;
     public float lifetime;
-    public float dmg;
+    public float PD;
     public float LS;
 
     //This is stikll not in use
