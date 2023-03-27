@@ -13,13 +13,21 @@ public class ColorPalette : MonoBehaviour
     //color of text when gaining a debuff(red)
     public static Color debuff;
 
+    public static Color allyHealthBar;
+    public static Color enemyHealthBar;
+
+    //public static Color neutralHealthBar;
+
+
     // Start is called before the first frame update
     void Start()
     {
         ColorUtility.TryParseHtmlString("#FFFFFF", out defaultColor);
-
         ColorUtility.TryParseHtmlString("#17B72D", out buff);
         ColorUtility.TryParseHtmlString("#D21F1F", out debuff);
+        ColorUtility.TryParseHtmlString("#FF0000", out enemyHealthBar);
+        ColorUtility.TryParseHtmlString("#6CD447", out allyHealthBar);
+
 
     }
 

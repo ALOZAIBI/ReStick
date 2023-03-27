@@ -24,7 +24,10 @@ public class TimeControl : MonoBehaviour
         //can change scale if game not pauysed
         if (Time.timeScale !=0) {
             if (currTimeScale < maxScale) {
-                currTimeScale += 0.5f;
+                if (currTimeScale == 0.25f)
+                    currTimeScale += 0.25f;
+                else
+                    currTimeScale += 0.5f;
             }
             displayCurrScale.text = currTimeScale + "x";
             Time.timeScale = currTimeScale;
@@ -35,7 +38,10 @@ public class TimeControl : MonoBehaviour
         //can change scale if game not pauysed
         if (Time.timeScale != 0) {
             if (currTimeScale > minScale) {
-                currTimeScale -= 0.5f;
+                if (currTimeScale > 0.25f)
+                    currTimeScale -= 0.5f;
+                else
+                    currTimeScale -= 0.25f;
             }
             displayCurrScale.text = currTimeScale + "x";
             Time.timeScale = currTimeScale;

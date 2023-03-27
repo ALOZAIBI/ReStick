@@ -76,6 +76,18 @@ public class TopStatDisplay : MonoBehaviour
             LS.color = ColorPalette.debuff;
         else
             LS.color = ColorPalette.defaultColor;
+
+        //colors the healthbar according to team
+        switch (character.team) {
+            case ((int)Character.teamList.Enemy1):
+                healthBar.health.color = ColorPalette.enemyHealthBar;
+                break;
+            case ((int)Character.teamList.Player):
+                healthBar.health.color = ColorPalette.allyHealthBar;
+                break;
+            default:
+                break;
+        }
     }
 
     //opens charInfoScreen of character

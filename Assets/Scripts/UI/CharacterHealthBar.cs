@@ -19,6 +19,17 @@ public class CharacterHealthBar : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         //since on start healthdisplay is updated manually this means taht when we create instances of charDisplay the HP will be upToDate
         manualDisplayHealth();
+        //colors the healthbar according to team
+        switch (character.team) {
+            case ((int)Character.teamList.Enemy1):
+                health.color = ColorPalette.enemyHealthBar;
+                break;
+            case ((int)Character.teamList.Player):
+                health.color = ColorPalette.allyHealthBar;
+                break;
+            default:
+                break;
+        }
     }
     public void handleHealthBar() {
         health.fillAmount = ((float)character.HP / (float)character.HPMax);
