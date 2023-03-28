@@ -26,7 +26,7 @@ public class ZoneData
     //this is needed for SaveSystem to be able to deserialize it
     public ZoneData() { }
  
-
+    //sends the data to the zone
     public void dataToZone(Zone zone) {
         zone.completed = completed;
         //loads abilityNames

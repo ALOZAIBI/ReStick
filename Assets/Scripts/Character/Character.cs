@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Character : MonoBehaviour {
+    //which prefab this character is this is used to save and load character
+    public int prefabIndex;
     //zone the character is currently In;
     [SerializeField] private Zone zone;
     [SerializeField] private Camera cam;

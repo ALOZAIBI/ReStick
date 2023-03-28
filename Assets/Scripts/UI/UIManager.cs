@@ -9,6 +9,11 @@ using TMPro;
 //this is also a gameManager it manages lots of stuff wtf
 public class UIManager : MonoBehaviour
 {
+    //this is just called in the start function here to prevent it from being destroyed when loading scene
+    public GameObject dontDestroys;
+    //holds the name of the current saveSlot
+    //this is static so that it can be accessible in SaveSystem
+    public static string saveSlot;
     //used to reset cam position when changing scenes 
     public Camera cam;
 
@@ -66,6 +71,8 @@ public class UIManager : MonoBehaviour
 
     //used to fetch random abilities for rewards and shop
     public AbilityFactory abilityFactory;
+    //used to fetch random abilities for rewards and shop
+    public CharacterFactory characterFactory;
 
     //used to deal with Hiding and unHiding UI ELEMENTS
     public HideUI placingScreenHidden;
@@ -77,6 +84,10 @@ public class UIManager : MonoBehaviour
     public HideUI gameLostScreenHidden;
     public HideUI topStatDisplayHidden;
     private void Start() {
+        DontDestroyOnLoad(dontDestroys);
+
+        SaveSystem.initialiseSaveSlots();
+
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
         charInfoScreenHidden = characterInfoScreen.GetComponent<HideUI>();
@@ -314,13 +325,13 @@ public class UIManager : MonoBehaviour
             }
             catch { }
         }
-        //display gold if in zone with goldgainedsofar in zone if possible
-        try {
-            goldtext.text = "G:" + (playerParty.gold + zone.goldSoFar);
-        }
-        catch { goldtext.text = "G:" + playerParty.gold; }
+        ////display gold if in zone with goldgainedsofar in zone if possible
+        //try {
+        //    goldtext.text = "G:" + (playerParty.gold + zone.goldSoFar);
+        //}
+        //catch { goldtext.text = "G:" + playerParty.gold; }
         //hide();
-
+        //Debug.Log(saveSlot);
 
     }
 }

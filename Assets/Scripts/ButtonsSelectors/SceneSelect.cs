@@ -39,6 +39,10 @@ public class SceneSelect : MonoBehaviour
         dontDestroys = GameObject.FindGameObjectWithTag("dontDestroys");
 
         SaveSystem.loadCompletionSceneSelect(this);
+
+        if (completed) {
+            GetComponent<SpriteRenderer>().color = new Color(0,1,0);
+        }
     }
 
     //clicky stuff
