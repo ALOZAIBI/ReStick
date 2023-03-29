@@ -18,7 +18,8 @@ public class SceneSelect : MonoBehaviour
     [SerializeField] private Button startBtn;
     [SerializeField] private Button details;
     [SerializeField] private Button closeUI;
-    [SerializeField] private GameObject playerParty;
+    [SerializeField] private UIManager uiManager;
+
 
     public bool map;
     public bool zone;
@@ -33,7 +34,7 @@ public class SceneSelect : MonoBehaviour
         if(map == zone) {
             throw new CannotBeMapAndZone("can't be Map AND zone");
         }
-        playerParty = GameObject.FindGameObjectWithTag("PlayerParty");
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         startBtn.onClick.AddListener(goTo);
         closeUI.onClick.AddListener(close);
         dontDestroys = GameObject.FindGameObjectWithTag("dontDestroys");
@@ -58,18 +59,24 @@ public class SceneSelect : MonoBehaviour
     private void mouseClickedNotHeld() {
         
         if (click) {
-            //if click is still held increment time
+            //counts mouse down to determine if click or hold
             if (Input.GetMouseButton(0)) {
                 mouseHoldDuration += Time.unscaledDeltaTime;
             }
-            //if click is not held check how long it was held for. If it was held for less than 0.2 seconds show goToScene screen
+            //if click 
             else if (mouseHoldDuration < 0.2f) {
+                if (map) {
+                    //Save GamestateData to be in this map
+                    SaveSystem.saveGameState(sceneToLoad, true);
+                    //save WorldSaves 
+                    uiManager.saveWorldSave();
+                }
                 goToScene.gameObject.SetActive(true);
                 //reset values
                 mouseHoldDuration = 0;
                 click = false;
             }
-            //if click is held too long
+            //if HOLD
             else {
                 //reset values
                 mouseHoldDuration = 0;
@@ -80,7 +87,7 @@ public class SceneSelect : MonoBehaviour
 
     //jumps to scene and sets all characters to inactive
     private void goTo() {
-        foreach (Transform child in playerParty.transform) {
+        foreach (Transform child in uiManager.playerParty.transform) {
             if (child.tag == "Character") {
                 //Debug.Log(child.name + "Disabled fuckl");
                 child.gameObject.SetActive(false);

@@ -25,8 +25,9 @@ public class GameStateData
         if (inMap) {
             SceneManager.LoadScene(mapName);
         }
-        else
+        else {
             SceneManager.LoadScene("World");
+        }
     }
     //this is needed for SaveSystem to be able to deserialize it
     public GameStateData() { }
@@ -39,6 +40,8 @@ public class GameStateData
         //then saves gameState
         SaveSystem.saveGameState("", false);
         Debug.Log("I am able to save");
+        //then saves the new character
+        temp.saveWorldSave();
         //then loads world
         SceneManager.LoadScene("World");
         Debug.Log("I am able to end it al");

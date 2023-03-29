@@ -8,35 +8,83 @@ using System;
 
 //https://www.youtube.com/watch?v=XOjd_qU2Ido&t=693s
 //https://gitlab.com/gamedev-public/unity/-/blob/main/Scripts/IO/SaveGame/GamePersistence.cs
+//https://lucid.app/documents/view/c95f0f5b-f458-4484-aa28-a31b190da027
 //the hierarchy of the save directory is written on notebook page 45
- static class SaveSystem
+static class SaveSystem
 {
     //creates the folders to be used in saving this will be called in UIManager's start function
     public static void initialiseSaveSlots() {
         //creates root slot folders
-        string path = Application.persistentDataPath + "/slot1";
-        if(!Directory.Exists(path))
-            Directory.CreateDirectory(path);
-        path = Application.persistentDataPath + "/slot2";
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
-        path = Application.persistentDataPath + "/slot3";
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
+        string path;
+        string[] slots = new string[] { "/slot1", "/slot2", "/slot3" };
+        foreach (string saveSlot in slots) {
+            path = Application.persistentDataPath + saveSlot;
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-        //creates zone folders in each slot folder
-        path = Application.persistentDataPath + "/slot1" + "/zones";
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
-        path = Application.persistentDataPath + "/slot2" + "/zones";
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
-        path = Application.persistentDataPath + "/slot3" + "/zones";
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
+            //creates zone folders in each slot folder
+            path = Application.persistentDataPath + saveSlot + "/zones";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
+            //creates WorldSaves folder in each slot folder
+            path = Application.persistentDataPath + saveSlot + "/worldSave";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            //creates mapSaves folder in each slot folder
+            path = Application.persistentDataPath + saveSlot + "/mapSave";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
     }
-    //https://lucid.app/documents/view/c95f0f5b-f458-4484-aa28-a31b190da027
+
+    //saves character in the world(before entering a map)
+    //this will be used to name the saveFile it has to be reset to 0 Every Time we are batch saving all characters in UIManager
+    public static int characterNumber=0;
+    public static void saveCharacterInWorld(Character character) {
+        CharacterData data = new CharacterData(character);
+
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/" + "character"+characterNumber+".xrt";
+        using(FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+            //the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(data));
+
+            writer.Flush();
+        }
+        characterNumber++;
+        Debug.Log("File saved to" + path);
+    }
+
+    //loads all character's world saves
+    public static void loadCharactersInWorld() {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/";
+        string[] files = Directory.GetFiles(path);
+        //Debug.Log("The files are" + files[0]);
+
+        foreach(string charSave in files) {
+            if (File.Exists(charSave)) {
+                using(FileStream fs = File.Open(charSave, FileMode.Open)) {
+                    BinaryReader reader = new BinaryReader(fs);
+                    //the 2 lines that follow are the encrypted version
+                    //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                    //CharacterData data = JsonConvert.DeserializeObject < GameStateData>(Encoding.UTF8.GetString(encodedBytes));
+
+                    //this is the non-encrypted version
+                    CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
+
+                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data);
+                }
+            }
+            Debug.Log("FIle doesn't exist in " +charSave);
+        }
+    }
+    
     public static void saveGameState(string mapName,bool inMap) {
         GameStateData data = new GameStateData(mapName, inMap);
         Debug.Log("In save game state map nampe is =" + data.mapName + data.inMap);

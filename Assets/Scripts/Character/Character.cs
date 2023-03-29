@@ -28,7 +28,7 @@ public class Character : MonoBehaviour {
     //Interesting Stats
     public int totalKills = 0;
 
-    //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI and will be used to reset interesting stats on loss_
+    //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI 
     public float zsPD;
     public float zsMD;
     public float zsHP;

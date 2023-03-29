@@ -9,6 +9,9 @@ using TMPro;
 //this is also a gameManager it manages lots of stuff wtf
 public class UIManager : MonoBehaviour
 {
+    //just making it a singleton to make it simpler however this was implemented not early in development so in other places I might not be 
+    //accessing uiManager with singleton
+    public static UIManager singleton;
     //this is just called in the start function here to prevent it from being destroyed when loading scene
     public GameObject dontDestroys;
     //holds the name of the current saveSlot
@@ -83,6 +86,11 @@ public class UIManager : MonoBehaviour
     public HideUI mapWonScreenHidden;
     public HideUI gameLostScreenHidden;
     public HideUI topStatDisplayHidden;
+
+    private void Awake() {
+        singleton = this;
+    }
+    #region
     private void Start() {
         DontDestroyOnLoad(dontDestroys);
 
@@ -333,5 +341,19 @@ public class UIManager : MonoBehaviour
         //hide();
         //Debug.Log(saveSlot);
 
+    }
+    #endregion
+
+    //saves all characters in playerParty and saves inventory
+    public void saveWorldSave() {
+        SaveSystem.characterNumber = 0;
+        //save character world
+        foreach(Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                SaveSystem.saveCharacterInWorld(temp);
+            }
+        }
+        //save inventory world
     }
 }

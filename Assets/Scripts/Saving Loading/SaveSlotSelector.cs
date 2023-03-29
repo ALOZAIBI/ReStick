@@ -20,16 +20,20 @@ public class SaveSlotSelector : MonoBehaviour
 
     public void startSlot1() {
         UIManager.saveSlot = "slot1";
+        SaveSystem.loadCharactersInWorld();
         SaveSystem.loadGameState();
     }
 
     public void startSlot2() {
         UIManager.saveSlot = "slot2";
+        SaveSystem.loadCharactersInWorld();
         SaveSystem.loadGameState();
+
     }
 
     public void startSlot3() {
         UIManager.saveSlot = "slot3";
+        SaveSystem.loadCharactersInWorld();
         SaveSystem.loadGameState();
     }
 
