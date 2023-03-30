@@ -46,6 +46,8 @@ public class RewardSelect : MonoBehaviour
             }
             //saves the zone
             SaveSystem.saveZone(uiManager.zone);
+            //saves map
+            uiManager.saveMapSave();
             //then clears the list to be reinitialized in another zone
             listReward.Clear();
             //loads map

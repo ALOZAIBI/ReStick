@@ -74,7 +74,6 @@ public class Zone : MonoBehaviour
             uIManager.displayGameWon(belongsToMap);
             //marks zone as completed then saves
             completed = true;
-            uIManager.saveMapSave();
             //then pauses the game
             uIManager.pausePlay(true);
         }

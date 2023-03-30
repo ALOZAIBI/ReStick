@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using System.IO;
 using System.Text;
-using System;
+using System.Collections.Generic;
 
 //https://www.youtube.com/watch?v=XOjd_qU2Ido&t=693s
 //https://gitlab.com/gamedev-public/unity/-/blob/main/Scripts/IO/SaveGame/GamePersistence.cs
@@ -32,13 +32,99 @@ static class SaveSystem
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
+            //creates inventory folder in each slot folder
+            path = Application.persistentDataPath + saveSlot + "/worldSave/inventory";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
             //creates mapSaves folder in each slot folder
             path = Application.persistentDataPath + saveSlot + "/mapSave";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            //creates inventory folder in each slot folder
+            path = Application.persistentDataPath + saveSlot + "/mapSave/inventory";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
         }
     }
 
+    public static void saveInventoryInWorld() {
+        //creates a list of abilityNames from ability Inventory
+        List<string> abilityNames = new List<string>();
+        foreach (Transform child in UIManager.singleton.playerParty.abilityInventory.transform) {
+            Ability temp = child.GetComponent<Ability>();
+            abilityNames.Add(temp.abilityName);
+        }
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/inventory/inventory.xrt";
+        using (FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+
+            // the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(abilityNames));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(abilityNames));
+            writer.Flush();
+        }
+    }
+    public static void loadInventoryInWorld() {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/inventory/inventory.xrt";
+        List<string> abilityNames = new List<string>();
+        if (File.Exists(path)) {
+            using (FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+                //the 2 lines that follow are the encrypted version
+                //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
+
+                abilityNames = JsonConvert.DeserializeObject<List<string>>(reader.ReadString());
+                UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(abilityNames);
+            }
+        }
+        else
+            Debug.Log("File doesn't exist in " + path);
+
+    }
+    public static void saveInventoryInMap() {
+        //creates a list of abilityNames from ability Inventory
+        List<string> abilityNames = new List<string>();
+        foreach(Transform child in UIManager.singleton.playerParty.abilityInventory.transform) {
+            Ability temp = child.GetComponent<Ability>();
+            abilityNames.Add(temp.abilityName);
+        }
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
+        using(FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+
+            // the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(abilityNames));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(abilityNames));
+            writer.Flush();
+        }
+    }
+    public static void loadInventoryInMap() {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
+        List<string> abilityNames= new List<string>();
+        if (File.Exists(path)) {
+            using (FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+                //the 2 lines that follow are the encrypted version
+                //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
+
+                abilityNames = JsonConvert.DeserializeObject<List<string>>(reader.ReadString());
+                UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(abilityNames);
+            }
+        }
+        else
+            Debug.Log("File doesn't exist in " + path);
+
+    }
     //this will be used to name the saveFile it has to be reset to 0 Every Time we are batch saving all characters in UIManager
     public static int characterNumber=0;
 

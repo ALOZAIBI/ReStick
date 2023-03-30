@@ -359,11 +359,11 @@ MonoBehaviour:
   zone: {fileID: 0}
   cam: {fileID: 0}
   camMov: {fileID: 0}
-  PD: 0
+  PD: 1
   MD: 0
   HP: 4
   HPMax: 4
-  AS: 0.5
+  AS: 0.7
   CDR: 0
   MS: 3
   Range: 1
@@ -390,8 +390,8 @@ MonoBehaviour:
   xpCap: 1
   statPoints: 0
   team: 0
-  attackTargetStrategy: 0
-  movementTargetStrategy: 0
+  attackTargetStrategy: 1
+  movementTargetStrategy: 1
   target: {fileID: 0}
   animationManager: {fileID: 0}
   uiManager: {fileID: 0}

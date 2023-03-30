@@ -50,4 +50,24 @@ public class AbilityFactory : MonoBehaviour
         }
     }
 
+    public void addRequestedAbilitiesToCharacter(Character character, string[] abilityNames) {
+        foreach(string name in abilityNames) {
+            //fetches the ability frmo the list
+            Ability ability = objectFromName(name).GetComponent<Ability>();
+            //creates the ability
+            Instantiate(ability);
+            //adds it to character
+            character.abilities.Add(ability);
+            //adds the ability as child of active abilities
+            ability.transform.parent = UIManager.singleton.playerParty.activeAbilities.transform;
+            
+        }
+    }
+    public void addRequestedAbilitiesToInventory(List<string> abilityNames) {
+        foreach(string name in abilityNames) {
+            GameObject obj = objectFromName(name);
+            GameObject temp = Instantiate(obj);
+            obj.transform.parent = UIManager.singleton.playerParty.abilityInventory.transform;
+        }
+    }
 }

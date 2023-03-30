@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
         topStatDisplayHidden = topStatDisplay.GetComponent<HideUI>();
 
         //
-        lostToMapBtn.onClick.AddListener(loadScene);
+        lostToMapBtn.onClick.AddListener(lostToMap);
         backToWorldBtn.onClick.AddListener(loadScene);
 
         lostToRestartBtn.onClick.AddListener(restartZone);
@@ -185,12 +185,6 @@ public class UIManager : MonoBehaviour
     //this is triggered by a button
     //loads map and reset cam position
     public void loadScene() {
-        //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
-        //so A way to optimize is to load only if it this function is called from zone lost to map
-        //deletes all characters
-        deleteAllCharacters();
-        //then reloads them back in
-        SaveSystem.loadCharactersInMap();
 
         clearBuffs();
         //resets position of camera
@@ -208,6 +202,22 @@ public class UIManager : MonoBehaviour
         closeUI();
         
     }
+    //Once player loses a zone and chooses not to restart
+    public void lostToMap() {
+        //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
+        //so A way to optimize is to load only if it this function is called from zone lost to map
+        loadMapSave();
+
+        loadScene();
+    }
+    //once player completes all maps then goes back to world
+    public void wonToWorld() {
+
+        //save the world save then updates the gamestate to not be in a map
+        saveWorldSave();
+        SaveSystem.saveGameState("", false);
+        loadScene();
+    }
     //tis is triggered by a button;
     //loads the previous mapSave then reloads the scene
     private void restartZone() {
@@ -220,10 +230,7 @@ public class UIManager : MonoBehaviour
         gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
         openInventoryBtn.gameObject.SetActive(true);
-        //deletes all characters
-        deleteAllCharacters();
-        //then reloads them back in
-        SaveSystem.loadCharactersInMap();
+        loadMapSave();
         DontDestroyOnLoad(playerParty);
         SceneManager.LoadScene(zone.zoneName);
     }
@@ -356,8 +363,15 @@ public class UIManager : MonoBehaviour
             }
         }
         //save inventory world
+        SaveSystem.saveInventoryInWorld();
     }
-
+    public void loadWorldSave() {
+        //deletes all characters then reloads them back in
+        deleteAllCharacters();
+        SaveSystem.loadCharactersInWorld();
+        //load inventory
+        SaveSystem.loadInventoryInWorld();
+    }
     public void saveMapSave() {
         SaveSystem.characterNumber = 0;
         //save character in map
@@ -368,6 +382,12 @@ public class UIManager : MonoBehaviour
             }
         }
         //save inventory in map
+        SaveSystem.saveInventoryInMap();
+    }
+    public void loadMapSave() {
+        deleteAllCharacters();
+        SaveSystem.loadCharactersInMap();
+        SaveSystem.loadInventoryInMap();
     }
     //this is to be called before loading characters So that there are no duplicates
     public void deleteAllCharacters() {

@@ -49,7 +49,8 @@ public class CharacterFactory : MonoBehaviour
         temp.attackTargetStrategy = data.attackTargetStrategy;
         temp.movementTargetStrategy = data.movementTargetStrategy;
         //add the abilities
-
+        UIManager.singleton.abilityFactory.addRequestedAbilitiesToCharacter(temp, data.abilities);
+        //create another array for each ability holding the int of targetting strategy
         //add to playerParty
         temp.transform.parent = UIManager.singleton.playerParty.transform;
     }
