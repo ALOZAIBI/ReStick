@@ -37,7 +37,7 @@ public class ThrowProjectile : Ability
         try {
             calculateAmt();
         }
-        catch { /* avoids null character issue*/}
+        catch { Debug.Log("Calculate AMT didn't work");/* avoids null character issue*/}
         description = "Throws a thing that deals " + amt + " PD to all characters within";
     }
 

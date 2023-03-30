@@ -38,6 +38,7 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     private void addAbility() {
         //to destroy all abilityDisplayElements
         close();
+
         //then display inventory abilities
         displayInventoryAbilities();
     }
@@ -45,6 +46,8 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     private void confirmAddAbility() {
         //adds the ability to Character
         inventoryScreen.characterSelected.abilities.Add(inventoryScreen.abilitySelected);
+        //sets the ability's character to this character
+        character.initRoundStart();
         //adds ability to activeAbilities in playermanager
         //Debug.Log(inventoryScreen.playerParty.activeAbilities.name);
         inventoryScreen.abilitySelected.gameObject.transform.parent = inventoryScreen.playerParty.activeAbilities.transform;

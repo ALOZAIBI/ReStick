@@ -32,17 +32,51 @@ public class ApplyBuff : Ability
             //creates buff
             Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
             buff.PD = PD;
-            buff.MD = MD;
-            buff.HP = HP;
-            buff.AS = AS;
-            buff.CDR = CDR;
-            buff.MS = MS;
-            buff.Range = Range;
-            buff.LS = LS;
-            buff.size = size;
+            if (PD > 0) {
+                buff.PD += amt * PD;
+            }
 
-            //TO BE DONE
-            //multiply buff stats by ability amt
+            buff.MD = MD;
+            if (MD > 0) {
+                buff.MD += amt * MD;
+            }
+
+            buff.HP = HP;
+            if (HP > 0) {
+                buff.HP += amt * HP;
+            }
+
+            buff.AS = AS;
+            if (AS > 0) {
+                buff.AS += amt * AS;
+            }
+
+            buff.CDR = CDR;
+            if (CDR > 0) {
+                buff.CDR += amt * CDR;
+            }
+
+            buff.MS = MS;
+            if (MS > 0) {
+                buff.MS += amt * MS;
+            }
+
+            buff.Range = Range;
+            if (Range > 0) {
+                buff.Range += amt * Range;
+            }
+
+            buff.LS = LS;
+            if (LS > 0) {
+                buff.LS += amt * LS;
+            }
+
+            buff.size = size;
+            if (size > 0) {
+                buff.size += amt * size;
+            }
+
+
 
             //sets caster and target
             buff.caster = character;

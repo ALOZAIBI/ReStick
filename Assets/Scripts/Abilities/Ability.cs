@@ -24,6 +24,11 @@ public abstract class Ability : MonoBehaviour
     public float baseAmt;
     public float PDRatio;
     public float MDRatio;
+    public float HPMaxRatio;
+    public float HPRatio;
+    public float LVLRatio;//scales with level
+    public float MSRatio;
+    public float ASRatio;
     //amt = baseamt+charPD*PDratio+charMD*MDratio
     //the float value used in an ability what it is used for depends on the ability
     public float amt;
@@ -49,7 +54,7 @@ public abstract class Ability : MonoBehaviour
     /// Calculates amt by adding stat ratios
     /// </summary>
     public void calculateAmt() {
-        amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio;
+        amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.HPMax * HPMaxRatio+ character.HP*HPRatio + character.level*LVLRatio + character.MS*MSRatio + character.AS*ASRatio);
     }
 
     //if an ability has a cooldown call this inside doAbility()

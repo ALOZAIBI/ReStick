@@ -163,7 +163,7 @@ public class StatPointUI : MonoBehaviour {
 
         SPUsedBuffer = 0;
 
-        characterInfoScreen.displayStats(characterInfoScreen.character);
+        characterInfoScreen.viewCharacter(characterInfoScreen.character);
     }
 
     private void resetChanges() {
@@ -336,9 +336,10 @@ public class StatPointUI : MonoBehaviour {
         characterInfoScreen.PD.text = (characterInfoScreen.character.PD+PDbuffer).ToString("F1");
         characterInfoScreen.MD.text = (characterInfoScreen.character.MD + MDbuffer).ToString("F1");
         characterInfoScreen.AS.text = (characterInfoScreen.character.AS+ASbuffer).ToString("F1");
+        characterInfoScreen.CDR.text = ((characterInfoScreen.character.CDR + CDRbuffer)*100).ToString("F1");
         characterInfoScreen.MS.text = (characterInfoScreen.character.MS + MSbuffer).ToString("F1");
         characterInfoScreen.RNG.text = (characterInfoScreen.character.Range + RNGbuffer).ToString("F1");
-        characterInfoScreen.LS.text = (characterInfoScreen.character.LS + LSbuffer).ToString("F1");
+        characterInfoScreen.LS.text = ((characterInfoScreen.character.LS + LSbuffer)*100).ToString("F1");
         characterInfoScreen.healthBar.HPtext.text=((characterInfoScreen.character.HP+HPbuffer).ToString("F1") + "/" + (characterInfoScreen.character.HPMax+HPbuffer).ToString("F1"));
         //updates the abilities to display new description (since we migth have changed the MD AND PD which would change abiltiy amt)
         characterInfoScreen.displayCharacterAbilities(characterInfoScreen.character);
