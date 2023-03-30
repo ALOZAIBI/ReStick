@@ -39,9 +39,53 @@ static class SaveSystem
         }
     }
 
-    //saves character in the world(before entering a map)
     //this will be used to name the saveFile it has to be reset to 0 Every Time we are batch saving all characters in UIManager
     public static int characterNumber=0;
+
+    public static void saveCharacterInMap(Character character) {
+        CharacterData data = new CharacterData(character);
+
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/" + "character" + characterNumber + ".xrt";
+        using (FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+            //the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(data));
+
+            writer.Flush();
+        }
+        characterNumber++;
+        Debug.Log("File saved to" + path);
+    }
+    //loads all character's map saves
+    public static void loadCharactersInMap() {
+        Debug.Log("Loading char in map");
+
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/";
+        string[] files = Directory.GetFiles(path);
+        //Debug.Log("The files are" + files[0]);
+
+        foreach (string charSave in files) {
+            if (File.Exists(charSave)) {
+                using (FileStream fs = File.Open(charSave, FileMode.Open)) {
+                    BinaryReader reader = new BinaryReader(fs);
+                    //the 2 lines that follow are the encrypted version
+                    //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                    //CharacterData data = JsonConvert.DeserializeObject < GameStateData>(Encoding.UTF8.GetString(encodedBytes));
+
+                    //this is the non-encrypted version
+                    CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
+
+                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data);
+                }
+            }
+            else
+            Debug.Log("FIle doesn't exist in " + charSave);
+        }
+    }
     public static void saveCharacterInWorld(Character character) {
         CharacterData data = new CharacterData(character);
 
@@ -63,6 +107,7 @@ static class SaveSystem
 
     //loads all character's world saves
     public static void loadCharactersInWorld() {
+        Debug.Log("Loading char in world");
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/";
         string[] files = Directory.GetFiles(path);
         //Debug.Log("The files are" + files[0]);
@@ -105,6 +150,7 @@ static class SaveSystem
     }
     //if save file exists check if in map. if in map load map otherwise load world. If no save file exists add random character
     //to playerParty savegamestate then load world
+    //returns true if in map. False Otherqwise
     public static bool loadGameState() {
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/gamestate.xrt";
         if (File.Exists(path)) {
@@ -119,9 +165,10 @@ static class SaveSystem
 
                 data.loadMapOrWorldScene();
 
+                Debug.Log("file loaded from " + path);
+                return data.inMap;
+
             }
-            Debug.Log("file loaded from " + path);
-            return true;
         }
         else {
             Debug.Log("file doesn't exist in " + path + "Creating new Save file");
@@ -176,7 +223,7 @@ static class SaveSystem
     }
     //loads wether or not a Zone has been completed to SceneSelect
     public static bool loadCompletionSceneSelect(SceneSelect sceneSelect) {
-        string path = Application.persistentDataPath + UIManager.saveSlot + "/zone" + "/" + sceneSelect.sceneToLoad + ".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/zones" + "/" + sceneSelect.sceneToLoad + ".xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);

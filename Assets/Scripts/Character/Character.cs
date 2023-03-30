@@ -158,8 +158,6 @@ public class Character : MonoBehaviour {
     }
 
     void Start() {
-        //Initialising HPMax on start
-        HPMax = HP;
         initRoundStart();
         //Connect to UIManager
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();

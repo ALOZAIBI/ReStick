@@ -185,6 +185,13 @@ public class UIManager : MonoBehaviour
     //this is triggered by a button
     //loads map and reset cam position
     public void loadScene() {
+        //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
+        //so A way to optimize is to load only if it this function is called from zone lost to map
+        //deletes all characters
+        deleteAllCharacters();
+        //then reloads them back in
+        SaveSystem.loadCharactersInMap();
+
         clearBuffs();
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
@@ -202,27 +209,21 @@ public class UIManager : MonoBehaviour
         
     }
     //tis is triggered by a button;
-    //reloads zone decrease zoneLives and if no more zone lives decrease total lives and reset zone Lives.(in the Zone script)(Notebook Page 24)
-    //for now only deal with total lives.
+    //loads the previous mapSave then reloads the scene
     private void restartZone() {
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
 
-        //sets all playerCharacters to inactive then heals to full hp and make alive
-        foreach (Transform child in playerParty.transform) {
-            if (child.tag == "Character") {
-                child.gameObject.SetActive(false);
-                Character currChar = child.GetComponent<Character>();
-                currChar.HP = currChar.HPMax;
-                currChar.alive = true;
-            }
-        }
         hideCharacter();
         clearBuffs();
         //hides the screen and shows pause again
         gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
         openInventoryBtn.gameObject.SetActive(true);
+        //deletes all characters
+        deleteAllCharacters();
+        //then reloads them back in
+        SaveSystem.loadCharactersInMap();
         DontDestroyOnLoad(playerParty);
         SceneManager.LoadScene(zone.zoneName);
     }
@@ -355,5 +356,26 @@ public class UIManager : MonoBehaviour
             }
         }
         //save inventory world
+    }
+
+    public void saveMapSave() {
+        SaveSystem.characterNumber = 0;
+        //save character in map
+        foreach (Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                SaveSystem.saveCharacterInMap(temp);
+            }
+        }
+        //save inventory in map
+    }
+    //this is to be called before loading characters So that there are no duplicates
+    public void deleteAllCharacters() {
+        foreach (Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                Debug.Log("TO BE DESTROYED" + child.name);
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

@@ -357,15 +357,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2792edd7d9e7b4439e557b4714f6d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabIndex: 0
   zone: {fileID: 0}
   cam: {fileID: 0}
   camMov: {fileID: 0}
   PD: 1
   MD: 0
   HP: 10
-  HPMax: 0
+  HPMax: 10
   AS: 0.5
-  CD: 0
+  CDR: 0
   MS: 1
   Range: 1
   LS: 0
@@ -376,7 +377,7 @@ MonoBehaviour:
   zsHP: 0
   zsHPMax: 0
   zsAS: 0
-  zsCD: 0
+  zsCDR: 0
   zsMS: 0
   zsRange: 0
   zsLS: 0

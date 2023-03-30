@@ -53,7 +53,7 @@ public class CharacterFactory : MonoBehaviour
         //add to playerParty
         temp.transform.parent = UIManager.singleton.playerParty.transform;
     }
-    //on starts adds all children to the abilities list and sets the index 
+    //on starts adds all children to the characters list and sets the index 
     private void Start() {
         foreach (Transform child in transform) {
             characters.Add(child.gameObject);

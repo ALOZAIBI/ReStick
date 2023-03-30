@@ -32,18 +32,14 @@ public class GameStateData
     //this is needed for SaveSystem to be able to deserialize it
     public GameStateData() { }
     public void initNewSave() {
-        Debug.Log("I get in the init new Save");
         //add random character to playerParty
         UIManager temp = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         temp.characterFactory.addRandomCharacterAsChild(temp.playerParty.gameObject);
-        Debug.Log("I am able to find UImanager");
         //then saves gameState
         SaveSystem.saveGameState("", false);
-        Debug.Log("I am able to save");
         //then saves the new character
         temp.saveWorldSave();
         //then loads world
         SceneManager.LoadScene("World");
-        Debug.Log("I am able to end it al");
     }
 }

@@ -41,6 +41,9 @@ public class SceneSelect : MonoBehaviour
 
         SaveSystem.loadCompletionSceneSelect(this);
 
+        Debug.Log(sceneToLoad + "=zoneName is it completed?" + completed);
+
+
         if (completed) {
             GetComponent<SpriteRenderer>().color = new Color(0,1,0);
         }
@@ -68,8 +71,14 @@ public class SceneSelect : MonoBehaviour
                 if (map) {
                     //Save GamestateData to be in this map
                     SaveSystem.saveGameState(sceneToLoad, true);
-                    //save WorldSaves 
+                    //save WorldSaves
                     uiManager.saveWorldSave();
+                    //and also save MapSave so that I have a mapSave to base stuff off of
+                    uiManager.saveMapSave();
+                }
+                if (zone) {
+                    //save MapSave
+                    uiManager.saveMapSave();
                 }
                 goToScene.gameObject.SetActive(true);
                 //reset values

@@ -23,7 +23,7 @@ public class Zone : MonoBehaviour
     [SerializeField] private PlayerManager playerParty;
 
     private int enemiesAlive = 0;
-    //initialized to one so that
+
     private int alliesAlive = 0;
 
     //gold to be added to playerparty on level completion
@@ -74,6 +74,7 @@ public class Zone : MonoBehaviour
             uIManager.displayGameWon(belongsToMap);
             //marks zone as completed then saves
             completed = true;
+            uIManager.saveMapSave();
             //then pauses the game
             uIManager.pausePlay(true);
         }

@@ -20,21 +20,46 @@ public class SaveSlotSelector : MonoBehaviour
 
     public void startSlot1() {
         UIManager.saveSlot = "slot1";
-        SaveSystem.loadCharactersInWorld();
-        SaveSystem.loadGameState();
+
+        //if it's a new Save add a character to player party making playerparty have 3 children
+        //if in map load characters in map else load characters in world
+        if (SaveSystem.loadGameState()) {
+            SaveSystem.loadCharactersInMap();
+        }
+        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters
+        else if 
+            (UIManager.singleton.playerParty.transform.childCount == 2) {
+            SaveSystem.loadCharactersInWorld();
+        }
     }
 
     public void startSlot2() {
         UIManager.saveSlot = "slot2";
-        SaveSystem.loadCharactersInWorld();
-        SaveSystem.loadGameState();
 
+        //if it's a new Save add a character to player party making playerparty have 3 children
+        //if in map load characters in map else load characters in world
+        if (SaveSystem.loadGameState()) {
+            SaveSystem.loadCharactersInMap();
+        }
+        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters
+        else if
+            (UIManager.singleton.playerParty.transform.childCount == 2) {
+            SaveSystem.loadCharactersInWorld();
+        }
     }
 
     public void startSlot3() {
         UIManager.saveSlot = "slot3";
-        SaveSystem.loadCharactersInWorld();
-        SaveSystem.loadGameState();
-    }
 
+        //if it's a new Save add a character to player party making playerparty have 3 children
+        //if in map load characters in map else load characters in world
+        if (SaveSystem.loadGameState()) {
+            SaveSystem.loadCharactersInMap();
+        }
+        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters
+        else if
+            (UIManager.singleton.playerParty.transform.childCount == 2) {
+            SaveSystem.loadCharactersInWorld();
+        }
+    }
 }
