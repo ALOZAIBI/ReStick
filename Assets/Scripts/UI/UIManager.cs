@@ -217,6 +217,8 @@ public class UIManager : MonoBehaviour
         saveWorldSave();
         SaveSystem.saveGameState("", false);
         loadScene();
+        pausePlayBtn.gameObject.SetActive(false);
+        timeControlHidden.hidden = true;
     }
     //tis is triggered by a button;
     //loads the previous mapSave then reloads the scene
@@ -258,10 +260,19 @@ public class UIManager : MonoBehaviour
         closeUIBtn.gameObject.SetActive(false);
         //and shows open inventory btn again
         openInventoryBtn.gameObject.SetActive(true);
-        //if game has started show these
-        if (zone.started == true) {
-            pausePlayBtn.gameObject.SetActive(true);
-            timeControlHidden.hidden = false;
+        
+        try {
+            Debug.Log("IUN ZONE"+zone.zoneName);
+            if (zone.started == true) {
+            //if zone has started show these
+                pausePlayBtn.gameObject.SetActive(true);
+                timeControlHidden.hidden = false;
+            }
+            //else if zone not accessible i.e in map
+        }catch{
+            Debug.Log("IUN MAP");
+            pausePlayBtn.gameObject.SetActive(false);
+            timeControlHidden.hidden = true;
         }
         //go back to the game paused or unpaused determined by if it waspaused before UI was opened
         pausePlay(wasPause);
@@ -398,4 +409,6 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    
 }

@@ -52,6 +52,10 @@ public class RewardSelect : MonoBehaviour
             listReward.Clear();
             //loads map
             uiManager.loadScene();
+
+            //resets UI
+            uiManager.pausePlayBtn.gameObject.SetActive(false);
+            uiManager.timeControlHidden.hidden = true;
         }
     }
     //Displays the abilities and greys out the Button.
