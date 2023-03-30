@@ -234,7 +234,7 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(playerParty);
         SceneManager.LoadScene(zone.zoneName);
     }
-    private void closeUI() {
+    public void closeUI() {
         //closes all UIScreens
         charInfoScreenHidden.hidden = true;
         inventoryScreenHidden.hidden = true;

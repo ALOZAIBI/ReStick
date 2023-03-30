@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  abilityName: AS and DMG and Range
+  abilityName: PD AND AS ON KILL
   description: 
   CD: 0
   available: 1
@@ -54,6 +54,11 @@ MonoBehaviour:
   baseAmt: 0
   PDRatio: 0
   MDRatio: 0
+  HPMaxRatio: 0
+  HPRatio: 0
+  LVLRatio: 0.2
+  MSRatio: 0
+  ASRatio: 0
   amt: 0
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}

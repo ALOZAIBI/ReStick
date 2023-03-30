@@ -54,7 +54,7 @@ public abstract class Ability : MonoBehaviour
     /// Calculates amt by adding stat ratios
     /// </summary>
     public void calculateAmt() {
-        amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.HPMax * HPMaxRatio+ character.HP*HPRatio + character.level*LVLRatio + character.MS*MSRatio + character.AS*ASRatio);
+        amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.HPMax * HPMaxRatio+ character.HP*HPRatio + character.level*LVLRatio + character.MS*MSRatio + character.AS*ASRatio;
     }
 
     //if an ability has a cooldown call this inside doAbility()
