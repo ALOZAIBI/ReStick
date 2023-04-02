@@ -136,8 +136,7 @@ public class UIManager : MonoBehaviour
     public void viewCharacterInfo(Character currChar) {
         //opens the screen and pauses the game
         charInfoScreenHidden.hidden = false;
-        pause = true;
-        Time.timeScale = 0;
+        pausePlay(true);
         //hides placing screen
         placingScreenHidden.hidden = true;
         topStatDisplay.moreInfoBtn.gameObject.SetActive(false);
@@ -282,6 +281,9 @@ public class UIManager : MonoBehaviour
         
         pausePlay(wasPause);
 
+        //resets the statPoints 
+        characterInfoScreen.statPointUI.resetChanges();
+        inventoryScreen.inventoryCharacterScreen.statPointUI.resetChanges();
 
         characterInfoScreen.close();
         //characterPlacingScreen.close();
@@ -291,6 +293,7 @@ public class UIManager : MonoBehaviour
 
     public void pausePlay() {
         //Flips the pause switch then pauses or unpauses
+        wasPause = pause;
         pause = !pause;
         if (pause) {
             Time.timeScale = 0;
@@ -298,7 +301,6 @@ public class UIManager : MonoBehaviour
         else
             Time.timeScale = timeControl.currTimeScale;
         //wasPause = pause
-        wasPause = pause;
     }
     /// <summary>
     /// If true pause the game

@@ -660,9 +660,15 @@ public class Character : MonoBehaviour {
         //update xpCap depending on level
         xpCap = level + (level * ((level - 1) / 2));
 
-        //heal character by 20% of max HP on level up (this only applies to player characters that are not summoned)
+        //(this only applies to player characters that are not summoned)
         if(!summoned && team == (int)teamList.Player) {
+            //increase stats a bit
+            HPMax += 2;
+            PD += 0.5f;
+            AS += 0.05f;
+            //heal character by 20% of max HP on level up 
             HP += 0.2f * HPMax;
+
         }
     }
     void FixedUpdate()

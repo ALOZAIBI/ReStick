@@ -130,6 +130,10 @@ public class TopStatDisplay : MonoBehaviour
 
             levelText.text = "LVL: " + character.level;
             levelBar.fillAmount = (float)character.xpProgress / character.xpCap;
+
+            //if character dies hide topstat display
+            if (!character.alive)
+                uiManager.topStatDisplayHidden.hidden = true;
         }
         catch { }
         

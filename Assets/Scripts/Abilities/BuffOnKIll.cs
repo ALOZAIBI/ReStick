@@ -108,6 +108,8 @@ public class BuffOnKIll : Ability
         description = "On Kill give me ";
         if (PD != 0)
             description += PD + " PD ";
+        if (MD != 0)
+            description += PD + " PD ";
         if (HP != 0)
             description += HP + " HP ";
         if (AS != 0)

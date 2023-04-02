@@ -9,7 +9,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public UIManager uiManager;
     public TextMeshProUGUI characterName;
     //stats texts
-    public TextMeshProUGUI PD, MD, AS, CDR, MS, RNG, LS;
+    public TextMeshProUGUI PD, MD, AS, CDR, MS, RNG, LS,SP;
     //cool stats texts
     public TextMeshProUGUI totalKills;
     public CharacterHealthBar healthBar;
@@ -30,7 +30,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public Button openTargetSelectionBtn;
 
     //Stat point stuff
-    [SerializeField]private StatPointUI statPointUI;
+    [SerializeField]public StatPointUI statPointUI;
 
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI levelProgress;
@@ -188,15 +188,18 @@ public class CharacterInfoScreen : MonoBehaviour
         MS.text = currChar.MS.ToString("F1");
         RNG.text = currChar.Range.ToString("F1");
         LS.text = (currChar.LS*100).ToString("F1");
+        SP.text = currChar.statPoints.ToString();
 
         //displays statPoints if zone hasn't started and if the character has statpoints available
         if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
             //Debug.Log("showing");
+            statPointUI.applied = false;
             statPointUI.show();
-            statPointUI.fakeStatDisplay();
+            //statPointUI.fakeStatDisplay();
         }
-        else
-            statPointUI.hide();
+        else   //hides if stats were applied or if zoneStarted
+            if(currChar.statPoints<=0 && statPointUI.applied|| uiManager.zoneStarted())
+                statPointUI.hide();
 
         totalKills.text = currChar.totalKills + "";
         //fills the HP bar correctly

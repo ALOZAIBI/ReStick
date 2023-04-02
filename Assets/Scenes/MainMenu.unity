@@ -2794,8 +2794,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -120, y: -46.06006}
-  m_SizeDelta: {x: 52, y: 27.9}
+  m_AnchoredPosition: {x: -120, y: -60}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &141061099
 MonoBehaviour:
@@ -2881,8 +2881,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 13ca03486970df24bb1c8e94ec6501ab, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3723,6 +3723,7 @@ MonoBehaviour:
   MS: {fileID: 0}
   RNG: {fileID: 0}
   LS: {fileID: 0}
+  SP: {fileID: 0}
   totalKills: {fileID: 0}
   healthBar: {fileID: 0}
   characterPortrait: {fileID: 0}
@@ -18700,16 +18701,17 @@ MonoBehaviour:
   subLS: {fileID: 37552766}
   addHP: {fileID: 476613471}
   subHP: {fileID: 739713262}
-  PDAmt: 1
+  PDAmt: 2
   MDAmt: 1
   ASAmt: 0.5
-  CDRAmt: 0.05
+  CDRAmt: 0.08
   MSAmt: 0.2
   RNGAmt: 0.1
-  LSAmt: 0.02
-  HPAmt: 5
+  LSAmt: 0.04
+  HPAmt: 12
   applyChangesBtn: {fileID: 1022138411}
   resetChangesBtn: {fileID: 1855447449}
+  applied: 0
   SPUsedBuffer: 0
 --- !u!114 &1132395504
 MonoBehaviour:
@@ -20455,8 +20457,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -120, y: -46.06006}
-  m_SizeDelta: {x: 52, y: 27.9}
+  m_AnchoredPosition: {x: -120, y: -60}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1274849130
 MonoBehaviour:
@@ -20522,7 +20524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 13ca03486970df24bb1c8e94ec6501ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -21265,16 +21267,17 @@ MonoBehaviour:
   subLS: {fileID: 546898740}
   addHP: {fileID: 26176455}
   subHP: {fileID: 1965147900}
-  PDAmt: 1
+  PDAmt: 2
   MDAmt: 1
   ASAmt: 0.5
-  CDRAmt: 0.05
+  CDRAmt: 0.08
   MSAmt: 0.2
   RNGAmt: 0.1
-  LSAmt: 0.02
-  HPAmt: 5
+  LSAmt: 0.04
+  HPAmt: 12
   applyChangesBtn: {fileID: 1462194488}
   resetChangesBtn: {fileID: 1642414853}
+  applied: 0
   SPUsedBuffer: 0
 --- !u!114 &1331654063
 MonoBehaviour:
@@ -21867,6 +21870,7 @@ MonoBehaviour:
   MS: {fileID: 1566508387}
   RNG: {fileID: 565667187}
   LS: {fileID: 1400363742}
+  SP: {fileID: 228389802}
   totalKills: {fileID: 944088984}
   healthBar: {fileID: 1416410532}
   characterPortrait: {fileID: 722185298}
@@ -22957,6 +22961,7 @@ MonoBehaviour:
   MS: {fileID: 262554645}
   RNG: {fileID: 1439232047}
   LS: {fileID: 1701758658}
+  SP: {fileID: 640967339}
   totalKills: {fileID: 1255521160}
   healthBar: {fileID: 1690885643}
   characterPortrait: {fileID: 1743024148}
@@ -25666,8 +25671,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 457d431046675754b9e653d6d09fc39e, type: 2}
+  m_sharedMaterial: {fileID: -9005461818949619918, guid: 457d431046675754b9e653d6d09fc39e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -25691,7 +25696,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.4
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -30526,10 +30531,10 @@ RectTransform:
   m_Father: {fileID: 141061098}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1929899867
 MonoBehaviour:
@@ -30580,11 +30585,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.25
+  m_fontSize: 17.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 14.7
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -30592,7 +30597,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 1
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

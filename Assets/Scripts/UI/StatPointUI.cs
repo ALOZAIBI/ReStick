@@ -64,6 +64,8 @@ public class StatPointUI : MonoBehaviour {
     private float LSbuffer;
     private float HPbuffer;
 
+    //wether the stats have been appleid or not
+    public bool applied;
 
     //How much SP used
     [SerializeField] private int SPUsedBuffer;
@@ -138,18 +140,18 @@ public class StatPointUI : MonoBehaviour {
         //fakeStatDisplay();
     }
 
-    private void applyChanges() {
-        characterInfoScreen.character.PD += PDbuffer;
-        characterInfoScreen.character.MD += MDbuffer;
-        characterInfoScreen.character.AS += ASbuffer;
-        characterInfoScreen.character.CDR += CDRbuffer;
-        characterInfoScreen.character.MS += MSbuffer;
-        characterInfoScreen.character.Range += RNGbuffer;
-        characterInfoScreen.character.LS += LSbuffer;
-        characterInfoScreen.character.HPMax += HPbuffer;
-        characterInfoScreen.character.HP += HPbuffer;
+    public void applyChanges() {
+        //characterInfoScreen.character.PD += PDbuffer;
+        //characterInfoScreen.character.MD += MDbuffer;
+        //characterInfoScreen.character.AS += ASbuffer;
+        //characterInfoScreen.character.CDR += CDRbuffer;
+        //characterInfoScreen.character.MS += MSbuffer;
+        //characterInfoScreen.character.Range += RNGbuffer;
+        //characterInfoScreen.character.LS += LSbuffer;
+        //characterInfoScreen.character.HPMax += HPbuffer;
+        //characterInfoScreen.character.HP += HPbuffer;
 
-        characterInfoScreen.character.statPoints -= SPUsedBuffer;
+        //characterInfoScreen.character.statPoints -= SPUsedBuffer;
 
         // Reset the buffer values to zero
         PDbuffer = 0;
@@ -163,10 +165,24 @@ public class StatPointUI : MonoBehaviour {
 
         SPUsedBuffer = 0;
 
+        applied = true;
+
         characterInfoScreen.viewCharacter(characterInfoScreen.character);
     }
+    //resets changes when backButton is clicked or CloseUI Button Clicked
+    public void resetChanges() {
+        characterInfoScreen.character.PD -= PDbuffer;
+        characterInfoScreen.character.MD -= MDbuffer;
+        characterInfoScreen.character.AS -= ASbuffer;
+        characterInfoScreen.character.CDR -= CDRbuffer;
+        characterInfoScreen.character.MS -= MSbuffer;
+        characterInfoScreen.character.Range -= RNGbuffer;
+        characterInfoScreen.character.LS -= LSbuffer;
+        characterInfoScreen.character.HPMax -= HPbuffer;
+        characterInfoScreen.character.HP -= HPbuffer;
+        characterInfoScreen.character.statPoints += SPUsedBuffer;
 
-    private void resetChanges() {
+
         PDbuffer = 0;
         MDbuffer = 0;
         ASbuffer = 0;
@@ -178,14 +194,18 @@ public class StatPointUI : MonoBehaviour {
 
         SPUsedBuffer = 0;
 
-        characterInfoScreen.displayStats(characterInfoScreen.character);
+        applied = false;
+
+        fakeStatDisplay();
     }
 
 
     // OnAdd function for PD
     public void OnAddPDButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.PD+=PDAmt;
             PDbuffer += PDAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -194,7 +214,9 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for PD
     public void OnSubPDButtonClicked() {
         if (PDbuffer > 0) {
+            characterInfoScreen.character.PD-=PDAmt;
             PDbuffer -= PDAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -202,8 +224,10 @@ public class StatPointUI : MonoBehaviour {
 
     // OnAdd function for MD
     public void OnAddMDButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.MD+=MDAmt;
             MDbuffer += MDAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -212,7 +236,9 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for MD
     public void OnSubMDButtonClicked() {
         if (MDbuffer > 0) {
+            characterInfoScreen.character.MD-=MDAmt;
             MDbuffer -= MDAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -220,8 +246,10 @@ public class StatPointUI : MonoBehaviour {
 
     // OnAdd function for AS
     public void OnAddASButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.AS += ASAmt;
             ASbuffer += ASAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -230,7 +258,9 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for AS
     public void OnSubASButtonClicked() {
         if (ASbuffer > 0) {
+            characterInfoScreen.character.AS -= ASAmt;
             ASbuffer -= ASAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -238,8 +268,10 @@ public class StatPointUI : MonoBehaviour {
 
     // OnAdd function for CDR
     public void OnAddCDRButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.CDR += CDRAmt;
             CDRbuffer += CDRAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -248,7 +280,9 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for CDR
     public void OnSubCDRButtonClicked() {
         if (CDRbuffer > 0) {
+            characterInfoScreen.character.CDR -= CDRAmt;
             CDRbuffer -= CDRAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -256,8 +290,10 @@ public class StatPointUI : MonoBehaviour {
 
     // OnAdd function for MS
     public void OnAddMSButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.MS += MSAmt;
             MSbuffer += MSAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -266,7 +302,9 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for MS
     public void OnSubMSButtonClicked() {
         if (MSbuffer > 0) {
+            characterInfoScreen.character.MS -= MSAmt;
             MSbuffer -= MSAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -274,8 +312,10 @@ public class StatPointUI : MonoBehaviour {
 
     // OnAdd function for RNG
     public void OnAddRNGButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.Range += RNGAmt;
             RNGbuffer += RNGAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -284,7 +324,9 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for RNG
     public void OnSubRNGButtonClicked() {
         if (RNGbuffer > 0) {
+            characterInfoScreen.character.Range -= RNGAmt;
             RNGbuffer -= RNGAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -292,8 +334,10 @@ public class StatPointUI : MonoBehaviour {
 
     // OnAdd function for LS
     public void OnAddLSButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.LS += LSAmt;
             LSbuffer += LSAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -302,7 +346,9 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for LS
     public void OnSubLSButtonClicked() {
         if (LSbuffer > 0) {
+            characterInfoScreen.character.LS -= LSAmt;
             LSbuffer -= LSAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -310,8 +356,11 @@ public class StatPointUI : MonoBehaviour {
 
     // OnAdd function for HP
     public void OnAddHPButtonClicked() {
-        if ((characterInfoScreen.character.statPoints - SPUsedBuffer) > 0) {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.HP+=HPAmt;
+            characterInfoScreen.character.HPMax+=HPAmt;
             HPbuffer += HPAmt;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             fakeStatDisplay();
         }
@@ -320,7 +369,10 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for HP
     public void OnSubHPButtonClicked() {
         if (HPbuffer > 0) {
+            characterInfoScreen.character.HP-=HPAmt;
+            characterInfoScreen.character.HPMax-=HPAmt;
             HPbuffer -= HPAmt;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
         }
@@ -332,16 +384,7 @@ public class StatPointUI : MonoBehaviour {
     //updates visual to display change to be applied
     public void fakeStatDisplay() {
         Debug.Log("Fakse stats uopdated");
-        statPointDisplay.text = characterInfoScreen.character.statPoints-SPUsedBuffer + "";
-        characterInfoScreen.PD.text = (characterInfoScreen.character.PD+PDbuffer).ToString("F1");
-        characterInfoScreen.MD.text = (characterInfoScreen.character.MD + MDbuffer).ToString("F1");
-        characterInfoScreen.AS.text = (characterInfoScreen.character.AS+ASbuffer).ToString("F1");
-        characterInfoScreen.CDR.text = ((characterInfoScreen.character.CDR + CDRbuffer)*100).ToString("F1");
-        characterInfoScreen.MS.text = (characterInfoScreen.character.MS + MSbuffer).ToString("F1");
-        characterInfoScreen.RNG.text = (characterInfoScreen.character.Range + RNGbuffer).ToString("F1");
-        characterInfoScreen.LS.text = ((characterInfoScreen.character.LS + LSbuffer)*100).ToString("F1");
-        characterInfoScreen.healthBar.HPtext.text=((characterInfoScreen.character.HP+HPbuffer).ToString("F1") + "/" + (characterInfoScreen.character.HPMax+HPbuffer).ToString("F1"));
-        //updates the abilities to display new description (since we migth have changed the MD AND PD which would change abiltiy amt)
+        characterInfoScreen.displayStats(characterInfoScreen.character);
         characterInfoScreen.displayCharacterAbilities(characterInfoScreen.character);
     }
 

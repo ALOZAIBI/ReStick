@@ -54,6 +54,8 @@ public class CharacterPlacingScreen : MonoBehaviour
         uiManager.pausePlayBtn.gameObject.SetActive(true);
         uiManager.timeControlHidden.hidden = false;
         uiManager.pausePlay(false);
+        //this has to be set to pause since we dont want it to be true when zone gameplay starts
+        uiManager.wasPause = false;
         close();
         uiManager.zone.started = true;
         //does initRoundStart for playerParty Character's this is enough only on playerPartyCharacter's because the other character's will have initroundstart called anyways in the start function
