@@ -68,18 +68,7 @@ public class SceneSelect : MonoBehaviour
             }
             //if click 
             else if (mouseHoldDuration < 0.2f) {
-                if (map) {
-                    //Save GamestateData to be in this map
-                    SaveSystem.saveGameState(sceneToLoad, true);
-                    //save WorldSaves
-                    uiManager.saveWorldSave();
-                    //and also save MapSave so that I have a mapSave to base stuff off of
-                    uiManager.saveMapSave();
-                }
-                if (zone) {
-                    //save MapSave
-                    uiManager.saveMapSave();
-                }
+               
                 goToScene.gameObject.SetActive(true);
                 //reset values
                 mouseHoldDuration = 0;
@@ -96,6 +85,22 @@ public class SceneSelect : MonoBehaviour
 
     //jumps to scene and sets all characters to inactive
     private void goTo() {
+        if (map) {
+            //Save GamestateData to be in this map
+            SaveSystem.saveGameState(sceneToLoad, true);
+            //save WorldSaves
+            uiManager.saveWorldSave();
+            //and also save MapSave so that I have a mapSave to base stuff off of
+            uiManager.saveMapSave();
+            uiManager.inZone = false;
+        }
+        if (zone) {
+            //save MapSave
+            uiManager.saveMapSave();
+            //and marks inZone
+            uiManager.inZone = true;
+        }
+
         foreach (Transform child in uiManager.playerParty.transform) {
             if (child.tag == "Character") {
                 //Debug.Log(child.name + "Disabled fuckl");

@@ -22,6 +22,8 @@ public class Summon : Ability
             charSummoned.Range += charSummoned.Range * amt;
             charSummoned.LS += charSummoned.LS * amt;
 
+            charSummoned.summoned = true;
+            charSummoned.summoner = character;
             //Sets the summoned character's team and targetting strategy
             charSummoned.team = character.team;
             charSummoned.attackTargetStrategy = targetStrategy;

@@ -50,6 +50,8 @@ public class RewardSelect : MonoBehaviour
             uiManager.saveMapSave();
             //then clears the list to be reinitialized in another zone
             listReward.Clear();
+            //once leaves zone mark it as outside zone
+            uiManager.inZone = false;
             //loads map
             uiManager.loadScene();
 

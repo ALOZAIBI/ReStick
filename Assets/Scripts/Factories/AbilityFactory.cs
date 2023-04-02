@@ -37,7 +37,7 @@ public class AbilityFactory : MonoBehaviour
         for (int i = 0; i < amount; i++) {
             Debug.Log("adding 1 ability");
             //gets a random ability
-            int index = Random.Range(0, abilities.Count - 1);
+            int index = Random.Range(0, abilities.Count);
             addsObjectToZone(zone, abilities[index]);
         }
     }

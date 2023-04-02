@@ -55,6 +55,10 @@ public abstract class Ability : MonoBehaviour
     /// </summary>
     public void calculateAmt() {
         amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.HPMax * HPMaxRatio+ character.HP*HPRatio + character.level*LVLRatio + character.MS*MSRatio + character.AS*ASRatio;
+        //for example in teh case of damagin aura it should make the amt more negative instead of positive
+        if(baseAmt < 0) {
+            amt = -amt;
+        }
     }
 
     //if an ability has a cooldown call this inside doAbility()

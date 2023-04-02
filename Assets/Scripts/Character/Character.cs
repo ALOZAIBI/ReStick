@@ -68,6 +68,9 @@ public class Character : MonoBehaviour {
     #region
     //Character's team
     public int team;
+    //indicates wether this character has been summoned by another
+    public bool summoned;
+    public Character summoner;
 
     //Current targeting strategy
     public int attackTargetStrategy = (int)targetList.DefaultEnemy;   //who to attack
@@ -159,10 +162,12 @@ public class Character : MonoBehaviour {
 
     void Start() {
         initRoundStart();
+        animationManager = GetComponent<AnimationManager>();
         //Connect to UIManager
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         //setup level cap
         xpCap = level + (level * ((level - 1) / 2));
+
 
         //Connect to camera
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -634,18 +639,31 @@ public class Character : MonoBehaviour {
 
     //increase killer's kill stats and xp
     public void kill(Character victim) {
-        totalKills++;
-        killsLastFrame++;
-        //level progress will depend on victim's level the equation is open to changing
-        xpProgress += victim.level;
+        if (summoned) {
+            summoner.totalKills++;
+            summoner.killsLastFrame++;
+            //level progress will depend on victim's level the equation is open to changing
+            summoner.xpProgress += victim.level;
+        }
+        else {
+            totalKills++;
+            killsLastFrame++;
+            //level progress will depend on victim's level the equation is open to changing
+            xpProgress += victim.level;
+        }
     }
     private void levelUp() {
         xpProgress -= xpCap;
         level++;
         //maybe give more stats every 10 levels or smthn level cap setup is done in start method as well.
         statPoints++;
-        xpCap = level + (level * ((level - 1) / 2));
         //update xpCap depending on level
+        xpCap = level + (level * ((level - 1) / 2));
+
+        //heal character by 20% of max HP on level up (this only applies to player characters that are not summoned)
+        if(!summoned && team == (int)teamList.Player) {
+            HP += 0.2f * HPMax;
+        }
     }
     void FixedUpdate()
     {
