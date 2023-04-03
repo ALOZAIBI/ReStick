@@ -97,7 +97,20 @@ public class Character : MonoBehaviour {
 
         HighestPDEnemy,
         LowestPDEnemy,
-        
+
+        HighestMDEnemy,
+        LowestMDEnemy,
+
+        HighestASEnemy,
+        LowestASEnemy,
+
+        HighestMSEnemy,
+        LowestMSEnemy,
+
+        HighestRangeEnemy,
+        LowestRangeEnemy,
+
+
         HighestHPEnemy,
         LowestHPEnemy,
 
@@ -107,8 +120,22 @@ public class Character : MonoBehaviour {
         DefaultAlly,        
         //selects closest ally 
         ClosestAlly,
+
         LowestPDAlly,
         HighestPDAlly,
+
+        HighestMDAlly,
+        LowestMDAlly,
+
+        HighestASAlly,
+        LowestASAlly,
+
+        HighestMSAlly,
+        LowestMSAlly,
+
+        HighestRangeAlly,
+        LowestRangeAlly,
+
         HighestHPAlly,
         LowestHPAlly,
 
@@ -314,7 +341,7 @@ public class Character : MonoBehaviour {
                 break;
 
             case (int)targetList.LowestPDEnemy:
-                //initially assume that this is the MaxPD Character
+                //initially assume that this is the MinPD Character
                 Character minPD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
@@ -329,6 +356,150 @@ public class Character : MonoBehaviour {
                 if (minPD.team == team)
                     minPD = null;
                 target = minPD;
+                break;
+
+            case (int)targetList.HighestMDEnemy:
+                //initially assume that this is the MaxMD Character
+                Character maxMD = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //maxMD.team == team is done in case the MaxMD init was actually an ally
+                        if (maxMD.team == team || temp.MD > maxMD.MD) {
+                            maxMD = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (maxMD.team == team)
+                    maxMD = null;
+                target = maxMD;
+                break;
+
+            case (int)targetList.LowestMDEnemy:
+                //initially assume that this is the MaxMD Character
+                Character minMD = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //minMD.team == team is done in case the MaxMD init was actually an ally
+                        if (minMD.team == team || temp.MD < minMD.MD) {
+                            minMD = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (minMD.team == team)
+                    minMD = null;
+                target = minMD;
+                break;
+
+            case (int)targetList.HighestASEnemy:
+                //initially assume that this is the MaxAS Character
+                Character maxAS = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //maxAS.team == team is done in case the MaxAS init was actually an ally
+                        if (maxAS.team == team || temp.AS > maxAS.AS) {
+                            maxAS = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (maxAS.team == team)
+                    maxAS = null;
+                target = maxAS;
+                break;
+
+            case (int)targetList.LowestASEnemy:
+                //initially assume that this is the MaxAS Character
+                Character minAS = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //minAS.team == team is done in case the MaxAS init was actually an ally
+                        if (minAS.team == team || temp.AS < minAS.AS) {
+                            minAS = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (minAS.team == team)
+                    minAS = null;
+                target = minAS;
+                break;
+
+            case (int)targetList.HighestMSEnemy:
+                //initially assume that this is the MaxMS Character
+                Character maxMS = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //maxMS.team == team is done in case the MaxMS init was actually an ally
+                        if (maxMS.team == team || temp.MS > maxMS.MS) {
+                            maxMS = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (maxMS.team == team)
+                    maxMS = null;
+                target = maxMS;
+                break;
+
+            case (int)targetList.LowestMSEnemy:
+                //initially assume that this is the MaxMS Character
+                Character minMS = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //minMS.team == team is done in case the MaxMS init was actually an ally
+                        if (minMS.team == team || temp.MS < minMS.MS) {
+                            minMS = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (minMS.team == team)
+                    minMS = null;
+                target = minMS;
+                break;
+
+            case (int)targetList.HighestRangeEnemy:
+                //initially assume that this is the MaxRange Character
+                Character maxRange = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //maxRange.team == team is done in case the MaxRange init was actually an ally
+                        if (maxRange.team == team || temp.Range > maxRange.Range) {
+                            maxRange = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (maxRange.team == team)
+                    maxRange = null;
+                target = maxRange;
+                break;
+
+            case (int)targetList.LowestRangeEnemy:
+                //initially assume that this is the MaxRange Character
+                Character minRange = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        //minRange.team == team is done in case the MaxRange init was actually an ally
+                        if (minRange.team == team || temp.Range < minRange.Range) {
+                            minRange = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (minRange.team == team)
+                    minRange = null;
+                target = minRange;
                 break;
 
             case (int)targetList.HighestHPEnemy:
@@ -422,6 +593,150 @@ public class Character : MonoBehaviour {
                 if (minPDAlly.team != team)
                     minPDAlly = null;
                 target = minPDAlly;
+                break;
+
+            case (int)targetList.HighestMDAlly:
+                //initially assume that this is the MaxMD Character
+                Character maxMDAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and is not itself
+                    if (temp.team == team && temp != this) {
+                        //maxMD.team == team is done in case the MaxMD init was actually an enemy
+                        if (maxMDAlly.team != team || temp.MD > maxMDAlly.MD) {
+                            maxMDAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (maxMDAlly.team != team)
+                    maxMDAlly = null;
+                target = maxMDAlly;
+                break;
+
+            case (int)targetList.LowestMDAlly:
+                //initially assume that this is the MaxMD Character
+                Character minMDAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not itself
+                    if (temp.team == team && temp != this) {
+                        //minMDAlly.team != team is done in case the MaxMD init was actually an enemy
+                        if (minMDAlly.team != team || temp.MD < minMDAlly.MD) {
+                            minMDAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (minMDAlly.team != team)
+                    minMDAlly = null;
+                target = minMDAlly;
+                break;
+
+            case (int)targetList.HighestASAlly:
+                //initially assume that this is the MaxAS Character
+                Character maxASAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and is not itself
+                    if (temp.team == team && temp != this) {
+                        //maxAS.team == team is done in case the MaxAS init was actually an enemy
+                        if (maxASAlly.team != team || temp.AS > maxASAlly.AS) {
+                            maxASAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (maxASAlly.team != team)
+                    maxASAlly = null;
+                target = maxASAlly;
+                break;
+
+            case (int)targetList.LowestASAlly:
+                //initially assume that this is the MaxAS Character
+                Character minASAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not itself
+                    if (temp.team == team && temp != this) {
+                        //minASAlly.team != team is done in case the MaxAS init was actually an enemy
+                        if (minASAlly.team != team || temp.AS < minASAlly.AS) {
+                            minASAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (minASAlly.team != team)
+                    minASAlly = null;
+                target = minASAlly;
+                break;
+
+            case (int)targetList.HighestMSAlly:
+                //initially assume that this is the MaxMS Character
+                Character maxMSAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and is not itself
+                    if (temp.team == team && temp != this) {
+                        //maxMS.team == team is done in case the MaxMS init was actually an enemy
+                        if (maxMSAlly.team != team || temp.MS > maxMSAlly.MS) {
+                            maxMSAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (maxMSAlly.team != team)
+                    maxMSAlly = null;
+                target = maxMSAlly;
+                break;
+
+            case (int)targetList.LowestMSAlly:
+                //initially assume that this is the MaxMS Character
+                Character minMSAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not itself
+                    if (temp.team == team && temp != this) {
+                        //minMSAlly.team != team is done in case the MaxMS init was actually an enemy
+                        if (minMSAlly.team != team || temp.MS < minMSAlly.MS) {
+                            minMSAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (minMSAlly.team != team)
+                    minMSAlly = null;
+                target = minMSAlly;
+                break;
+
+            case (int)targetList.HighestRangeAlly:
+                //initially assume that this is the MaxRange Character
+                Character maxRangeAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and is not itself
+                    if (temp.team == team && temp != this) {
+                        //maxRange.team == team is done in case the MaxRange init was actually an enemy
+                        if (maxRangeAlly.team != team || temp.Range > maxRangeAlly.Range) {
+                            maxRangeAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (maxRangeAlly.team != team)
+                    maxRangeAlly = null;
+                target = maxRangeAlly;
+                break;
+
+            case (int)targetList.LowestRangeAlly:
+                //initially assume that this is the MaxRange Character
+                Character minRangeAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not itself
+                    if (temp.team == team && temp != this) {
+                        //minRangeAlly.team != team is done in case the MaxRange init was actually an enemy
+                        if (minRangeAlly.team != team || temp.Range < minRangeAlly.Range) {
+                            minRangeAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (minRangeAlly.team != team)
+                    minRangeAlly = null;
+                target = minRangeAlly;
                 break;
 
             case (int)targetList.HighestHPAlly:

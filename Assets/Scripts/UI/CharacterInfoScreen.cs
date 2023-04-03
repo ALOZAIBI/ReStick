@@ -66,7 +66,8 @@ public class CharacterInfoScreen : MonoBehaviour
         characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
         //Debug.Log("Is this causing bug?:" + GetComponent<TargetNames>().getName(currChar.attackTargetStrategy));
         //sets the text of the targetting
-        targetSelector.target.text = TargetNames.getName(currChar.attackTargetStrategy);
+        TextMeshProUGUI text = openTargetSelectionBtn.GetComponentInChildren<TextMeshProUGUI>();
+        text.text = TargetNames.getName(currChar.attackTargetStrategy);
         targetSelector.character = currChar;
 
         character = currChar;

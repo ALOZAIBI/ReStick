@@ -7,14 +7,14 @@ public class ColorPalette : MonoBehaviour
     //this script is on an empty in the do not destroys
 
     //default color
-    public static Color defaultColor;
+    [SerializeField] public static Color defaultColor;
     //color of text when gaining a buff (Green)
-    public static Color buff;
+    [SerializeField] public static Color buff;
     //color of text when gaining a debuff(red)
-    public static Color debuff;
+    [SerializeField] public static Color debuff;
 
-    public static Color allyHealthBar;
-    public static Color enemyHealthBar;
+    [SerializeField] public static Color allyHealthBar;
+    [SerializeField] public static Color enemyHealthBar;
 
     //public static Color neutralHealthBar;
 

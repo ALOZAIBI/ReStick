@@ -9,21 +9,11 @@ public class AttackTargetSelector : MonoBehaviour {
     public UIManager uiManager;
     //just text 
     public TextMeshProUGUI target;
+    public TextMeshProUGUI phrase;
     public Character character;
     public GameObject targetSelection;
 
-    public Button closestEnemyBtn;
-    public Button closestAllyBtn;
-
-    public Button highestPDEnemyBtn;
-    public Button lowestPDEnemyBtn;
-    public Button highestHPEnemyBtn;
-    public Button lowestHPEnemyBtn;
-
-    public Button highestPDAllyBtn;
-    public Button lowestPDAllyBtn;
-    public Button highestHPAllyBtn;
-    public Button lowestHPAllyBtn;
+    public TargetOptionButton[] buttons;
 
 
     //the ability to have it's target change.
@@ -31,25 +21,13 @@ public class AttackTargetSelector : MonoBehaviour {
     //if true then the selector selects for ability target otherwise it selects for regular attack
     public bool isAbilityTargetSelector;
 
-    private void Start() {
+    public bool highest;//if true highest if false lowest
+    public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-
-        closestEnemyBtn.onClick.AddListener(selectClosestEnemy);
-        closestAllyBtn.onClick.AddListener(selectClosestAlly);
-
-        highestPDEnemyBtn.onClick.AddListener(selectHighestPDEnemy);
-        lowestPDEnemyBtn.onClick.AddListener(selectLowestPDEnemy);
-        highestHPEnemyBtn.onClick.AddListener(selectHighestHPEnemy);
-        lowestHPEnemyBtn.onClick.AddListener(selectLowestHPEnemy);
-
-        highestPDAllyBtn.onClick.AddListener(selectHighestPDAlly);
-        lowestPDAllyBtn.onClick.AddListener(selectLowestPDAlly);
-        highestHPAllyBtn.onClick.AddListener(selectHighestHPAlly);
-        lowestHPAllyBtn.onClick.AddListener(selectLowestHPAlly);
 
     }
 
-    private void closeAndUpdateCharScreen() {
+    public void closeAndUpdateCharScreen() {
         //closes the windows
         targetSelection.SetActive(false);
         //updates the characterInfoScreenview
@@ -64,8 +42,18 @@ public class AttackTargetSelector : MonoBehaviour {
             uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(character);
         }
     }
+    //remove highlights from all buttons except the selected one
+    public void removeHighlights(TargetOptionButton button) {
+        foreach(TargetOptionButton temp in buttons) {
+            if (temp != button) {
+                temp.removeHighlights("both");
+                temp.currentlySelectedBtn = false;
+            }
+        }
+        Debug.Log("Removing Other Highlights");
+    }
     //the buttons change the targetting then closes the selection screen
-    private void selectClosestEnemy() {
+    public void selectClosestEnemy() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.ClosestEnemy;
         }
@@ -75,7 +63,7 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         closeAndUpdateCharScreen();
     }
-    private void selectHighestPDEnemy() {
+    public void selectHighestPDEnemy() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.HighestPDEnemy;
         }
@@ -87,7 +75,7 @@ public class AttackTargetSelector : MonoBehaviour {
 
     }
 
-    private void selectLowestPDEnemy() {
+    public void selectLowestPDEnemy() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.LowestPDEnemy;
         }
@@ -99,7 +87,102 @@ public class AttackTargetSelector : MonoBehaviour {
 
     }
 
-    private void selectHighestHPEnemy() {
+    public void selectHighestMDEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestMDEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestMDEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.HighestMDEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectLowestMDEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestMDEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestMDEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.LowestMDEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+    public void selectHighestASEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestASEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestASEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.HighestASEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectLowestASEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestASEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestASEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.LowestASEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectHighestMSEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestMSEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestMSEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.HighestMSEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectLowestMSEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestMSEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestMSEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.LowestMSEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectHighestRangeEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestRangeEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestRangeEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.HighestRangeEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectLowestRangeEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestRangeEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestRangeEnemy;
+            character.movementTargetStrategy = (int)Character.targetList.LowestRangeEnemy;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectHighestHPEnemy() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.HighestHPEnemy;
         }
@@ -110,7 +193,8 @@ public class AttackTargetSelector : MonoBehaviour {
         closeAndUpdateCharScreen();
 
     }
-    private void selectLowestHPEnemy() {
+
+    public void selectLowestHPEnemy() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.LowestHPEnemy;
         }
@@ -122,7 +206,7 @@ public class AttackTargetSelector : MonoBehaviour {
 
     }
 
-    private void selectHighestPDAlly() {
+    public void selectHighestPDAlly() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.HighestPDAlly;
         }
@@ -134,7 +218,7 @@ public class AttackTargetSelector : MonoBehaviour {
 
     }
 
-    private void selectLowestPDAlly() {
+    public void selectLowestPDAlly() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.LowestPDAlly;
         }
@@ -145,8 +229,102 @@ public class AttackTargetSelector : MonoBehaviour {
         closeAndUpdateCharScreen();
 
     }
+    public void selectHighestMDAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestMDAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestMDAlly;
+            character.movementTargetStrategy = (int)Character.targetList.HighestMDAlly;
+        }
+        closeAndUpdateCharScreen();
 
-    private void selectHighestHPAlly() {
+    }
+
+    public void selectLowestMDAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestMDAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestMDAlly;
+            character.movementTargetStrategy = (int)Character.targetList.LowestMDAlly;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+    public void selectHighestASAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestASAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestASAlly;
+            character.movementTargetStrategy = (int)Character.targetList.HighestASAlly;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectLowestASAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestASAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestASAlly;
+            character.movementTargetStrategy = (int)Character.targetList.LowestASAlly;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectHighestMSAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestMSAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestMSAlly;
+            character.movementTargetStrategy = (int)Character.targetList.HighestMSAlly;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectLowestMSAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestMSAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestMSAlly;
+            character.movementTargetStrategy = (int)Character.targetList.LowestMSAlly;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectHighestRangeAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestRangeAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestRangeAlly;
+            character.movementTargetStrategy = (int)Character.targetList.HighestRangeAlly;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectLowestRangeAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestRangeAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestRangeAlly;
+            character.movementTargetStrategy = (int)Character.targetList.LowestRangeAlly;
+        }
+        closeAndUpdateCharScreen();
+
+    }
+
+    public void selectHighestHPAlly() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.HighestHPAlly;
         }
@@ -158,7 +336,7 @@ public class AttackTargetSelector : MonoBehaviour {
 
     }
 
-    private void selectLowestHPAlly() {
+    public void selectLowestHPAlly() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.LowestHPAlly;
         }
@@ -169,7 +347,7 @@ public class AttackTargetSelector : MonoBehaviour {
         closeAndUpdateCharScreen();
 
     }
-    private void selectClosestAlly() {
+    public void selectClosestAlly() {
         if (isAbilityTargetSelector) {
             ability.targetStrategy = (int)Character.targetList.ClosestAlly;
         }

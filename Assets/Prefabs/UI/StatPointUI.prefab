@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4585431840806859444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4585431840806859445}
+  - component: {fileID: 4585431840806859447}
+  - component: {fileID: 4585431840806859446}
+  m_Layer: 5
+  m_Name: StatPointUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4585431840806859445
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585431840806859444}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 902.0176, y: -297.99216}
+  m_SizeDelta: {x: 312.807, y: 595.9843}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4585431840806859447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585431840806859444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 1
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &4585431840806859446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585431840806859444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b142054bfdf0b414a8cd848fddbb0f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterInfoScreen: {fileID: 0}
+  statPointTextContainer: {fileID: 0}
+  statPointDisplay: {fileID: 0}
+  addPD: {fileID: 0}
+  subPD: {fileID: 0}
+  addMD: {fileID: 0}
+  subMD: {fileID: 0}
+  addAS: {fileID: 0}
+  subAS: {fileID: 0}
+  addCDR: {fileID: 0}
+  subCDR: {fileID: 0}
+  addMS: {fileID: 0}
+  subMS: {fileID: 0}
+  addRNG: {fileID: 0}
+  subRNG: {fileID: 0}
+  addLS: {fileID: 0}
+  subLS: {fileID: 0}
+  addHP: {fileID: 0}
+  subHP: {fileID: 0}
+  PDAmt: 2
+  MDAmt: 1
+  ASAmt: 0.5
+  CDRAmt: 0.08
+  MSAmt: 0.2
+  RNGAmt: 0.1
+  LSAmt: 0.04
+  HPAmt: 12
+  applyChangesBtn: {fileID: 0}
+  resetChangesBtn: {fileID: 0}
+  applied: 0
+  SPUsedBuffer: 0

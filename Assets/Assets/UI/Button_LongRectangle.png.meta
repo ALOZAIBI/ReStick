@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 13ca03486970df24bb1c8e94ec6501ab
+guid: d16eb5d09438fae4dac30d6a7c3a0c8d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,16 +43,16 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 5
-  spriteBorder: {x: 187, y: 343, z: 187, w: 343}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_Rectangle_0
+      name: Button_LongRectangle_0
       rect:
         serializedVersion: 2
-        x: 195
-        y: 345
-        width: 690
-        height: 390
+        x: 30
+        y: 430
+        width: 1020
+        height: 220
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,38 +130,24 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 045a30446d0547b4eb2ba35b17dbcf39
-      internalID: 804342481
+      spriteID: 9522e341ba541c041ac53f1715938d2a
+      internalID: 1987510234
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline:
-    - - {x: -343, y: 197}
-      - {x: -347, y: 172}
-      - {x: -347, y: -196}
-      - {x: -333, y: -197}
-      - {x: 347, y: -197}
-      - {x: 347, y: 158}
-      - {x: 336, y: 197}
-    physicsShape:
-    - - {x: -343, y: 197}
-      - {x: -347, y: 172}
-      - {x: -347, y: -196}
-      - {x: -333, y: -197}
-      - {x: 347, y: -197}
-      - {x: 347, y: 158}
-      - {x: 336, y: 197}
+    outline: []
+    physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 04d1cd6d3cdf7d1468e140bebe34ec14
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Button_Rectangle_0: 804342481
+      Button_LongRectangle_0: 1987510234
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
