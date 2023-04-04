@@ -36,6 +36,8 @@ public class CharacterInfoScreen : MonoBehaviour
     public TextMeshProUGUI levelProgress;
     public Image levelBar;
 
+    public GameObject footer;
+
     public int pageIndex = 0;
     //0 landing page
     //1 target selection
@@ -45,10 +47,14 @@ public class CharacterInfoScreen : MonoBehaviour
     public void openLandingPage() {
         close();
         targetSelector.targetSelection.SetActive(false);
+        footer.SetActive(true);
         pageIndex = 0;
     }
     public void openTargetSelectionPage() {
+        close();
         targetSelector.targetSelection.SetActive(true);
+        targetSelector.updateView();
+        footer.SetActive(false);
         pageIndex = 1;
     }
     public void Start() {

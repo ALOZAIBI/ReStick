@@ -23,15 +23,16 @@ public class AbilityDisplay : MonoBehaviour
     public void openTargetSelectorAbility() {
         //if inventoryScreen
         if (!uiManager.inventoryScreenHidden.hidden) {
-            //opens the screen and saits ability to true
-            uiManager.inventoryScreen.inventoryCharacterScreen.openTargetSelectorAbility();
             //sets the ability to be modified
             uiManager.inventoryScreen.inventoryCharacterScreen.targetSelector.ability = ability;
+            //opens the screen and saits ability to true
+            uiManager.inventoryScreen.inventoryCharacterScreen.openTargetSelectorAbility();
+            Debug.Log("I am sending this ability" + ability.name);
         }
         //if regular char screen
         else {
-            uiManager.characterInfoScreen.openTargetSelectorAbility();
             uiManager.characterInfoScreen.targetSelector.ability = ability;
+            uiManager.characterInfoScreen.openTargetSelectorAbility();
         }
 
     }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TargetOptionButton : MonoBehaviour
-{
+public class TargetOptionButton : MonoBehaviour {
     //we are getting the ImageComponents to Disable/Enable them to emphasize what is currently selected
     public Button enemyBtn;
     public Component enemyImageComponent;
@@ -18,27 +17,34 @@ public class TargetOptionButton : MonoBehaviour
 
     public AttackTargetSelector targetSelector;
 
-    public bool currentlySelectedBtn=false;
+    public bool currentlySelectedBtn = false;
 
     //the targetting strategy's stat
     public string stat;
 
+
+
     private void Start() {
+        Debug.Log("BUtton");
         enemyBtn.onClick.AddListener(selectEnemy);
         allyBtn.onClick.AddListener(selectAlly);
     }
 
-    public void selectEnemy() {
-        currentlySelectedBtn = true;
-        removeHighlights("ally");
-        //removes highlight from all other Buttons in TargetSelector
-        targetSelector.removeHighlights(this);
+    public void highlightEnemy() {
         //maybe animate the filling
         EnemyHighlight.fillAmount = 1;
         if (targetSelector.highest)
             EnemyHighlight.transform.localScale = new Vector3(1, -1, 1); //Maximum
         else
             EnemyHighlight.transform.localScale = new Vector3(1, 1, 1); //Minimum
+    }
+    public void selectEnemy() {
+        currentlySelectedBtn = true;
+        removeHighlights("ally");
+        //removes highlight from all other Buttons in TargetSelector
+        targetSelector.removeHighlights(this);
+
+        highlightEnemy();
 
         switch (stat) {
             case "PD":
@@ -88,17 +94,21 @@ public class TargetOptionButton : MonoBehaviour
 
     }
 
-    public void selectAlly() {
-        currentlySelectedBtn = true;
-        removeHighlights("enemy");
-        //removes highlight from all other Buttons in TargetSelector
-        targetSelector.removeHighlights(this);
+    public void highlightAlly() {
         //maybe animate the filling
         AllyHighlight.fillAmount = 1;
         if (targetSelector.highest)
             AllyHighlight.transform.localScale = new Vector3(1, 1, 1); //Maximum
         else
             AllyHighlight.transform.localScale = new Vector3(1, -1, 1); //Minimum
+    }
+    public void selectAlly() {
+        currentlySelectedBtn = true;
+        removeHighlights("enemy");
+        //removes highlight from all other Buttons in TargetSelector
+        targetSelector.removeHighlights(this);
+
+        highlightAlly();
 
         switch (stat) {
             case "PD":
