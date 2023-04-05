@@ -206,6 +206,7 @@ public class Character : MonoBehaviour {
     public void initRoundStart() {
         //Tells the abilities that this owns them
         foreach(Ability temp in abilities) {
+        Debug.Log("Applied innit round start to " + name);
             temp.character = this;
         }
         //applies the stats

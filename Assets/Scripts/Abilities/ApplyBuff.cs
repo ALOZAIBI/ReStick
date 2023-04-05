@@ -91,23 +91,24 @@ public class ApplyBuff : Ability
     }
 
     public override void updateDescription() {
+        calculateAmt();
         description = "Give target ";
         if (PD != 0)
-            description += PD + " PD ";
+            description += (PD+(PD*amt)) + " PD ";
         if (MD != 0)
-            description += MD + " MD ";
+            description += (MD+(MD*amt)) + " MD ";
         if (HP != 0)
-            description += HP + " HP ";
+            description += (HP + (HP * amt)) + " HP ";
         if (AS != 0)
-            description += AS + " AS ";
+            description += (AS + (AS * amt)) + " AS ";
         if (CDR != 0)
-            description += CDR + " CDR ";
+            description += (CDR + (CDR * amt)) + " CDR ";
         if (MS != 0)
-            description += MS + " MS ";
+            description += (MS + (MS * amt)) + " MS ";
         if (Range != 0)
-            description += Range + " Range ";
+            description += (Range + (Range * amt)) + " Range ";
         if (LS != 0)
-            description += LS + " LS ";
+            description += (LS + (LS * amt)) + " LS ";
     }
 
     public bool buffNotOnTarget() {

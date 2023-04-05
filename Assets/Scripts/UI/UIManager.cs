@@ -411,7 +411,7 @@ public class UIManager : MonoBehaviour
     public void deleteAllCharacters() {
         foreach (Transform child in playerParty.transform) {
             if (child.tag == "Character") {
-                Debug.Log("TO BE DESTROYED" + child.name);
+                //Debug.Log("TO BE DESTROYED" + child.name);
                 Destroy(child.gameObject);
             }
         }

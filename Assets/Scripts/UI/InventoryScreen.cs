@@ -115,7 +115,7 @@ public class InventoryScreen : MonoBehaviour
                 openAbilityPickedPage();
                 break;
             case 3:
-                Debug.Log("Fixing bug");
+                //Debug.Log("Fixing bug");
                 openLandingPage();
                 break;
             default:

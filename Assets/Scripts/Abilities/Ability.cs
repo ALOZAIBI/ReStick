@@ -54,6 +54,18 @@ public abstract class Ability : MonoBehaviour
     /// Calculates amt by adding stat ratios
     /// </summary>
     public void calculateAmt() {
+        //after loading characters for the first time the cahracter's abilities don't recognize who their caster is yet so calculateAmt wouldnt work
+        //so here we manually tell the characterInfoScreen to tell whichever character is currently being viewed to tell it's abilities that it owns them
+        //what a fucked explanation lmao
+        if(character == null) {
+            Debug.Log("TYOLD EM");
+            //if we're doing this to regular character screen
+            if(UIManager.singleton.inventoryScreenHidden.hidden)
+                UIManager.singleton.characterInfoScreen.character.initRoundStart();
+            else//we're doing this to inventory Character Screen
+                UIManager.singleton.inventoryScreen.inventoryCharacterScreen.character.initRoundStart();
+    
+        }
         amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.HPMax * HPMaxRatio+ character.HP*HPRatio + character.level*LVLRatio + character.MS*MSRatio + character.AS*ASRatio;
         //for example in teh case of damagin aura it should make the amt more negative instead of positive
         if(baseAmt < 0) {
