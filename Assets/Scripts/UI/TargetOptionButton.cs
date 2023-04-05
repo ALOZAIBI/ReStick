@@ -19,6 +19,9 @@ public class TargetOptionButton : MonoBehaviour {
 
     public bool currentlySelectedBtn = false;
 
+    //enemy if true ally if false
+    public bool enemySelected = false;
+
     //the targetting strategy's stat
     public string stat;
 
@@ -34,11 +37,15 @@ public class TargetOptionButton : MonoBehaviour {
         //maybe animate the filling
         EnemyHighlight.fillAmount = 1;
         if (targetSelector.highest)
-            EnemyHighlight.transform.localScale = new Vector3(1, -1, 1); //Maximum
+            EnemyHighlight.transform.localScale = new Vector3(1, 1, 1); //Maximum
         else
-            EnemyHighlight.transform.localScale = new Vector3(1, 1, 1); //Minimum
+            EnemyHighlight.transform.localScale = new Vector3(1, -1, 1); //Minimum
     }
     public void selectEnemy() {
+        //if this is already the currently selected button and it is clicked again change from highest to lowest and vice versa.
+        if(currentlySelectedBtn && enemySelected) {
+            targetSelector.highest = !targetSelector.highest;
+        }
         currentlySelectedBtn = true;
         removeHighlights("ally");
         //removes highlight from all other Buttons in TargetSelector
@@ -103,6 +110,10 @@ public class TargetOptionButton : MonoBehaviour {
             AllyHighlight.transform.localScale = new Vector3(1, -1, 1); //Minimum
     }
     public void selectAlly() {
+        //if this is already the currently selected button and it is clicked again change from highest to lowest and vice versa.
+        if (currentlySelectedBtn && !enemySelected) {
+            targetSelector.highest = !targetSelector.highest;
+        }
         currentlySelectedBtn = true;
         removeHighlights("enemy");
         //removes highlight from all other Buttons in TargetSelector

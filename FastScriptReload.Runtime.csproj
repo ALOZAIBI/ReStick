@@ -57,11 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\FastScriptReload\Scripts\Runtime\DetourCrashHandler.cs" />
-    <Compile Include="Assets\FastScriptReload\Scripts\Runtime\AssemblyChangesLoader.cs" />
     <Compile Include="Assets\FastScriptReload\Scripts\Runtime\ProjectTypeCache.cs" />
-    <Compile Include="Assets\FastScriptReload\Scripts\Runtime\TemporaryNewFieldValues.cs" />
-    <Compile Include="Assets\FastScriptReload\Scripts\Runtime\LoggerScopedInitializer.cs" />
     <Compile Include="Assets\FastScriptReload\Scripts\Runtime\AssemblyChangesLoaderResolver.cs" />
+    <Compile Include="Assets\FastScriptReload\Scripts\Runtime\LoggerScopedInitializer.cs" />
+    <Compile Include="Assets\FastScriptReload\Scripts\Runtime\TemporaryNewFieldValues.cs" />
+    <Compile Include="Assets\FastScriptReload\Scripts\Runtime\AssemblyChangesLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\FastScriptReload\Scripts\Runtime\FastScriptReload.Runtime.asmdef" />

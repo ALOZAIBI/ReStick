@@ -43,6 +43,52 @@ public class AttackTargetSelector : MonoBehaviour {
     }
 
     public void updateView() {
+        //gets wether this is highest or not from the character or ability
+        if (isAbilityTargetSelector) {
+            switch (ability.targetStrategy) {
+                case (int)Character.targetList.HighestASAlly:
+                case (int)Character.targetList.HighestASEnemy:
+                case (int)Character.targetList.HighestHPAlly:
+                case (int)Character.targetList.HighestHPEnemy:
+                case (int)Character.targetList.HighestMDAlly:
+                case (int)Character.targetList.HighestMDEnemy:
+                case (int)Character.targetList.HighestMSAlly:
+                case (int)Character.targetList.HighestMSEnemy:
+                case (int)Character.targetList.HighestPDAlly:
+                case (int)Character.targetList.HighestPDEnemy:
+                case (int)Character.targetList.HighestRangeAlly:
+                case (int)Character.targetList.HighestRangeEnemy:
+
+                    highest = true;
+                    break;
+                default:
+                    highest = false;
+                    break;
+            }
+        }
+        else {
+            switch (character.attackTargetStrategy) {
+                case (int)Character.targetList.HighestASAlly:
+                case (int)Character.targetList.HighestASEnemy:
+                case (int)Character.targetList.HighestHPAlly:
+                case (int)Character.targetList.HighestHPEnemy:
+                case (int)Character.targetList.HighestMDAlly:
+                case (int)Character.targetList.HighestMDEnemy:
+                case (int)Character.targetList.HighestMSAlly:
+                case (int)Character.targetList.HighestMSEnemy:
+                case (int)Character.targetList.HighestPDAlly:
+                case (int)Character.targetList.HighestPDEnemy:
+                case (int)Character.targetList.HighestRangeAlly:
+                case (int)Character.targetList.HighestRangeEnemy:
+
+                    highest = true;
+                    break;
+                default:
+                    highest = false;
+                    break;
+            }
+        }
+        
         removeHighlights();
         //if the current target to be modified is for ability then use ability.TargetStrategy for display otherwise use character.attacktargetstrategy
         int targetStrategy;
@@ -56,6 +102,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "Closest") {
                         temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
                     }
                 }
                     break;
@@ -64,6 +112,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "PD") {
                         temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
                     }
                 }
                 break;
@@ -72,6 +122,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "AS") {
                         temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
                     }
                 }
                 break;
@@ -80,6 +132,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "MD") {
                         temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
                     }
                 }
                 break;
@@ -88,6 +142,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "MS") {
                         temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
                     }
                 }
                 break;
@@ -96,6 +152,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "Range") {
                         temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
                     }
                 }
                 break;
@@ -104,6 +162,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "HP") {
                         temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
                     }
                 }
                 break;
@@ -111,6 +171,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "Closest") {
                         temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
                     }
                 }
                 break;
@@ -119,6 +181,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "PD") {
                         temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
                     }
                 }
                 break;
@@ -127,6 +191,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "MD") {
                         temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
                     }
                 }
                 break;
@@ -135,6 +201,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "AS") {
                         temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
                     }
                 }
                 break;
@@ -143,6 +211,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "MS") {
                         temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
                     }
                 }
                 break;
@@ -151,6 +221,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "Range") {
                         temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
                     }
                 }
                 break;
@@ -159,6 +231,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "HP") {
                         temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
                     }
 
                 }
