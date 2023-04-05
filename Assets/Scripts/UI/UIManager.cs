@@ -344,11 +344,11 @@ public class UIManager : MonoBehaviour
     public bool zoneStarted() {
         //this test is done when game isn;t in zone and hence zone.started cant be tested 
         if (zone == null) {
-            Debug.Log("Zone not started");
+            //Debug.Log("Zone not started");
             return false;
         }
         else {
-            Debug.Log("Other not started");
+            //Debug.Log("Other not started");
             return zone.started;
         }
     }

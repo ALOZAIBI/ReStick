@@ -197,16 +197,22 @@ public class CharacterInfoScreen : MonoBehaviour
         LS.text = (currChar.LS*100).ToString("F1");
         SP.text = currChar.statPoints.ToString();
 
+        
         //displays statPoints if zone hasn't started and if the character has statpoints available
         if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
-            //Debug.Log("showing");
+            Debug.Log("showing");
             statPointUI.applied = false;
             statPointUI.show();
             //statPointUI.fakeStatDisplay();
         }
-        else   //hides if stats were applied or if zoneStarted
-            if(currChar.statPoints<=0 && statPointUI.applied|| uiManager.zoneStarted())
+        else { //hides if stats were applied and at 0 or if we're editing a new character and at 0
+            if (currChar.statPoints <= 0 && (statPointUI.applied||statPointUI.lastUsedCharacter != currChar)) {
                 statPointUI.hide();
+                Debug.Log("Notr showing");
+            }
+        }
+
+        statPointUI.lastUsedCharacter = currChar;
 
         totalKills.text = currChar.totalKills + "";
         //fills the HP bar correctly

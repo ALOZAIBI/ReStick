@@ -14,6 +14,9 @@ public class StatPointUI : MonoBehaviour {
     //this is initialized within characterInfoScreen
     public CharacterInfoScreen characterInfoScreen;
 
+    //this is set by characterinfoscreen and is only used to check in displayStats if the character to be displayed is new or no. If it is new then it sets applied to false
+    public Character lastUsedCharacter;
+
     [SerializeField] private GameObject statPointTextContainer;
     [SerializeField] private TextMeshProUGUI statPointDisplay;
 
@@ -383,9 +386,8 @@ public class StatPointUI : MonoBehaviour {
 
     //updates visual to display change to be applied
     public void fakeStatDisplay() {
-        Debug.Log("Fakse stats uopdated");
-        characterInfoScreen.displayStats(characterInfoScreen.character);
-        characterInfoScreen.displayCharacterAbilities(characterInfoScreen.character);
+        //Debug.Log("Fakse stats uopdated");
+        characterInfoScreen.viewCharacter(characterInfoScreen.character);
     }
 
     private void Update() {

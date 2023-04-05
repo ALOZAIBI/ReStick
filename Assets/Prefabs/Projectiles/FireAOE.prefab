@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3637706766136786257}
   - component: {fileID: 3637706766136786271}
   - component: {fileID: 3637706766136786270}
+  - component: {fileID: 8774151034656527860}
   m_Layer: 2
   m_Name: FireAOE
   m_TagString: Untagged
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10.8, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -102,8 +103,9 @@ MonoBehaviour:
   shooter: {fileID: 0}
   speed: 2
   lifetime: 5
-  dmg: 0
+  PD: 0
   LS: 0
+  description: 
   direction: {x: 0, y: 0}
 --- !u!58 &3637706766136786270
 CircleCollider2D:
@@ -121,3 +123,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &8774151034656527860
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637706766136786258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 090630f2ea3f9d848a206c404c19854e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

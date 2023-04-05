@@ -41,7 +41,7 @@ public class SceneSelect : MonoBehaviour
 
         SaveSystem.loadCompletionSceneSelect(this);
 
-        Debug.Log(sceneToLoad + "=zoneName is it completed?" + completed);
+        //Debug.Log(sceneToLoad + "=zoneName is it completed?" + completed);
 
 
         if (completed) {
