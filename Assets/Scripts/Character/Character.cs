@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 public class Character : MonoBehaviour {
@@ -10,7 +11,7 @@ public class Character : MonoBehaviour {
     [SerializeField] private Zone zone;
     [SerializeField] private Camera cam;
     [SerializeField] private CameraMovement camMov;
-
+    public NavMeshAgent agent;
     //Current stats
     public float PD;
     public float MD;
@@ -29,23 +30,23 @@ public class Character : MonoBehaviour {
     public int totalKills = 0;
 
     //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI 
-    public float zsPD;
-    public float zsMD;
-    public float zsHP;
-    public float zsHPMax;
-    public float zsAS;
-    public float zsCDR;
-    public float zsMS;
-    public float zsRange;
-    public float zsLS;
+    [HideInInspector]public float zsPD;
+    [HideInInspector] public float zsMD;
+    [HideInInspector]public float zsHP;
+    [HideInInspector]public float zsHPMax;
+    [HideInInspector]public float zsAS;
+    [HideInInspector]public float zsCDR;
+    [HideInInspector]public float zsMS;
+    [HideInInspector]public float zsRange;
+    [HideInInspector]public float zsLS;
 
-    public int zsTotalKills;
+    [HideInInspector]public int zsTotalKills;
 
     //used for stuns/debuffs etc..
-    public bool canMove = true;
-    public bool canAttack = true;
+    [HideInInspector] public bool canMove = true;
+    [HideInInspector] public bool canAttack = true;
 
-    public bool targetable = true;
+    [HideInInspector] public bool targetable = true;
 
 
     //used for cooldowns
@@ -176,7 +177,7 @@ public class Character : MonoBehaviour {
         //how many seconds have been idle
         public float secondsIdle;
         //A direction used to move when isIdle or when hitting obstacle
-        public Vector2 direction;
+        public Vector2 randomDestination;
         //to be used in cooldown to determine how long the direction will be taken when isIdle
         public float moveDuration;
 
@@ -188,6 +189,9 @@ public class Character : MonoBehaviour {
     }
 
     void Start() {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         initRoundStart();
         animationManager = GetComponent<AnimationManager>();
         //Connect to UIManager
@@ -240,48 +244,76 @@ public class Character : MonoBehaviour {
                 secondsIdle = 0;
             
         if (isIdle == false) {
-            //once the character is deemed to be idle make the character move for randomMovDuration in direction direction
+            //once the character is deemed to be idle make the character move for randomMovDuration towards the randomDestination
             if (secondsIdle >= timeToConsiderIdle) {
                 startCooldown(randomMovDuration, (int)actionAvailable.isIdle);
-                //generates random direction
-                direction = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
-                direction.Normalize();
+                //generates random destination
+                Vector2 randomAmount =new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
+                randomDestination = (Vector2)transform.position + randomAmount;
             }
         }
         
     }
 
-    
+    public float destinationUpdateInterval=0.5f;
+    public float timeSinceDestinationUpdate;
+    public int movementState;// 0 not moving 1 idle 2 kiting 3 movingToTarget
+    public int previousMovementState;
+    //call this to update destination. We are using this function so that setDestionation isn't done on every frame to improve performance.
+    //instead it will be done in an interval basis or when changing movement states
+    private void moveTowards(Vector3 destination) {
+        if (timeSinceDestinationUpdate >= destinationUpdateInterval || movementState != previousMovementState) {
+            agent.SetDestination(destination);
+            timeSinceDestinationUpdate = 0;
+        }
+    }
     private void movement() {
+        //sets the speed
+        agent.speed = MS;
         if (!canMove) {
+            movementState = 0;
+            //stops the agent from moving
+            agent.isStopped = true;
             try { animationManager.move(false);} 
             catch { /*IF this character has no animation manager it's okay*/}
             
         }
+        else {
+            agent.isStopped = false;
+        }
         //if the character is idle move towards direction that was randomly generated in checkIdle
         if (isIdle) {
+            movementState = 1;
             try { animationManager.move(true); }
             catch { /*IF this character has no animation manager it's okay*/}
-            transform.position = (Vector2)transform.position + (direction * (MS * 0.5f * Time.fixedDeltaTime));
+            moveTowards(randomDestination);
         }
 
         else {
             selectTarget(movementTargetStrategy);
             //Kiting(Moves away from target when attack not ready)
             if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
+                movementState = 2;
                 try { animationManager.move(true); }
                 catch { /*IF this character has no animation manager it's okay*/}
                 //move away from target
                 transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, -MS * Time.fixedDeltaTime));
+                //finds the point opposite the target https://gamedev.stackexchange.com/questions/80277/how-to-find-point-on-a-circle-thats-opposite-another-point
+                Vector2 pointOpposite = new Vector2(transform.position.x - target.transform.position.x,transform.position.y - target.transform.position.y) + (Vector2)transform.position;
+                moveTowards(pointOpposite);
             }
             else
             //walks towards target till in range
             if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
+                movementState = 3;
                 try { animationManager.move(true); }
                 catch { /*IF this character has no animation manager it's okay*/}
-                transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
+                //transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
+                moveTowards(target.transform.position);
             }
             else {
+                //once it is in range stop moving
+                agent.isStopped = true;
                 try { animationManager.move(false); }
                 catch { /*IF this character has no animation manager it's okay*/}
             }
@@ -910,7 +942,7 @@ public class Character : MonoBehaviour {
     private float mouseHoldDuration = 0;
     private bool click = false;
     //if held on character
-    public bool held;
+    [HideInInspector]public bool held;
     private void mouseClickedNotHeld() {
         //if this function is called by OnMouseDown
         if (click) {
@@ -998,11 +1030,13 @@ public class Character : MonoBehaviour {
         capHP();
         if (xpProgress >= xpCap)
             levelUp();
-
+        previousMovementState = movementState; // this will be used to see if the movementState changed or not
         resetKillsLastFrame();//always keep me last in update
     }
 
     private void Update() {
+        //this doesn't have to be done on every frame so having it in update instead of fixedupdate is fine
+        timeSinceDestinationUpdate += Time.deltaTime;
         mouseClickedNotHeld();
 
         checkIdle(0.2f,2f);//receives last frame position

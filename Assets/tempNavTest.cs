@@ -20,6 +20,9 @@ public class tempNavTest : MonoBehaviour
     void Update()
     {
         test = obje.transform.position;
+        if (go) 
         agent.SetDestination(test);
+
+       //agent.isStopped = true;
     }
 }
