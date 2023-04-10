@@ -7,6 +7,15 @@ public class AbilityFactory : MonoBehaviour
 {
     public List<GameObject> abilities = new List<GameObject>();
 
+    //public List<GameObject> common = new List<GameObject>();
+
+    //public List<GameObject> rare = new List<GameObject>();
+
+    //public List<GameObject> epic = new List<GameObject>();
+
+    //public List<GameObject> legendary = new List<GameObject>();
+
+
     //on starts adds all children to the abilities list
     private void Start() {
         foreach(Transform child in transform) {

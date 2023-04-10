@@ -77,7 +77,11 @@ public class Character : MonoBehaviour {
     public int attackTargetStrategy = (int)targetList.DefaultEnemy;   //who to attack
     public int movementTargetStrategy = (int)targetList.DefaultEnemy;   //By default is the same as attackTarget
 
-    
+    //used to root silence and blind etc..
+    public bool snare;
+    public bool silence;
+    public bool blind;
+
     public Character target;
 
     //animation stuff
@@ -1023,10 +1027,15 @@ public class Character : MonoBehaviour {
     {
         
         handleDeath();
-        attack();
+        if(!blind)
+            attack();
         cooldown();
-        movement();
-        doAbilities();
+        if (!snare)
+            movement();
+        else //here we're doing else since it might already have a set route and would conitnue moving so we delete it's path
+            agent.ResetPath();
+        if(!silence)
+            doAbilities();
         capHP();
         if (xpProgress >= xpCap)
             levelUp();

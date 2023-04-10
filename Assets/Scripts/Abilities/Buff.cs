@@ -17,6 +17,11 @@ public class Buff : MonoBehaviour
 
     public float size;
 
+    //used to root silence and blind etc..
+    public bool snare;// no movement
+    public bool silence;// no abilities
+    public bool blind;// no auto attacks
+
     //to be applied in the future either deals damage over time or heals over time
     //kinda like darius blood for the PD
     public float dps;
@@ -61,6 +66,11 @@ public class Buff : MonoBehaviour
             target.MS += MS;
             target.Range += Range;
             target.LS += LS;
+
+            target.snare = snare;
+            target.silence = silence;
+            target.blind = blind;
+
             target.gameObject.transform.localScale += new Vector3(size, size, size);
             //adds this buff to buff list
             target.buffs.Add(this);
@@ -80,6 +90,11 @@ public class Buff : MonoBehaviour
         target.MS -= MS;
         target.Range -= Range;
         target.LS -= LS;
+
+        target.snare = false;
+        target.silence = false;
+        target.blind = false;
+
         target.gameObject.transform.localScale -= new Vector3(size, size, size);
         target.buffs.Remove(this);
         Destroy(gameObject);

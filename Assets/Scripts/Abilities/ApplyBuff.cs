@@ -15,6 +15,10 @@ public class ApplyBuff : Ability
 
     public float size;
 
+    //used to root silence and blind etc..
+    public bool root;
+    public bool silence;
+    public bool blind;
 
     //code used to verify if a specific buff is already applied. compare buff to be instantiated's code to the target character's buffs
     public string code;
@@ -76,7 +80,9 @@ public class ApplyBuff : Ability
                 buff.size += amt * size;
             }
 
-
+            buff.snare = root;
+            buff.silence = silence;
+            buff.blind = blind;
 
             //sets caster and target
             buff.caster = character;
@@ -109,6 +115,20 @@ public class ApplyBuff : Ability
             description += (Range + (Range * amt)) + " Range ";
         if (LS != 0)
             description += (LS + (LS * amt)) + " LS ";
+
+        if (root || silence || blind)
+            description += ". ";
+        if (root && silence && blind)
+            description += "Stun target";
+        else {
+            if (root)
+                description += "Root target ";
+            if (silence)
+                description += "Silence target";
+            if (blind)
+                description += "Blind target";
+        }
+
     }
 
     public bool buffNotOnTarget() {

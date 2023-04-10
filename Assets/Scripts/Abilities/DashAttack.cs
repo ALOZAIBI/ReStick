@@ -6,7 +6,7 @@ public class DashAttack : Ability
 {
     public float dashSpeed;
     //how much cd will be at once it's reset
-    private float cdReset=0.2f;
+    private float cdReset=0.1f;
 
     //Maybe add this in the future it is taken frmo the initial stick project check my gitlab
     //public float resetPossibility = 0.7f;   //target has 0.7 seconds to die after dash for the dash to reset
@@ -36,7 +36,7 @@ public class DashAttack : Ability
                     character.kill(character.target);
                     //reset cd
                     startCooldown();
-                    CD = cdReset;
+                    abilityNext = cdReset;
                     //Do nothing since CD hasn't started in this case
                 }
                 else {
