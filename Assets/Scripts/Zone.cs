@@ -41,6 +41,8 @@ public class Zone : MonoBehaviour
 
     //connects to UImanager
     private void Start() {
+        abilityContainer = GameObject.FindGameObjectWithTag("ZoneRewards");
+
         uIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         uIManager.displayCharacterPlacing();
         uIManager.hideCharacter();
