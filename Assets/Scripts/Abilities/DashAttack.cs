@@ -14,7 +14,7 @@ public class DashAttack : Ability
         updateDescription();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         cooldown();
     }
     public override void doAbility() {
@@ -23,9 +23,11 @@ public class DashAttack : Ability
             //selects target
             character.selectTarget(targetStrategy);
             //dashes to target
+            character.agent.enabled = false;//to allow the target to dash through obstacles
             character.transform.position = Vector2.MoveTowards(character.transform.position, character.target.transform.position, dashSpeed*Time.fixedDeltaTime);
             //once in range deal damage and start CD if kills target reset CD 0.5f is the range in this case
             if (Vector2.Distance(character.transform.position, character.target.transform.position) < 0.5f) {
+                character.agent.enabled = true;//renables to allow for pathfinding again
                 //deal damage
                 character.target.HP -= amt;
                 //apply life steal

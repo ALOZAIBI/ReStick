@@ -45,10 +45,11 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                 mouseHoldDuration += Time.unscaledDeltaTime;
                 //if held drag character to mouse Position
                 if (mouseHoldDuration > 0.2f) {
-                    //to maybe optimise in future only keep the asterisk'd function here and move the others to be executed once instead of in Update
                     camMov.pannable = false;
                     character.gameObject.SetActive(true);
-                    character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);//asterisk'd
+                    character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+                    //We are disabling the agent here since if it enabled and while im dragging a chracter into the scene if it bumps an obstacle the agent will be stopped by the obstacle the but visually it will look fine until I start the game wher what happens is the character teleports to where the agent is
+                    character.agent.enabled = false;
                     Image image = this.gameObject.GetComponent<Image>();
                     Color temp = image.color;
                     temp.a = 0.1f;
@@ -56,7 +57,11 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                 }
             }
            
-            else{
+            else{//on release (when cahracter is dropped)
+                if(mouseHoldDuration > 0.2f) {
+                    //re-enabling it
+                    character.agent.enabled = true;
+                }
                 //if just a click display characterInfoScreen
                 if (mouseHoldDuration < 0.2f) {
                     uiManager.viewCharacter(character);
