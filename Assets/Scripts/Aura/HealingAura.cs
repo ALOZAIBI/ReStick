@@ -10,11 +10,9 @@ public class HealingAura : Aura {
             if (ally && aTarget.team == caster.team) {
                 aTarget.HP += amt * Time.fixedDeltaTime;
             }
+            //in this case if the aura targets enemy it is most likely to damage so we can call the damage script here
             if (enemy && aTarget.team != caster.team) {
-                aTarget.HP += amt * Time.fixedDeltaTime;
-                if (aTarget.HP <= 0) {
-                    caster.kill(aTarget);
-                }
+                caster.damage(aTarget,amt * Time.fixedDeltaTime,false);
             }
 
         }

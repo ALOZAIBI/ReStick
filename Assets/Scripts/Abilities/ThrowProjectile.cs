@@ -22,7 +22,7 @@ public class ThrowProjectile : Ability
             //sets the shooter to be the caster of this ability
             projectile.shooter = character;
             //sets the damage amount
-            projectile.PD = amt;
+            projectile.DMG = amt;
             //sets the target
             projectile.target = character.target;
             ////sets the projectiles direction

@@ -12,11 +12,7 @@ public class ProjectileDirect : Projectile {
         if(collision.tag == "Character") {
             Character victim = collision.GetComponent<Character>();
             if(victim == target) {
-                victim.HP -= PD;
-                shooter.HP += PD * LS;
-                if(victim.HP <= 0) {
-                    shooter.kill(victim);
-                }
+                shooter.damage(victim, DMG, true);
                 Destroy(gameObject);
             }
 

@@ -46,11 +46,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   abilityName: Piercing shots
-  description: Normal attacks pierce
+  description: Your Attacks now Pierce but deal 70% damage
   CD: 0
   available: 1
   abilityNext: 0
   delay: 0
+  baseAmt: 0
+  PDRatio: 0
+  MDRatio: 0
+  HPMaxRatio: 0
+  HPRatio: 0
+  LVLRatio: 0
+  MSRatio: 0
+  ASRatio: 0
   amt: 0
   hasTarget: 0
   prefabObject: {fileID: 3637706766136786258, guid: d6e11601e5737d6498fae689cc2c3846, type: 3}

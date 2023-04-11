@@ -374,6 +374,7 @@ MonoBehaviour:
   LS: 0
   alive: 1
   totalKills: 0
+  totalDamage: 0
   zsPD: 0
   zsMD: 0
   zsHP: 0
@@ -383,12 +384,11 @@ MonoBehaviour:
   zsMS: 0
   zsRange: 0
   zsLS: 0
-  zsTotalKills: 0
   canMove: 1
   canAttack: 1
   targetable: 1
   usesProjectile: 0
-  projectile: {fileID: 0}
+  projectile: {fileID: 4082228363635627907, guid: f3f89a3b54ebdcd4792d251c5d8927d4, type: 3}
   level: 1
   xpProgress: 0
   xpCap: 1

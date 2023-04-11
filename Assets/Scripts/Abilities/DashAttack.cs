@@ -29,15 +29,11 @@ public class DashAttack : Ability
             if (Vector2.Distance(character.transform.position, character.target.transform.position) < 0.5f) {
                 character.agent.enabled = true;//renables to allow for pathfinding again
                 //deal damage
-                character.target.HP -= amt;
-                //apply life steal
-                character.HP += amt * character.LS;
+                character.damage(character.target, amt, true);
                 if (character.target.HP < 0) {
-                    character.kill(character.target);
-                    //reset cd
                     startCooldown();
+                    //reset cd
                     abilityNext = cdReset;
-                    //Do nothing since CD hasn't started in this case
                 }
                 else {
                     //start cd
