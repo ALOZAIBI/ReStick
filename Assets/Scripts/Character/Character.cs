@@ -214,10 +214,11 @@ public class Character : MonoBehaviour {
     //used on every round start(Start button pressed in Character Placing Screen) to prepare the character for round start
     //sets all ablities' cahracter to this character.
     public void initRoundStart() {
-        //Tells the abilities that this owns them
+        //Tells the abilities that this owns them and resets their cd
         foreach(Ability temp in abilities) {
-        Debug.Log("Applied innit round start to " + name);
             temp.character = this;
+            temp.available = true;
+            temp.abilityNext = 0;
         }
         //applies the stats
         foreach(BonusStats temp in bonusStats) {
