@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
 
     public InventoryScreen inventoryScreen;
 
+    public ShopScreen shopScreen;
     //Character Screen Stuff
     public CharacterInfoScreen characterInfoScreen;
     
@@ -89,6 +90,7 @@ public class UIManager : MonoBehaviour
     public HideUI mapWonScreenHidden;
     public HideUI gameLostScreenHidden;
     public HideUI topStatDisplayHidden;
+    public HideUI shopScreenHidden;
 
     private void Awake() {
         singleton = this;
@@ -107,6 +109,7 @@ public class UIManager : MonoBehaviour
         mapWonScreenHidden = mapWonScreen.GetComponent<HideUI>();
         gameLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
         topStatDisplayHidden = topStatDisplay.GetComponent<HideUI>();
+        shopScreenHidden = shopScreen.GetComponent<HideUI>();
 
         //
         lostToMapBtn.onClick.AddListener(lostToMap);
@@ -243,6 +246,7 @@ public class UIManager : MonoBehaviour
         //closes all UIScreens
         charInfoScreenHidden.hidden = true;
         inventoryScreenHidden.hidden = true;
+        shopScreenHidden.hidden = true;
         inventoryScreen.closeHeader();
         inventoryScreen.closeBody();
         gameWonScreenHidden.hidden = true;
@@ -326,6 +330,12 @@ public class UIManager : MonoBehaviour
         inventoryScreen.setupInventoryScreen();
     }
     
+    public void openShop(Shop shop) {
+        closeUIBtn.gameObject.SetActive(true);
+        shopScreenHidden.hidden = false;
+        shopScreen.displayAbilities(shop);
+        shopScreen.displayCharacters(shop);
+    }
     //removes buffs from player characters. To be called in loadZone and on Restart
     public void clearBuffs() {
         foreach (Transform child in playerParty.transform) {

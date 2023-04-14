@@ -8,14 +8,21 @@ public class CloneAbility : Ability
         if(available) {
             calculateAmt();
             character.selectTarget(targetStrategy);
+            //cooldown is set before the ability is executed so that if this character is cloned the clone ability won't be ready again to not cause cloning to go to infinity instantly
+            startCooldown();
             //summons the clone in a position near the target
             Character clone =Instantiate(character.target.gameObject, character.target.transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0), character.transform.rotation).GetComponent<Character>();
             clone.summoned = true;
             clone.summoner = character;
             //clones the abilities
             int index = 0;
-            foreach(Ability ability in character.target.abilities) {
+            foreach (Ability ability in character.target.abilities) {
                 Ability temp = Instantiate(ability);
+                //the clone ability's cd will not be ready so that the cloning won't go to infinity instantly
+                if (temp is CloneAbility) {
+                    //temp.startCooldown();
+                    Debug.Log("CloneAbility cd is set to "+temp.abilityNext+temp.available);
+                }
                 clone.abilities[index] = temp;
                 index++;
             }
@@ -30,7 +37,7 @@ public class CloneAbility : Ability
             clone.name = character.target.name + " Clone";
             SpriteRenderer sprite = clone.GetComponent<SpriteRenderer>();
             sprite.color = Color.gray;
-            startCooldown();
+            
         }
     }
 

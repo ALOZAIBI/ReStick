@@ -33,9 +33,7 @@ public class GameStateData
     public GameStateData() { }
     public void initNewSave() {
         //add random character to playerParty 3 times
-        for (int i = 0; i < 3; i++) {
-            UIManager.singleton.characterFactory.addRandomCharacterAsChild(UIManager.singleton.playerParty.gameObject);
-        }
+        UIManager.singleton.characterFactory.addRandomCharacterAsChild(UIManager.singleton.playerParty.transform,3);
         //then saves gameState
         SaveSystem.saveGameState("", false);
         //then saves the new character

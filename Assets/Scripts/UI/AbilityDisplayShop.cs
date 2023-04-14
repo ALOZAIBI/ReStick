@@ -4,12 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class AbilityDisplayReward : MonoBehaviour
+public class AbilityDisplayShop : MonoBehaviour
 {
-
     public Ability ability;
-    //to be able to deselect everything else when this is selected
-    public RewardSelect rewardSelect;
     //wether this is selected or not
     public bool selected;
     //used to color what is selected
@@ -37,13 +34,11 @@ public class AbilityDisplayReward : MonoBehaviour
         selected = true;
         highlight();
         //deselects alll others
-        foreach(AbilityDisplayReward deSelect in rewardSelect.listReward) {
-            if(deSelect != this) {
+        foreach (AbilityDisplayShop deSelect in UIManager.singleton.shopScreen.listAbilities) {
+            if (deSelect != this) {
                 deSelect.selected = false;
                 deSelect.unHighlight();
             }
         }
-        //and ungreys out the confirmselection button
-        rewardSelect.unGreyOutBtn();
     }
 }

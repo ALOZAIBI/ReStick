@@ -345,6 +345,9 @@ public class Character : MonoBehaviour {
             case (int)targetList.ClosestEnemy:
                 //initially assume that this is the closest Character
                 Character closest = zone.charactersInside[0];
+                //if it happens to be self, select another
+                if(closest == this)
+                    closest = zone.charactersInside[1];
                 //loops through all characters
                 foreach(Character temp in zone.charactersInside) {
                     //if temp in different team
@@ -603,6 +606,9 @@ public class Character : MonoBehaviour {
             case (int)targetList.ClosestAlly:
                 //initially assume that this is the closest ally
                 Character closestAlly = zone.charactersInside[0];
+                //if it happens to be self select another
+                if (closestAlly == this)
+                    closestAlly = zone.charactersInside[1];
                 //loops through all characters
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
@@ -853,6 +859,9 @@ public class Character : MonoBehaviour {
                 target = null;
                 break;
 
+            case 30://self
+                target = this;
+                break;
 
             default:
                 break;

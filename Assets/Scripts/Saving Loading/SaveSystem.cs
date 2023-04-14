@@ -42,13 +42,99 @@ static class SaveSystem
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            //creates inventory folder in each slot folder
+            //creates inventory folder in each slot folder in each map
             path = Application.persistentDataPath + saveSlot + "/mapSave/inventory";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            //creates inventory folder in each slot folder in each map
+            path = Application.persistentDataPath + saveSlot + "/mapSave/shop/shopAbilities";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
         }
     }
+    //this will be used to name the saveFile it has to be reset to 0 Every Time we are batch saving all characters in UIManager
+    public static int characterNumber = 0;
+    public static void saveShopCharacters(Character character) {
+        CharacterData data = new CharacterData(character);
 
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopCharacter" + characterNumber + ".xrt";
+        using (FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+            //the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(data));
+
+            writer.Flush();
+        }
+        characterNumber++;
+    }
+    public static void loadShopCharacters(Shop shop) {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop";
+        string[] files = Directory.GetFiles(path);
+        //Debug.Log("The files are" + files[0]);
+
+        foreach (string charSave in files) {
+            if (File.Exists(charSave)) {
+                using (FileStream fs = File.Open(charSave, FileMode.Open)) {
+                    BinaryReader reader = new BinaryReader(fs);
+                    //the 2 lines that follow are the encrypted version
+                    //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                    //CharacterData data = JsonConvert.DeserializeObject < GameStateData>(Encoding.UTF8.GetString(encodedBytes));
+
+                    //this is the non-encrypted version
+                    CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
+
+                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data, shop.transform);
+                }
+            }
+            else
+                Debug.Log("FIle doesn't exist in " + charSave);
+        }
+    }
+    public static void saveShopAbilities(Shop shop) {
+        //creates a list of abilityNames from the abilities in shop
+        List<string>abilityNames = new List<string>();
+        foreach(Ability ability in shop.abilities) {
+            abilityNames.Add(ability.abilityName);
+        }
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilities/shopAbilities.xrt";
+
+        using(FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+
+            // the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(abilityNames));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(abilityNames));
+            writer.Flush();
+        }
+    }
+    //returns false if there is no savefile
+    public static bool loadShopAbilities(Shop shop) {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilities/shopAbilities.xrt";
+        List<string> abilityNames = new List<string>();
+        if (File.Exists(path)) {
+            using (FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+
+                //the 2 lines that follow are the encrypted version
+                //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
+
+                abilityNames = JsonConvert.DeserializeObject<List<string>>(reader.ReadString());
+                UIManager.singleton.abilityFactory.addRequestedAbilitiesToShop(shop,abilityNames);
+                return true;
+            }
+        }
+        else
+            return false;
+    }
     public static void saveInventoryInWorld() {
         //creates a list of abilityNames from ability Inventory
         List<string> abilityNames = new List<string>();
@@ -125,9 +211,8 @@ static class SaveSystem
             Debug.Log("File doesn't exist in " + path);
 
     }
-    //this will be used to name the saveFile it has to be reset to 0 Every Time we are batch saving all characters in UIManager
-    public static int characterNumber=0;
-
+    //characterNumber will be used to name the saveFile it has to be reset to 0 Every Time we are batch saving all characters in UIManager
+    
     public static void saveCharacterInMap(Character character) {
         CharacterData data = new CharacterData(character);
 
@@ -144,7 +229,7 @@ static class SaveSystem
             writer.Flush();
         }
         characterNumber++;
-        Debug.Log("File saved to" + path);
+        //Debug.Log("File saved to" + path);
     }
     //loads all character's map saves
     public static void loadCharactersInMap() {
@@ -165,7 +250,7 @@ static class SaveSystem
                     //this is the non-encrypted version
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
 
-                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data);
+                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data,UIManager.singleton.playerParty.transform);
                 }
             }
             else
@@ -188,12 +273,12 @@ static class SaveSystem
             writer.Flush();
         }
         characterNumber++;
-        Debug.Log("File saved to" + path);
+        //Debug.Log("File saved to" + path);
     }
 
     //loads all character's world saves
     public static void loadCharactersInWorld() {
-        Debug.Log("Loading char in world");
+        //Debug.Log("Loading char in world");
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/";
         string[] files = Directory.GetFiles(path);
         //Debug.Log("The files are" + files[0]);
@@ -209,7 +294,7 @@ static class SaveSystem
                     //this is the non-encrypted version
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
 
-                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data);
+                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data,UIManager.singleton.playerParty.transform);
                 }
             }
             Debug.Log("FIle doesn't exist in " +charSave);
@@ -218,7 +303,7 @@ static class SaveSystem
     
     public static void saveGameState(string mapName,bool inMap) {
         GameStateData data = new GameStateData(mapName, inMap);
-        Debug.Log("In save game state map nampe is =" + data.mapName + data.inMap);
+        //Debug.Log("In save game state map nampe is =" + data.mapName + data.inMap);
 
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/gamestate.xrt";
         using(FileStream fs = File.Open(path, FileMode.Create)) {
@@ -232,7 +317,7 @@ static class SaveSystem
 
             writer.Flush();
         }
-        Debug.Log("File saved to" + path);
+        //Debug.Log("File saved to" + path);
     }
     //if save file exists check if in map. if in map load map otherwise load world. If no save file exists add random character
     //to playerParty savegamestate then load world
@@ -257,7 +342,7 @@ static class SaveSystem
             }
         }
         else {
-            Debug.Log("file doesn't exist in " + path + "Creating new Save file");
+            //Debug.Log("file doesn't exist in " + path + "Creating new Save file");
             GameStateData data = new GameStateData("", false);
             data.initNewSave();
             return false;
@@ -322,11 +407,11 @@ static class SaveSystem
                 //the actual loading
                 sceneSelect.completed = data.completed;
             }
-            Debug.Log("file loaded from " + path);
+            //Debug.Log("file loaded from " + path);
             return true;
         }
         else {
-            Debug.Log("Zone hasn't been completed ");
+            //Debug.Log("Zone hasn't been completed ");
             sceneSelect.completed = false;
             return false;
         }

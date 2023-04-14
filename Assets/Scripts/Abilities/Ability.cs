@@ -58,7 +58,7 @@ public abstract class Ability : MonoBehaviour
         //so here we manually tell the characterInfoScreen to tell whichever character is currently being viewed to tell it's abilities that it owns them
         //what a fucked explanation lmao
         if(character == null) {
-            Debug.Log("TYOLD EM");
+            //Debug.Log("TYOLD EM");
             //if we're doing this to regular character screen
             if(UIManager.singleton.inventoryScreenHidden.hidden)
                 UIManager.singleton.characterInfoScreen.character.initRoundStart();

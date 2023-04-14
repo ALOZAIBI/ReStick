@@ -12,7 +12,7 @@ public class CastAura : Ability
     //wether it targets enemy or ally or both
     public bool enemy;
     public bool ally;
-    Aura aura;
+    private Aura aura;
 
     private void Start() {
         updateDescription();
@@ -65,7 +65,11 @@ public class CastAura : Ability
     }
     void FixedUpdate() {
         cooldown();
-        decrementDuration();
-        keepAuraObjectOnCaster();
+        try {
+            decrementDuration();
+
+            keepAuraObjectOnCaster();
+        }
+        catch { /*Avoided error when there is no aura instantiated yet. Before ability is done */}
     }
 }

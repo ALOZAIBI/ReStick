@@ -136,8 +136,11 @@ public class TopStatDisplay : MonoBehaviour
                 uiManager.topStatDisplayHidden.hidden = true;
         }
         catch { }
-        
-        handleColor();
-        displayStats();
+        try {
+            //this wont work if there is no character (before starting a zone etc..)
+            handleColor();
+            displayStats();
+        }
+        catch { /*nothing since stats were displayed since a character exists*/}
     }
 }

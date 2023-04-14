@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
     private void panCamera() {
         //prevent clicking through UI
         if (IsPointerOverGameObject()) {
-            Debug.Log("Camera clickign through");
+            //Debug.Log("Camera clickign through");
             return;
         }
         //to prevent weird stuff when two touches happen(to zoom for instance) we seperate the functionality of mouse and touch
