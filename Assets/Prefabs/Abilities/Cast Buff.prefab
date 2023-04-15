@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3504329789301417765}
   - component: {fileID: 3504329789301417770}
   m_Layer: 0
-  m_Name: Cast AS Buff
+  m_Name: Cast Buff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  abilityName: Cast AS Buff Innit
-  description: AS Buff
+  abilityName: Give my target MD
+  description: MD Buff
   CD: 6
   available: 1
   abilityNext: 0
@@ -62,15 +62,19 @@ MonoBehaviour:
   amt: 0
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+  rarity: 0
   targetStrategy: 7
   PD: 0
   MD: 0
   HP: 0
-  AS: 0.7
+  AS: 0
   CDR: 0
   MS: 0
   Range: 0
   LS: 0
   size: 0
+  root: 0
+  silence: 0
+  blind: 0
   code: 
   buffDuration: 2

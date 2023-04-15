@@ -30,76 +30,76 @@ public class TopStatDisplay : MonoBehaviour
 
     private void handleColor() {
         if (character.PD > character.zsPD)
-            PD.color = ColorPalette.buff;
+            PD.color = ColorPalette.singleton.buff;
         else
         if (character.PD < character.zsPD)
-            PD.color = ColorPalette.debuff;
+            PD.color = ColorPalette.singleton.debuff;
         else
-            PD.color = ColorPalette.defaultColor;
+            PD.color = ColorPalette.singleton.defaultColor;
 
         if (character.MD > character.zsMD)
-            MD.color = ColorPalette.buff;
+            MD.color = ColorPalette.singleton.buff;
         else
         if (character.MD < character.zsMD)
-            MD.color = ColorPalette.debuff;
+            MD.color = ColorPalette.singleton.debuff;
         else
-            MD.color = ColorPalette.defaultColor;
+            MD.color = ColorPalette.singleton.defaultColor;
 
         if (character.AS > character.zsAS)
-            AS.color = ColorPalette.buff;
+            AS.color = ColorPalette.singleton.buff;
         else
         if (character.AS < character.zsAS)
-            AS.color = ColorPalette.debuff;
+            AS.color = ColorPalette.singleton.debuff;
         else
-            AS.color = ColorPalette.defaultColor;
+            AS.color = ColorPalette.singleton.defaultColor;
 
         if (character.CDR > character.zsCDR)
-            CDR.color = ColorPalette.buff;
+            CDR.color = ColorPalette.singleton.buff;
         else
         if (character.CDR < character.zsCDR)
-            CDR.color = ColorPalette.debuff;
+            CDR.color = ColorPalette.singleton.debuff;
         else
-            CDR.color = ColorPalette.defaultColor;
+            CDR.color = ColorPalette.singleton.defaultColor;
 
         if (character.MS > character.zsMS)
-            MS.color = ColorPalette.buff;
+            MS.color = ColorPalette.singleton.buff;
         else
         if (character.MS < character.zsMS)
-            MS.color = ColorPalette.debuff;
+            MS.color = ColorPalette.singleton.debuff;
         else
-            MS.color = ColorPalette.defaultColor;
+            MS.color = ColorPalette.singleton.defaultColor;
 
         if (character.Range > character.zsRange)
-            RNG.color = ColorPalette.buff;
+            RNG.color = ColorPalette.singleton.buff;
         else
         if (character.Range < character.zsRange)
-            RNG.color = ColorPalette.debuff;
+            RNG.color = ColorPalette.singleton.debuff;
         else
-            RNG.color = ColorPalette.defaultColor;
+            RNG.color = ColorPalette.singleton.defaultColor;
 
         if (character.Range > character.zsRange)
-            RNG.color = ColorPalette.buff;
+            RNG.color = ColorPalette.singleton.buff;
         else
         if (character.Range < character.zsRange)
-            RNG.color = ColorPalette.debuff;
+            RNG.color = ColorPalette.singleton.debuff;
         else
-            RNG.color = ColorPalette.defaultColor;
+            RNG.color = ColorPalette.singleton.defaultColor;
 
         if (character.LS > character.zsLS)
-            LS.color = ColorPalette.buff;
+            LS.color = ColorPalette.singleton.buff;
         else
         if (character.LS < character.zsLS)
-            LS.color = ColorPalette.debuff;
+            LS.color = ColorPalette.singleton.debuff;
         else
-            LS.color = ColorPalette.defaultColor;
+            LS.color = ColorPalette.singleton.defaultColor;
 
         //colors the healthbar according to team
         switch (character.team) {
             case ((int)Character.teamList.Enemy1):
-                healthBar.health.color = ColorPalette.enemyHealthBar;
+                healthBar.health.color = ColorPalette.singleton.enemyHealthBar;
                 break;
             case ((int)Character.teamList.Player):
-                healthBar.health.color = ColorPalette.allyHealthBar;
+                healthBar.health.color = ColorPalette.singleton.allyHealthBar;
                 break;
             default:
                 break;

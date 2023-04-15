@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   abilityName: Dash Attack
-  description: 
+  description: Dash and attack reset CD if kills
   CD: 7
   available: 1
   abilityNext: 0
   delay: 0
-  baseAmt: 7
+  baseAmt: 2
   PDRatio: 1.5
   MDRatio: 0
   HPMaxRatio: 0
@@ -62,5 +62,6 @@ MonoBehaviour:
   amt: 7
   hasTarget: 0
   prefabObject: {fileID: 0}
+  rarity: 2
   targetStrategy: 1
   dashSpeed: 12

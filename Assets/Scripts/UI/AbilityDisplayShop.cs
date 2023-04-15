@@ -10,7 +10,7 @@ public class AbilityDisplayShop : MonoBehaviour
     //wether this is selected or not
     public bool selected;
     //used to color what is selected
-    public Image forColorPurposes;
+    public Image background;
 
     public TextMeshProUGUI abilityName;
     public TextMeshProUGUI description;
@@ -21,15 +21,30 @@ public class AbilityDisplayShop : MonoBehaviour
 
     private void Start() {
         self.onClick.AddListener(select);
-        forColorPurposes = GetComponent<Image>();
-        forColorPurposes.color = new Color(0.7f, 0.7f, 0.7f);
+        background = GetComponent<Image>();
+        if (ability.rarity == (int)Ability.raritiesList.Common)
+            background.color = ColorPalette.singleton.commonRarity;
+        if (ability.rarity == (int)Ability.raritiesList.Rare) {
+            background.color = ColorPalette.singleton.rareRarity;
+        }
+        if (ability.rarity == (int)Ability.raritiesList.Epic) {
+            background.color = ColorPalette.singleton.epicRarity;
+        }
+        if (ability.rarity == (int)Ability.raritiesList.Legendary) {
+            background.color = ColorPalette.singleton.legendaryRarity;
+        }
+        unHighlight();
     }
 
     public void highlight() {
-        forColorPurposes.color = new Color(0.7f, 1, 0.7f);
+        Color temp = background.color;
+        temp.a = 1f;
+        background.color = temp;
     }
     public void unHighlight() {
-        forColorPurposes.color = new Color(0.7f, 0.7f, 0.7f);
+        Color temp = background.color;
+        temp.a = 0.7f;
+        background.color = temp;
     }
 
     private void select() {

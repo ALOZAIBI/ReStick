@@ -22,10 +22,10 @@ public class CharacterHealthBar : MonoBehaviour
         //colors the healthbar according to team
         switch (character.team) {
             case ((int)Character.teamList.Enemy1):
-                health.color = ColorPalette.enemyHealthBar;
+                health.color = ColorPalette.singleton.enemyHealthBar;
                 break;
             case ((int)Character.teamList.Player):
-                health.color = ColorPalette.allyHealthBar;
+                health.color = ColorPalette.singleton.allyHealthBar;
                 break;
             default:
                 break;

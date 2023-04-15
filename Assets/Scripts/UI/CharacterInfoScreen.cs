@@ -108,76 +108,77 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private void handleColor(Character currChar) {
         if (currChar.PD > currChar.zsPD)
-            PD.color = ColorPalette.buff;
+            PD.color = ColorPalette.singleton.buff;
         else
         if (currChar.PD < currChar.zsPD)
-            PD.color = ColorPalette.debuff;
+            PD.color = ColorPalette.singleton.debuff;
         else
-            PD.color = ColorPalette.defaultColor;
+            PD.color = ColorPalette.singleton.defaultColor;
+            //PD.color = Color.green;
 
         if (currChar.MD > currChar.zsMD)
-            MD.color = ColorPalette.buff;
+            MD.color = ColorPalette.singleton.buff;
         else
        if (currChar.MD < currChar.zsMD)
-            MD.color = ColorPalette.debuff;
+            MD.color = ColorPalette.singleton.debuff;
         else
-            MD.color = ColorPalette.defaultColor;
+            MD.color = ColorPalette.singleton.defaultColor;
 
         if (currChar.AS > currChar.zsAS)
-            AS.color = ColorPalette.buff;
+            AS.color = ColorPalette.singleton.buff;
         else
         if (currChar.AS < currChar.zsAS)
-            AS.color = ColorPalette.debuff;
+            AS.color = ColorPalette.singleton.debuff;
         else
-            AS.color = ColorPalette.defaultColor;
+            AS.color = ColorPalette.singleton.defaultColor;
 
         if (currChar.CDR > currChar.zsCDR)
-            CDR.color = ColorPalette.buff;
+            CDR.color = ColorPalette.singleton.buff;
         else
         if (currChar.CDR < currChar.zsCDR)
-            CDR.color = ColorPalette.debuff;
+            CDR.color = ColorPalette.singleton.debuff;
         else
-            CDR.color = ColorPalette.defaultColor;
+            CDR.color = ColorPalette.singleton.defaultColor;
 
         if (currChar.MS > currChar.zsMS)
-            MS.color = ColorPalette.buff;
+            MS.color = ColorPalette.singleton.buff;
         else
         if (currChar.MS < currChar.zsMS)
-            MS.color = ColorPalette.debuff;
+            MS.color = ColorPalette.singleton.debuff;
         else
-            MS.color = ColorPalette.defaultColor;
+            MS.color = ColorPalette.singleton.defaultColor;
 
         if (currChar.Range > currChar.zsRange)
-            RNG.color = ColorPalette.buff;
+            RNG.color = ColorPalette.singleton.buff;
         else
         if (currChar.Range < currChar.zsRange)
-            RNG.color = ColorPalette.debuff;
+            RNG.color = ColorPalette.singleton.debuff;
         else
-            RNG.color = ColorPalette.defaultColor;
+            RNG.color = ColorPalette.singleton.defaultColor;
 
         if (currChar.Range > currChar.zsRange)
-            RNG.color = ColorPalette.buff;
+            RNG.color = ColorPalette.singleton.buff;
         else
         if (currChar.Range < currChar.zsRange)
-            RNG.color = ColorPalette.debuff;
+            RNG.color = ColorPalette.singleton.debuff;
         else
-            RNG.color = ColorPalette.defaultColor;
+            RNG.color = ColorPalette.singleton.defaultColor;
 
         if (currChar.LS > currChar.zsLS)
-            LS.color = ColorPalette.buff;
+            LS.color = ColorPalette.singleton.buff;
         else
         if (currChar.LS < currChar.zsLS)
-            LS.color = ColorPalette.debuff;
+            LS.color = ColorPalette.singleton.debuff;
         else
-            LS.color = ColorPalette.defaultColor;
+            LS.color = ColorPalette.singleton.defaultColor;
 
         //colors the healthbar according to team
         switch (character.team) {
             case ((int)Character.teamList.Enemy1):
-                healthBar.health.color = ColorPalette.enemyHealthBar;
+                healthBar.health.color = ColorPalette.singleton.enemyHealthBar;
                 break;
             case ((int)Character.teamList.Player):
-                healthBar.health.color = ColorPalette.allyHealthBar;
+                healthBar.health.color = ColorPalette.singleton.allyHealthBar;
                 break;
             default:
                 break;

@@ -37,7 +37,7 @@ public class CastAura : Ability
         try {
             calculateAmt();
         }
-        catch { Debug.Log("Amt not upodated");/* avoids null character issue*/}
+        catch { /*Debug.Log("Amt not upodated") avoids null character issue*/}
         
         if (amt > 0) {
             description = "Heals nearby characters by " + amt;

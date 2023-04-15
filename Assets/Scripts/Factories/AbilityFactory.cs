@@ -5,21 +5,57 @@ using UnityEngine;
 
 public class AbilityFactory : MonoBehaviour
 {
+    //contains all abilities
     public List<GameObject> abilities = new List<GameObject>();
 
-    //public List<GameObject> common = new List<GameObject>();
+    //contains only common
+    public List<GameObject> common = new List<GameObject>();
+    
+    public List<GameObject> rare = new List<GameObject>();
 
-    //public List<GameObject> rare = new List<GameObject>();
+    public List<GameObject> epic = new List<GameObject>();
 
-    //public List<GameObject> epic = new List<GameObject>();
-
-    //public List<GameObject> legendary = new List<GameObject>();
+    public List<GameObject> legendary = new List<GameObject>();
 
 
     //on starts adds all children to the abilities list
     private void Start() {
         foreach(Transform child in transform) {
             abilities.Add(child.gameObject);
+            Ability temp = child.GetComponent<Ability>();
+            if (temp.rarity == (int)Ability.raritiesList.Common)
+                common.Add(child.gameObject);
+            if (temp.rarity == (int)Ability.raritiesList.Rare) {
+                rare.Add(child.gameObject);
+            }
+            if (temp.rarity == (int)Ability.raritiesList.Epic) {
+                epic.Add(child.gameObject);
+            }
+            if (temp.rarity == (int)Ability.raritiesList.Legendary) {
+                legendary.Add(child.gameObject);
+            }
+        }
+    }
+    //takes Drop Rates as paramter
+    //then returns an ability GameObject with the droprate of each rarity taken into account
+    private GameObject randomAbility( int rareDR, int epicDR, int legendaryDR) {
+        int randomRarity = Random.Range(0, 100);
+        int randomAbility;
+        if (randomRarity < legendaryDR) {
+            randomAbility = Random.Range(0, legendary.Count);
+            return legendary[randomRarity];
+        }
+        else if (randomRarity < epicDR) {
+            randomAbility = Random.Range(0, epic.Count);
+            return epic[randomAbility];
+        }
+        else if (randomRarity < rareDR) {
+            randomAbility = Random.Range(0, rare.Count);
+            return rare[randomAbility];
+        }
+        else {
+            randomAbility = Random.Range(0, common.Count);
+            return common[randomAbility];
         }
     }
     //returns the gameObject from the abilities list given the ability's name
@@ -42,10 +78,7 @@ public class AbilityFactory : MonoBehaviour
     }
     public void addRandomAbilityToShop(Shop shop,int amount) {
         for(int i = 0;i < amount; i++) {
-            //gets a random ability
-            int index = Random.Range(0, abilities.Count);
-            //then adds the ability to shop's abiltiy holder
-            Instantiate(abilities[index],shop.abilityHolder.transform);
+            Instantiate(randomAbility(30,15,5),shop.abilityHolder.transform);
         }
     }
     public void addRequestedAbilitiesToShop(Shop shop, List<string> abilityNames) {
@@ -58,10 +91,8 @@ public class AbilityFactory : MonoBehaviour
     //adds amount amonut of abilities to the zone
     public void addRandomAbilityToZone(Zone zone,int amount) {
         for (int i = 0; i < amount; i++) {
-            Debug.Log("adding 1 ability");
-            //gets a random ability
-            int index = Random.Range(0, abilities.Count);
-            addsObjectToZone(zone, abilities[index]);
+
+            addsObjectToZone(zone, randomAbility(30, 15, 5));
         }
     }
 
