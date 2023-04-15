@@ -398,6 +398,7 @@ public class UIManager : MonoBehaviour
     public void loadWorldSave() {
         //deletes all characters then reloads them back in
         deleteAllCharacters();
+        deleteAllInventory();
         SaveSystem.loadCharactersInWorld();
         //load inventory
         SaveSystem.loadInventoryInWorld();
@@ -416,6 +417,7 @@ public class UIManager : MonoBehaviour
     }
     public void loadMapSave() {
         deleteAllCharacters();
+        deleteAllInventory();
         SaveSystem.loadCharactersInMap();
         SaveSystem.loadInventoryInMap();
     }
@@ -426,6 +428,12 @@ public class UIManager : MonoBehaviour
                 //Debug.Log("TO BE DESTROYED" + child.name);
                 Destroy(child.gameObject);
             }
+        }
+    }
+
+    public void deleteAllInventory() {
+        foreach (Transform child in playerParty.abilityInventory.transform) {
+            Destroy(child.gameObject);
         }
     }
 

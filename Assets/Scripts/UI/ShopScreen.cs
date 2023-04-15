@@ -77,6 +77,7 @@ public class ShopScreen : MonoBehaviour
     public void displayCharacters() {
         //creates character Displays
         for(int i = 0;i<shop.characterHolder.transform.childCount;i++) {
+            Debug.Log("Character holder cjild amount" + shop.characterHolder.transform.childCount);
             CharacterDisplayShop characterDisplay = Instantiate(characterDisplayObj,characterArea.transform).GetComponent<CharacterDisplayShop>() ;
             listCharacters.Add(characterDisplay);
             Character temp = shop.characterHolder.transform.GetChild(i).GetComponent<Character>();

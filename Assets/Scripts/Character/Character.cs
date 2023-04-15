@@ -370,8 +370,15 @@ public class Character : MonoBehaviour {
                 foreach(Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if(temp.team != team) {
-                        //maxPD.team == team is done in case the MaxPD init was actually an ally
-                        if (maxPD.team == team|| temp.PD >= maxPD.PD) {
+                        //if maxPD init was actually an ally
+                        if (maxPD.team == team) {
+                            maxPD = temp;
+                        }
+                        else//if it wasn't an ally
+                        if (temp.PD > maxPD.PD)
+                            maxPD = temp;
+                        else if(temp.PD == maxPD.PD)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if(Vector2.Distance(transform.position,temp.transform.position)<Vector2.Distance(transform.position,maxPD.transform.position))
                             maxPD = temp;
@@ -390,8 +397,15 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
+                        if (minPD.team == team) {
+                            minPD = temp;
+                        }
+                        else
                         //minPD.team == team is done in case the MinPD init was actually an ally
-                        if (minPD.team == team || temp.PD <= minPD.PD) {
+                        if (temp.PD < minPD.PD)
+                            minPD = temp;
+                        else if(temp.PD == minPD.PD)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minPD.transform.position))
                                 minPD = temp;
@@ -410,8 +424,14 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //maxMD.team == team is done in case the MaxMD init was actually an ally
-                        if (maxMD.team == team || temp.MD >= maxMD.MD) {
+                        if (maxMD.team == team) {
+                            maxMD = temp;
+                        }
+                        else
+                        if (temp.MD > maxMD.MD)
+                            maxMD = temp;
+                        else if (maxMD.MD == temp.MD)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxMD.transform.position))
                                 maxMD = temp;
@@ -430,8 +450,15 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
+                        if (minMD.team == team) {
+                            minMD = temp;
+                        }
+                        else
                         //minMD.team == team is done in case the MaxMD init was actually an ally
-                        if (minMD.team == team || temp.MD <= minMD.MD) {
+                        if (temp.MD < minMD.MD)
+                            minMD = temp;
+                        else if (temp.MD == minMD.MD)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minMD.transform.position))
                                 minMD = temp;
@@ -450,8 +477,13 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //maxAS.team == team is done in case the MaxAS init was actually an ally
-                        if (maxAS.team == team || temp.AS >= maxAS.AS) {
+                        if(maxAS.team == team) {
+                            maxAS = temp;
+                        }
+                        else
+                            if (temp.AS > maxAS.AS) 
+                            maxAS = temp;
+                        else if (temp.AS == maxAS.AS) {
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxAS.transform.position))
                                 maxAS = temp;
                         }
@@ -469,8 +501,14 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //minAS.team == team is done in case the MaxAS init was actually an ally
-                        if (minAS.team == team || temp.AS <= minAS.AS) {
+                        if (minAS.team == team) {
+                            minAS = temp;
+                        }
+                        else
+                            if (temp.AS < minAS.AS)
+                            minAS = temp;
+                        else if(temp.AS == minAS.AS)
+                        {
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minAS.transform.position))
                                 minAS = temp;
                         }
@@ -488,8 +526,15 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //maxMS.team == team is done in case the MaxMS init was actually an ally
-                        if (maxMS.team == team || temp.MS >= maxMS.MS) {
+                        if (maxMS.team == team) {
+                            maxMS = temp;
+                        }
+                        else
+                            //maxMS.team == team is done in case the MaxMS init was actually an ally
+                            if (temp.MS > maxMS.MS)
+                            maxMS = temp;
+                        else if(temp.MS == maxMS.MS)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxMS.transform.position))
                                 maxMS = temp;
@@ -508,8 +553,14 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //minMS.team == team is done in case the MaxMS init was actually an ally
-                        if (minMS.team == team || temp.MS <= minMS.MS) {
+                        if (minMS.team == team) {
+                            minMS = temp;
+                        }
+                        else
+                            if (temp.MS < minMS.MS)
+                            minMS = temp;
+                        else if(temp.MS == minMS.MS)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minMS.transform.position))
                                 minMS = temp;
@@ -528,8 +579,15 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //maxRange.team == team is done in case the MaxRange init was actually an ally
-                        if (maxRange.team == team || temp.Range >= maxRange.Range) {
+                        //if maxrange init was an ally
+                        if (maxRange.team == team) {
+                            maxRange = temp;
+                        }
+                        else//if it wasnt an ally
+                            if (temp.Range > maxRange.Range)
+                            maxRange = temp;
+                        else if(temp.Range == maxRange.Range)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxRange.transform.position))
                                 maxRange = temp;
@@ -548,8 +606,16 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //minRange.team == team is done in case the MaxRange init was actually an ally
-                        if (minRange.team == team || temp.Range <= minRange.Range) {
+                        //if minrange init was actually an ally
+                        if (minRange.team == team) {
+                            minRange = temp;
+                        }
+                        else
+                        //if it wasn;t an ally
+                        if (temp.Range < minRange.Range)
+                            minRange = temp;
+                        else if(temp.Range == minRange.Range)
+                        {
                             //if temp PD is == to max PD then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minRange.transform.position))
                                 minRange = temp;
@@ -568,9 +634,17 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //maxHP.team == team is done in case the MaxHP init was actually an ally
-                        if (maxHP.team == team || temp.HP >= maxHP.HP) {
-                            //if temp PD is == to max PD then select the closest of the 2
+                        //if maxHP init was actually an ally
+                        if (maxHP.team == team) {
+                            maxHP = temp;
+                        }
+                        //if it wasn't an ally 
+                        else//select 
+                        if (temp.HP > maxHP.HP)
+                            maxHP = temp;
+                        //if there's a draw select the closest of the 2
+                        else if (temp.HP == maxHP.HP) {
+                            //if temp HP is == to max HP then select the closest of the 2
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxHP.transform.position))
                                 maxHP = temp;
                         }
@@ -588,17 +662,29 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in different team(enemy)
                     if (temp.team != team) {
-                        //minHP.team == team is done in case the minHP init was actually an ally
-                        if (minHP.team == team || temp.HP <= minHP.HP) {
-                            //if temp PD is == to max PD then select the closest of the 2
-                            if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minHP.transform.position))
+                        //if minHP init was actually an ally
+                        if (minHP.team == team) {
+                            minHP = temp;
+                        }
+                        //if it wasn't an ally 
+                        else {
+                            if (temp.HP < minHP.HP) {
                                 minHP = temp;
+                            }
+                            //if there's a draw select the closest of the 2
+                            else if (temp.HP == minHP.HP) {
+                                //if temp HP is == to min HP then select the closest of the 2
+                                if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minHP.transform.position)) {
+                                    minHP = temp;
+                                }
+                            }
                         }
                     }
                 }
                 //if there's only allies remaining target nothing
-                if (minHP.team == team)
+                if (minHP.team == team) {
                     minHP = null;
+                }
                 target = minHP;
                 break;
 
@@ -619,9 +705,9 @@ public class Character : MonoBehaviour {
                         }
                     }
                 }
-                //if the only remaining characters are enemies don't select anyone
+                //if the only remaining characters are enemies select self
                 if(closestAlly.team != team) {
-                    closestAlly = null;
+                    closestAlly = this;
                 }
                 target = closestAlly;
                 break;
@@ -630,13 +716,23 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxPD Character
                 Character maxPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    //if temp in same team and is not itself
-                    if (temp.team == team && temp!=this) {
-                        //maxPD.team == team is done in case the MaxPD init was actually an enemy
-                        if (maxPDAlly.team != team || temp.PD >= maxPDAlly.PD) {
-                            //if temp PD is == to max PD then select the closest of the 2
-                            if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxPDAlly.transform.position))
+                    //if temp in same team 
+                    if (temp.team == team) {
+                        //if maxPD init was an enemy select the first ally
+                        if (maxPDAlly.team != team) {
+                            maxPDAlly = temp;
+                        }
+                        //if it wasn't an enemy
+                        else    //if temp is strictly superior select it
+                            if (temp.PD > maxPDAlly.PD)
+                            maxPDAlly = temp;
+                        else if(temp.PD == maxPDAlly.PD)
+                        {
+                            //if temp PD is == to max PD and temp isn't itself select closest of the 2. (If it was itself it would obviously be closer so we don't want that)
+                            if(temp !=this)
+                                if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxPDAlly.transform.position))
                                 maxPDAlly = temp;
+                            //if temp is itself simply do nothing and keep maxPDAlly
                         }
                     }
                 }
@@ -651,11 +747,19 @@ public class Character : MonoBehaviour {
                 Character minPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not itself
-                    if (temp.team == team && temp!=this) {
+                    if (temp.team == team) {
                         //minPDAlly.team != team is done in case the MaxPD init was actually an enemy
-                        if (minPDAlly.team != team || temp.PD <= minPDAlly.PD) {
-                            if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minPDAlly.transform.position))
-                                minPDAlly = temp;
+                        if (minPDAlly.team != team) {
+                            minPDAlly = temp;
+                        }
+                        else
+                            if (temp.PD < minPDAlly.PD)
+                            minPDAlly = temp;
+                        else if(temp.PD == minPDAlly.PD)
+                        {
+                            if(temp!=this)
+                                if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minPDAlly.transform.position))
+                                    minPDAlly = temp;
                         }
                     }
                 }
@@ -670,9 +774,17 @@ public class Character : MonoBehaviour {
                 Character maxMDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
                         //maxMD.team == team is done in case the MaxMD init was actually an enemy
-                        if (maxMDAlly.team != team || temp.MD >= maxMDAlly.MD) {
+                        if (maxMDAlly.team != team) {
+                            maxMDAlly = temp;
+                        }
+                        else
+                            if (temp.MD > maxMDAlly.MD)
+                            maxMDAlly = temp;
+                        else if(temp.MD == maxMDAlly.MD)
+                        {
+                            if(temp!=this)
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxMDAlly.transform.position))
                                 maxMDAlly = temp;
                         }
@@ -689,9 +801,17 @@ public class Character : MonoBehaviour {
                 Character minMDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
+                        if (minMDAlly.team != team) {
+                            minMDAlly = temp;
+                        }
+                        else
                         //minMDAlly.team != team is done in case the MaxMD init was actually an enemy
-                        if (minMDAlly.team != team || temp.MD <= minMDAlly.MD) {
+                        if (temp.MD < minMDAlly.MD)
+                            minMDAlly = temp;
+                        else if(temp.MD == minMDAlly.MD)
+                        {
+                            if(temp != this)
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minMDAlly.transform.position))
                                 minMDAlly = temp;
                         }
@@ -708,9 +828,17 @@ public class Character : MonoBehaviour {
                 Character maxASAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
                         //maxAS.team == team is done in case the MaxAS init was actually an enemy
-                        if (maxASAlly.team != team || temp.AS >= maxASAlly.AS) {
+                        if (maxASAlly.team != team) {
+                            maxASAlly = temp;
+                        }
+                        else
+                        if (temp.AS > maxASAlly.AS)
+                            maxASAlly = temp;
+                        else if (temp.AS == maxASAlly.AS) 
+                        {
+                            if(temp !=this)
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxASAlly.transform.position))
                                 maxASAlly = temp;
                         }
@@ -727,9 +855,17 @@ public class Character : MonoBehaviour {
                 Character minASAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
                         //minASAlly.team != team is done in case the MaxAS init was actually an enemy
-                        if (minASAlly.team != team || temp.AS <= minASAlly.AS) {
+                        if (minASAlly.team != team) {
+                            minASAlly = temp;
+                        }
+                        else
+                        if (temp.AS < minASAlly.AS)
+                            minASAlly = temp;
+                        else if(temp.AS == minASAlly.AS)
+                        {
+                            if(temp != this)
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minASAlly.transform.position))
                                 minASAlly = temp;
                         }
@@ -746,9 +882,17 @@ public class Character : MonoBehaviour {
                 Character maxMSAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
                         //maxMS.team == team is done in case the MaxMS init was actually an enemy
-                        if (maxMSAlly.team != team || temp.MS >= maxMSAlly.MS) {
+                        if (maxMSAlly.team != team) {
+                            maxMSAlly = temp;
+                        }
+                        else
+                        if (temp.MS > maxMSAlly.MS)
+                            maxMSAlly = temp;
+                        else if (temp.MS == maxMSAlly.MS)
+                        {
+                            if(temp != this)
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxMSAlly.transform.position))
                                 maxMSAlly = temp;
                         }
@@ -765,9 +909,16 @@ public class Character : MonoBehaviour {
                 Character minMSAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
                         //minMSAlly.team != team is done in case the MaxMS init was actually an enemy
-                        if (minMSAlly.team != team || temp.MS <= minMSAlly.MS) {
+                        if (minMSAlly.team != team) {
+                            minMSAlly = temp;
+                        }
+                        else
+                        if (temp.MS < minMSAlly.MS)
+                            minMSAlly = temp;
+                        else if(temp.MS == minMSAlly.MS && temp != this)
+                        {
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minMSAlly.transform.position))
                                 minMSAlly = temp;
                         }
@@ -784,9 +935,15 @@ public class Character : MonoBehaviour {
                 Character maxRangeAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and is not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
                         //maxRange.team == team is done in case the MaxRange init was actually an enemy
-                        if (maxRangeAlly.team != team || temp.Range >= maxRangeAlly.Range) {
+                        if (maxRangeAlly.team != team)
+                            maxRangeAlly = temp;
+                        else
+                        if (temp.Range > maxRangeAlly.Range)
+                            maxRangeAlly = temp;
+                        else if(temp.Range == maxRangeAlly.Range && temp != this)
+                        {
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxRangeAlly.transform.position))
                                 maxRangeAlly = temp;
                         }
@@ -803,9 +960,16 @@ public class Character : MonoBehaviour {
                 Character minRangeAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not itself
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team) {
+                        if (minRangeAlly.team != team) {
+                            minRangeAlly = temp;
+                        }
+                        else
                         //minRangeAlly.team != team is done in case the MaxRange init was actually an enemy
-                        if (minRangeAlly.team != team || temp.Range <= minRangeAlly.Range) {
+                        if (temp.Range < minRangeAlly.Range)
+                            minRangeAlly = temp;
+                        else if (temp.Range == minRangeAlly.Range && temp != this) 
+                        {
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minRangeAlly.transform.position))
                                 minRangeAlly = temp;
                         }
@@ -822,9 +986,15 @@ public class Character : MonoBehaviour {
                 Character maxHPAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not self
-                    if (temp.team == team && temp!=this) {
+                    if (temp.team == team) {
                         //maxHPAlly.team != team is done in case the maxHPAlly init was actually an enemy
-                        if (maxHPAlly.team != team || temp.HP >= maxHPAlly.HP) {
+                        if (maxHPAlly.team != team)
+                            maxHPAlly = temp;
+                        else
+                        if (temp.HP > maxHPAlly.HP)
+                            maxHPAlly = temp;
+                        else if(temp.HP == maxHPAlly.HP && temp !=this)
+                        {
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxHPAlly.transform.position))
                                 maxHPAlly = temp;
                         }
@@ -841,9 +1011,15 @@ public class Character : MonoBehaviour {
                 Character minHPAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     //if temp in same team and not self
-                    if (temp.team == team && temp != this) {
+                    if (temp.team == team && temp) {
                         //minHPAlly.team != team is done in case the minHPAlly init was actually an enemy
-                        if (minHPAlly.team != team || temp.HP <= minHPAlly.HP) {
+                        if (minHPAlly.team != team)
+                            minHPAlly = temp;
+                        else
+                        if (temp.HP < minHPAlly.HP)
+                            minHPAlly = temp;
+                        else if(temp.HP == minHPAlly.HP && temp != this)
+                        {
                             if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minHPAlly.transform.position))
                                 minHPAlly = temp;
                         }

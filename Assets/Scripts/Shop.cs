@@ -49,10 +49,12 @@ public class Shop : MonoBehaviour
             SaveSystem.characterNumber = 0;
             UIManager.singleton.characterFactory.addRandomCharacterAsChild(characterHolder.transform,characterAmount);
             characterPurchased = new bool[characterAmount];
-            foreach(Transform child  in characterHolder.transform) {
+            foreach (Transform child  in characterHolder.transform) {
                 if(child.tag=="Character")
                    SaveSystem.saveShopCharacters(child.GetComponent<Character>());
             }
+            //then saves the purchase info
+            SaveSystem.saveShopAbilitiesAndPurchaseInfo(this);
         }
         
         openShopBtn.onClick.AddListener(openShop);

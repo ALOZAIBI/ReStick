@@ -32,7 +32,10 @@ public class CharacterHealthBar : MonoBehaviour
         }
     }
     public void handleHealthBar() {
-        health.fillAmount = ((float)character.HP / (float)character.HPMax);
+        try {
+            health.fillAmount = ((float)character.HP / (float)character.HPMax);
+        }
+        catch { /*just to avoid errors in console*/}
     }
     private void handleHealthText() {
         //trycatch used since we won't always be displaying text so HPtext would be empty etc...
