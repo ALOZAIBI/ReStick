@@ -17,7 +17,7 @@ public class AbilityDisplayShop : MonoBehaviour
     public TextMeshProUGUI price;
 
     public Button self;
-    private bool purchased;
+    public bool purchased;
 
     private void Start() {
         self.onClick.AddListener(select);
@@ -52,12 +52,18 @@ public class AbilityDisplayShop : MonoBehaviour
             Instantiate(ability, UIManager.singleton.playerParty.abilityInventory.transform);
             //Since Shops are only in maps we save to map
             SaveSystem.saveInventoryInMap();
+            //save shop PurchaseInfo
+            SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
             }
 
         
     }
     private void markPurchased() {
         purchased = true;
+        //index relative to siblings
+        int index = transform.GetSiblingIndex();
+        //marks the corresponding index to purchased
+        UIManager.singleton.shopScreen.shop.abilitiyPurchased[index] = true;
         //change color of display
     }
 }

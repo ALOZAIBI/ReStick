@@ -40,18 +40,18 @@ public class AbilityFactory : MonoBehaviour
         //then adds it to the zone's rewardPool list
         zone.abilityRewardPool.Add(temp);
     }
-    //for some reason I chose to not instantiate GameObjects in Shop and instead I will be instantiating the Abilities Once they're actually purchased in shopScreen
     public void addRandomAbilityToShop(Shop shop,int amount) {
         for(int i = 0;i < amount; i++) {
             //gets a random ability
             int index = Random.Range(0, abilities.Count);
-            //then adds the ability to shop's abiltiy list
-            shop.abilities.Add(abilities[index].GetComponent<Ability>());
+            //then adds the ability to shop's abiltiy holder
+            Instantiate(abilities[index],shop.abilityHolder.transform);
         }
     }
     public void addRequestedAbilitiesToShop(Shop shop, List<string> abilityNames) {
         foreach(string abilityName in abilityNames) {
-            shop.abilities.Add(objectFromName(abilityName).GetComponent<Ability>());
+            GameObject obj = objectFromName(abilityName);
+            Instantiate(obj,shop.abilityHolder.transform);
         }
     }
     //name self explanatory innit
@@ -92,8 +92,7 @@ public class AbilityFactory : MonoBehaviour
         foreach(string name in abilityNames) {
             Debug.Log("ABILIT DEBUG+"+name);
             GameObject obj = objectFromName(name);
-            GameObject temp = Instantiate(obj);
-            obj.transform.parent = UIManager.singleton.playerParty.abilityInventory.transform;
+            Instantiate(obj, UIManager.singleton.playerParty.abilityInventory.transform);
         }
     }
 }

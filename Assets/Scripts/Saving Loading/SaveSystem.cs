@@ -48,7 +48,7 @@ static class SaveSystem
                 Directory.CreateDirectory(path);
 
             //creates inventory folder in each slot folder in each map
-            path = Application.persistentDataPath + saveSlot + "/mapSave/shop/shopAbilities";
+            path = Application.persistentDataPath + saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
         }
@@ -88,37 +88,34 @@ static class SaveSystem
                     //this is the non-encrypted version
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
 
-                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data, shop.transform);
+                    UIManager.singleton.characterFactory.addCharacterAsChild(data, shop.characterHolder.transform);
                 }
             }
             else
                 Debug.Log("FIle doesn't exist in " + charSave);
         }
     }
-    public static void saveShopAbilities(Shop shop) {
+    public static void saveShopAbilitiesAndPurchaseInfo(Shop shop) {
         //creates a list of abilityNames from the abilities in shop
         List<string>abilityNames = new List<string>();
-        foreach(Ability ability in shop.abilities) {
-            abilityNames.Add(ability.abilityName);
-        }
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilities/shopAbilities.xrt";
+        ShopData data = new ShopData(shop);
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
 
         using(FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
 
             // the 2 lines that follow are the encrypted version
-            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(abilityNames));
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
             //writer.Write(Convert.ToBase64String(plainTextBytes));
 
             //this is the non encrypted version
-            writer.Write(JsonConvert.SerializeObject(abilityNames));
+            writer.Write(JsonConvert.SerializeObject(data));
             writer.Flush();
         }
     }
     //returns false if there is no savefile
-    public static bool loadShopAbilities(Shop shop) {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilities/shopAbilities.xrt";
-        List<string> abilityNames = new List<string>();
+    public static bool loadShopAbilitiesAndPurchaseInfo(Shop shop) {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -126,9 +123,10 @@ static class SaveSystem
                 //the 2 lines that follow are the encrypted version
                 //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
                 //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
+                ShopData data= JsonConvert.DeserializeObject<ShopData>(reader.ReadString());
 
-                abilityNames = JsonConvert.DeserializeObject<List<string>>(reader.ReadString());
-                UIManager.singleton.abilityFactory.addRequestedAbilitiesToShop(shop,abilityNames);
+                UIManager.singleton.abilityFactory.addRequestedAbilitiesToShop(shop,data.abilityNames);
+                data.purchaseInfoToShop(shop);
                 return true;
             }
         }
@@ -250,7 +248,7 @@ static class SaveSystem
                     //this is the non-encrypted version
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
 
-                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data,UIManager.singleton.playerParty.transform);
+                    UIManager.singleton.characterFactory.addCharacterAsChild(data,UIManager.singleton.playerParty.transform);
                 }
             }
             else
@@ -294,7 +292,7 @@ static class SaveSystem
                     //this is the non-encrypted version
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
 
-                    UIManager.singleton.characterFactory.addCharacterToPlayerParty(data,UIManager.singleton.playerParty.transform);
+                    UIManager.singleton.characterFactory.addCharacterAsChild(data,UIManager.singleton.playerParty.transform);
                 }
             }
             Debug.Log("FIle doesn't exist in " +charSave);

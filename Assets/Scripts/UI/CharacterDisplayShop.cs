@@ -12,6 +12,9 @@ public class CharacterDisplayShop : MonoBehaviour {
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private Button self;
+
+    public bool selected;
+    public bool purchased;    
     private void Start() {
         //sets the image
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
@@ -25,6 +28,44 @@ public class CharacterDisplayShop : MonoBehaviour {
     }
 
     private void select() {
+        if (!selected) {
+            Debug.Log("Selected");
+            selected = true;
+            //deselects alll others
+            foreach (AbilityDisplayShop deSelect in UIManager.singleton.shopScreen.listAbilities) {
+                if (deSelect != this) {
+                    deSelect.selected = false;
+                    deSelect.unHighlight();
+                }
+            }
+        }
+        //if already selected then clicked again
+        else if (!purchased) {
+            markPurchased();
+            //add to playerparty
+            Character fixName =Instantiate(character, UIManager.singleton.playerParty.transform);
+            //if this isn't done the Instantiated object's name will be characterName(clone) so we did this to remove the clone from the name
+            fixName.name = character.name;
+            
+            SaveSystem.characterNumber = 0;
+            //save character in map since shop is so far only available in maps
+            foreach (Transform child in UIManager.singleton.playerParty.transform) {
+                if (child.tag == "Character") {
+                    Character temp = child.GetComponent<Character>();
+                    SaveSystem.saveCharacterInMap(temp);
+                }
+            }
+            //save shop PurchaseInfo
+            SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
+        }
+    }
 
+    private void markPurchased() {
+        purchased = true;
+        //index relative to siblings
+        int index = transform.GetSiblingIndex();
+        //marks the corresponding index to purchased
+        UIManager.singleton.shopScreen.shop.characterPurchased[index] = true;
+        //change color of display
     }
 }

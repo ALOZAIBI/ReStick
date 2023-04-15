@@ -29,23 +29,27 @@ public class Shop : MonoBehaviour
     private bool click = false;
     private void Start() {
         //adds abilities to the shop
-        if (SaveSystem.loadShopAbilities(this)) {
-            //abilities have been loaded but not yet instantiated. They will be instantiated when a purchase is done
-        }
+        if (SaveSystem.loadShopAbilitiesAndPurchaseInfo(this)) {
+            //if there was a save file
+        }//if there was no save file
         else {
-            UIManager.singleton.abilityFactory.addRandomAbilityToShop(this, 6);
+            int abilityAmount = 6;
+            UIManager.singleton.abilityFactory.addRandomAbilityToShop(this, abilityAmount);
+            abilitiyPurchased = new bool[abilityAmount];
             //then saves the random abilities so that they are loaded next time
-            SaveSystem.saveShopAbilities(this);
+            SaveSystem.saveShopAbilitiesAndPurchaseInfo(this);
         }
         //adds characters to the shop
         SaveSystem.loadShopCharacters(this);
         Debug.Log("CHild coubnt shiop" + transform.childCount);
-        //checks if this has exactly 1 child(the canvas) if it doesn't it means there were no characters loaded
-        if(transform.childCount == 1) {
+        //checks if there wer no characters added (Which means there was no save)
+        if(characterHolder.transform.childCount == 0) {
             //so do add characters.
+            int characterAmount = 2;
             SaveSystem.characterNumber = 0;
-            UIManager.singleton.characterFactory.addRandomCharacterAsChild(transform,2);
-            foreach(Transform child  in transform) {
+            UIManager.singleton.characterFactory.addRandomCharacterAsChild(characterHolder.transform,characterAmount);
+            characterPurchased = new bool[characterAmount];
+            foreach(Transform child  in characterHolder.transform) {
                 if(child.tag=="Character")
                    SaveSystem.saveShopCharacters(child.GetComponent<Character>());
             }

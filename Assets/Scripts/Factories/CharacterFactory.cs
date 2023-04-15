@@ -24,7 +24,7 @@ public class CharacterFactory : MonoBehaviour
         }
     }
 
-    public void addCharacterToPlayerParty(CharacterData data,Transform parent) {
+    public void addCharacterAsChild(CharacterData data,Transform parent) {
         //Debug.Log(characters.Count + data.prefabIndex);
         //instantiate character of prefab as a child of parent
         Character temp = Instantiate(characters[data.prefabIndex],parent).GetComponent<Character>();

@@ -32,8 +32,8 @@ public class GameStateData
     //this is needed for SaveSystem to be able to deserialize it
     public GameStateData() { }
     public void initNewSave() {
-        //add random character to playerParty 3 times
-        UIManager.singleton.characterFactory.addRandomCharacterAsChild(UIManager.singleton.playerParty.transform,3);
+        //adds a random character to palyer party
+        UIManager.singleton.characterFactory.addRandomCharacterAsChild(UIManager.singleton.playerParty.transform,1);
         //then saves gameState
         SaveSystem.saveGameState("", false);
         //then saves the new character
