@@ -49,7 +49,7 @@ public class CharacterFactory : MonoBehaviour
         temp.attackTargetStrategy = data.attackTargetStrategy;
         temp.movementTargetStrategy = data.movementTargetStrategy;
         //add the abilities
-        UIManager.singleton.abilityFactory.addRequestedAbilitiesToCharacter(temp, data.abilities);
+        UIManager.singleton.abilityFactory.addRequestedAbilitiesToCharacter(temp, data.abilities,data.abilityTargetting);
         //create another array for each ability holding the int of targetting strategy
     }
     //on starts adds all children to the characters list and sets the index 

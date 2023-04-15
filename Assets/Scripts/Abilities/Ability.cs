@@ -40,6 +40,14 @@ public abstract class Ability : MonoBehaviour
     //someAbilities can instantiate prefabs or object
     public GameObject prefabObject;
 
+    public enum raritiesList {
+        Common,
+        Rare,
+        Epic,
+        Legendary
+    }
+    public int rarity;
+
 
     //executes this ability
     public abstract void doAbility();

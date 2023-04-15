@@ -14,8 +14,10 @@ public class AbilityDisplayShop : MonoBehaviour
 
     public TextMeshProUGUI abilityName;
     public TextMeshProUGUI description;
+    public TextMeshProUGUI price;
 
     public Button self;
+    private bool purchased;
 
     private void Start() {
         self.onClick.AddListener(select);
@@ -29,16 +31,33 @@ public class AbilityDisplayShop : MonoBehaviour
     public void unHighlight() {
         forColorPurposes.color = new Color(0.7f, 0.7f, 0.7f);
     }
+
     private void select() {
-        Debug.Log("Selected");
-        selected = true;
-        highlight();
-        //deselects alll others
-        foreach (AbilityDisplayShop deSelect in UIManager.singleton.shopScreen.listAbilities) {
-            if (deSelect != this) {
-                deSelect.selected = false;
-                deSelect.unHighlight();
+        if (!selected) {
+            Debug.Log("Selected");
+            selected = true;
+            highlight();
+            //deselects alll others
+            foreach (AbilityDisplayShop deSelect in UIManager.singleton.shopScreen.listAbilities) {
+                if (deSelect != this) {
+                    deSelect.selected = false;
+                    deSelect.unHighlight();
+                }
             }
         }
+        //if already selected then clicked again
+        else if (!purchased) {
+                markPurchased();
+            //add to inventroy
+            Instantiate(ability, UIManager.singleton.playerParty.abilityInventory.transform);
+            //Since Shops are only in maps we save to map
+            SaveSystem.saveInventoryInMap();
+            }
+
+        
+    }
+    private void markPurchased() {
+        purchased = true;
+        //change color of display
     }
 }

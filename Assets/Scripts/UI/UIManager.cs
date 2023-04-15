@@ -245,8 +245,9 @@ public class UIManager : MonoBehaviour
     public void closeUI() {
         //closes all UIScreens
         charInfoScreenHidden.hidden = true;
-        inventoryScreenHidden.hidden = true;
         shopScreenHidden.hidden = true;
+        shopScreen.close();    
+        inventoryScreenHidden.hidden = true;
         inventoryScreen.closeHeader();
         inventoryScreen.closeBody();
         gameWonScreenHidden.hidden = true;

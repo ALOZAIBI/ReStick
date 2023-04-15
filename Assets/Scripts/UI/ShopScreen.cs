@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,49 @@ public class ShopScreen : MonoBehaviour
 
     public GameObject abilityArea;
     public GameObject characterArea;
+
+    //cost of purchase of abilities
+    public int commonCost;
+    public int rareCost;
+    public int epicCost;
+    public int legendaryCost;
+
     //so that AbilityDisplayShop can deselect everything else when it is selected
     public List<AbilityDisplayShop> listAbilities = new List<AbilityDisplayShop>();
     //Haven't done yet but should do same as listAbilities
     public List<CharacterDisplayShop> listCharacters = new List<CharacterDisplayShop>();
+
+    //returns cost of ability This is based on rarity
+    private int costOfAbility(Ability ability) {
+        switch (ability.rarity) {
+            case (int)Ability.raritiesList.Common:
+                return commonCost;
+            case (int)Ability.raritiesList.Rare:
+                return rareCost;
+            case (int)Ability.raritiesList.Epic:
+                return epicCost;
+            case (int)Ability.raritiesList.Legendary:
+                return legendaryCost;
+            default:
+                throw new Exception("RarityUnkown");
+        }
+    }
+    //closes the abilityDisplays
+    private void closeAbilities() {
+        foreach(Transform child in abilityArea.transform) {
+                Destroy(child.gameObject);
+        }
+    }
+    private void closeCharacters() {
+        foreach (Transform child in characterArea.transform) {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void close() {
+        closeAbilities();
+        closeCharacters();
+    }
     public void displayAbilities(Shop shop) {
         //creates ability Displays
         for (int i = 0; i < shop.abilities.Count; i++) {
@@ -22,6 +62,7 @@ public class ShopScreen : MonoBehaviour
             listAbilities.Add(abilityDisplay);
             //gets the ability from shop
             Ability temp = shop.abilities[i];
+            abilityDisplay.price.text = costOfAbility(temp)+"";
             abilityDisplay.ability = temp;
             abilityDisplay.abilityName.text = temp.abilityName;
             abilityDisplay.description.text = temp.description;

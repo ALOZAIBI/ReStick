@@ -73,17 +73,19 @@ public class AbilityFactory : MonoBehaviour
         }
     }
 
-    public void addRequestedAbilitiesToCharacter(Character character, string[] abilityNames) {
+    public void addRequestedAbilitiesToCharacter(Character character, string[] abilityNames, int[] abilityTargetting) {
+        int count = 0;
         foreach(string name in abilityNames) {
             //fetches the ability frmo the list
             Ability ability = objectFromName(name).GetComponent<Ability>();
-            //creates the ability
-            Instantiate(ability);
+            //creates the ability and adds it as child
+            Ability temp =Instantiate(ability, UIManager.singleton.playerParty.activeAbilities.transform);
+            //sets the target strategy
+            temp.targetStrategy = abilityTargetting[count];
             //adds it to character
             character.abilities.Add(ability);
-            //adds the ability as child of active abilities
-            ability.transform.parent = UIManager.singleton.playerParty.activeAbilities.transform;
-            
+
+            count++;
         }
     }
     public void addRequestedAbilitiesToInventory(List<string> abilityNames) {

@@ -9,10 +9,17 @@ public class Shop : MonoBehaviour
     //
     public List<Ability> abilities = new List<Ability>();
 
-    
+
+    //contains wether an ability has been purchased or not
+    public bool[] abilitiyPurchased;
+    //same but for character
+    public bool[] characterPurchased;
 
     //the thing that holds the buttons and stuff
     public GameObject display;
+
+    public GameObject abilityHolder;
+    public GameObject characterHolder;
 
     public Button openShopBtn;
     public Button closeDisplayBtn;
@@ -36,6 +43,7 @@ public class Shop : MonoBehaviour
         //checks if this has exactly 1 child(the canvas) if it doesn't it means there were no characters loaded
         if(transform.childCount == 1) {
             //so do add characters.
+            SaveSystem.characterNumber = 0;
             UIManager.singleton.characterFactory.addRandomCharacterAsChild(transform,2);
             foreach(Transform child  in transform) {
                 if(child.tag=="Character")

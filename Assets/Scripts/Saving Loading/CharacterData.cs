@@ -43,7 +43,8 @@ public class CharacterData
 
     //contains the names of abilities that will then be fetched from ability factory
     public string[] abilities;
-
+    //contains the targetting of the respective index ability
+    public int[] abilityTargetting;
     public float size;
 
     public CharacterData(Character character) {
@@ -68,8 +69,10 @@ public class CharacterData
         movementTargetStrategy = character.movementTargetStrategy;
 
         abilities = new string[character.abilities.Count];
+        abilityTargetting = new int[character.abilities.Count];
         for(int i = 0; i < character.abilities.Count; i++) {
             abilities[i] = character.abilities[i].abilityName;
+            abilityTargetting[i] = character.abilities[i].targetStrategy;
         }
         //taking x is enough since the scale is square
         size = character.gameObject.transform.localScale.x;
