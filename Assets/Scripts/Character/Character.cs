@@ -1200,7 +1200,7 @@ public class Character : MonoBehaviour {
         click = true;
     }
     private float mouseHoldDuration = 0;
-    private bool click = false;
+    public bool click = false;
     //if held on character
     [HideInInspector]public bool held;
     private void mouseClickedNotHeld() {

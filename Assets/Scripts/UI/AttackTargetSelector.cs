@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 
 public class AttackTargetSelector : MonoBehaviour {
-    //for somereason this component is placed on the attackTargetting btn
     public UIManager uiManager;
     //just text 
     public TextMeshProUGUI target;

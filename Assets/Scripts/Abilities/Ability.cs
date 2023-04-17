@@ -99,6 +99,12 @@ public abstract class Ability : MonoBehaviour
 
     //just to be able to display the CD after the CDR stat has been updated (Since increasing CDR shouldn't change base CD)
     public string displayCDAfterChange() {
-        return (CD - CD * character.CDR).ToString("F1");
+        try {
+            return (CD - CD * character.CDR).ToString("F1");
+        }
+        catch {
+            //catch happens when an ability's character hasn't been set yet
+            return (CD.ToString("F1"));
+        }
     }
 }

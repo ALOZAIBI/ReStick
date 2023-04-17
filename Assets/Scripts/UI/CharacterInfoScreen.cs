@@ -24,10 +24,21 @@ public class CharacterInfoScreen : MonoBehaviour
     //Selecting target for attacking and also moving for now.
     public AttackTargetSelector targetSelector;
 
+    public Button openTargetSelectionBtn;
+
+    public TextMeshProUGUI openTargetSelectionTxt;
+
+    //Selecting target for attacking and also moving for now.
+    public MovementStrategySelector movementSelector;
+
+    public Button openMovementSelectorBtn;
+
+    public TextMeshProUGUI openMovementSelectorTxt;
+
+
     //character that is currently being viewed
     public Character character;
 
-    public Button openTargetSelectionBtn;
 
     //Stat point stuff
     [SerializeField]public StatPointUI statPointUI;
@@ -47,6 +58,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public void openLandingPage() {
         close();
         targetSelector.targetSelection.SetActive(false);
+        movementSelector.gameObject.SetActive(false);
         footer.SetActive(true);
         pageIndex = 0;
     }
@@ -57,9 +69,20 @@ public class CharacterInfoScreen : MonoBehaviour
         footer.SetActive(false);
         pageIndex = 1;
     }
+
+    public void openMovementSelectorPage() {
+        if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
+            close();
+            movementSelector.gameObject.SetActive(true);
+            footer.SetActive(false);
+            pageIndex = 1;
+            movementSelector.updateText();
+        }
+    }
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
+        openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
     }
     //this function displays the information in the characterInfoScreen
     public void viewCharacter(Character currChar) {
@@ -72,10 +95,10 @@ public class CharacterInfoScreen : MonoBehaviour
         characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
         //Debug.Log("Is this causing bug?:" + GetComponent<TargetNames>().getName(currChar.attackTargetStrategy));
         //sets the text of the targetting
-        TextMeshProUGUI text = openTargetSelectionBtn.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = TargetNames.getName(currChar.attackTargetStrategy);
+        openTargetSelectionTxt.text = TargetNames.getName(currChar.attackTargetStrategy);
+        openMovementSelectorTxt.text = MovementNames.getName(currChar.movementStrategy);
         targetSelector.character = currChar;
-
+        movementSelector.character = currChar;
         character = currChar;
 
         openLandingPage();
@@ -241,6 +264,7 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
 
+    
     //opens target selector for normal attacks
     public void openTargetSelectorNormal() {
         Debug.Log("OPen target selector");
