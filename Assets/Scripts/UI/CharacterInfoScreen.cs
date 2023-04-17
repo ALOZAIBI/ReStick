@@ -98,8 +98,18 @@ public class CharacterInfoScreen : MonoBehaviour
             displayTemp.description.text = ability.description;
             displayTemp.ability = ability;
             displayTemp.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
-            //sets the icon fill amount to CD remaining
-            displayTemp.icon.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
+            //sets the cooldownBar fill amount to CD remaining
+            displayTemp.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
+            //if the ability has no cd anyways(It's a passive)
+            if (ability.CD == 0)
+                displayTemp.cooldownText.text = ("Ready");
+            else
+            //if the ability is ready
+            if (ability.abilityNext == 0) 
+                displayTemp.cooldownText.text = ("Ready "+ability.displayCDAfterChange()+" CD");
+            else
+            //shows how much cd remaining 
+            displayTemp.cooldownText.text = (ability.abilityNext).ToString("F1");
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             temp.transform.localScale = new Vector3(1, 1, 1);
         }

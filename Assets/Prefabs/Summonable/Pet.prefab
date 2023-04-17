@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: -8021297905516031933}
   - component: {fileID: -8573739630566003105}
   - component: {fileID: -7831866394334546446}
+  - component: {fileID: -4224907120706107727}
   m_Layer: 3
   m_Name: Pet
   m_TagString: Character
@@ -537,3 +538,22 @@ NavMeshAgent:
   m_BaseOffset: 0.6
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
+--- !u!1818360608 &-4224907120706107727
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6813961152882052326}
+  m_Enabled: 1
+  m_Weight: 0
+  m_TranslationAtRest: {x: 2.65, y: 3.48, z: 0}
+  m_TranslationOffset: {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 0
+  m_AffectTranslationY: 0
+  m_AffectTranslationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 6813961152882052328}
+    weight: 1

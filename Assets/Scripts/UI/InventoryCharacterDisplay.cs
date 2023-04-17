@@ -6,7 +6,7 @@ using TMPro;
 public class InventoryCharacterDisplay : MonoBehaviour
 {
     public Character character;
-    //the btn is the icon itself 
+    //the btn is the cooldownBar itself 
     [SerializeField] private Button btn;
     [SerializeField] public InventoryScreen inventoryScreen;
     [SerializeField] private Image characerPortrait;

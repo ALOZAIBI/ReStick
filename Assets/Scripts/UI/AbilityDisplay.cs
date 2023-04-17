@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class AbilityDisplay : MonoBehaviour
 {
+    //these are modified in characterInfoScreen
     public UIManager uiManager;
-    public Image icon;
+    public Image cooldownBar;
     public TextMeshProUGUI abilityName;
     public TextMeshProUGUI description;
+    public TextMeshProUGUI cooldownText;
     public Ability ability;
     public Button btn;
     public TextMeshProUGUI targettingStrategyText;

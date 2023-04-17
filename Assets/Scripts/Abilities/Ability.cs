@@ -96,5 +96,9 @@ public abstract class Ability : MonoBehaviour
             available = true;
         }
     }
- 
+
+    //just to be able to display the CD after the CDR stat has been updated (Since increasing CDR shouldn't change base CD)
+    public string displayCDAfterChange() {
+        return (CD - CD * character.CDR).ToString("F1");
+    }
 }

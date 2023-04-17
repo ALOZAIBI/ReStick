@@ -12,7 +12,7 @@ public class HealingAura : Aura {
             }
             //in this case if the aura targets enemy it is most likely to damage so we can call the damage script here
             if (enemy && aTarget.team != caster.team) {
-                caster.damage(aTarget,amt * Time.fixedDeltaTime,false);
+                caster.damage(aTarget,-amt * Time.fixedDeltaTime,false);
             }
 
         }
