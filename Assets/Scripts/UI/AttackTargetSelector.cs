@@ -351,7 +351,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.ClosestEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.ClosestEnemy;
         }
         updateView();
     }
@@ -361,7 +360,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestPDEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.HighestPDEnemy;
         }
         updateView();
 
@@ -373,7 +371,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestPDEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.LowestPDEnemy;
         }
         updateView();
 
@@ -385,7 +382,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestMDEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.HighestMDEnemy;
         }
         updateView();
 
@@ -397,7 +393,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestMDEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.LowestMDEnemy;
         }
         updateView();
 
@@ -408,7 +403,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestASEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.HighestASEnemy;
         }
         updateView();
 
@@ -420,7 +414,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestASEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.LowestASEnemy;
         }
         updateView();
 
@@ -432,7 +425,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestMSEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.HighestMSEnemy;
         }
         updateView();
 
@@ -444,7 +436,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestMSEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.LowestMSEnemy;
         }
         updateView();
 
@@ -456,7 +447,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestRangeEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.HighestRangeEnemy;
         }
         updateView();
 
@@ -468,7 +458,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestRangeEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.LowestRangeEnemy;
         }
         updateView();
 
@@ -480,7 +469,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestHPEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.HighestHPEnemy;
         }
         updateView();
 
@@ -492,7 +480,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestHPEnemy;
-            character.movementTargetStrategy = (int)Character.targetList.LowestHPEnemy;
         }
         updateView();
 
@@ -504,7 +491,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestPDAlly;
-            character.movementTargetStrategy = (int)Character.targetList.HighestPDAlly;
         }
         updateView();
 
@@ -516,7 +502,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestPDAlly;
-            character.movementTargetStrategy = (int)Character.targetList.LowestPDAlly;
         }
         updateView();
 
@@ -527,7 +512,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestMDAlly;
-            character.movementTargetStrategy = (int)Character.targetList.HighestMDAlly;
         }
         updateView();
 
@@ -539,7 +523,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestMDAlly;
-            character.movementTargetStrategy = (int)Character.targetList.LowestMDAlly;
         }
         updateView();
 
@@ -550,7 +533,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestASAlly;
-            character.movementTargetStrategy = (int)Character.targetList.HighestASAlly;
         }
         updateView();
 
@@ -562,7 +544,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestASAlly;
-            character.movementTargetStrategy = (int)Character.targetList.LowestASAlly;
         }
         updateView();
 
@@ -574,7 +555,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestMSAlly;
-            character.movementTargetStrategy = (int)Character.targetList.HighestMSAlly;
         }
         updateView();
 
@@ -586,7 +566,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestMSAlly;
-            character.movementTargetStrategy = (int)Character.targetList.LowestMSAlly;
         }
         updateView();
 
@@ -598,7 +577,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestRangeAlly;
-            character.movementTargetStrategy = (int)Character.targetList.HighestRangeAlly;
         }
         updateView();
 
@@ -610,7 +588,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestRangeAlly;
-            character.movementTargetStrategy = (int)Character.targetList.LowestRangeAlly;
         }
         updateView();
 
@@ -622,7 +599,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.HighestHPAlly;
-            character.movementTargetStrategy = (int)Character.targetList.HighestHPAlly;
         }
         updateView();
 
@@ -634,7 +610,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestHPAlly;
-            character.movementTargetStrategy = (int)Character.targetList.LowestHPAlly;
         }
         updateView();
 
@@ -645,7 +620,6 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.ClosestAlly;
-            character.movementTargetStrategy = (int)Character.targetList.ClosestAlly;
         }
         updateView();
     }

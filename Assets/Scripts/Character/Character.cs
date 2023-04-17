@@ -77,7 +77,8 @@ public class Character : MonoBehaviour {
 
     //Current targeting strategy
     public int attackTargetStrategy = (int)targetList.DefaultEnemy;   //who to attack
-    public int movementTargetStrategy = (int)targetList.DefaultEnemy;   //By default is the same as attackTarget
+    public int movementStrategy = (int)movementStrategies.Default;   //By default is the same as attackTarget
+    public int stayNearAllyTarge=(int)targetList.ClosestAlly;//if movement strategy
 
     //used to root silence and blind etc..
     public bool snare;
@@ -154,6 +155,12 @@ public class Character : MonoBehaviour {
 
         //dont select anyting
         None
+    }
+    public enum movementStrategies {
+        Default,    //walks to target and kite
+        StayNearAlly,   //for now it is stay near closest ally. Update it later to make it so that it stays near stayNearAllyTarget
+        DontMove,
+        RunAwayFromNearestEnemy
     }
     //A function passes what action it wants a cooldown on then the cooldown function using a switch case does the appropriate thing
     public enum actionAvailable {
@@ -274,9 +281,67 @@ public class Character : MonoBehaviour {
             timeSinceDestinationUpdate = 0;
         }
     }
+    private void doMoveStrategy(int strategy) {
+        //the range that is used to apply the move strategy
+        int seekRange;
+        switch (strategy) {
+            case (int)movementStrategies.Default:
+                selectTarget(attackTargetStrategy);
+                //Kiting(Moves away from target when attack not ready)
+                if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
+                    movementState = 2;
+                    try { animationManager.move(true); }
+                    catch { /*IF this character has no animation manager it's okay*/}
+                    //move away from target
+                    //finds the point opposite the target https://gamedev.stackexchange.com/questions/80277/how-to-find-point-on-a-circle-thats-opposite-another-point
+                    Vector2 pointOpposite = new Vector2(transform.position.x - target.transform.position.x, transform.position.y - target.transform.position.y) + (Vector2)transform.position;
+                    moveTowards(pointOpposite);
+                }
+                else
+                //walks towards target till in range
+                if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
+                    movementState = 3;
+                    try { animationManager.move(true); }
+                    catch { /*IF this character has no animation manager it's okay*/}
+                    //transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
+                    moveTowards(target.transform.position);
+                }
+                else {
+                    //once it is in range stop moving
+                    agent.isStopped = true;
+                    try { animationManager.move(false); }
+                    catch { /*IF this character has no animation manager it's okay*/}
+                }
+                break;
+
+            case (int)movementStrategies.StayNearAlly:
+                //move towards closest ally within a radius of 2
+                seekRange = 2;
+                selectTarget((int)targetList.ClosestAlly);
+                if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position)> seekRange)
+                    moveTowards(target.transform.position);
+                break;
+
+            case (int)movementStrategies.DontMove:
+                agent.isStopped = true;
+                break;
+
+            case (int)movementStrategies.RunAwayFromNearestEnemy:
+                //run away from enemies as far as 8 range
+                seekRange = 8;
+                selectTarget((int)targetList.ClosestEnemy);
+                if(target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) < seekRange) {
+                    //finds the point opposite the target https://gamedev.stackexchange.com/questions/80277/how-to-find-point-on-a-circle-thats-opposite-another-point
+                    Vector2 pointOpposite = new Vector2(transform.position.x - target.transform.position.x, transform.position.y - target.transform.position.y) + (Vector2)transform.position;
+                    moveTowards(pointOpposite);
+                }
+                break;
+        }
+    }
     private void movement() {
         //sets the speed
         agent.speed = MS;
+        //if can't move
         if (!canMove) {
             movementState = 0;
             //stops the agent from moving
@@ -288,41 +353,16 @@ public class Character : MonoBehaviour {
         else {
             agent.isStopped = false;
         }
-        //if the character is idle move towards direction that was randomly generated in checkIdle
-        if (isIdle) {
+        //if the character is idle and movestrategy is not set to dont move, move towards direction that was randomly generated in checkIdle
+        if (isIdle && movementStrategy !=(int)movementStrategies.DontMove) {
             movementState = 1;
             try { animationManager.move(true); }
             catch { /*IF this character has no animation manager it's okay*/}
             moveTowards(randomDestination);
         }
-
+        //movement
         else {
-            selectTarget(movementTargetStrategy);
-            //Kiting(Moves away from target when attack not ready)
-            if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
-                movementState = 2;
-                try { animationManager.move(true); }
-                catch { /*IF this character has no animation manager it's okay*/}
-                //move away from target
-                //finds the point opposite the target https://gamedev.stackexchange.com/questions/80277/how-to-find-point-on-a-circle-thats-opposite-another-point
-                Vector2 pointOpposite = new Vector2(transform.position.x - target.transform.position.x,transform.position.y - target.transform.position.y) + (Vector2)transform.position;
-                moveTowards(pointOpposite);
-            }
-            else
-            //walks towards target till in range
-            if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > Range) {
-                movementState = 3;
-                try { animationManager.move(true); }
-                catch { /*IF this character has no animation manager it's okay*/}
-                //transform.position = (Vector2.MoveTowards(transform.position, target.transform.position, MS * Time.fixedDeltaTime));
-                moveTowards(target.transform.position);
-            }
-            else {
-                //once it is in range stop moving
-                agent.isStopped = true;
-                try { animationManager.move(false); }
-                catch { /*IF this character has no animation manager it's okay*/}
-            }
+            doMoveStrategy(movementStrategy);
         }
     }
 

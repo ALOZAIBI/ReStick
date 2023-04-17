@@ -28,7 +28,7 @@ public class Summon : Ability
             //Sets the summoned character's team and targetting strategy
             charSummoned.team = character.team;
             charSummoned.attackTargetStrategy = targetStrategy;
-            charSummoned.movementTargetStrategy = targetStrategy;
+            charSummoned.movementStrategy = (int)Character.movementStrategies.Default;
             startCooldown();
         }
     }

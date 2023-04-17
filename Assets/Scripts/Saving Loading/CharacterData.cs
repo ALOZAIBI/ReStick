@@ -66,7 +66,7 @@ public class CharacterData
         statPoints = character.statPoints;
         team = character.team;
         attackTargetStrategy = character.attackTargetStrategy;
-        movementTargetStrategy = character.movementTargetStrategy;
+        movementTargetStrategy = character.movementStrategy;
 
         abilities = new string[character.abilities.Count];
         abilityTargetting = new int[character.abilities.Count];
