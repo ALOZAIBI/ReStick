@@ -1191,13 +1191,28 @@ public class Character : MonoBehaviour {
             HP = HPMax;
     }
     //When Character is clicked checks if the click is held or if it's just a quick click. If it's a quick click open cahracter screen otherwise do nothing since holding is used for panning camera
-    private void OnMouseDown() {
-        //prevent clijcking through UI
-        //if (IsPointerOverGameObject()) {
-        //    return;
-        //}
-        //to start mouseClickedNotHeld Function
-        click = true;
+    //private void OnMouseDown() {
+    //    Debug.Log(name + "Clicked");
+    //    //prevent clijcking through UI
+    //    //if (IsPointerOverGameObject()) {
+    //    //    return;
+    //    //}
+    //    //to start mouseClickedNotHeld Function
+    //    click = true;
+    //}
+
+    private void customMouseDown() {
+        int layerMask = LayerMask.GetMask("Characters");
+        if (Input.GetMouseButtonDown(0)) {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if(hit.collider != null && hit.collider.tag == "Character") {
+                Debug.Log("Character" + hit.collider.name);
+                hit.collider.GetComponent<Character>().click = true;
+            }
+            else {
+                Debug.Log("Blocking raycast" + hit.collider.name);
+            }
+        }
     }
     private float mouseHoldDuration = 0;
     public bool click = false;
@@ -1311,6 +1326,7 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
+        customMouseDown();
         //this doesn't have to be done on every frame so having it in update instead of fixedupdate is fine
         timeSinceDestinationUpdate += Time.deltaTime;
         mouseClickedNotHeld();
