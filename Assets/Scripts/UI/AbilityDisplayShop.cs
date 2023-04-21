@@ -14,12 +14,15 @@ public class AbilityDisplayShop : MonoBehaviour
 
     public TextMeshProUGUI abilityName;
     public TextMeshProUGUI description;
-    public TextMeshProUGUI price;
+    public TextMeshProUGUI priceText;
 
     public Button self;
     public bool purchased;
 
+    public int price;
+
     private void Start() {
+        priceText.text = price+ "";
         self.onClick.AddListener(select);
         background = GetComponent<Image>();
         if (ability.rarity == (int)Ability.raritiesList.Common)
@@ -62,15 +65,19 @@ public class AbilityDisplayShop : MonoBehaviour
         }
         //if already selected then clicked again
         else if (!purchased) {
+            //if can afford
+            if (UIManager.singleton.playerParty.gold >= price) {
                 markPurchased();
-            //add to inventroy
-            Instantiate(ability, UIManager.singleton.playerParty.abilityInventory.transform);
-            //Since Shops are only in maps we save to map
-            SaveSystem.saveInventoryInMap();
-            //save shop PurchaseInfo
-            SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
+                //add to inventroy
+                Instantiate(ability, UIManager.singleton.playerParty.abilityInventory.transform);
+                //Since Shops are only in maps we save to map
+                SaveSystem.saveInventoryInMap();
+                //save shop PurchaseInfo
+                SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
+                //deduct from player gold
+                UIManager.singleton.playerParty.gold -= price;
             }
-
+        }
         
     }
     private void markPurchased() {

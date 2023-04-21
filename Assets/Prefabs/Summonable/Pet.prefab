@@ -288,7 +288,7 @@ Transform:
   m_GameObject: {fileID: 6813961152882052326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42, y: 0.42, z: 0.42}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5892780057989553795}
@@ -337,7 +337,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f069f52a15175fa4d98346a7c4c26d4b, type: 3}
-  m_Color: {r: 0.49640438, g: 0.7924528, b: 0.737438, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -364,10 +364,10 @@ MonoBehaviour:
   cam: {fileID: 0}
   camMov: {fileID: 0}
   agent: {fileID: 0}
-  PD: 1
+  PD: 4
   MD: 0
-  HP: 2
-  HPMax: 2
+  HP: 60
+  HPMax: 60
   AS: 0.7
   CDR: 0
   MS: 3
@@ -398,7 +398,8 @@ MonoBehaviour:
   summoned: 0
   summoner: {fileID: 0}
   attackTargetStrategy: 1
-  movementTargetStrategy: 1
+  movementStrategy: 0
+  stayNearAllyTarge: 15
   snare: 0
   silence: 0
   blind: 0
@@ -419,6 +420,7 @@ MonoBehaviour:
   timeSinceDestinationUpdate: 0
   movementState: 0
   previousMovementState: 0
+  click: 0
   held: 0
 --- !u!114 &8628169679358290717
 MonoBehaviour:
@@ -453,7 +455,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.35, y: 1.35}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

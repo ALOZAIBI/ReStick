@@ -76,7 +76,7 @@ public class Character : MonoBehaviour {
     public Character summoner;
 
     //Current targeting strategy
-    public int attackTargetStrategy = (int)targetList.DefaultEnemy;   //who to attack
+    public int attackTargetStrategy = (int)targetList.ClosestEnemy;   //who to attack
     public int movementStrategy = (int)movementStrategies.Default;   //By default is the same as attackTarget
     public int stayNearAllyTarge=(int)targetList.ClosestAlly;//if movement strategy
 
@@ -1297,9 +1297,9 @@ public class Character : MonoBehaviour {
         //(this only applies to player characters that are not summoned)
         if(!summoned && team == (int)teamList.Player) {
             //increase stats a bit
-            HPMax += 2;
+            HPMax += 5;
             PD += 0.5f;
-            AS += 0.05f;
+            AS += 0.02f;
             //heal character by 10% of max HP on level up 
             HP += 0.1f * HPMax;
 

@@ -63,7 +63,7 @@ public class ShopScreen : MonoBehaviour
             listAbilities.Add(abilityDisplay);
             //gets the ability from shop
             Ability temp = shop.abilityHolder.transform.GetChild(i).GetComponent<Ability>();
-            abilityDisplay.price.text = costOfAbility(temp)+"";
+            abilityDisplay.price = costOfAbility(temp);
             abilityDisplay.ability = temp;
             abilityDisplay.abilityName.text = temp.abilityName;
             abilityDisplay.description.text = temp.description;

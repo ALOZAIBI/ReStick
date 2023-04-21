@@ -367,7 +367,7 @@ public class UIManager : MonoBehaviour
     private void Update() {
         if(zone == null) {
             try {
-                zone = GameObject.FindGameObjectWithTag("Zone").GetComponent<Zone>();
+                zone = FindObjectOfType<Zone>();
             }
             catch { }
         }
