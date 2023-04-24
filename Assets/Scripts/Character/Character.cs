@@ -63,7 +63,7 @@ public class Character : MonoBehaviour {
     //level stuff
     public int level=1;
     //how much xp in current level
-    public int xpProgress=0;
+    public float xpProgress=0;
     //how much xp needed to level up
     public int xpCap=1;
     //points that can be used on stats (gained wen leveling up)
@@ -1277,13 +1277,37 @@ public class Character : MonoBehaviour {
             summoner.totalKills++;
             summoner.killsLastFrame++;
             //level progress will depend on victim's level the equation is open to changing
-            summoner.xpProgress += victim.level;
+            increasePartyXP(victim.level);
         }
         else {
             totalKills++;
             killsLastFrame++;
             //level progress will depend on victim's level the equation is open to changing
-            xpProgress += victim.level;
+            increasePartyXP(victim.level);
+        }
+    }
+    //Shares XP TO ALL ACTIVE PLAYERPARTY MEMBERS
+    private void increasePartyXP(int level) {
+        //only applies if the caller is a player Character
+        if (this.team != (int)teamList.Player)
+            return;
+        int activeCharacters=0;
+        //counts how many active characters
+        foreach(Transform child in UIManager.singleton.playerParty.transform) {
+            if(child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                if(temp.gameObject.activeSelf && temp.alive)
+                    activeCharacters++;
+            }
+        }
+        Debug.Log(activeCharacters + "Active characters");
+        //give xp evenly split on active characters
+        foreach (Transform child in UIManager.singleton.playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                if (temp.gameObject.activeSelf && temp.alive)
+                    temp.xpProgress += (float)level / activeCharacters;
+            }
         }
     }
     private void levelUp() {

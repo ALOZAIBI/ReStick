@@ -28,7 +28,7 @@ public class CharacterData
     //level stuff
     public int level;
     //how much xp in current level
-    public int xpProgress;
+    public float xpProgress;
     //how much xp needed to level up
     public int xpCap;
     //points that can be used on stats (gained wen leveling up)
