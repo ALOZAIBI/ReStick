@@ -134,11 +134,12 @@ static class SaveSystem
             return false;
     }
     public static void saveInventoryInWorld() {
-        //creates a list of abilityNames from ability Inventory
-        List<string> abilityNames = new List<string>();
+        InventoryData data = new InventoryData();
+        data.gold = UIManager.singleton.playerParty.gold;
+        //adds abilities
         foreach (Transform child in UIManager.singleton.playerParty.abilityInventory.transform) {
             Ability temp = child.GetComponent<Ability>();
-            abilityNames.Add(temp.abilityName);
+            data.abilityNames.Add(temp.abilityName);
         }
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/inventory/inventory.xrt";
         using (FileStream fs = File.Open(path, FileMode.Create)) {
@@ -149,13 +150,12 @@ static class SaveSystem
             //writer.Write(Convert.ToBase64String(plainTextBytes));
 
             //this is the non encrypted version
-            writer.Write(JsonConvert.SerializeObject(abilityNames));
+            writer.Write(JsonConvert.SerializeObject(data));
             writer.Flush();
         }
     }
     public static void loadInventoryInWorld() {
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/inventory/inventory.xrt";
-        List<string> abilityNames = new List<string>();
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -163,8 +163,10 @@ static class SaveSystem
                 //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
                 //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
 
-                abilityNames = JsonConvert.DeserializeObject<List<string>>(reader.ReadString());
-                UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(abilityNames);
+                //adds abilities and gold
+                InventoryData data = JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
+                UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(data.abilityNames);
+                UIManager.singleton.playerParty.gold = data.gold;
             }
         }
         else
@@ -172,11 +174,12 @@ static class SaveSystem
 
     }
     public static void saveInventoryInMap() {
-        //creates a list of abilityNames from ability Inventory
-        List<string> abilityNames = new List<string>();
+        InventoryData data = new InventoryData();
+        data.gold = UIManager.singleton.playerParty.gold;
+        //adds abilities
         foreach(Transform child in UIManager.singleton.playerParty.abilityInventory.transform) {
             Ability temp = child.GetComponent<Ability>();
-            abilityNames.Add(temp.abilityName);
+            data.abilityNames.Add(temp.abilityName);
         }
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
         using(FileStream fs = File.Open(path, FileMode.Create)) {
@@ -187,13 +190,12 @@ static class SaveSystem
             //writer.Write(Convert.ToBase64String(plainTextBytes));
 
             //this is the non encrypted version
-            writer.Write(JsonConvert.SerializeObject(abilityNames));
+            writer.Write(JsonConvert.SerializeObject(data));
             writer.Flush();
         }
     }
     public static void loadInventoryInMap() {
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
-        List<string> abilityNames= new List<string>();
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -201,8 +203,10 @@ static class SaveSystem
                 //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
                 //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
 
-                abilityNames = JsonConvert.DeserializeObject<List<string>>(reader.ReadString());
-                UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(abilityNames);
+                //adds abilities and gold
+                InventoryData data= JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
+                UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(data.abilityNames);
+                UIManager.singleton.playerParty.gold = data.gold;
             }
         }
         else
@@ -291,7 +295,7 @@ static class SaveSystem
 
                     //this is the non-encrypted version
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
-
+                    Debug.Log("Adding " + data.charName);
                     UIManager.singleton.characterFactory.addCharacterAsChild(data,UIManager.singleton.playerParty.transform);
                 }
             }

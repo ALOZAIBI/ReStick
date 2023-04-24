@@ -24,11 +24,10 @@ public class SaveSlotSelector : MonoBehaviour {
         if (SaveSystem.loadGameState()) {
             UIManager.singleton.loadMapSave();
         }
-        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters
+        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters in world
         else if
             (UIManager.singleton.playerParty.transform.childCount == 2) {
             UIManager.singleton.loadWorldSave();
-            SaveSystem.loadCharactersInWorld();
         }
     }
 
@@ -40,11 +39,10 @@ public class SaveSlotSelector : MonoBehaviour {
         if (SaveSystem.loadGameState()) {
             UIManager.singleton.loadMapSave();
         }
-        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters
+        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters in world
         else if
             (UIManager.singleton.playerParty.transform.childCount == 2) {
             UIManager.singleton.loadWorldSave();
-            SaveSystem.loadCharactersInWorld();
         }
     }
 
@@ -56,11 +54,10 @@ public class SaveSlotSelector : MonoBehaviour {
         if (SaveSystem.loadGameState()) {
             UIManager.singleton.loadMapSave();
         }
-        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters
+        //by default playerParty has only 2 children so if it's still just 2 children (loadGameState didn't add a character) load the characters in world
         else if
             (UIManager.singleton.playerParty.transform.childCount == 2) {
             UIManager.singleton.loadWorldSave();
-            SaveSystem.loadCharactersInWorld();
         }
     }
 }

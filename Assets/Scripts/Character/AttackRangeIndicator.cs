@@ -10,6 +10,6 @@ public class AttackRangeIndicator : MonoBehaviour {
     private void OnDrawGizmosSelected() {
         // Draw a wire sphere with the attack range as the radius and the indicator color
         Gizmos.color = indicatorColor;
-        Gizmos.DrawWireSphere(transform.position, attackRange);z
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

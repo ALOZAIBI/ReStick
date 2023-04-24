@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
 
     //Map Won Screen Stuff
     public Image mapWonScreen;
-    public Button backToWorldBtn;
+    public Button wonToWorldBtn;
 
     //Game Lost Screen Stuff
     public Image gameLostScreen;
@@ -113,7 +113,7 @@ public class UIManager : MonoBehaviour
 
         //
         lostToMapBtn.onClick.AddListener(lostToMap);
-        backToWorldBtn.onClick.AddListener(loadScene);
+        wonToWorldBtn.onClick.AddListener(wonToWorld);
 
         lostToRestartBtn.onClick.AddListener(restartZone);
 
