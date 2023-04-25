@@ -41,8 +41,6 @@ public class UIManager : MonoBehaviour
     //screen that pops up oin lelve start
     public CharacterPlacingScreen characterPlacingScreen;
 
-    //displays how much gold player has
-    public TextMeshProUGUI goldtext;
 
     //Zone Won Screen Stuff
     public Image gameWonScreen;
@@ -59,6 +57,11 @@ public class UIManager : MonoBehaviour
 
     //the scene to be loaded
     public string sceneToLoad;
+
+    public GameObject topBarUI;
+
+    //displays how much gold player has
+    public TextMeshProUGUI goldtext;
 
     public TopStatDisplay topStatDisplay;
 
@@ -371,6 +374,12 @@ public class UIManager : MonoBehaviour
             }
             catch { }
         }
+        if (inZone) {
+            topBarUI.SetActive(true);
+            goldtext.text = "G:" + playerParty.gold;
+        }
+        else
+            topBarUI.SetActive(false);
         ////display gold if in zone with goldgainedsofar in zone if possible
         //try {
         //    goldtext.text = "G:" + (playerParty.gold + zone.goldSoFar);

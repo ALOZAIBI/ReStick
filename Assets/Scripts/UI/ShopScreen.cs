@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopScreen : MonoBehaviour
@@ -11,6 +12,8 @@ public class ShopScreen : MonoBehaviour
 
     public GameObject abilityArea;
     public GameObject characterArea;
+
+    public TextMeshProUGUI goldText;
 
     //cost of purchase of abilities
     public int commonCost;
@@ -45,7 +48,7 @@ public class ShopScreen : MonoBehaviour
                 Destroy(child.gameObject);
         }
     }
-    private void closeCharacters() {
+    public void closeCharacters() {
         foreach (Transform child in characterArea.transform) {
             Destroy(child.gameObject);
         }
@@ -85,5 +88,8 @@ public class ShopScreen : MonoBehaviour
             //then marks if it was purchased
             characterDisplay.purchased = shop.characterPurchased[i];
         }
+    }
+    private void Update() {
+        goldText.text = "G:"+UIManager.singleton.playerParty.gold;
     }
 }

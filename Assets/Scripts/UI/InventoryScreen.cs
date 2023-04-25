@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryScreen : MonoBehaviour
 {
+    public GameObject moneyDisplay;
+    public TextMeshProUGUI goldtext;
     //contains character displays
     public GameObject Header;
     public GameObject pickCharacterToolTip;
@@ -36,7 +39,8 @@ public class InventoryScreen : MonoBehaviour
         inventoryCharacterScreen.gameObject.SetActive(false);
         AbilityHeader.SetActive(false);
         pickCharacterToolTip.SetActive(false);
-
+        moneyDisplay.SetActive(true);
+        goldtext.text = "G:" + uiManager.playerParty.gold;
         //shows the close button
         uiManager.closeUIBtn.gameObject.SetActive(true);
 
@@ -59,6 +63,7 @@ public class InventoryScreen : MonoBehaviour
         inventoryCharacterScreen.gameObject.SetActive(false);
         AbilityHeader.SetActive(true);
         pickCharacterToolTip.SetActive(true);
+        moneyDisplay.SetActive(true);
 
         //hides the close button
         uiManager.closeUIBtn.gameObject.SetActive(false);
@@ -75,6 +80,7 @@ public class InventoryScreen : MonoBehaviour
         inventoryCharacterScreen.gameObject.SetActive(true);
         AbilityHeader.SetActive(true);
         pickCharacterToolTip.SetActive(false);
+        moneyDisplay.SetActive(false);
 
         //hides the close button
         uiManager.closeUIBtn.gameObject.SetActive(false);
@@ -90,6 +96,7 @@ public class InventoryScreen : MonoBehaviour
         inventoryCharacterScreen.gameObject.SetActive(true);
         AbilityHeader.SetActive(false);
         pickCharacterToolTip.SetActive(false);
+        moneyDisplay.SetActive(false);
 
         //hides the close button
         uiManager.closeUIBtn.gameObject.SetActive(false);

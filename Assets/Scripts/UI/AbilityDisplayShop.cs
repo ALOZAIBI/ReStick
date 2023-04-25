@@ -68,14 +68,14 @@ public class AbilityDisplayShop : MonoBehaviour
             //if can afford
             if (UIManager.singleton.playerParty.gold >= price) {
                 markPurchased();
+                //deduct from player gold
+                UIManager.singleton.playerParty.gold -= price;
                 //add to inventroy
                 Instantiate(ability, UIManager.singleton.playerParty.abilityInventory.transform);
                 //Since Shops are only in maps we save to map
-                SaveSystem.saveInventoryInMap();
+                UIManager.singleton.saveMapSave();
                 //save shop PurchaseInfo
                 SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
-                //deduct from player gold
-                UIManager.singleton.playerParty.gold -= price;
             }
         }
         

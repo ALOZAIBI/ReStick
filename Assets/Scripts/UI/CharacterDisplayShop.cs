@@ -12,10 +12,15 @@ public class CharacterDisplayShop : MonoBehaviour {
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private Button self;
+    public TextMeshProUGUI priceText;
+    public int price;
 
     public bool selected;
     public bool purchased;    
     private void Start() {
+        //price depends on how many characters the player has.
+        price = 30*(UIManager.singleton.playerParty.transform.childCount-2);
+        priceText.text = price + "";
         //sets the image
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
         characerPortrait.color = character.GetComponent<SpriteRenderer>().color;
@@ -41,22 +46,27 @@ public class CharacterDisplayShop : MonoBehaviour {
         }
         //if already selected then clicked again
         else if (!purchased) {
-            markPurchased();
-            //add to playerparty
-            Character fixName =Instantiate(character, UIManager.singleton.playerParty.transform);
-            //if this isn't done the Instantiated object's name will be characterName(clone) so we did this to remove the clone from the name
-            fixName.name = character.name;
-            
-            SaveSystem.characterNumber = 0;
-            //save character in map since shop is so far only available in maps
-            foreach (Transform child in UIManager.singleton.playerParty.transform) {
-                if (child.tag == "Character") {
-                    Character temp = child.GetComponent<Character>();
-                    SaveSystem.saveCharacterInMap(temp);
-                }
+            //if can afford
+            if(UIManager.singleton.playerParty.gold >= price) {
+                markPurchased();
+                //add to playerparty
+                Character fixName = Instantiate(character, UIManager.singleton.playerParty.transform);
+                //if this isn't done the Instantiated object's name will be characterName(clone) so we did this to remove the clone from the name
+                fixName.name = character.name;
+
+                //deduct from player gold
+                UIManager.singleton.playerParty.gold -= price;
+
+                //update display since the price would change after a purchase
+                UIManager.singleton.shopScreen.closeCharacters();
+                UIManager.singleton.shopScreen.displayCharacters();
+
+                //save character in map since shop is so far only available in maps
+                UIManager.singleton.saveMapSave();
+  
+                //save shop PurchaseInfo
+                SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
             }
-            //save shop PurchaseInfo
-            SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
         }
     }
 

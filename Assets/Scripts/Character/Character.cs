@@ -317,9 +317,18 @@ public class Character : MonoBehaviour {
             case (int)movementStrategies.StayNearAlly:
                 //move towards closest ally within a radius of 2
                 seekRange = 2;
-                selectTarget((int)targetList.ClosestAlly);
-                if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position)> seekRange)
+                selectTarget(stayNearAllyTarge);
+                if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) > seekRange) {
                     moveTowards(target.transform.position);
+                    try { animationManager.move(true); }
+                    catch { /*IF this character has no animation manager it's okay*/}
+                }
+                //once in range stop moving
+                else {
+                    agent.isStopped = true;
+                    try { animationManager.move(false); }
+                    catch { /*IF this character has no animation manager it's okay*/}
+                }
                 break;
 
             case (int)movementStrategies.DontMove:
@@ -1284,6 +1293,11 @@ public class Character : MonoBehaviour {
             killsLastFrame++;
             //level progress will depend on victim's level the equation is open to changing
             increasePartyXP(victim.level);
+        }
+
+        //add gold
+        if(this.team == (int)teamList.Player) {
+            uiManager.playerParty.gold += 7 + victim.level * 2;
         }
     }
     //Shares XP TO ALL ACTIVE PLAYERPARTY MEMBERS

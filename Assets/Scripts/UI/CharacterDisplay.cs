@@ -54,6 +54,9 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     Color temp = image.color;
                     temp.a = 0.1f;
                     image.color = temp;
+                    //this is done to update collider position when timescale is set to 0 so that the character dragged in is correctly clickable.
+                    Physics.SyncTransforms();
+                    Debug.Log("PHYSICS STYNCED");
                 }
             }
            
