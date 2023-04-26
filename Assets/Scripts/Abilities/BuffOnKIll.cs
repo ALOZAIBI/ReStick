@@ -7,6 +7,7 @@ public class BuffOnKIll : Ability
     //on kill instantiate a buff with the following stats, then add it to the character
     public float PD;
     public float MD;
+    public float INF;
     public float HP;
     public float AS;
     public float CDR;
@@ -44,6 +45,11 @@ public class BuffOnKIll : Ability
                 buff.MD = MD;
                 if (MD > 0) {
                     buff.MD += amt * MD;
+                }
+
+                buff.INF = INF;
+                if (INF > 0) {
+                    buff.INF += amt * INF;
                 }
 
                 buff.HP = HP;
@@ -109,7 +115,9 @@ public class BuffOnKIll : Ability
         if (PD != 0)
             description += PD + " PD ";
         if (MD != 0)
-            description += PD + " PD ";
+            description += MD + " MD ";
+        if (INF != 0)
+            description += INF + " INF ";
         if (HP != 0)
             description += HP + " HP ";
         if (AS != 0)

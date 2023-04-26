@@ -51,6 +51,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 case (int)Character.targetList.HighestHPEnemy:
                 case (int)Character.targetList.HighestMDAlly:
                 case (int)Character.targetList.HighestMDEnemy:
+                case (int)Character.targetList.HighestINFAlly:
+                case (int)Character.targetList.HighestINFEnemy:
                 case (int)Character.targetList.HighestMSAlly:
                 case (int)Character.targetList.HighestMSEnemy:
                 case (int)Character.targetList.HighestPDAlly:
@@ -73,6 +75,8 @@ public class AttackTargetSelector : MonoBehaviour {
                 case (int)Character.targetList.HighestHPEnemy:
                 case (int)Character.targetList.HighestMDAlly:
                 case (int)Character.targetList.HighestMDEnemy:
+                case (int)Character.targetList.HighestINFAlly:
+                case (int)Character.targetList.HighestINFEnemy:
                 case (int)Character.targetList.HighestMSAlly:
                 case (int)Character.targetList.HighestMSEnemy:
                 case (int)Character.targetList.HighestPDAlly:
@@ -136,6 +140,16 @@ public class AttackTargetSelector : MonoBehaviour {
                     }
                 }
                 break;
+            case (int)Character.targetList.HighestINFEnemy:
+            case (int)Character.targetList.LowestINFEnemy:
+                foreach (TargetOptionButton temp in buttons) {
+                    if (temp.stat == "INF") {
+                        temp.highlightEnemy();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = true;
+                    }
+                }
+                break;
             case (int)Character.targetList.HighestMSEnemy:
             case (int)Character.targetList.LowestMSEnemy:
                 foreach (TargetOptionButton temp in buttons) {
@@ -189,6 +203,16 @@ public class AttackTargetSelector : MonoBehaviour {
             case (int)Character.targetList.LowestMDAlly:
                 foreach (TargetOptionButton temp in buttons) {
                     if (temp.stat == "MD") {
+                        temp.highlightAlly();
+                        temp.currentlySelectedBtn = true;
+                        temp.enemySelected = false;
+                    }
+                }
+                break;
+            case (int)Character.targetList.HighestINFAlly:
+            case (int)Character.targetList.LowestINFAlly:
+                foreach (TargetOptionButton temp in buttons) {
+                    if (temp.stat == "INF") {
                         temp.highlightAlly();
                         temp.currentlySelectedBtn = true;
                         temp.enemySelected = false;
@@ -258,6 +282,12 @@ public class AttackTargetSelector : MonoBehaviour {
             case (int)Character.targetList.LowestMDEnemy:
                 phrase.text += " lowest MD enemy";
                 break;
+            case (int)Character.targetList.HighestINFEnemy:
+                phrase.text += " highest INF enemy";
+                break;
+            case (int)Character.targetList.LowestINFEnemy:
+                phrase.text += " lowest INF enemy";
+                break;
             case (int)Character.targetList.HighestASEnemy:
                 phrase.text += " highest AS enemy";
                 break;
@@ -296,6 +326,12 @@ public class AttackTargetSelector : MonoBehaviour {
                 break;
             case (int)Character.targetList.LowestMDAlly:
                 phrase.text += " lowest MD ally";
+                break;
+            case (int)Character.targetList.HighestINFAlly:
+                phrase.text += " highest INF ally";
+                break;
+            case (int)Character.targetList.LowestINFAlly:
+                phrase.text += " lowest INF ally";
                 break;
             case (int)Character.targetList.HighestASAlly:
                 phrase.text += " highest AS ally";
@@ -392,6 +428,27 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestMDEnemy;
+        }
+        updateView();
+
+    }
+    public void selectHighestINFEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestINFEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestINFEnemy;
+        }
+        updateView();
+
+    }
+
+    public void selectLowestINFEnemy() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestINFEnemy;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestINFEnemy;
         }
         updateView();
 
@@ -522,6 +579,27 @@ public class AttackTargetSelector : MonoBehaviour {
         }
         else {
             character.attackTargetStrategy = (int)Character.targetList.LowestMDAlly;
+        }
+        updateView();
+
+    }
+    public void selectHighestINFAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.HighestINFAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.HighestINFAlly;
+        }
+        updateView();
+
+    }
+
+    public void selectLowestINFAlly() {
+        if (isAbilityTargetSelector) {
+            ability.targetStrategy = (int)Character.targetList.LowestINFAlly;
+        }
+        else {
+            character.attackTargetStrategy = (int)Character.targetList.LowestINFAlly;
         }
         updateView();
 

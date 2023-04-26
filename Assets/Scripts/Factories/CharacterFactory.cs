@@ -33,6 +33,7 @@ public class CharacterFactory : MonoBehaviour
         temp.name = data.charName;
         temp.PD = data.PD;
         temp.MD = data.MD;
+        temp.INF = data.INF;
         temp.HP = data.HP;
         temp.HPMax = data.HPMax;
         temp.CDR = data.CDR;

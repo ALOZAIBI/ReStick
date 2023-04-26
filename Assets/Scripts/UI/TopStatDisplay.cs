@@ -9,7 +9,7 @@ public class TopStatDisplay : MonoBehaviour
     public UIManager uiManager;
 
 
-    public TextMeshProUGUI PD, MD, AS, CDR, MS, RNG, LS;
+    public TextMeshProUGUI PD, MD, INF, AS, CDR, MS, RNG, LS;
     public TextMeshProUGUI charName;
 
 
@@ -44,6 +44,14 @@ public class TopStatDisplay : MonoBehaviour
             MD.color = ColorPalette.singleton.debuff;
         else
             MD.color = ColorPalette.singleton.defaultColor;
+
+        if (character.INF > character.zsINF)
+            INF.color = ColorPalette.singleton.buff;
+        else
+        if (character.INF < character.zsINF)
+            INF.color = ColorPalette.singleton.debuff;
+        else
+            INF.color = ColorPalette.singleton.defaultColor;
 
         if (character.AS > character.zsAS)
             AS.color = ColorPalette.singleton.buff;
@@ -114,6 +122,7 @@ public class TopStatDisplay : MonoBehaviour
         //f1 formats it to 1 decimal point
         PD.text = character.PD.ToString("F1");
         MD.text = character.MD.ToString("F1");
+        INF.text = character.INF.ToString("F1");
         AS.text = character.AS.ToString("F1");
         CDR.text = (character.CDR*100).ToString("F1");
         MS.text = character.MS.ToString("F1");

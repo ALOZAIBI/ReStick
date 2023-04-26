@@ -43,7 +43,7 @@ public class AbilityFactory : MonoBehaviour
         int randomAbility;
         if (randomRarity < legendaryDR) {
             randomAbility = Random.Range(0, legendary.Count);
-            return legendary[randomRarity];
+            return legendary[randomAbility];
         }
         else if (randomRarity < epicDR) {
             randomAbility = Random.Range(0, epic.Count);
@@ -123,7 +123,7 @@ public class AbilityFactory : MonoBehaviour
     }
     public void addRequestedAbilitiesToInventory(List<string> abilityNames) {
         foreach(string name in abilityNames) {
-            Debug.Log("ABILIT DEBUG+"+name);
+            //Debug.Log("ABILIT DEBUG+"+name);
             GameObject obj = objectFromName(name);
             Instantiate(obj, UIManager.singleton.playerParty.abilityInventory.transform);
         }

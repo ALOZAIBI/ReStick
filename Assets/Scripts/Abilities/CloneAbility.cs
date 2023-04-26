@@ -29,6 +29,7 @@ public class CloneAbility : Ability
             //amt would usually be less than 100 so usually the clone would be weaker than the character cloned unless the caster has an insane MD
             clone.PD *= amt / 100;
             clone.MD *= amt / 100;
+            clone.INF *= amt / 100;
             clone.AS *= amt / 100;
             clone.HP *= amt / 100;
             //decrease the CD of clone by flat amount but make sure it doesnt go below 0

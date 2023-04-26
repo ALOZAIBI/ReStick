@@ -66,6 +66,12 @@ public class TargetOptionButton : MonoBehaviour {
                 else
                     targetSelector.selectLowestMDEnemy();
                 break;
+            case "INF":
+                if (targetSelector.highest)
+                    targetSelector.selectHighestINFEnemy();
+                else
+                    targetSelector.selectLowestINFEnemy();
+                break;
             case "AS":
                 if (targetSelector.highest)
                     targetSelector.selectHighestASEnemy();
@@ -133,6 +139,12 @@ public class TargetOptionButton : MonoBehaviour {
                     targetSelector.selectHighestMDAlly();
                 else
                     targetSelector.selectLowestMDAlly();
+                break;
+            case "INF":
+                if (targetSelector.highest)
+                    targetSelector.selectHighestINFAlly();
+                else
+                    targetSelector.selectLowestINFAlly();
                 break;
             case "AS":
                 if (targetSelector.highest)

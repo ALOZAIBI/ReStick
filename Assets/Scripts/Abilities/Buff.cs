@@ -8,6 +8,7 @@ public class Buff : MonoBehaviour
 
     public float PD;
     public float MD;
+    public float INF;
     public float HP;
     public float AS;
     public float CDR;
@@ -57,6 +58,7 @@ public class Buff : MonoBehaviour
         if (!applied) {
             target.PD += PD;
             target.MD += MD;
+            target.INF += INF;
             //increases HP cap and HP
             target.HPMax += HP;
             target.HP += HP;
@@ -83,6 +85,7 @@ public class Buff : MonoBehaviour
     public void removeBuff() {
         target.PD -= PD;
         target.MD -= MD;
+        target.INF -= INF;
         //just decrements HP cap
         target.HPMax -= HP;
         target.AS -= AS;

@@ -131,7 +131,7 @@ public class InventoryScreen : MonoBehaviour
         }
         //resets statpoint
         inventoryCharacterScreen.statPointUI.resetChanges();
-    }
+    }   
     public void setupInventoryScreen() {
         openLandingPage();
     }
@@ -181,7 +181,7 @@ public class InventoryScreen : MonoBehaviour
         foreach (Transform toDestroy in Body.transform) {
             //destroys all inventoryAbilityDisplays
             if (toDestroy.GetComponent<InventoryAbilityDisplay>() != null) {
-                Debug.Log("This will be detstroyed"+toDestroy.name);
+                //Debug.Log("This will be detstroyed"+toDestroy.name);
                 GameObject.Destroy(toDestroy.gameObject);
             }
         }

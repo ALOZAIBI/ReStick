@@ -24,6 +24,7 @@ public abstract class Ability : MonoBehaviour
     public float baseAmt;
     public float PDRatio;
     public float MDRatio;
+    public float INFRatio;
     public float HPMaxRatio;
     public float HPRatio;
     public float LVLRatio;//scales with level
@@ -74,7 +75,7 @@ public abstract class Ability : MonoBehaviour
                 UIManager.singleton.inventoryScreen.inventoryCharacterScreen.character.initRoundStart();
     
         }
-        amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.HPMax * HPMaxRatio+ character.HP*HPRatio + character.level*LVLRatio + character.MS*MSRatio + character.AS*ASRatio;
+        amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.INF * INFRatio + character.HPMax * HPMaxRatio+ character.HP*HPRatio + character.level*LVLRatio + character.MS*MSRatio + character.AS*ASRatio;
         //for example in teh case of damagin aura it should make the amt more negative instead of positive
         if(baseAmt < 0) {
             amt = -amt;

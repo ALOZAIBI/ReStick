@@ -13,6 +13,7 @@ public class CharacterData
     //Stats
     public float PD;
     public float MD;
+    public float INF;
     public float HP;
     public float HPMax;
     public float CDR;
@@ -52,6 +53,7 @@ public class CharacterData
         charName = character.name;
         PD = character.PD;
         MD = character.MD;
+        INF = character.INF;
         HP = character.HP;
         HPMax = character.HPMax;
         CDR = character.CDR;

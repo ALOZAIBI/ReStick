@@ -69,7 +69,9 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     
     public void displayInventoryAbilities() {
         //loops thorugh the abilities in abilityInventory
+        Debug.Log(inventoryScreen.playerParty.abilityInventory.transform.childCount);
         foreach (Transform child in inventoryScreen.playerParty.abilityInventory.transform) {
+            Debug.Log(child.name+"ABILIRTY INVENTORY");
             Ability ability = child.GetComponent<Ability>();
             GameObject temp = Instantiate(inventoryAbilityDisplay);
             //sets the instantiated object as child

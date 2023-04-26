@@ -24,6 +24,12 @@ public class TargetNames : MonoBehaviour
             case (int)Character.targetList.LowestMDEnemy:
                 return "Lowest MD Enemy";
 
+            case (int)Character.targetList.HighestINFEnemy:
+                return "Highest INF Enemy";
+
+            case (int)Character.targetList.LowestINFEnemy:
+                return "Lowest INF Enemy";
+
             case (int)Character.targetList.HighestASEnemy:
                 return "Highest AS Enemy";
 
@@ -62,6 +68,12 @@ public class TargetNames : MonoBehaviour
 
             case (int)Character.targetList.LowestMDAlly:
                 return "Lowest MD Ally";
+
+            case (int)Character.targetList.HighestINFAlly:
+                return "Highest INF Ally";
+
+            case (int)Character.targetList.LowestINFAlly:
+                return "Lowest INF Ally";
 
             case (int)Character.targetList.HighestASAlly:
                 return "Highest AS Ally";

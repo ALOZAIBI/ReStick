@@ -235,7 +235,7 @@ static class SaveSystem
     }
     //loads all character's map saves
     public static void loadCharactersInMap() {
-        Debug.Log("Loading char in map");
+        //Debug.Log("Loading char in map");
 
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/";
         string[] files = Directory.GetFiles(path);
@@ -338,7 +338,7 @@ static class SaveSystem
 
                 data.loadMapOrWorldScene();
 
-                Debug.Log("file loaded from " + path);
+                //Debug.Log("file loaded from " + path);
                 return data.inMap;
 
             }

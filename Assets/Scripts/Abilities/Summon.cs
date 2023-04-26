@@ -16,6 +16,7 @@ public class Summon : Ability
             charSummoned.HP += charSummoned.HP * amt;
             charSummoned.PD += charSummoned.PD * amt;
             charSummoned.MD += charSummoned.MD * amt;
+            charSummoned.INF += charSummoned.INF * amt;
             charSummoned.AS += charSummoned.AS * amt;
             charSummoned.CDR += charSummoned.CDR * amt;
             charSummoned.MS += charSummoned.MS * amt;

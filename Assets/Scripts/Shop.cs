@@ -41,7 +41,6 @@ public class Shop : MonoBehaviour
         }
         //adds characters to the shop
         SaveSystem.loadShopCharacters(this);
-        Debug.Log("CHild coubnt shiop" + transform.childCount);
         //checks if there wer no characters added (Which means there was no save)
         if(characterHolder.transform.childCount == 0) {
             //so do add characters.

@@ -15,6 +15,7 @@ public class Character : MonoBehaviour {
     //Current stats
     public float PD;
     public float MD;
+    public float INF;
     public float HP;
     public float HPMax;
     public float AS;
@@ -32,7 +33,8 @@ public class Character : MonoBehaviour {
 
     //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI 
     [HideInInspector]public float zsPD;
-    [HideInInspector] public float zsMD;
+    [HideInInspector]public float zsMD;
+    [HideInInspector]public float zsINF;
     [HideInInspector]public float zsHP;
     [HideInInspector]public float zsHPMax;
     [HideInInspector]public float zsAS;
@@ -150,7 +152,11 @@ public class Character : MonoBehaviour {
         //I will add highestMaxHP variants
         //and lowest maxHP ...          still working on what to call them. Highest total HP? Highest Full Health?
 
+        HighestINFEnemy,
+        LowestINFEnemy,
 
+        HighestINFAlly,
+        LowestINFAlly,
         //maybe also add highest/lowest AS
 
         //dont select anyting
@@ -233,7 +239,9 @@ public class Character : MonoBehaviour {
             temp.applyStats();
         }
         //gets the stats on round start
-        zsPD  = PD;  
+        zsPD  = PD;
+        zsMD = MD;
+        zsINF = INF;
         zsHP   = HP;
         zsHPMax= HPMax;
         zsAS   = AS;   
@@ -518,6 +526,54 @@ public class Character : MonoBehaviour {
                 if (minMD.team == team)
                     minMD = null;
                 target = minMD;
+                break;
+
+            case (int)targetList.HighestINFEnemy:
+                //initially assume that this is the MaxINF Character
+                Character maxINF = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        if (maxINF.team == team) {
+                            maxINF = temp;
+                        }
+                        else
+                            if (temp.INF > maxINF.INF)
+                            maxINF = temp;
+                        else if (temp.INF == maxINF.INF) {
+                            if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxINF.transform.position))
+                                maxINF = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (maxINF.team == team)
+                    maxINF = null;
+                target = maxINF;
+                break;
+
+            case (int)targetList.LowestINFEnemy:
+                //initially assume that this is the MaxINF Character
+                Character minINF = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in different team(enemy)
+                    if (temp.team != team) {
+                        if (minINF.team == team) {
+                            minINF = temp;
+                        }
+                        else
+                            if (temp.INF < minINF.INF)
+                            minINF = temp;
+                        else if (temp.INF == minINF.INF) {
+                            if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minINF.transform.position))
+                                minINF = temp;
+                        }
+                    }
+                }
+                //if there's only allies remaining target nothing
+                if (minINF.team == team)
+                    minINF = null;
+                target = minINF;
                 break;
 
             case (int)targetList.HighestASEnemy:
@@ -1215,11 +1271,11 @@ public class Character : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if(hit.collider != null && hit.collider.tag == "Character") {
-                Debug.Log("Character" + hit.collider.name);
+                //Debug.Log("Character" + hit.collider.name);
                 hit.collider.GetComponent<Character>().click = true;
             }
             else {
-                Debug.Log("Blocking raycast" + hit.collider.name);
+                //Debug.Log("Blocking raycast" + hit.collider.name);
             }
         }
     }

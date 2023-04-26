@@ -9,7 +9,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public UIManager uiManager;
     public TextMeshProUGUI characterName;
     //stats texts
-    public TextMeshProUGUI PD, MD, AS, CDR, MS, RNG, LS,SP;
+    public TextMeshProUGUI PD, MD, INF, AS, CDR, MS, RNG, LS,SP;
     //cool stats texts
     public TextMeshProUGUI totalKills;
     public CharacterHealthBar healthBar;
@@ -157,6 +157,14 @@ public class CharacterInfoScreen : MonoBehaviour
         else
             MD.color = ColorPalette.singleton.defaultColor;
 
+        if (currChar.INF > currChar.zsINF)
+            INF.color = ColorPalette.singleton.buff;
+        else
+       if (currChar.INF < currChar.zsINF)
+            INF.color = ColorPalette.singleton.debuff;
+        else
+            INF.color = ColorPalette.singleton.defaultColor;
+
         if (currChar.AS > currChar.zsAS)
             AS.color = ColorPalette.singleton.buff;
         else
@@ -224,6 +232,7 @@ public class CharacterInfoScreen : MonoBehaviour
         //the empty quotes is to convert float to str
         PD.text = currChar.PD.ToString("F1");
         MD.text = currChar.MD.ToString("F1");
+        INF.text = currChar.INF.ToString("F1");
         AS.text = currChar.AS.ToString("F1");
         CDR.text = (currChar.CDR*100).ToString("F1");
         MS.text = currChar.MS.ToString("F1");

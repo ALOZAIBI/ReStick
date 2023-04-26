@@ -6,6 +6,7 @@ public class ApplyBuff : Ability
 {
     public float PD;
     public float MD;
+    public float INF;
     public float HP;
     public float AS;
     public float CDR;
@@ -43,6 +44,11 @@ public class ApplyBuff : Ability
             buff.MD = MD;
             if (MD > 0) {
                 buff.MD += amt * MD;
+            }
+
+            buff.INF = INF;
+            if (INF > 0) {
+                buff.INF += amt * INF;
             }
 
             buff.HP = HP;
@@ -87,7 +93,9 @@ public class ApplyBuff : Ability
             //sets caster and target
             buff.caster = character;
             buff.target = character.target;
+            //increases buff duration according to AMT
             buff.duration = buffDuration;
+            buff.duration += amt / 10;
             buff.code = code;
             //applies the buff
             buff.applyBuff();
@@ -103,6 +111,8 @@ public class ApplyBuff : Ability
             description += (PD+(PD*amt)) + " PD ";
         if (MD != 0)
             description += (MD+(MD*amt)) + " MD ";
+        if (INF != 0)
+            description += (INF + (INF * amt)) + " INF ";
         if (HP != 0)
             description += (HP + (HP * amt)) + " HP ";
         if (AS != 0)
@@ -118,8 +128,9 @@ public class ApplyBuff : Ability
 
         if (root || silence || blind)
             description += ". ";
-        if (root && silence && blind)
-            description += "Stun target";
+        if (root && silence && blind) {
+            description += "Stun target ";
+        }
         else {
             if (root)
                 description += "Root target ";
@@ -128,7 +139,7 @@ public class ApplyBuff : Ability
             if (blind)
                 description += "Blind target";
         }
-
+        description += "for " + ((amt / 10) + buffDuration).ToString("F2") + " seconds";
     }
 
     public bool buffNotOnTarget() {

@@ -26,6 +26,9 @@ public class StatPointUI : MonoBehaviour {
     [SerializeField] private Button addMD;
     [SerializeField] private Button subMD;
 
+    [SerializeField] private Button addINF;
+    [SerializeField] private Button subINF;
+
     [SerializeField] private Button addAS;
     [SerializeField] private Button subAS;
 
@@ -47,6 +50,7 @@ public class StatPointUI : MonoBehaviour {
     //the amount that clicking the button adds/removes
     [SerializeField] private float PDAmt;
     [SerializeField] private float MDAmt;
+    [SerializeField] private float INFAmt;
     [SerializeField] private float ASAmt;
     [SerializeField] private float CDRAmt;
     [SerializeField] private float MSAmt;
@@ -60,6 +64,7 @@ public class StatPointUI : MonoBehaviour {
     //how much stats are modified so far (not applied)
     private float PDbuffer;
     private float MDbuffer;
+    private float INFbuffer;
     private float ASbuffer;
     private float CDRbuffer;
     private float MSbuffer;
@@ -82,6 +87,8 @@ public class StatPointUI : MonoBehaviour {
         subPD.gameObject.SetActive(false);
         addMD.gameObject.SetActive(false);
         subMD.gameObject.SetActive(false);
+        addINF.gameObject.SetActive(false);
+        subINF.gameObject.SetActive(false);
         addAS.gameObject.SetActive(false);
         subAS.gameObject.SetActive(false);
         addCDR.gameObject.SetActive(false);
@@ -104,6 +111,8 @@ public class StatPointUI : MonoBehaviour {
         subPD.gameObject.SetActive(true);
         addMD.gameObject.SetActive(true);
         subMD.gameObject.SetActive(true);
+        addINF.gameObject.SetActive(true);
+        subINF.gameObject.SetActive(true);
         addAS.gameObject.SetActive(true);
         subAS.gameObject.SetActive(true);
         addCDR.gameObject.SetActive(true);
@@ -124,6 +133,8 @@ public class StatPointUI : MonoBehaviour {
         subPD.onClick.AddListener(OnSubPDButtonClicked);
         addMD.onClick.AddListener(OnAddMDButtonClicked);
         subMD.onClick.AddListener(OnSubMDButtonClicked);
+        addINF.onClick.AddListener(OnAddINFButtonClicked);
+        subINF.onClick.AddListener(OnSubINFButtonClicked);
         addAS.onClick.AddListener(OnAddASButtonClicked);
         subAS.onClick.AddListener(OnSubASButtonClicked);
         addCDR.onClick.AddListener(OnAddCDRButtonClicked);
@@ -159,6 +170,7 @@ public class StatPointUI : MonoBehaviour {
         // Reset the buffer values to zero
         PDbuffer = 0;
         MDbuffer = 0;
+        INFbuffer = 0;
         ASbuffer = 0;
         CDRbuffer = 0;
         MSbuffer = 0;
@@ -176,6 +188,7 @@ public class StatPointUI : MonoBehaviour {
     public void resetChanges() {
         characterInfoScreen.character.PD -= PDbuffer;
         characterInfoScreen.character.MD -= MDbuffer;
+        characterInfoScreen.character.INF -= INFbuffer;
         characterInfoScreen.character.AS -= ASbuffer;
         characterInfoScreen.character.CDR -= CDRbuffer;
         characterInfoScreen.character.MS -= MSbuffer;
@@ -188,6 +201,7 @@ public class StatPointUI : MonoBehaviour {
 
         PDbuffer = 0;
         MDbuffer = 0;
+        INFbuffer = 0;
         ASbuffer = 0;
         CDRbuffer = 0;
         MSbuffer = 0;
@@ -241,6 +255,28 @@ public class StatPointUI : MonoBehaviour {
         if (MDbuffer > 0) {
             characterInfoScreen.character.MD-=MDAmt;
             MDbuffer -= MDAmt;
+            characterInfoScreen.character.statPoints++;
+            SPUsedBuffer--;
+            fakeStatDisplay();
+        }
+    }
+
+    // OnAdd function for INF
+    public void OnAddINFButtonClicked() {
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.INF += INFAmt;
+            INFbuffer += INFAmt;
+            characterInfoScreen.character.statPoints--;
+            SPUsedBuffer++;
+            fakeStatDisplay();
+        }
+    }
+
+    // OnSub function for INF
+    public void OnSubINFButtonClicked() {
+        if (INFbuffer > 0) {
+            characterInfoScreen.character.INF -= INFAmt;
+            INFbuffer -= INFAmt;
             characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             fakeStatDisplay();
