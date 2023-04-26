@@ -112,9 +112,7 @@ public class AbilityFactory : MonoBehaviour
             //creates the ability and adds it as child
             Ability temp =Instantiate(ability, UIManager.singleton.playerParty.activeAbilities.transform);
             //sets the target strategy
-            Debug.Log("Target Strategy setting from : to "+ temp.targetStrategy + ":" + abilityTargetting[count]);
             temp.targetStrategy = abilityTargetting[count];
-            Debug.Log("Target Strategy set to" + temp.targetStrategy + ":" + abilityTargetting[count]);
             //adds it to character
             character.abilities.Add(temp);
 

@@ -50,6 +50,8 @@ public class CharacterPlacingScreen : MonoBehaviour
 
     //starts the zone precondition = atleast 1 playerCharacter is in Map
     private void startZone() {
+        //saves in Map to save the targetting strategies
+        UIManager.singleton.saveMapSave();
         //unhides these 2
         uiManager.pausePlayBtn.gameObject.SetActive(true);
         uiManager.timeControlHidden.hidden = false;

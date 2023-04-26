@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.TextCore.Text;
 using System;
+using UnityEngine.SceneManagement;
 
 public class StatPointUI : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
@@ -181,7 +182,12 @@ public class StatPointUI : MonoBehaviour {
         SPUsedBuffer = 0;
 
         applied = true;
-
+        //saves the changes
+        if (SceneManager.GetActiveScene().name == "World") {
+            UIManager.singleton.saveWorldSave();
+        }
+        else
+            UIManager.singleton.saveMapSave();
         characterInfoScreen.viewCharacter(characterInfoScreen.character);
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InventoryCharacterInfoScreen : CharacterInfoScreen
@@ -61,6 +62,12 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
             //update the character's ability display and 
             displayCharacterAbilities(inventoryScreen.characterSelected);
         }
+        //saves adding the ability
+        if (SceneManager.GetActiveScene().name == "World") {
+            uiManager.saveWorldSave();
+        }
+        else
+            uiManager.saveMapSave();
         //then reverts to display add ability and not confirm add ability
         addAbilityBtn.gameObject.SetActive(true);
         confirmAddAbilityBtn.gameObject.SetActive(false);
