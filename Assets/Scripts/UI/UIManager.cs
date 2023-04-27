@@ -427,8 +427,16 @@ public class UIManager : MonoBehaviour
     public void loadMapSave() {
         deleteAllCharacters();
         deleteAllInventory();
+        deleteAllPlayerAbilities();
         SaveSystem.loadCharactersInMap();
         SaveSystem.loadInventoryInMap();
+    }
+
+    //this is used before loading in characters otherwise there's a glitch where there will be to many abilities whenever you restart. Since loading character doesn't delete it's abilities
+    public void deleteAllPlayerAbilities() {
+        foreach(Transform child in playerParty.activeAbilities.transform) { 
+        Destroy(child.gameObject);
+        }
     }
     //this is to be called before loading characters So that there are no duplicates
     public void deleteAllCharacters() {

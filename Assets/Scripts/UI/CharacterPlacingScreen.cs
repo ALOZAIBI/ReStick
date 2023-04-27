@@ -75,6 +75,15 @@ public class CharacterPlacingScreen : MonoBehaviour
         GetComponent<HideUI>().hidden = true;
         //hides inventory
         uiManager.openInventoryBtn.gameObject.SetActive(false);
+        //Randomizes the CDs a bit on zoneStart so that the character won't throw everything all at once
+        foreach(Transform child in uiManager.playerParty.transform) {
+            if(child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                foreach(Ability ability in temp.abilities) {
+                    ability.abilityNext = Random.Range(0.5f, 3);
+                }
+            }
+        }
     }
 
     //checks if zone is startable(if atleast 1 playerCharacter)

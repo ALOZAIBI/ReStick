@@ -32,6 +32,9 @@ public class BurstSelfBuff : Ability
     public override void doAbility() {
         //selects target
         if (available && buffNotOnTarget()) {
+            //AA Reset 
+            character.AtkNext = 0;
+
             calculateAmt();
             //creates buff
             Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
@@ -57,6 +60,7 @@ public class BurstSelfBuff : Ability
 
             buff.AS = AS;
             if (AS > 0) {
+                
                 buff.AS += amt;
             }
 

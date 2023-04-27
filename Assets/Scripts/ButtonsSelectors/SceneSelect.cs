@@ -88,6 +88,8 @@ public class SceneSelect : MonoBehaviour
         if (map) {
             //Save GamestateData to be in this map
             SaveSystem.saveGameState(sceneToLoad, true);
+            //deletes shop since everytime you visit a new map a new shop shouild be initialized
+            SaveSystem.deleteShop();
             //save WorldSaves
             uiManager.saveWorldSave();
             //and also save MapSave so that I have a mapSave to base stuff off of

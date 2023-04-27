@@ -55,7 +55,7 @@ public class Character : MonoBehaviour {
 
     //used for cooldowns
     private bool AtkAvailable = true;
-    private float AtkNext = 0;
+    public float AtkNext = 0;
     private float MovNext = 0;
 
     //projectile stuff
@@ -1353,7 +1353,7 @@ public class Character : MonoBehaviour {
 
         //add gold
         if(this.team == (int)teamList.Player) {
-            uiManager.playerParty.gold += 7 + victim.level * 2;
+            uiManager.playerParty.gold += 13 + victim.level * 2;
         }
     }
     //Shares XP TO ALL ACTIVE PLAYERPARTY MEMBERS

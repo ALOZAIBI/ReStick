@@ -53,6 +53,23 @@ static class SaveSystem
                 Directory.CreateDirectory(path);
         }
     }
+    //this is called when loading a new map. To reinitialise shop
+    //need to figure out however a diffewrent way to save shop stuff since.. if I complete map 1 then compelte map 2 then go back to map1 map 1's shop would have changed what I can do isntead is if you complete a map make the shop inaccessible you can say something like the shopkeeper left since he was bored and lonely haha
+    public static void deleteShop() {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop";
+        string[] files = Directory.GetFiles(path);
+        //Debug.Log("The files are" + files[0]);
+
+        foreach (string file in files) {
+            File.Delete(file);
+        }
+        path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo";
+        files = Directory.GetFiles(path);
+        foreach (string file in files) {
+            File.Delete(file);
+        }
+
+    }
     //this will be used to name the saveFile it has to be reset to 0 Every Time we are batch saving all characters in UIManager
     public static int characterNumber = 0;
     public static void saveShopCharacters(Character character) {
@@ -236,7 +253,6 @@ static class SaveSystem
     //loads all character's map saves
     public static void loadCharactersInMap() {
         //Debug.Log("Loading char in map");
-
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/";
         string[] files = Directory.GetFiles(path);
         //Debug.Log("The files are" + files[0]);

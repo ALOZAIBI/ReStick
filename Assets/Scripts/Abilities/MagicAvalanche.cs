@@ -21,24 +21,48 @@ public class MagicAvalanche : Ability
     //if 1 then right if -1 then left
     public int side=1;
 
+    //used so that on channel start spawn a ball
+    //and apply a slow debuff to self
+    public bool channelStart = true;
+
+    public GameObject selfSlowDebuf;
+
     private void Start() {
         side = 1;
+        channelStart = true;
+
         updateDescription();
+
+        Buff buff = Instantiate(selfSlowDebuf).GetComponent<Buff>();
+        buff.MS = -2.5f;
+        buff.caster = character;
+        buff.target = character;
+        buff.duration = 3;
+        buff.applyBuff();
     }
     public override void doAbility() {
         if (available) {
             calculateAmt();
             ballAmount = (int)amt;
             delayBetweenBall = channelTime / ballAmount;
+            if (channelStart) {
+                Buff buff = Instantiate(selfSlowDebuf).GetComponent<Buff>();
+                buff.MS = -2.5f;
+                buff.caster = character;
+                buff.target = character;
+                buff.duration = channelTime;
+                buff.applyBuff();
+            }
             //while channeling
             if (currentChannelTime < channelTime) {
                 
                 //Counts up the time
-                if(currentDelayBetweenBall < delayBetweenBall) {
+                if(currentDelayBetweenBall < delayBetweenBall && channelStart == false) {
                     currentDelayBetweenBall += Time.fixedDeltaTime;
                 }
                 //once time achieved
                 else {
+                    channelStart = false;
                     Debug.Log("Summoning Ball");
                     //reset time and spawn a ball
                     currentDelayBetweenBall = 0;
@@ -50,7 +74,7 @@ public class MagicAvalanche : Ability
                     //The way 13.3 was calcualted again we assumed there will be 6 balls so in that case each ball can deal a maximum of 40 etc...
                     //get youssef's help to create an equation so that total average damage isn't exponential. Currently it's exponential since ball count jumps every 10 MD and at the same time each ball damage increases so yea...
                     float damage = ((amt * 13.33f) * randomVal);
-                    Debug.Log("Damage:" + damage + "Ball Amount" + ballAmount + "Total Average Damage" + amt * 13.33f * 0.35f * ballAmount);
+                    //Debug.Log("Damage:" + damage + "Ball Amount" + ballAmount + "Total Average Damage" + amt * 13.33f * 0.35f * ballAmount);
 
                     Vector2 randomPos;
                     //gets position of where to summon
