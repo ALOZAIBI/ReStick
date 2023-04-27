@@ -38,7 +38,7 @@ public class ThrowProjectile : Ability
             calculateAmt();
         }
         catch { /*Debug.Log("Calculate AMT didn't work"); avoids null character issue*/}
-        description = "Throws a thing that deals " + amt + " PD to all characters within";
+        description = "Throws a thing that deals " + amt + " DMG to all characters within";
     }
 
     private void FixedUpdate() {

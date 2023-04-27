@@ -366,6 +366,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   PD: 2
   MD: 0
+  INF: 0
   HP: 20
   HPMax: 20
   AS: 0.7
@@ -378,6 +379,7 @@ MonoBehaviour:
   totalDamage: 0
   zsPD: 0
   zsMD: 0
+  zsINF: 0
   zsHP: 0
   zsHPMax: 0
   zsAS: 0
@@ -451,7 +453,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.07}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -462,7 +464,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 0.87, y: 1.03}
   m_EdgeRadius: 0
 --- !u!50 &6813961152882052330
 Rigidbody2D:

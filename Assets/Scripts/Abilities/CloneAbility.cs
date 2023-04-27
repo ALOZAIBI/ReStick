@@ -10,10 +10,11 @@ public class CloneAbility : Ability
             character.selectTarget(targetStrategy);
             //cooldown is set before the ability is executed so that if this character is cloned the clone ability won't be ready again to not cause cloning to go to infinity instantly
             startCooldown();
-            //summons the clone in a position near the target
-            Character clone =Instantiate(character.target.gameObject, character.target.transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0), character.transform.rotation).GetComponent<Character>();
+            //summons the clone in a position near the summoner
+            Character clone =Instantiate(character.target.gameObject, character.transform.position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0), character.transform.rotation).GetComponent<Character>();
             clone.summoned = true;
             clone.summoner = character;
+            
             //clones the abilities
             int index = 0;
             foreach (Ability ability in character.target.abilities) {
@@ -26,15 +27,20 @@ public class CloneAbility : Ability
                 clone.abilities[index] = temp;
                 index++;
             }
-            //amt would usually be less than 100 so usually the clone would be weaker than the character cloned unless the caster has an insane MD
-            clone.PD *= amt / 100;
-            clone.MD *= amt / 100;
-            clone.INF *= amt / 100;
-            clone.AS *= amt / 100;
-            clone.HP *= amt / 100;
+            if(clone.team != character.team) {
+                //if the clone is of an enemy make it allied.
+                clone.team = character.team;
+                //decrease the amount to make enemy clones even weaker otherwise OP innit.
+                amt *= 0.6f;
+            }
+            clone.PD *= amt;
+            clone.MD *= amt;
+            clone.INF *= amt;
+            clone.AS *= amt;
+            clone.HP *= amt;
             //decrease the CD of clone by flat amount but make sure it doesnt go below 0
             clone.CDR=Mathf.Clamp(clone.CDR -0.1f, 0, 5000);
-            clone.HPMax *= amt / 100;
+            clone.HPMax *= amt;
             clone.name = character.target.name + " Clone";
             SpriteRenderer sprite = clone.GetComponent<SpriteRenderer>();
             sprite.color = Color.gray;
