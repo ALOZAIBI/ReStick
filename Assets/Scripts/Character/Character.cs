@@ -905,13 +905,13 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMD Character
                 Character minMDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    //if temp in same team and not itself
+                    //if temp in same team 
                     if (temp.team == team) {
+                        //minMDAlly.team != team is done in case the MaxMD init was actually an enemy
                         if (minMDAlly.team != team) {
                             minMDAlly = temp;
                         }
                         else
-                        //minMDAlly.team != team is done in case the MaxMD init was actually an enemy
                         if (temp.MD < minMDAlly.MD)
                             minMDAlly = temp;
                         else if(temp.MD == minMDAlly.MD)
@@ -926,6 +926,58 @@ public class Character : MonoBehaviour {
                 if (minMDAlly.team != team)
                     minMDAlly = null;
                 target = minMDAlly;
+                break;
+
+            case (int)targetList.HighestINFAlly:
+                //initially assume that this is the MaxINF Character
+                Character maxINFAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and is not itself
+                    if (temp.team == team) {
+                        //maxINF.team == team is done in case the MaxINF init was actually an enemy
+                        if (maxINFAlly.team != team) {
+                            maxINFAlly = temp;
+                        }
+                        else
+                            if (temp.INF > maxINFAlly.INF)
+                            maxINFAlly = temp;
+                        else if (temp.INF == maxINFAlly.INF) {
+                            if (temp != this)
+                                if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, maxINFAlly.transform.position))
+                                    maxINFAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (maxINFAlly.team != team)
+                    maxINFAlly = null;
+                target = maxINFAlly;
+                break;
+
+            case (int)targetList.LowestINFAlly:
+                //initially assume that this is the MaxINF Character
+                Character minINFAlly = zone.charactersInside[0];
+                foreach (Character temp in zone.charactersInside) {
+                    //if temp in same team and not itself
+                    if (temp.team == team) {
+                        if (minINFAlly.team != team) {
+                            minINFAlly = temp;
+                        }
+                        else
+                        //minINFAlly.team != team is done in case the MaxINF init was actually an enemy
+                        if (temp.INF < minINFAlly.INF)
+                            minINFAlly = temp;
+                        else if (temp.INF == minINFAlly.INF) {
+                            if (temp != this)
+                                if (Vector2.Distance(transform.position, temp.transform.position) < Vector2.Distance(transform.position, minINFAlly.transform.position))
+                                    minINFAlly = temp;
+                        }
+                    }
+                }
+                //if there's only enemies remaining target nothing
+                if (minINFAlly.team != team)
+                    minINFAlly = null;
+                target = minINFAlly;
                 break;
 
             case (int)targetList.HighestASAlly:
@@ -1138,10 +1190,6 @@ public class Character : MonoBehaviour {
 
             case (int)targetList.None:
                 target = null;
-                break;
-
-            case 30://self
-                target = this;
                 break;
 
             default:

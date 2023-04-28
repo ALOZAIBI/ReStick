@@ -55,6 +55,7 @@ public class Buff : MonoBehaviour
     }
     //applies the buff
     public void applyBuff() {
+
         if (!applied) {
             target.PD += PD;
             target.MD += MD;
@@ -78,6 +79,7 @@ public class Buff : MonoBehaviour
             target.buffs.Add(this);
             startDuration();
             applied = true;
+            Debug.Log("Applying buff on " + target.name);
         }
     }
 

@@ -17,6 +17,14 @@ public class Map : MonoBehaviour
 
         //Displays Map Won Screen
         if (allComplete()) {
+            //revives and heals all characters to full
+            foreach(Transform child in uiManager.playerParty.transform) {
+                if(child.tag == "Character") {
+                    Character temp = child.GetComponent<Character>();
+                    temp.alive = true;
+                    temp.HP = temp.HPMax;
+                }
+            }
             uiManager.sceneToLoad = belongsToWorld;
             uiManager.mapWonScreenHidden.hidden = false;
         }

@@ -33,24 +33,19 @@ public class MagicAvalanche : Ability
 
         updateDescription();
 
-        Buff buff = Instantiate(selfSlowDebuf).GetComponent<Buff>();
-        buff.MS = -2.5f;
-        buff.caster = character;
-        buff.target = character;
-        buff.duration = 3;
-        buff.applyBuff();
     }
     public override void doAbility() {
         if (available) {
             calculateAmt();
             ballAmount = (int)amt;
             delayBetweenBall = channelTime / ballAmount;
+            //slow self while casting htis ability
             if (channelStart) {
                 Buff buff = Instantiate(selfSlowDebuf).GetComponent<Buff>();
-                buff.MS = -2.5f;
+                buff.MS = -1.75f;
                 buff.caster = character;
                 buff.target = character;
-                buff.duration = channelTime;
+                buff.duration = channelTime+0.75f;
                 buff.applyBuff();
             }
             //while channeling
