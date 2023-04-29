@@ -338,8 +338,7 @@ public class UIManager : MonoBehaviour
         closeUIBtn.gameObject.SetActive(true);
         shopScreenHidden.hidden = false;
         shopScreen.shop = shop;
-        shopScreen.displayAbilities();
-        shopScreen.displayCharacters();
+        shopScreen.setupShopScreen();
     }
     //removes buffs from player characters. To be called in loadZone and on Restart
     public void clearBuffs() {
