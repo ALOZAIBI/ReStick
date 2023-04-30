@@ -28,6 +28,9 @@ public class HospitalTrainingScreen : MonoBehaviour
     [SerializeField] private float costPerHp;
     [SerializeField] private int costForRevive;
 
+    //this is used since if I use calculate cost then reduce that amount of gold then do calcualteAmount to heal it would be inaccurate since the latter depends on how much gold you have.
+    private int costOfClicked;
+
     //reviving revives the character and gives it 50 hp;
 
 
@@ -39,42 +42,54 @@ public class HospitalTrainingScreen : MonoBehaviour
     private int calculateCost(Character characterToHeal,int percentage) {
         return (int)(calculateAmountToHeal(characterToHeal,percentage) * costPerHp);
     }
-    private float calculateAmountToHeal(Character characterToHeal,int percentage) {
+    
+    private float calculateAmountToHeal(Character characterToHeal, int percentage) {
         float chunkOfHP = characterToHeal.HPMax * percentage / 100;
+        //if it would overheal calculate the amount to heall till full
+        if (chunkOfHP + characterToHeal.HP > characterToHeal.HPMax) {
+            chunkOfHP = characterToHeal.HPMax - characterToHeal.HP;
+        }
         //if player can't afford to heal the percentage heal as much as you can with the money man has
-        if(UIManager.singleton.playerParty.gold < characterToHeal.HP * percentage/100 * costPerHp) {
+        if (UIManager.singleton.playerParty.gold < (chunkOfHP) * costPerHp) {
+            costOfClicked = (int)((UIManager.singleton.playerParty.gold / costPerHp) * costPerHp);
             return (UIManager.singleton.playerParty.gold / costPerHp);
         }
-        //if chunkOfHP would overheal then calculate the amount to heal till full
-        else if (characterToHeal.HP + chunkOfHP > characterToHeal.HPMax) {
-            return (characterToHeal.HPMax - characterToHeal.HP) ;
+        else {
+            costOfClicked = (int)(chunkOfHP * costPerHp);
+            return chunkOfHP;
         }
-        else
-            return chunkOfHP ;
     }
     public void heal10Percent() {
-        character.HP += calculateAmountToHeal(character, 10);
-        updateButtons();
-        healthBar.manualDisplayHealth();
-        UIManager.singleton.playerParty.gold -= calculateCost(character, 10);
+        if (UIManager.singleton.playerParty.gold >= calculateCost(character,10)) {
+            character.HP += calculateAmountToHeal(character, 10);
+            UIManager.singleton.playerParty.gold -= costOfClicked;
+            updateButtons();
+            healthBar.manualDisplayHealth();
+        }
+        UIManager.singleton.saveMapSave();
+        UIManager.singleton.shopScreen.displayPlayerParty();
     }
 
     public void reviveOrHealToFull() {
-        if (!character.alive) {
+        if (!character.alive && UIManager.singleton.playerParty.gold >= costForRevive) {
             character.alive = true;
             character.HP = 50;
             UIManager.singleton.playerParty.gold -= costForRevive;
         }
-        else {
-            character.HP = character.HPMax;
-            UIManager.singleton.playerParty.gold -= calculateCost(character, 100);
+        else if(UIManager.singleton.playerParty.gold >= calculateCost(character,100)){
+            Debug.Log("Healing to full");
+            character.HP += calculateAmountToHeal(character,100);
+            UIManager.singleton.playerParty.gold -= costOfClicked;
         }
         updateButtons();
         healthBar.manualDisplayHealth();
-
+        UIManager.singleton.saveMapSave();
+        //to update display 
+        UIManager.singleton.shopScreen.displayPlayerParty();
     }
 
-    private void updateButtons() {
+    public void updateButtons() {
+        //if dead 
         if (!character.alive) {
             heal10PercentBtn.interactable = false;
             heal10PercentBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Man is dead can't heal";
@@ -82,19 +97,14 @@ public class HospitalTrainingScreen : MonoBehaviour
             reviveOrHealToFullBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Revive \n Price:" + costForRevive;
             reviveOrHealToFullBtn.interactable = true;
 
-        }
+        }//if not full hp
         else if(character.HP != character.HPMax){
             heal10PercentBtn.interactable = true;
-            float percent10HPAmountToHeal;
-            if (character.HP + character.HP * 0.1 > character.HPMax) {
-                percent10HPAmountToHeal = character.HPMax-character.HP;
-            }
-            else percent10HPAmountToHeal = character.HPMax * 0.1f;
-            heal10PercentBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Heal " + calculateAmountToHeal(character,10) + "\nPrice:" + calculateCost(character,10);
+            heal10PercentBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Heal " + calculateAmountToHeal(character,10).ToString("F1") + "\nPrice:" + calculateCost(character,10);
 
             reviveOrHealToFullBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Heal fully\nPrice:" + calculateCost(character,100);
             reviveOrHealToFullBtn.interactable = true;
-        }
+        }//if full hp
         else {
             heal10PercentBtn.interactable=false;
             heal10PercentBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Looks Healthy";

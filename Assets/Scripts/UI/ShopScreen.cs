@@ -166,6 +166,7 @@ public class ShopScreen : MonoBehaviour
         backBtn.gameObject.SetActive(true);
         UIManager.singleton.closeUIBtn.gameObject.SetActive(false);
         hospitalTrainingScreen.gameObject.SetActive(true);
+        hospitalTrainingScreen.updateButtons();
         pageIndex = 1;
     }
     private void Update() {

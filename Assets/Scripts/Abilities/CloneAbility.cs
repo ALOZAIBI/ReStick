@@ -36,7 +36,6 @@ public class CloneAbility : Ability
             clone.PD *= amt;
             clone.MD *= amt;
             clone.INF *= amt;
-            clone.AS *= amt;
             clone.HP *= amt;
             //decrease the CD of clone by flat amount but make sure it doesnt go below 0
             clone.CDR=Mathf.Clamp(clone.CDR -0.1f, 0, 5000);
