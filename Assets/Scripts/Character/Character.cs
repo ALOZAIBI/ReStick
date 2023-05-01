@@ -56,7 +56,7 @@ public class Character : MonoBehaviour {
     //used for cooldowns
     private bool AtkAvailable = true;
     public float AtkNext = 0;
-    private float MovNext = 0;
+    public float MovNext = 0;
 
     //projectile stuff
     public bool usesProjectile;
@@ -241,6 +241,9 @@ public class Character : MonoBehaviour {
         //to force the character to go through the moveTowardsFunction gets the stats on round start
         timeSinceDestinationUpdate = 100;
         previousMovementState = 99;
+
+        MovNext = 0;
+        AtkNext = 0;
         zsPD  = PD;
         zsMD = MD;
         zsINF = INF;
@@ -251,11 +254,6 @@ public class Character : MonoBehaviour {
         zsRange= Range;
         zsLS   = LS;
 
-    }
-
-    private void debugFreezeOnZoneStartWithoutReloading() {
-        if(team == 0)
-        Debug.Log( name+" Agent is stopped"+ agent.isStopped+ " hasPath"+agent.hasPath+"Pending"+agent.pathPending);
     }
 
     //sends position to next frame to be used to check for isIdle
@@ -291,17 +289,10 @@ public class Character : MonoBehaviour {
     //call this to update destination. We are using this function so that setDestionation isn't done on every frame to improve performance.
     //instead it will be done in an interval basis or when changing movement states
     private void moveTowards(Vector3 destination) {
-        if(team==0) Debug.Log("First Part is " + (timeSinceDestinationUpdate >= destinationUpdateInterval) + "Second Part is " + (movementState != previousMovementState));
+
         if (timeSinceDestinationUpdate >= destinationUpdateInterval || movementState != previousMovementState) {
 
             timeSinceDestinationUpdate = 0;
-            if (team == 0) {
-                
-                Debug.Log(destination + " MoveTwrds " + " Destination  successful? " + agent.SetDestination(destination));
-                Debug.Log(agent.destination + "AgentDstn");
-                debugFreezeOnZoneStartWithoutReloading();
-            }
-            else
                 agent.SetDestination(destination);
         }
         //Debug.Log(destination+ "MoveTwrds");
@@ -337,9 +328,6 @@ public class Character : MonoBehaviour {
                     try { animationManager.move(false); }
                     catch { /*IF this character has no animation manager it's okay*/}
                 }
-                //if (team == 0)
-                    //Debug.Log("MOVEMENT DONE" + target.name);
-                    //Debug.Log(agent.destination+"AgentDest");
                 break;
 
             case (int)movementStrategies.StayNearAlly:
@@ -381,8 +369,7 @@ public class Character : MonoBehaviour {
         agent.speed = MS;
         //if can't move
         if (!canMove) {
-            //if (team == 0)
-            //    Debug.Log(name + "!canmove");
+
             movementState = 0;
             //stops the agent from moving
             agent.isStopped = true;
@@ -392,8 +379,7 @@ public class Character : MonoBehaviour {
         }
         else {
             agent.isStopped = false;
-            //if (team == 0)
-            //    Debug.Log(name + "else");
+
         }
         //if the character is idle and movestrategy is not set to dont move, move towards direction that was randomly generated in checkIdle
         if (isIdle && movementStrategy !=(int)movementStrategies.DontMove) {
@@ -401,15 +387,13 @@ public class Character : MonoBehaviour {
             try { animationManager.move(true); }
             catch { /*IF this character has no animation manager it's okay*/}
             moveTowards(randomDestination);
-            //if (team == 0)
-            //    Debug.Log(name + "isIdle");
+
         }
         //movement
         else {
             
             doMoveStrategy(movementStrategy);
-            //if (team == 0)
-            //    Debug.Log(name + "!canmove");
+
         }
     }
 
@@ -1480,7 +1464,6 @@ public class Character : MonoBehaviour {
     }
     void FixedUpdate()
     {
-        //debugFreezeOnZoneStartWithoutReloading();
         handleDeath();
         if (!blind)
             attack();
