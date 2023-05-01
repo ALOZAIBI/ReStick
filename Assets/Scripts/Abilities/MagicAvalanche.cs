@@ -46,6 +46,7 @@ public class MagicAvalanche : Ability
                 buff.caster = character;
                 buff.target = character;
                 buff.duration = channelTime+0.75f;
+                buff.code = "MAGIC AVALAANCHE";
                 buff.applyBuff();
             }
             //while channeling
@@ -58,7 +59,7 @@ public class MagicAvalanche : Ability
                 //once time achieved
                 else {
                     channelStart = false;
-                    Debug.Log("Summoning Ball");
+                    //Debug.Log("Summoning Ball");
                     //reset time and spawn a ball
                     currentDelayBetweenBall = 0;
                     //gets size and damage values
@@ -110,6 +111,9 @@ public class MagicAvalanche : Ability
             //when done channeling
             else {
                 startCooldown();
+                currentChannelTime = 0;
+                currentDelayBetweenBall = 0;
+                channelStart = true;
             }
         }
 

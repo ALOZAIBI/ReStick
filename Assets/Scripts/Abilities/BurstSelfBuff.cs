@@ -27,7 +27,6 @@ public class BurstSelfBuff : Ability
 
     private void Start() {
         updateDescription();
-        code = Random.Range(-50,5000) +"";
     }
     public override void doAbility() {
         //selects target
@@ -95,7 +94,7 @@ public class BurstSelfBuff : Ability
             buff.target = character;
             //increases buff duration according to AMT
             buff.duration = buffDuration;
-            buff.code = code;
+            buff.code = abilityName+character.name;
             //applies the buff
             buff.applyBuff();
             //cooldown this ability

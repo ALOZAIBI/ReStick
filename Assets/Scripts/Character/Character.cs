@@ -238,7 +238,9 @@ public class Character : MonoBehaviour {
             temp.character = this;
             temp.applyStats();
         }
-        //gets the stats on round start
+        //to force the character to go through the moveTowardsFunction gets the stats on round start
+        timeSinceDestinationUpdate = 100;
+        previousMovementState = 99;
         zsPD  = PD;
         zsMD = MD;
         zsINF = INF;
@@ -249,6 +251,11 @@ public class Character : MonoBehaviour {
         zsRange= Range;
         zsLS   = LS;
 
+    }
+
+    private void debugFreezeOnZoneStartWithoutReloading() {
+        if(team == 0)
+        Debug.Log( name+" Agent is stopped"+ agent.isStopped+ " hasPath"+agent.hasPath+"Pending"+agent.pathPending);
     }
 
     //sends position to next frame to be used to check for isIdle
@@ -284,10 +291,20 @@ public class Character : MonoBehaviour {
     //call this to update destination. We are using this function so that setDestionation isn't done on every frame to improve performance.
     //instead it will be done in an interval basis or when changing movement states
     private void moveTowards(Vector3 destination) {
+        if(team==0) Debug.Log("First Part is " + (timeSinceDestinationUpdate >= destinationUpdateInterval) + "Second Part is " + (movementState != previousMovementState));
         if (timeSinceDestinationUpdate >= destinationUpdateInterval || movementState != previousMovementState) {
-            agent.SetDestination(destination);
+
             timeSinceDestinationUpdate = 0;
+            if (team == 0) {
+                
+                Debug.Log(destination + " MoveTwrds " + " Destination  successful? " + agent.SetDestination(destination));
+                Debug.Log(agent.destination + "AgentDstn");
+                debugFreezeOnZoneStartWithoutReloading();
+            }
+            else
+                agent.SetDestination(destination);
         }
+        //Debug.Log(destination+ "MoveTwrds");
     }
     private void doMoveStrategy(int strategy) {
         //the range that is used to apply the move strategy
@@ -320,6 +337,9 @@ public class Character : MonoBehaviour {
                     try { animationManager.move(false); }
                     catch { /*IF this character has no animation manager it's okay*/}
                 }
+                //if (team == 0)
+                    //Debug.Log("MOVEMENT DONE" + target.name);
+                    //Debug.Log(agent.destination+"AgentDest");
                 break;
 
             case (int)movementStrategies.StayNearAlly:
@@ -351,6 +371,7 @@ public class Character : MonoBehaviour {
                     //finds the point opposite the target https://gamedev.stackexchange.com/questions/80277/how-to-find-point-on-a-circle-thats-opposite-another-point
                     Vector2 pointOpposite = new Vector2(transform.position.x - target.transform.position.x, transform.position.y - target.transform.position.y) + (Vector2)transform.position;
                     moveTowards(pointOpposite);
+                    
                 }
                 break;
         }
@@ -360,6 +381,8 @@ public class Character : MonoBehaviour {
         agent.speed = MS;
         //if can't move
         if (!canMove) {
+            //if (team == 0)
+            //    Debug.Log(name + "!canmove");
             movementState = 0;
             //stops the agent from moving
             agent.isStopped = true;
@@ -369,6 +392,8 @@ public class Character : MonoBehaviour {
         }
         else {
             agent.isStopped = false;
+            //if (team == 0)
+            //    Debug.Log(name + "else");
         }
         //if the character is idle and movestrategy is not set to dont move, move towards direction that was randomly generated in checkIdle
         if (isIdle && movementStrategy !=(int)movementStrategies.DontMove) {
@@ -376,17 +401,23 @@ public class Character : MonoBehaviour {
             try { animationManager.move(true); }
             catch { /*IF this character has no animation manager it's okay*/}
             moveTowards(randomDestination);
+            //if (team == 0)
+            //    Debug.Log(name + "isIdle");
         }
         //movement
         else {
+            
             doMoveStrategy(movementStrategy);
+            //if (team == 0)
+            //    Debug.Log(name + "!canmove");
         }
     }
 
    
 
     //does targetting logic to select target
-    public void selectTarget(int whatStrategy) {
+    //the return used to be void since we didn't need to return anything but in some cases it is needed to return the character that this targetted for example in the projectiledestinationthentarget script.
+    public Character selectTarget(int whatStrategy) {
         switch (whatStrategy) {
             case (int)targetList.DefaultEnemy:
                 //loops through all characters
@@ -1195,6 +1226,7 @@ public class Character : MonoBehaviour {
             default:
                 break;
         }
+        return target;
     }
 
     //idea to incorporate animation
@@ -1418,7 +1450,6 @@ public class Character : MonoBehaviour {
                     activeCharacters++;
             }
         }
-        Debug.Log(activeCharacters + "Active characters");
         //give xp evenly split on active characters
         foreach (Transform child in UIManager.singleton.playerParty.transform) {
             if (child.tag == "Character") {
@@ -1449,9 +1480,9 @@ public class Character : MonoBehaviour {
     }
     void FixedUpdate()
     {
-        
+        //debugFreezeOnZoneStartWithoutReloading();
         handleDeath();
-        if(!blind)
+        if (!blind)
             attack();
         cooldown();
         if (!snare)
@@ -1468,6 +1499,7 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
+
         customMouseDown();
         //this doesn't have to be done on every frame so having it in update instead of fixedupdate is fine
         timeSinceDestinationUpdate += Time.deltaTime;

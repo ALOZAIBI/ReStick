@@ -35,6 +35,14 @@ public class ProjectileDestinationThenTarget : Projectile
         }
         //once it has already arrived to destination start Delay then after Delay fly towards target
         else {
+            //if target dies travel to nearest enemy to shoter after a delay that is half the usual the delay
+            if (target.alive == false) {
+                destination = transform.position;
+                arrivedDestination = false;
+                delayCurrent = delayWanted/2;
+                target = shooter.selectTarget((int)Character.targetList.ClosestEnemy);
+            }
+            else
             if(delayCurrent < delayWanted) {
                 delayCurrent += Time.fixedDeltaTime;
             }

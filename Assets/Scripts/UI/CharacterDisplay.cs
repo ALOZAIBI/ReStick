@@ -40,7 +40,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     private void mouseClickedNotHeld() {
         if (click) {
             camMov.pannable = false;
-            Debug.Log("Mouse clicking?" + Input.GetMouseButton(0));
+            //Debug.Log("Mouse clicking?" + Input.GetMouseButton(0));
             if (Input.GetMouseButton(0)) {
                 mouseHoldDuration += Time.unscaledDeltaTime;
                 //if held drag character to mouse Position
@@ -56,7 +56,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     image.color = temp;
                     //this is done to update collider position when timescale is set to 0 so that the character dragged in is correctly clickable.
                     Physics.SyncTransforms();
-                    Debug.Log("PHYSICS STYNCED");
+                    //Debug.Log("PHYSICS STYNCED");
                 }
             }
            
@@ -89,7 +89,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        Debug.Log("Pointer down test" + character.name);
+        //Debug.Log("Pointer down test" + character.name);
         click = true;
     }
 }

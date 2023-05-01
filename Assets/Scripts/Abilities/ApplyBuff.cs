@@ -27,7 +27,7 @@ public class ApplyBuff : Ability
 
     private void Start() {
         updateDescription();
-        code = Random.Range(-50,500) +"";
+
     }
     public override void doAbility() {
         //selects target
@@ -96,7 +96,7 @@ public class ApplyBuff : Ability
             //increases buff duration according to AMT
             buff.duration = buffDuration;
             buff.duration += amt / 10;
-            buff.code = code;
+            buff.code = abilityName + character.name;
             //applies the buff
             buff.applyBuff();
             //cooldown this ability

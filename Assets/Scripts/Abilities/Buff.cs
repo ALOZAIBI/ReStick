@@ -79,7 +79,7 @@ public class Buff : MonoBehaviour
             target.buffs.Add(this);
             startDuration();
             applied = true;
-            Debug.Log("Applying buff on " + target.name);
+            //Debug.Log("Applying buff on " + target.name);
         }
     }
 

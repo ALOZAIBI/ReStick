@@ -90,7 +90,8 @@ public class BuffOnKIll : Ability
                 buff.caster = character;
                 buff.target = character;
 
-                buff.code = code;
+                //buff.code = code;
+
 
                 buff.duration = buffDuration;
 
