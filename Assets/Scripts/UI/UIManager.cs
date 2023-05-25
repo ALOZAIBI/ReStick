@@ -126,10 +126,9 @@ public class UIManager : MonoBehaviour
     }
     //on first time clicking character Display its info in the topstatDisplay
     //then if character is clicked again or more info button was clicked open the charInfoScreen
-    
     public void viewCharacter(Character charSel) {
         //if the character to be viewed is already selected
-        if (charSel == topStatDisplay.character) {
+        if (charSel.getSelected()) {
             viewCharacterInfo(charSel);
         }
         //if character wasn't already selected
@@ -138,6 +137,12 @@ public class UIManager : MonoBehaviour
             topStatDisplay.character = character;
             topStatDisplayHidden.hidden = false;
         }
+    }
+    //in some cases we want it to only viewTopStat
+    public void viewTopstatDisplay(Character charSel) {
+        character = charSel;
+        topStatDisplay.character = character;
+        topStatDisplayHidden.hidden = false;
     }
     public void viewCharacterInfo(Character currChar) {
         //opens the screen and pauses the game

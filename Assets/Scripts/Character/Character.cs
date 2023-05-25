@@ -8,7 +8,7 @@ public class Character : MonoBehaviour {
     //which prefab this character is this is used to save and load character
     public int prefabIndex;
     //zone the character is currently In;
-    [SerializeField] private Zone zone;
+    [SerializeField] public Zone zone;
     [SerializeField] private Camera cam;
     [SerializeField] private CameraMovement camMov;
     public NavMeshAgent agent;
@@ -91,6 +91,9 @@ public class Character : MonoBehaviour {
 
     //animation stuff
     public AnimationManager animationManager;
+
+    //indicator stuff
+    public Indicators indicators;
 
     public enum teamList {
         Player,
@@ -218,7 +221,7 @@ public class Character : MonoBehaviour {
         //setup level cap
         xpCap = level + (level * ((level - 1) / 2));
 
-
+        indicators = GetComponentInChildren<Indicators>();
         //Connect to camera
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         camMov = cam.GetComponent<CameraMovement>();
@@ -1376,7 +1379,7 @@ public class Character : MonoBehaviour {
                 //if is a click and not hold
                 if (mouseHoldDuration < 0.2f) {
                     uiManager.viewCharacter(this);
-
+                    drawIndicators();
                 }
                 //reset values
                 mouseHoldDuration = 0;
@@ -1462,8 +1465,30 @@ public class Character : MonoBehaviour {
 
         }
     }
+
+    //returns wether the character is selected ornot
+    public bool getSelected() {
+        return uiManager.topStatDisplay.character == this;
+    }
+
+    private void drawTargetIndicator() {
+        selectTarget(attackTargetStrategy);
+        if (getSelected()) {
+            indicators.drawTargetLine(transform.position,target.transform.position);
+        }
+        else {
+            indicators.eraseLines();
+        }
+    }
+
+    public void drawIndicators() {
+        drawTargetIndicator();
+        //display Range Indicator and ability indicators....
+    }
     void FixedUpdate()
     {
+        
+
         handleDeath();
         if (!blind)
             attack();
@@ -1482,7 +1507,11 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
-
+        if(zone == null) {
+            zone = uiManager.zone;
+            zone.charactersInside.Add(this);
+        }
+        drawIndicators();
         customMouseDown();
         //this doesn't have to be done on every frame so having it in update instead of fixedupdate is fine
         timeSinceDestinationUpdate += Time.deltaTime;
