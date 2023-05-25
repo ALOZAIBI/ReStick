@@ -1475,6 +1475,7 @@ public class Character : MonoBehaviour {
         selectTarget(attackTargetStrategy);
         if (getSelected()) {
             indicators.drawTargetLine(transform.position,target.transform.position);
+            indicators.drawRangeCircle(transform.position,Range);
         }
         else {
             indicators.eraseLines();
@@ -1483,6 +1484,7 @@ public class Character : MonoBehaviour {
 
     public void drawIndicators() {
         drawTargetIndicator();
+        
         //display Range Indicator and ability indicators....
     }
     void FixedUpdate()

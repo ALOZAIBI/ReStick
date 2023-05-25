@@ -62,12 +62,12 @@ public class Zone : MonoBehaviour
         }
         
     }
-    //to detect which players in the zone
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Character")) {
-            charactersInside.Add(collision.GetComponent<Character>());
-        }
-    }
+    ////to detect which players in the zone
+    //private void OnTriggerEnter2D(Collider2D collision) {
+    //    if (collision.CompareTag("Character")) {
+    //        charactersInside.Add(collision.GetComponent<Character>());
+    //    }
+    //}
 
     //if there are no enemies alive and there is atleast 1 playerCharacter alive show win screen
     private void zoneWon() {
