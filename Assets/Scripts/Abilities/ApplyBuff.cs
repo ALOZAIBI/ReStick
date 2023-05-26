@@ -31,8 +31,7 @@ public class ApplyBuff : Ability
     }
     public override void doAbility() {
         //selects target
-        character.selectTarget(targetStrategy);
-        if (character.target!=null && available && buffNotOnTarget()) {
+        if (character.selectTarget(targetStrategy,rangeAbility) && available && buffNotOnTarget()) {
             calculateAmt();
             //creates buff
             Buff buff = Instantiate(prefabObject).GetComponent<Buff>();

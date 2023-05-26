@@ -5552,6 +5552,10 @@ PrefabInstance:
       propertyPath: baseAmt
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
+      propertyPath: rangeAbility
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
 --- !u!4 &549521295 stripped
@@ -9137,6 +9141,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
+    - target: {fileID: -6619047565385811784, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
+      propertyPath: rangeAbility
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714512, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -13188,6 +13196,7 @@ MonoBehaviour:
   abilityName: Slow Debuff
   description: Slow Debuff
   CD: 8
+  rangeAbility: 0
   available: 1
   abilityNext: 0
   delay: 0
@@ -26176,6 +26185,7 @@ MonoBehaviour:
   abilityName: Cast AS Buff Innit
   description: AS Buff
   CD: 6
+  rangeAbility: 0
   available: 1
   abilityNext: 0
   delay: 0
@@ -26271,6 +26281,7 @@ MonoBehaviour:
   abilityName: Cast MS BUFF INNIT
   description: MS BUFF
   CD: 5
+  rangeAbility: 0
   available: 1
   abilityNext: 0
   delay: 0
@@ -26336,6 +26347,7 @@ MonoBehaviour:
   abilityName: Inspire
   description: Power up target(HP PD)
   CD: 17
+  rangeAbility: 0
   available: 1
   abilityNext: 0
   delay: 0

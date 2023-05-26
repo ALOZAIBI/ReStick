@@ -35,7 +35,7 @@ public class MagicAvalanche : Ability
 
     }
     public override void doAbility() {
-        if (available) {
+        if (available && character.selectTarget(targetStrategy,rangeAbility)) {
             calculateAmt();
             ballAmount = (int)amt;
             delayBetweenBall = channelTime / ballAmount;
@@ -84,8 +84,7 @@ public class MagicAvalanche : Ability
                     //alternates side
                     side *= -1;
                     
-                    //selects target based on the ability's targetting strategy;
-                    character.selectTarget(targetStrategy);
+                    
                     //creates the projectile
                     GameObject objProjectile = Instantiate(prefabObject, character.transform.position, character.transform.rotation);
                     //sets the size

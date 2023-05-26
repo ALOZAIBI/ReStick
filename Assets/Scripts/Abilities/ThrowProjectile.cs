@@ -11,11 +11,11 @@ public class ThrowProjectile : Ability
         updateDescription();
     }
     public override void doAbility() {
-        if (available) {
+        if (available&& character.selectTarget(targetStrategy,rangeAbility)) {
             calculateAmt();
-            Debug.Log("ABILITY DONE WHAT");
-            //selects target based on the ability's targetting strategy;
-            character.selectTarget(targetStrategy);
+            //Debug.Log("ABILITY DONE WHAT");
+
+            
             //creates the projectile
             GameObject objProjectile = Instantiate(prefabObject, character.transform.position, character.transform.rotation);
             Projectile projectile = objProjectile.GetComponent<Projectile>();

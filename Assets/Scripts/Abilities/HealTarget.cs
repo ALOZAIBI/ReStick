@@ -8,9 +8,8 @@ public class HealTarget : Ability
         updateDescription();
     }
     public override void doAbility() {
-        if(available) {
+        if(available&&character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
-            character.selectTarget(targetStrategy);
             //heals the target
             character.target.HP += amt;
             startCooldown();

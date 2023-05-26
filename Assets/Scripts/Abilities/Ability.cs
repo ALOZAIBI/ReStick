@@ -12,7 +12,8 @@ public abstract class Ability : MonoBehaviour
 
     //abilities cd
     public float CD;
-
+    //the range of said ability
+    public float rangeAbility;
     //checked if available in the ability's script
     public bool available=true;
     public float abilityNext = 0;
