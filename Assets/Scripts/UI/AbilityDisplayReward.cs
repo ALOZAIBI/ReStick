@@ -24,15 +24,15 @@ public class AbilityDisplayReward : MonoBehaviour
         self.onClick.AddListener(select);
         background = GetComponent<Image>();
 
-        if (ability.rarity == (int)Ability.raritiesList.Common)
+        if (ability.rarity == (int)Ability.RaritiesList.Common)
             background.color = ColorPalette.singleton.commonRarity;
-        if (ability.rarity == (int)Ability.raritiesList.Rare) {
+        if (ability.rarity == (int)Ability.RaritiesList.Rare) {
             background.color = ColorPalette.singleton.rareRarity;
         }
-        if (ability.rarity == (int)Ability.raritiesList.Epic) {
+        if (ability.rarity == (int)Ability.RaritiesList.Epic) {
             background.color = ColorPalette.singleton.epicRarity;
         }
-        if (ability.rarity == (int)Ability.raritiesList.Legendary) {
+        if (ability.rarity == (int)Ability.RaritiesList.Legendary) {
             background.color = ColorPalette.singleton.legendaryRarity;
         }
         unHighlight();

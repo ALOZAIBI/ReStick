@@ -78,9 +78,9 @@ public class Character : MonoBehaviour {
     public Character summoner;
 
     //Current targeting strategy
-    public int attackTargetStrategy = (int)targetList.ClosestEnemy;   //who to attack
-    public int movementStrategy = (int)movementStrategies.Default;   //By default is the same as attackTarget
-    public int stayNearAllyTarge=(int)targetList.ClosestAlly;//if movement strategy
+    public int attackTargetStrategy = (int)TargetList.ClosestEnemy;   //who to attack
+    public int movementStrategy = (int)MovementStrategies.Default;   //By default is the same as attackTarget
+    public int stayNearAllyTarge=(int)TargetList.ClosestAlly;//if movement strategy
 
     //used to root silence and blind etc..
     public bool snare;
@@ -102,7 +102,7 @@ public class Character : MonoBehaviour {
         Enemy3,
         Other
     }
-    public enum targetList {
+    public enum TargetList {
         //simply selects first Character from List that isn't on same team
         DefaultEnemy,    
         //selects the closest enemy
@@ -165,14 +165,21 @@ public class Character : MonoBehaviour {
         //dont select anyting
         None
     }
-    public enum movementStrategies {
+    [SerializeField] public TargetList targetList;
+    public enum MovementStrategies {
         Default,    //walks to target and kite
         StayNearAlly,   //for now it is stay near closest ally. Update it later to make it so that it stays near stayNearAllyTarget
         DontMove,
         RunAwayFromNearestEnemy
     }
+    [SerializeField] public MovementStrategies movementStrategies;
+
+    private void OnValidate() {
+        attackTargetStrategy = (int)targetList;
+        movementStrategy = (int)movementStrategies;
+    }
     //A function passes what action it wants a cooldown on then the cooldown function using a switch case does the appropriate thing
-    public enum actionAvailable {
+    public enum ActionAvailable {
         Attack,
         Moving,
         isIdle,
@@ -214,14 +221,16 @@ public class Character : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        indicators = GetComponentInChildren<Indicators>();
+        indicators.character = this;
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        
         initRoundStart();
         animationManager = GetComponent<AnimationManager>();
         //Connect to UIManager
-        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         //setup level cap
         xpCap = level + (level * ((level - 1) / 2));
 
-        indicators = GetComponentInChildren<Indicators>();
         //Connect to camera
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         camMov = cam.GetComponent<CameraMovement>();
@@ -230,6 +239,9 @@ public class Character : MonoBehaviour {
     //used on every round start(Start button pressed in Character Placing Screen) to prepare the character for round start
     //sets all ablities' cahracter to this character.
     public void initRoundStart() {
+        try { indicators.setupAbilitiesIndicators(); }
+        catch {/*To prevent bug when first opening the game then opening character screen in inventory*/ }
+        
         //Tells the abilities that this owns them and resets their cd
         foreach(Ability temp in abilities) {
             temp.character = this;
@@ -276,7 +288,7 @@ public class Character : MonoBehaviour {
         if (isIdle == false) {
             //once the character is deemed to be idle make the character move for randomMovDuration towards the randomDestination
             if (secondsIdle >= timeToConsiderIdle) {
-                startCooldown(randomMovDuration, (int)actionAvailable.isIdle);
+                startCooldown(randomMovDuration, (int)ActionAvailable.isIdle);
                 //generates random destination
                 Vector2 randomAmount =new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
                 randomDestination = (Vector2)transform.position + randomAmount;
@@ -304,7 +316,7 @@ public class Character : MonoBehaviour {
         //the range that is used to apply the move strategy
         int seekRange;
         switch (strategy) {
-            case (int)movementStrategies.Default:
+            case (int)MovementStrategies.Default:
                 selectTarget(attackTargetStrategy);
                 //Kiting(Moves away from target when attack not ready)
                 if (target.alive && canMove && (!AtkAvailable && Vector2.Distance(transform.position, target.transform.position) < Range - (Range * 0.15))) {
@@ -333,7 +345,7 @@ public class Character : MonoBehaviour {
                 }
                 break;
 
-            case (int)movementStrategies.StayNearAlly:
+            case (int)MovementStrategies.StayNearAlly:
                 //move towards closest ally within a radius of 2
                 seekRange = 2;
                 selectTarget(stayNearAllyTarge);
@@ -350,14 +362,14 @@ public class Character : MonoBehaviour {
                 }
                 break;
 
-            case (int)movementStrategies.DontMove:
+            case (int)MovementStrategies.DontMove:
                 agent.isStopped = true;
                 break;
 
-            case (int)movementStrategies.RunAwayFromNearestEnemy:
+            case (int)MovementStrategies.RunAwayFromNearestEnemy:
                 //run away from enemies as far as 8 range
                 seekRange = 8;
-                selectTarget((int)targetList.ClosestEnemy);
+                selectTarget((int)TargetList.ClosestEnemy);
                 if(target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) < seekRange) {
                     //finds the point opposite the target https://gamedev.stackexchange.com/questions/80277/how-to-find-point-on-a-circle-thats-opposite-another-point
                     Vector2 pointOpposite = new Vector2(transform.position.x - target.transform.position.x, transform.position.y - target.transform.position.y) + (Vector2)transform.position;
@@ -385,7 +397,7 @@ public class Character : MonoBehaviour {
 
         }
         //if the character is idle and movestrategy is not set to dont move, move towards direction that was randomly generated in checkIdle
-        if (isIdle && movementStrategy !=(int)movementStrategies.DontMove) {
+        if (isIdle && movementStrategy !=(int)MovementStrategies.DontMove) {
             movementState = 1;
             try { animationManager.move(true); }
             catch { /*IF this character has no animation manager it's okay*/}
@@ -409,7 +421,7 @@ public class Character : MonoBehaviour {
         //initially sets target to null
         target = null;
         switch (whatStrategy) {
-            case (int)targetList.DefaultEnemy:
+            case (int)TargetList.DefaultEnemy:
                 //loops through all characters
                 foreach (Character temp in zone.charactersInside) {
                     if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange) {
@@ -422,7 +434,7 @@ public class Character : MonoBehaviour {
                 }
                 break;
 
-            case (int)targetList.ClosestEnemy:
+            case (int)TargetList.ClosestEnemy:
                 //initially assume that this is the closest Character
                 Character closest = zone.charactersInside[0];
                 //if it happens to be self, select another
@@ -446,7 +458,7 @@ public class Character : MonoBehaviour {
                 target = closest;
                 break;
 
-            case (int)targetList.HighestPDEnemy:
+            case (int)TargetList.HighestPDEnemy:
                 //initially assume that this is the MaxPD Character
                 Character maxPD = zone.charactersInside[0];
                 foreach(Character temp in zone.charactersInside) {
@@ -474,18 +486,18 @@ public class Character : MonoBehaviour {
                 target = maxPD;
                 break;
 
-            case (int)targetList.LowestPDEnemy:
+            case (int)TargetList.LowestPDEnemy:
                 //initially assume that this is the MinPD Character
                 Character minPD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
                     if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange) {
                         //if temp in different team(enemy)
                         if (temp.team != team) {
-                            if (minPD.team == team) {
+                            //minPD.team == team is done in case the MinPD init was actually an ally and distance is checked in case the init was out of range
+                            if (minPD.team == team || Vector2.Distance(minPD.transform.position,transform.position)>withinRange) {
                                 minPD = temp;
                             }
                             else
-                            //minPD.team == team is done in case the MinPD init was actually an ally
                             if (temp.PD < minPD.PD)
                                 minPD = temp;
                             else if (temp.PD == minPD.PD) {
@@ -502,7 +514,7 @@ public class Character : MonoBehaviour {
                 target = minPD;
                 break;
 
-            case (int)targetList.HighestMDEnemy:
+            case (int)TargetList.HighestMDEnemy:
                 //initially assume that this is the MaxMD Character
                 Character maxMD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -529,7 +541,7 @@ public class Character : MonoBehaviour {
                 target = maxMD;
                 break;
 
-            case (int)targetList.LowestMDEnemy:
+            case (int)TargetList.LowestMDEnemy:
                 //initially assume that this is the MaxMD Character
                 Character minMD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -557,7 +569,7 @@ public class Character : MonoBehaviour {
                 target = minMD;
                 break;
 
-            case (int)targetList.HighestINFEnemy:
+            case (int)TargetList.HighestINFEnemy:
                 //initially assume that this is the MaxINF Character
                 Character maxINF = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -582,7 +594,7 @@ public class Character : MonoBehaviour {
                 target = maxINF;
                 break;
 
-            case (int)targetList.LowestINFEnemy:
+            case (int)TargetList.LowestINFEnemy:
                 //initially assume that this is the MaxINF Character
                 Character minINF = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -607,7 +619,7 @@ public class Character : MonoBehaviour {
                 target = minINF;
                 break;
 
-            case (int)targetList.HighestASEnemy:
+            case (int)TargetList.HighestASEnemy:
                 //initially assume that this is the MaxAS Character
                 Character maxAS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -632,7 +644,7 @@ public class Character : MonoBehaviour {
                 target = maxAS;
                 break;
 
-            case (int)targetList.LowestASEnemy:
+            case (int)TargetList.LowestASEnemy:
                 //initially assume that this is the MaxAS Character
                 Character minAS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -658,7 +670,7 @@ public class Character : MonoBehaviour {
                 target = minAS;
                 break;
 
-            case (int)targetList.HighestMSEnemy:
+            case (int)TargetList.HighestMSEnemy:
                 //initially assume that this is the MaxMS Character
                 Character maxMS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -686,7 +698,7 @@ public class Character : MonoBehaviour {
                 target = maxMS;
                 break;
 
-            case (int)targetList.LowestMSEnemy:
+            case (int)TargetList.LowestMSEnemy:
                 //initially assume that this is the MaxMS Character
                 Character minMS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -713,7 +725,7 @@ public class Character : MonoBehaviour {
                 target = minMS;
                 break;
 
-            case (int)targetList.HighestRangeEnemy:
+            case (int)TargetList.HighestRangeEnemy:
                 //initially assume that this is the MaxRange Character
                 Character maxRange = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -741,7 +753,7 @@ public class Character : MonoBehaviour {
                 target = maxRange;
                 break;
 
-            case (int)targetList.LowestRangeEnemy:
+            case (int)TargetList.LowestRangeEnemy:
                 //initially assume that this is the MaxRange Character
                 Character minRange = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -770,7 +782,7 @@ public class Character : MonoBehaviour {
                 target = minRange;
                 break;
 
-            case (int)targetList.HighestHPEnemy:
+            case (int)TargetList.HighestHPEnemy:
                 //initially assume that this is the MaxHP Character
                 Character maxHP = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -799,7 +811,7 @@ public class Character : MonoBehaviour {
                 target = maxHP;
                 break;
 
-            case (int)targetList.LowestHPEnemy:
+            case (int)TargetList.LowestHPEnemy:
                 //initially assume that this is the minHP Character
                 Character minHP = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -833,7 +845,7 @@ public class Character : MonoBehaviour {
                 break;
 
 
-            case (int)targetList.ClosestAlly:
+            case (int)TargetList.ClosestAlly:
                 //initially assume that this is the closest ally
                 Character closestAlly = zone.charactersInside[0];
                 //if it happens to be self select another
@@ -857,7 +869,7 @@ public class Character : MonoBehaviour {
                 target = closestAlly;
                 break;
 
-            case (int)targetList.HighestPDAlly:
+            case (int)TargetList.HighestPDAlly:
                 //initially assume that this is the MaxPD Character
                 Character maxPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -888,7 +900,7 @@ public class Character : MonoBehaviour {
                 target = maxPDAlly;
                 break;
 
-            case (int)targetList.LowestPDAlly:
+            case (int)TargetList.LowestPDAlly:
                 //initially assume that this is the MaxPD Character
                 Character minPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -916,7 +928,7 @@ public class Character : MonoBehaviour {
                 target = minPDAlly;
                 break;
 
-            case (int)targetList.HighestMDAlly:
+            case (int)TargetList.HighestMDAlly:
                 //initially assume that this is the MaxMD Character
                 Character maxMDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -944,7 +956,7 @@ public class Character : MonoBehaviour {
                 target = maxMDAlly;
                 break;
 
-            case (int)targetList.LowestMDAlly:
+            case (int)TargetList.LowestMDAlly:
                 //initially assume that this is the MaxMD Character
                 Character minMDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -972,7 +984,7 @@ public class Character : MonoBehaviour {
                 target = minMDAlly;
                 break;
 
-            case (int)targetList.HighestINFAlly:
+            case (int)TargetList.HighestINFAlly:
                 //initially assume that this is the MaxINF Character
                 Character maxINFAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -999,7 +1011,7 @@ public class Character : MonoBehaviour {
                 target = maxINFAlly;
                 break;
 
-            case (int)targetList.LowestINFAlly:
+            case (int)TargetList.LowestINFAlly:
                 //initially assume that this is the MaxINF Character
                 Character minINFAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1026,7 +1038,7 @@ public class Character : MonoBehaviour {
                 target = minINFAlly;
                 break;
 
-            case (int)targetList.HighestASAlly:
+            case (int)TargetList.HighestASAlly:
                 //initially assume that this is the MaxAS Character
                 Character maxASAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1054,7 +1066,7 @@ public class Character : MonoBehaviour {
                 target = maxASAlly;
                 break;
 
-            case (int)targetList.LowestASAlly:
+            case (int)TargetList.LowestASAlly:
                 //initially assume that this is the MaxAS Character
                 Character minASAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1082,7 +1094,7 @@ public class Character : MonoBehaviour {
                 target = minASAlly;
                 break;
 
-            case (int)targetList.HighestMSAlly:
+            case (int)TargetList.HighestMSAlly:
                 //initially assume that this is the MaxMS Character
                 Character maxMSAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1110,7 +1122,7 @@ public class Character : MonoBehaviour {
                 target = maxMSAlly;
                 break;
 
-            case (int)targetList.LowestMSAlly:
+            case (int)TargetList.LowestMSAlly:
                 //initially assume that this is the MaxMS Character
                 Character minMSAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1137,7 +1149,7 @@ public class Character : MonoBehaviour {
                 target = minMSAlly;
                 break;
 
-            case (int)targetList.HighestRangeAlly:
+            case (int)TargetList.HighestRangeAlly:
                 //initially assume that this is the MaxRange Character
                 Character maxRangeAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1163,7 +1175,7 @@ public class Character : MonoBehaviour {
                 target = maxRangeAlly;
                 break;
 
-            case (int)targetList.LowestRangeAlly:
+            case (int)TargetList.LowestRangeAlly:
                 //initially assume that this is the MaxRange Character
                 Character minRangeAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1190,7 +1202,7 @@ public class Character : MonoBehaviour {
                 target = minRangeAlly;
                 break;
 
-            case (int)targetList.HighestHPAlly:
+            case (int)TargetList.HighestHPAlly:
                 //initially assume that this is the maxHPAlly Character
                 Character maxHPAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1216,7 +1228,7 @@ public class Character : MonoBehaviour {
                 target = maxHPAlly;
                 break;
 
-            case (int)targetList.LowestHPAlly:
+            case (int)TargetList.LowestHPAlly:
                 //initially assume that this is the minHPAlly Character
                 Character minHPAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
@@ -1242,7 +1254,7 @@ public class Character : MonoBehaviour {
                 target = minHPAlly;
                 break;
 
-            case (int)targetList.None:
+            case (int)TargetList.None:
                 target = null;
                 break;
 
@@ -1285,28 +1297,28 @@ public class Character : MonoBehaviour {
                 damage(target, PD, true);
             }
             //start cooldown of attack
-            startCooldown(1 / AS, (int)actionAvailable.Attack);
+            startCooldown(1 / AS, (int)ActionAvailable.Attack);
 
             //start cooldown of movement(Character stops moving for a bit after attack)
             //When character has more than 5 AS there is no stopping movement
             if (AS < 5)
-                startCooldown(1 / (AS * 2), (int)actionAvailable.Moving);
+                startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
         }
     }
     //used to set the ActionNext value to CD value. It will actually be cooled down in the cooldown function which is called in the update function
     private void startCooldown(float cooldownDuration,int action) {
         switch (action) {
-            case (int)actionAvailable.Attack:
+            case (int)ActionAvailable.Attack:
                 AtkNext = cooldownDuration;
                 AtkAvailable = false;
                 break;
 
-            case (int)actionAvailable.Moving:
+            case (int)ActionAvailable.Moving:
                 MovNext = cooldownDuration;
                 canMove = false;
                 break;
 
-            case (int)actionAvailable.isIdle:
+            case (int)ActionAvailable.isIdle:
                 moveDuration = cooldownDuration;
                 //idleMov = true;
                 isIdle = true;
@@ -1523,7 +1535,8 @@ public class Character : MonoBehaviour {
                 indicators.drawTargetLine(transform.position, target.transform.position);
             }
             catch { /*prevents bug if character has no target. I.E Before starting a zone*/}
-            indicators.drawRangeCircle(transform.position, Range);
+            indicators.drawRangeCircle(transform.position, Range,indicators.rangeRenderer);
+            indicators.drawAbilitiesCircles(transform.position);
         }
         else {
             indicators.eraseLines();

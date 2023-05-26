@@ -23,15 +23,15 @@ public class AbilityFactory : MonoBehaviour
         foreach(Transform child in transform) {
             abilities.Add(child.gameObject);
             Ability temp = child.GetComponent<Ability>();
-            if (temp.rarity == (int)Ability.raritiesList.Common)
+            if (temp.rarity == (int)Ability.RaritiesList.Common)
                 common.Add(child.gameObject);
-            if (temp.rarity == (int)Ability.raritiesList.Rare) {
+            if (temp.rarity == (int)Ability.RaritiesList.Rare) {
                 rare.Add(child.gameObject);
             }
-            if (temp.rarity == (int)Ability.raritiesList.Epic) {
+            if (temp.rarity == (int)Ability.RaritiesList.Epic) {
                 epic.Add(child.gameObject);
             }
-            if (temp.rarity == (int)Ability.raritiesList.Legendary) {
+            if (temp.rarity == (int)Ability.RaritiesList.Legendary) {
                 legendary.Add(child.gameObject);
             }
         }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HealTarget : Ability
 {
-    private void Start() {
+    public override void Start() {
+        base.Start();
         updateDescription();
     }
     public override void doAbility() {

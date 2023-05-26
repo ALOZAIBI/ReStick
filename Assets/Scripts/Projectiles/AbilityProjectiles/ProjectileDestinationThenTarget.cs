@@ -40,7 +40,7 @@ public class ProjectileDestinationThenTarget : Projectile
                 destination = transform.position;
                 arrivedDestination = false;
                 delayCurrent = delayWanted/2;
-                shooter.selectTarget((int)Character.targetList.ClosestEnemy);
+                shooter.selectTarget((int)Character.TargetList.ClosestEnemy);
                 target = shooter.target;
             }
             else

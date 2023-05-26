@@ -25,9 +25,9 @@ public class ApplyBuff : Ability
     public string code;
     public float buffDuration;
 
-    private void Start() {
+    public override void Start() {
+        base.Start();
         updateDescription();
-
     }
     public override void doAbility() {
         //selects target

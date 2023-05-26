@@ -21,6 +21,15 @@ public class ColorPalette : MonoBehaviour
     public Color epicRarity;
     public Color legendaryRarity;
 
+    public Color autoAttackIndicator;
+    public Color magicAbilityIndicator;
+    public Color buffAbilityIndicator;
+    public Color debuffAbilityIndicator;
+    public Color selfBuffAbilityIndicator;
+    public Color physicalAbilityIndicator;
+    public Color healAbilityIndicator;
+    public Color crowdControlAbilityIndicator;
+
     //public static Color neutralHealthBar;
 
 
@@ -36,4 +45,26 @@ public class ColorPalette : MonoBehaviour
     {
         
     }
+
+    public Color getIndicatorColor(int val) {
+        switch (val) {
+            case (int)Ability.AbilityTypeList.MagicDamage:
+                return magicAbilityIndicator;
+            case (int)Ability.AbilityTypeList.Buff:
+                return buffAbilityIndicator;
+            case (int)Ability.AbilityTypeList.Debuff:
+                return debuffAbilityIndicator;
+            case (int)Ability.AbilityTypeList.SelfBuff:
+                return selfBuffAbilityIndicator;
+            case (int)Ability.AbilityTypeList.PhysicalDamage:
+                return physicalAbilityIndicator;
+            case (int)Ability.AbilityTypeList.Heal:
+                return healAbilityIndicator;
+            case (int)Ability.AbilityTypeList.CrowdControl:
+                return crowdControlAbilityIndicator;
+            default:
+                return defaultColor;
+        }
+    }
+
 }

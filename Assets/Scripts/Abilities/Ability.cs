@@ -10,6 +10,9 @@ public abstract class Ability : MonoBehaviour
     public string abilityName;
     public string description;
 
+    //used for indicators and for ability color.
+    public Color color;
+
     //abilities cd
     public float CD;
     //the range of said ability
@@ -42,22 +45,47 @@ public abstract class Ability : MonoBehaviour
     //someAbilities can instantiate prefabs or object
     public GameObject prefabObject;
 
-    public enum raritiesList {
+    
+
+    public enum RaritiesList {
         Common,
         Rare,
         Epic,
         Legendary
     }
+    [SerializeField] public RaritiesList Rarities;
     public int rarity;
 
+    [SerializeField] public Character.TargetList targetList;
+    //Abilities targetStrategy
+    public int targetStrategy;
 
+    public enum AbilityTypeList {
+        PhysicalDamage,
+        MagicDamage,
+        Heal,
+        Buff,
+        Debuff,
+        SelfBuff,
+        CrowdControl
+    }
+    [SerializeField] AbilityTypeList abilityTypeList;
+    public int abilityType;
+    public virtual void Start() {
+        abilityType = (int)abilityTypeList;
+        rarity = ((int)Rarities);
+        targetStrategy = ((int)targetList);
+    }
+    private void OnValidate() {
+        abilityType = (int)abilityTypeList;
+        rarity = (int)Rarities;   
+        targetStrategy = (int)targetList;
+    }
     //executes this ability
     public abstract void doAbility();
 
     //call this when ability level increases to update the description to show the new stats
     public abstract void updateDescription();
-    //Abilities targetStrategy
-    public int targetStrategy;
 
     //call this in doAbility();
     /// <summary>

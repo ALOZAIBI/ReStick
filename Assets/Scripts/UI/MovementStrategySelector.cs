@@ -23,36 +23,36 @@ public class MovementStrategySelector : MonoBehaviour {
     }
 
     private void selectDefault() {
-        character.movementStrategy = (int)Character.movementStrategies.Default;
+        character.movementStrategy = (int)Character.MovementStrategies.Default;
         updateText();
     }
 
     private void selectStayNearAlly() {
-        character.movementStrategy = (int)Character.movementStrategies.StayNearAlly; 
+        character.movementStrategy = (int)Character.MovementStrategies.StayNearAlly; 
         updateText();
     }
 
     private void selectDontMove() {
-        character.movementStrategy = (int)Character.movementStrategies.DontMove;
+        character.movementStrategy = (int)Character.MovementStrategies.DontMove;
         updateText();
     }
 
     private void selectRunAway() {
-        character.movementStrategy = (int)Character.movementStrategies.RunAwayFromNearestEnemy;
+        character.movementStrategy = (int)Character.MovementStrategies.RunAwayFromNearestEnemy;
         updateText();
     }
     public void updateText() {
         switch (character.movementStrategy) {
-            case (int)Character.movementStrategies.Default:
+            case (int)Character.MovementStrategies.Default:
                 movementText.text = "I keep my attack target in range";
                 break;
-            case (int)Character.movementStrategies.StayNearAlly:
+            case (int)Character.MovementStrategies.StayNearAlly:
                 movementText.text = "I stay near my closest ally";
                 break;
-            case (int)Character.movementStrategies.DontMove:
+            case (int)Character.MovementStrategies.DontMove:
                 movementText.text = "I stay at my position";
                 break;
-            case (int)Character.movementStrategies.RunAwayFromNearestEnemy:
+            case (int)Character.MovementStrategies.RunAwayFromNearestEnemy:
                 movementText.text = "I move away from enemies";
                 break;
         }

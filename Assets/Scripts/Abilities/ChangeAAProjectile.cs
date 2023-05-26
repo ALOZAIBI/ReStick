@@ -13,7 +13,10 @@ public class ChangeAAProjectile : Ability {
             applied = true;
         }
     }
-
+    public override void Start() {
+        base.Start();
+        updateDescription();
+    }
     public override void updateDescription() {
         //this is manually set in the editor
     }

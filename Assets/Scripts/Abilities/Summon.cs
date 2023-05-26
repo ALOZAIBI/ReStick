@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Summon : Ability
 {
+    public override void Start() {
+        base.Start();
+        updateDescription();
+    }
     //Summons the prefabObject and sets up some stats
     public override void doAbility() {
         if (available) {
@@ -29,7 +33,7 @@ public class Summon : Ability
             //Sets the summoned character's team and targetting strategy
             charSummoned.team = character.team;
             charSummoned.attackTargetStrategy = targetStrategy;
-            charSummoned.movementStrategy = (int)Character.movementStrategies.Default;
+            charSummoned.movementStrategy = (int)Character.MovementStrategies.Default;
             startCooldown();
         }
     }

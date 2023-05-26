@@ -62,13 +62,13 @@ public class ShopScreen : MonoBehaviour
     //returns cost of ability This is based on rarity
     private int costOfAbility(Ability ability) {
         switch (ability.rarity) {
-            case (int)Ability.raritiesList.Common:
+            case (int)Ability.RaritiesList.Common:
                 return commonCost;
-            case (int)Ability.raritiesList.Rare:
+            case (int)Ability.RaritiesList.Rare:
                 return rareCost;
-            case (int)Ability.raritiesList.Epic:
+            case (int)Ability.RaritiesList.Epic:
                 return epicCost;
-            case (int)Ability.raritiesList.Legendary:
+            case (int)Ability.RaritiesList.Legendary:
                 return legendaryCost;
             default:
                 throw new Exception("RarityUnkown");

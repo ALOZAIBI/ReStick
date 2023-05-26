@@ -27,12 +27,12 @@ public class MagicAvalanche : Ability
 
     public GameObject selfSlowDebuf;
 
-    private void Start() {
+    public override void Start() {
         side = 1;
         channelStart = true;
 
+        base.Start();
         updateDescription();
-
     }
     public override void doAbility() {
         if (available && character.selectTarget(targetStrategy,rangeAbility)) {

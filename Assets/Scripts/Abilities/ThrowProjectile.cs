@@ -7,7 +7,8 @@ public class ThrowProjectile : Ability
     //Summons a projectile
     //can do cool shit depending on the projectile
     //for example a projectile that throws an AOE that heals
-    private void Start() {
+    public override void Start() {
+        base.Start();
         updateDescription();
     }
     public override void doAbility() {

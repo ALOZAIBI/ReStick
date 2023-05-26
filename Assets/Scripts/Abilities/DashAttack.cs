@@ -10,7 +10,8 @@ public class DashAttack : Ability
 
     //Maybe add this in the future it is taken frmo the initial stick project check my gitlab
     //public float resetPossibility = 0.7f;   //target has 0.7 seconds to die after dash for the dash to reset
-    private void Start() {
+    public override void Start() {
+        base.Start();
         updateDescription();
     }
 

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HealOnKill : Ability {
     //amt here is the heal amt
-    private void Start() {
+    public override void Start() {
+        base.Start();
         updateDescription();
     }
     public override void doAbility() {

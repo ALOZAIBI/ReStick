@@ -14,7 +14,8 @@ public class CastAura : Ability
     public bool ally;
     private Aura aura;
 
-    private void Start() {
+    public override void Start() {
+        base.Start();
         updateDescription();
     }
     public override void doAbility() {

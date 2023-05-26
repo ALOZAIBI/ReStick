@@ -23,11 +23,12 @@ public class BuffOnKIll : Ability
     //gives buff to character on kill
     //can stack infintely
     //when a new stack is added refresh duration of previous stacks
-    private void Start() {
+
+    public override void Start() {
         code = Random.Range(-50, 500) + "";
+        base.Start();
         updateDescription();
     }
-
     public override void doAbility() {
         if (character.killsLastFrame > 0) {
             calculateAmt();

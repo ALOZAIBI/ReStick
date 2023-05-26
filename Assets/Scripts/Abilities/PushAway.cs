@@ -55,9 +55,11 @@ public class PushAway : Ability {
         catch { /* avoids null character issue*/}
         description = "PUSH AWAY ENEMIES "+(pushBackDistance + amt*2).ToString("F1")+" And deal" +(amt*10)+"Damage"+" UNITS THEN SLOW THEM";
     }
-    private void Start() {
+    public override void Start() {
+        base.Start();
         updateDescription();
     }
+
 
     private void FixedUpdate() {
         cooldown();

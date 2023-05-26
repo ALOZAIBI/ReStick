@@ -62,7 +62,7 @@ public class CharacterPlacingScreen : MonoBehaviour
         uiManager.zone.started = true;
         //does initRoundStart for playerParty Character's this is enough only on playerPartyCharacter's because the other character's will have initroundstart called anyways in the start function
         try {
-            Debug.Log("try");
+            //Debug.Log("try");
             foreach (Transform temp in uiManager.playerParty.transform) {
                 if (temp.tag == "Character") {
                     Character tempChar = temp.GetComponent<Character>();
