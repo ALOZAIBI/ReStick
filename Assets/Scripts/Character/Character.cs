@@ -203,12 +203,12 @@ public class Character : MonoBehaviour {
         //to be used in cooldown to determine how long the direction will be taken when isIdle
         public float moveDuration;
 
-    //for the character to detect which zone it's in
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Zone") {
-            zone = collision.GetComponent<Zone>();
-        }
-    }
+    ////for the character to detect which zone it's in
+    //private void OnTriggerEnter2D(Collider2D collision) {
+    //    if (collision.tag == "Zone") {
+    //        zone = collision.GetComponent<Zone>();
+    //    }
+    //}
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -1470,12 +1470,15 @@ public class Character : MonoBehaviour {
     public bool getSelected() {
         return uiManager.topStatDisplay.character == this;
     }
-
+    //displays range and arrow to target
     private void drawTargetIndicator() {
         selectTarget(attackTargetStrategy);
         if (getSelected()) {
-            indicators.drawTargetLine(transform.position,target.transform.position);
-            indicators.drawRangeCircle(transform.position,Range);
+            try {
+                indicators.drawTargetLine(transform.position, target.transform.position);
+            }
+            catch { /*prevents bug if character has no target. I.E Before starting a zone*/}
+            indicators.drawRangeCircle(transform.position, Range);
         }
         else {
             indicators.eraseLines();
