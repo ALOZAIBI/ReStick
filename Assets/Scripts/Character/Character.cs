@@ -165,19 +165,13 @@ public class Character : MonoBehaviour {
         //dont select anyting
         None
     }
-    [SerializeField] public TargetList targetList;
     public enum MovementStrategies {
         Default,    //walks to target and kite
         StayNearAlly,   //for now it is stay near closest ally. Update it later to make it so that it stays near stayNearAllyTarget
         DontMove,
         RunAwayFromNearestEnemy
     }
-    [SerializeField] public MovementStrategies movementStrategies;
 
-    private void OnValidate() {
-        attackTargetStrategy = (int)targetList;
-        movementStrategy = (int)movementStrategies;
-    }
     //A function passes what action it wants a cooldown on then the cooldown function using a switch case does the appropriate thing
     public enum ActionAvailable {
         Attack,

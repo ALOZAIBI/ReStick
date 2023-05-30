@@ -56,7 +56,6 @@ public abstract class Ability : MonoBehaviour
     [SerializeField] public RaritiesList Rarities;
     public int rarity;
 
-    [SerializeField] public Character.TargetList targetList;
     //Abilities targetStrategy
     public int targetStrategy;
 
@@ -74,12 +73,12 @@ public abstract class Ability : MonoBehaviour
     public virtual void Start() {
         abilityType = (int)abilityTypeList;
         rarity = ((int)Rarities);
-        targetStrategy = ((int)targetList);
+
     }
+    //use onValidate only in values that aren't supposed to change when game starts.
     private void OnValidate() {
         abilityType = (int)abilityTypeList;
         rarity = (int)Rarities;   
-        targetStrategy = (int)targetList;
     }
     //executes this ability
     public abstract void doAbility();
