@@ -13,8 +13,11 @@ public class Indicators : MonoBehaviour
 
     public List<LineRenderer> abilitiesTargetRenderer = new List<LineRenderer>();
     public List<LineRenderer> abilitiesRangeRenderer = new List<LineRenderer>();
+    //this will be displayed on top of target renderer and will be filled when cooldown is ready
+    public List<LineRenderer> abilitiesCooldownRenderer = new List<LineRenderer>();
     //to be instantiated
     [SerializeField] private GameObject indicatorPrefab;
+    [SerializeField] private GameObject outlinedIndicatorPrefab;
 
     [SerializeField] private int circleQuality;//how many steps
     // Start is called before the first frame update
@@ -33,12 +36,18 @@ public class Indicators : MonoBehaviour
         targetRenderer.SetPosition(0, startPos);
         targetRenderer.SetPosition(1, endPos);
     }
-    public void drawRangeCircle(Vector3 position,float radius,LineRenderer lr) {
+    //precondition fillAmount could at most be = circlequality
+    public void drawCircle(Vector3 position,float radius,LineRenderer lr,float fillAmount) {
+        if(fillAmount == 100)
+            lr.loop = true;//to close hte circle
         lr.enabled = true;
         float angle = 0f;
-        float angleIncrement = (2f * Mathf.PI) / (circleQuality-1);
+        float angleIncrement = (2f * Mathf.PI) / (circleQuality);
 
-        for (int i = 0; i < circleQuality; i++) {
+        int numPoints = Mathf.CeilToInt(circleQuality * fillAmount/100); // Calculate the number of points based on the fill amount
+        lr.positionCount = numPoints;
+
+        for (int i = 0; i < numPoints; i++) {
             float x = Mathf.Sin(angle) * radius;
             float y = Mathf.Cos(angle) * radius;
 
@@ -49,20 +58,31 @@ public class Indicators : MonoBehaviour
             angle += angleIncrement;
         }
     }
-
+    //if an ability uses range draw range indicator. If ability has target draw target Indicator.
     public void drawAbilitiesCircles(Vector3 position) {
         int index = 0;
         foreach(Ability ability in character.abilities) {
                 if(ability.rangeAbility > 0) {
-                    drawRangeCircle(position, ability.rangeAbility, abilitiesRangeRenderer[index]);
+                    drawCircle(position, ability.rangeAbility, abilitiesRangeRenderer[index],100);
                 }
-                //draw circle on target if possible
-                if(ability.hasTarget&&character.selectTarget(ability.targetStrategy, ability.rangeAbility)) {
-                    drawRangeCircle(character.target.transform.position, .7f, abilitiesTargetRenderer[index]);
+            //draw circle on target if possible
+            if (ability.hasTarget) {
+                //if target within range
+                if (character.selectTarget(ability.targetStrategy, ability.rangeAbility)) {
+                    //draw target circle
+                    drawCircle(character.target.transform.position, character.target.transform.lossyScale.x / 1.5f, abilitiesTargetRenderer[index], 100);
+                    float fillAmount = (ability.CD - ability.abilityNext) / ability.CD;fillAmount *= 100;
+                    //draw cooldown circle on targetCircle
+                    drawCircle(character.target.transform.position, character.target.transform.lossyScale.x / 1.5f, abilitiesCooldownRenderer[index], fillAmount);
+
                 }
-                else
+                else {
                     abilitiesTargetRenderer[index].enabled = false;
+                }
+            }
+            if (ability.hasTarget || ability.rangeAbility > 0) {
                 index++;
+            }
         }
     }
     //creates indicatorPrefab for each ability that has range or has a target
@@ -86,6 +106,13 @@ public class Indicators : MonoBehaviour
                 temp2.startColor = color;
                 temp2.endColor = color;
                 abilitiesRangeRenderer.Add(temp2);
+
+                LineRenderer temp3 = Instantiate(outlinedIndicatorPrefab, transform).GetComponent<LineRenderer>();
+                temp3.positionCount = circleQuality;
+                temp3.name = "abilityCooldown" + index;
+                temp3.startColor = color;
+                temp3.endColor = color;
+                abilitiesCooldownRenderer.Add(temp3);
                 index++;
             }
         }
@@ -100,9 +127,19 @@ public class Indicators : MonoBehaviour
         }
         abilitiesRangeRenderer.Clear();
         abilitiesTargetRenderer.Clear();
+        abilitiesCooldownRenderer.Clear();
     }
     public void eraseLines() {
         targetRenderer.enabled = false;
         rangeRenderer.enabled = false;
+        foreach (LineRenderer temp in abilitiesRangeRenderer) {
+            temp.enabled = false;
+        }
+        foreach (LineRenderer temp in abilitiesTargetRenderer) {
+            temp.enabled = false;
+        }
+        foreach (LineRenderer temp in abilitiesCooldownRenderer) {
+            temp.enabled = false;
+        }
     }
 }

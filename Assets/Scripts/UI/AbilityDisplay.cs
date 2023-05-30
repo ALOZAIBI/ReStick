@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class AbilityDisplay : MonoBehaviour
 {
+    //main image
+    public Image self;
     //these are modified in characterInfoScreen
     public UIManager uiManager;
     public Image cooldownBar;
@@ -19,6 +21,7 @@ public class AbilityDisplay : MonoBehaviour
     private void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         btn.onClick.AddListener(openTargetSelectorAbility);
+        self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
     }
 
     //maybe make the current ability that will have it's target changed in ability header

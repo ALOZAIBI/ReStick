@@ -28,7 +28,10 @@ public class ColorPalette : MonoBehaviour
     public Color selfBuffAbilityIndicator;
     public Color physicalAbilityIndicator;
     public Color healAbilityIndicator;
+    public Color healthDamageIndicator;//stuff that deals damage based on teh caster's health (for tanks)
     public Color crowdControlAbilityIndicator;
+    public Color specialAbilityIndicator;
+    public Color otherAbilityIndicator;
 
     //public static Color neutralHealthBar;
 
@@ -60,8 +63,14 @@ public class ColorPalette : MonoBehaviour
                 return physicalAbilityIndicator;
             case (int)Ability.AbilityTypeList.Heal:
                 return healAbilityIndicator;
+            case (int)Ability.AbilityTypeList.HealthDamage:
+                return healthDamageIndicator;
             case (int)Ability.AbilityTypeList.CrowdControl:
                 return crowdControlAbilityIndicator;
+            case (int)Ability.AbilityTypeList.Special:
+                return specialAbilityIndicator;
+            case (int)Ability.AbilityTypeList.Other:
+                return otherAbilityIndicator;
             default:
                 return defaultColor;
         }

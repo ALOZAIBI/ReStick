@@ -15,6 +15,8 @@ public class AbilityDisplayReward : MonoBehaviour
     //used to color what is selected
     public Image background;
 
+    public Image rarity;
+
     public TextMeshProUGUI abilityName;
     public TextMeshProUGUI description;
 
@@ -22,19 +24,21 @@ public class AbilityDisplayReward : MonoBehaviour
 
     private void Start() {
         self.onClick.AddListener(select);
-        background = GetComponent<Image>();
+
 
         if (ability.rarity == (int)Ability.RaritiesList.Common)
-            background.color = ColorPalette.singleton.commonRarity;
+            rarity.color = ColorPalette.singleton.commonRarity;
         if (ability.rarity == (int)Ability.RaritiesList.Rare) {
-            background.color = ColorPalette.singleton.rareRarity;
+            rarity.color = ColorPalette.singleton.rareRarity;
         }
         if (ability.rarity == (int)Ability.RaritiesList.Epic) {
-            background.color = ColorPalette.singleton.epicRarity;
+            rarity.color = ColorPalette.singleton.epicRarity;
         }
         if (ability.rarity == (int)Ability.RaritiesList.Legendary) {
-            background.color = ColorPalette.singleton.legendaryRarity;
+            rarity.color = ColorPalette.singleton.legendaryRarity;
         }
+        background.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+
         unHighlight();
     }
 

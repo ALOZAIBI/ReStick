@@ -426,8 +426,6 @@ MonoBehaviour:
   target: {fileID: 0}
   animationManager: {fileID: 8713353318007565614}
   indicators: {fileID: 0}
-  targetList: 1
-  movementStrategies: 0
   uiManager: {fileID: 0}
   abilities: []
   killsLastFrame: 0
@@ -636,7 +634,9 @@ MonoBehaviour:
   rangeRenderer: {fileID: 0}
   abilitiesTargetRenderer: []
   abilitiesRangeRenderer: []
+  abilitiesCooldownRenderer: []
   indicatorPrefab: {fileID: 9204786827954621447, guid: 36b057e713439e24fa84597626ba835f, type: 3}
+  outlinedIndicatorPrefab: {fileID: 9204786827954621447, guid: 859c2f70ebadb694787e908bf7092436, type: 3}
   circleQuality: 64
 --- !u!1001 &4273625675955114560
 PrefabInstance:

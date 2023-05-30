@@ -1529,7 +1529,7 @@ public class Character : MonoBehaviour {
                 indicators.drawTargetLine(transform.position, target.transform.position);
             }
             catch { /*prevents bug if character has no target. I.E Before starting a zone*/}
-            indicators.drawRangeCircle(transform.position, Range,indicators.rangeRenderer);
+            indicators.drawCircle(transform.position, Range,indicators.rangeRenderer,100);
             indicators.drawAbilitiesCircles(transform.position);
         }
         else {

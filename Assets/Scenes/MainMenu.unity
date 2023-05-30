@@ -152,19 +152,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: rarity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: INFRatio
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: Rarities
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: abilityName
       value: Health and Size on Kill
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: abilityType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: buffDuration
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: abilityTypeList
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417765, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: m_RootOrder
@@ -2307,12 +2319,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
     - target: {fileID: 498117520490700363, guid: c8fb2a0cfae5a724ea1d858f4e54ae47, type: 3}
+      propertyPath: rarity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 498117520490700363, guid: c8fb2a0cfae5a724ea1d858f4e54ae47, type: 3}
       propertyPath: PDRatio
       value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 498117520490700363, guid: c8fb2a0cfae5a724ea1d858f4e54ae47, type: 3}
+      propertyPath: Rarities
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 498117520490700363, guid: c8fb2a0cfae5a724ea1d858f4e54ae47, type: 3}
       propertyPath: hasTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 498117520490700363, guid: c8fb2a0cfae5a724ea1d858f4e54ae47, type: 3}
+      propertyPath: rangeAbility
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714512, guid: c8fb2a0cfae5a724ea1d858f4e54ae47, type: 3}
       propertyPath: m_RootOrder
@@ -3662,15 +3686,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: rarity
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: LVLRatio
       value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: Rarities
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: abilityName
       value: Stim Rush
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: abilityType
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: description
@@ -3679,6 +3711,10 @@ PrefabInstance:
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: buffDuration
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: abilityTypeList
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417765, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: m_RootOrder
@@ -4077,6 +4113,18 @@ PrefabInstance:
       propertyPath: hasTarget
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: abilityType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: rangeAbility
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: abilityTypeList
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
 --- !u!1 &369186186
@@ -4402,11 +4450,31 @@ PrefabInstance:
       value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
       propertyPath: baseAmt
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: Rarities
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
       propertyPath: hasTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: abilityType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: rangeAbility
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: abilityTypeList
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4547,12 +4615,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
     - target: {fileID: 2608921016428538666, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
+      propertyPath: rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608921016428538666, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
       propertyPath: baseAmt
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2608921016428538666, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
+      propertyPath: Rarities
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608921016428538666, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
       propertyPath: HPMaxRatio
       value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608921016428538666, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
+      propertyPath: abilityType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608921016428538666, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
+      propertyPath: abilityTypeList
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5147212173590112706, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
       propertyPath: m_Name
@@ -4946,6 +5030,14 @@ PrefabInstance:
       propertyPath: Rarities
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7658055425116858088, guid: 310d77f46e62b3047a70796d599e5d0f, type: 3}
+      propertyPath: abilityType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658055425116858088, guid: 310d77f46e62b3047a70796d599e5d0f, type: 3}
+      propertyPath: abilityTypeList
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7658055425116858089, guid: 310d77f46e62b3047a70796d599e5d0f, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -5036,7 +5128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -94.99997, y: -21.060059}
+  m_AnchoredPosition: {x: -95, y: -21.060059}
   m_SizeDelta: {x: 52, y: 27.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &502100718
@@ -5193,7 +5285,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2014512225131472551, guid: cd662c7778e793346b3893d3e85240bd, type: 3}
       propertyPath: rarity
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014512225131472551, guid: cd662c7778e793346b3893d3e85240bd, type: 3}
+      propertyPath: Rarities
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014512225131472551, guid: cd662c7778e793346b3893d3e85240bd, type: 3}
+      propertyPath: abilityType
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014512225131472551, guid: cd662c7778e793346b3893d3e85240bd, type: 3}
+      propertyPath: abilityTypeList
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5559705790847140226, guid: cd662c7778e793346b3893d3e85240bd, type: 3}
       propertyPath: m_RootOrder
@@ -5562,7 +5666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
       propertyPath: rarity
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
       propertyPath: MDRatio
@@ -5573,12 +5677,24 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
+      propertyPath: Rarities
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
       propertyPath: hasTarget
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
+      propertyPath: abilityType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
       propertyPath: rangeAbility
-      value: -1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
+      propertyPath: abilityTypeList
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf232e42bb0c22b47803b641ac84c59b, type: 3}
@@ -5595,16 +5711,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: INFRatio
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: Rarities
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: abilityType
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: buffDuration
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: abilityTypeList
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417765, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: m_RootOrder
@@ -7779,8 +7907,16 @@ PrefabInstance:
       value: Speed on kill
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: abilityType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: buffDuration
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: abilityTypeList
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417765, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: m_RootOrder
@@ -9117,12 +9253,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
     - target: {fileID: -6619047565385811784, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
+      propertyPath: rarity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6619047565385811784, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
+      propertyPath: Rarities
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6619047565385811784, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
       propertyPath: hasTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6619047565385811784, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
+      propertyPath: abilityType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6619047565385811784, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
       propertyPath: rangeAbility
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6619047565385811784, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
+      propertyPath: abilityTypeList
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714512, guid: 221bfb3ca39b4f64883192eda84204ae, type: 3}
       propertyPath: m_RootOrder
@@ -10013,8 +10165,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417770, guid: c846de39db668aa41afc8d0279a0acfa, type: 3}
+      propertyPath: abilityType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3504329789301417770, guid: c846de39db668aa41afc8d0279a0acfa, type: 3}
       propertyPath: buffDuration
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3504329789301417770, guid: c846de39db668aa41afc8d0279a0acfa, type: 3}
+      propertyPath: rangeAbility
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3504329789301417770, guid: c846de39db668aa41afc8d0279a0acfa, type: 3}
+      propertyPath: abilityTypeList
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417771, guid: c846de39db668aa41afc8d0279a0acfa, type: 3}
       propertyPath: m_Name
@@ -10933,6 +11097,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
+    - target: {fileID: -4222708046868469320, guid: 10528941b52f8684cbd9eaa23bc7bda7, type: 3}
+      propertyPath: rarity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4222708046868469320, guid: 10528941b52f8684cbd9eaa23bc7bda7, type: 3}
+      propertyPath: Rarities
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4222708046868469320, guid: 10528941b52f8684cbd9eaa23bc7bda7, type: 3}
+      propertyPath: abilityType
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4222708046868469320, guid: 10528941b52f8684cbd9eaa23bc7bda7, type: 3}
+      propertyPath: abilityTypeList
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 793656645160812562, guid: 10528941b52f8684cbd9eaa23bc7bda7, type: 3}
       propertyPath: m_Name
       value: Change AA Projectile To Piercing
@@ -12130,11 +12310,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: rarity
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: Rarities
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: targetList
@@ -12143,6 +12323,10 @@ PrefabInstance:
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: abilityName
       value: SniperInstincts
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: abilityType
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: description
@@ -12155,6 +12339,10 @@ PrefabInstance:
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: targetStrategy
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: abilityTypeList
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417765, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: m_RootOrder
@@ -12266,12 +12454,15 @@ MonoBehaviour:
   legendaryRarity: {r: 1, g: 0.73150194, b: 0.0141509175, a: 1}
   autoAttackIndicator: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   magicAbilityIndicator: {r: 0, g: 0.3243401, b: 0.8784314, a: 1}
-  buffAbilityIndicator: {r: 0, g: 0.52086806, b: 1, a: 1}
+  buffAbilityIndicator: {r: 0, g: 0.7924528, b: 0.6432852, a: 1}
   debuffAbilityIndicator: {r: 0.4120226, g: 0, b: 1, a: 1}
   selfBuffAbilityIndicator: {r: 1, g: 0, b: 0.6024933, a: 1}
   physicalAbilityIndicator: {r: 1, g: 0.12530705, b: 0, a: 1}
-  healAbilityIndicator: {r: 0, g: 0, b: 0, a: 0}
+  healAbilityIndicator: {r: 0.35903296, g: 0.9622642, b: 0, a: 1}
+  healthDamageIndicator: {r: 0.0041384757, g: 0.2924528, b: 0.0897318, a: 1}
   crowdControlAbilityIndicator: {r: 0.6698113, g: 0.28399217, b: 0, a: 1}
+  specialAbilityIndicator: {r: 1, g: 0.73333335, b: 0.015686275, a: 1}
+  otherAbilityIndicator: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &1128562968
 GameObject:
   m_ObjectHideFlags: 0
@@ -13200,7 +13391,7 @@ MonoBehaviour:
   description: Slow Debuff
   color: {r: 0, g: 0, b: 0, a: 0}
   CD: 8
-  rangeAbility: 0
+  rangeAbility: 8.5
   available: 1
   abilityNext: 0
   delay: 0
@@ -13218,10 +13409,9 @@ MonoBehaviour:
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 0
   rarity: 0
-  targetList: 0
   targetStrategy: 0
-  abilityTypeList: 0
-  abilityType: 0
+  abilityTypeList: 4
+  abilityType: 4
   PD: 0
   MD: 0
   INF: 0
@@ -13414,15 +13604,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: rarity
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: Rarities
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: abilityName
       value: Blood Thirst
       objectReference: {fileID: 0}
     - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: abilityType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: description
       value: BURST OF AS  LS
+      objectReference: {fileID: 0}
+    - target: {fileID: -243242547493134709, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
+      propertyPath: abilityTypeList
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3504329789301417765, guid: dacbeefb085fee94ebde868bd686c8c4, type: 3}
       propertyPath: m_RootOrder
@@ -13549,6 +13751,18 @@ PrefabInstance:
     - target: {fileID: 5700750108509096582, guid: a14fc96e323183946b185a4ea035f24e, type: 3}
       propertyPath: hasTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700750108509096582, guid: a14fc96e323183946b185a4ea035f24e, type: 3}
+      propertyPath: abilityType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700750108509096582, guid: a14fc96e323183946b185a4ea035f24e, type: 3}
+      propertyPath: rangeAbility
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700750108509096582, guid: a14fc96e323183946b185a4ea035f24e, type: 3}
+      propertyPath: abilityTypeList
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a14fc96e323183946b185a4ea035f24e, type: 3}
@@ -14818,6 +15032,10 @@ PrefabInstance:
       value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 3633456787779656071, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
+      propertyPath: rarity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633456787779656071, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
       propertyPath: MDRatio
       value: 0.004
       objectReference: {fileID: 0}
@@ -14831,11 +15049,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3633456787779656071, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
       propertyPath: Rarities
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3633456787779656071, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
       propertyPath: hasTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633456787779656071, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
+      propertyPath: abilityType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633456787779656071, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
+      propertyPath: rangeAbility
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633456787779656071, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
+      propertyPath: abilityTypeList
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7658055425116858089, guid: ca7e8757528915942b9d48a31cdf9bee, type: 3}
       propertyPath: m_RootOrder
@@ -17694,12 +17924,20 @@ PrefabInstance:
       value: MagicHit
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: 5d54c5995f1869e40af602bbe5afadee, type: 3}
+      propertyPath: abilityType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: 5d54c5995f1869e40af602bbe5afadee, type: 3}
       propertyPath: description
       value: Throw Magic ting
       objectReference: {fileID: 0}
     - target: {fileID: 8922466084288714515, guid: 5d54c5995f1869e40af602bbe5afadee, type: 3}
       propertyPath: rangeAbility
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: 5d54c5995f1869e40af602bbe5afadee, type: 3}
+      propertyPath: abilityTypeList
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d54c5995f1869e40af602bbe5afadee, type: 3}
@@ -18526,7 +18764,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2014512225131472551, guid: 40413758c887f164788a545158ad858c, type: 3}
       propertyPath: rarity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2014512225131472551, guid: 40413758c887f164788a545158ad858c, type: 3}
       propertyPath: MDRatio
@@ -18537,8 +18775,20 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2014512225131472551, guid: 40413758c887f164788a545158ad858c, type: 3}
+      propertyPath: Rarities
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014512225131472551, guid: 40413758c887f164788a545158ad858c, type: 3}
       propertyPath: HPMaxRatio
       value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014512225131472551, guid: 40413758c887f164788a545158ad858c, type: 3}
+      propertyPath: abilityType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014512225131472551, guid: 40413758c887f164788a545158ad858c, type: 3}
+      propertyPath: abilityTypeList
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5559705790847140226, guid: 40413758c887f164788a545158ad858c, type: 3}
       propertyPath: m_RootOrder
@@ -19154,6 +19404,14 @@ PrefabInstance:
     - target: {fileID: 4978384105271955858, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
       propertyPath: Rarities
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978384105271955858, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
+      propertyPath: abilityType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978384105271955858, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
+      propertyPath: abilityTypeList
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7658055425116858089, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
       propertyPath: m_RootOrder
@@ -26221,7 +26479,7 @@ MonoBehaviour:
   description: AS Buff
   color: {r: 0, g: 0, b: 0, a: 0}
   CD: 6
-  rangeAbility: 0
+  rangeAbility: 10
   available: 1
   abilityNext: 0
   delay: 0
@@ -26239,10 +26497,9 @@ MonoBehaviour:
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 0
   rarity: 0
-  targetList: 0
   targetStrategy: 0
-  abilityTypeList: 0
-  abilityType: 0
+  abilityTypeList: 3
+  abilityType: 3
   PD: 0
   MD: 0
   INF: 0
@@ -26322,7 +26579,7 @@ MonoBehaviour:
   description: MS BUFF
   color: {r: 0, g: 0, b: 0, a: 0}
   CD: 5
-  rangeAbility: 0
+  rangeAbility: 10
   available: 1
   abilityNext: 0
   delay: 0
@@ -26340,10 +26597,9 @@ MonoBehaviour:
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 0
   rarity: 0
-  targetList: 0
   targetStrategy: 0
-  abilityTypeList: 0
-  abilityType: 0
+  abilityTypeList: 3
+  abilityType: 3
   PD: 0
   MD: 0
   INF: 0
@@ -26393,7 +26649,7 @@ MonoBehaviour:
   description: Power up target(HP PD)
   color: {r: 0, g: 0, b: 0, a: 0}
   CD: 17
-  rangeAbility: 0
+  rangeAbility: 10
   available: 1
   abilityNext: 0
   delay: 0
@@ -26411,10 +26667,9 @@ MonoBehaviour:
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 0
   rarity: 0
-  targetList: 0
   targetStrategy: 0
-  abilityTypeList: 0
-  abilityType: 0
+  abilityTypeList: 3
+  abilityType: 3
   PD: 3
   MD: 0
   INF: 0

@@ -66,7 +66,10 @@ public abstract class Ability : MonoBehaviour
         Buff,
         Debuff,
         SelfBuff,
-        CrowdControl
+        CrowdControl,
+        Special,
+        HealthDamage,
+        Other
     }
     [SerializeField] AbilityTypeList abilityTypeList;
     public int abilityType;
@@ -74,6 +77,7 @@ public abstract class Ability : MonoBehaviour
         abilityType = (int)abilityTypeList;
         rarity = ((int)Rarities);
 
+        color = ColorPalette.singleton.getIndicatorColor(abilityType);
     }
     //use onValidate only in values that aren't supposed to change when game starts.
     private void OnValidate() {
