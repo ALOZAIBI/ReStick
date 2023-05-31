@@ -31,7 +31,7 @@ public class ApplyBuff : Ability
     }
     public override void doAbility() {
         //selects target
-        if (character.selectTarget(targetStrategy,rangeAbility) && available && buffNotOnTarget()) {
+        if (character.selectTarget(targetStrategy,rangeAbility) && available) {
             calculateAmt();
             //creates buff
             Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
@@ -98,6 +98,7 @@ public class ApplyBuff : Ability
             buff.code = abilityName + character.name;
             //applies the buff
             buff.applyBuff();
+            refreshDuration();
             //cooldown this ability
             startCooldown();
         }
@@ -141,19 +142,17 @@ public class ApplyBuff : Ability
         description += "for " + ((amt / 10) + buffDuration).ToString("F2") + " seconds";
     }
 
-    public bool buffNotOnTarget() {
+    //refreshes duration of other stacks of the same buff.
+    public void refreshDuration() {
         try {
             foreach(Buff temp in character.target.buffs) {
                 //if buff is already applied refresh it's duration
-                if (temp.code == code) {
+                if (temp.code == abilityName + character.name) {
                     temp.durationRemaining = buffDuration;
-                    return false;
                 }
             } 
         }
-        catch { return true; };
-        //otherwise return True which does doAbility()
-        return true;
+        catch {};
     }
 
     private void FixedUpdate() {

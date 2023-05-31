@@ -75,6 +75,8 @@ public class Buff : MonoBehaviour
             target.blind = blind;
 
             target.gameObject.transform.localScale += new Vector3(size, size, size);
+            //increase range with size otherwise character becomes too big and pushes it's target with it's collision and can't hit
+            target.Range += 0.75f*size;
             //adds this buff to buff list
             target.buffs.Add(this);
             startDuration();
@@ -101,6 +103,7 @@ public class Buff : MonoBehaviour
         target.blind = false;
 
         target.gameObject.transform.localScale -= new Vector3(size, size, size);
+        target.Range -= 0.75f*size;//see apply buff
         target.buffs.Remove(this);
         Destroy(gameObject);
     }

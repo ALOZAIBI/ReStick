@@ -40,6 +40,8 @@ public class Indicators : MonoBehaviour
     public void drawCircle(Vector3 position,float radius,LineRenderer lr,float fillAmount) {
         if(fillAmount == 100)
             lr.loop = true;//to close hte circle
+        else
+            lr.loop = false;
         lr.enabled = true;
         float angle = 0f;
         float angleIncrement = (2f * Mathf.PI) / (circleQuality);
@@ -78,6 +80,7 @@ public class Indicators : MonoBehaviour
                 }
                 else {
                     abilitiesTargetRenderer[index].enabled = false;
+                    abilitiesCooldownRenderer[index].enabled = false;
                 }
             }
             if (ability.hasTarget || ability.rangeAbility > 0) {

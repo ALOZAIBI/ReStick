@@ -73,6 +73,7 @@ public class StatPointUI : MonoBehaviour {
     private float LSbuffer;
     private float HPbuffer;
 
+
     //wether the stats have been appleid or not
     public bool applied;
 
@@ -179,6 +180,10 @@ public class StatPointUI : MonoBehaviour {
         LSbuffer = 0;
         HPbuffer = 0;
 
+        if (characterInfoScreen.character.Range >= 1.5f) {
+            characterInfoScreen.character.usesProjectile = true;
+        }
+
         SPUsedBuffer = 0;
 
         applied = true;
@@ -204,6 +209,9 @@ public class StatPointUI : MonoBehaviour {
         characterInfoScreen.character.HP -= HPbuffer;
         characterInfoScreen.character.statPoints += SPUsedBuffer;
 
+        if (characterInfoScreen.character.Range < 1.5f) {
+            characterInfoScreen.character.usesProjectile = false;
+        }
 
         PDbuffer = 0;
         MDbuffer = 0;

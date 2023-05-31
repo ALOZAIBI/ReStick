@@ -91,7 +91,7 @@ public class BuffOnKIll : Ability
                 buff.caster = character;
                 buff.target = character;
 
-                //buff.code = code;
+                buff.code = abilityName + character.name;
 
 
                 buff.duration = buffDuration;
@@ -104,6 +104,7 @@ public class BuffOnKIll : Ability
                     }
                 }
                 buff.applyBuff();
+                refreshDuration();
             }
         }
     }
@@ -130,5 +131,17 @@ public class BuffOnKIll : Ability
             description += Range + " Range ";
         if (LS != 0)
             description += LS + " LS ";
+    }
+
+    public void refreshDuration() {
+        try {
+            foreach (Buff temp in character.buffs) {
+                //if buff is already applied refresh it's duration
+                if (temp.code == abilityName + character.name) {
+                    temp.durationRemaining = buffDuration;
+                }
+            }
+        }
+        catch {};
     }
 }
