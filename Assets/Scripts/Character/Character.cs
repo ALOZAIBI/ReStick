@@ -11,6 +11,8 @@ public class Character : MonoBehaviour {
     [SerializeField] public Zone zone;
     [SerializeField] private Camera cam;
     [SerializeField] private CameraMovement camMov;
+    //the object that gives the bloom effect
+    public GameObject bloomObject;
     public NavMeshAgent agent;
     //Current stats
     public float PD;
@@ -224,6 +226,13 @@ public class Character : MonoBehaviour {
         //Connect to UIManager
         //setup level cap
         xpCap = level + (level * ((level - 1) / 2));
+
+        //sets bloom objects color to be like the character
+        SpriteRenderer temp = bloomObject.GetComponent<SpriteRenderer>();
+        Color tempColor = GetComponent<SpriteRenderer>().color;
+        tempColor.a = temp.color.a;
+        temp.color = tempColor;
+
 
         //Connect to camera
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
