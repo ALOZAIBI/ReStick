@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
 
 
     //Zone Won Screen Stuff
-    public Image gameWonScreen;
+    public GameWonScreen gameWonScreen;
     public RewardSelect rewardSelectScreen;
 
     //Map Won Screen Stuff
@@ -167,7 +167,7 @@ public class UIManager : MonoBehaviour
         //if (!displayed) {
             //displayGameWon and display the rewards
             gameWonScreenHidden.hidden = false;
-            rewardSelectScreen.displayAbilities();
+            gameWonScreen.zoneWon();
             pausePlayBtn.gameObject.SetActive(false);
             sceneToLoad = sceneName;
             //the rewardSelectScreen contains the Button. The button waits for an ability to be selected. Once it is selected

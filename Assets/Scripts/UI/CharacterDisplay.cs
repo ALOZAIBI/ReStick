@@ -12,6 +12,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     [SerializeField] private Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private Button btn;
 
 

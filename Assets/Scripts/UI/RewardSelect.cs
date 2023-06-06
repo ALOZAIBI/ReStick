@@ -24,7 +24,7 @@ public class RewardSelect : MonoBehaviour
         confirmSelection.onClick.AddListener(addToInventory);
     }
 
-    //adds the selected ability to inventory then leaves to UIManager's SceneName
+    //adds the selected ability to inventory
     public void addToInventory() {
         //index will be used to know which ability from zoneRewards to send to AbilityInventory
         int index = 0;
@@ -44,25 +44,18 @@ public class RewardSelect : MonoBehaviour
             //deletes all displayws
             foreach (AbilityDisplayReward toBeDeleted in listReward) {
                 Destroy(toBeDeleted.gameObject);
+                //goes to next step in gameWonScreen
             }
-            //saves the zone
-            SaveSystem.saveZone(uiManager.zone);
-            //saves map
-            uiManager.saveMapSave();
-            //then clears the list to be reinitialized in another zone
-            listReward.Clear();
-            //once leaves zone mark it as outside zone
-            uiManager.inZone = false;
-            //loads map
-            uiManager.loadScene();
-
-            //resets UI
-            uiManager.pausePlayBtn.gameObject.SetActive(false);
-            uiManager.timeControlHidden.hidden = true;
+            //then carries on in gameWonScreen
+            uiManager.gameWonScreen.displayContents();
+        //clears the list to be reinitialized in another zone
+        listReward.Clear();
         }
     }
     //Displays the abilities and greys out the Button.
     public void displayAbilities() {
+        //hides contents of gameWonScreen so that rewards are displayed first
+        uiManager.gameWonScreen.contents.SetActive(false);
         //creates reward Displays
         for(int i = 0; i < uiManager.zone.abilityRewardPool.Count; i++) {
             AbilityDisplayReward rewardDisplay = Instantiate(abilityDisplayReward).GetComponent<AbilityDisplayReward>();
