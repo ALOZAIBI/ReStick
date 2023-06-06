@@ -8,11 +8,12 @@ using UnityEngine.UI;
 public class GameWonScreen : MonoBehaviour
 {
     public RewardSelect rewardSelect;
-    public HideUI rewardSelectHidden;
+    private HideUI rewardSelectHidden;
     public CharacterDisplay characterDisplay;
     public Button goToNextZoneBtn;
     public Button goBackToMapBtn;
     public GameObject contents;
+    public int chanceToGetRewardPercent;
 
     private void Start() {
         rewardSelectHidden = rewardSelect.GetComponent<HideUI>();
@@ -21,9 +22,9 @@ public class GameWonScreen : MonoBehaviour
     }
 
     public void zoneWon() {
-    //60% chance for a reward to happen
+    //60% chance for a reward to happen AND IF ZONE WASN'T COMPLETED BEFORE
         int giveReward = UnityEngine.Random.Range(0, 100);
-        if (giveReward <= 100) {
+        if (giveReward <= chanceToGetRewardPercent&& !UIManager.singleton.zone.completed) {
             displayRewards();
         }
         else
@@ -61,8 +62,6 @@ public class GameWonScreen : MonoBehaviour
         SaveSystem.saveZone(UIManager.singleton.zone);
         //saves map
         UIManager.singleton.saveMapSave();
-        //once leaves zone mark it as outside zone
-        UIManager.singleton.inZone = false;
         UIManager.singleton.sceneToLoad = GetNextScene(SceneManager.GetActiveScene().name);
         //removes characters from zone
         foreach (Transform child in UIManager.singleton.playerParty.transform) {

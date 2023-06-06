@@ -85,15 +85,15 @@ public class UIManager : MonoBehaviour
     public CharacterFactory characterFactory;
 
     //used to deal with Hiding and unHiding UI ELEMENTS
-    public HideUI placingScreenHidden;
-    public HideUI timeControlHidden;
-    public HideUI charInfoScreenHidden;
-    public HideUI inventoryScreenHidden;
-    public HideUI gameWonScreenHidden;
-    public HideUI mapWonScreenHidden;
-    public HideUI gameLostScreenHidden;
-    public HideUI topStatDisplayHidden;
-    public HideUI shopScreenHidden;
+    [HideInInspector]public HideUI placingScreenHidden;
+    [HideInInspector]public HideUI timeControlHidden;
+    [HideInInspector]public HideUI charInfoScreenHidden;
+    [HideInInspector]public HideUI inventoryScreenHidden;
+    [HideInInspector]public HideUI gameWonScreenHidden;
+    [HideInInspector]public HideUI mapWonScreenHidden;
+    [HideInInspector]public HideUI gameLostScreenHidden;
+    [HideInInspector]public HideUI topStatDisplayHidden;
+    [HideInInspector]public HideUI shopScreenHidden;
 
     private void Awake() {
         singleton = this;

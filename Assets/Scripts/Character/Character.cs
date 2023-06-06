@@ -370,14 +370,23 @@ public class Character : MonoBehaviour {
                 break;
 
             case (int)MovementStrategies.RunAwayFromNearestEnemy:
-                //run away from enemies as far as 8 range
-                seekRange = 8;
+                //run away from enemies as far as 6 range
+                seekRange = 6;
                 selectTarget((int)TargetList.ClosestEnemy);
                 if(target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) < seekRange) {
                     //finds the point opposite the target https://gamedev.stackexchange.com/questions/80277/how-to-find-point-on-a-circle-thats-opposite-another-point
                     Vector2 pointOpposite = new Vector2(transform.position.x - target.transform.position.x, transform.position.y - target.transform.position.y) + (Vector2)transform.position;
                     moveTowards(pointOpposite);
-                    
+
+                    try { animationManager.move(true); }
+                    catch { /*IF this character has no animation manager it's okay*/}
+
+                }
+                //once out of seek range stop moving
+                else {
+                    agent.isStopped = true;
+                    try { animationManager.move(false); }
+                    catch { /*IF this character has no animation manager it's okay*/}
                 }
                 break;
         }

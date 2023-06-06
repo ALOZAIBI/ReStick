@@ -35,7 +35,12 @@ public class Buff : MonoBehaviour
     public float duration;
     public float durationRemaining=0;
 
+    //if the character was ranged before the buff.
+    public bool initRanged;
 
+    private void Start() {
+        initRanged = caster.usesProjectile;
+    }
     //stars duration timer
     public void startDuration() {
         durationRemaining = duration;
@@ -68,6 +73,8 @@ public class Buff : MonoBehaviour
             target.CDR += CDR;
             target.MS += MS;
             target.Range += Range;
+            //make ranged if this gives range.
+            target.usesProjectile = Range > 0 ? true : initRanged;
             target.LS += LS;
 
             target.snare = snare;
@@ -96,6 +103,7 @@ public class Buff : MonoBehaviour
         target.CDR -= CDR;
         target.MS -= MS;
         target.Range -= Range;
+        target.usesProjectile = initRanged;
         target.LS -= LS;
 
         target.snare = false;
