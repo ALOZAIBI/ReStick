@@ -10,6 +10,7 @@ public class ProjectileSimpleHit : Projectile
     private void Start() {
         //does base start to make the projectile die after lifetime
         base.Start();
+        
         //sets the projectiles direction
         direction = target.transform.position - shooter.transform.position;
         //normalises the direction so that projectile speed won't be affected by target distance
@@ -26,12 +27,20 @@ public class ProjectileSimpleHit : Projectile
         if (collision.tag == "Character") {
             Character victim = collision.GetComponent<Character>();
             if (victim.team != shooter.team) {
+                if (buff != null) {
+                    //create an instance of the buff
+                    Buff temp = Instantiate(buff);
+                    temp.target = victim;
+                    temp.applyBuff();
+                }
+               
                 shooter.damage(victim, DMG, false);
                 //Destroy This Projectile After Hit
                 Destroy(gameObject);
             }
         }
     }
+
     private void FixedUpdate() {
         trajectory();
     }

@@ -21,7 +21,9 @@ public class CastAura : Ability
     public override void doAbility() {
         if (available) {
             calculateAmt();
-            aura = Instantiate(prefabObject).GetComponent<Aura>();
+            GameObject temp = Instantiate(prefabObject);
+            temp.transform.localScale = new Vector3(rangeAbility*2, rangeAbility*2, rangeAbility*2);
+            aura = temp.GetComponent<Aura>();
             //sets the amt 
             aura.amt = amt;
             //sets the caster

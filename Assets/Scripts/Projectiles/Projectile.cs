@@ -13,6 +13,10 @@ public abstract class Projectile : MonoBehaviour
     public float DMG;
     public float LS;
 
+    //debuff or buff that this projectile applies
+    //the buff will be added by the ability creating the projectile
+    public Buff buff;
+
     //This is stikll not in use
     //some projectile's (Ability projectiles) have a description that will be read by the throwProjectile ability
     public string description;
