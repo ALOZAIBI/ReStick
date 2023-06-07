@@ -1489,7 +1489,7 @@ public class Character : MonoBehaviour {
 
         //add gold
         if(this.team == (int)teamList.Player) {
-            uiManager.playerParty.gold += 13 + victim.level * 2;
+            uiManager.playerParty.gold += 15 + victim.level * 3;
         }
     }
     //Shares XP TO ALL ACTIVE PLAYERPARTY MEMBERS

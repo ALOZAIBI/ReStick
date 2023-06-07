@@ -120,7 +120,12 @@ public class CharacterInfoScreen : MonoBehaviour
             displayTemp.abilityName.text = ability.abilityName;
             displayTemp.description.text = ability.description;
             displayTemp.ability = ability;
-            displayTemp.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
+            //if ability has no target hide the target button
+            if (!ability.hasTarget) {
+                displayTemp.btn.gameObject.SetActive(false);
+            }
+            else
+                displayTemp.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
             //sets the cooldownBar fill amount to CD remaining
             displayTemp.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
             //if the ability has no cd anyways(It's a passive)

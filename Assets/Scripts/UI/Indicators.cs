@@ -64,16 +64,22 @@ public class Indicators : MonoBehaviour
     public void drawAbilitiesCircles(Vector3 position) {
         int index = 0;
         foreach(Ability ability in character.abilities) {
-                if(ability.rangeAbility > 0) {
-                    drawCircle(position, ability.rangeAbility, abilitiesRangeRenderer[index],100);
+            float fillAmount = (ability.CD - ability.abilityNext) / ability.CD;fillAmount *= 100;
+            if(ability.rangeAbility > 0) {
+                drawCircle(position, ability.rangeAbility, abilitiesRangeRenderer[index],100);
+                //if ability has range but no target draw the cooldown on the range
+                if (!ability.hasTarget) {
+                    //draw cooldown circle on rangeCircle
+                    drawCircle(position, ability.rangeAbility, abilitiesCooldownRenderer[index], fillAmount);
                 }
+            }
             //draw circle on target if possible
             if (ability.hasTarget) {
                 //if target within range
                 if (character.selectTarget(ability.targetStrategy, ability.rangeAbility)) {
                     //draw target circle
                     drawCircle(character.target.transform.position, character.target.transform.lossyScale.x / 1.5f, abilitiesTargetRenderer[index], 100);
-                    float fillAmount = (ability.CD - ability.abilityNext) / ability.CD;fillAmount *= 100;
+                    
                     //draw cooldown circle on targetCircle
                     drawCircle(character.target.transform.position, character.target.transform.lossyScale.x / 1.5f, abilitiesCooldownRenderer[index], fillAmount);
 

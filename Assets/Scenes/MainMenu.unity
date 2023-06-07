@@ -3802,7 +3802,7 @@ MonoBehaviour:
   goToNextZoneBtn: {fileID: 1113625909}
   goBackToMapBtn: {fileID: 1205328836}
   contents: {fileID: 1323135915}
-  chanceToGetRewardPercent: 60
+  chanceToGetRewardPercent: 67
 --- !u!1 &215885583
 GameObject:
   m_ObjectHideFlags: 0
@@ -6297,6 +6297,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: AS
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
+      propertyPath: PD
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: rarity
       value: 1
       objectReference: {fileID: 0}
@@ -6314,7 +6322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: buffDuration
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -288423412575685608, guid: 066a5e2a9200fc54cbe0ad277a89e512, type: 3}
       propertyPath: abilityTypeList
@@ -10195,8 +10203,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 502679143
-  m_SortingOrder: 0
+  m_SortingLayerID: 1479888157
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &731207371
 MonoBehaviour:
@@ -12604,10 +12612,10 @@ MonoBehaviour:
   characterPlayerPartyArea: {fileID: 1680346137}
   backBtn: {fileID: 502100721}
   goldText: {fileID: 2072928079}
-  commonCost: 50
+  commonCost: 40
   rareCost: 80
   epicCost: 200
-  legendaryCost: 350
+  legendaryCost: 300
   shop: {fileID: 0}
   hospitalTrainingScreen: {fileID: 3624356817839391567}
   pageIndex: 0
@@ -20655,6 +20663,10 @@ PrefabInstance:
       propertyPath: CD
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2014512225131472551, guid: 40413758c887f164788a545158ad858c, type: 3}
+      propertyPath: MDRatio
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5559705790847140226, guid: 40413758c887f164788a545158ad858c, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -21277,6 +21289,14 @@ PrefabInstance:
     - target: {fileID: 4978384105271955858, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
       propertyPath: abilityType
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978384105271955858, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
+      propertyPath: rangeAbility
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978384105271955858, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
+      propertyPath: slowDuration
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4978384105271955858, guid: 0bfeb1e48a290254cad2fc51d3935ce5, type: 3}
       propertyPath: abilityTypeList
@@ -29277,7 +29297,7 @@ MonoBehaviour:
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 0
   rarity: 0
-  targetStrategy: 0
+  targetStrategy: 15
   abilityTypeList: 3
   abilityType: 3
   PD: 3

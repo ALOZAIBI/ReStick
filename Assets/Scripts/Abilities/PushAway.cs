@@ -5,7 +5,6 @@ using UnityEngine;
 public class PushAway : Ability {
     //push away nearby enemies then slow them
     //the radius of affected enemies
-    public float radius;
     public float pushBackDistance;
     public float slowAmount;
     public float slowDuration;
@@ -16,9 +15,9 @@ public class PushAway : Ability {
     public override void doAbility() {
         //this ability will only be cast if there are enemies within the radius
         if (available) {
-            //true if enemy is within the radius(it has been pushed back)
+            //true if enemy is within the radius(rangeAbility)(it has been pushed back)
             bool enemyAffected=false;
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, (radius + amt*3),mask);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, (rangeAbility),mask);
 
             // Loop through the detected colliders in the layerMask(Characters)
             for (int i = 0; i < colliders.Length; i++) {
@@ -35,7 +34,7 @@ public class PushAway : Ability {
                     enemyAffected = true;
                     // Calculate pushback vector from character to the edge of the circle
                     Vector2 pushbackVector = colliders[i].transform.position - character.transform.position;
-                    pushbackVector = pushbackVector.normalized * pushBackDistance;
+                    pushbackVector = pushbackVector.normalized * (pushBackDistance+amt*2);
 
                     character.damage(temp, amt*10, false);
                     // Apply pushback vector to the character transform
