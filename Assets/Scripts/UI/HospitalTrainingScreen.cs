@@ -76,7 +76,7 @@ public class HospitalTrainingScreen : MonoBehaviour
             character.HP = 50;
             UIManager.singleton.playerParty.gold -= costForRevive;
         }
-        else if(UIManager.singleton.playerParty.gold >= calculateCost(character,100)){
+        else if(character.alive && UIManager.singleton.playerParty.gold >= calculateCost(character,100)){
             Debug.Log("Healing to full");
             character.HP += calculateAmountToHeal(character,100);
             UIManager.singleton.playerParty.gold -= costOfClicked;

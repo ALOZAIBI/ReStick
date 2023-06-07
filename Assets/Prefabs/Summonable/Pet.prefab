@@ -364,6 +364,7 @@ MonoBehaviour:
   zone: {fileID: 0}
   cam: {fileID: 0}
   camMov: {fileID: 0}
+  bloomObject: {fileID: 0}
   agent: {fileID: 0}
   PD: 2
   MD: 0
@@ -555,7 +556,7 @@ PositionConstraint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813961152882052326}
   m_Enabled: 1
-  m_Weight: 0
+  m_Weight: 1
   m_TranslationAtRest: {x: 2.65, y: 3.48, z: 0}
   m_TranslationOffset: {x: 0, y: 0, z: 0}
   m_AffectTranslationX: 0
@@ -619,7 +620,9 @@ MonoBehaviour:
   rangeRenderer: {fileID: 0}
   abilitiesTargetRenderer: []
   abilitiesRangeRenderer: []
+  abilitiesCooldownRenderer: []
   indicatorPrefab: {fileID: 9204786827954621447, guid: 36b057e713439e24fa84597626ba835f, type: 3}
+  outlinedIndicatorPrefab: {fileID: 0}
   circleQuality: 64
 --- !u!1001 &1482309013912948928
 PrefabInstance:

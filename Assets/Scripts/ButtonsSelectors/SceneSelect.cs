@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 //To make this Start function execute Before Map's Start function
 [DefaultExecutionOrder(-100)]
@@ -17,6 +18,7 @@ public class SceneSelect : MonoBehaviour
     [SerializeField] private Image goToScene;
     [SerializeField] private Button startBtn;
     [SerializeField] private Button details;
+    [SerializeField] private TextMeshProUGUI nameTxt;
     [SerializeField] private Button closeUI;
     [SerializeField] private UIManager uiManager;
 
@@ -38,6 +40,7 @@ public class SceneSelect : MonoBehaviour
         startBtn.onClick.AddListener(goTo);
         closeUI.onClick.AddListener(close);
         dontDestroys = GameObject.FindGameObjectWithTag("dontDestroys");
+        DisplayName();
 
         SaveSystem.loadCompletionSceneSelect(this);
 
@@ -119,5 +122,12 @@ public class SceneSelect : MonoBehaviour
     private void Update() {
 
         mouseClickedNotHeld();
+    }
+
+    //thanks chat gpt
+    public void DisplayName() {
+        string result = sceneToLoad.Replace("Map", "").Replace("Zone", "");
+        nameTxt.text = result;
+        Debug.Log(result);
     }
 }

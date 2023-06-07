@@ -66,6 +66,8 @@ public class UIManager : MonoBehaviour
     public TopStatDisplay topStatDisplay;
 
     public Button pausePlayBtn;
+    public Button exitBtn;
+    public Button retryBtn;
 
     public TimeControl timeControl;
     //true if paused
@@ -116,9 +118,11 @@ public class UIManager : MonoBehaviour
 
         //
         lostToMapBtn.onClick.AddListener(lostToMap);
+        exitBtn.onClick.AddListener(lostToMap);
         wonToWorldBtn.onClick.AddListener(wonToWorld);
 
         lostToRestartBtn.onClick.AddListener(restartZone);
+        retryBtn.onClick.AddListener(restartZone);
 
         pausePlayBtn.onClick.AddListener(pausePlay);
         closeUIBtn.onClick.AddListener(closeUI);
@@ -220,8 +224,10 @@ public class UIManager : MonoBehaviour
         //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
         //so A way to optimize is to load only if it this function is called from zone lost to map
         loadMapSave();
+        sceneToLoad = zone.belongsToMap;
         inZone = false;
         loadScene();
+        Debug.Log("TEST IGNORE");
     }
     //once player completes all maps then goes back to world
     public void wonToWorld() {
@@ -310,9 +316,14 @@ public class UIManager : MonoBehaviour
         pause = !pause;
         if (pause) {
             Time.timeScale = 0;
+            retryBtn.gameObject.SetActive(true);
+            exitBtn.gameObject.SetActive(true);
         }
-        else
+        else {
             Time.timeScale = timeControl.currTimeScale;
+            retryBtn.gameObject.SetActive(false);
+            exitBtn.gameObject.SetActive(false);
+        }
         //wasPause = pause
     }
     /// <summary>
@@ -324,11 +335,15 @@ public class UIManager : MonoBehaviour
             wasPause = pause;
             pause = yesPause;
             Time.timeScale = 0;
+            retryBtn.gameObject.SetActive(true);
+            exitBtn.gameObject.SetActive(true);
         }
         else {
             wasPause = pause;
             pause = yesPause;
             Time.timeScale = timeControl.currTimeScale;
+            retryBtn.gameObject.SetActive(false);
+            exitBtn.gameObject.SetActive(false);
         }
     }
 
