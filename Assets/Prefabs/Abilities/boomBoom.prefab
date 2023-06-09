@@ -46,14 +46,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   abilityName: Boom Boom
-  description: Throws AOE fireball
+  description: Throws thing that stuns
+  color: {r: 0, g: 0, b: 0, a: 0}
   CD: 3
+  rangeAbility: 0
   available: 1
   abilityNext: 0
   delay: 0
   baseAmt: 1
   PDRatio: 0
   MDRatio: 0.6
+  INFRatio: 0
   HPMaxRatio: 0
   HPRatio: 0
   LVLRatio: 0
@@ -62,5 +65,23 @@ MonoBehaviour:
   amt: 5
   hasTarget: 0
   prefabObject: {fileID: 3637706766136786258, guid: 782cff1844b6eb04da57676347888c77, type: 3}
-  rarity: 1
+  Rarities: 0
+  rarity: 0
   targetStrategy: 1
+  abilityTypeList: 0
+  abilityType: 0
+  buffPrefab: {fileID: 0}
+  PD: 0
+  MD: 0
+  INF: 0
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  root: 0
+  silence: 0
+  blind: 0
+  buffDuration: 0

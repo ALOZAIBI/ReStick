@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3637706766136786270}
   - component: {fileID: 1216421106950192022}
   m_Layer: 2
-  m_Name: SmolBoom
+  m_Name: StunningBoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7254902, g: 0.5596, b: 0.13333333, a: 0.54509807}
+  m_Color: {r: 0.13363299, g: 0.4952252, b: 0.7264151, a: 0.54509807}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   shooter: {fileID: 0}
-  speed: 7
+  speed: 9
   lifetime: 0
   DMG: 0
   LS: 0
@@ -128,10 +128,10 @@ MonoBehaviour:
   exploded: 0
   targetPosition: {x: 0, y: 0}
   ogSize: 0
-  size: 4
-  explosionDuration: 0.7
+  size: 6
+  explosionDuration: 0.2
   timeSinceExplosion: 0
-  implosionDuration: 0.5
+  implosionDuration: 2
   timeSinceImplosion: 0
   sizeAttained: 0
 --- !u!1001 &4796775132660994867
@@ -203,15 +203,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.b
-      value: 0.32549024
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.g
-      value: 0.86144924
+      value: 0.9591578
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.3254717
       objectReference: {fileID: 0}
     - target: {fileID: 6641201484394630654, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Name

@@ -39,7 +39,6 @@ public class ThrowProjectile : Ability
             //Debug.Log("ABILITY DONE WHAT");
             
 
-            
             //creates the projectile
             GameObject objProjectile = Instantiate(prefabObject, character.transform.position, character.transform.rotation);
             Projectile projectile = objProjectile.GetComponent<Projectile>();
@@ -49,9 +48,17 @@ public class ThrowProjectile : Ability
             projectile.DMG = amt;
             //sets the target
             projectile.target = character.target;
-
+            //tells it this abilityName
+            projectile.castingAbilityName = abilityName;
+            Debug.Log(buffDuration);
+            Debug.Log(buffPrefab);
+            if (buffDuration > 0 && buffPrefab == null) {
+                Debug.Log("DEBOGAS");
+            }
             //if there is a buff in this ability
             if (buffDuration > 0) {
+                if(buffPrefab == null)
+                    throw new System.Exception("NO BUFF PREFAB");
                 Buff buff = createBuff();
                 projectile.buff = buff;
             }

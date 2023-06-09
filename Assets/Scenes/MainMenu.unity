@@ -5383,6 +5383,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6106457207614228497, guid: 25cc327125af35546b38bda8a97b3322, type: 3}
   m_PrefabInstance: {fileID: 409640936}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &476663879 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+  m_PrefabInstance: {fileID: 1737599347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &479136761
 GameObject:
   m_ObjectHideFlags: 0
@@ -18126,6 +18131,8 @@ Transform:
   - {fileID: 219070787}
   - {fileID: 1223755424}
   - {fileID: 1105254326}
+  - {fileID: 1711519628}
+  - {fileID: 476663879}
   m_Father: {fileID: 2134899978}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19113,6 +19120,124 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710451125}
   m_CullTransparentMesh: 1
+--- !u!1001 &1711519627
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1607280164}
+    m_Modifications:
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_RootOrder
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.0231647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.13104515
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0023247432
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714514, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: m_Name
+      value: throwAOEFrostBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: CD
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: MS
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: baseAmt
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: Rarities
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: hasTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: buffPrefab
+      value: 
+      objectReference: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: abilityName
+      value: FrostBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: abilityType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: description
+      value: Throws AOE FrostBall that slows
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: buffDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: prefabObject
+      value: 
+      objectReference: {fileID: 3637706766136786258, guid: a288f2238e956b744bfa6afb0b9ce3b9, type: 3}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: rangeAbility
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+      propertyPath: abilityTypeList
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+--- !u!4 &1711519628 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8922466084288714512, guid: d7b9c8998f12abb439ddffeb10a89be9, type: 3}
+  m_PrefabInstance: {fileID: 1711519627}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1714473911
 GameObject:
   m_ObjectHideFlags: 0
@@ -19250,6 +19375,131 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714473911}
   m_CullTransparentMesh: 1
+--- !u!1001 &1737599347
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1607280164}
+    m_Modifications:
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_RootOrder
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.0231647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.13104515
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0023247432
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714512, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714514, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: m_Name
+      value: StunningBOom
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: CD
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: root
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: blind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: rarity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: MDRatio
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: baseAmt
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: silence
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: INFRatio
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: Rarities
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: hasTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: buffPrefab
+      value: 
+      objectReference: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: abilityName
+      value: Stunning Boom
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: abilityType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: buffDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: prefabObject
+      value: 
+      objectReference: {fileID: 3637706766136786258, guid: 3241d0bb6b8e8a948ab20bab948d77b2, type: 3}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: rangeAbility
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
+      propertyPath: abilityTypeList
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
 --- !u!1 &1754915466
 GameObject:
   m_ObjectHideFlags: 0

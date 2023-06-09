@@ -1570,8 +1570,10 @@ public class Character : MonoBehaviour {
         cooldown();
         if (!snare)
             movement();
-        else //here we're doing else since it might already have a set route and would conitnue moving so we delete it's path
+        else {  //here we're doing else since it might already have a set route and would conitnue moving so we delete it's path
             agent.ResetPath();
+            animationManager.move(false);
+            }
         if(!silence)
             doAbilities();
         capHP();
