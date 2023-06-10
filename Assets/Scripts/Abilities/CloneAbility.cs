@@ -33,13 +33,11 @@ public class CloneAbility : Ability
                 //decrease the amount to make enemy clones even weaker otherwise OP innit.
                 amt *= 0.6f;
             }
-            clone.PD *= amt;
-            clone.MD *= amt;
-            clone.INF *= amt;
-            clone.HP *= amt;
-            //decrease the CD of clone by flat amount but make sure it doesnt go below 0
-            clone.CDR=Mathf.Clamp(clone.CDR -0.1f, 0, 5000);
-            clone.HPMax *= amt;
+            clone.PD = clone.PD*amt;
+            clone.MD = clone.MD* amt;
+            clone.INF = clone.INF * amt;
+            clone.HP = clone.HP * amt;
+            clone.HPMax = clone.HPMax * amt;
             clone.name = character.target.name + " Clone";
             SpriteRenderer sprite = clone.GetComponent<SpriteRenderer>();
             sprite.color = Color.gray;

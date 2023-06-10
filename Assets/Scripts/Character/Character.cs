@@ -1477,20 +1477,19 @@ public class Character : MonoBehaviour {
         if (summoned) {
             summoner.totalKills++;
             summoner.killsLastFrame++;
-            //level progress will depend on victim's level the equation is open to changing
-            increasePartyXP(victim.level);
         }
         else {
             totalKills++;
             killsLastFrame++;
             //level progress will depend on victim's level the equation is open to changing
             increasePartyXP(victim.level);
+            //add gold
+            if (this.team == (int)teamList.Player) {
+                uiManager.playerParty.gold += 15 + victim.level * 3;
+            }
         }
 
-        //add gold
-        if(this.team == (int)teamList.Player) {
-            uiManager.playerParty.gold += 15 + victim.level * 3;
-        }
+        
     }
     //Shares XP TO ALL ACTIVE PLAYERPARTY MEMBERS
     private void increasePartyXP(int level) {
