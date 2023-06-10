@@ -29,14 +29,7 @@ public class ProjectileAOECircle : Projectile
             Character victim = collision.GetComponent<Character>();
             //deals damage to everyhing not in the shooters team
             if (victim.team != shooter.team) {
-                if (buff != null) {
-                    if (buffNotOnCharacter(victim)) {
-                        //create an instance of the buff
-                        Buff temp = Instantiate(buff);
-                        temp.target = victim;
-                        temp.applyBuff();
-                    }
-                }
+                applyBuff(victim);
                 shooter.damage(victim, DMG * Time.fixedDeltaTime, false);
             }
         }

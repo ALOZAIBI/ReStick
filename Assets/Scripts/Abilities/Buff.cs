@@ -116,7 +116,18 @@ public class Buff : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //keeps the visual fx on target
+    private void keepOnTarget() {
+        if (target == null || !target.alive) {
+            gameObject.SetActive(false);
+        }
+        else {
+            transform.position = target.transform.position;
+            transform.localScale = target.transform.localScale;
+        }
+    }
     private void FixedUpdate() {
         decrementDuration();
+        keepOnTarget();
     }
 }

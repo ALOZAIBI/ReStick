@@ -10632,7 +10632,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: -292}
+  m_AnchoredPosition: {x: -2.9999847, y: -292}
   m_SizeDelta: {x: 0, y: 533.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &744487532
@@ -11559,6 +11559,10 @@ PrefabInstance:
       propertyPath: buffDuration
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3504329789301417770, guid: c846de39db668aa41afc8d0279a0acfa, type: 3}
+      propertyPath: prefabObject
+      value: 
+      objectReference: {fileID: 4146658564243946326, guid: 293db5ee274df68409367609920f436b, type: 3}
     - target: {fileID: 3504329789301417770, guid: c846de39db668aa41afc8d0279a0acfa, type: 3}
       propertyPath: rangeAbility
       value: 15
@@ -19473,7 +19477,7 @@ PrefabInstance:
     - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
       propertyPath: buffPrefab
       value: 
-      objectReference: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+      objectReference: {fileID: 4146658564243946327, guid: 293db5ee274df68409367609920f436b, type: 3}
     - target: {fileID: 8922466084288714515, guid: cd1c1d4badc32c741bb4acd99bc6da03, type: 3}
       propertyPath: abilityName
       value: Stunning Boom
@@ -29509,7 +29513,7 @@ MonoBehaviour:
   ASRatio: 0
   amt: 0
   hasTarget: 1
-  prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+  prefabObject: {fileID: 4146658564243946326, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
   Rarities: 0
   rarity: 0
   targetStrategy: 0
@@ -29609,7 +29613,7 @@ MonoBehaviour:
   ASRatio: 0
   amt: 0
   hasTarget: 1
-  prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+  prefabObject: {fileID: 4146658564243946326, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
   Rarities: 0
   rarity: 0
   targetStrategy: 0

@@ -27,12 +27,7 @@ public class ProjectileSimpleHit : Projectile
         if (collision.tag == "Character") {
             Character victim = collision.GetComponent<Character>();
             if (victim.team != shooter.team) {
-                if (buff != null) {
-                    //create an instance of the buff
-                    Buff temp = Instantiate(buff);
-                    temp.target = victim;
-                    temp.applyBuff();
-                }
+                applyBuff(victim);
                
                 shooter.damage(victim, DMG, false);
                 //Destroy This Projectile After Hit

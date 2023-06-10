@@ -53,4 +53,15 @@ public abstract class Projectile : MonoBehaviour
         return true;
     }
 
+    public void applyBuff(Character victim) {
+        if (buff != null) {
+            if (buffNotOnCharacter(victim)) {
+                //create an instance of the buff
+                Buff temp = Instantiate(buff);
+                temp.target = victim;
+                temp.applyBuff();
+            }
+        }
+    }
+
 }
