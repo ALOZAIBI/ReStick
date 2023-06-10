@@ -58,6 +58,7 @@ public abstract class Projectile : MonoBehaviour
             if (buffNotOnCharacter(victim)) {
                 //create an instance of the buff
                 Buff temp = Instantiate(buff);
+                temp.gameObject.SetActive(true);
                 temp.target = victim;
                 temp.applyBuff();
             }

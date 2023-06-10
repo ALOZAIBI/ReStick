@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     public Button closeUIBtn;
 
     public Button openInventoryBtn;
+    //notifies if there are abilities in inventory
+    public Image openInventoryNotification;
 
     public InventoryScreen inventoryScreen;
 
@@ -66,6 +68,10 @@ public class UIManager : MonoBehaviour
     public TopStatDisplay topStatDisplay;
 
     public Button pausePlayBtn;
+    //uk the arrow icon and the || pause icon thing
+    public Image pausePauseImage;
+    public Image pausePlayImage;
+
     public Button exitBtn;
     public Button retryBtn;
 
@@ -214,6 +220,7 @@ public class UIManager : MonoBehaviour
         timeControlHidden.hidden = true;
         //unhides inventory but it will be hidden again when start button is clicked in characte rplacing
         openInventoryBtn.gameObject.SetActive(true);
+        
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(sceneToLoad);
         closeUI();
@@ -251,6 +258,7 @@ public class UIManager : MonoBehaviour
         gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
         openInventoryBtn.gameObject.SetActive(true);
+        
         loadMapSave();
         DontDestroyOnLoad(playerParty);
         SceneManager.LoadScene(zone.zoneName);
@@ -274,6 +282,7 @@ public class UIManager : MonoBehaviour
                 if (!zone.started) {
                     placingScreenHidden.hidden = false;
                     openInventoryBtn.gameObject.SetActive(true);
+                    
                 }
                 else {
                     //if zone has started show these
@@ -288,6 +297,7 @@ public class UIManager : MonoBehaviour
             pausePlayBtn.gameObject.SetActive(false);
             timeControlHidden.hidden = true;
             openInventoryBtn.gameObject.SetActive(true);
+            
         }
 
         topStatDisplay.moreInfoBtn.gameObject.SetActive(true);
@@ -315,12 +325,16 @@ public class UIManager : MonoBehaviour
         wasPause = pause;
         pause = !pause;
         if (pause) {
+            pausePlayImage.gameObject.SetActive(true);
+            pausePauseImage.gameObject.SetActive(false);
             Time.timeScale = 0;
             retryBtn.gameObject.SetActive(true);
             exitBtn.gameObject.SetActive(true);
         }
         else {
             Time.timeScale = timeControl.currTimeScale;
+            pausePlayImage.gameObject.SetActive(false);
+            pausePauseImage.gameObject.SetActive(true);
             retryBtn.gameObject.SetActive(false);
             exitBtn.gameObject.SetActive(false);
         }
@@ -334,6 +348,8 @@ public class UIManager : MonoBehaviour
         if (yesPause) {
             wasPause = pause;
             pause = yesPause;
+            pausePlayImage.gameObject.SetActive(true);
+            pausePauseImage.gameObject.SetActive(false);
             Time.timeScale = 0;
             retryBtn.gameObject.SetActive(true);
             exitBtn.gameObject.SetActive(true);
@@ -341,6 +357,8 @@ public class UIManager : MonoBehaviour
         else {
             wasPause = pause;
             pause = yesPause;
+            pausePlayImage.gameObject.SetActive(false);
+            pausePauseImage.gameObject.SetActive(true);
             Time.timeScale = timeControl.currTimeScale;
             retryBtn.gameObject.SetActive(false);
             exitBtn.gameObject.SetActive(false);
@@ -386,7 +404,16 @@ public class UIManager : MonoBehaviour
             return zone.started;
         }
     }
+
+    private void inventoryNotification() {
+        if (playerParty.abilityInventory.transform.childCount > 0) {
+            openInventoryNotification.gameObject.SetActive(true);
+        }
+        else
+            openInventoryNotification.gameObject.SetActive(false);
+    }
     private void Update() {
+        inventoryNotification();
         if(zone == null) {
             try {
                 zone = FindObjectOfType<Zone>();

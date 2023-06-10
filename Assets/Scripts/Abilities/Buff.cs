@@ -122,6 +122,7 @@ public class Buff : MonoBehaviour
             gameObject.SetActive(false);
         }
         else {
+            gameObject.SetActive(true);
             transform.position = target.transform.position;
             transform.localScale = target.transform.localScale;
         }

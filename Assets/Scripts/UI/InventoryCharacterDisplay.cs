@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Playables;
+
 public class InventoryCharacterDisplay : MonoBehaviour
 {
     public Character character;
@@ -12,6 +14,8 @@ public class InventoryCharacterDisplay : MonoBehaviour
     [SerializeField] private Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private GameObject notification;
+
 
     //to make the button glow
     public bool glow;
@@ -58,6 +62,11 @@ public class InventoryCharacterDisplay : MonoBehaviour
         else {
             btn.colors = defaultColor;
         }
+        if (character.statPoints > 0) {
+            notification.SetActive(true);
+        }
+        else
+            notification.SetActive(false);
     }
 
 }

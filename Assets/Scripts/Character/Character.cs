@@ -1526,11 +1526,11 @@ public class Character : MonoBehaviour {
         //(this only applies to player characters that are not summoned)
         if(!summoned && team == (int)teamList.Player) {
             //increase stats a bit
-            HPMax += 5;
+            HPMax += 10;
             PD += 0.5f;
             AS += 0.02f;
-            //heal character by 10% of max HP on level up 
-            HP += 0.1f * HPMax;
+            //heal character by 20% of max HP on level up 
+            HP += 0.2f * HPMax;
 
         }
     }

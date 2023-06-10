@@ -14,6 +14,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private Button btn;
+    [SerializeField] private GameObject notification;
 
 
     //to get position of mouse to be used in MOuseUp
@@ -88,6 +89,11 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
         if (!uiManager.placingScreenHidden.hidden) {
             mouseClickedNotHeld();
         }
+        if (character.statPoints > 0) {
+            notification.SetActive(true);
+        }
+        else
+            notification.SetActive(false);
     }
 
     public void OnPointerDown(PointerEventData eventData) {

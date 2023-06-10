@@ -50,8 +50,6 @@ public class ThrowProjectile : Ability
             projectile.target = character.target;
             //tells it this abilityName
             projectile.castingAbilityName = abilityName;
-            Debug.Log(buffDuration);
-            Debug.Log(buffPrefab);
             if (buffDuration > 0 && buffPrefab == null) {
                 Debug.Log("DEBOGAS");
             }
@@ -60,6 +58,70 @@ public class ThrowProjectile : Ability
                 if(buffPrefab == null)
                     throw new System.Exception("NO BUFF PREFAB");
                 Buff buff = createBuff();
+                //makes the buffs scale with character's inf
+                {
+                    buff.PD = PD;
+                    if (PD > 0) {
+                        buff.PD += character.INF * 0.4f * PD;
+                    }
+
+                    buff.MD = MD;
+                    if (MD > 0) {
+                        buff.MD += character.INF * 0.4f * MD;
+                    }
+
+                    buff.INF = INF;
+                    if (INF > 0) {
+                        buff.INF += character.INF * 0.4f * INF;
+                    }
+
+                    buff.HP = HP;
+                    if (HP > 0) {
+                        buff.HP += character.INF * 0.4f * HP;
+                    }
+
+                    buff.AS = AS;
+                    if (AS > 0) {
+                        buff.AS += character.INF * 0.4f * AS;
+                    }
+
+                    buff.CDR = CDR;
+                    if (CDR > 0) {
+                        buff.CDR += character.INF * 0.4f * CDR;
+                    }
+
+                    buff.MS = MS;
+                    if (MS > 0) {
+                        buff.MS += character.INF * 0.05f * MS;
+                    }
+
+                    buff.Range = Range;
+                    if (Range > 0) {
+                        buff.Range += character.INF * 0.4f * Range;
+                    }
+
+                    buff.LS = LS;
+                    if (LS > 0) {
+                        buff.LS += character.INF * 0.4f * LS;
+                    }
+
+                    buff.size = size;
+                    if (size > 0) {
+                        buff.size += character.INF * 0.4f * size;
+                    }
+
+                    buff.snare = root;
+                    buff.silence = silence;
+                    buff.blind = blind;
+
+                    //sets caster and target
+                    buff.caster = character;
+                    buff.target = character.target;
+                    //increases buff duration according to AMT
+                    buff.duration = buffDuration;
+                    buff.duration += character.INF * 0.4f / 10;
+                    buff.code = abilityName + character.name;
+                }
                 projectile.buff = buff;
             }
             
