@@ -22,22 +22,17 @@ public class AnimationManager : MonoBehaviour
             return;
         }
         Vector3 dest = agent.destination;
-        //look at unit circle to understand the math
-        float angle = Mathf.Atan2(dest.y - transform.position.y, dest.x - transform.position.x)*Mathf.Rad2Deg;
-        //cuz angle goes to negatives for some reason
-        if(angle < 0) {
-            angle += 360;
-        }
+        //0 is right 1 is left
+        float angle = (transform.position-dest).x<0 ? 0:1;
+
         animator.SetFloat("MoveAngle",angle);
     }
     private void idle() {
         Vector3 dest = agent.destination;
-        //look at unit circle to understand the math
-        float angle = Mathf.Atan2(dest.y - transform.position.y, dest.x - transform.position.x) * Mathf.Rad2Deg;
-        //cuz angle goes to negatives for some reason
-        if (angle < 0) {
-            angle += 360;
-        }
+
+
+        //0 is right 1 is left
+        float angle = (transform.position - dest).x < 0 ? 0 : 1;
         animator.SetFloat("IdleAngle", angle);
     }
     // Update is called once per frame

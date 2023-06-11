@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8922466084288714514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8922466084288714512}
+  - component: {fileID: 8922466084288714515}
+  m_Layer: 0
+  m_Name: boomBoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8922466084288714512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922466084288714514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0231647, y: -0.13104515, z: 0.0023247432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8922466084288714515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922466084288714514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1f245ba2adb554d9f7c17969e7f85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  abilityName: Boom Boom
+  description: Throws thing that stuns
+  color: {r: 0, g: 0, b: 0, a: 0}
+  CD: 3
+  rangeAbility: 0
+  available: 1
+  abilityNext: 0
+  delay: 0
+  baseAmt: 1
+  PDRatio: 0
+  MDRatio: 0.6
+  INFRatio: 0
+  HPMaxRatio: 0
+  HPRatio: 0
+  LVLRatio: 0
+  MSRatio: 0
+  ASRatio: 0
+  amt: 5
+  hasTarget: 0
+  prefabObject: {fileID: 3637706766136786258, guid: 782cff1844b6eb04da57676347888c77, type: 3}
+  Rarities: 0
+  rarity: 0
+  targetStrategy: 1
+  abilityTypeList: 0
+  abilityType: 0
+  buffPrefab: {fileID: 0}
+  PD: 0
+  MD: 0
+  INF: 0
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  root: 0
+  silence: 0
+  blind: 0
+  buffDuration: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7658055425116858095
+--- !u!1 &1918387066472111157
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7658055425116858089}
-  - component: {fileID: 4978384105271955858}
+  - component: {fileID: 1918387066472111155}
+  - component: {fileID: 3877423345037110088}
   m_Layer: 0
   m_Name: PushAway
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7658055425116858089
+--- !u!4 &1918387066472111155
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7658055425116858095}
+  m_GameObject: {fileID: 1918387066472111157}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7266783, y: -2.2739422, z: 0.45086023}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4978384105271955858
+--- !u!114 &3877423345037110088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7658055425116858095}
+  m_GameObject: {fileID: 1918387066472111157}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29068eb53f089a947a3fc57fd50db8da, type: 3}
@@ -47,7 +47,9 @@ MonoBehaviour:
   character: {fileID: 0}
   abilityName: PushAway
   description: 
-  CD: 10
+  color: {r: 0, g: 0, b: 0, a: 0}
+  CD: 12
+  rangeAbility: 4
   available: 1
   abilityNext: 0
   delay: 0
@@ -55,7 +57,7 @@ MonoBehaviour:
   PDRatio: 0
   MDRatio: 0
   INFRatio: 0
-  HPMaxRatio: 0.005
+  HPMaxRatio: 0.008
   HPRatio: 0
   LVLRatio: 0
   MSRatio: 0
@@ -63,12 +65,14 @@ MonoBehaviour:
   amt: 0
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+  Rarities: 1
   rarity: 1
   targetStrategy: 0
-  radius: 5
+  abilityTypeList: 6
+  abilityType: 6
   pushBackDistance: 6
   slowAmount: -1.5
-  slowDuration: 1.5
+  slowDuration: 3
   mask:
     serializedVersion: 2
     m_Bits: 8

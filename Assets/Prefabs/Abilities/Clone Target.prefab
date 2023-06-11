@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7658055425116858095
+--- !u!1 &8763379956986022008
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7658055425116858089}
-  - component: {fileID: 3633456787779656071}
+  - component: {fileID: 8763379956986022014}
+  - component: {fileID: 2429558703145318160}
   m_Layer: 0
   m_Name: Clone Target
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7658055425116858089
+--- !u!4 &8763379956986022014
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7658055425116858095}
+  m_GameObject: {fileID: 8763379956986022008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7266783, y: -2.2739422, z: 0.45086023}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3633456787779656071
+--- !u!114 &2429558703145318160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7658055425116858095}
+  m_GameObject: {fileID: 8763379956986022008}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8e8fe66e3fffb24999df76eb99ea9f7, type: 3}
@@ -47,21 +47,26 @@ MonoBehaviour:
   character: {fileID: 0}
   abilityName: Clone my Target
   description: 
-  CD: 20
+  color: {r: 0, g: 0, b: 0, a: 0}
+  CD: 25
+  rangeAbility: -1
   available: 1
   abilityNext: 0
   delay: 0
-  baseAmt: 30
+  baseAmt: 0.3
   PDRatio: 0
-  MDRatio: 0.4
-  INFRatio: 0.6
+  MDRatio: 0.01
+  INFRatio: 0.03
   HPMaxRatio: 0
   HPRatio: 0
   LVLRatio: 0
   MSRatio: 0
   ASRatio: 0
   amt: 0
-  hasTarget: 0
+  hasTarget: 1
   prefabObject: {fileID: 0}
+  Rarities: 3
   rarity: 3
   targetStrategy: 15
+  abilityTypeList: 7
+  abilityType: 7

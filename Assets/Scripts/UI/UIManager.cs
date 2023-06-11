@@ -310,9 +310,9 @@ public class UIManager : MonoBehaviour
         
         pausePlay(wasPause);
 
-        //resets the statPoints 
-        characterInfoScreen.statPointUI.resetChanges();
-        inventoryScreen.inventoryCharacterScreen.statPointUI.resetChanges();
+        //applies the statPoints 
+        characterInfoScreen.statPointUI.applyChanges();
+        inventoryScreen.inventoryCharacterScreen.statPointUI.applyChanges();
 
         characterInfoScreen.close();
         //characterPlacingScreen.close();

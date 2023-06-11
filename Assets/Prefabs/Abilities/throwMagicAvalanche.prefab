@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8922466084288714514
+--- !u!1 &761063588197651677
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8922466084288714512}
-  - component: {fileID: -6619047565385811784}
+  - component: {fileID: 761063588197651679}
+  - component: {fileID: 6159037126739311479}
   m_Layer: 0
   m_Name: throwMagicAvalanche
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8922466084288714512
+--- !u!4 &761063588197651679
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8922466084288714514}
+  m_GameObject: {fileID: 761063588197651677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.0231647, y: -0.13104515, z: 0.0023247432}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6619047565385811784
+--- !u!114 &6159037126739311479
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8922466084288714514}
+  m_GameObject: {fileID: 761063588197651677}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1a435ac2f1c9cd4f8ecaba1d1f91cdb, type: 3}
@@ -47,13 +47,15 @@ MonoBehaviour:
   character: {fileID: 0}
   abilityName: Throw Magic Avalanceh
   description: THrow stuffs
-  CD: 10
+  color: {r: 0, g: 0, b: 0, a: 0}
+  CD: 15
+  rangeAbility: -1
   available: 1
   abilityNext: 0
   delay: 0
   baseAmt: 3
   PDRatio: 0
-  MDRatio: 0.08
+  MDRatio: 0.09
   INFRatio: 0
   HPMaxRatio: 0
   HPRatio: 0
@@ -61,10 +63,13 @@ MonoBehaviour:
   MSRatio: 0
   ASRatio: 0
   amt: 0
-  hasTarget: 0
+  hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 21a87259fcff31f479f51b2bb00e480b, type: 3}
+  Rarities: 3
   rarity: 3
   targetStrategy: 1
+  abilityTypeList: 1
+  abilityType: 1
   channelTime: 3
   currentChannelTime: 0
   ballAmount: 0

@@ -36,12 +36,14 @@ public class CharacterFactory : MonoBehaviour
         temp.INF = data.INF;
         temp.HP = data.HP;
         temp.HPMax = data.HPMax;
+        temp.AS = data.AS;
         temp.CDR = data.CDR;
         temp.MS = data.MS;
         temp.Range = data.Range;
         temp.LS = data.LS;
         temp.alive = data.alive;
         temp.totalKills = data.totalKills;
+        temp.totalDamage = data.totalDamage;
         temp.level = data.level;
         temp.xpProgress = data.xpProgress;
         temp.xpCap = data.xpCap;

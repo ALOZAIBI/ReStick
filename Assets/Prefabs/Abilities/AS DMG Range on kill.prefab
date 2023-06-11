@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3504329789301417771
+--- !u!1 &847425543974145565
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3504329789301417765}
-  - component: {fileID: -288423412575685608}
+  - component: {fileID: 847425543974145555}
+  - component: {fileID: 4655622526788934958}
   m_Layer: 0
   m_Name: AS DMG Range on kill
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3504329789301417765
+--- !u!4 &847425543974145555
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3504329789301417771}
+  m_GameObject: {fileID: 847425543974145565}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.8396406, y: -0.5352577, z: 601.99005}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-288423412575685608
+--- !u!114 &4655622526788934958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3504329789301417771}
+  m_GameObject: {fileID: 847425543974145565}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9b40a800fe0cfd4daa0c0190c43f964, type: 3}
@@ -47,30 +47,38 @@ MonoBehaviour:
   character: {fileID: 0}
   abilityName: PD AND AS ON KILL
   description: 
+  color: {r: 0, g: 0, b: 0, a: 0}
   CD: 0
+  rangeAbility: 0
   available: 1
   abilityNext: 0
   delay: 0
   baseAmt: 0
   PDRatio: 0
   MDRatio: 0
+  INFRatio: 0.1
   HPMaxRatio: 0
   HPRatio: 0
-  LVLRatio: 0.2
+  LVLRatio: 0.1
   MSRatio: 0
   ASRatio: 0
   amt: 0
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+  Rarities: 1
+  rarity: 1
   targetStrategy: 1
-  PD: 0.5
+  abilityTypeList: 5
+  abilityType: 5
+  PD: 4
   MD: 0
+  INF: 0
   HP: 0
-  AS: 0.1
+  AS: 0.3
   CDR: 0
   MS: 0
   Range: 0
   LS: 0
   size: 0
-  buffDuration: 1.2
+  buffDuration: 5
   code: 

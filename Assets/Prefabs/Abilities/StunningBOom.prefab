@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8826088671785567926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8826088671785567924}
+  - component: {fileID: 8826088671785567927}
+  m_Layer: 0
+  m_Name: StunningBOom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8826088671785567924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8826088671785567926}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0231647, y: -0.13104515, z: 0.0023247432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8826088671785567927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8826088671785567926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1f245ba2adb554d9f7c17969e7f85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  abilityName: Stunning Boom
+  description: Throws thing that stuns
+  color: {r: 0, g: 0, b: 0, a: 0}
+  CD: 10
+  rangeAbility: 12
+  available: 1
+  abilityNext: 0
+  delay: 0
+  baseAmt: 4
+  PDRatio: 0
+  MDRatio: 0.3
+  INFRatio: 0.1
+  HPMaxRatio: 0
+  HPRatio: 0
+  LVLRatio: 0
+  MSRatio: 0
+  ASRatio: 0
+  amt: 5
+  hasTarget: 1
+  prefabObject: {fileID: 3637706766136786258, guid: 3241d0bb6b8e8a948ab20bab948d77b2, type: 3}
+  Rarities: 2
+  rarity: 2
+  targetStrategy: 1
+  abilityTypeList: 6
+  abilityType: 6
+  buffPrefab: {fileID: 4146658564243946327, guid: 293db5ee274df68409367609920f436b, type: 3}
+  PD: 0
+  MD: 0
+  INF: 0
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  root: 1
+  silence: 1
+  blind: 1
+  buffDuration: 2

@@ -94,7 +94,7 @@ public class ApplyBuff : Ability
             buff.target = character.target;
             //increases buff duration according to AMT
             buff.duration = buffDuration;
-            buff.duration += amt / 10;
+            buff.duration += amt / 6;
             buff.code = abilityName + character.name;
             //applies the buff
             buff.applyBuff();
@@ -139,7 +139,7 @@ public class ApplyBuff : Ability
             if (blind)
                 description += "Blind target";
         }
-        description += "for " + ((amt / 10) + buffDuration).ToString("F2") + " seconds";
+        description += "for " + ((amt / 6) + buffDuration).ToString("F2") + " seconds";
     }
 
     //refreshes duration of other stacks of the same buff.

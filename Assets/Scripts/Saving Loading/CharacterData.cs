@@ -16,6 +16,7 @@ public class CharacterData
     public float INF;
     public float HP;
     public float HPMax;
+    public float AS;
     public float CDR;
     public float MS;
     public float Range;
@@ -25,7 +26,7 @@ public class CharacterData
 
     //Interesting Stats
     public int totalKills;
-
+    public float totalDamage;
     //level stuff
     public int level;
     //how much xp in current level
@@ -53,15 +54,18 @@ public class CharacterData
         charName = character.name;
         PD = character.PD;
         MD = character.MD;
+
         INF = character.INF;
         HP = character.HP;
         HPMax = character.HPMax;
+        AS = character.AS;
         CDR = character.CDR;
         MS = character.MS;
         Range = character.Range;
         LS = character.LS;
         alive = character.alive;
         totalKills = character.totalKills;
+        totalDamage = character.totalDamage;
         level = character.level;
         xpProgress = character.xpProgress;
         xpCap = character.xpCap;

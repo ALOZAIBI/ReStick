@@ -12,6 +12,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public TextMeshProUGUI PD, MD, INF, AS, CDR, MS, RNG, LS,SP;
     //cool stats texts
     public TextMeshProUGUI totalKills;
+    public TextMeshProUGUI totalDamage;
     public CharacterHealthBar healthBar;
 
     public Image characterPortrait;
@@ -141,6 +142,9 @@ public class CharacterInfoScreen : MonoBehaviour
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
+        if(currChar.abilities.Count > 3) {
+            abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
+        }
     }
     //displays the stats and cool stats of the character and character screen
 
@@ -262,6 +266,7 @@ public class CharacterInfoScreen : MonoBehaviour
         statPointUI.lastUsedCharacter = currChar;
 
         totalKills.text = currChar.totalKills + "";
+        totalDamage.text = currChar.totalDamage.ToString("F0");
         //fills the HP bar correctly
         healthBar.character = currChar;
 

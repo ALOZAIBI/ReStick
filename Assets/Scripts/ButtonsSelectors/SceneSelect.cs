@@ -128,6 +128,5 @@ public class SceneSelect : MonoBehaviour
     public void DisplayName() {
         string result = sceneToLoad.Replace("Map", "").Replace("Zone", "");
         nameTxt.text = result;
-        Debug.Log(result);
     }
 }
