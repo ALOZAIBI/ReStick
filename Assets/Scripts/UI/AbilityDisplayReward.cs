@@ -22,7 +22,36 @@ public class AbilityDisplayReward : MonoBehaviour
 
     public Button self;
 
+    public Transform iconHolder;
+
+    [SerializeField] private StatIcon HP;
+    [SerializeField] private StatIcon PD;
+    [SerializeField] private StatIcon MD;
+    [SerializeField] private StatIcon INF;
+    [SerializeField] private StatIcon AS;
+    [SerializeField] private StatIcon MS;
+    [SerializeField] private StatIcon RNG;
+    [SerializeField] private StatIcon LS;
+    [SerializeField] private StatIcon CD;
+    [SerializeField] private StatIcon LVL;
     private void Start() {
+
+        HP.ratio = ability.HPMaxRatio * 1.5f;
+        PD.ratio = ability.PDRatio;
+        MD.ratio = ability.MDRatio;
+        INF.ratio = ability.INFRatio;
+        AS.ratio = ability.ASRatio;
+        MS.ratio = ability.MSRatio;
+        LVL.ratio = ability.LVLRatio;
+        
+        //delete whatever isn't applicable
+        foreach (Transform child in iconHolder) {
+            StatIcon temp = child.GetComponent<StatIcon>();
+            if (temp.ratio == 0) {
+                Destroy(temp.gameObject);
+            }
+        }
+
         self.onClick.AddListener(select);
 
 

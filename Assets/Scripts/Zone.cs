@@ -39,6 +39,9 @@ public class Zone : MonoBehaviour
     //These string names will be used to fetch abilities from ability factory
     public List<string> abilityNames = new List<string>();
 
+    //this is used to prevent a bug where the update loop goes through zone won twice which results in duplicate ability reward displays
+    private bool zoneDone;
+    private int toDebugUpdateLoop;
     //connects to UImanager
     private void Start() {
         abilityContainer = GameObject.FindGameObjectWithTag("ZoneRewards");
@@ -71,11 +74,11 @@ public class Zone : MonoBehaviour
 
     //if there are no enemies alive and there is atleast 1 playerCharacter alive show win screen
     private void zoneWon() {
-
         if (enemiesAlive == 0 && alliesAlive>0) {
             uIManager.displayGameWon(belongsToMap);
             //marks zone as completed then saves
             completed = true;
+            zoneDone = true;
             //then pauses the game
             uIManager.pausePlay(true);
         }
@@ -126,6 +129,7 @@ public class Zone : MonoBehaviour
         }
         enemiesAlive = enemiesTemp;
         alliesAlive = alliesTemp;
+        if(!zoneDone)
         zoneWon();
         zoneLost();
     }

@@ -30,7 +30,7 @@ public class AbilityDisplay : MonoBehaviour
     [SerializeField] private StatIcon CD;
     [SerializeField] private StatIcon LVL;
 
-    private void Start() {
+    public void Start() {
         HP.ratio = ability.HPMaxRatio*1.5f;
         PD.ratio = ability.PDRatio;
         MD.ratio = ability.MDRatio;

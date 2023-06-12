@@ -3254,7 +3254,7 @@ MonoBehaviour:
   goToNextZoneBtn: {fileID: 1113625909}
   goBackToMapBtn: {fileID: 1205328836}
   contents: {fileID: 1323135915}
-  chanceToGetRewardPercent: 67
+  chanceToGetRewardPercent: 100
 --- !u!1 &215885583
 GameObject:
   m_ObjectHideFlags: 0
@@ -27566,6 +27566,10 @@ PrefabInstance:
     - target: {fileID: 6587147419296334742, guid: b86af470e35c3384ebe29e57b91b6595, type: 3}
       propertyPath: m_Name
       value: 'SlowingMagicHit '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587147419296334743, guid: b86af470e35c3384ebe29e57b91b6595, type: 3}
+      propertyPath: abilityName
+      value: FrostHit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b86af470e35c3384ebe29e57b91b6595, type: 3}

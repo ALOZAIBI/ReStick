@@ -145,6 +145,8 @@ public class CharacterInfoScreen : MonoBehaviour
         if(currChar.abilities.Count > 3) {
             abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
         }
+        else
+            abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = false;
     }
     //displays the stats and cool stats of the character and character screen
 

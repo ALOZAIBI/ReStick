@@ -24,7 +24,7 @@ public class GameWonScreen : MonoBehaviour
     public void zoneWon() {
     //60% chance for a reward to happen AND IF ZONE WASN'T COMPLETED BEFORE
         int giveReward = UnityEngine.Random.Range(0, 100);
-        if (giveReward <= chanceToGetRewardPercent&& !UIManager.singleton.zone.completed) {
+        if (giveReward <= chanceToGetRewardPercent/*&& !UIManager.singleton.zone.completed*/) {
             displayRewards();
         }
         else

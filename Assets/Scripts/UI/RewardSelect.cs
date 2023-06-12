@@ -72,6 +72,7 @@ public class RewardSelect : MonoBehaviour
             //sets the scale for some reason if I dont do this the scale is set to 167
             rewardDisplay.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
+        Debug.Log("Debug poolCount"+uiManager.zone.abilityRewardPool.Count);
         //greys out the button;
         greyOutBtn();
         //the button will be ungreyed out in AbilityRewardDisplayScript

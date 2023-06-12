@@ -12,6 +12,7 @@ public class InventoryAbilityDisplay : AbilityDisplay
     public bool glow;
     public ColorBlock defaultColor;
     private void Start() {
+        base.Start();
         inventoryScreen = GameObject.FindGameObjectWithTag("InventoryScreen").GetComponent<InventoryScreen>();
         button.onClick.AddListener(selectAbility);
         defaultColor = button.colors;
@@ -38,6 +39,23 @@ public class InventoryAbilityDisplay : AbilityDisplay
             inventoryScreen.openAbilityPickedPage();
         }
             
+    }
+    private void showScaling() {
+        //sorts them in descending order
+        for (int i = 0; i < iconHolder.childCount - 1; i++) {
+            //assume first is max
+            Debug.Log(i);
+            //StatIcon max = transform.GetChild(i).GetComponent<StatIcon>();
+            for (int j = i + 1; j < iconHolder.childCount; j++) {
+                //StatIcon curr = transform.GetChild(j).GetComponent<StatIcon>();
+                ////if (curr.ratio > max.ratio) {
+                ////    max = curr;
+                ////}
+            }
+            //Debug.Log(max);
+            //max.transform.SetSiblingIndex(i);
+        }
+
     }
     private void Update() {
         if (glow) {
