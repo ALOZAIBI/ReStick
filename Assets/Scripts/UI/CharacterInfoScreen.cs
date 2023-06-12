@@ -251,16 +251,13 @@ public class CharacterInfoScreen : MonoBehaviour
 
         
         //displays statPoints if zone hasn't started and if the character has statpoints available
-        if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
+        if ((currChar.statPoints + statPointUI.SPUsedBuffer)>0 && !uiManager.zoneStarted()) {
             //Debug.Log("showing");
             statPointUI.applied = false;
             statPointUI.show();
         }
-        else { //hides if stats were applied and at 0 or if we're editing a new character and at 0
-            if (currChar.statPoints <= 0 && (statPointUI.applied||statPointUI.lastUsedCharacter != currChar)) {
+        else {
                 statPointUI.hide();
-                //Debug.Log("Notr showing");
-            }
         }
 
         statPointUI.lastUsedCharacter = currChar;

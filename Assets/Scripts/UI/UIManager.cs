@@ -131,7 +131,7 @@ public class UIManager : MonoBehaviour
         retryBtn.onClick.AddListener(restartZone);
 
         pausePlayBtn.onClick.AddListener(pausePlay);
-        closeUIBtn.onClick.AddListener(closeUI);
+        closeUIBtn.onClick.AddListener(closeUIButton);
         openInventoryBtn.onClick.AddListener(openInventory);
     }
     //on first time clicking character Display its info in the topstatDisplay
@@ -309,13 +309,17 @@ public class UIManager : MonoBehaviour
         
         
         pausePlay(wasPause);
-
-        //applies the statPoints 
-        characterInfoScreen.statPointUI.applyChanges();
-        inventoryScreen.inventoryCharacterScreen.statPointUI.applyChanges();
-
         characterInfoScreen.close();
         //characterPlacingScreen.close();
+    }
+    //we made this a seperate function so that it can also applyChanges without messing up the loadscene function. If the applyChanges was in the regular closeUI it would've made loadScene function also save which causes a duplicate character bug
+    public void closeUIButton() {
+        closeUI();
+        //applies the statPoints 
+        if (!zoneStarted()) {
+            characterInfoScreen.statPointUI.applyChanges();
+            inventoryScreen.inventoryCharacterScreen.statPointUI.applyChanges();
+        }
     }
     //i should improve the pausePlay function to take a bool pausePlay(true) makes the game paused pausePlay(false) makes the game continue 
     //if no parameter is given just flip the switch so pausePlay() would go from paused to unpaused and vice versa

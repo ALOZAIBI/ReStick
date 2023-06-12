@@ -78,7 +78,7 @@ public class StatPointUI : MonoBehaviour {
     public bool applied;
 
     //How much SP used
-    [SerializeField] private int SPUsedBuffer;
+    [SerializeField] public int SPUsedBuffer;
 
     //thanks chatGPT
     public void hide() {
