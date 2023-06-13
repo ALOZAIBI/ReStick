@@ -88,6 +88,7 @@ public class SceneSelect : MonoBehaviour
 
     //jumps to scene and sets all characters to inactive
     private void goTo() {
+        Camera.main.transform.position = new Vector3(0, 0, -10);
         if (map) {
             //Save GamestateData to be in this map
             SaveSystem.saveGameState(sceneToLoad, true);
@@ -108,7 +109,6 @@ public class SceneSelect : MonoBehaviour
 
         foreach (Transform child in uiManager.playerParty.transform) {
             if (child.tag == "Character") {
-                //Debug.Log(child.name + "Disabled fuckl");
                 child.gameObject.SetActive(false);
             }
         }

@@ -1405,7 +1405,7 @@ public class Character : MonoBehaviour {
     private void customMouseDown() {
         int layerMask = LayerMask.GetMask("Characters");
         if (Input.GetMouseButtonDown(0)) {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,LayerMask.GetMask("Characters"));
             if(hit.collider != null && hit.collider.tag == "Character") {
                 //Debug.Log("Character" + hit.collider.name);
                 hit.collider.GetComponent<Character>().click = true;

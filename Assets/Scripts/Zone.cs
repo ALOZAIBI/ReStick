@@ -74,6 +74,10 @@ public class Zone : MonoBehaviour
     private void drawPlaceableOverlay() {
         //fetch Tilemap with tag PlaceableArea
         Tilemap placeable = GameObject.FindGameObjectWithTag("PlaceableArea").GetComponent<Tilemap>();
+
+        Color color = placeable.color;
+        color.a = 0;
+        placeable.color = color;
         //hides the placeable tilemap by making it's order in layer -10
         placeable.GetComponent<Renderer>().sortingOrder = -10;
         //duplicates it and places it as a child of the grid which is the parent of the placeable tilemap
@@ -84,6 +88,7 @@ public class Zone : MonoBehaviour
         placeableOverlay.ClearAllTiles();
         //get bounds of placeable
         BoundsInt bounds = placeable.cellBounds;
+
         //loop through all the tiles in the placeableOverlay and set them to overlayTile
         foreach (Vector3Int pos in bounds.allPositionsWithin) {
             //checks if tile is not null in placeable
@@ -91,6 +96,8 @@ public class Zone : MonoBehaviour
                 placeableOverlay.SetTile(pos, overlayTile);
             }
         }
+        color.a = 1;
+        placeableOverlay.color = color;
     }
     ////to detect which players in the zone
     //private void OnTriggerEnter2D(Collider2D collision) {
