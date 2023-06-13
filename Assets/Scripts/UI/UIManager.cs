@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
     //Btn used to close all UI
     public Button closeUIBtn;
 
+    public Tooltip tooltip;
+
     public Button openInventoryBtn;
     //notifies if there are abilities in inventory
     public Image openInventoryNotification;
@@ -43,7 +45,7 @@ public class UIManager : MonoBehaviour
     //screen that pops up oin lelve start
     public CharacterPlacingScreen characterPlacingScreen;
 
-
+    
     //Zone Won Screen Stuff
     public GameWonScreen gameWonScreen;
     public RewardSelect rewardSelectScreen;

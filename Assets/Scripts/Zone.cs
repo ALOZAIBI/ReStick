@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Zone : MonoBehaviour
 {
@@ -41,7 +42,9 @@ public class Zone : MonoBehaviour
 
     //this is used to prevent a bug where the update loop goes through zone won twice which results in duplicate ability reward displays
     private bool zoneDone;
-    private int toDebugUpdateLoop;
+
+    [SerializeField] public Tilemap placeableOverlay;
+    [SerializeField] private TileBase overlayTile;
     //connects to UImanager
     private void Start() {
         abilityContainer = GameObject.FindGameObjectWithTag("ZoneRewards");
@@ -63,7 +66,31 @@ public class Zone : MonoBehaviour
             //adds 3 random abilities to the zone
             uIManager.abilityFactory.addRandomAbilityToZone(this, 3);
         }
+
+        drawPlaceableOverlay();
         
+    }
+    //draws an overlay using placeable Tile over the placeable tilemap
+    private void drawPlaceableOverlay() {
+        //fetch Tilemap with tag PlaceableArea
+        Tilemap placeable = GameObject.FindGameObjectWithTag("PlaceableArea").GetComponent<Tilemap>();
+        //hides the placeable tilemap by making it's order in layer -10
+        placeable.GetComponent<Renderer>().sortingOrder = -10;
+        //duplicates it and places it as a child of the grid which is the parent of the placeable tilemap
+        placeableOverlay = Instantiate(placeable,transform.parent);
+        //shows the overlay by making it's order in layer 1
+        placeableOverlay.GetComponent<Renderer>().sortingOrder = 1;
+        //clears the overlay
+        placeableOverlay.ClearAllTiles();
+        //get bounds of placeable
+        BoundsInt bounds = placeable.cellBounds;
+        //loop through all the tiles in the placeableOverlay and set them to overlayTile
+        foreach (Vector3Int pos in bounds.allPositionsWithin) {
+            //checks if tile is not null in placeable
+            if (placeable.HasTile(pos)) {
+                placeableOverlay.SetTile(pos, overlayTile);
+            }
+        }
     }
     ////to detect which players in the zone
     //private void OnTriggerEnter2D(Collider2D collision) {
@@ -113,6 +140,8 @@ public class Zone : MonoBehaviour
             }
         }
     }
+
+
     void FixedUpdate()
     {
         //counts characters alive

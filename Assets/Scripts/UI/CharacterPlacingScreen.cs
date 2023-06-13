@@ -84,6 +84,8 @@ public class CharacterPlacingScreen : MonoBehaviour
                 }
             }
         }
+        //hides the placeable overlay in zone
+        uiManager.zone.placeableOverlay.gameObject.SetActive(false);
     }
 
     //checks if zone is startable(if atleast 1 playerCharacter)
@@ -98,6 +100,8 @@ public class CharacterPlacingScreen : MonoBehaviour
                 }
             }
         }
+        //otherwise hide startbtn
+        startBtn.gameObject.SetActive(false);
     }
 
 

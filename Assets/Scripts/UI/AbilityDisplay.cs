@@ -57,7 +57,7 @@ public class AbilityDisplay : MonoBehaviour
         //sorts them in descending order
         for (int i = 0; i < iconHolder.childCount-1; i++) {
             //assume first is max
-            Debug.Log(i);
+            //Debug.Log(i);
             //StatIcon max = transform.GetChild(i).GetComponent<StatIcon>();
             for (int j = i+1; j < iconHolder.childCount; j++) {
                 //StatIcon curr = transform.GetChild(j).GetComponent<StatIcon>();

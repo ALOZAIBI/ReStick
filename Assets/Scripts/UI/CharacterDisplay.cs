@@ -39,7 +39,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
 
     //when the characterDisplay is clicked
     //drag
-    private void mouseClickedNotHeld() {
+    private void dragToZone() {
         if (click) {
             camMov.pannable = false;
             //Debug.Log("Mouse clicking?" + Input.GetMouseButton(0));
@@ -53,7 +53,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     uiManager.viewTopstatDisplay(character);
                     //We are disabling the agent here since if it enabled and while im dragging a chracter into the scene if it bumps an obstacle the agent will be stopped by the obstacle the but visually it will look fine until I start the game wher what happens is the character teleports to where the agent is
                     character.agent.enabled = false;
-                    Image image = this.gameObject.GetComponent<Image>();
+                    Image image = gameObject.GetComponent<Image>();
                     Color temp = image.color;
                     temp.a = 0.1f;
                     image.color = temp;
@@ -67,6 +67,24 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                 if(mouseHoldDuration > 0.2f) {
                     //re-enabling it
                     character.agent.enabled = true;
+
+                    //Do a raycast to see if this hit's a layer called placeable
+                    RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,LayerMask.GetMask("Placeable"));
+                    //if it doesn't hit a placeable layer remove the character
+                    if(hit.collider == null) {
+                        //reset the characterDisplay color
+                        Image image = gameObject.GetComponent<Image>();
+                        Color temp = image.color;
+                        temp.a = 1f;
+                        image.color = temp;
+                        //removes character
+                        character.gameObject.SetActive(false);
+                        character.zone = null;
+                        uiManager.zone.charactersInside.Remove(character);
+                        //tooltip can't place character here
+                        uiManager.tooltip.showMessage("Can't place character here");
+                    }
+                        
                 }
                 //if just a click display characterInfoScreen
                 if (mouseHoldDuration < 0.2f) {
@@ -87,7 +105,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
         //this is important since pannable will be changed in Character script
         //without this conditional pannable will always be set by this function
         if (!uiManager.placingScreenHidden.hidden) {
-            mouseClickedNotHeld();
+            dragToZone();
         }
         if (character.statPoints > 0) {
             notification.SetActive(true);
