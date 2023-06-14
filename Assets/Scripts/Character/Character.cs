@@ -1475,18 +1475,37 @@ public class Character : MonoBehaviour {
     }
     //increase killer's kill stats and xp
     public void kill(Character victim) {
-        if (summoned) {
-            summoner.totalKills++;
-            summoner.killsLastFrame++;
+        //if victim is summoned don't increase XP and gold (to prevent exploits)
+        if (victim.summoned) {
+            if (summoned) {
+                summoner.totalKills++;
+                summoner.killsLastFrame++;
+            }
+            else {
+                totalKills++;
+                killsLastFrame++;
+            }
         }
         else {
-            totalKills++;
-            killsLastFrame++;
-            //level progress will depend on victim's level the equation is open to changing
-            increasePartyXP(victim.level);
-            //add gold
-            if (this.team == (int)teamList.Player) {
-                uiManager.playerParty.gold += 15 + victim.level * 3;
+            if (summoned) {
+                summoner.totalKills++;
+                summoner.killsLastFrame++;
+                // level progress will depend on victim's level the equation is open to changing
+                increasePartyXP(victim.level);
+                //add gold
+                if (this.team == (int)teamList.Player) {
+                    uiManager.playerParty.gold += 15 + victim.level * 3;
+                }
+            }
+            else {
+                totalKills++;
+                killsLastFrame++;
+                //level progress will depend on victim's level the equation is open to changing
+                increasePartyXP(victim.level);
+                //add gold
+                if (this.team == (int)teamList.Player) {
+                    uiManager.playerParty.gold += 15 + victim.level * 3;
+                }
             }
         }
 

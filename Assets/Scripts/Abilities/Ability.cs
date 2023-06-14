@@ -13,6 +13,8 @@ public abstract class Ability : MonoBehaviour
     //used for indicators and for ability color.
     public Color color;
 
+    public Color buffFXColor;
+
     //abilities cd
     public float CD;
     //the range of said ability
@@ -116,8 +118,16 @@ public abstract class Ability : MonoBehaviour
 
     //if an ability has a cooldown call this inside doAbility()
     public void startCooldown() {
+        //starts the CD
         abilityNext = CD - CD*character.CDR;
         available = false;
+        //increase CD of all other abilities that are ready so that not all abilities are thrown at the same time
+        foreach(Ability ability in character.abilities) {
+            if(ability.available||ability.abilityNext <=0) {
+                ability.available = false;
+                ability.abilityNext = 0.8f- character.CDR;
+            }
+        }
     }
     //and put this in the fixedupdate function
     public void cooldown() {

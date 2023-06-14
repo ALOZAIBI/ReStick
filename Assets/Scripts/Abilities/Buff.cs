@@ -40,7 +40,6 @@ public class Buff : MonoBehaviour
 
     private void Start() {
         initRanged = target.usesProjectile;
-        Debug.Log(code + initRanged);
     }
     //stars duration timer
     public void startDuration() {
@@ -76,7 +75,6 @@ public class Buff : MonoBehaviour
             target.Range += Range;
             //make ranged if this gives range.
             target.usesProjectile = Range > 0 ? true : initRanged;
-            Debug.Log(target.usesProjectile+code+initRanged);
             target.LS += LS;
 
             target.snare = snare;

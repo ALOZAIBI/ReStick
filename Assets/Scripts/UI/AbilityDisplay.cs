@@ -57,7 +57,7 @@ public class AbilityDisplay : MonoBehaviour
         self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
 
         //if inventory Screen display the remove button
-        if (uiManager.inventoryScreen.inventoryCharacterScreen.isActiveAndEnabled) {
+        if (uiManager.inventoryScreenHidden.hidden == false && uiManager.inventoryScreen.inventoryCharacterScreen.isActiveAndEnabled) {
             removeButtonHolder.SetActive(true);
             removeButton.onClick.AddListener(removeAbility);
         }
