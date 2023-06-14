@@ -45,12 +45,12 @@ public class GameWonScreen : MonoBehaviour
     public void goToMap() {
         //saves the zone
         SaveSystem.saveZone(UIManager.singleton.zone);
-        //saves map
-        UIManager.singleton.saveMapSave();
         //once leaves zone mark it as outside zone
         UIManager.singleton.inZone = false;
-        //loads map
+        //loads map and clears buffs then 
         UIManager.singleton.loadScene();
+        //saves characters in map
+        UIManager.singleton.saveMapSave();
 
         //resets UI
         UIManager.singleton.pausePlayBtn.gameObject.SetActive(false);
@@ -60,8 +60,6 @@ public class GameWonScreen : MonoBehaviour
     public void goToNextLevelIfPossible() {
         //saves the zone
         SaveSystem.saveZone(UIManager.singleton.zone);
-        //saves map
-        UIManager.singleton.saveMapSave();
         UIManager.singleton.sceneToLoad = GetNextScene(SceneManager.GetActiveScene().name);
         //removes characters from zone
         foreach (Transform child in UIManager.singleton.playerParty.transform) {
@@ -71,6 +69,8 @@ public class GameWonScreen : MonoBehaviour
         }
         //loads nextZone
         UIManager.singleton.loadScene();
+        //saves characters
+        UIManager.singleton.saveMapSave();
     }
     //thanks chat gpt
     public  string GetNextScene(string initZoneName) {

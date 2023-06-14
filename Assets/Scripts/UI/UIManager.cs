@@ -125,8 +125,8 @@ public class UIManager : MonoBehaviour
         shopScreenHidden = shopScreen.GetComponent<HideUI>();
 
         //
-        lostToMapBtn.onClick.AddListener(lostToMap);
-        exitBtn.onClick.AddListener(lostToMap);
+        lostToMapBtn.onClick.AddListener(backToMap);
+        exitBtn.onClick.AddListener(backToMap);
         wonToWorldBtn.onClick.AddListener(wonToWorld);
 
         lostToRestartBtn.onClick.AddListener(restartZone);
@@ -208,12 +208,12 @@ public class UIManager : MonoBehaviour
         characterPlacingScreen.displayCharacters();
     }
     //this is triggered by a button
-    //loads map and reset cam position
+    //loads map and removes buffs
     public void loadScene() {
 
         clearBuffs();
         //resets position of camera
-        cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
+        Camera.main.transform.position = new Vector3(0, 0, -10);
         gameWonScreenHidden.hidden = true;
         gameLostScreenHidden.hidden = true;
         hideCharacter();
@@ -229,9 +229,10 @@ public class UIManager : MonoBehaviour
         
     }
     //Once player loses a zone and chooses not to restart
-    public void lostToMap() {
+    public void backToMap() {
         //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
         //so A way to optimize is to load only if it this function is called from zone lost to map
+        Camera.main.transform.position = new Vector3(0, 0, -10);
         loadMapSave();
         sceneToLoad = zone.belongsToMap;
         inZone = false;
