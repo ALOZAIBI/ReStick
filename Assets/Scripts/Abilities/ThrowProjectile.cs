@@ -143,7 +143,7 @@ public class ThrowProjectile : Ability
     }
     private Buff createBuff() {
         Buff buff = Instantiate(buffPrefab).GetComponent<Buff>();
-
+        buff.gameObject.SetActive(false);
         return buff;
     }
     private void FixedUpdate() {
