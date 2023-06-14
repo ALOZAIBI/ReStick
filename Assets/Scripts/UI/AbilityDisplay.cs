@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AbilityDisplay : MonoBehaviour
 {
@@ -19,16 +20,19 @@ public class AbilityDisplay : MonoBehaviour
     public TextMeshProUGUI targettingStrategyText;
     public Transform iconHolder;
 
-    [SerializeField] private StatIcon HP;
-    [SerializeField] private StatIcon PD;
-    [SerializeField] private StatIcon MD;
-    [SerializeField] private StatIcon INF;
-    [SerializeField] private StatIcon AS;
-    [SerializeField] private StatIcon MS;
-    [SerializeField] private StatIcon RNG;
-    [SerializeField] private StatIcon LS;
-    [SerializeField] private StatIcon CD;
-    [SerializeField] private StatIcon LVL;
+    //we just have the holder so we can better place it visually some horizontal layout group gimic stuff
+    public GameObject removeButtonHolder;
+    public Button removeButton;
+    [SerializeField] public StatIcon HP;
+    [SerializeField] public StatIcon PD;
+    [SerializeField] public StatIcon MD;
+    [SerializeField] public StatIcon INF;
+    [SerializeField] public StatIcon AS;
+    [SerializeField] public StatIcon MS;
+    [SerializeField] public StatIcon RNG;
+    [SerializeField] public StatIcon LS;
+    [SerializeField] public StatIcon CD;
+    [SerializeField] public StatIcon LVL;
 
     public void Start() {
         HP.ratio = ability.HPMaxRatio*1.5f;
@@ -51,8 +55,31 @@ public class AbilityDisplay : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         btn.onClick.AddListener(openTargetSelectorAbility);
         self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
-    }
 
+        //if inventory Screen display the remove button
+        if (uiManager.inventoryScreen.inventoryCharacterScreen.isActiveAndEnabled) {
+            removeButtonHolder.SetActive(true);
+            removeButton.onClick.AddListener(removeAbility);
+        }
+        else {
+            removeButtonHolder.SetActive(false);
+        }
+    }
+    //this function only happens in inventory screen since the remove button is only visible in the inventorry screen
+    private void removeAbility() {
+        //sets the parent to be ability inventory
+        ability.transform.parent = uiManager.playerParty.abilityInventory.transform;
+        //removes ability from character
+        ability.character.abilities.Remove(ability);
+        //updates the character info screen view
+        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(ability.character);
+        //saves removing the ability
+        if (SceneManager.GetActiveScene().name == "World") {
+            uiManager.saveWorldSave();
+        }
+        else
+            uiManager.saveMapSave();
+    }
     private void showScaling() {
         //sorts them in descending order
         for (int i = 0; i < iconHolder.childCount-1; i++) {

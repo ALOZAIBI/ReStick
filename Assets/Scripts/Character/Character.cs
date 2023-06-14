@@ -1294,7 +1294,8 @@ public class Character : MonoBehaviour {
         //deal Damage when target is within range and Attack is available and player can Attack and the target is alive
         if (AtkAvailable && canAttack && Vector2.Distance(target.transform.position, transform.position) <= Range && target.alive) {
             //we can't rely on range as a conditional since range does increase when character size is buffed but that doesn't mean that they become ranged
-            if (usesProjectile) {
+            //nvm for now we rely on range
+            if (Range > 2.1f) {
                 GameObject temp = Instantiate(projectile,transform.position,transform.rotation);
                 Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
                 instantiatedProjectile.shooter = this;

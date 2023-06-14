@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,28 @@ public class InventoryAbilityDisplay : AbilityDisplay
     public bool glow;
     public ColorBlock defaultColor;
     private void Start() {
-        base.Start();
+
+        HP.ratio = ability.HPMaxRatio * 1.5f;
+        PD.ratio = ability.PDRatio;
+        MD.ratio = ability.MDRatio;
+        INF.ratio = ability.INFRatio;
+        AS.ratio = ability.ASRatio;
+        MS.ratio = ability.MSRatio;
+        LVL.ratio = ability.LVLRatio;
+
+
+        //delete whatever isn't applicable
+        foreach (Transform child in iconHolder) {
+            StatIcon temp = child.GetComponent<StatIcon>();
+            if (temp.ratio == 0) {
+                Destroy(temp.gameObject);
+            }
+        }
+        showScaling();
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        btn.onClick.AddListener(openTargetSelectorAbility);
+        self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+
         inventoryScreen = GameObject.FindGameObjectWithTag("InventoryScreen").GetComponent<InventoryScreen>();
         button.onClick.AddListener(selectAbility);
         defaultColor = button.colors;
