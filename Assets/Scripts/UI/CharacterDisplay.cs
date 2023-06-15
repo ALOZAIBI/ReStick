@@ -64,7 +64,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
             }
            
             else{//on release (when cahracter is dropped)
-                if(mouseHoldDuration > 0.2f) {
+                if(mouseHoldDuration >= 0.2f) {
                     //re-enabling it
                     character.agent.enabled = true;
 

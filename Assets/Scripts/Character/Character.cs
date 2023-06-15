@@ -1556,7 +1556,7 @@ public class Character : MonoBehaviour {
 
     //returns wether the character is selected ornot
     public bool getSelected() {
-        return uiManager.topStatDisplay.character == this;
+        return UIManager.singleton.topStatDisplay.character == this;
     }
     //displays range and arrow to target
     private void drawTargetIndicator() {
