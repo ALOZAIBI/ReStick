@@ -35,7 +35,6 @@ public class PushAway : Ability {
                     // Calculate pushback vector from character to the edge of the circle
                     Vector2 pushbackVector = colliders[i].transform.position - character.transform.position;
                     pushbackVector = pushbackVector.normalized * (pushBackDistance+amt*2);
-
                     character.damage(temp, amt*10, false);
                     // Apply pushback vector to the character transform
                     colliders[i].transform.position = (Vector2)character.transform.position + pushbackVector;
@@ -62,5 +61,8 @@ public class PushAway : Ability {
 
     private void FixedUpdate() {
         cooldown();
+        if (amt == 0) {
+            calculateAmt();
+        }
     }
 }

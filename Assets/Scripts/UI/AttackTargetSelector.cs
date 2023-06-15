@@ -271,91 +271,91 @@ public class AttackTargetSelector : MonoBehaviour {
                 phrase.text += " closest enemy";
                 break;
             case (int)Character.TargetList.HighestPDEnemy:
-                phrase.text += " highest PD enemy";
+                phrase.text += " highest Power enemy";
                 break;
             case (int)Character.TargetList.LowestPDEnemy:
-                phrase.text += " lowest PD enemy";
+                phrase.text += " lowest Power enemy";
                 break;
             case (int)Character.TargetList.HighestMDEnemy:
-                phrase.text += " highest MD enemy";
+                phrase.text += " highest Magic enemy";
                 break;
             case (int)Character.TargetList.LowestMDEnemy:
-                phrase.text += " lowest MD enemy";
+                phrase.text += " lowest Magic enemy";
                 break;
             case (int)Character.TargetList.HighestINFEnemy:
-                phrase.text += " highest INF enemy";
+                phrase.text += " highest Influence enemy";
                 break;
             case (int)Character.TargetList.LowestINFEnemy:
-                phrase.text += " lowest INF enemy";
+                phrase.text += " lowest Influence enemy";
                 break;
             case (int)Character.TargetList.HighestASEnemy:
-                phrase.text += " highest AS enemy";
+                phrase.text += " highest Atk Speed enemy";
                 break;
             case (int)Character.TargetList.LowestASEnemy:
-                phrase.text += " lowest AS enemy";
+                phrase.text += " lowest Atk Speed enemy";
                 break;
             case (int)Character.TargetList.HighestMSEnemy:
-                phrase.text += " highest MS enemy";
+                phrase.text += " highest Speed enemy";
                 break;
             case (int)Character.TargetList.LowestMSEnemy:
-                phrase.text += " lowest MS enemy";
+                phrase.text += " lowest Speed enemy";
                 break;
             case (int)Character.TargetList.HighestRangeEnemy:
-                phrase.text += " highest range enemy";
+                phrase.text += " highest Range enemy";
                 break;
             case (int)Character.TargetList.LowestRangeEnemy:
-                phrase.text += " lowest range enemy";
+                phrase.text += " lowest Range enemy";
                 break;
             case (int)Character.TargetList.HighestHPEnemy:
-                phrase.text += " highest HP enemy";
+                phrase.text += " highest Health enemy";
                 break;
             case (int)Character.TargetList.LowestHPEnemy:
-                phrase.text += " lowest HP enemy";
+                phrase.text += " lowest Health enemy";
                 break;
             case (int)Character.TargetList.ClosestAlly:
                 phrase.text += " closest ally";
                 break;
             case (int)Character.TargetList.LowestPDAlly:
-                phrase.text += " lowest PD ally";
+                phrase.text += " lowest Power ally";
                 break;
             case (int)Character.TargetList.HighestPDAlly:
-                phrase.text += " highest PD ally";
+                phrase.text += " highest Power ally";
                 break;
             case (int)Character.TargetList.HighestMDAlly:
-                phrase.text += " highest MD ally";
+                phrase.text += " highest Magic ally";
                 break;
             case (int)Character.TargetList.LowestMDAlly:
-                phrase.text += " lowest MD ally";
+                phrase.text += " lowest Magic ally";
                 break;
             case (int)Character.TargetList.HighestINFAlly:
-                phrase.text += " highest INF ally";
+                phrase.text += " highest Influence ally";
                 break;
             case (int)Character.TargetList.LowestINFAlly:
-                phrase.text += " lowest INF ally";
+                phrase.text += " lowest Influence ally";
                 break;
             case (int)Character.TargetList.HighestASAlly:
-                phrase.text += " highest AS ally";
+                phrase.text += " highest Atk Speed ally";
                 break;
             case (int)Character.TargetList.LowestASAlly:
-                phrase.text += " lowest AS ally";
+                phrase.text += " lowest Atk Speed ally";
                 break;
             case (int)Character.TargetList.HighestMSAlly:
-                phrase.text += " highest MS ally";
+                phrase.text += " highest Speed ally";
                 break;
             case (int)Character.TargetList.LowestMSAlly:
-                phrase.text += " lowest MS ally";
+                phrase.text += " lowest Speed ally";
                 break;
             case (int)Character.TargetList.HighestRangeAlly:
-                phrase.text += " highest range ally";
+                phrase.text += " highest Range ally";
                 break;
             case (int)Character.TargetList.LowestRangeAlly:
-                phrase.text += " lowest range ally";
+                phrase.text += " lowest Range ally";
                 break;
             case (int)Character.TargetList.HighestHPAlly:
-                phrase.text += " highest HP ally";
+                phrase.text += " highest Health ally";
                 break;
             case (int)Character.TargetList.LowestHPAlly:
-                phrase.text += " lowest HP ally";
+                phrase.text += " lowest Health ally";
                 break;
         }
 

@@ -74,7 +74,7 @@ public class Buff : MonoBehaviour
             target.MS += MS;
             target.Range += Range;
             //make ranged if this gives range.
-            target.usesProjectile = Range > 0 ? true : initRanged;
+            //target.usesProjectile = Range > 0 ? true : initRanged;
             target.LS += LS;
 
             target.snare = snare;
@@ -103,7 +103,7 @@ public class Buff : MonoBehaviour
         target.CDR -= CDR;
         target.MS -= MS;
         target.Range -= Range;
-        target.usesProjectile = initRanged;
+        //target.usesProjectile = initRanged;
         target.LS -= LS;
 
         target.snare = false;

@@ -1295,7 +1295,7 @@ public class Character : MonoBehaviour {
         if (AtkAvailable && canAttack && Vector2.Distance(target.transform.position, transform.position) <= Range && target.alive) {
             //we can't rely on range as a conditional since range does increase when character size is buffed but that doesn't mean that they become ranged
             //nvm for now we rely on range
-            if (Range > 2.1f) {
+            if (Range > 2.1f||usesProjectile) {
                 GameObject temp = Instantiate(projectile,transform.position,transform.rotation);
                 Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
                 instantiatedProjectile.shooter = this;
@@ -1545,11 +1545,11 @@ public class Character : MonoBehaviour {
         //(this only applies to player characters that are not summoned)
         if(!summoned && team == (int)teamList.Player) {
             //increase stats a bit
-            HPMax += 10;
+            HPMax += 12;
             PD += 0.5f;
             AS += 0.02f;
             //heal character by 20% of max HP on level up 
-            HP += 0.2f * HPMax;
+            HP += 0.25f * HPMax;
 
         }
     }
