@@ -62,7 +62,7 @@ public class PushAway : Ability {
     private void FixedUpdate() {
         cooldown();
         if (amt == 0) {
-            calculateAmt();
+            //calculateAmt();
         }
     }
 }

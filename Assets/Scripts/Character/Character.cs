@@ -250,6 +250,7 @@ public class Character : MonoBehaviour {
             temp.character = this;
             temp.available = true;
             temp.abilityNext = 0;
+            temp.calculateAmt();
         }
         //applies the stats
         foreach(BonusStats temp in bonusStats) {
