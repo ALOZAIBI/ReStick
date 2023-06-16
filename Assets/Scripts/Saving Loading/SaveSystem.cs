@@ -255,7 +255,6 @@ static class SaveSystem
         //Debug.Log("Loading char in map");
         string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/";
         string[] files = Directory.GetFiles(path);
-        //Debug.Log("The files are" + files[0]);
 
         foreach (string charSave in files) {
             if (File.Exists(charSave)) {
@@ -269,6 +268,8 @@ static class SaveSystem
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
 
                     UIManager.singleton.characterFactory.addCharacterAsChild(data,UIManager.singleton.playerParty.transform);
+                    
+                    Debug.Log("Character loaded" + data.charName + data.HP);
                 }
             }
             else

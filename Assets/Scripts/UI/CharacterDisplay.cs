@@ -51,8 +51,12 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     character.gameObject.SetActive(true);
                     character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
                     uiManager.viewTopstatDisplay(character);
-                    //We are disabling the agent here since if it enabled and while im dragging a chracter into the scene if it bumps an obstacle the agent will be stopped by the obstacle the but visually it will look fine until I start the game wher what happens is the character teleports to where the agent is
-                    character.agent.enabled = false;
+                    try {
+                        //We are disabling the agent here since if it enabled and while im dragging a chracter into the scene if it bumps an obstacle the agent will be stopped by the obstacle the but visually it will look fine until I start the game wher what happens is the character teleports to where the agent is
+                        character.agent.enabled = false;
+                    }
+                    catch { /*Maybe fixes stuff?*/}
+
                     Image image = gameObject.GetComponent<Image>();
                     Color temp = image.color;
                     temp.a = 0.1f;

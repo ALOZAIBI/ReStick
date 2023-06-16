@@ -23,13 +23,15 @@ public class CharacterPlacingScreen : MonoBehaviour
         //deletes all created instances before recreating to account for dead characters etc..
         close();
         //loops through children of playerParty
+        int count = 0;
         foreach (Transform child in uiManager.playerParty.transform) {
-            //Debug.Log(child.name);
+            //Debug.Log("Child" + child.name+child.tag);
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
                 if (temp.alive) {
                     //instantiates a charcaterDisplay
                     CharacterDisplay display = Instantiate(characterDisplay).GetComponent<CharacterDisplay>();
+                        Debug.Log("CharDisplay" +temp.name+temp.HP+" ALIVE"+temp.alive+count++);
                     display.character = temp;
                     //sets this display as a child 
                     display.transform.parent = transform;

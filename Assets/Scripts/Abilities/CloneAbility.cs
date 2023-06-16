@@ -41,6 +41,9 @@ public class CloneAbility : Ability
             clone.name = character.target.name + " Clone";
             SpriteRenderer sprite = clone.GetComponent<SpriteRenderer>();
             sprite.color = Color.gray;
+
+            //adds to zone
+            clone.zone.charactersInside.Add(clone);
             
         }
     }

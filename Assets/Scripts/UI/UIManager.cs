@@ -7,6 +7,7 @@ using TMPro;
 //THIS IS A CHILD OF CAMERA SINCE HIDEUI NEEDS LOCAL POSITION RELATIVE TO PARENT WHICH IS CAMERA
 
 //this is also a gameManager it manages lots of stuff wtf
+//[DefaultExecutionOrder(-100)]
 public class UIManager : MonoBehaviour
 {
     //just making it a singleton to make it simpler however this was implemented not early in development so in other places I might not be 
@@ -495,7 +496,8 @@ public class UIManager : MonoBehaviour
     public void deleteAllCharacters() {
         foreach (Transform child in playerParty.transform) {
             if (child.tag == "Character") {
-                //Debug.Log("TO BE DESTROYED" + child.name);
+                //Since destroy destroys at the end of this update loop, but characterPlacingScreen will display all the playerparty children, with the character tag. So we will change the tag
+                child.tag = "Untagged";
                 Destroy(child.gameObject);
             }
         }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//so that abilities in ability factory can be colored on start
+[DefaultExecutionOrder(-100)]
 public class ColorPalette : MonoBehaviour
 {
     //this script is on an empty in the do not destroys
