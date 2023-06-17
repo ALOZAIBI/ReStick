@@ -49,6 +49,10 @@ public class CharacterData
     public int[] abilityTargetting;
     public float size;
 
+    public float red;
+    public float green;
+    public float blue;
+
     public CharacterData(Character character) {
         prefabIndex = character.prefabIndex;
         charName = character.name;
@@ -82,6 +86,10 @@ public class CharacterData
         }
         //taking x is enough since the scale is square
         size = character.gameObject.transform.localScale.x;
+        //taking the color
+        red = character.GetComponent<SpriteRenderer>().color.r;
+        green = character.GetComponent<SpriteRenderer>().color.g;
+        blue = character.GetComponent<SpriteRenderer>().color.b;    
     }
 
     //this is needed for SaveSystem to be able to deserialize it

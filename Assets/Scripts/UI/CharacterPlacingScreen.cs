@@ -31,7 +31,6 @@ public class CharacterPlacingScreen : MonoBehaviour
                 if (temp.alive) {
                     //instantiates a charcaterDisplay
                     CharacterDisplay display = Instantiate(characterDisplay).GetComponent<CharacterDisplay>();
-                        Debug.Log("CharDisplay" +temp.name+temp.HP+" ALIVE"+temp.alive+count++);
                     display.character = temp;
                     //sets this display as a child 
                     display.transform.parent = transform;

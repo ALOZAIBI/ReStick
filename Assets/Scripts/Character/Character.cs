@@ -243,7 +243,9 @@ public class Character : MonoBehaviour {
     //sets all ablities' cahracter to this character.
     public void initRoundStart() {
         try { indicators.setupAbilitiesIndicators(); }
-        catch {/*To prevent bug when first opening the game then opening character screen in inventory*/ }
+        catch(System.Exception e) {/*To prevent bug when first opening the game then opening character screen in inventory*/
+            Debug.LogError("DEBUGGING EXZCEPTION"+e);
+        }
         
         //Tells the abilities that this owns them and resets their cd
         foreach(Ability temp in abilities) {

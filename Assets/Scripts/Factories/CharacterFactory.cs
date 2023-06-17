@@ -20,7 +20,11 @@ public class CharacterFactory : MonoBehaviour
             //give it a random name
             index = Random.Range(0, names.Count - 1);
             temp.name = names[index];
-            //maybe give it random color
+            //give it a random color
+            temp.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
+            //give it random size between 1.1 and 1.6
+            float size = Random.Range(1.3f, 1.5f);
+            temp.transform.localScale = new Vector3(size, size, size);
         }
     }
 
@@ -51,6 +55,11 @@ public class CharacterFactory : MonoBehaviour
         temp.team = data.team;
         temp.attackTargetStrategy = data.attackTargetStrategy;
         temp.movementStrategy = data.movementTargetStrategy;
+        //set it's color
+        Color colorTemp = new Color(data.red,data.green,data.blue);
+        temp.GetComponent<SpriteRenderer>().color = colorTemp;
+        //set it's size
+        temp.transform.localScale = new Vector3(data.size, data.size, data.size);
         //add the abilities
         UIManager.singleton.abilityFactory.addRequestedAbilitiesToCharacter(temp, data.abilities,data.abilityTargetting);
         //if(parent==UIManager.singleton.playerParty.transform)

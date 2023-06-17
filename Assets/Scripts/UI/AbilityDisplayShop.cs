@@ -39,6 +39,12 @@ public class AbilityDisplayShop : MonoBehaviour
         }
         background.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
         unHighlight();
+        //change alpha to 0.3 if purchased
+        if (purchased) {
+            Color tempColor = background.color;
+            tempColor.a = 0.1f;
+            background.color = tempColor;
+        }
     }
 
     public void highlight() {

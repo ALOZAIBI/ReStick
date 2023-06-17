@@ -30,6 +30,12 @@ public class CharacterDisplayShop : MonoBehaviour {
         name.text = character.name;
 
         self.onClick.AddListener(select);
+        //change alpha to 0.3 if purchased
+        if (purchased) {
+            Color tempColor = characerPortrait.color;
+            tempColor.a = 0.1f;
+            characerPortrait.color = tempColor;
+        }
     }
 
     private void select() {
