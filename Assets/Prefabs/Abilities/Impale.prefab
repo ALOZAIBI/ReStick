@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5175372440954022026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5175372440954022020}
+  - component: {fileID: -4312040087955822868}
+  m_Layer: 0
+  m_Name: Impale
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5175372440954022020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175372440954022026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.8396406, y: -0.5352577, z: 601.99005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4312040087955822868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175372440954022026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8c7fee07e1d1d44ab294813a2febd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  abilityName: Puncture
+  description: 
+  color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
+  CD: 4
+  rangeAbility: 2.2
+  available: 1
+  abilityNext: 0
+  delay: 0
+  baseAmt: 7
+  PDRatio: 1.2
+  MDRatio: 0
+  INFRatio: 0
+  HPMaxRatio: 0
+  HPRatio: 0
+  LVLRatio: 0
+  MSRatio: 0
+  ASRatio: 0
+  amt: 0
+  hasTarget: 1
+  prefabObject: {fileID: 1332544870390977845, guid: d5c8c3895dac5dd4eab26ce08858e0a5, type: 3}
+  buffPrefab: {fileID: 0}
+  Rarities: 0
+  rarity: 0
+  targetStrategy: 0
+  abilityTypeList: 0
+  abilityType: 0

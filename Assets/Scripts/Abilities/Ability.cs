@@ -47,8 +47,9 @@ public abstract class Ability : MonoBehaviour
     //someAbilities can instantiate prefabs or object
     public GameObject prefabObject;
 
-    
 
+    //some abilities apply buffs
+    public Buff buffPrefab;
     public enum RaritiesList {
         Common,
         Rare,
@@ -102,7 +103,7 @@ public abstract class Ability : MonoBehaviour
         //what a fucked explanation lmao
         try {
             if (character == null) {
-                Debug.Log("TYOLD EM"+abilityName);
+                //Debug.Log("TYOLD EM"+abilityName);
                 //if we're doing this to regular character screen
                 if (UIManager.singleton.inventoryScreenHidden.hidden)
                     UIManager.singleton.characterInfoScreen.character.initRoundStart();
@@ -142,7 +143,11 @@ public abstract class Ability : MonoBehaviour
             available = true;
         }
     }
-
+    public Buff createBuff() {
+        Buff buff = Instantiate(buffPrefab).GetComponent<Buff>();
+        buff.gameObject.SetActive(false);
+        return buff;
+    }
     //just to be able to display the CD after the CDR stat has been updated (Since increasing CDR shouldn't change base CD)
     public string displayCDAfterChange() {
         try {
