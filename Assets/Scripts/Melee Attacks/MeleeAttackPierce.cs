@@ -42,7 +42,7 @@ public class MeleeAttackPierce : MeleeAttack
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.tag == "Character") {
             Character victim = collision.gameObject.GetComponent<Character>();
-            if(victim.team != character.team&& charactersHit.Contains(victim)) {
+            if(victim.team != character.team&& !charactersHit.Contains(victim)) {
                 character.damage(victim, DMG, LS);
                 applyBuff(victim);
             }
