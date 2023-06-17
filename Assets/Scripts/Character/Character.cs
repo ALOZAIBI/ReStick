@@ -243,8 +243,8 @@ public class Character : MonoBehaviour {
     //sets all ablities' cahracter to this character.
     public void initRoundStart() {
         try { indicators.setupAbilitiesIndicators(); }
-        catch(System.Exception e) {/*To prevent bug when first opening the game then opening character screen in inventory*/
-            Debug.LogError("DEBUGGING EXZCEPTION"+e);
+        catch{/*To prevent bug when first opening the game then opening character screen in inventory*/
+            
         }
         
         //Tells the abilities that this owns them and resets their cd
@@ -252,6 +252,7 @@ public class Character : MonoBehaviour {
             temp.character = this;
             temp.available = true;
             temp.abilityNext = 0;
+            Debug.Log(temp.abilityName + "  |  " + temp.character.name);
             temp.calculateAmt();
         }
         //applies the stats

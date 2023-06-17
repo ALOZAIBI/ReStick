@@ -102,7 +102,7 @@ public abstract class Ability : MonoBehaviour
         //what a fucked explanation lmao
         try {
             if (character == null) {
-                //Debug.Log("TYOLD EM");
+                Debug.Log("TYOLD EM"+abilityName);
                 //if we're doing this to regular character screen
                 if (UIManager.singleton.inventoryScreenHidden.hidden)
                     UIManager.singleton.characterInfoScreen.character.initRoundStart();

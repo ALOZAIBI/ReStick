@@ -48,6 +48,7 @@ MonoBehaviour:
   abilityName: Inspire
   description: Power up target(HP PD)
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 17
   rangeAbility: 10
   available: 1
@@ -65,15 +66,15 @@ MonoBehaviour:
   amt: 0
   hasTarget: 1
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
-  Rarities: 0
-  rarity: 0
+  Rarities: 1
+  rarity: 1
   targetStrategy: 15
   abilityTypeList: 3
   abilityType: 3
   PD: 3
   MD: 0
   INF: 0
-  HP: 10
+  HP: 8
   AS: 0
   CDR: 0
   MS: 0

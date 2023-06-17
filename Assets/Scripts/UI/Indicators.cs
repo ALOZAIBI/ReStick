@@ -128,15 +128,33 @@ public class Indicators : MonoBehaviour
     }
     //deletes abilityIndicatorObjects
     public void closeAbilityIndicators() {
-        foreach(Transform child in transform) {
-            //deletes all abilioty indicators
+        if (!gameObject.activeInHierarchy) {
+            Debug.LogError("Game object is inactive.");
+            return;
+        }
+        if (transform == null) {
+            Debug.LogError("Transform is null.");
+            return;
+        }
+
+        foreach (Transform child in transform) {
+            if (child == null) {
+                Debug.LogError("Child transform is null.");
+                continue;
+            }
+
             if (child.name != "Range" && child.name != "Target") {
-                Destroy(child.gameObject);
+                if (child.gameObject != null) {
+                    Destroy(child.gameObject);
+                }
             }
         }
-        abilitiesRangeRenderer.Clear();
-        abilitiesTargetRenderer.Clear();
-        abilitiesCooldownRenderer.Clear();
+        //the "?" is a null check (null propagation operator)
+        abilitiesRangeRenderer?.Clear();
+
+        abilitiesTargetRenderer?.Clear();
+
+        abilitiesCooldownRenderer?.Clear();
     }
     public void eraseLines() {
         targetRenderer.enabled = false;
