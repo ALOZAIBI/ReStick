@@ -7,6 +7,9 @@ public class Summon : Ability
     public override void Start() {
         base.Start();
         updateDescription();
+        if (character != null) {
+            calculateAmt();
+        }
     }
     //Summons the prefabObject and sets up some stats
     public override void doAbility() {
@@ -39,11 +42,6 @@ public class Summon : Ability
     }
     //WIP description
     public override void updateDescription() {
-        try {
-            calculateAmt();
-        }
-        catch { /* avoids null character issue*/}
-        description = "Summon character";
     }
 
     // Update is called once per frame

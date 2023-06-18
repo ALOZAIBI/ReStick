@@ -70,9 +70,9 @@ public class AbilityDisplay : MonoBehaviour
         //sets the parent to be ability inventory
         ability.transform.parent = uiManager.playerParty.abilityInventory.transform;
         //removes ability from character
-        ability.character.abilities.Remove(ability);
+        uiManager.inventoryScreen.characterSelected.abilities.Remove(ability);
         //updates the character info screen view
-        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(ability.character);
+        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(uiManager.inventoryScreen.characterSelected);
         //saves removing the ability
         if (SceneManager.GetActiveScene().name == "World") {
             uiManager.saveWorldSave();

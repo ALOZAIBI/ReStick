@@ -18,11 +18,13 @@ public class HealTarget : Ability
     }
 
     public override void updateDescription() {
-        try {
+        if (character != null) {
             calculateAmt();
+            description = "Heals target by " + amt;
         }
-        catch { /* avoids null character issue*/}
-        description = "Heals target by " + amt;
+        else
+            description = "Heals target";
+        
     }
 
     private void FixedUpdate() {

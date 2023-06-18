@@ -19,6 +19,6 @@ public class PivotEmpty : MeleeAttack
         child.range= range;
         child.lifetime = lifetime;
         child.buff = buff;
-
+        child.description = description;
     }
 }

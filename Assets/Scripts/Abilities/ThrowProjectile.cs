@@ -134,11 +134,12 @@ public class ThrowProjectile : Ability
 
     }
     public override void updateDescription() {
-        try {
+        description = prefabObject.GetComponent<Projectile>().description;
+
+        if(character!=null) {
             calculateAmt();
+            description +=" dealing "+amt ;
         }
-        catch { /*Debug.Log("Calculate AMT didn't work"); avoids null character issue*/}
-        description = "Throws a thing that deals " + amt + " DMG to all characters within";
     }
     
     private void FixedUpdate() {

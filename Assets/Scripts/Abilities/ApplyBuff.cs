@@ -105,41 +105,79 @@ public class ApplyBuff : Ability
     }
 
     public override void updateDescription() {
-        calculateAmt();
-        description = "Give target ";
-        if (PD != 0)
-            description += (PD+(PD*amt)) + " PD ";
-        if (MD != 0)
-            description += (MD+(MD*amt)) + " MD ";
-        if (INF != 0)
-            description += (INF + (INF * amt)) + " INF ";
-        if (HP != 0)
-            description += (HP + (HP * amt)) + " HP ";
-        if (AS != 0)
-            description += (AS + (AS * amt)) + " AS ";
-        if (CDR != 0)
-            description += (CDR + (CDR * amt)) + " CDR ";
-        if (MS != 0)
-            description += (MS + (MS * amt)) + " MS ";
-        if (Range != 0)
-            description += (Range + (Range * amt)) + " Range ";
-        if (LS != 0)
-            description += (LS + (LS * amt)) + " LS ";
+        if (character != null) {
 
-        if (root || silence || blind)
-            description += ". ";
-        if (root && silence && blind) {
-            description += "Stun target ";
+            calculateAmt();
+            description = "Give target ";
+            if (PD != 0)
+                description += (PD + (PD * amt)) + " PD ";
+            if (MD != 0)
+                description += (MD + (MD * amt)) + " MD ";
+            if (INF != 0)
+                description += (INF + (INF * amt)) + " INF ";
+            if (HP != 0)
+                description += (HP + (HP * amt)) + " HP ";
+            if (AS != 0)
+                description += (AS + (AS * amt)) + " AS ";
+            if (CDR != 0)
+                description += (CDR + (CDR * amt)) + " CDR ";
+            if (MS != 0)
+                description += (MS + (MS * amt)) + " MS ";
+            if (Range != 0)
+                description += (Range + (Range * amt)) + " Range ";
+            if (LS != 0)
+                description += (LS + (LS * amt)) + " LS ";
+
+            if (root || silence || blind)
+                description += ". ";
+            if (root && silence && blind) {
+                description += "Stun target ";
+            }
+            else {
+                if (root)
+                    description += "Root target ";
+                if (silence)
+                    description += "Silence target";
+                if (blind)
+                    description += "Blind target";
+            }
+            description += "for " + ((amt / 6) + buffDuration).ToString("F2") + " seconds";
+        } else {
+            description = "Give target ";
+            if (PD != 0)
+                description += (PD) + " PD ";
+            if (MD != 0)
+                description += (MD) + " MD ";
+            if (INF != 0)
+                description += (INF)+ " INF ";
+            if (HP != 0)
+                description += (HP) + " HP ";
+            if (AS != 0)
+                description += (AS) + " AS ";
+            if (CDR != 0)
+                description += (CDR ) + " CDR ";
+            if (MS != 0)
+                description += (MS) + " MS ";
+            if (Range != 0)
+                description += (Range) + " Range ";
+            if (LS != 0)
+                description += (LS) + " LS ";
+
+            if (root || silence || blind)
+                description += ". ";
+            if (root && silence && blind) {
+                description += "Stun target ";
+            }
+            else {
+                if (root)
+                    description += "Root target ";
+                if (silence)
+                    description += "Silence target";
+                if (blind)
+                    description += "Blind target";
+            }
+            description += "for " + ( buffDuration).ToString("F2") + " seconds";
         }
-        else {
-            if (root)
-                description += "Root target ";
-            if (silence)
-                description += "Silence target";
-            if (blind)
-                description += "Blind target";
-        }
-        description += "for " + ((amt / 6) + buffDuration).ToString("F2") + " seconds";
     }
 
     //refreshes duration of other stacks of the same buff.

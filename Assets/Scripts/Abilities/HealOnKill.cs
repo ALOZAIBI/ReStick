@@ -15,10 +15,12 @@ public class HealOnKill : Ability {
     }
 
     public override void updateDescription() {
-        try {
+        if (character != null) {
             calculateAmt();
+            description = "Heals Character by " + amt + " after every kill";
         }
-        catch { /* avoids null character issue*/}
-        description = "Heals Character by " + amt + " after every kill";
+        else {
+            description = "Heals Character after every kill";
+        }
     }
 }

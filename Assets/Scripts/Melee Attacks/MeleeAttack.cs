@@ -25,7 +25,7 @@ public abstract class MeleeAttack : MonoBehaviour
     public Buff buff;
 
     //This is stikll not in use
-    //some attack's (Ability attacks) have a description that will be read by the throwattack ability
+    //some attack's  have a description that will be read by the castMeleeAttack ability
     public string description;
 
 

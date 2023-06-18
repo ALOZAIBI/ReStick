@@ -144,6 +144,9 @@ public abstract class Ability : MonoBehaviour
         }
     }
     public Buff createBuff() {
+        if(buffPrefab==null) {
+            Debug.Log("BuffPrefab is null");
+        }
         Buff buff = Instantiate(buffPrefab).GetComponent<Buff>();
         buff.gameObject.SetActive(false);
         return buff;

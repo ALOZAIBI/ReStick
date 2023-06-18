@@ -44,11 +44,13 @@ public class DashAttack : Ability
     }
 
     public override void updateDescription() {
-        try {
-            calculateAmt();
+        if (character == null) {
+            description = "Dash towards target and strike it,Resets CD on kill";
         }
-        catch { /* avoids null character issue*/}
-        description = "Dash towards target dealing " + amt + "PD reset CD if this kills";
+        else {
+            calculateAmt();
+            description = "Dash towards target dealing " + amt + "Damage reset CD if this kills";
+        }
     }
 
 

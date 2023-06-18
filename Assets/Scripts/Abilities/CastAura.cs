@@ -37,16 +37,20 @@ public class CastAura : Ability
     }
 
     public override void updateDescription() {
-        try {
+        if (character == null) {
+            if (baseAmt >= 0)
+                description = "Heals nearby characters";
+            else
+                description = "Deals damage to nearby characters";
+        }
+        else {
             calculateAmt();
+            if (amt > 0) {
+                description = "Heals nearby characters by " + amt + " per second";
+            }
+            else
+                description = "Deals " + amt + "per second to nearby characters";
         }
-        catch { /*Debug.Log("Amt not upodated") avoids null character issue*/}
-        
-        if (amt > 0) {
-            description = "Heals nearby characters by " + amt;
-        }
-        else
-            description = "Deals " + amt + " to nearby characters";
     }
     public void startActiveDuration() {
         durationRemaining = duration;

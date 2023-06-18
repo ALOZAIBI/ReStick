@@ -246,13 +246,16 @@ public class Character : MonoBehaviour {
         catch{/*To prevent bug when first opening the game then opening character screen in inventory*/
             
         }
-        
+
         //Tells the abilities that this owns them and resets their cd
-        foreach(Ability temp in abilities) {
+        foreach (Ability temp in abilities) {
             temp.character = this;
-            temp.available = true;
-            temp.abilityNext = 0;
-            Debug.Log(temp.abilityName + "  |  " + temp.character.name);
+            //resets the CD if this isn't summoned. We don't wanna reset all the CD of the summoned otherwise cloning itself will be infinite
+            if (!summoned) {
+                temp.available = true;
+                temp.abilityNext = 0;
+            }
+            //Debug.Log(temp.abilityName + "  |  " + temp.character.name);
             temp.calculateAmt();
         }
         //applies the stats

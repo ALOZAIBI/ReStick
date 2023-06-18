@@ -21,8 +21,13 @@ public class CloneAbility : Ability
                 Ability temp = Instantiate(ability);
                 //the clone ability's cd will not be ready so that the cloning won't go to infinity instantly
                 if (temp is CloneAbility) {
-                    //temp.startCooldown();
+                    temp.startCooldown();
                     Debug.Log("CloneAbility cd is set to "+temp.abilityNext+temp.available);
+                }
+                //however all other abilities will be ready.
+                else {
+                    temp.available = true;
+                    temp.abilityNext = 0;
                 }
                 clone.abilities[index] = temp;
                 index++;
@@ -49,7 +54,12 @@ public class CloneAbility : Ability
     }
 
     public override void updateDescription() {
-        description = "Clone a weaker version of my target";
+        if (character == null)
+            description = "Clone a weaker version of my target";
+        else {
+            calculateAmt();
+            description = "Clone a target with " + amt * 100 + "% of its stats";
+        }
     }
 
     // Start is called before the first frame update

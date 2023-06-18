@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Runtime.ConstrainedExecution;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.InputManagerEntry;
+
 
 public class CastMeleeAttack : Ability
 {
@@ -28,6 +28,8 @@ public class CastMeleeAttack : Ability
     public bool blind;
 
     public float buffDuration;
+
+    public float selfRootDuration;
     public override void doAbility() {
         if(available && character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
@@ -114,14 +116,33 @@ public class CastMeleeAttack : Ability
                 }
                 objAttack.buff = buff;
             }
-                startCooldown();
+            //root self for selfRootDuration
+            if (selfRootDuration > 0) {
+                Buff buff = createBuff();
+                buff.snare = true;
+                buff.duration = selfRootDuration;
+                buff.caster = character;
+                buff.target = character;
+                buff.code = abilityName + character.name;
+                buff.gameObject.SetActive(true);
+                buff.applyBuff();
+            }
+            startCooldown();
         }
     }
 
     public override void updateDescription() {
-        
-    }
+        description = prefabObject.GetComponent<PivotEmpty>().description;
 
+        if (character != null) {
+            calculateAmt();
+            description += " dealing " + amt;
+        }
+    }
+    private void Start() {
+        base.Start();
+        updateDescription();
+    }
     private void FixedUpdate() {
         cooldown();
     }

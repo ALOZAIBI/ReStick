@@ -104,41 +104,79 @@ public class BurstSelfBuff : Ability
     }
 
     public override void updateDescription() {
-        calculateAmt();
-        description = "Give Me ";
-        if (PD != 0)
-            description += (PD+amt)+ " PD ";
-        if (MD != 0)
-            description += (MD+amt) + " MD ";
-        if (INF != 0)
-            description += (INF + amt) + " INF ";
-        if (HP != 0)
-            description += (HP +amt) + " HP ";
-        if (AS != 0)
-            description += (AS +amt) + " AS ";
-        if (CDR != 0)
-            description += (CDR + amt) + " CDR ";
-        if (MS != 0)
-            description += (MS +amt) + " MS ";
-        if (Range != 0)
-            description += (Range + (amt)) + " Range ";
-        if (LS != 0)
-            description += (LS +amt*0.01f) + " LS ";
+        if (character != null) {
+            calculateAmt();
+            description = "Give Me ";
+            if (PD != 0)
+                description += (PD + amt) + " PD ";
+            if (MD != 0)
+                description += (MD + amt) + " MD ";
+            if (INF != 0)
+                description += (INF + amt) + " INF ";
+            if (HP != 0)
+                description += (HP + amt) + " HP ";
+            if (AS != 0)
+                description += (AS + amt) + " AS ";
+            if (CDR != 0)
+                description += (CDR + amt) + " CDR ";
+            if (MS != 0)
+                description += (MS + amt) + " MS ";
+            if (Range != 0)
+                description += (Range + (amt)) + " Range ";
+            if (LS != 0)
+                description += (LS + amt * 0.01f) + " LS ";
 
-        if (root || silence || blind)
-            description += ". ";
-        if (root && silence && blind) {
-            description += "Stun target ";
+            if (root || silence || blind)
+                description += ". ";
+            if (root && silence && blind) {
+                description += "Stun target ";
+            }
+            else {
+                if (root)
+                    description += "Root target ";
+                if (silence)
+                    description += "Silence target";
+                if (blind)
+                    description += "Blind target";
+            }
+            description += "for " + ((amt / 10) + buffDuration).ToString("F2") + " seconds";
         }
         else {
-            if (root)
-                description += "Root target ";
-            if (silence)
-                description += "Silence target";
-            if (blind)
-                description += "Blind target";
+            description = "Give Me ";
+            if (PD != 0)
+                description += (PD) + " PD ";
+            if (MD != 0)
+                description += (MD) + " MD ";
+            if (INF != 0)
+                description += (INF) + " INF ";
+            if (HP != 0)
+                description += (HP) + " HP ";
+            if (AS != 0)
+                description += (AS) + " AS ";
+            if (CDR != 0)
+                description += (CDR) + " CDR ";
+            if (MS != 0)
+                description += (MS) + " MS ";
+            if (Range != 0)
+                description += (Range) + " Range ";
+            if (LS != 0)
+                description += (LS) + " LS ";
+
+            if (root || silence || blind)
+                description += ". ";
+            if (root && silence && blind) {
+                description += "Stun target ";
+            }
+            else {
+                if (root)
+                    description += "Root target ";
+                if (silence)
+                    description += "Silence target";
+                if (blind)
+                    description += "Blind target";
+            }
+            description += "for " + (buffDuration).ToString("F2") + " seconds";
         }
-        description += "for " + ((amt / 10) + buffDuration).ToString("F2") + " seconds";
     }
 
     public bool buffNotOnTarget() {

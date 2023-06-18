@@ -118,11 +118,13 @@ public class MagicAvalanche : Ability
 
     }
     public override void updateDescription() {
-        try {
+        if(character == null) {
             calculateAmt();
+            description = "Throws a barrage of magical spheres that deal around" + ((amt * 13.33f) * 0.35f).ToString("F1") + " DMG each";
         }
-        catch { /*Debug.Log("Calculate AMT didn't work"); avoids null character issue*/}
-        description = "Throws a barrage of magical spells that deal around" + ((amt * 13.33f) * 0.35f).ToString("F1") + " DMG each";
+        else {
+            description = "Throws a barrage of magical spheres";
+        }
     }
 
     private void FixedUpdate() {

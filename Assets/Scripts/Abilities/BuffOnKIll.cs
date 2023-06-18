@@ -110,27 +110,45 @@ public class BuffOnKIll : Ability
     }
 
     public override void updateDescription() {
-        try {
+        if (character != null) {
             calculateAmt();
+            description = "On Kill give me ";
+            if (PD != 0)
+                description += PD + PD * amt + " PD ";
+            if (MD != 0)
+                description += MD + MD * amt + " MD ";
+            if (INF != 0)
+                description += INF + INF * amt + " INF ";
+            if (HP != 0)
+                description += HP + HP * amt + " HP ";
+            if (AS != 0)
+                description += AS + AS * amt + " AS ";
+            if (MS != 0)
+                description += MS + MS * amt + " MS ";
+            if (Range != 0)
+                description += Range + Range * amt + " Range ";
+            if (LS != 0)
+                description += LS + LS * amt + " LS ";
         }
-        catch { /* avoids null character issue*/}
-        description = "On Kill give me ";
-        if (PD != 0)
-            description += PD+PD*amt + " PD ";
-        if (MD != 0)
-            description += MD+MD*amt + " MD ";
-        if (INF != 0)
-            description += INF + INF * amt + " INF ";
-        if (HP != 0)
-            description += HP + HP * amt + " HP ";
-        if (AS != 0)
-            description += AS + AS * amt + " AS ";
-        if (MS != 0)
-            description += MS + MS * amt + " MS ";
-        if (Range != 0)
-            description += Range + Range * amt + " Range ";
-        if (LS != 0)
-            description += LS + LS * amt + " LS ";
+        else {
+              description = "On Kill give me ";
+            if (PD != 0)
+                description += PD + " PD ";
+            if (MD != 0)
+                description += MD + " MD ";
+            if (INF != 0)
+                description += INF + " INF ";
+            if (HP != 0)
+                description += HP + " HP ";
+            if (AS != 0)
+                description += AS + " AS ";
+            if (MS != 0)
+                description += MS + " MS ";
+            if (Range != 0)
+                description += Range + " Range ";
+            if (LS != 0)
+                description += LS + " LS ";
+        }
     }
 
     public void refreshDuration() {

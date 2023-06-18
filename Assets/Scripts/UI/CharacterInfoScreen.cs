@@ -102,6 +102,11 @@ public class CharacterInfoScreen : MonoBehaviour
         movementSelector.character = currChar;
         character = currChar;
 
+        //Tells the abilities that this owns them
+        foreach (Ability temp in currChar.abilities) {
+            temp.character = currChar;
+        }
+
         openLandingPage();
         displayStats(currChar);
         displayCharacterAbilities(currChar);

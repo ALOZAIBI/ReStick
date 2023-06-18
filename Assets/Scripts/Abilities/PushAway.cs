@@ -47,11 +47,13 @@ public class PushAway : Ability {
     }
 
     public override void updateDescription() {
-        try {
-            calculateAmt();
+        if (character == null) {
+            description = "PUSH AWAY ENEMIES " + (pushBackDistance).ToString("F1") + " And deal"  + "Damage" + " UNITS THEN SLOW THEM";
         }
-        catch { /* avoids null character issue*/}
-        description = "PUSH AWAY ENEMIES "+(pushBackDistance + amt*2).ToString("F1")+" And deal" +(amt*10)+"Damage"+" UNITS THEN SLOW THEM";
+        else {
+            calculateAmt();
+            description = "PUSH AWAY ENEMIES "+(pushBackDistance + amt*2).ToString("F1")+" And deal" +(amt*10)+"Damage"+" UNITS THEN SLOW THEM";
+        }
     }
     public override void Start() {
         base.Start();
