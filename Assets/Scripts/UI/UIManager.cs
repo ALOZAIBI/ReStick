@@ -234,6 +234,7 @@ public class UIManager : MonoBehaviour
         //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
         //so A way to optimize is to load only if it this function is called from zone lost to map
         Camera.main.transform.position = new Vector3(0, 0, -10);
+        placingScreenHidden.hidden = true;
         loadMapSave();
         sceneToLoad = zone.belongsToMap;
         inZone = false;

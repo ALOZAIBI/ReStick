@@ -46,8 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   abilityName: Slow Debuff
-  description: Slow Debuff
+  description: Slow my target
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 8
   rangeAbility: 8.5
   available: 1
@@ -64,7 +65,8 @@ MonoBehaviour:
   ASRatio: 0
   amt: 0
   hasTarget: 1
-  prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+  prefabObject: {fileID: 4146658564243946326, guid: 6cc3ab36963a24a48987920dbe1a6d62, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 0
   rarity: 0
   targetStrategy: 0

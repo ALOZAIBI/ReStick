@@ -53,6 +53,8 @@ public class Zone : MonoBehaviour
         uIManager.displayCharacterPlacing();
         uIManager.hideCharacter();
 
+        uIManager.retryBtn.gameObject.SetActive(true);
+        uIManager.exitBtn.gameObject.SetActive(true);
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty").GetComponent<PlayerManager>();
         zoneName = gameObject.scene.name;
 
@@ -68,6 +70,8 @@ public class Zone : MonoBehaviour
         }
 
         drawPlaceableOverlay();
+
+
         
     }
     //draws an overlay using placeable Tile over the placeable tilemap

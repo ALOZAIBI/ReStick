@@ -15,11 +15,7 @@ public class SceneSelect : MonoBehaviour
     public GameObject dontDestroys;
     public string sceneToLoad;
 
-    [SerializeField] private Image goToScene;
-    [SerializeField] private Button startBtn;
-    [SerializeField] private Button details;
     [SerializeField] private TextMeshProUGUI nameTxt;
-    [SerializeField] private Button closeUI;
     [SerializeField] private UIManager uiManager;
 
 
@@ -37,8 +33,6 @@ public class SceneSelect : MonoBehaviour
             throw new CannotBeMapAndZone("can't be Map AND zone");
         }
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        startBtn.onClick.AddListener(goTo);
-        closeUI.onClick.AddListener(close);
         dontDestroys = GameObject.FindGameObjectWithTag("dontDestroys");
         DisplayName();
 
@@ -71,11 +65,10 @@ public class SceneSelect : MonoBehaviour
             }
             //if click 
             else if (mouseHoldDuration < 0.2f) {
-               
-                goToScene.gameObject.SetActive(true);
                 //reset values
                 mouseHoldDuration = 0;
                 click = false;
+                goTo();
             }
             //if HOLD
             else {
@@ -116,9 +109,6 @@ public class SceneSelect : MonoBehaviour
         SceneManager.LoadScene(sceneToLoad);
     }
 
-    private void close() {
-        goToScene.gameObject.SetActive(false);
-    }
     private void Update() {
 
         mouseClickedNotHeld();

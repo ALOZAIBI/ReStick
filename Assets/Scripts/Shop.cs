@@ -15,14 +15,12 @@ public class Shop : MonoBehaviour
     //same but for character
     public bool[] characterPurchased;
 
-    //the thing that holds the buttons and stuff
-    public GameObject display;
 
     public GameObject abilityHolder;
     public GameObject characterHolder;
 
     public Button openShopBtn;
-    public Button closeDisplayBtn;
+
 
     //clicky stuff
     private float mouseHoldDuration = 0;
@@ -55,18 +53,9 @@ public class Shop : MonoBehaviour
             //then saves the purchase info
             SaveSystem.saveShopAbilitiesAndPurchaseInfo(this);
         }
-        
-        openShopBtn.onClick.AddListener(openShop);
-        closeDisplayBtn.onClick.AddListener(close);
     }
 
-    private void close() {
-        display.SetActive(false);
-    }
 
-    private void openShop() {
-        UIManager.singleton.openShop(this);
-    }
 
     //onclick load specified scene
     private void OnMouseDown() {
@@ -84,7 +73,7 @@ public class Shop : MonoBehaviour
             //if click 
             else if (mouseHoldDuration < 0.2f) {
                 //open shop
-                display.SetActive(true);
+                UIManager.singleton.openShop(this);
                 click = false;
             }
             //if HOLD

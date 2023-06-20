@@ -56,8 +56,8 @@ MonoBehaviour:
   delay: 0
   baseAmt: 0
   PDRatio: 0
-  MDRatio: 0.1
-  INFRatio: 0.2
+  MDRatio: 0.03
+  INFRatio: 0.09
   HPMaxRatio: 0
   HPRatio: 0
   LVLRatio: 0
@@ -66,6 +66,7 @@ MonoBehaviour:
   amt: 0
   hasTarget: 1
   prefabObject: {fileID: 4146658564243946326, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 0
   rarity: 0
   targetStrategy: 15
@@ -77,7 +78,7 @@ MonoBehaviour:
   HP: 0
   AS: 0
   CDR: 0
-  MS: 1
+  MS: 0.75
   Range: 0
   LS: 0
   size: 0

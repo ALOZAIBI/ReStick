@@ -28,7 +28,10 @@ public class Map : MonoBehaviour
             uiManager.sceneToLoad = belongsToWorld;
             uiManager.mapWonScreenHidden.hidden = false;
         }
-        
+
+        uiManager.retryBtn.gameObject.SetActive(false);
+        uiManager.exitBtn.gameObject.SetActive(false);
+
     }
 
     private bool allComplete() {

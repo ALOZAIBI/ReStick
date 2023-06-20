@@ -48,6 +48,7 @@ MonoBehaviour:
   abilityName: FrostHit
   description: Throw Magic ting
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 6
   rangeAbility: 10
   available: 1
@@ -65,12 +66,12 @@ MonoBehaviour:
   amt: 1
   hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 2282aa5c6e8a995458f5ce000b4be2e2, type: 3}
+  buffPrefab: {fileID: 4146658564243946327, guid: b7d7accae8a77ef44a10b2377dedcd17, type: 3}
   Rarities: 0
   rarity: 0
   targetStrategy: 1
   abilityTypeList: 1
   abilityType: 1
-  buffPrefab: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   PD: 0
   MD: 0
   INF: 0

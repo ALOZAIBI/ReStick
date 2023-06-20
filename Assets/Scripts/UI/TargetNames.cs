@@ -13,16 +13,16 @@ public class TargetNames : MonoBehaviour
                 return "Closest Enemy";
 
             case (int)Character.TargetList.HighestPDEnemy:
-                return "Highest PD Enemy";
+                return "Highest PWR Enemy";
 
             case (int)Character.TargetList.LowestPDEnemy:
-                return "Lowest PD Enemy";
+                return "Lowest PWR Enemy";
 
             case (int)Character.TargetList.HighestMDEnemy:
-                return "Highest MD Enemy";
+                return "Highest MGC Enemy";
 
             case (int)Character.TargetList.LowestMDEnemy:
-                return "Lowest MD Enemy";
+                return "Lowest MGC Enemy";
 
             case (int)Character.TargetList.HighestINFEnemy:
                 return "Highest INF Enemy";
@@ -37,10 +37,10 @@ public class TargetNames : MonoBehaviour
                 return "Lowest AS Enemy";
 
             case (int)Character.TargetList.HighestMSEnemy:
-                return "Highest MS Enemy";
+                return "Highest SPD Enemy";
 
             case (int)Character.TargetList.LowestMSEnemy:
-                return "Lowest MS Enemy";
+                return "Lowest SPD Enemy";
 
             case (int)Character.TargetList.HighestRangeEnemy:
                 return "Highest Range Enemy";
@@ -58,16 +58,16 @@ public class TargetNames : MonoBehaviour
                 return "Closest Ally";
 
             case (int)Character.TargetList.HighestPDAlly:
-                return "Highest PD Ally";
+                return "Highest PWR Ally";
 
             case (int)Character.TargetList.LowestPDAlly:
-                return "Lowest PD Ally";
+                return "Lowest PWR Ally";
 
             case (int)Character.TargetList.HighestMDAlly:
-                return "Highest MD Ally";
+                return "Highest MGC Ally";
 
             case (int)Character.TargetList.LowestMDAlly:
-                return "Lowest MD Ally";
+                return "Lowest MGC Ally";
 
             case (int)Character.TargetList.HighestINFAlly:
                 return "Highest INF Ally";
@@ -82,10 +82,10 @@ public class TargetNames : MonoBehaviour
                 return "Lowest AS Ally";
 
             case (int)Character.TargetList.HighestMSAlly:
-                return "Highest MS Ally";
+                return "Highest SPD Ally";
 
             case (int)Character.TargetList.LowestMSAlly:
-                return "Lowest MS Ally";
+                return "Lowest SPD Ally";
 
             case (int)Character.TargetList.HighestRangeAlly:
                 return "Highest Range Ally";

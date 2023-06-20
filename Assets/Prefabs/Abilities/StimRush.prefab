@@ -48,6 +48,7 @@ MonoBehaviour:
   abilityName: Stim Rush
   description: BURST OF AS MS
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 7
   rangeAbility: 0
   available: 1
@@ -59,12 +60,13 @@ MonoBehaviour:
   INFRatio: 0
   HPMaxRatio: 0
   HPRatio: 0
-  LVLRatio: 0.02
+  LVLRatio: 0.05
   MSRatio: 0
   ASRatio: 0
   amt: 0
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 2
   rarity: 2
   targetStrategy: 0

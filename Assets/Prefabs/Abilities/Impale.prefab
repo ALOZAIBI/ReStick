@@ -49,13 +49,13 @@ MonoBehaviour:
   description: 
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 4
+  CD: 6
   rangeAbility: 2.2
   available: 1
   abilityNext: 0
   delay: 0
   baseAmt: 7
-  PDRatio: 1.2
+  PDRatio: 2
   MDRatio: 0
   INFRatio: 0
   HPMaxRatio: 0
@@ -66,10 +66,10 @@ MonoBehaviour:
   amt: 0
   hasTarget: 1
   prefabObject: {fileID: 1332544870390977845, guid: d5c8c3895dac5dd4eab26ce08858e0a5, type: 3}
-  buffPrefab: {fileID: 0}
+  buffPrefab: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 2
   rarity: 2
-  targetStrategy: 0
+  targetStrategy: 1
   abilityTypeList: 0
   abilityType: 0
   PD: 0
@@ -86,3 +86,4 @@ MonoBehaviour:
   silence: 0
   blind: 0
   buffDuration: 0
+  selfRootDuration: 0.3

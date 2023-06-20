@@ -48,12 +48,13 @@ MonoBehaviour:
   abilityName: Throw Magic Avalanceh
   description: THrow stuffs
   color: {r: 0, g: 0, b: 0, a: 0}
-  CD: 15
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
+  CD: 17
   rangeAbility: -1
   available: 1
   abilityNext: 0
   delay: 0
-  baseAmt: 3
+  baseAmt: 4
   PDRatio: 0
   MDRatio: 0.09
   INFRatio: 0
@@ -65,6 +66,7 @@ MonoBehaviour:
   amt: 0
   hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 21a87259fcff31f479f51b2bb00e480b, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 3
   rarity: 3
   targetStrategy: 1

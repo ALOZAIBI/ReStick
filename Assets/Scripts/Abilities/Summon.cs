@@ -26,7 +26,7 @@ public class Summon : Ability
             charSummoned.INF += charSummoned.INF * amt;
             charSummoned.AS += charSummoned.AS * amt;
             charSummoned.CDR += charSummoned.CDR * amt;
-            charSummoned.MS += charSummoned.MS * amt;
+            charSummoned.MS += charSummoned.MS * amt*0.2f;
             if(charSummoned.Range >1)//only increase range if the char summoned is ranged
                 charSummoned.Range += charSummoned.Range * amt;
             charSummoned.LS += charSummoned.LS * amt;
