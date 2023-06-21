@@ -15,7 +15,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private Button btn;
     [SerializeField] private GameObject notification;
-
+    public GameObject deathSkull;
 
     //to get position of mouse to be used in MOuseUp
     public Camera cam;

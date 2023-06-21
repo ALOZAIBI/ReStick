@@ -7,7 +7,7 @@ public class MovementNames : MonoBehaviour
     public static string getName(int target) {
         switch (target) {
             case (int)Character.MovementStrategies.Default:
-                return "Default";
+                return "Walk to target";
             case (int)Character.MovementStrategies.StayNearAlly:
                 return "Stay Near Ally";
             case (int)Character.MovementStrategies.DontMove:

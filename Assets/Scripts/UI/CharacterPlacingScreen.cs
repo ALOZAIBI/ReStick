@@ -28,15 +28,17 @@ public class CharacterPlacingScreen : MonoBehaviour
             //Debug.Log("Child" + child.name+child.tag);
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
-                if (temp.alive) {
-                    //instantiates a charcaterDisplay
-                    CharacterDisplay display = Instantiate(characterDisplay).GetComponent<CharacterDisplay>();
-                    display.character = temp;
-                    //sets this display as a child 
-                    display.transform.parent = transform;
-                    //sets the scale for some reason if I dont do this the scale is set to 167
-                    display.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                //instantiates a charcaterDisplay
+                CharacterDisplay display = Instantiate(characterDisplay).GetComponent<CharacterDisplay>();
+                display.character = temp;
+                //sets this display as a child 
+                display.transform.parent = transform;
+                //sets the scale for some reason if I dont do this the scale is set to 167
+                display.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                if (!temp.alive) {
+                    display.deathSkull.gameObject.SetActive(true);
                 }
+                
             }
         }
     }
