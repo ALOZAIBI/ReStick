@@ -113,12 +113,12 @@ public class Zone : MonoBehaviour
     //if there are no enemies alive and there is atleast 1 playerCharacter alive show win screen
     private void zoneWon() {
         if (enemiesAlive == 0 && alliesAlive>0) {
+            //pauses the game and displays game won
+            uIManager.pausePlay(true);
             uIManager.displayGameWon(belongsToMap);
             //marks zone as completed then saves
             completed = true;
             zoneDone = true;
-            //then pauses the game
-            uIManager.pausePlay(true);
         }
         
     }
@@ -127,13 +127,9 @@ public class Zone : MonoBehaviour
 
         if(started) {
             //if there's a single player character in play and alive leave this function
-            foreach (Transform child in playerParty.transform) {
-                if (child.tag == "Character") {
-                    Character currChar = child.GetComponent<Character>();
-                    //if in play and alive
-                    if (currChar.gameObject.activeSelf && currChar.alive)
-                        return;
-                }
+            foreach(Character child in charactersInside) {
+                if (child.GetComponent<Character>().team == (int)Character.teamList.Player && child.GetComponent<Character>().alive)
+                    return;
             }
             //otherwise zone is lost
             uIManager.displayGameLost(belongsToMap);

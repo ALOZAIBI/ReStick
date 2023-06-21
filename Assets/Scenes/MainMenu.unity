@@ -161,10 +161,10 @@ RectTransform:
   m_Father: {fileID: 96600495}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &26021163
 MonoBehaviour:
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Speed Up Time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17305,7 +17305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Slow down time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -29645,6 +29645,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
+    - target: {fileID: 1836099118352410575, guid: 7682b8ff56c67ae4d8c88eff5ef38b7b, type: 3}
+      propertyPath: AS
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6144342808661974625, guid: 7682b8ff56c67ae4d8c88eff5ef38b7b, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -29965,6 +29969,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1607280164}
     m_Modifications:
+    - target: {fileID: 859246904719003946, guid: fdafca58273681c489855b6fd28fbe27, type: 3}
+      propertyPath: AS
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 859246904719003946, guid: fdafca58273681c489855b6fd28fbe27, type: 3}
+      propertyPath: LS
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 859246904719003946, guid: fdafca58273681c489855b6fd28fbe27, type: 3}
+      propertyPath: LVLRatio
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5175372440954022020, guid: fdafca58273681c489855b6fd28fbe27, type: 3}
       propertyPath: m_RootOrder
       value: 24

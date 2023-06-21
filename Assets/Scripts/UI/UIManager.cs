@@ -182,7 +182,10 @@ public class UIManager : MonoBehaviour
             gameWonScreenHidden.hidden = false;
             gameWonScreen.zoneWon();
             pausePlayBtn.gameObject.SetActive(false);
+            exitBtn.gameObject.SetActive(false);
+            retryBtn.gameObject.SetActive(false);
             sceneToLoad = sceneName;
+        Debug.Log("GAQMEWON"+exitBtn.isActiveAndEnabled);
             //the rewardSelectScreen contains the Button. The button waits for an ability to be selected. Once it is selected
             //the button can be clicked to add it to inventory and go back to mapSceneName
         //}
@@ -282,6 +285,8 @@ public class UIManager : MonoBehaviour
 
         //the try catch was initially used since I didn't have the inZone boolean so I wasnt sure if zone was accessible so I'm pretty sure it's safe to remove
         if (inZone) {
+            exitBtn.gameObject.SetActive(true);
+            retryBtn.gameObject.SetActive(true);
             try {
         //unhides placing screen if zone not started
                 if (!zone.started) {
@@ -302,7 +307,8 @@ public class UIManager : MonoBehaviour
             pausePlayBtn.gameObject.SetActive(false);
             timeControlHidden.hidden = true;
             openInventoryBtn.gameObject.SetActive(true);
-            
+            exitBtn.gameObject.SetActive(false);
+            retryBtn.gameObject.SetActive(false);
         }
 
         topStatDisplay.moreInfoBtn.gameObject.SetActive(true);

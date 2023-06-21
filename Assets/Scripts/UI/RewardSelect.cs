@@ -46,6 +46,10 @@ public class RewardSelect : MonoBehaviour
                 Destroy(toBeDeleted.gameObject);
                 //goes to next step in gameWonScreen
             }
+            //saves the zone
+            SaveSystem.saveZone(UIManager.singleton.zone);
+            //saves characters in map
+            UIManager.singleton.saveMapSave();
             //then carries on in gameWonScreen
             uiManager.gameWonScreen.displayContents();
         //clears the list to be reinitialized in another zone
