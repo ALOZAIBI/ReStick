@@ -77,18 +77,21 @@ public class ShopScreen : MonoBehaviour
     //closes the abilityDisplays
     private void closeAbilities() {
         foreach(Transform child in abilityArea.transform) {
+            if (child.tag != "DontDelete")
                 Destroy(child.gameObject);
         }
     }
     public void closeCharacters() {
         foreach (Transform child in characterArea.transform) {
-            Destroy(child.gameObject);
+            if (child.tag != "DontDelete") 
+                Destroy(child.gameObject);
         }
     }
 
     public void closeCharactersPlayerParty() {
         foreach (Transform child in characterPlayerPartyArea.transform) {
-            Destroy(child.gameObject);
+            if (child.tag != "DontDelete")
+                Destroy(child.gameObject);
         }
     }
     public void close() {
