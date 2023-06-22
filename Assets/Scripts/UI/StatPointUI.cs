@@ -127,6 +127,8 @@ public class StatPointUI : MonoBehaviour {
         subLS.gameObject.SetActive(true);
         addHP.gameObject.SetActive(true);
         subHP.gameObject.SetActive(true);
+        updateAddColors();
+        updateSubColors();
     }
 
     private void Start() {
@@ -230,11 +232,11 @@ public class StatPointUI : MonoBehaviour {
         fakeStatDisplay();
     }
 
-
+    #region Buttons
     // OnAdd function for PD
     public void OnAddPDButtonClicked() {
         if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.PD+=PDAmt;
+            characterInfoScreen.character.PD += PDAmt;
             PDbuffer += PDAmt;
             characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
@@ -245,7 +247,7 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for PD
     public void OnSubPDButtonClicked() {
         if (PDbuffer > 0) {
-            characterInfoScreen.character.PD-=PDAmt;
+            characterInfoScreen.character.PD -= PDAmt;
             PDbuffer -= PDAmt;
             characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
@@ -256,7 +258,7 @@ public class StatPointUI : MonoBehaviour {
     // OnAdd function for MD
     public void OnAddMDButtonClicked() {
         if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.MD+=MDAmt;
+            characterInfoScreen.character.MD += MDAmt;
             MDbuffer += MDAmt;
             characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
@@ -267,7 +269,7 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for MD
     public void OnSubMDButtonClicked() {
         if (MDbuffer > 0) {
-            characterInfoScreen.character.MD-=MDAmt;
+            characterInfoScreen.character.MD -= MDAmt;
             MDbuffer -= MDAmt;
             characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
@@ -410,8 +412,8 @@ public class StatPointUI : MonoBehaviour {
     // OnAdd function for HP
     public void OnAddHPButtonClicked() {
         if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.HP+=HPAmt;
-            characterInfoScreen.character.HPMax+=HPAmt;
+            characterInfoScreen.character.HP += HPAmt;
+            characterInfoScreen.character.HPMax += HPAmt;
             HPbuffer += HPAmt;
             characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
@@ -422,8 +424,8 @@ public class StatPointUI : MonoBehaviour {
     // OnSub function for HP
     public void OnSubHPButtonClicked() {
         if (HPbuffer > 0) {
-            characterInfoScreen.character.HP-=HPAmt;
-            characterInfoScreen.character.HPMax-=HPAmt;
+            characterInfoScreen.character.HP -= HPAmt;
+            characterInfoScreen.character.HPMax -= HPAmt;
             HPbuffer -= HPAmt;
             characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
@@ -431,13 +433,87 @@ public class StatPointUI : MonoBehaviour {
         }
     }
 
+    #endregion
 
-
+    private void updateAddColors() {
+        //Colors all the add buttons grey if the character has no stat points to spend
+        if (characterInfoScreen.character.statPoints == 0) {
+            addPD.GetComponent<Image>().color = Color.grey;
+            addMD.GetComponent<Image>().color = Color.grey;
+            addINF.GetComponent<Image>().color = Color.grey;
+            addAS.GetComponent<Image>().color = Color.grey;
+            addCDR.GetComponent<Image>().color = Color.grey;
+            addMS.GetComponent<Image>().color = Color.grey;
+            addRNG.GetComponent<Image>().color = Color.grey;
+            addLS.GetComponent<Image>().color = Color.grey;
+            addHP.GetComponent<Image>().color = Color.grey;
+        } else {
+            addPD.GetComponent<Image>().color = Color.white;
+            addMD.GetComponent<Image>().color = Color.white;
+            addINF.GetComponent<Image>().color = Color.white;
+            addAS.GetComponent<Image>().color = Color.white;
+            addCDR.GetComponent<Image>().color = Color.white;
+            addMS.GetComponent<Image>().color = Color.white;
+            addRNG.GetComponent<Image>().color = Color.white;
+            addLS.GetComponent<Image>().color = Color.white;
+            addHP.GetComponent<Image>().color = Color.white;
+        }
+    }
+    private void updateSubColors() {
+        //Colors the sub buttons grey if that stat's buffer is 0
+        if (PDbuffer == 0) {
+            subPD.GetComponent<Image>().color = Color.grey;
+        } else {
+            subPD.GetComponent<Image>().color = Color.white;
+        }
+        if (MDbuffer == 0) {
+            subMD.GetComponent<Image>().color = Color.grey;
+        } else {
+            subMD.GetComponent<Image>().color = Color.white;
+        }
+        if (INFbuffer == 0) {
+            subINF.GetComponent<Image>().color = Color.grey;
+        } else {
+            subINF.GetComponent<Image>().color = Color.white;
+        }
+        if (ASbuffer == 0) {
+            subAS.GetComponent<Image>().color = Color.grey;
+        } else {
+            subAS.GetComponent<Image>().color = Color.white;
+        }
+        if (CDRbuffer == 0) {
+            subCDR.GetComponent<Image>().color = Color.grey;
+        } else {
+            subCDR.GetComponent<Image>().color = Color.white;
+        }
+        if (MSbuffer == 0) {
+            subMS.GetComponent<Image>().color = Color.grey;
+        } else {
+            subMS.GetComponent<Image>().color = Color.white;
+        }
+        if (RNGbuffer == 0) {
+            subRNG.GetComponent<Image>().color = Color.grey;
+        } else {
+            subRNG.GetComponent<Image>().color = Color.white;
+        }
+        if (LSbuffer == 0) {
+            subLS.GetComponent<Image>().color = Color.grey;
+        } else {
+            subLS.GetComponent<Image>().color = Color.white;
+        }
+        if (HPbuffer == 0) {
+            subHP.GetComponent<Image>().color = Color.grey;
+        } else {
+            subHP.GetComponent<Image>().color = Color.white;
+        }
+    }
 
     //updates visual to display change to be applied
     public void fakeStatDisplay() {
         //Debug.Log("Fakse stats uopdated");
         characterInfoScreen.viewCharacter(characterInfoScreen.character);
+        updateAddColors();
+        updateSubColors();
     }
 
     private void Update() {

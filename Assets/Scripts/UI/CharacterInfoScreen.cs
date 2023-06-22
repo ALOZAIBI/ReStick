@@ -254,7 +254,8 @@ public class CharacterInfoScreen : MonoBehaviour
         MS.text = currChar.MS.ToString("F1");
         RNG.text = currChar.Range.ToString("F1");
         LS.text = (currChar.LS*100).ToString("F1");
-        SP.text = currChar.statPoints.ToString();
+        //so that it displays stat points as available/total
+        SP.text = "Upgrade Points "+currChar.statPoints.ToString()+"/"+(statPointUI.SPUsedBuffer+currChar.statPoints);
 
         
         //displays statPoints if zone hasn't started and if the character has statpoints available
