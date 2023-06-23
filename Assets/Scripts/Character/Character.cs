@@ -1411,7 +1411,6 @@ public class Character : MonoBehaviour {
     //}
 
     private void customMouseDown() {
-        int layerMask = LayerMask.GetMask("Characters");
         if (Input.GetMouseButtonDown(0)) {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,LayerMask.GetMask("Characters"));
             if(hit.collider != null && hit.collider.tag == "Character") {
@@ -1423,7 +1422,7 @@ public class Character : MonoBehaviour {
             }
         }
     }
-    private float mouseHoldDuration = 0;
+    public float mouseHoldDuration = 0;
     public bool click = false;
     //if held on character
     [HideInInspector]public bool held;
@@ -1437,18 +1436,14 @@ public class Character : MonoBehaviour {
 
                 //Every thing commented out is to be able to reposition character after it has been placed before game starts.
 
-                ////zone is usually detected in the ontrigger however when loading a new zone the game is initially paused so ontrigger won't work
-                //if(zone == null) {
-                //    zone = GameObject.FindGameObjectWithTag("Zone").GetComponent<Zone>();
-                //}
-                ////if drag and zone didn't start and is playercharacter then move character
-                //if (!zone.started && team == (int)teamList.Player && mouseHoldDuration > 0.2f) {
-                //    //hide the placing screen and be able to move the character
-                //    //uiManager.placingScreenHidden.hidden = true;
-                //    held = true;
-                //    transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-                //    camMov.pannable = false;
-                //}
+                //if drag and zone didn't start and is playercharacter then move character
+                if (!zone.started && team == (int)teamList.Player && mouseHoldDuration > 0.2f) {
+                    //hide the placing screen and be able to move the character
+                    //uiManager.placingScreenHidden.hidden = true;
+                    held = true;
+                    transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+                    camMov.pannable = false;
+                }
 
             }
             //else(mouse is not clicked)
@@ -1459,10 +1454,11 @@ public class Character : MonoBehaviour {
                     drawIndicators();
                 }
                 //reset values
+                held= false;
                 mouseHoldDuration = 0;
                 click = false;
                 //uiManager.placingScreenHidden.hidden = false;
-                //camMov.pannable = true;
+                camMov.pannable = true;
                 //held = false;
             }
         }
