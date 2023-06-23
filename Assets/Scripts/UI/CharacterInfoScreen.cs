@@ -51,6 +51,11 @@ public class CharacterInfoScreen : MonoBehaviour
     public GameObject footer;
 
     public int pageIndex = 0;
+
+    //this will be glowing to display that there are stat points available
+    public Image upgradeStats;
+    public Color upgradeStatsColorPingPong1;
+    public Color upgradeStatsColorPingPong2;
     //0 landing page
     //1 target selection
     //3 is in inventoryCharacterInfoScreen
@@ -84,6 +89,8 @@ public class CharacterInfoScreen : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
+        upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
+        upgradeStatsColorPingPong2  = new Color(upgradeStats.color.r*1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
     }
     //this function displays the information in the characterInfoScreen
     public void viewCharacter(Character currChar) {
@@ -308,5 +315,11 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
 
+    private void FixedUpdate() {
+        //make the upgrade stats color pulsate
+        Debug.Log("NOTHING");
+        Debug.Log("COLOR"+ upgradeStats.color);
+        upgradeStats.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, Mathf.PingPong(Time.time, 2));
 
+    }
 }
