@@ -15,6 +15,8 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
 
+    const int MAX_ABILITIES = 5;
+
     //pageindex 3 = prompt to add ability
     //pageindex 4 = confirm ability adding
 
@@ -37,6 +39,10 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     }
     //displays the abilities in inventory when clicked
     private void addAbility() {
+        if (character.abilities.Count >= MAX_ABILITIES) {
+            uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
+            return;
+        }
         //to destroy all abilityDisplayElements
         close();
 
@@ -45,6 +51,10 @@ public class InventoryCharacterInfoScreen : CharacterInfoScreen
     }
 
     private void confirmAddAbility() {
+        if(character.abilities.Count >= MAX_ABILITIES) {
+            uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
+            return;
+        }
         //adds the ability to Character
         inventoryScreen.characterSelected.abilities.Add(inventoryScreen.abilitySelected);
         //sets the ability's character to this character
