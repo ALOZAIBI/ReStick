@@ -98,6 +98,8 @@ public class ShopScreen : MonoBehaviour
         closeAbilities();
         closeCharacters();
         closeCharactersPlayerParty();
+        listAbilities.Clear();
+        listCharacters.Clear();
     }
     public void displayAbilities() {
         //creates ability Displays
@@ -113,6 +115,10 @@ public class ShopScreen : MonoBehaviour
             abilityDisplay.description.text = temp.description;
             //marks if it was purchased
             abilityDisplay.purchased = shop.abilitiyPurchased[i];
+            //change alpha to 0.1 if purchased
+            if (abilityDisplay.purchased) {
+                abilityDisplay.displaySold();
+            }
             //sets the scale for some reason if I dont do this the scale is set to 167
             abilityDisplay.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }

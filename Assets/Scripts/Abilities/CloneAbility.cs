@@ -45,7 +45,8 @@ public class CloneAbility : Ability
             clone.HPMax = clone.HPMax * amt;
             clone.name = character.target.name + " Clone";
             SpriteRenderer sprite = clone.GetComponent<SpriteRenderer>();
-            sprite.color = Color.gray;
+            //darken the color of the clone
+            sprite.color = new Color(sprite.color.r * 0.5f, sprite.color.g * 0.5f, sprite.color.b * 0.5f);
 
             //adds to zone
             clone.zone.charactersInside.Add(clone);

@@ -5,13 +5,19 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+
 public class CharacterDisplayShop : MonoBehaviour {
     public Character character;
 
     [SerializeField] private Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
+
     [SerializeField] private Button self;
+    [SerializeField] private Image background;
+
+    public GameObject sold;
+    public GameObject buy;
     public TextMeshProUGUI priceText;
     public int price;
 
@@ -32,9 +38,25 @@ public class CharacterDisplayShop : MonoBehaviour {
         self.onClick.AddListener(select);
         //change alpha to 0.3 if purchased
         if (purchased) {
-            Color tempColor = characerPortrait.color;
-            tempColor.a = 0.1f;
-            characerPortrait.color = tempColor;
+            displaySold();
+        }
+    }
+
+    public void highlight() {
+        if (!purchased) {
+            Color temp = background.color;
+            temp.a = 1f;
+            background.color = temp;
+            buy.SetActive(true);
+        }
+    }
+
+    public void unHighlight() {
+        if (!purchased) {
+            Color temp = background.color;
+            temp.a = 0.7f;
+            background.color = temp;
+            buy.SetActive(false);
         }
     }
 
@@ -42,8 +64,15 @@ public class CharacterDisplayShop : MonoBehaviour {
         if (!selected) {
             Debug.Log("Selected");
             selected = true;
+            highlight();
             //deselects alll others
             foreach (AbilityDisplayShop deSelect in UIManager.singleton.shopScreen.listAbilities) {
+                if (deSelect != this) {
+                    deSelect.selected = false;
+                    deSelect.unHighlight();
+                }
+            }
+            foreach (CharacterDisplayShop deSelect in UIManager.singleton.shopScreen.listCharacters) {
                 if (deSelect != this) {
                     deSelect.selected = false;
                     deSelect.unHighlight();
@@ -66,7 +95,7 @@ public class CharacterDisplayShop : MonoBehaviour {
                 //update display since the price would change after a purchase
                 UIManager.singleton.shopScreen.closeCharacters();
                 UIManager.singleton.shopScreen.displayCharacters();
-
+                UIManager.singleton.shopScreen.displayPlayerParty();
                 //save character in map since shop is so far only available in maps
                 UIManager.singleton.saveMapSave();
   
@@ -78,10 +107,19 @@ public class CharacterDisplayShop : MonoBehaviour {
 
     private void markPurchased() {
         purchased = true;
-        //index relative to siblings
-        int index = transform.GetSiblingIndex();
+        //index relative to siblings -1 since the first child is the title
+        int index = transform.GetSiblingIndex()-1;
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.characterPurchased[index] = true;
-        //change color of display
+        displaySold();
+    }
+
+    public void displaySold() {
+        Color tempColor = background.color;
+        tempColor.a = 0.1f;
+        background.color = tempColor;
+        sold.SetActive(true);
+        //rotate sold randomly along the z axis
+        sold.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-40, 40));
     }
 }

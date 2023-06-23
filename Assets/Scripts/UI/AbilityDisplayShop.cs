@@ -18,6 +18,10 @@ public class AbilityDisplayShop : MonoBehaviour
     public TextMeshProUGUI description;
     public TextMeshProUGUI priceText;
 
+    //the text displaying
+    public GameObject sold;
+    public GameObject buy;
+
     public Button self;
     public bool purchased;
 
@@ -39,23 +43,29 @@ public class AbilityDisplayShop : MonoBehaviour
         }
         background.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
         unHighlight();
-        //change alpha to 0.3 if purchased
+        //change alpha to 0.1 if purchased
         if (purchased) {
             Color tempColor = background.color;
             tempColor.a = 0.1f;
             background.color = tempColor;
         }
     }
-
+    //selected click again to buy
     public void highlight() {
-        Color temp = background.color;
-        temp.a = 1f;
-        background.color = temp;
+        if (!purchased) {
+            Color temp = background.color;
+            temp.a = 1f;
+            background.color = temp;
+            buy.SetActive(true);
+        }
     }
     public void unHighlight() {
-        Color temp = background.color;
-        temp.a = 0.7f;
-        background.color = temp;
+        if (!purchased) {
+            Color temp = background.color;
+            temp.a = 0.7f;
+            background.color = temp;
+            buy.SetActive(false);
+        }
     }
 
     private void select() {
@@ -65,6 +75,12 @@ public class AbilityDisplayShop : MonoBehaviour
             highlight();
             //deselects alll others
             foreach (AbilityDisplayShop deSelect in UIManager.singleton.shopScreen.listAbilities) {
+                if (deSelect != this) {
+                    deSelect.selected = false;
+                    deSelect.unHighlight();
+                }
+            }
+            foreach (CharacterDisplayShop deSelect in UIManager.singleton.shopScreen.listCharacters) {
                 if (deSelect != this) {
                     deSelect.selected = false;
                     deSelect.unHighlight();
@@ -90,10 +106,19 @@ public class AbilityDisplayShop : MonoBehaviour
     }
     private void markPurchased() {
         purchased = true;
-        //index relative to siblings
-        int index = transform.GetSiblingIndex();
+        //index relative to siblings - 1 since the text is a sibling
+        int index = transform.GetSiblingIndex()-1;
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.abilitiyPurchased[index] = true;
-        //change color of display
+        displaySold();
+    }
+
+    public void displaySold() {
+        Color tempColor = background.color;
+        tempColor.a = 0.1f;
+        background.color = tempColor;
+        sold.SetActive(true);
+        //rotate sold randomly along the z axis
+        sold.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-40,40));
     }
 }
