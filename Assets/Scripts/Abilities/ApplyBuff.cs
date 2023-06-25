@@ -34,7 +34,7 @@ public class ApplyBuff : Ability
         if (character.selectTarget(targetStrategy,rangeAbility) && available) {
             calculateAmt();
             //creates buff
-            Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
+            Buff buff = Instantiate(prefabObject,character.target.transform.position,Quaternion.identity).GetComponent<Buff>();
             buff.PD = PD;
             if (PD > 0) {
                 buff.PD += amt * PD;

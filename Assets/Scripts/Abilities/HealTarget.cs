@@ -13,6 +13,11 @@ public class HealTarget : Ability
             calculateAmt();
             //heals the target
             character.target.HP += amt;
+            //creates the healing effect
+            KeepOnTarget fx= Instantiate(prefabObject, character.target.transform.position, Quaternion.identity).GetComponent<KeepOnTarget>();
+            fx.target = character.target.gameObject;
+            Destroy(fx.gameObject, 1.3f);
+
             startCooldown();
         }
     }

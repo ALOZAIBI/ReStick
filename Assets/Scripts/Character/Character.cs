@@ -206,6 +206,8 @@ public class Character : MonoBehaviour {
         //to be used in cooldown to determine how long the direction will be taken when isIdle
         public float moveDuration;
 
+    [SerializeField] private KeepOnTarget levelUpFX;
+
     ////for the character to detect which zone it's in
     //private void OnTriggerEnter2D(Collider2D collision) {
     //    if (collision.tag == "Zone") {
@@ -1555,6 +1557,10 @@ public class Character : MonoBehaviour {
             //heal character by 20% of max HP on level up 
             HP += 0.25f * HPMax;
 
+            //Instantiate the levelupFX and destroy it after 1.5 seconds
+            KeepOnTarget temp = Instantiate(levelUpFX, transform.position, Quaternion.identity);
+            temp.target = gameObject;
+            Destroy(temp.gameObject, 1.5f);
         }
     }
 
