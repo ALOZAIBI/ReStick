@@ -42,11 +42,16 @@ public class InventoryAbilityDisplay : AbilityDisplay
 
     private void selectAbility() {
         //if character had already been selected I.E character is selected first
-        //when clicked set the inventorySCreen's ability selected to this. and prompt to confirm
+        //when clicked set the add the ability to the character
         if(inventoryScreen.pageIndex == 3) {
             inventoryScreen.abilitySelected = ability;
             //prompt to confirm
-            inventoryScreen.inventoryCharacterScreen.confirmAddAbilityPage();
+            inventoryScreen.inventoryCharacterScreen.confirmAddAbility();
+        }
+        //if this is in regular character screen(inventory hidden)
+        else if (uiManager.inventoryScreenHidden.hidden) {
+            inventoryScreen.abilitySelected = ability;
+            uiManager.characterInfoScreen.confirmAddAbility();
         }
         //if character hadn't been selected. I.E ability is selected first(still in landingPage)
         else if(inventoryScreen.pageIndex == 0) {

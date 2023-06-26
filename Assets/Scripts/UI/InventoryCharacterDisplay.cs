@@ -40,7 +40,6 @@ public class InventoryCharacterDisplay : MonoBehaviour
         if (inventoryScreen.pageIndex == 0) {
             inventoryScreen.characterSelected = character;
             inventoryScreen.viewCharacter();
-            inventoryScreen.inventoryCharacterScreen.addAbilityPage();
         }
         //if ability selected first then character selected
         if(inventoryScreen.pageIndex == 1) {

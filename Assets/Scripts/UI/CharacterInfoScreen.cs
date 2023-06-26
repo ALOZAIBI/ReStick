@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CharacterInfoScreen : MonoBehaviour
 {
@@ -50,16 +51,28 @@ public class CharacterInfoScreen : MonoBehaviour
 
     public GameObject footer;
 
-    public int pageIndex = 0;
 
     //this will be glowing to display that there are stat points available
     public Image upgradeStats;
     public Color upgradeStatsColorPingPong1;
     public Color upgradeStatsColorPingPong2;
+
+    public int pageIndex = 0;
     //0 landing page
     //1 target selection
     //3 is in inventoryCharacterInfoScreen
 
+    //to be instantiated this is a different gameobject than the regular abilityDisplay because this one will have diff color
+    public GameObject inventoryAbilityDisplay;
+
+
+    public Button addAbilityBtn;
+    public Button confirmAddAbilityBtn;
+    public Image confirmAddAbilityBtnImage;
+
+    const int MAX_ABILITIES = 5;
+    //pageindex 3 = prompt to add ability
+    //pageindex 4 = confirm ability adding
     //base page wehn opening charinfoscreen
     public void openLandingPage() {
         close();
@@ -91,6 +104,9 @@ public class CharacterInfoScreen : MonoBehaviour
         openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
         upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
         upgradeStatsColorPingPong2  = new Color(upgradeStats.color.r*1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
+        addAbilityBtn.onClick.AddListener(addAbility);
+        confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
+        confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
     }
     //this function displays the information in the characterInfoScreen
     public void viewCharacter(Character currChar) {
@@ -154,7 +170,15 @@ public class CharacterInfoScreen : MonoBehaviour
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
-        if(currChar.abilities.Count > 3) {
+        //if the character is player and has less than 5 abilities and zone not started and there are abilities to add available
+        if(character.team == (int)Character.teamList.Player &&character.abilities.Count<5&& !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount>0) {
+            addAbilityBtn.gameObject.SetActive(true);
+            //puts the add ability as the last child
+            addAbilityBtn.transform.SetAsLastSibling();
+        }
+        else
+            addAbilityBtn.gameObject.SetActive(false);
+        if(abilityDisplayPanel.transform.childCount > 3) {
             abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
         }
         else
@@ -316,11 +340,91 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
 
+    public void confirmAddAbilityPage() {
+        addAbilityBtn.gameObject.SetActive(false);
+        confirmAddAbilityBtn.gameObject.SetActive(true);
+        pageIndex = 4;
+    }
+    //displays the abilities in inventory when clicked
+    private void addAbility() {
+        if (character.abilities.Count >= MAX_ABILITIES) {
+            uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
+            return;
+        }
+        //to destroy all abilityDisplayElements
+        close();
+
+        //then display inventory abilities
+        displayInventoryAbilities();
+
+        addAbilityBtn.gameObject.SetActive(false);
+    }
+
+    public void confirmAddAbility() {
+        pageIndex = 4;
+        if (character.abilities.Count >= MAX_ABILITIES) {
+            uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
+            return;
+        }
+        //since inventoryCharacterScreen and characterScreen where seperate I have to do some spaghetti code
+        //adds the ability to Character
+        character.abilities.Add(uiManager.inventoryScreen.abilitySelected);
+        //sets the ability's character to this character
+        character.initRoundStart();
+        //adds ability to activeAbilities in playermanager
+        //Debug.Log(uiManager.inventoryScreen.playerParty.activeAbilities.name);
+        uiManager.inventoryScreen.abilitySelected.gameObject.transform.parent = uiManager.playerParty.activeAbilities.transform;
+        //if in inventory
+        if (!uiManager.inventoryScreenHidden.hidden) {
+            //if ability was selected first go back to inventory screen landing page
+            if (uiManager.inventoryScreen.pageIndex == 2) {
+                uiManager.inventoryScreen.openLandingPage();
+            }
+            else {
+                //update the character's ability display
+                displayCharacterAbilities(uiManager.inventoryScreen.characterSelected);
+            }
+        }
+        //else if regular character screen
+        else
+            displayCharacterAbilities(character);
+        //saves adding the ability
+        if (SceneManager.GetActiveScene().name == "World") {
+            uiManager.saveWorldSave();
+        }
+        else
+            uiManager.saveMapSave();
+        confirmAddAbilityBtn.gameObject.SetActive(false);
+    }
+
+
+    public void displayInventoryAbilities() {
+        //loops thorugh the abilities in abilityInventory
+        Debug.Log(uiManager.inventoryScreen.playerParty.abilityInventory.transform.childCount);
+        foreach (Transform child in uiManager.inventoryScreen.playerParty.abilityInventory.transform) {
+            Debug.Log(child.name + "ABILIRTY INVENTORY");
+            Ability ability = child.GetComponent<Ability>();
+            GameObject temp = Instantiate(inventoryAbilityDisplay);
+            //sets the instantiated object as child
+            temp.transform.parent = abilityDisplayPanel.transform;
+            InventoryAbilityDisplay displayTemp = temp.GetComponent<InventoryAbilityDisplay>();
+            //sets the displays name and description
+            displayTemp.abilityName.text = ability.abilityName;
+            displayTemp.description.text = ability.description;
+            displayTemp.ability = ability;
+            displayTemp.glow = true;
+            //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
+            temp.transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
+
     private void FixedUpdate() {
         //make the upgrade stats color pulsate
         Debug.Log("NOTHING");
         Debug.Log("COLOR"+ upgradeStats.color);
         upgradeStats.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, Mathf.PingPong(Time.time, 2));
-
+        //to make the button glow in and out for emphasis
+        float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);
+        confirmAddAbilityBtnImage.color = new Color(x, x, x);
     }
 }
