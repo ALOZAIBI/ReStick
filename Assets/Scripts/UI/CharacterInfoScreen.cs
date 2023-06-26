@@ -291,7 +291,8 @@ public class CharacterInfoScreen : MonoBehaviour
     public void close() {
         //destroys all ability displays
         foreach (Transform toDestroy in abilityDisplayPanel.transform) {
-            GameObject.Destroy(toDestroy.gameObject);
+            if(toDestroy.tag!="DontDelete")
+                GameObject.Destroy(toDestroy.gameObject);
         }
     }
 
