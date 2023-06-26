@@ -1304,8 +1304,8 @@ public class Character : MonoBehaviour {
         if (AtkAvailable && canAttack && Vector2.Distance(target.transform.position, transform.position) <= Range && target.alive) {
             //we can't rely on range as a conditional since range does increase when character size is buffed but that doesn't mean that they become ranged
             //nvm for now we rely on range
-            if (Range > 2.1f||usesProjectile) {
-                GameObject temp = Instantiate(projectile,transform.position,transform.rotation);
+            if (Range > 2.1f || usesProjectile) {
+                GameObject temp = Instantiate(projectile, transform.position, transform.rotation);
                 Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
                 instantiatedProjectile.shooter = this;
                 instantiatedProjectile.DMG = PD;
@@ -1316,7 +1316,7 @@ public class Character : MonoBehaviour {
                 instantiatedProjectile.LS = LS;
             }
             else {
-                damage(target, PD, true);
+                try { animationManager.attack(); } catch { /*No attack animation*/executeAttack(target);}
             }
             //start cooldown of attack
             startCooldown(1 / AS, (int)ActionAvailable.Attack);
@@ -1326,6 +1326,10 @@ public class Character : MonoBehaviour {
             if (AS < 5)
                 startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
         }
+    }
+    public void executeAttack(Character animationTarget) {
+        //since the targetting might change before the animaiton is done, we save the target in the animationmanager then call it here
+        damage(animationTarget, PD, true);
     }
     //used to set the ActionNext value to CD value. It will actually be cooled down in the cooldown function which is called in the update function
     private void startCooldown(float cooldownDuration,int action) {
