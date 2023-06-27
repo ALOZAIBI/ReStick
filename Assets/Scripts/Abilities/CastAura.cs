@@ -21,21 +21,24 @@ public class CastAura : Ability
     public override void doAbility() {
         if (available) {
             calculateAmt();
-            GameObject temp = Instantiate(prefabObject);
-            temp.transform.localScale = new Vector3(rangeAbility*2, rangeAbility*2, rangeAbility*2);
-            aura = temp.GetComponent<Aura>();
-            //sets the amt 
-            aura.amt = amt;
-            //sets the caster
-            aura.caster = character;
-            aura.ally = ally;
-            aura.enemy = enemy;
-            prefabObject.SetActive(true);
-            startCooldown();
-            startActiveDuration();
+            playAnimation();
         }
     }
 
+    public override void executeAbility() {
+        GameObject temp = Instantiate(prefabObject);
+        temp.transform.localScale = new Vector3(rangeAbility * 2, rangeAbility * 2, rangeAbility * 2);
+        aura = temp.GetComponent<Aura>();
+        //sets the amt 
+        aura.amt = amt;
+        //sets the caster
+        aura.caster = character;
+        aura.ally = ally;
+        aura.enemy = enemy;
+        prefabObject.SetActive(true);
+        startCooldown();
+        startActiveDuration();
+    }
     public override void updateDescription() {
         if (character == null) {
             if (baseAmt >= 0)

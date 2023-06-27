@@ -281,6 +281,9 @@ public class Character : MonoBehaviour {
         zsRange= Range;
         zsLS   = LS;
 
+        animationManager.abilityBuffer = null;
+        animationManager.animator.SetBool("interrupt", false);
+        animationManager.interruptible = true;
     }
 
     //sends position to next frame to be used to check for isIdle
@@ -1314,22 +1317,29 @@ public class Character : MonoBehaviour {
                 instantiatedProjectile.lifetime = 2;    //can make this an attribute to character
                 instantiatedProjectile.target = target;
                 instantiatedProjectile.LS = LS;
+                //start cooldown of attack
+                startCooldown(1 / AS, (int)ActionAvailable.Attack);
+
+                //start cooldown of movement(Character stops moving for a bit after attack)
+                //When character has more than 5 AS there is no stopping movement
+                if (AS < 5)
+                    startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
             }
             else {
-                try { animationManager.attack(); } catch { /*No attack animation*/executeAttack(target);}
+                try { animationManager.attack(); } catch { /*No attack animation*/executeAttackMelee(target);}
             }
-            //start cooldown of attack
-            startCooldown(1 / AS, (int)ActionAvailable.Attack);
-
-            //start cooldown of movement(Character stops moving for a bit after attack)
-            //When character has more than 5 AS there is no stopping movement
-            if (AS < 5)
-                startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
         }
     }
-    public void executeAttack(Character animationTarget) {
+    public void executeAttackMelee(Character animationTarget) {
         //since the targetting might change before the animaiton is done, we save the target in the animationmanager then call it here
         damage(animationTarget, PD, true);
+        //start cooldown of attack
+        startCooldown(1 / AS, (int)ActionAvailable.Attack);
+
+        //start cooldown of movement(Character stops moving for a bit after attack)
+        //When character has more than 5 AS there is no stopping movement
+        if (AS < 5)
+            startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
     }
     //used to set the ActionNext value to CD value. It will actually be cooled down in the cooldown function which is called in the update function
     private void startCooldown(float cooldownDuration,int action) {

@@ -11,15 +11,19 @@ public class HealTarget : Ability
     public override void doAbility() {
         if(available&&character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
-            //heals the target
-            character.target.HP += amt;
-            //creates the healing effect
-            KeepOnTarget fx= Instantiate(prefabObject, character.target.transform.position, Quaternion.identity).GetComponent<KeepOnTarget>();
-            fx.target = character.target.gameObject;
-            Destroy(fx.gameObject, 1.3f);
-
-            startCooldown();
+            playAnimation();
         }
+    }
+
+    public override void executeAbility() {
+        //heals the target
+        character.target.HP += amt;
+        //creates the healing effect
+        KeepOnTarget fx = Instantiate(prefabObject, character.target.transform.position, Quaternion.identity).GetComponent<KeepOnTarget>();
+        fx.target = character.target.gameObject;
+        Destroy(fx.gameObject, 1.3f);
+
+        startCooldown();
     }
 
     public override void updateDescription() {

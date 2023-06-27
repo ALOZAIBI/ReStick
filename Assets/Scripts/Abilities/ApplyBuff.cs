@@ -33,77 +33,79 @@ public class ApplyBuff : Ability
         //selects target
         if (character.selectTarget(targetStrategy,rangeAbility) && available) {
             calculateAmt();
-            //creates buff
-            Buff buff = Instantiate(prefabObject,character.target.transform.position,Quaternion.identity).GetComponent<Buff>();
-            buff.PD = PD;
-            if (PD > 0) {
-                buff.PD += amt * PD;
-            }
-
-            buff.MD = MD;
-            if (MD > 0) {
-                buff.MD += amt * MD;
-            }
-
-            buff.INF = INF;
-            if (INF > 0) {
-                buff.INF += amt * INF;
-            }
-
-            buff.HP = HP;
-            if (HP > 0) {
-                buff.HP += amt * HP;
-            }
-
-            buff.AS = AS;
-            if (AS > 0) {
-                buff.AS += amt * AS;
-            }
-
-            buff.CDR = CDR;
-            if (CDR > 0) {
-                buff.CDR += amt * CDR;
-            }
-
-            buff.MS = MS;
-            if (MS > 0) {
-                buff.MS += amt * MS;
-            }
-
-            buff.Range = Range;
-            if (Range > 0) {
-                buff.Range += amt * Range;
-            }
-
-            buff.LS = LS;
-            if (LS > 0) {
-                buff.LS += amt * LS;
-            }
-
-            buff.size = size;
-            if (size > 0) {
-                buff.size += amt * size;
-            }
-
-            buff.snare = root;
-            buff.silence = silence;
-            buff.blind = blind;
-
-            //sets caster and target
-            buff.caster = character;
-            buff.target = character.target;
-            //increases buff duration according to AMT
-            buff.duration = buffDuration;
-            buff.duration += amt / 6;
-            buff.code = abilityName + character.name;
-            //applies the buff
-            buff.applyBuff();
-            refreshDuration();
-            //cooldown this ability
-            startCooldown();
+            playAnimation();
         }
     }
+    public override void executeAbility() {
+        //creates buff
+        Buff buff = Instantiate(prefabObject, character.target.transform.position, Quaternion.identity).GetComponent<Buff>();
+        buff.PD = PD;
+        if (PD > 0) {
+            buff.PD += amt * PD;
+        }
 
+        buff.MD = MD;
+        if (MD > 0) {
+            buff.MD += amt * MD;
+        }
+
+        buff.INF = INF;
+        if (INF > 0) {
+            buff.INF += amt * INF;
+        }
+
+        buff.HP = HP;
+        if (HP > 0) {
+            buff.HP += amt * HP;
+        }
+
+        buff.AS = AS;
+        if (AS > 0) {
+            buff.AS += amt * AS;
+        }
+
+        buff.CDR = CDR;
+        if (CDR > 0) {
+            buff.CDR += amt * CDR;
+        }
+
+        buff.MS = MS;
+        if (MS > 0) {
+            buff.MS += amt * MS;
+        }
+
+        buff.Range = Range;
+        if (Range > 0) {
+            buff.Range += amt * Range;
+        }
+
+        buff.LS = LS;
+        if (LS > 0) {
+            buff.LS += amt * LS;
+        }
+
+        buff.size = size;
+        if (size > 0) {
+            buff.size += amt * size;
+        }
+
+        buff.snare = root;
+        buff.silence = silence;
+        buff.blind = blind;
+
+        //sets caster and target
+        buff.caster = character;
+        buff.target = character.target;
+        //increases buff duration according to AMT
+        buff.duration = buffDuration;
+        buff.duration += amt / 6;
+        buff.code = abilityName + character.name;
+        //applies the buff
+        buff.applyBuff();
+        refreshDuration();
+        //cooldown this ability
+        startCooldown();
+    }
     public override void updateDescription() {
         if (character != null) {
 

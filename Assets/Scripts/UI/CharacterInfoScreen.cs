@@ -420,8 +420,6 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private void FixedUpdate() {
         //make the upgrade stats color pulsate
-        Debug.Log("NOTHING");
-        Debug.Log("COLOR"+ upgradeStats.color);
         upgradeStats.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, Mathf.PingPong(Time.time, 2));
         //to make the button glow in and out for emphasis
         float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);

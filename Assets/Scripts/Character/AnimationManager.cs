@@ -5,12 +5,24 @@ using UnityEngine.AI;
 
 public class AnimationManager : MonoBehaviour
 {
+    //Attacking has 2 transition states back to walk/idle one is if interrupt is true which cuts the animation as soon as the function is executed,
+    //the other is if the animation is finished.
+
+    //Notice how when an animation starts it is not interruptible however once it executes the event it is.
+    //--------------------------------------------------------------------------------------------
+    //-----------------FOR NOW IGNORE INTERRUPT SYSTEM MIGHT NOT EVEN BE IMPORTANT-----------------
+    //-----------------HOWEVER I AM STILL USING INTERRUPTIBLE TO CHECK IF I CAN PLAY THE ANIMATION NOW-----------------
+    //-------------------ITS JUST THAT IT DOESN'T ACTUALLY USE THE INTERRUPT PARAMTER IN THE ANIMATION-----------------`
+    //--------------------------------------------------------------------------------------------
     public Animator animator;
     public NavMeshAgent agent;
     public Character character;
     public Character target;
     //So this is set to true when an animation that we don't want to be interupted is playing. Like for example attack/cast animations.
-    public bool midAnimation = false;
+    public bool interruptible = false;
+    public bool attackBuffered;
+
+    public Ability abilityBuffer;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,22 +44,47 @@ public class AnimationManager : MonoBehaviour
         animator.SetFloat("MoveAngle",angle);
     }
     private void idle() {
-        Vector3 dest = agent.destination;
-
-
-        //0 is right 1 is left
-        float angle = (transform.position - dest).x < 0 ? 0 : 1;
-        animator.SetFloat("IdleAngle", angle);
+        //idling facing that direction
+        setTargetAngle();
     }
-
+    private void setTargetAngle() {
+        animator.SetFloat("TargetAngle", (transform.position - character.target.transform.position).x < 0 ? 0 : 1);
+    }
     public void attack() {
+        ////if there's an animation buffered(ability or attack) then interrupt
+        //if (interruptible)
+        //    animator.SetTrigger("interrupt");
+        if (interruptible) { 
+        setTargetAngle();
         animator.SetTrigger("attack");
-        midAnimation = true;
+        interruptible = false;
         target = character.target;
+        animator.SetFloat("animationSpeed", 0.5f + character.AS);
+        }
     }
     public void attackEvent() {
-        midAnimation = false;
-        character.executeAttack(target);
+        interruptible = true;
+        character.executeAttackMelee(target);
+    }
+    //This is how the abilities work
+    //If toBeCast==null >>>> animtion.cast>after some animation> animation.castEvent()>>> executeAbility()
+    public void cast(Ability ability) {
+        //if (interruptible)
+        //    animator.SetTrigger("interrupt");
+        if (interruptible) {
+            setTargetAngle();
+            abilityBuffer = ability;
+            animator.SetTrigger("cast");
+            Debug.Log("Cast");
+            interruptible = false;
+        }
+    }
+
+    public void castEvent() {
+        interruptible = true;
+        character.selectTarget(abilityBuffer.targetStrategy, abilityBuffer.rangeAbility);
+        abilityBuffer.executeAbility();
+        abilityBuffer = null;
     }
     // Update is called once per frame
     void Update()

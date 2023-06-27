@@ -89,10 +89,21 @@ public abstract class Ability : MonoBehaviour
     }
     //executes this ability
     public abstract void doAbility();
-
+    public virtual void executeAbility() {
+        //Some abilities need to play an animation before executing. Once the animation is played call this function.
+    }
+    public void playAnimation() {
+        //if there is no ability queued To Be Cast and we are allowed to interrupt the current animation (or there is no animation playing)
+        if(character.animationManager.abilityBuffer == null && character.animationManager.interruptible) {
+            Debug.Log("animation should play"+character.name+abilityName);
+            character.animationManager.cast(this);
+        }
+            
+    }
     //call this when ability level increases to update the description to show the new stats
     public abstract void updateDescription();
 
+    
     //call this in doAbility();
     /// <summary>
     /// Calculates amt by adding stat ratios
