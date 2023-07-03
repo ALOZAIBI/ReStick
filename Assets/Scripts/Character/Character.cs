@@ -1591,7 +1591,15 @@ public class Character : MonoBehaviour {
             }
             catch { /*prevents bug if character has no target. I.E Before starting a zone*/}
             indicators.drawCircle(transform.position, Range,indicators.rangeRenderer,100);
-            indicators.drawAbilitiesCircles(transform.position);
+            //checks if should display ability indicators
+            if (uiManager.showAbilityIndicator) {
+                //if not setup then setup
+                if(!indicators.abilitiesSetup)
+                    indicators.setupAbilitiesIndicators();
+                indicators.drawAbilitiesCircles(transform.position);
+            }
+            else
+                indicators.closeAbilityIndicators();
         }
         else {
             indicators.eraseLines();

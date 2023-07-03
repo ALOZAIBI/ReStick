@@ -84,6 +84,11 @@ public class UIManager : MonoBehaviour
     //used to check if the game was paused before clicking on viewCharacter
     public bool wasPause = false;
 
+    public Button showAbilityIndicatorBtn;
+    public Image eyeOffImage;
+    public Image eyeOnImage;
+    public bool showAbilityIndicator = true;
+
     //used to restartZone
     public Zone zone;
 
@@ -105,6 +110,8 @@ public class UIManager : MonoBehaviour
     [HideInInspector]public HideUI gameLostScreenHidden;
     [HideInInspector]public HideUI topStatDisplayHidden;
     [HideInInspector]public HideUI shopScreenHidden;
+
+    
 
     private void Awake() {
         singleton = this;
@@ -133,6 +140,7 @@ public class UIManager : MonoBehaviour
         lostToRestartBtn.onClick.AddListener(restartZone);
         retryBtn.onClick.AddListener(restartZone);
 
+        showAbilityIndicatorBtn.onClick.AddListener(showAbilityIndicatorFunc);
         pausePlayBtn.onClick.AddListener(pausePlay);
         closeUIBtn.onClick.AddListener(closeUIButton);
         openInventoryBtn.onClick.AddListener(openInventory);
@@ -449,6 +457,12 @@ public class UIManager : MonoBehaviour
         //hide();
         //Debug.Log(saveSlot);
 
+    }
+
+    private void showAbilityIndicatorFunc() {
+        showAbilityIndicator = !showAbilityIndicator;
+        eyeOffImage.gameObject.SetActive(showAbilityIndicator);
+        eyeOnImage.gameObject.SetActive(!showAbilityIndicator);
     }
     #endregion
 

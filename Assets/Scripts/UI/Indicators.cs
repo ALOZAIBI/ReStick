@@ -21,6 +21,7 @@ public class Indicators : MonoBehaviour
 
     [SerializeField] private int circleQuality;//how many steps
     // Start is called before the first frame update
+    public bool abilitiesSetup;
     void Start()
     {
         character = GetComponentInParent<Character>();
@@ -125,6 +126,7 @@ public class Indicators : MonoBehaviour
                 index++;
             }
         }
+        abilitiesSetup = true;
     }
     //deletes abilityIndicatorObjects
     public void closeAbilityIndicators() {
@@ -155,6 +157,8 @@ public class Indicators : MonoBehaviour
         abilitiesTargetRenderer?.Clear();
 
         abilitiesCooldownRenderer?.Clear();
+
+        abilitiesSetup = false;
     }
     public void eraseLines() {
         targetRenderer.enabled = false;

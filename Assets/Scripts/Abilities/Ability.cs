@@ -136,13 +136,6 @@ public abstract class Ability : MonoBehaviour
         //starts the CD
         abilityNext = CD - CD*character.CDR;
         available = false;
-        //increase CD of all other abilities that are ready so that not all abilities are thrown at the same time
-        foreach(Ability ability in character.abilities) {
-            if(ability.available||ability.abilityNext <=0) {
-                ability.available = false;
-                ability.abilityNext = 0.8f- character.CDR;
-            }
-        }
     }
     //and put this in the fixedupdate function
     public void cooldown() {
