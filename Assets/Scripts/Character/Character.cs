@@ -85,9 +85,11 @@ public class Character : MonoBehaviour {
     public int stayNearAllyTarge=(int)TargetList.ClosestAlly;//if movement strategy
 
     //used to root silence and blind etc..
-    public bool snare;
-    public bool silence;
-    public bool blind;
+    //the number is increased by 1 every time the character is rooted/silenced/blinded
+    //and decreased by 1 when the effect ends.
+    public int snare;
+    public int silence;
+    public int blind;
 
     public Character target;
 
@@ -1616,16 +1618,16 @@ public class Character : MonoBehaviour {
         
 
         handleDeath();
-        if (!blind)
+        if (!(blind>0))
             attack();
         cooldown();
-        if (!snare)
+        if (!(snare>0))
             movement();
         else {  //here we're doing else since it might already have a set route and would conitnue moving so we delete it's path
             agent.ResetPath();
             animationManager.move(false);
             }
-        if(!silence)
+        if(!(silence>0))
             doAbilities();
         capHP();
         if (xpProgress >= xpCap)

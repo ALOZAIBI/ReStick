@@ -76,10 +76,10 @@ public class Buff : MonoBehaviour
             //make ranged if this gives range.
             //target.usesProjectile = Range > 0 ? true : initRanged;
             target.LS += LS;
-
-            target.snare = snare;
-            target.silence = silence;
-            target.blind = blind;
+            //increment by 1 if affected
+            target.snare += snare ? 1:0;
+            target.silence += silence ? 1:0;
+            target.blind += blind ? 1:0;
 
             target.gameObject.transform.localScale += new Vector3(size, size, size);
             //increase range with size otherwise character becomes too big and pushes it's target with it's collision and can't hit
@@ -106,9 +106,9 @@ public class Buff : MonoBehaviour
         //target.usesProjectile = initRanged;
         target.LS -= LS;
 
-        target.snare = false;
-        target.silence = false;
-        target.blind = false;
+        target.snare -= snare ? 1 : 0;
+        target.silence -= silence ? 1 : 0;
+        target.blind -= blind ? 1 : 0;
 
         target.gameObject.transform.localScale -= new Vector3(size, size, size);
         target.Range -= 0.75f*size;//see apply buff
