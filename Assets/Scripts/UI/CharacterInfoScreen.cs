@@ -49,93 +49,116 @@ public class CharacterInfoScreen : MonoBehaviour
     public TextMeshProUGUI levelProgress;
     public Image levelBar;
 
-    public GameObject footer;
-
 
     //this will be glowing to display that there are stat points available
     public Image upgradeStats;
     public Color upgradeStatsColorPingPong1;
     public Color upgradeStatsColorPingPong2;
 
-    public int pageIndex = 0;
+    public int pageIndex = -1;
+    //-1 is topstatdisplay
     //0 landing page
     //1 target selection
-    //3 is in inventoryCharacterInfoScreen
 
     //to be instantiated this is a different gameobject than the regular abilityDisplay because this one will have diff color
     public GameObject inventoryAbilityDisplay;
 
-
+    
     public Button addAbilityBtn;
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
+
+    //size of characterInfoScreen
+    public UISizer uiSizer;
+    public float initWidthPercent;
+    public float initHeightPercent;
 
     const int MAX_ABILITIES = 5;
     //pageindex 3 = prompt to add ability
     //pageindex 4 = confirm ability adding
     //base page wehn opening charinfoscreen
-    public void openLandingPage() {
-        //close();
-        //targetSelector.targetSelection.SetActive(false);
-        //movementSelector.gameObject.SetActive(false);
-        //footer.SetActive(true);
-        //pageIndex = 0;
-    }
-    public void openTargetSelectionPage() {
-        //close();
-        //targetSelector.targetSelection.SetActive(true);
-        //targetSelector.updateView();
-        //footer.SetActive(false);
-        //pageIndex = 1;
-    }
 
-    public void openMovementSelectorPage() {
-        if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
-            //close();
-            //movementSelector.gameObject.SetActive(true);
-            //footer.SetActive(false);
-            //pageIndex = 1;
-            //movementSelector.updateText();
-        }
-    }
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+
+        uiSizer = GetComponent<UISizer>();
+        initWidthPercent = uiSizer.widthPercent;
+        initHeightPercent = uiSizer.heightPercent;
+
         openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
         upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
-        upgradeStatsColorPingPong2  = new Color(upgradeStats.color.r*1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
+        upgradeStatsColorPingPong2 = new Color(upgradeStats.color.r * 1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
         addAbilityBtn.onClick.AddListener(addAbility);
         confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
         confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
     }
-    //this function displays the information in the characterInfoScreen
-    public void viewCharacter(Character currChar) {
-        
-        
-        //sets the attributes to the character's
-        characterName.text = currChar.name;
-        //sets the image of character
-        characterPortrait.sprite = currChar.GetComponent<SpriteRenderer>().sprite;
-        characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
-        //Debug.Log("Is this causing bug?:" + GetComponent<TargetNames>().getName(currChar.attackTargetStrategy));
-        //sets the text of the targetting
-        openTargetSelectionTxt.text = TargetNames.getName(currChar.attackTargetStrategy);
-        openMovementSelectorTxt.text = MovementNames.getName(currChar.movementStrategy);
-        targetSelector.character = currChar;
-        movementSelector.character = currChar;
-        character = currChar;
+    public void openTopStatDisplay() {
+        close();
+        pageIndex = -1;
+    }
+    public void openLandingPage() {
+        close();
+        pageIndex = 0;
+    }
+    public void openTargetSelectionPage() {
+        close();
+        targetSelector.targetSelection.SetActive(true);
+        targetSelector.updateView();
+        pageIndex = 1;
+    }
 
-        //Tells the abilities that this owns them
-        foreach (Ability temp in currChar.abilities) {
-            temp.character = currChar;
+    public void openMovementSelectorPage() {
+        if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
+            close();
+            movementSelector.gameObject.SetActive(true);
+            pageIndex = 1;
+            movementSelector.updateText();
         }
+    }
+    
+    //this function displays the information in the characterInfoScreen
+    public void viewCharacterFullScreen(Character currChar) {
+        
+        
+        ////sets the attributes to the character's
+        //characterName.text = currChar.name;
+        ////sets the image of character
+        //characterPortrait.sprite = currChar.GetComponent<SpriteRenderer>().sprite;
+        //characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
+        ////Debug.Log("Is this causing bug?:" + GetComponent<TargetNames>().getName(currChar.attackTargetStrategy));
+        ////sets the text of the targetting
+        //openTargetSelectionTxt.text = TargetNames.getName(currChar.attackTargetStrategy);
+        //openMovementSelectorTxt.text = MovementNames.getName(currChar.movementStrategy);
+        //targetSelector.character = currChar;
+        //movementSelector.character = currChar;
+        //character = currChar;
 
+        ////Tells the abilities that this owns them
+        //foreach (Ability temp in currChar.abilities) {
+        //    temp.character = currChar;
+        //}
+        displayNameAndPortrait(currChar);
         openLandingPage();
         displayStats(currChar);
         displayCharacterAbilities(currChar);
         healthBar.manualDisplayHealth();
     }
 
+    public void viewCharacterTopStatDisplay(Character currChar) {
+        displayNameAndPortrait(currChar);
+        displayStats(currChar);
+    }
+
+    private void displayNameAndPortrait(Character currChar) {
+        characterName.text = currChar.name;
+        //sets the image of character
+        characterPortrait.sprite = currChar.GetComponent<SpriteRenderer>().sprite;
+        characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
+    }
+    public void updateStats(Character currChar) {
+
+    }
     public void displayCharacterAbilities(Character currChar) {
         //close();
         //foreach (Ability ability in currChar.abilities) {
@@ -273,54 +296,60 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
     public void displayStats(Character currChar) {
+
+
+        handleColor(currChar);
+        //the empty quotes is to convert float to str
+        PD.text = currChar.PD.ToString("F1");
+        MD.text = currChar.MD.ToString("F1");
+        INF.text = currChar.INF.ToString("F1");
+        AS.text = currChar.AS.ToString("F1");
+        CDR.text = (currChar.CDR * 100).ToString("F1");
+        MS.text = currChar.MS.ToString("F1");
+        RNG.text = currChar.Range.ToString("F1");
+        LS.text = (currChar.LS * 100).ToString("F1");
         
 
-        //handleColor(currChar);
-        ////the empty quotes is to convert float to str
-        //PD.text = currChar.PD.ToString("F1");
-        //MD.text = currChar.MD.ToString("F1");
-        //INF.text = currChar.INF.ToString("F1");
-        //AS.text = currChar.AS.ToString("F1");
-        //CDR.text = (currChar.CDR*100).ToString("F1");
-        //MS.text = currChar.MS.ToString("F1");
-        //RNG.text = currChar.Range.ToString("F1");
-        //LS.text = (currChar.LS*100).ToString("F1");
-        ////so that it displays stat points as available/total
-        //SP.text = "Upgrade Points "+currChar.statPoints.ToString()+"/"+(statPointUI.SPUsedBuffer+currChar.statPoints);
+        //fills the HP bar correctly
+        healthBar.character = currChar;
 
-        
-        ////displays statPoints if zone hasn't started and if the character has statpoints available
-        //if ((currChar.statPoints + statPointUI.SPUsedBuffer)>0 && !uiManager.zoneStarted()) {
-        //    //Debug.Log("showing");
-        //    statPointUI.applied = false;
-        //    statPointUI.show();
-        //}
-        //else {
-        //        statPointUI.hide();
-        //}
 
-        //statPointUI.lastUsedCharacter = currChar;
-
-        //totalKills.text = currChar.totalKills + "";
-        //totalDamage.text = currChar.totalDamage.ToString("F0");
-        ////fills the HP bar correctly
-        //healthBar.character = currChar;
-
-        ////
-        //levelText.text = "LVL: "+currChar.level;
-        //levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
-        //levelProgress.text = currChar.xpProgress + "/"+currChar.xpCap;
+        levelText.text = "LVL: " + currChar.level;
+        levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
+        levelProgress.text = currChar.xpProgress + "/" + currChar.xpCap;
     }
+    private void displayUpgradeStats(Character currChar) {
+        //so that it displays stat points as available/total
+        SP.text = "Upgrade Points " + currChar.statPoints.ToString() + "/" + (statPointUI.SPUsedBuffer + currChar.statPoints);
 
-    public void close() {
-        //destroys all ability displays
-        foreach (Transform toDestroy in abilityDisplayPanel.transform) {
-            if(toDestroy.tag!="DontDelete")
-                GameObject.Destroy(toDestroy.gameObject);
+
+        //displays statPoints if zone hasn't started and if the character has statpoints available
+        if ((currChar.statPoints + statPointUI.SPUsedBuffer) > 0 && !uiManager.zoneStarted()) {
+            //Debug.Log("showing");
+            statPointUI.applied = false;
+            statPointUI.show();
         }
+        else {
+            statPointUI.hide();
+        }
+        statPointUI.lastUsedCharacter = currChar;
+    }
+    private void displayInterestingStats(Character currChar) {
+        totalKills.text = currChar.totalKills + "";
+        totalDamage.text = currChar.totalDamage.ToString("F0");
+    }
+    public void close() {
+        ////destroys all ability displays
+        //foreach (Transform toDestroy in abilityDisplayPanel.transform) {
+        //    if(toDestroy.tag!="DontDelete")
+        //        GameObject.Destroy(toDestroy.gameObject);
+        //}
+
+        //targetSelector.targetSelection.SetActive(false);
+        //movementSelector.gameObject.SetActive(false);
     }
 
-    
+
     //opens target selector for normal attacks
     public void openTargetSelectorNormal() {
         Debug.Log("OPen target selector");
@@ -419,10 +448,15 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        //make the upgrade stats color pulsate
-        upgradeStats.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, Mathf.PingPong(Time.time, 2));
-        //to make the button glow in and out for emphasis
-        float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);
-        confirmAddAbilityBtnImage.color = new Color(x, x, x);
+        ////make the upgrade stats color pulsate
+        //upgradeStats.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, Mathf.PingPong(Time.time, 2));
+        ////to make the button glow in and out for emphasis
+        //float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);
+        //confirmAddAbilityBtnImage.color = new Color(x, x, x);
+        
+    }
+    private void Update() {
+        if (uiManager.charInfoScreenHidden.hidden == false)
+            viewCharacterTopStatDisplay(character);
     }
 }

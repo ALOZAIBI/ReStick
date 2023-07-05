@@ -1467,8 +1467,10 @@ public class Character : MonoBehaviour {
             }
             //else(mouse is not clicked)
             else {
+                Debug.Log("guessing once");
                 //if is a click and not hold
                 if (mouseHoldDuration < 0.2f) {
+                    Debug.Log("Open Character Screen");
                     uiManager.viewCharacter(this);
                     drawIndicators();
                 }
@@ -1476,6 +1478,7 @@ public class Character : MonoBehaviour {
                 held= false;
                 mouseHoldDuration = 0;
                 click = false;
+                Debug.Log("Click is set to false"+click);
                 //uiManager.placingScreenHidden.hidden = false;
                 camMov.pannable = true;
                 //held = false;
@@ -1582,7 +1585,7 @@ public class Character : MonoBehaviour {
 
     //returns wether the character is selected ornot
     public bool getSelected() {
-        return UIManager.singleton.topStatDisplay.character == this;
+        return UIManager.singleton.characterInfoScreen.character == this;
     }
     //displays range and arrow to target
     private void drawTargetIndicator() {

@@ -207,7 +207,7 @@ public class InventoryScreen : MonoBehaviour
     public void viewCharacter() {
         //deletes the abilities
         closeBody();
-        inventoryCharacterScreen.viewCharacter(characterSelected);
+        inventoryCharacterScreen.viewCharacterFullScreen(characterSelected);
         openCharacterSelectedPage();
     }
 }

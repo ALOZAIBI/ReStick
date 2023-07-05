@@ -195,7 +195,7 @@ public class StatPointUI : MonoBehaviour {
         }
         else
             UIManager.singleton.saveMapSave();
-        characterInfoScreen.viewCharacter(characterInfoScreen.character);
+        characterInfoScreen.viewCharacterFullScreen(characterInfoScreen.character);
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked
     public void resetChanges() {
@@ -511,7 +511,7 @@ public class StatPointUI : MonoBehaviour {
     //updates visual to display change to be applied
     public void fakeStatDisplay() {
         //Debug.Log("Fakse stats uopdated");
-        characterInfoScreen.viewCharacter(characterInfoScreen.character);
+        characterInfoScreen.viewCharacterFullScreen(characterInfoScreen.character);
         updateAddColors();
         updateSubColors();
     }

@@ -72,7 +72,7 @@ public class AbilityDisplay : MonoBehaviour
         //removes ability from character
         uiManager.inventoryScreen.characterSelected.abilities.Remove(ability);
         //updates the character info screen view
-        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(uiManager.inventoryScreen.characterSelected);
+        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacterFullScreen(uiManager.inventoryScreen.characterSelected);
         //saves removing the ability
         if (SceneManager.GetActiveScene().name == "World") {
             uiManager.saveWorldSave();

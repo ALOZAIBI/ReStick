@@ -37,7 +37,7 @@ public class AttackTargetSelector : MonoBehaviour {
         //do for inventory charInfoScreen
         else {
             uiManager.inventoryScreen.inventoryCharacterScreen.close();
-            uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacter(character);
+            uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacterFullScreen(character);
         }
     }
 

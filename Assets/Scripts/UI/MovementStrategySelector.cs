@@ -68,7 +68,7 @@ public class MovementStrategySelector : MonoBehaviour {
         //do for inventory charInfoScreen
         else {
             UIManager.singleton.inventoryScreen.inventoryCharacterScreen.close();
-            UIManager.singleton.inventoryScreen.inventoryCharacterScreen.viewCharacter(character);
+            UIManager.singleton.inventoryScreen.inventoryCharacterScreen.viewCharacterFullScreen(character);
         }
     }
 }

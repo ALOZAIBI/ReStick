@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-//to be executed before HideUI so that init pos is after being anchored
-[DefaultExecutionOrder(-100)]
 public class UISizer : MonoBehaviour
 {
     private RectTransform rectTransform;
@@ -15,10 +13,10 @@ public class UISizer : MonoBehaviour
 
     public bool resizeDone;
     //if this is ticked. do the size relative to parent
-    public bool sizeRelativeToParent;
+    [SerializeField]private bool sizeRelativeToParent;
 
     //on the editor if this is ticked then the width and height will be the same. The one that is at 0% will be like the other
-    public bool keepSquared;
+    [SerializeField]private bool keepSquared;
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -47,13 +45,13 @@ public class UISizer : MonoBehaviour
 
         float widthDelta = rectTransform.sizeDelta.x - initSize.x;
         float heightDelta = rectTransform.sizeDelta.y - initSize.y;
-
+        
         //then we move by difference of size to keep it at the same anchored position
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + (widthDelta / 2),rectTransform.anchoredPosition.y-(heightDelta/2));
-
         if (keepSquared)
             keepSquaredFunc();
         toString();
+        GetComponent<HideUI>().setInitPos();
         resizeDone = true;
 
     }
@@ -63,6 +61,8 @@ public class UISizer : MonoBehaviour
             Debug.Log(name + " " + rectTransform.sizeDelta+"Parent size"+parent.sizeDelta);
         else
         Debug.Log(name+" "+rectTransform.sizeDelta);
+
+        Debug.Log(rectTransform.anchoredPosition);
     }
     private void keepSquaredFunc() {
         if (widthPercent == 0) {

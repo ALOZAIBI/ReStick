@@ -155,15 +155,15 @@ public class UIManager : MonoBehaviour
         //if character wasn't already selected
         else {
             character = charSel;
-            topStatDisplay.character = character;
-            topStatDisplayHidden.hidden = false;
+            viewTopstatDisplay(charSel);
         }
     }
     //in some cases we want it to only viewTopStat
     public void viewTopstatDisplay(Character charSel) {
         character = charSel;
-        topStatDisplay.character = character;
-        topStatDisplayHidden.hidden = false;
+        characterInfoScreen.character = character;
+        charInfoScreenHidden.hidden = false;
+        characterInfoScreen.openTopStatDisplay();
     }
     public void viewCharacterInfo(Character currChar) {
         //opens the screen and pauses the game
@@ -171,12 +171,11 @@ public class UIManager : MonoBehaviour
         pausePlay(true);
         //hides placing screen
         placingScreenHidden.hidden = true;
-        topStatDisplay.moreInfoBtn.gameObject.SetActive(false);
         //the close button pops up and the pause button+time control is hidden
         closeUIBtn.gameObject.SetActive(true);
         timeControlHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(false);
-        characterInfoScreen.viewCharacter(currChar);
+        characterInfoScreen.viewCharacterFullScreen(currChar);
     }
 
     public void hideCharacter() {
