@@ -18,7 +18,7 @@ public class UISizer : MonoBehaviour
     public bool sizeRelativeToParent;
 
     //on the editor if this is ticked then the width and height will be the same. The one that is at 0% will be like the other
-    public bool keepAspectRatio;
+    public bool keepSquared;
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -35,8 +35,8 @@ public class UISizer : MonoBehaviour
         //we resize
         if (sizeRelativeToParent) {
               rectTransform.sizeDelta = new Vector2(parent.sizeDelta.x * widthPercent / 100, parent.sizeDelta.y * heightPercent / 100);
-            if (keepAspectRatio)
-                keepAspectRatioFunc();
+            if (keepSquared)
+                keepSquaredFunc();
             toString();
             resizeDone = true;
             //we end the function here since the anchor has already been set and we don't care about screen out of bounds since this is within the parent
@@ -51,8 +51,8 @@ public class UISizer : MonoBehaviour
         //then we move by difference of size to keep it at the same anchored position
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + (widthDelta / 2),rectTransform.anchoredPosition.y-(heightDelta/2));
 
-        if (keepAspectRatio)
-            keepAspectRatioFunc();
+        if (keepSquared)
+            keepSquaredFunc();
         toString();
         resizeDone = true;
 
@@ -64,7 +64,7 @@ public class UISizer : MonoBehaviour
         else
         Debug.Log(name+" "+rectTransform.sizeDelta);
     }
-    private void keepAspectRatioFunc() {
+    private void keepSquaredFunc() {
         if (widthPercent == 0) {
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.y, rectTransform.sizeDelta.y);
         }
