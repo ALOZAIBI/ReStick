@@ -75,27 +75,27 @@ public class CharacterInfoScreen : MonoBehaviour
     //pageindex 4 = confirm ability adding
     //base page wehn opening charinfoscreen
     public void openLandingPage() {
-        close();
-        targetSelector.targetSelection.SetActive(false);
-        movementSelector.gameObject.SetActive(false);
-        footer.SetActive(true);
-        pageIndex = 0;
+        //close();
+        //targetSelector.targetSelection.SetActive(false);
+        //movementSelector.gameObject.SetActive(false);
+        //footer.SetActive(true);
+        //pageIndex = 0;
     }
     public void openTargetSelectionPage() {
-        close();
-        targetSelector.targetSelection.SetActive(true);
-        targetSelector.updateView();
-        footer.SetActive(false);
-        pageIndex = 1;
+        //close();
+        //targetSelector.targetSelection.SetActive(true);
+        //targetSelector.updateView();
+        //footer.SetActive(false);
+        //pageIndex = 1;
     }
 
     public void openMovementSelectorPage() {
         if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
-            close();
-            movementSelector.gameObject.SetActive(true);
-            footer.SetActive(false);
-            pageIndex = 1;
-            movementSelector.updateText();
+            //close();
+            //movementSelector.gameObject.SetActive(true);
+            //footer.SetActive(false);
+            //pageIndex = 1;
+            //movementSelector.updateText();
         }
     }
     public void Start() {
@@ -137,52 +137,52 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     public void displayCharacterAbilities(Character currChar) {
-        close();
-        foreach (Ability ability in currChar.abilities) {
-            //updates description
-            ability.updateDescription();
-            GameObject temp = Instantiate(abilityDisplay);
-            //sets the instantiated object as child
-            temp.transform.parent = abilityDisplayPanel.transform;
-            AbilityDisplay displayTemp = temp.GetComponent<AbilityDisplay>();
-            //sets the displays name and description
-            displayTemp.abilityName.text = ability.abilityName;
-            displayTemp.description.text = ability.description;
-            displayTemp.ability = ability;
-            //if ability has no target hide the target button
-            if (!ability.hasTarget) {
-                displayTemp.btn.gameObject.SetActive(false);
-            }
-            else
-                displayTemp.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
-            //sets the cooldownBar fill amount to CD remaining
-            displayTemp.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
-            //if the ability has no cd anyways(It's a passive)
-            if (ability.CD == 0)
-                displayTemp.cooldownText.text = ("Ready");
-            else
-            //if the ability is ready
-            if (ability.abilityNext == 0) 
-                displayTemp.cooldownText.text = ("Ready "+ability.displayCDAfterChange()+" CD");
-            else
-            //shows how much cd remaining 
-            displayTemp.cooldownText.text = (ability.abilityNext).ToString("F1");
-            //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
-            temp.transform.localScale = new Vector3(1, 1, 1);
-        }
-        //if the character is player and has less than 5 abilities and zone not started and there are abilities to add available
-        if(character.team == (int)Character.teamList.Player &&character.abilities.Count<5&& !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount>0) {
-            addAbilityBtn.gameObject.SetActive(true);
-            //puts the add ability as the last child
-            addAbilityBtn.transform.SetAsLastSibling();
-        }
-        else
-            addAbilityBtn.gameObject.SetActive(false);
-        if(abilityDisplayPanel.transform.childCount > 3) {
-            abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
-        }
-        else
-            abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = false;
+        //close();
+        //foreach (Ability ability in currChar.abilities) {
+        //    //updates description
+        //    ability.updateDescription();
+        //    GameObject temp = Instantiate(abilityDisplay);
+        //    //sets the instantiated object as child
+        //    temp.transform.parent = abilityDisplayPanel.transform;
+        //    AbilityDisplay displayTemp = temp.GetComponent<AbilityDisplay>();
+        //    //sets the displays name and description
+        //    displayTemp.abilityName.text = ability.abilityName;
+        //    displayTemp.description.text = ability.description;
+        //    displayTemp.ability = ability;
+        //    //if ability has no target hide the target button
+        //    if (!ability.hasTarget) {
+        //        displayTemp.btn.gameObject.SetActive(false);
+        //    }
+        //    else
+        //        displayTemp.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
+        //    //sets the cooldownBar fill amount to CD remaining
+        //    displayTemp.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
+        //    //if the ability has no cd anyways(It's a passive)
+        //    if (ability.CD == 0)
+        //        displayTemp.cooldownText.text = ("Ready");
+        //    else
+        //    //if the ability is ready
+        //    if (ability.abilityNext == 0) 
+        //        displayTemp.cooldownText.text = ("Ready "+ability.displayCDAfterChange()+" CD");
+        //    else
+        //    //shows how much cd remaining 
+        //    displayTemp.cooldownText.text = (ability.abilityNext).ToString("F1");
+        //    //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
+        //    temp.transform.localScale = new Vector3(1, 1, 1);
+        //}
+        ////if the character is player and has less than 5 abilities and zone not started and there are abilities to add available
+        //if(character.team == (int)Character.teamList.Player &&character.abilities.Count<5&& !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount>0) {
+        //    addAbilityBtn.gameObject.SetActive(true);
+        //    //puts the add ability as the last child
+        //    addAbilityBtn.transform.SetAsLastSibling();
+        //}
+        //else
+        //    addAbilityBtn.gameObject.SetActive(false);
+        //if(abilityDisplayPanel.transform.childCount > 3) {
+        //    abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
+        //}
+        //else
+        //    abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = false;
     }
     //displays the stats and cool stats of the character and character screen
 
@@ -275,41 +275,41 @@ public class CharacterInfoScreen : MonoBehaviour
     public void displayStats(Character currChar) {
         
 
-        handleColor(currChar);
-        //the empty quotes is to convert float to str
-        PD.text = currChar.PD.ToString("F1");
-        MD.text = currChar.MD.ToString("F1");
-        INF.text = currChar.INF.ToString("F1");
-        AS.text = currChar.AS.ToString("F1");
-        CDR.text = (currChar.CDR*100).ToString("F1");
-        MS.text = currChar.MS.ToString("F1");
-        RNG.text = currChar.Range.ToString("F1");
-        LS.text = (currChar.LS*100).ToString("F1");
-        //so that it displays stat points as available/total
-        SP.text = "Upgrade Points "+currChar.statPoints.ToString()+"/"+(statPointUI.SPUsedBuffer+currChar.statPoints);
+        //handleColor(currChar);
+        ////the empty quotes is to convert float to str
+        //PD.text = currChar.PD.ToString("F1");
+        //MD.text = currChar.MD.ToString("F1");
+        //INF.text = currChar.INF.ToString("F1");
+        //AS.text = currChar.AS.ToString("F1");
+        //CDR.text = (currChar.CDR*100).ToString("F1");
+        //MS.text = currChar.MS.ToString("F1");
+        //RNG.text = currChar.Range.ToString("F1");
+        //LS.text = (currChar.LS*100).ToString("F1");
+        ////so that it displays stat points as available/total
+        //SP.text = "Upgrade Points "+currChar.statPoints.ToString()+"/"+(statPointUI.SPUsedBuffer+currChar.statPoints);
 
         
-        //displays statPoints if zone hasn't started and if the character has statpoints available
-        if ((currChar.statPoints + statPointUI.SPUsedBuffer)>0 && !uiManager.zoneStarted()) {
-            //Debug.Log("showing");
-            statPointUI.applied = false;
-            statPointUI.show();
-        }
-        else {
-                statPointUI.hide();
-        }
+        ////displays statPoints if zone hasn't started and if the character has statpoints available
+        //if ((currChar.statPoints + statPointUI.SPUsedBuffer)>0 && !uiManager.zoneStarted()) {
+        //    //Debug.Log("showing");
+        //    statPointUI.applied = false;
+        //    statPointUI.show();
+        //}
+        //else {
+        //        statPointUI.hide();
+        //}
 
-        statPointUI.lastUsedCharacter = currChar;
+        //statPointUI.lastUsedCharacter = currChar;
 
-        totalKills.text = currChar.totalKills + "";
-        totalDamage.text = currChar.totalDamage.ToString("F0");
-        //fills the HP bar correctly
-        healthBar.character = currChar;
+        //totalKills.text = currChar.totalKills + "";
+        //totalDamage.text = currChar.totalDamage.ToString("F0");
+        ////fills the HP bar correctly
+        //healthBar.character = currChar;
 
-        //
-        levelText.text = "LVL: "+currChar.level;
-        levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
-        levelProgress.text = currChar.xpProgress + "/"+currChar.xpCap;
+        ////
+        //levelText.text = "LVL: "+currChar.level;
+        //levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
+        //levelProgress.text = currChar.xpProgress + "/"+currChar.xpCap;
     }
 
     public void close() {
