@@ -8,7 +8,7 @@ public class ColorPalette : MonoBehaviour
 {
     //this script is on an empty in the do not destroys
     public static ColorPalette singleton;
-    //default color
+    //default color of text
     public Color defaultColor;
     //color of text when gaining a buff (Green)
     public Color buff;

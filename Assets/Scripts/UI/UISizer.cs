@@ -17,6 +17,8 @@ public class UISizer : MonoBehaviour
 
     //on the editor if this is ticked then the width and height will be the same. The one that is at 0% will be like the other
     [SerializeField]private bool keepSquared;
+    //This is needed if anchored to a corner I think
+    [SerializeField] private bool moveToKeepAnchor=true;
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -46,8 +48,9 @@ public class UISizer : MonoBehaviour
         float widthDelta = rectTransform.sizeDelta.x - initSize.x;
         float heightDelta = rectTransform.sizeDelta.y - initSize.y;
         
-        //then we move by difference of size to keep it at the same anchored position
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + (widthDelta / 2),rectTransform.anchoredPosition.y-(heightDelta/2));
+        if(moveToKeepAnchor)
+            //then we move by difference of size to keep it at the same anchored position
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + (widthDelta / 2),rectTransform.anchoredPosition.y-(heightDelta/2));
         if (keepSquared)
             keepSquaredFunc();
         toString();
