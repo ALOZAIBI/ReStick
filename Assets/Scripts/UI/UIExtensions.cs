@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class UIExtensions {
+    #region RectTransform
     public static void SetLeft(this RectTransform rt, float left) {
         rt.offsetMin = new Vector2(left, rt.offsetMin.y);
     }
@@ -17,6 +19,21 @@ public static class UIExtensions {
         rt.offsetMin = new Vector2(rt.offsetMin.x, bottom);
     }
 
+    public static float GetLeft(this RectTransform rt) {
+        return rt.offsetMin.x;
+    }
+
+    public static float GetRight(this RectTransform rt) {
+        return -rt.offsetMax.x;
+    }
+
+    public static float GetTop(this RectTransform rt) {
+        return -rt.offsetMax.y;
+    }
+
+    public static float GetBottom(this RectTransform rt) {
+        return rt.offsetMin.y;
+    }
 
     //setting anchors through script moves it while keeping the bottom/left/right/top position the same(Changing through editor moves the position as well)
     public static void SetAnchorLeft(this RectTransform rt, float left) {
@@ -49,5 +66,12 @@ public static class UIExtensions {
 
     public static float GetAnchorBottom(this RectTransform rt) {
         return rt.anchorMin.y;
+    }
+    #endregion
+
+    public static void RefreshLayoutGroupsImmediateAndRecursive(this GameObject root) {
+        foreach (var layoutGroup in root.GetComponentsInChildren<LayoutGroup>()) {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
+        }
     }
 }

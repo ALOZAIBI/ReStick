@@ -83,13 +83,29 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField] private Button closeFullScreenBtn;
 
     [SerializeField] private RectTransform mainPanel;
-    [SerializeField] private float mainPanelAnchorLeft;
-    [SerializeField] private float mainPanelAnchorRight;
-    [SerializeField] private float mainPanelAnchorTop;
-    [SerializeField] private float mainPanelAnchorBottom;
+    [SerializeField] private float mainPanelAnchorL;
+    [SerializeField] private float mainPanelAnchorR;
+    [SerializeField] private float mainPanelAnchorT;
+    [SerializeField] private float mainPanelAnchorB;
+
+    [SerializeField] private float mainPanelPositionL;
+    [SerializeField] private float mainPanelPositionR;
+    [SerializeField] private float mainPanelPositionT;
+    [SerializeField] private float mainPanelPositionB;
 
     [SerializeField] private RectTransform statsPanel;
     [SerializeField] private RectTransform portraitPanel;
+
+    [SerializeField] private float portraitPanelAnchorL;
+    [SerializeField] private float portraitPanelAnchorR;
+    [SerializeField] private float portraitPanelAnchorT;
+    [SerializeField] private float portraitPanelAnchorB;
+                                   
+    [SerializeField] private float portraitPanelPositionL;
+    [SerializeField] private float portraitPanelPositionR;
+    [SerializeField] private float portraitPanelPositionT;
+    [SerializeField] private float portraitPanelPositionB;
+
     [SerializeField] private RectTransform abilityPanel;
     [SerializeField] private float transitionTime;
     [SerializeField] private float time;
@@ -100,10 +116,26 @@ public class CharacterInfoScreen : MonoBehaviour
         time = transitionTime;
 
         hideUI = GetComponent<HideUI>();
-        mainPanelAnchorLeft = mainPanel.GetAnchorLeft();
-        mainPanelAnchorRight = mainPanel.GetAnchorRight();
-        mainPanelAnchorTop = mainPanel.GetAnchorTop();
-        mainPanelAnchorBottom = mainPanel.GetAnchorBottom();
+
+        mainPanelAnchorL = mainPanel.GetAnchorLeft();
+        mainPanelAnchorR = mainPanel.GetAnchorRight();
+        mainPanelAnchorT = mainPanel.GetAnchorTop();
+        mainPanelAnchorB = mainPanel.GetAnchorBottom();
+        
+        mainPanelPositionL = mainPanel.GetLeft();
+        mainPanelPositionR = mainPanel.GetRight();
+        mainPanelPositionT = mainPanel.GetTop();
+        mainPanelPositionB = mainPanel.GetBottom();
+
+        portraitPanelAnchorL = portraitPanel.GetAnchorLeft();
+        portraitPanelAnchorR = portraitPanel.GetAnchorRight();
+        portraitPanelAnchorT = portraitPanel.GetAnchorTop();
+        portraitPanelAnchorB = portraitPanel.GetAnchorBottom();
+
+        portraitPanelPositionL = portraitPanel.GetLeft();
+        portraitPanelPositionR = portraitPanel.GetRight();
+        portraitPanelPositionT = portraitPanel.GetTop();
+        portraitPanelPositionB = portraitPanel.GetBottom();
 
         openFullScreenBtn.onClick.AddListener(startOpening);
         closeFullScreenBtn.onClick.AddListener(startClosing);
@@ -140,12 +172,24 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private void handleMainPanel() {
         //stretches right anchor to be as far from edge as left anchor is from edge
-        mainPanel.SetAnchorRight(Mathf.Lerp(mainPanelAnchorRight, 1 - mainPanelAnchorLeft, time/transitionTime));
-        mainPanel.SetAnchorBottom(Mathf.Lerp(mainPanelAnchorBottom, 1 - mainPanelAnchorTop, time/transitionTime));
+        mainPanel.SetAnchorRight(Mathf.Lerp(mainPanelAnchorR, 1 - mainPanelAnchorL, time/transitionTime));
+        mainPanel.SetAnchorBottom(Mathf.Lerp(mainPanelAnchorB, 1 - mainPanelAnchorT, time/transitionTime));
     }
 
+    private void handlePortraitPanel() {
+        scalePortraitPanel(2);
+    }
+   
+    private void scalePortraitPanel(float amount) {
+        portraitPanel.SetRight(Mathf.Lerp(portraitPanelPositionR, portraitPanelPositionR * amount, time/transitionTime));
+        portraitPanel.SetBottom(Mathf.Lerp(portraitPanelPositionB, portraitPanelPositionB * amount, time/transitionTime));
+
+    }
     private void handlePanels() {
+        //this is needed to update stats text position and size as we expand and shrink the panel
+        mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
         handleMainPanel();
+        handlePortraitPanel();
         hideUI.setInitPos();
     }
 
@@ -525,7 +569,5 @@ public class CharacterInfoScreen : MonoBehaviour
 
         if(opening||closing)
             handlePanels();
-
-
     }
 }
