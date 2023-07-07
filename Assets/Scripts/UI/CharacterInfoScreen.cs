@@ -73,10 +73,40 @@ public class CharacterInfoScreen : MonoBehaviour
     //pageindex 4 = confirm ability adding
     //base page wehn opening charinfoscreen
 
+    private HideUI hideUI;
 
+    private bool opening;
+    private bool closing;
+    private bool opened;
+    //this is the main panel itself and maybe I will add another button for clarity later
+    [SerializeField] private Button openFullScreenBtn;
+    [SerializeField] private Button closeFullScreenBtn;
+
+    [SerializeField] private RectTransform mainPanel;
+    [SerializeField] private float mainPanelAnchorLeft;
+    [SerializeField] private float mainPanelAnchorRight;
+    [SerializeField] private float mainPanelAnchorTop;
+    [SerializeField] private float mainPanelAnchorBottom;
+
+    [SerializeField] private RectTransform statsPanel;
+    [SerializeField] private RectTransform portraitPanel;
+    [SerializeField] private RectTransform abilityPanel;
+    [SerializeField] private float transitionTime;
+    [SerializeField] private float time;
 
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        //just so that it doesn't transition on start.
+        time = transitionTime;
+
+        hideUI = GetComponent<HideUI>();
+        mainPanelAnchorLeft = mainPanel.GetAnchorLeft();
+        mainPanelAnchorRight = mainPanel.GetAnchorRight();
+        mainPanelAnchorTop = mainPanel.GetAnchorTop();
+        mainPanelAnchorBottom = mainPanel.GetAnchorBottom();
+
+        openFullScreenBtn.onClick.AddListener(startOpening);
+        closeFullScreenBtn.onClick.AddListener(startClosing);
 
         openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
@@ -88,6 +118,37 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     #region movingUIElementsNStuff
+    private void startOpening() {
+        if (!opened) {
+            closeFullScreenBtn.gameObject.SetActive(true);
+            opened = true;
+            //resets time so that the transition can start.
+            opening = true;
+            closing = false;
+            time = 0;
+        }
+    }
+    private void startClosing() {
+        if (opened) {
+            closeFullScreenBtn.gameObject.SetActive(false);
+            opened = false;
+            time = transitionTime;
+            opening = false;
+            closing = true;
+        }
+    }
+
+    private void handleMainPanel() {
+        //stretches right anchor to be as far from edge as left anchor is from edge
+        mainPanel.SetAnchorRight(Mathf.Lerp(mainPanelAnchorRight, 1 - mainPanelAnchorLeft, time/transitionTime));
+        mainPanel.SetAnchorBottom(Mathf.Lerp(mainPanelAnchorBottom, 1 - mainPanelAnchorTop, time/transitionTime));
+    }
+
+    private void handlePanels() {
+        handleMainPanel();
+        hideUI.setInitPos();
+    }
+
     public void openTopStatDisplay() {
         close();
         pageIndex = -1;
@@ -113,6 +174,8 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     #endregion
     //this function displays the information in the characterInfoScreen
+
+    #region displayCharacterInfo
     public void viewCharacterFullScreen(Character currChar) {
         
         
@@ -441,7 +504,7 @@ public class CharacterInfoScreen : MonoBehaviour
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
     }
-
+    #endregion
     private void FixedUpdate() {
         ////make the upgrade stats color pulsate
         //upgradeStats.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, Mathf.PingPong(Time.time, 2));
@@ -450,8 +513,19 @@ public class CharacterInfoScreen : MonoBehaviour
         //confirmAddAbilityBtnImage.color = new Color(x, x, x);
         
     }
+    public bool openingFullScreen;
     private void Update() {
         if (uiManager.charInfoScreenHidden.hidden == false)
             viewCharacterTopStatDisplay(character);
+
+        if (opening)
+            time += Time.unscaledDeltaTime;
+        if (closing)
+            time -= Time.unscaledDeltaTime;
+
+        if(opening||closing)
+            handlePanels();
+
+
     }
 }

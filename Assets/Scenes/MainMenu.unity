@@ -1047,8 +1047,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 502679143
-  m_SortingOrder: 1
+  m_SortingLayerID: 1479888157
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &96600501
 MonoBehaviour:
@@ -1150,7 +1150,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 1479888157
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &105497227
 MonoBehaviour:
@@ -1785,7 +1785,7 @@ RectTransform:
   m_Children:
   - {fileID: 1929899866}
   m_Father: {fileID: 1636901660}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1929,8 +1929,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 502679143
-  m_SortingOrder: 1
+  m_SortingLayerID: 1479888157
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!1 &145981569
 GameObject:
@@ -1972,7 +1972,7 @@ RectTransform:
   - {fileID: 242456587}
   - {fileID: 819566244}
   m_Father: {fileID: 1636901660}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5384,7 +5384,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 1479888157
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &479136765
 MonoBehaviour:
@@ -7818,7 +7818,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 1479888157
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &651318815
 MonoBehaviour:
@@ -13528,6 +13528,7 @@ GameObject:
   - component: {fileID: 1274849131}
   - component: {fileID: 1274849130}
   - component: {fileID: 1274849133}
+  - component: {fileID: 1274849134}
   m_Layer: 10
   m_Name: Open Inventory Screen
   m_TagString: Untagged
@@ -13659,6 +13660,27 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!223 &1274849134
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274849128}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 1479888157
+  m_SortingOrder: -1
+  m_TargetDisplay: 0
 --- !u!1 &1284651685
 GameObject:
   m_ObjectHideFlags: 0
@@ -15597,8 +15619,8 @@ RectTransform:
   - {fileID: 479136762}
   - {fileID: 105497224}
   - {fileID: 96600495}
-  - {fileID: 145981570}
   - {fileID: 141061098}
+  - {fileID: 145981570}
   - {fileID: 209563746}
   - {fileID: 964516621}
   - {fileID: 171991564}
