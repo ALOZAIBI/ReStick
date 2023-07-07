@@ -26,7 +26,7 @@ public class CharacterInfoScreen : MonoBehaviour
     //Selecting target for attacking and also moving for now.
     public AttackTargetSelector targetSelector;
 
-    public Button openTargetSelectionBtn;
+    public Button targetSelectionBtn;
 
     public TextMeshProUGUI openTargetSelectionTxt;
 
@@ -74,41 +74,65 @@ public class CharacterInfoScreen : MonoBehaviour
     //base page wehn opening charinfoscreen
 
     private HideUI hideUI;
-
-    private bool opening;
+    //used for initial full screen opening
+    [SerializeField] private bool opening;
     private bool closing;
+
     private bool opened;
+
+    //Once it is fullscreen it will open the other panels such as abilities/ targetting / upgrading
+    private bool opening2;
+    private bool closing2;
+
+    private bool opened2;
     //this is the main panel itself and maybe I will add another button for clarity later
     [SerializeField] private Button openFullScreenBtn;
     [SerializeField] private Button closeFullScreenBtn;
 
     [SerializeField] private RectTransform mainPanel;
-    [SerializeField] private float mainPanelAnchorL;
-    [SerializeField] private float mainPanelAnchorR;
-    [SerializeField] private float mainPanelAnchorT;
-    [SerializeField] private float mainPanelAnchorB;
+    //the init position and anchors
+    private float mainPanelAnchorL;
+    private float mainPanelAnchorR;
+    private float mainPanelAnchorT;
+    private float mainPanelAnchorB;
 
-    [SerializeField] private float mainPanelPositionL;
-    [SerializeField] private float mainPanelPositionR;
-    [SerializeField] private float mainPanelPositionT;
-    [SerializeField] private float mainPanelPositionB;
+    private float mainPanelPositionL;
+    private float mainPanelPositionR;
+    private float mainPanelPositionT;
+    private float mainPanelPositionB;
 
     [SerializeField] private RectTransform statsPanel;
+    private float statsPanelAnchorL;
+    private float statsPanelAnchorR;
+    private float statsPanelAnchorT;
+    private float statsPanelAnchorB;
+                  
+    private float statsPanelPositionL;
+    private float statsPanelPositionR;
+    private float statsPanelPositionT;
+    private float statsPanelPositionB;
+
     [SerializeField] private RectTransform portraitPanel;
 
-    [SerializeField] private float portraitPanelAnchorL;
-    [SerializeField] private float portraitPanelAnchorR;
-    [SerializeField] private float portraitPanelAnchorT;
-    [SerializeField] private float portraitPanelAnchorB;
-                                   
-    [SerializeField] private float portraitPanelPositionL;
-    [SerializeField] private float portraitPanelPositionR;
-    [SerializeField] private float portraitPanelPositionT;
-    [SerializeField] private float portraitPanelPositionB;
+    private float portraitPanelAnchorL;
+    private float portraitPanelAnchorR;
+    private float portraitPanelAnchorT;
+    private float portraitPanelAnchorB;
+                  
+    private float portraitPanelPositionL;
+    private float portraitPanelPositionR;
+    private float portraitPanelPositionT;
+    private float portraitPanelPositionB;
+
+    [SerializeField] private RectTransform healthBarPanel;
+
+    private RectTransform targetSelectBtnPanel;
 
     [SerializeField] private RectTransform abilityPanel;
     [SerializeField] private float transitionTime;
     [SerializeField] private float time;
+    [SerializeField] private float time2;
+
 
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
@@ -117,15 +141,41 @@ public class CharacterInfoScreen : MonoBehaviour
 
         hideUI = GetComponent<HideUI>();
 
+        saveInitPanels();
+        
+        targetSelectBtnPanel = targetSelectionBtn.GetComponent<RectTransform>();
+
+        openFullScreenBtn.onClick.AddListener(startOpening);
+        closeFullScreenBtn.onClick.AddListener(startClosing);
+
+        targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
+        openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
+        upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
+        upgradeStatsColorPingPong2 = new Color(upgradeStats.color.r * 1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
+        addAbilityBtn.onClick.AddListener(addAbility);
+        confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
+        confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
+    }
+    private void saveInitPanels() {
         mainPanelAnchorL = mainPanel.GetAnchorLeft();
         mainPanelAnchorR = mainPanel.GetAnchorRight();
         mainPanelAnchorT = mainPanel.GetAnchorTop();
         mainPanelAnchorB = mainPanel.GetAnchorBottom();
-        
+
         mainPanelPositionL = mainPanel.GetLeft();
         mainPanelPositionR = mainPanel.GetRight();
         mainPanelPositionT = mainPanel.GetTop();
         mainPanelPositionB = mainPanel.GetBottom();
+
+        statsPanelAnchorL = statsPanel.GetAnchorLeft();
+        statsPanelAnchorR = statsPanel.GetAnchorRight();
+        statsPanelAnchorT = statsPanel.GetAnchorTop();
+        statsPanelAnchorB = statsPanel.GetAnchorBottom();
+
+        statsPanelPositionL = statsPanel.GetLeft();
+        statsPanelPositionR = statsPanel.GetRight();
+        statsPanelPositionT = statsPanel.GetTop();
+        statsPanelPositionB = statsPanel.GetBottom();
 
         portraitPanelAnchorL = portraitPanel.GetAnchorLeft();
         portraitPanelAnchorR = portraitPanel.GetAnchorRight();
@@ -136,19 +186,7 @@ public class CharacterInfoScreen : MonoBehaviour
         portraitPanelPositionR = portraitPanel.GetRight();
         portraitPanelPositionT = portraitPanel.GetTop();
         portraitPanelPositionB = portraitPanel.GetBottom();
-
-        openFullScreenBtn.onClick.AddListener(startOpening);
-        closeFullScreenBtn.onClick.AddListener(startClosing);
-
-        openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
-        openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
-        upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
-        upgradeStatsColorPingPong2 = new Color(upgradeStats.color.r * 1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
-        addAbilityBtn.onClick.AddListener(addAbility);
-        confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
-        confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
     }
-
     #region movingUIElementsNStuff
     private void startOpening() {
         if (!opened) {
@@ -171,28 +209,86 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     private void handleMainPanel() {
-        //stretches right anchor to be as far from edge as left anchor is from edge
+        //stretches right anchor to be as far from edge as left anchor is from edge same with bottom
         mainPanel.SetAnchorRight(Mathf.Lerp(mainPanelAnchorR, 1 - mainPanelAnchorL, time/transitionTime));
         mainPanel.SetAnchorBottom(Mathf.Lerp(mainPanelAnchorB, 1 - mainPanelAnchorT, time/transitionTime));
     }
 
     private void handlePortraitPanel() {
+        //just scales it up
         scalePortraitPanel(2);
     }
-   
+    
     private void scalePortraitPanel(float amount) {
         portraitPanel.SetRight(Mathf.Lerp(portraitPanelPositionR, portraitPanelPositionR * amount, time/transitionTime));
         portraitPanel.SetBottom(Mathf.Lerp(portraitPanelPositionB, portraitPanelPositionB * amount, time/transitionTime));
+    }
+    private void handleStatsPanel() {
+        //The comments are in the case of expanding the panel but they are also applicable in reverse I guess
+        //Puts it below Portrait Panel
+        //by finding the scale amount we can find the position of the initial bottom anchor and then set the top to thatposition
+        float scaleAmount = (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/(mainPanelAnchorT-mainPanelAnchorB);
+        statsPanel.SetAnchorTop(Mathf.Lerp(statsPanelAnchorT, statsPanelAnchorB*scaleAmount - statsPanelAnchorT, time / transitionTime));
+        
+        //Stretches it to the left
+        statsPanel.SetAnchorLeft(Mathf.Lerp(statsPanelAnchorL, 1 - statsPanelAnchorR, time / transitionTime));
 
+        //sets the bottom to be in the middle of main panel
+        statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/2, time / transitionTime));
+
+    }
+
+    private void handleHealthBarPanel() {
+        //Keep left anchor and right anchor equal to statsPanel
+        healthBarPanel.SetAnchorLeft(statsPanel.GetAnchorLeft());
+        healthBarPanel.SetAnchorRight(statsPanel.GetAnchorRight());
+        //Keep top anchor and bottom anchor on stats panel's bottom anchor
+        healthBarPanel.SetAnchorTop(statsPanel.GetAnchorBottom());
+        //just to slightly thicken it
+        healthBarPanel.SetAnchorBottom(statsPanel.GetAnchorBottom()-statsPanel.GetAnchorBottom()*0.01f);
     }
     private void handlePanels() {
         //this is needed to update stats text position and size as we expand and shrink the panel
         mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
         handleMainPanel();
+        handleStatsPanel();
         handlePortraitPanel();
+        handleHealthBarPanel();
         hideUI.setInitPos();
+        
     }
 
+    private void startOpening2() {
+        if (!opened2) {
+            opened2 = true;
+            opening2 = true;
+            closing2 = false;
+            time = 0;
+        }
+    }
+    private void startClosing2() {
+        if (opened2) {
+            opened2 = false;
+            time = transitionTime;
+            opening2 = false;
+            closing2 = true;
+        }
+    }
+
+    private void handleTargetSelectorBtnPanel() {
+        //sets the left anchor to the initial left anchor of stats panel, same with right side
+        targetSelectBtnPanel.SetAnchorLeft(statsPanelAnchorL);
+        targetSelectBtnPanel.SetAnchorRight(statsPanelAnchorR);
+    }
+    private void handlePanels2() {
+        handleTargetSelectorBtnPanel();
+        if (opening2) {
+            targetSelectionBtn.gameObject.SetActive(true);
+        }
+        if (closing2) {
+            targetSelectionBtn.gameObject.SetActive(false);
+        }
+    }
     public void openTopStatDisplay() {
         close();
         pageIndex = -1;
@@ -567,7 +663,27 @@ public class CharacterInfoScreen : MonoBehaviour
         if (closing)
             time -= Time.unscaledDeltaTime;
 
+        if (time > transitionTime) {
+            //no longer in the process of opening
+            opening = false;
+        }
+
         if(opening||closing)
             handlePanels();
+
+        //once first transition is open start the next
+        if (opened && opening == false) {
+            startOpening2();
+        }
+
+        if (opening2)
+            time2 += Time.unscaledDeltaTime;
+        if (closing2)
+            time2 -= Time.unscaledDeltaTime;
+
+        if (opening2 || closing2)
+            handlePanels2();
+
+        Debug.Log("TOPANCHOR" + statsPanel.GetAnchorTop());
     }
 }

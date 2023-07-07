@@ -269,7 +269,7 @@ static class SaveSystem
 
                     UIManager.singleton.characterFactory.addCharacterAsChild(data,UIManager.singleton.playerParty.transform);
                     
-                    Debug.Log("Character loaded" + data.charName + data.HP);
+                    //Debug.Log("Character loaded" + data.charName + data.HP);
                 }
             }
             else
