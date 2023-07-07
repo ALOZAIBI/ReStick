@@ -68,22 +68,15 @@ public class CharacterInfoScreen : MonoBehaviour
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
 
-    //size of characterInfoScreen
-    public UISizer uiSizer;
-    public float initWidthPercent;
-    public float initHeightPercent;
-
     const int MAX_ABILITIES = 5;
     //pageindex 3 = prompt to add ability
     //pageindex 4 = confirm ability adding
     //base page wehn opening charinfoscreen
 
+
+
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-
-        uiSizer = GetComponent<UISizer>();
-        initWidthPercent = uiSizer.widthPercent;
-        initHeightPercent = uiSizer.heightPercent;
 
         openTargetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
@@ -93,6 +86,8 @@ public class CharacterInfoScreen : MonoBehaviour
         confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
         confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
     }
+
+    #region movingUIElementsNStuff
     public void openTopStatDisplay() {
         close();
         pageIndex = -1;
@@ -116,7 +111,7 @@ public class CharacterInfoScreen : MonoBehaviour
             movementSelector.updateText();
         }
     }
-    
+    #endregion
     //this function displays the information in the characterInfoScreen
     public void viewCharacterFullScreen(Character currChar) {
         
@@ -315,8 +310,8 @@ public class CharacterInfoScreen : MonoBehaviour
 
 
         levelText.text = "LVL: " + currChar.level;
-        levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
-        levelProgress.text = currChar.xpProgress + "/" + currChar.xpCap;
+        //levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
+        //levelProgress.text = currChar.xpProgress + "/" + currChar.xpCap;
     }
     private void displayUpgradeStats(Character currChar) {
         //so that it displays stat points as available/total
