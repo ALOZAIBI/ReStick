@@ -206,6 +206,7 @@ public class CharacterInfoScreen : MonoBehaviour
             opening = false;
             closing = true;
         }
+        startClosing2();
     }
 
     private void handleMainPanel() {
@@ -214,9 +215,10 @@ public class CharacterInfoScreen : MonoBehaviour
         mainPanel.SetAnchorBottom(Mathf.Lerp(mainPanelAnchorB, 1 - mainPanelAnchorT, time/transitionTime));
     }
 
+    private float portraitScaleAmount=2;
     private void handlePortraitPanel() {
         //just scales it up
-        scalePortraitPanel(2);
+        scalePortraitPanel(portraitScaleAmount);
     }
     
     private void scalePortraitPanel(float amount) {
@@ -276,18 +278,14 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     private void handleTargetSelectorBtnPanel() {
-        //sets the left anchor to the initial left anchor of stats panel, same with right side
-        targetSelectBtnPanel.SetAnchorLeft(statsPanelAnchorL);
-        targetSelectBtnPanel.SetAnchorRight(statsPanelAnchorR);
+        //sets the left anchor to be to the right of the portrait panel.
+        targetSelectBtnPanel.SetAnchorLeft(statsPanelAnchorL*portraitScaleAmount);
+        //Grows the right anchor to the right
+        targetSelectBtnPanel.SetAnchorRight(Mathf.Lerp(targetSelectBtnPanel.GetAnchorLeft(), statsPanelAnchorR,time));
     }
     private void handlePanels2() {
         handleTargetSelectorBtnPanel();
-        if (opening2) {
-            targetSelectionBtn.gameObject.SetActive(true);
-        }
-        if (closing2) {
-            targetSelectionBtn.gameObject.SetActive(false);
-        }
+        
     }
     public void openTopStatDisplay() {
         close();
