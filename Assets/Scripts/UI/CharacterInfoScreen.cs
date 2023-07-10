@@ -80,9 +80,9 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private bool opened;
 
-    //Once it is fullscreen it will open the other panels such as abilities/ targetting / upgrading
-    private bool opening2;
-    private bool closing2;
+    ////Once it is fullscreen it will open the other panels such as abilities/ targetting / upgrading
+    //private bool opening2;
+    //private bool closing2;
 
     private bool opened2;
     //this is the main panel itself and maybe I will add another button for clarity later
@@ -206,7 +206,6 @@ public class CharacterInfoScreen : MonoBehaviour
             opening = false;
             closing = true;
         }
-        startClosing2();
     }
 
     private void handleMainPanel() {
@@ -255,37 +254,20 @@ public class CharacterInfoScreen : MonoBehaviour
         handleMainPanel();
         handleStatsPanel();
         handlePortraitPanel();
+        handleTargetSelectorBtnPanel();
         handleHealthBarPanel();
         hideUI.setInitPos();
         
     }
 
-    private void startOpening2() {
-        if (!opened2) {
-            opened2 = true;
-            opening2 = true;
-            closing2 = false;
-            time = 0;
-        }
-    }
-    private void startClosing2() {
-        if (opened2) {
-            opened2 = false;
-            time = transitionTime;
-            opening2 = false;
-            closing2 = true;
-        }
-    }
-
     private void handleTargetSelectorBtnPanel() {
+        //Sets the bottom to be the same as portrait Panel. And the top to be in the middle of portrait panel
+        targetSelectBtnPanel.SetBottom(portraitPanel.GetBottom());
+        targetSelectBtnPanel.SetTop((portraitPanel.GetTop() - portraitPanel.GetBottom()) / 2);
         //sets the left anchor to be to the right of the portrait panel.
         targetSelectBtnPanel.SetAnchorLeft(statsPanelAnchorL*portraitScaleAmount);
         //Grows the right anchor to the right
-        targetSelectBtnPanel.SetAnchorRight(Mathf.Lerp(targetSelectBtnPanel.GetAnchorLeft(), statsPanelAnchorR,time));
-    }
-    private void handlePanels2() {
-        handleTargetSelectorBtnPanel();
-        
+        targetSelectBtnPanel.SetAnchorRight(Mathf.Lerp(targetSelectBtnPanel.GetAnchorLeft(), statsPanelAnchorR,time/transitionTime));
     }
     public void openTopStatDisplay() {
         close();
@@ -666,22 +648,8 @@ public class CharacterInfoScreen : MonoBehaviour
             opening = false;
         }
 
-        if(opening||closing)
+        if (opening || closing) {
             handlePanels();
-
-        //once first transition is open start the next
-        if (opened && opening == false) {
-            startOpening2();
         }
-
-        if (opening2)
-            time2 += Time.unscaledDeltaTime;
-        if (closing2)
-            time2 -= Time.unscaledDeltaTime;
-
-        if (opening2 || closing2)
-            handlePanels2();
-
-        Debug.Log("TOPANCHOR" + statsPanel.GetAnchorTop());
     }
 }
