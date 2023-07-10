@@ -135,7 +135,27 @@ public class CharacterInfoScreen : MonoBehaviour
     private float portraitPanelPositionT;
     private float portraitPanelPositionB;
 
+    [SerializeField] private RectTransform abilitiesPanel;
+
+    private float abilitiesPanelAnchorL;
+    private float abilitiesPanelAnchorR;
+    private float abilitiesPanelAnchorT;
+    private float abilitiesPanelAnchorB;
+
+    private float abilitiesPanelPositionL;
+    private float abilitiesPanelPositionR;
+    private float abilitiesPanelPositionT;
+    private float abilitiesPanelPositionB;
+
     [SerializeField] private RectTransform healthBarPanel;
+    private float healthBarPanelAnchorL;
+    private float healthBarPanelAnchorR;
+    private float healthBarPanelAnchorT;
+    private float healthBarPanelAnchorB;
+    private float healthBarPanelPositionL;
+    private float healthBarPanelPositionR;
+    private float healthBarPanelPositionT;
+    private float healthBarPanelPositionB;
 
     private RectTransform targetSelectBtnPanel;
 
@@ -207,6 +227,26 @@ public class CharacterInfoScreen : MonoBehaviour
         portraitPanelPositionR = portraitPanel.GetRight();
         portraitPanelPositionT = portraitPanel.GetTop();
         portraitPanelPositionB = portraitPanel.GetBottom();
+
+        abilitiesPanelAnchorL = abilitiesPanel.GetAnchorLeft();
+        abilitiesPanelAnchorR = abilitiesPanel.GetAnchorRight();
+        abilitiesPanelAnchorT = abilitiesPanel.GetAnchorTop();
+        abilitiesPanelAnchorB = abilitiesPanel.GetAnchorBottom();
+
+        abilitiesPanelPositionL = abilitiesPanel.GetLeft();
+        abilitiesPanelPositionR = abilitiesPanel.GetRight();
+        abilitiesPanelPositionT = abilitiesPanel.GetTop();
+        abilitiesPanelPositionB = abilitiesPanel.GetBottom();
+
+        healthBarPanelAnchorL = healthBarPanel.GetAnchorLeft();
+        healthBarPanelAnchorR = healthBarPanel.GetAnchorRight();
+        healthBarPanelAnchorT = healthBarPanel.GetAnchorTop();
+        healthBarPanelAnchorB = healthBarPanel.GetAnchorBottom();
+
+        healthBarPanelPositionL = healthBarPanel.GetLeft();
+        healthBarPanelPositionR = healthBarPanel.GetRight();
+        healthBarPanelPositionT = healthBarPanel.GetTop();
+        healthBarPanelPositionB = healthBarPanel.GetBottom();
     }
     #region movingUIElementsNStuff
     private void startOpening() {
@@ -223,6 +263,7 @@ public class CharacterInfoScreen : MonoBehaviour
     private void setPanelStuffActive(bool bol) {
         closeFullScreenBtn.gameObject.SetActive(bol);
         levelProgress.gameObject.SetActive(bol);
+        openTargetSelectionTxt.gameObject.SetActive(bol);
     }
     private void startClosing() {
         if (opened) {
@@ -264,7 +305,7 @@ public class CharacterInfoScreen : MonoBehaviour
         
         //sets the bottom to make the height of the panel twice it's inital height
         float initHeight = xpPanelAnchorT - xpPanelAnchorB;
-        xpPanel.SetAnchorBottom(Mathf.Lerp(xpPanelAnchorB, xpPanel.GetAnchorTop() - initHeight/3, time / transitionTime));
+        xpPanel.SetAnchorBottom(Mathf.Lerp(xpPanelAnchorB, xpPanel.GetAnchorTop() - initHeight/4, time / transitionTime));
     }
     private void handleStatsPanel() {
         //Puts it below XP Panel
@@ -275,18 +316,28 @@ public class CharacterInfoScreen : MonoBehaviour
         statsPanel.SetAnchorLeft(Mathf.Lerp(statsPanelAnchorL, 1 - statsPanelAnchorR, time / transitionTime));
 
         //sets the bottom to be in the top third kinda of main panel
-        statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.8f, time / transitionTime));
+        statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.5f, time / transitionTime));
 
+    }
+
+    private void handleAbilitiesPanel() {
+        //Sets the top to be the bottom of healthBarPanel with some padding
+        abilitiesPanel.SetAnchorTop(Mathf.Lerp(abilitiesPanelAnchorT, healthBarPanel.GetAnchorBottom()-0.015f, time / transitionTime));
+        //Sets the bottom to be slightly above the bottom of the mainPanel
+        abilitiesPanel.SetAnchorBottom(Mathf.Lerp(abilitiesPanelAnchorB, mainPanel.GetAnchorBottom(), time / transitionTime));
+
+        //stretches it to the left
+        abilitiesPanel.SetAnchorLeft(Mathf.Lerp(abilitiesPanelAnchorL, 1 - abilitiesPanelAnchorR, time / transitionTime));
     }
 
     private void handleHealthBarPanel() {
         //Keep left anchor and right anchor equal to statsPanel
-        healthBarPanel.SetAnchorLeft(statsPanel.GetAnchorLeft());
-        healthBarPanel.SetAnchorRight(statsPanel.GetAnchorRight());
-        //Keep top anchor and bottom anchor on stats panel's bottom anchor
-        healthBarPanel.SetAnchorTop(statsPanel.GetAnchorBottom());
-        //just to slightly thicken it
-        healthBarPanel.SetAnchorBottom(statsPanel.GetAnchorBottom()-statsPanel.GetAnchorBottom()*0.01f);
+        healthBarPanel.SetAnchorLeft(Mathf.Lerp(healthBarPanelAnchorL, statsPanel.GetAnchorLeft(),time/transitionTime));
+        healthBarPanel.SetAnchorRight(Mathf.Lerp(healthBarPanelAnchorR, statsPanel.GetAnchorRight(),time/transitionTime));
+        //Keep top anchor and bottom anchor on stats panel's bottom anchor with some padding
+        healthBarPanel.SetAnchorTop(Mathf.Lerp(healthBarPanelAnchorT, statsPanel.GetAnchorBottom()-0.007f,time/transitionTime));
+        //To keep the bottom anchor from going all the way to the bottom
+        healthBarPanel.SetAnchorBottom(Mathf.Lerp(healthBarPanelAnchorB, statsPanel.GetAnchorBottom()-0.03f,time/transitionTime));
     }
     private void handlePanels() {
         //this is needed to update stats text position and size as we expand and shrink the panel
@@ -296,6 +347,7 @@ public class CharacterInfoScreen : MonoBehaviour
         handlePortraitPanel();
         handleTargetSelectorBtnPanel();
         handleHealthBarPanel();
+        handleAbilitiesPanel();
         hideUI.setInitPos();
         mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
         
