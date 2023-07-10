@@ -32,7 +32,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
     //Selecting target for attacking and also moving for now.
     public MovementStrategySelector movementSelector;
-
+    
     public Button openMovementSelectorBtn;
 
     public TextMeshProUGUI openMovementSelectorTxt;
@@ -101,6 +101,17 @@ public class CharacterInfoScreen : MonoBehaviour
     private float mainPanelPositionT;
     private float mainPanelPositionB;
 
+    [SerializeField] private RectTransform xpPanel;
+    private float xpPanelAnchorL;
+    private float xpPanelAnchorR;
+    private float xpPanelAnchorT;
+    private float xpPanelAnchorB;
+
+    private float xpPanelPositionL;
+    private float xpPanelPositionR;
+    private float xpPanelPositionT;
+    private float xpPanelPositionB;
+
     [SerializeField] private RectTransform statsPanel;
     private float statsPanelAnchorL;
     private float statsPanelAnchorR;
@@ -167,6 +178,16 @@ public class CharacterInfoScreen : MonoBehaviour
         mainPanelPositionT = mainPanel.GetTop();
         mainPanelPositionB = mainPanel.GetBottom();
 
+        xpPanelAnchorL = xpPanel.GetAnchorLeft();
+        xpPanelAnchorR = xpPanel.GetAnchorRight();
+        xpPanelAnchorT = xpPanel.GetAnchorTop();
+        xpPanelAnchorB = xpPanel.GetAnchorBottom();
+
+        xpPanelPositionL = xpPanel.GetLeft();
+        xpPanelPositionR = xpPanel.GetRight();
+        xpPanelPositionT = xpPanel.GetTop();
+        xpPanelPositionB = xpPanel.GetBottom();
+
         statsPanelAnchorL = statsPanel.GetAnchorLeft();
         statsPanelAnchorR = statsPanel.GetAnchorRight();
         statsPanelAnchorT = statsPanel.GetAnchorTop();
@@ -224,18 +245,33 @@ public class CharacterInfoScreen : MonoBehaviour
         portraitPanel.SetRight(Mathf.Lerp(portraitPanelPositionR, portraitPanelPositionR * amount, time/transitionTime));
         portraitPanel.SetBottom(Mathf.Lerp(portraitPanelPositionB, portraitPanelPositionB * amount, time/transitionTime));
     }
-    private void handleStatsPanel() {
+
+    private void handleXpPanel() {
         //The comments are in the case of expanding the panel but they are also applicable in reverse I guess
-        //Puts it below Portrait Panel
+        //Puts it below Portrait Panel (Where stats panel was initially)
         //by finding the scale amount we can find the position of the initial bottom anchor and then set the top to thatposition
-        float scaleAmount = (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/(mainPanelAnchorT-mainPanelAnchorB);
-        statsPanel.SetAnchorTop(Mathf.Lerp(statsPanelAnchorT, statsPanelAnchorB*scaleAmount - statsPanelAnchorT, time / transitionTime));
+        float scaleAmount = (mainPanel.GetAnchorTop() - (1-mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
+        Debug.Log( "ScaleAmt "+scaleAmount+"\n AnchorTop "+mainPanel.GetAnchorTop());
+        xpPanel.SetAnchorTop(Mathf.Lerp(xpPanelAnchorT, statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), time / transitionTime));
+
+        //Stretches it to the right
+        xpPanel.SetAnchorRight(Mathf.Lerp(xpPanelAnchorR, 1 - xpPanelAnchorL, time / transitionTime));
+
+        
+        //sets the bottom to make the height of the panel twice it's inital height
+        float initHeight = xpPanelAnchorT - xpPanelAnchorB;
+        xpPanel.SetAnchorBottom(Mathf.Lerp(xpPanelAnchorB, xpPanel.GetAnchorTop() - initHeight/3, time / transitionTime));
+    }
+    private void handleStatsPanel() {
+        //Puts it below XP Panel
+        //Sets the top to be the bottom of xpPanel
+        statsPanel.SetAnchorTop(Mathf.Lerp(statsPanelAnchorT, xpPanel.GetAnchorBottom(), time / transitionTime));
         
         //Stretches it to the left
         statsPanel.SetAnchorLeft(Mathf.Lerp(statsPanelAnchorL, 1 - statsPanelAnchorR, time / transitionTime));
 
-        //sets the bottom to be in the middle of main panel
-        statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/2, time / transitionTime));
+        //sets the bottom to be in the top third kinda of main panel
+        statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.8f, time / transitionTime));
 
     }
 
@@ -250,13 +286,14 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     private void handlePanels() {
         //this is needed to update stats text position and size as we expand and shrink the panel
-        mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
-        handleMainPanel();
+        handleXpPanel();
         handleStatsPanel();
+        handleMainPanel();
         handlePortraitPanel();
         handleTargetSelectorBtnPanel();
         handleHealthBarPanel();
         hideUI.setInitPos();
+        mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
         
     }
 
@@ -643,13 +680,20 @@ public class CharacterInfoScreen : MonoBehaviour
         if (closing)
             time -= Time.unscaledDeltaTime;
 
+
+        if (opening || closing) {
+            handlePanels();
+        }
+
         if (time > transitionTime) {
             //no longer in the process of opening
             opening = false;
         }
 
-        if (opening || closing) {
-            handlePanels();
+        if(character.team == (int)Character.teamList.Player) {
+            targetSelectionBtn.interactable = true;
         }
+        else
+            targetSelectionBtn.interactable = false;
     }
 }
