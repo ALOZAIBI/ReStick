@@ -47,7 +47,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI levelProgress;
-    public Image levelBar;
+    public SlicedFilledImage levelBar;
 
 
     //this will be glowing to display that there are stat points available
@@ -211,7 +211,7 @@ public class CharacterInfoScreen : MonoBehaviour
     #region movingUIElementsNStuff
     private void startOpening() {
         if (!opened) {
-            closeFullScreenBtn.gameObject.SetActive(true);
+            setPanelStuffActive(true);
             opened = true;
             //resets time so that the transition can start.
             opening = true;
@@ -219,9 +219,14 @@ public class CharacterInfoScreen : MonoBehaviour
             time = 0;
         }
     }
+
+    private void setPanelStuffActive(bool bol) {
+        closeFullScreenBtn.gameObject.SetActive(bol);
+        levelProgress.gameObject.SetActive(bol);
+    }
     private void startClosing() {
         if (opened) {
-            closeFullScreenBtn.gameObject.SetActive(false);
+            setPanelStuffActive(false);
             opened = false;
             time = transitionTime;
             opening = false;
@@ -251,7 +256,6 @@ public class CharacterInfoScreen : MonoBehaviour
         //Puts it below Portrait Panel (Where stats panel was initially)
         //by finding the scale amount we can find the position of the initial bottom anchor and then set the top to thatposition
         float scaleAmount = (mainPanel.GetAnchorTop() - (1-mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
-        Debug.Log( "ScaleAmt "+scaleAmount+"\n AnchorTop "+mainPanel.GetAnchorTop());
         xpPanel.SetAnchorTop(Mathf.Lerp(xpPanelAnchorT, statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), time / transitionTime));
 
         //Stretches it to the right
@@ -357,7 +361,8 @@ public class CharacterInfoScreen : MonoBehaviour
         openLandingPage();
         displayStats(currChar);
         displayCharacterAbilities(currChar);
-        healthBar.manualDisplayHealth();
+
+        Debug.Log("Health should be displayed");
     }
 
     public void viewCharacterTopStatDisplay(Character currChar) {
@@ -527,11 +532,11 @@ public class CharacterInfoScreen : MonoBehaviour
 
         //fills the HP bar correctly
         healthBar.character = currChar;
-
+        healthBar.manualDisplayHealth();
 
         levelText.text = "LVL: " + currChar.level;
-        //levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
-        //levelProgress.text = currChar.xpProgress + "/" + currChar.xpCap;
+        levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
+        levelProgress.text = currChar.xpProgress + "/" + currChar.xpCap;
     }
     private void displayUpgradeStats(Character currChar) {
         //so that it displays stat points as available/total
