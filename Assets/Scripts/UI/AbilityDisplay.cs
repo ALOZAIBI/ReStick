@@ -53,17 +53,17 @@ public class AbilityDisplay : MonoBehaviour
         }
         showScaling();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        btn.onClick.AddListener(openTargetSelectorAbility);
         self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
 
-        //if inventory Screen display the remove button
-        if (uiManager.inventoryScreenHidden.hidden == false && uiManager.inventoryScreen.inventoryCharacterScreen.isActiveAndEnabled) {
-            removeButtonHolder.SetActive(true);
-            removeButton.onClick.AddListener(removeAbility);
-        }
-        else {
-            removeButtonHolder.SetActive(false);
-        }
+        //btn.onClick.AddListener(openTargetSelectorAbility);
+        ////if inventory Screen display the remove button
+        //if (uiManager.inventoryScreenHidden.hidden == false && uiManager.inventoryScreen.inventoryCharacterScreen.isActiveAndEnabled) {
+        //    removeButtonHolder.SetActive(true);
+        //    removeButton.onClick.AddListener(removeAbility);
+        //}
+        //else {
+        //    removeButtonHolder.SetActive(false);
+        //}
     }
     //this function only happens in inventory screen since the remove button is only visible in the inventorry screen
     private void removeAbility() {
@@ -100,6 +100,7 @@ public class AbilityDisplay : MonoBehaviour
 
     //maybe make the current ability that will have it's target changed in ability header
     public void openTargetSelectorAbility() {
+        //This should open the characterInfoScreen's target selection
         Debug.Log("Clicked");
         //if inventoryScreen
         if (!uiManager.inventoryScreenHidden.hidden) {

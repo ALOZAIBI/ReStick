@@ -20,8 +20,6 @@ public class CharacterInfoScreen : MonoBehaviour
 
     //Used to instantiate AbilityDisplay prefab
     public GameObject abilityDisplay;
-    //Instantiate abilityDisplay as child of this
-    public GameObject abilityDisplayPanel;
 
     //Selecting target for attacking and also moving for now.
     public AttackTargetSelector targetSelector;
@@ -78,8 +76,11 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField] private bool opening;
     private bool closing;
 
-    private bool opened;
+    [SerializeField] private bool opened;
 
+    //this is used to pause(waspause) once closing is done
+    private bool willHandlePause;
+    private bool closed;
     ////Once it is fullscreen it will open the other panels such as abilities/ targetting / upgrading
     //private bool opening2;
     //private bool closing2;
@@ -159,10 +160,14 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private RectTransform targetSelectBtnPanel;
 
-    [SerializeField] private RectTransform abilityPanel;
     [SerializeField] private float transitionTime;
     [SerializeField] private float time;
     [SerializeField] private float time2;
+
+    //to be able to place the ability displays here
+    [SerializeField] private List<RectTransform> abilityPlaceholders= new List<RectTransform>();
+    //to be able to delete all abilityDisplays
+    [SerializeField] private List<GameObject> abilityDisplays = new List<GameObject>();
 
 
     public void Start() {
@@ -176,7 +181,7 @@ public class CharacterInfoScreen : MonoBehaviour
         
         targetSelectBtnPanel = targetSelectionBtn.GetComponent<RectTransform>();
 
-        openFullScreenBtn.onClick.AddListener(startOpening);
+        openFullScreenBtn.onClick.AddListener(viewCharacterFullScreen);
         closeFullScreenBtn.onClick.AddListener(startClosing);
 
         targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
@@ -257,6 +262,7 @@ public class CharacterInfoScreen : MonoBehaviour
             opening = true;
             closing = false;
             time = 0;
+            uiManager.pausePlay(true);
         }
     }
 
@@ -272,6 +278,7 @@ public class CharacterInfoScreen : MonoBehaviour
             time = transitionTime;
             opening = false;
             closing = true;
+            willHandlePause = true;
         }
     }
 
@@ -389,9 +396,12 @@ public class CharacterInfoScreen : MonoBehaviour
     //this function displays the information in the characterInfoScreen
 
     #region displayCharacterInfo
+    private void viewCharacterFullScreen() {
+        viewCharacterFullScreen(character);
+    }
     public void viewCharacterFullScreen(Character currChar) {
-        
-        
+
+
         ////sets the attributes to the character's
         //characterName.text = currChar.name;
         ////sets the image of character
@@ -409,12 +419,13 @@ public class CharacterInfoScreen : MonoBehaviour
         //foreach (Ability temp in currChar.abilities) {
         //    temp.character = currChar;
         //}
+        character = currChar;
         displayNameAndPortrait(currChar);
-        openLandingPage();
+        //openLandingPage();
         displayStats(currChar);
         displayCharacterAbilities(currChar);
+        startOpening();
 
-        Debug.Log("Health should be displayed");
     }
 
     public void viewCharacterTopStatDisplay(Character currChar) {
@@ -432,39 +443,49 @@ public class CharacterInfoScreen : MonoBehaviour
 
     }
     public void displayCharacterAbilities(Character currChar) {
-        //close();
-        //foreach (Ability ability in currChar.abilities) {
-        //    //updates description
-        //    ability.updateDescription();
-        //    GameObject temp = Instantiate(abilityDisplay);
-        //    //sets the instantiated object as child
-        //    temp.transform.parent = abilityDisplayPanel.transform;
-        //    AbilityDisplay displayTemp = temp.GetComponent<AbilityDisplay>();
-        //    //sets the displays name and description
-        //    displayTemp.abilityName.text = ability.abilityName;
-        //    displayTemp.description.text = ability.description;
-        //    displayTemp.ability = ability;
-        //    //if ability has no target hide the target button
-        //    if (!ability.hasTarget) {
-        //        displayTemp.btn.gameObject.SetActive(false);
-        //    }
-        //    else
-        //        displayTemp.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
-        //    //sets the cooldownBar fill amount to CD remaining
-        //    displayTemp.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
-        //    //if the ability has no cd anyways(It's a passive)
-        //    if (ability.CD == 0)
-        //        displayTemp.cooldownText.text = ("Ready");
-        //    else
-        //    //if the ability is ready
-        //    if (ability.abilityNext == 0) 
-        //        displayTemp.cooldownText.text = ("Ready "+ability.displayCDAfterChange()+" CD");
-        //    else
-        //    //shows how much cd remaining 
-        //    displayTemp.cooldownText.text = (ability.abilityNext).ToString("F1");
-        //    //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
-        //    temp.transform.localScale = new Vector3(1, 1, 1);
-        //}
+        close();
+        int count = 0;
+        foreach (Ability ability in currChar.abilities) {
+            //updates description
+            ability.updateDescription();
+            //Instantiates it as child of the abilityDisplayPanel
+            GameObject displayObject = Instantiate(this.abilityDisplay, abilitiesPanel.transform);
+            abilityDisplays.Add(displayObject);
+            //copies the anchors of the placeholder
+            RectTransform displayRect = displayObject.GetComponent<RectTransform>();
+            displayRect.SetAnchorBottom(abilityPlaceholders[count].GetAnchorBottom());
+            displayRect.SetAnchorTop(abilityPlaceholders[count].GetAnchorTop());
+            displayRect.SetAnchorLeft(abilityPlaceholders[count].GetAnchorLeft());
+            displayRect.SetAnchorRight(abilityPlaceholders[count].GetAnchorRight());
+
+            AbilityDisplay abilityDisplay = displayObject.GetComponent<AbilityDisplay>();
+            //sets the displays name and description
+            abilityDisplay.abilityName.text = ability.abilityName;
+            abilityDisplay.description.text = ability.description;
+            abilityDisplay.ability = ability;
+            ////if ability has no target hide the target button
+            //if (!ability.hasTarget) {
+            //    abilityDisplay.btn.gameObject.SetActive(false);
+            //}
+            //else
+            //    abilityDisplay.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
+            //sets the cooldownBar fill amount to CD remaining
+            abilityDisplay.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
+            //if the ability has no cd anyways(It's a passive)
+            if (ability.CD == 0)
+                abilityDisplay.cooldownText.text = ("");
+            else
+            //if the ability is ready
+            if (ability.abilityNext == 0)
+                abilityDisplay.cooldownText.text = (ability.displayCDAfterChange());
+            else
+                //shows how much cd remaining 
+                abilityDisplay.cooldownText.text = (ability.abilityNext).ToString("F1");
+            //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
+            displayObject.transform.localScale = new Vector3(1, 1, 1);
+
+            count++;
+        }
         ////if the character is player and has less than 5 abilities and zone not started and there are abilities to add available
         //if(character.team == (int)Character.teamList.Player &&character.abilities.Count<5&& !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount>0) {
         //    addAbilityBtn.gameObject.SetActive(true);
@@ -611,11 +632,16 @@ public class CharacterInfoScreen : MonoBehaviour
         totalDamage.text = currChar.totalDamage.ToString("F0");
     }
     public void close() {
-        ////destroys all ability displays
-        //foreach (Transform toDestroy in abilityDisplayPanel.transform) {
-        //    if(toDestroy.tag!="DontDelete")
-        //        GameObject.Destroy(toDestroy.gameObject);
-        //}
+        //destroys all ability displays
+        for(int i = 0;i<abilityDisplays.Count;i++) {
+            //Destroys the ability display then refills the placeholder with a background
+            Destroy(abilityDisplays[i]);
+            Debug.Log("Destroyed" + abilityDisplays[i].name);
+            foreach(Transform child in abilityPlaceholders[i].transform) {
+                child.gameObject.SetActive(true);
+            }
+        }
+        abilityDisplays.Clear();
 
         //targetSelector.targetSelection.SetActive(false);
         //movementSelector.gameObject.SetActive(false);
@@ -662,61 +688,61 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     public void confirmAddAbility() {
-        pageIndex = 4;
-        if (character.abilities.Count >= MAX_ABILITIES) {
-            uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
-            return;
-        }
-        //since inventoryCharacterScreen and characterScreen where seperate I have to do some spaghetti code
-        //adds the ability to Character
-        character.abilities.Add(uiManager.inventoryScreen.abilitySelected);
-        //sets the ability's character to this character
-        character.initRoundStart();
-        //adds ability to activeAbilities in playermanager
-        //Debug.Log(uiManager.inventoryScreen.playerParty.activeAbilities.name);
-        uiManager.inventoryScreen.abilitySelected.gameObject.transform.parent = uiManager.playerParty.activeAbilities.transform;
-        //if in inventory
-        if (!uiManager.inventoryScreenHidden.hidden) {
-            //if ability was selected first go back to inventory screen landing page
-            if (uiManager.inventoryScreen.pageIndex == 2) {
-                uiManager.inventoryScreen.openLandingPage();
-            }
-            else {
-                //update the character's ability display
-                displayCharacterAbilities(uiManager.inventoryScreen.characterSelected);
-            }
-        }
-        //else if regular character screen
-        else
-            displayCharacterAbilities(character);
-        //saves adding the ability
-        if (SceneManager.GetActiveScene().name == "World") {
-            uiManager.saveWorldSave();
-        }
-        else
-            uiManager.saveMapSave();
-        confirmAddAbilityBtn.gameObject.SetActive(false);
+        //pageIndex = 4;
+        //if (character.abilities.Count >= MAX_ABILITIES) {
+        //    uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
+        //    return;
+        //}
+        ////since inventoryCharacterScreen and characterScreen where seperate I have to do some spaghetti code
+        ////adds the ability to Character
+        //character.abilities.Add(uiManager.inventoryScreen.abilitySelected);
+        ////sets the ability's character to this character
+        //character.initRoundStart();
+        ////adds ability to activeAbilities in playermanager
+        ////Debug.Log(uiManager.inventoryScreen.playerParty.activeAbilities.name);
+        //uiManager.inventoryScreen.abilitySelected.gameObject.transform.parent = uiManager.playerParty.activeAbilities.transform;
+        ////if in inventory
+        //if (!uiManager.inventoryScreenHidden.hidden) {
+        //    //if ability was selected first go back to inventory screen landing page
+        //    if (uiManager.inventoryScreen.pageIndex == 2) {
+        //        uiManager.inventoryScreen.openLandingPage();
+        //    }
+        //    else {
+        //        //update the character's ability display
+        //        displayCharacterAbilities(uiManager.inventoryScreen.characterSelected);
+        //    }
+        //}
+        ////else if regular character screen
+        //else
+        //    displayCharacterAbilities(character);
+        ////saves adding the ability
+        //if (SceneManager.GetActiveScene().name == "World") {
+        //    uiManager.saveWorldSave();
+        //}
+        //else
+        //    uiManager.saveMapSave();
+        //confirmAddAbilityBtn.gameObject.SetActive(false);
     }
 
 
     public void displayInventoryAbilities() {
-        //loops thorugh the abilities in abilityInventory
-        Debug.Log(uiManager.inventoryScreen.playerParty.abilityInventory.transform.childCount);
-        foreach (Transform child in uiManager.inventoryScreen.playerParty.abilityInventory.transform) {
-            Debug.Log(child.name + "ABILIRTY INVENTORY");
-            Ability ability = child.GetComponent<Ability>();
-            GameObject temp = Instantiate(inventoryAbilityDisplay);
-            //sets the instantiated object as child
-            temp.transform.parent = abilityDisplayPanel.transform;
-            InventoryAbilityDisplay displayTemp = temp.GetComponent<InventoryAbilityDisplay>();
-            //sets the displays name and description
-            displayTemp.abilityName.text = ability.abilityName;
-            displayTemp.description.text = ability.description;
-            displayTemp.ability = ability;
-            displayTemp.glow = true;
-            //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
-            temp.transform.localScale = new Vector3(1, 1, 1);
-        }
+        ////loops thorugh the abilities in abilityInventory
+        //Debug.Log(uiManager.inventoryScreen.playerParty.abilityInventory.transform.childCount);
+        //foreach (Transform child in uiManager.inventoryScreen.playerParty.abilityInventory.transform) {
+        //    Debug.Log(child.name + "ABILIRTY INVENTORY");
+        //    Ability ability = child.GetComponent<Ability>();
+        //    GameObject temp = Instantiate(inventoryAbilityDisplay);
+        //    //sets the instantiated object as child
+        //    temp.transform.parent = abilityDisplayPanel.transform;
+        //    InventoryAbilityDisplay displayTemp = temp.GetComponent<InventoryAbilityDisplay>();
+        //    //sets the displays name and description
+        //    displayTemp.abilityName.text = ability.abilityName;
+        //    displayTemp.description.text = ability.description;
+        //    displayTemp.ability = ability;
+        //    displayTemp.glow = true;
+        //    //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
+        //    temp.transform.localScale = new Vector3(1, 1, 1);
+        //}
     }
     #endregion
     private void FixedUpdate() {
@@ -725,7 +751,6 @@ public class CharacterInfoScreen : MonoBehaviour
         ////to make the button glow in and out for emphasis
         //float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);
         //confirmAddAbilityBtnImage.color = new Color(x, x, x);
-        
     }
     public bool openingFullScreen;
     private void Update() {
@@ -742,15 +767,22 @@ public class CharacterInfoScreen : MonoBehaviour
             handlePanels();
         }
 
-        if (time > transitionTime) {
+        if (time >= transitionTime) {
             //no longer in the process of opening
             opening = false;
         }
 
-        if(character.team == (int)Character.teamList.Player) {
-            targetSelectionBtn.interactable = true;
+        //once closing is done unpause the game
+        if (willHandlePause && time <= 0) {
+            uiManager.pausePlay(uiManager.wasPause);
+            willHandlePause = false;
         }
-        else
-            targetSelectionBtn.interactable = false;
+        if (character != null) {
+            if (character.team == (int)Character.teamList.Player) {
+                targetSelectionBtn.interactable = true;
+            }
+            else
+                targetSelectionBtn.interactable = false;
+        }
     }
 }

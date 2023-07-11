@@ -168,13 +168,13 @@ public class UIManager : MonoBehaviour
     public void viewCharacterInfo(Character currChar) {
         //opens the screen and pauses the game
         charInfoScreenHidden.hidden = false;
-        pausePlay(true);
-        //hides placing screen
-        placingScreenHidden.hidden = true;
-        //the close button pops up and the pause button+time control is hidden
-        closeUIBtn.gameObject.SetActive(true);
-        timeControlHidden.hidden = true;
-        pausePlayBtn.gameObject.SetActive(false);
+        //pausePlay(true);
+        ////hides placing screen
+        //placingScreenHidden.hidden = true;
+        ////the close button pops up and the pause button+time control is hidden
+        //closeUIBtn.gameObject.SetActive(false);
+        //timeControlHidden.hidden = true;
+        //pausePlayBtn.gameObject.SetActive(false);
         characterInfoScreen.viewCharacterFullScreen(currChar);
     }
 
@@ -326,7 +326,7 @@ public class UIManager : MonoBehaviour
         //and shows open inventory btn again
         
         
-        pausePlay(wasPause);
+        
         characterInfoScreen.close();
         //characterPlacingScreen.close();
     }

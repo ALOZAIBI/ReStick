@@ -583,12 +583,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -718,12 +718,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1062,12 +1062,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1273,12 +1273,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1479,12 +1479,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1681,12 +1681,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -2325,12 +2325,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -2460,12 +2460,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -2597,12 +2597,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -2757,8 +2757,7 @@ MonoBehaviour:
   totalDamage: {fileID: 0}
   healthBar: {fileID: 7198828646178422740}
   characterPortrait: {fileID: 612100769414758396}
-  abilityDisplay: {fileID: 0}
-  abilityDisplayPanel: {fileID: 0}
+  abilityDisplay: {fileID: 576495221301038506, guid: 4ec639453873b724c8d3ef3736472c52, type: 3}
   targetSelector: {fileID: 0}
   targetSelectionBtn: {fileID: 522142880189568177}
   openTargetSelectionTxt: {fileID: 5808414847104128254}
@@ -2779,6 +2778,7 @@ MonoBehaviour:
   confirmAddAbilityBtn: {fileID: 0}
   confirmAddAbilityBtnImage: {fileID: 0}
   opening: 0
+  opened: 0
   openFullScreenBtn: {fileID: 5774335063356062309}
   closeFullScreenBtn: {fileID: 3163380623974854853}
   mainPanel: {fileID: 3597172688560082594}
@@ -2787,10 +2787,16 @@ MonoBehaviour:
   portraitPanel: {fileID: 4484227758478929190}
   abilitiesPanel: {fileID: 6751546530959600644}
   healthBarPanel: {fileID: 2021084989714534719}
-  abilityPanel: {fileID: 0}
   transitionTime: 0.3
   time: 0
   time2: 0
+  abilityPlaceholders:
+  - {fileID: 7564708089458967683}
+  - {fileID: 2141956892326967937}
+  - {fileID: 7613430125107063768}
+  - {fileID: 2362137090770310994}
+  - {fileID: 2378546575483827285}
+  abilityDisplays: []
   openingFullScreen: 0
 --- !u!114 &5774335063356062309
 MonoBehaviour:
@@ -3268,12 +3274,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -3844,12 +3850,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -4198,12 +4204,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -4491,12 +4497,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -5131,12 +5137,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -5266,12 +5272,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -5777,12 +5783,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 40.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 48
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -6497,9 +6503,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+--- !u!224 &2141956892326967937 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6568972805620033976, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+  m_PrefabInstance: {fileID: 5084686607353107257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2362137090770310994 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7374521986192786539, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+  m_PrefabInstance: {fileID: 5084686607353107257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2378546575483827285 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7463067139354175340, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+  m_PrefabInstance: {fileID: 5084686607353107257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6751546530959600644 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1955160698605141821, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+  m_PrefabInstance: {fileID: 5084686607353107257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7564708089458967683 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3344857763821787066, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+  m_PrefabInstance: {fileID: 5084686607353107257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7613430125107063768 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3402533135000565985, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
   m_PrefabInstance: {fileID: 5084686607353107257}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5577112983738836582
