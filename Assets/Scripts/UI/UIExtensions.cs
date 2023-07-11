@@ -52,6 +52,13 @@ public static class UIExtensions {
         rt.anchorMin = new Vector2(rt.anchorMin.x, bottom);
     }
 
+    public static void SetAnchorsStretch(this RectTransform rt) {
+        rt.SetAnchorBottom(0);
+        rt.SetAnchorLeft(0);
+        rt.SetAnchorRight(1);
+        rt.SetAnchorTop(1);
+        Debug.Log("Stretched"+rt.gameObject.name);
+    }
     public static float GetAnchorLeft(this RectTransform rt) {
         return rt.anchorMin.x;
     }

@@ -7,97 +7,97 @@ public class TargetNames : MonoBehaviour
     public static string getName(int target) {
         switch (target) {
             case (int)Character.TargetList.DefaultEnemy:
-                return "Default Enemy";
+                return "Default";
 
             case (int)Character.TargetList.ClosestEnemy:
-                return "Closest Enemy";
+                return "Closest";
 
             case (int)Character.TargetList.HighestPDEnemy:
-                return "Highest PWR Enemy";
+                return "Highest PWR";
 
             case (int)Character.TargetList.LowestPDEnemy:
-                return "Lowest PWR Enemy";
+                return "Lowest PWR";
 
             case (int)Character.TargetList.HighestMDEnemy:
-                return "Highest MGC Enemy";
+                return "Highest MGC";
 
             case (int)Character.TargetList.LowestMDEnemy:
-                return "Lowest MGC Enemy";
+                return "Lowest MGC";
 
             case (int)Character.TargetList.HighestINFEnemy:
-                return "Highest INF Enemy";
+                return "Highest INF";
 
             case (int)Character.TargetList.LowestINFEnemy:
-                return "Lowest INF Enemy";
+                return "Lowest INF";
 
             case (int)Character.TargetList.HighestASEnemy:
-                return "Highest AS Enemy";
+                return "Highest AS";
 
             case (int)Character.TargetList.LowestASEnemy:
-                return "Lowest AS Enemy";
+                return "Lowest AS";
 
             case (int)Character.TargetList.HighestMSEnemy:
-                return "Highest SPD Enemy";
+                return "Highest SPD";
 
             case (int)Character.TargetList.LowestMSEnemy:
-                return "Lowest SPD Enemy";
+                return "Lowest SPD";
 
             case (int)Character.TargetList.HighestRangeEnemy:
-                return "Highest Range Enemy";
+                return "Highest Range";
 
             case (int)Character.TargetList.LowestRangeEnemy:
-                return "Lowest Range Enemy";
+                return "Lowest Range";
 
             case (int)Character.TargetList.HighestHPEnemy:
-                return "Highest HP Enemy";
+                return "Highest HP";
 
             case (int)Character.TargetList.LowestHPEnemy:
-                return "Lowest HP Enemy";
+                return "Lowest HP";
 
             case (int)Character.TargetList.ClosestAlly:
-                return "Closest Ally";
+                return "Closest";
 
             case (int)Character.TargetList.HighestPDAlly:
-                return "Highest PWR Ally";
+                return "Highest PWR";
 
             case (int)Character.TargetList.LowestPDAlly:
-                return "Lowest PWR Ally";
+                return "Lowest PWR";
 
             case (int)Character.TargetList.HighestMDAlly:
-                return "Highest MGC Ally";
+                return "Highest MGC";
 
             case (int)Character.TargetList.LowestMDAlly:
-                return "Lowest MGC Ally";
+                return "Lowest MGC";
 
             case (int)Character.TargetList.HighestINFAlly:
-                return "Highest INF Ally";
+                return "Highest INF";
 
             case (int)Character.TargetList.LowestINFAlly:
-                return "Lowest INF Ally";
+                return "Lowest INF";
 
             case (int)Character.TargetList.HighestASAlly:
-                return "Highest AS Ally";
+                return "Highest AS";
 
             case (int)Character.TargetList.LowestASAlly:
-                return "Lowest AS Ally";
+                return "Lowest AS";
 
             case (int)Character.TargetList.HighestMSAlly:
-                return "Highest SPD Ally";
+                return "Highest SPD";
 
             case (int)Character.TargetList.LowestMSAlly:
-                return "Lowest SPD Ally";
+                return "Lowest SPD";
 
             case (int)Character.TargetList.HighestRangeAlly:
-                return "Highest Range Ally";
+                return "Highest Range";
 
             case (int)Character.TargetList.LowestRangeAlly:
-                return "Lowest Range Ally";
+                return "Lowest Range";
 
             case (int)Character.TargetList.HighestHPAlly:
-                return "Highest HP Ally";
+                return "Highest HP";
 
             case (int)Character.TargetList.LowestHPAlly:
-                return "Lowest HP Ally";
+                return "Lowest HP";
 
         }
         return "";

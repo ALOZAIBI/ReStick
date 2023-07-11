@@ -11,6 +11,8 @@ public class CharacterInfoScreen : MonoBehaviour
     public TextMeshProUGUI characterName;
     //stats texts
     public TextMeshProUGUI PD, MD, INF, AS, CDR, MS, RNG, LS,SP;
+    //StatIcons
+    public GameObject PDIcon, MDIcon, INFIcon, HPIcon;
     //cool stats texts
     public TextMeshProUGUI totalKills;
     public TextMeshProUGUI totalDamage;
@@ -166,8 +168,14 @@ public class CharacterInfoScreen : MonoBehaviour
 
     //to be able to place the ability displays here
     [SerializeField] private List<RectTransform> abilityPlaceholders= new List<RectTransform>();
+
     //to be able to delete all abilityDisplays
     [SerializeField] private List<GameObject> abilityDisplays = new List<GameObject>();
+
+    [SerializeField] private List<Button> abilityTargetting = new List<Button>();
+    [SerializeField] private List<TextMeshProUGUI> abilityTargettingText = new List<TextMeshProUGUI>();
+    //The children of this will be the stat Icons
+    [SerializeField] private List<Transform> abilityTargettingIconParent = new List<Transform>();
 
 
     public void Start() {
@@ -184,14 +192,15 @@ public class CharacterInfoScreen : MonoBehaviour
         openFullScreenBtn.onClick.AddListener(viewCharacterFullScreen);
         closeFullScreenBtn.onClick.AddListener(startClosing);
 
-        targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
-        openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
-        upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
-        upgradeStatsColorPingPong2 = new Color(upgradeStats.color.r * 1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
-        addAbilityBtn.onClick.AddListener(addAbility);
-        confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
-        confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
+        //targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
+        //openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
+        //upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
+        //upgradeStatsColorPingPong2 = new Color(upgradeStats.color.r * 1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
+        //addAbilityBtn.onClick.AddListener(addAbility);
+        //confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
+        //confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
     }
+
     private void saveInitPanels() {
         mainPanelAnchorL = mainPanel.GetAnchorLeft();
         mainPanelAnchorR = mainPanel.GetAnchorRight();
@@ -463,6 +472,104 @@ public class CharacterInfoScreen : MonoBehaviour
             abilityDisplay.abilityName.text = ability.abilityName;
             abilityDisplay.description.text = ability.description;
             abilityDisplay.ability = ability;
+            //if ability has target display the targetting and the respective text and icon
+            if (ability.hasTarget) {
+                abilityTargetting[count].gameObject.SetActive(true);
+                //Deletes the old icon by deleting children of abilityTargettingIconParent
+                foreach (Transform child in abilityTargettingIconParent[count]) {
+                    Destroy(child.gameObject);
+                }
+
+                switch (ability.targetStrategy) {
+                    case (int)Character.TargetList.HighestPDAlly:
+                    case (int)Character.TargetList.LowestPDAlly:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(PDIcon, abilityTargettingIconParent[count]);
+                        break;
+                    case (int)Character.TargetList.HighestPDEnemy:
+                    case (int)Character.TargetList.LowestPDEnemy:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(PDIcon, abilityTargettingIconParent[count]);
+                        break;
+
+                    case (int)Character.TargetList.HighestMDAlly:
+                    case (int)Character.TargetList.LowestMDAlly:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(MDIcon, abilityTargettingIconParent[count]);
+                        break;
+                    case (int)Character.TargetList.HighestMDEnemy:
+                    case (int)Character.TargetList.LowestMDEnemy:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(MDIcon, abilityTargettingIconParent[count]);
+                        break;
+
+                    case (int)Character.TargetList.HighestHPAlly:
+                    case (int)Character.TargetList.LowestHPAlly:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(HPIcon, abilityTargettingIconParent[count]);
+                        break;
+
+                    case (int)Character.TargetList.HighestHPEnemy:
+                    case (int)Character.TargetList.LowestHPEnemy:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(HPIcon, abilityTargettingIconParent[count]);
+                        break;
+
+                    case (int)Character.TargetList.HighestINFAlly:
+                    case (int)Character.TargetList.LowestINFAlly:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(INFIcon, abilityTargettingIconParent[count]);
+                        break;
+
+                    case (int)Character.TargetList.HighestINFEnemy:
+                    case (int)Character.TargetList.LowestINFEnemy:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        //instantiate staticon as child of abilityTargettingIcon
+                        Instantiate(INFIcon, abilityTargettingIconParent[count]);
+                        break;
+
+                    case (int)Character.TargetList.ClosestAlly:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        break;
+                    case (int)Character.TargetList.ClosestEnemy:
+                        //Sets Color
+                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        break;
+
+                    default:
+                        Debug.Log("No appropriate strategy or closest");
+                        break;
+                }
+                abilityTargettingText[count].text = TargetNames.getName((ability.targetStrategy));
+
+                //Stretches the icon by setting the anchors of the children of abilityTargettingIconParent to stretch
+                foreach (Transform child in abilityTargettingIconParent[count]) {
+                    RectTransform iconRect = child.GetComponent<RectTransform>();
+                    iconRect.SetAnchorsStretch();
+                }
+                
+                
+            }
+            else {
+                abilityTargetting[count].gameObject.SetActive(false);
+            }
+
             ////if ability has no target hide the target button
             //if (!ability.hasTarget) {
             //    abilityDisplay.btn.gameObject.SetActive(false);
@@ -647,6 +754,25 @@ public class CharacterInfoScreen : MonoBehaviour
         //movementSelector.gameObject.SetActive(false);
     }
 
+    //The onclick is set in the editor
+    public void ability1Clicked() {
+        Debug.Log("Ability1Clicked");
+    }
+
+    public void ability2Clicked() {
+        Debug.Log("Ability2Clicked");
+    }
+
+    public void ability3Clicked() {
+        Debug.Log("Ability3Clicked");
+    }
+    public void ability4Clicked() {
+          Debug.Log("Ability4Clicked");
+    }
+
+    public void ability5Clicked() {
+        Debug.Log("Ability5Clicked");
+    }
 
     //opens target selector for normal attacks
     public void openTargetSelectorNormal() {
