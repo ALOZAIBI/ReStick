@@ -6659,6 +6659,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1192597572203834756, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.13726807
+      objectReference: {fileID: 0}
     - target: {fileID: 1245595694989766452, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6793,6 +6797,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2139843892590899888, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141956892326967937, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2279370243318043869, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
@@ -7211,6 +7219,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5412908696137546592, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.13726807
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496961583329368289, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.1373291
+      objectReference: {fileID: 0}
     - target: {fileID: 5805475480962176072, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7283,6 +7299,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6979835979279612933, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.1373291
+      objectReference: {fileID: 0}
     - target: {fileID: 7521440997136325624, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7354,6 +7374,14 @@ PrefabInstance:
     - target: {fileID: 8033238154322562031, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8110588804101657143, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.13726807
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139078255009357912, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.557617
       objectReference: {fileID: 0}
     - target: {fileID: 8284810563443900597, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12311,22 +12339,22 @@ MonoBehaviour:
   defaultColor: {r: 0.21960784, g: 0.25490198, b: 0.27058825, a: 1}
   buff: {r: 0.15294118, g: 0.4862745, b: 0.08627451, a: 1}
   debuff: {r: 0.6901961, g: 0.3137255, b: 0.1254902, a: 1}
-  allyHealthBar: {r: 0.42352942, g: 0.83137256, b: 0.2784314, a: 1}
-  enemyHealthBar: {r: 1, g: 0, b: 0, a: 1}
+  allyHealthBar: {r: 0.08627451, g: 0.4862745, b: 0.21960784, a: 1}
+  enemyHealthBar: {r: 0.8490566, g: 0.09211465, b: 0.09211465, a: 1}
   commonRarity: {r: 1, g: 1, b: 1, a: 1}
   rareRarity: {r: 0.18970275, g: 0.8207547, b: 0.7881843, a: 1}
   epicRarity: {r: 0.45175967, g: 0.1779548, b: 0.8773585, a: 1}
   legendaryRarity: {r: 1, g: 0.73150194, b: 0.0141509175, a: 1}
   autoAttackIndicator: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
-  magicAbilityIndicator: {r: 0, g: 0.3243401, b: 0.8784314, a: 1}
-  buffAbilityIndicator: {r: 0, g: 0.7924528, b: 0.6432852, a: 1}
-  debuffAbilityIndicator: {r: 0.4120226, g: 0, b: 1, a: 1}
-  selfBuffAbilityIndicator: {r: 1, g: 0, b: 0.6024933, a: 1}
-  physicalAbilityIndicator: {r: 1, g: 0.12530705, b: 0, a: 1}
-  healAbilityIndicator: {r: 0.35903296, g: 0.9622642, b: 0, a: 1}
-  healthDamageIndicator: {r: 0.0041384757, g: 0.2924528, b: 0.0897318, a: 1}
-  crowdControlAbilityIndicator: {r: 0.6698113, g: 0.28399217, b: 0, a: 1}
-  specialAbilityIndicator: {r: 1, g: 0.73333335, b: 0.015686275, a: 1}
+  magicAbilityIndicator: {r: 0.2509804, g: 0.3647059, b: 0.9254902, a: 1}
+  buffAbilityIndicator: {r: 0.10980392, g: 0.6039216, b: 0.52156866, a: 1}
+  debuffAbilityIndicator: {r: 0.49411765, g: 0.2784314, b: 0.92941177, a: 1}
+  selfBuffAbilityIndicator: {r: 0.77254903, g: 0.13725491, b: 0.56078434, a: 1}
+  physicalAbilityIndicator: {r: 0.8117647, g: 0.14509805, b: 0.25490198, a: 1}
+  healAbilityIndicator: {r: 0.22745098, g: 0.7176471, b: 0.12941177, a: 1}
+  healthDamageIndicator: {r: 0.08627451, g: 0.47843137, b: 0.4117647, a: 1}
+  crowdControlAbilityIndicator: {r: 0.6901961, g: 0.3137255, b: 0.1254902, a: 1}
+  specialAbilityIndicator: {r: 0.88235295, g: 0.7607843, b: 0.15686275, a: 1}
   otherAbilityIndicator: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &1128562968
 GameObject:
