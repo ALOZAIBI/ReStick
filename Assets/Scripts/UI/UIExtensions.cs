@@ -81,4 +81,10 @@ public static class UIExtensions {
             LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
         }
     }
+    //Sets alpha of an image
+    public static void SetAlpha(this Image img,float alpha) {
+        Color temp = img.color;
+        temp.a = alpha;
+        img.color = temp;
+    }
 }

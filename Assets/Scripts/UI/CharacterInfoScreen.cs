@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+//The values of how I calculated the initAnchors is in the notebook page 76
 public class CharacterInfoScreen : MonoBehaviour
 {
     public UIManager uiManager;
@@ -76,13 +76,21 @@ public class CharacterInfoScreen : MonoBehaviour
     private HideUI hideUI;
     //used for initial full screen opening
     [SerializeField] private bool opening;
-    private bool closing;
+    [SerializeField] private bool closing;
 
     [SerializeField] private bool opened;
 
     //this is used to pause(waspause) once closing is done
     private bool willHandlePause;
-    private bool closed;
+
+    [SerializeField] private bool focusing;
+    [SerializeField] private bool unFocusing;
+    private bool focused;
+    //The element to be focused 
+    //0 1 2 3 4 = abilities. 5 = base targetting
+    private int focusElement;
+    //This is used to set active to false when unfocusing is done
+    private bool willHandleDeActivatingFocus;
     ////Once it is fullscreen it will open the other panels such as abilities/ targetting / upgrading
     //private bool opening2;
     //private bool closing2;
@@ -91,6 +99,8 @@ public class CharacterInfoScreen : MonoBehaviour
     //this is the main panel itself and maybe I will add another button for clarity later
     [SerializeField] private Button openFullScreenBtn;
     [SerializeField] private Button closeFullScreenBtn;
+
+    [SerializeField] private Button confirmTargettingBtn;
 
     [SerializeField] private RectTransform mainPanel;
     //the init position and anchors
@@ -163,16 +173,28 @@ public class CharacterInfoScreen : MonoBehaviour
     private RectTransform targetSelectBtnPanel;
 
     [SerializeField] private float transitionTime;
+    //Used for opening and closing fullscreen.
     [SerializeField] private float time;
+    //Used for focusing elements
     [SerializeField] private float time2;
 
+    
     //to be able to place the ability displays here
     [SerializeField] private List<RectTransform> abilityPlaceholders= new List<RectTransform>();
+    private List<float> abilityPlaceHoldersAnchorL = new List<float>(new float[5]);
+    private List<float> abilityPlaceHoldersAnchorR = new List<float>(new float[5]);
+    private List<float> abilityPlaceHoldersAnchorT = new List<float>(new float[5]);
+    private List<float> abilityPlaceHoldersAnchorB = new List<float>(new float[5]);
 
     //to be able to delete all abilityDisplays
-    [SerializeField] private List<GameObject> abilityDisplays = new List<GameObject>();
+    [SerializeField] private List<RectTransform> abilityDisplays = new List<RectTransform>();
 
-    [SerializeField] private List<Button> abilityTargetting = new List<Button>();
+    [SerializeField] private List<RectTransform> abilityTargetting = new List<RectTransform>();
+    private List<float> abilityTargettingAnchorL = new List<float>(new float[5]);
+    private List<float> abilityTargettingAnchorR = new List<float>(new float[5]);
+    private List<float> abilityTargettingAnchorT = new List<float>(new float[5]);
+    private List<float> abilityTargettingAnchorB = new List<float>(new float[5]);
+
     [SerializeField] private List<TextMeshProUGUI> abilityTargettingText = new List<TextMeshProUGUI>();
     //The children of this will be the stat Icons
     [SerializeField] private List<Transform> abilityTargettingIconParent = new List<Transform>();
@@ -182,7 +204,7 @@ public class CharacterInfoScreen : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         //just so that it doesn't transition on start.
         time = transitionTime;
-
+        time2 = transitionTime;
         hideUI = GetComponent<HideUI>();
 
         saveInitPanels();
@@ -192,6 +214,7 @@ public class CharacterInfoScreen : MonoBehaviour
         openFullScreenBtn.onClick.AddListener(viewCharacterFullScreen);
         closeFullScreenBtn.onClick.AddListener(startClosing);
 
+        confirmTargettingBtn.onClick.AddListener(startUnfocusing);
         //targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         //openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
         //upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
@@ -202,6 +225,18 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     private void saveInitPanels() {
+        for(int i = 0;i<5;i++) {
+            abilityPlaceHoldersAnchorL[i] = abilityPlaceholders[i].GetAnchorLeft();
+            abilityPlaceHoldersAnchorR[i] = abilityPlaceholders[i].GetAnchorRight();
+            abilityPlaceHoldersAnchorT[i] = abilityPlaceholders[i].GetAnchorTop();
+            abilityPlaceHoldersAnchorB[i] = abilityPlaceholders[i].GetAnchorBottom();
+
+            abilityTargettingAnchorL[i] = abilityTargetting[i].GetAnchorLeft();
+            abilityTargettingAnchorR[i] = abilityTargetting[i].GetAnchorRight();
+            abilityTargettingAnchorT[i] = abilityTargetting[i].GetAnchorTop();
+            abilityTargettingAnchorB[i] = abilityTargetting[i].GetAnchorBottom();
+        }
+
         mainPanelAnchorL = mainPanel.GetAnchorLeft();
         mainPanelAnchorR = mainPanel.GetAnchorRight();
         mainPanelAnchorT = mainPanel.GetAnchorTop();
@@ -275,11 +310,6 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
 
-    private void setPanelStuffActive(bool bol) {
-        closeFullScreenBtn.gameObject.SetActive(bol);
-        levelProgress.gameObject.SetActive(bol);
-        openTargetSelectionTxt.gameObject.SetActive(bol);
-    }
     private void startClosing() {
         if (opened) {
             setPanelStuffActive(false);
@@ -288,6 +318,14 @@ public class CharacterInfoScreen : MonoBehaviour
             opening = false;
             closing = true;
             willHandlePause = true;
+        }
+    }
+    private void setPanelStuffActive(bool bol) {
+        closeFullScreenBtn.gameObject.SetActive(bol);
+        levelProgress.gameObject.SetActive(bol);
+        openTargetSelectionTxt.gameObject.SetActive(bol);
+        foreach(RectTransform temp in abilityTargetting) {
+            temp.gameObject.SetActive(bol);
         }
     }
 
@@ -378,6 +416,73 @@ public class CharacterInfoScreen : MonoBehaviour
         //Grows the right anchor to the right
         targetSelectBtnPanel.SetAnchorRight(Mathf.Lerp(targetSelectBtnPanel.GetAnchorLeft(), statsPanelAnchorR,time/transitionTime));
     }
+
+    private void startFocusing() {
+        if (!focused) {
+            uiManager.focus.gameObject.SetActive(true);
+            confirmTargettingBtn.gameObject.SetActive(true);
+            confirmTargettingBtn.transform.SetParent(uiManager.focus.transform);
+            focused = true;
+            //resets time2 to start the transition
+            time2 = 0;
+            focusing = true;
+            unFocusing = false;
+        }
+    }
+
+    private void startUnfocusing() {
+        if(focused) {
+            //setting the focus image to be inactive done in the update method
+            confirmTargettingBtn.gameObject.SetActive(false);
+            confirmTargettingBtn.transform.SetParent(this.transform);
+            willHandleDeActivatingFocus = true;
+            focused = false;
+            //sets time2 to start the transition
+            time2 = transitionTime;
+            unFocusing = true;
+            focusing = false;
+        }
+    }
+    //handles focusing and unfocusing siomilar to handlePanels
+    private void handleFocusing() {
+        
+        //Lerps the alpha of the focus image to uiManager.focusOpacity
+        uiManager.focus.SetAlpha(Mathf.Lerp(0, uiManager.focusOpacity, time2 / transitionTime));
+        //Get the ratio of the size of the abilities panel relative to char info screen. This will be used to put the anchors of the abilityDisplays in the correct place
+        //since when we change it's parent, the anchors will be relative to the parent and not to how it was initially
+        //We're just getteing the top anchor since this is basically the ratio
+        float sizeRatio = abilitiesPanel.GetAnchorTop();
+
+        //where to place the focusElement anchors
+        float mainArea=0.6f;
+        switch (focusElement) {
+            //Lerps the positions of the respective ability and targetting to center of screen
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                abilityDisplays[focusElement].SetAnchorTop(Mathf.Lerp(abilityPlaceHoldersAnchorT[focusElement]*sizeRatio, (mainArea+0.175f*sizeRatio), time2 / transitionTime));
+                abilityDisplays[focusElement].SetAnchorBottom(Mathf.Lerp(abilityPlaceHoldersAnchorB[focusElement]*sizeRatio, (mainArea - 0.175f*sizeRatio), time2 / transitionTime));
+                abilityDisplays[focusElement].SetAnchorLeft(Mathf.Lerp(abilityPlaceHoldersAnchorL[focusElement], 0.5f - 0.15f, time2 / transitionTime));
+                abilityDisplays[focusElement].SetAnchorRight(Mathf.Lerp(abilityPlaceHoldersAnchorR[focusElement], 0.5f + 0.15f, time2 / transitionTime));
+                abilityDisplays[focusElement].SetTop(0);
+                abilityDisplays[focusElement].SetBottom(0);
+                abilityDisplays[focusElement].SetLeft(0);
+                abilityDisplays[focusElement].SetRight(0);
+
+                abilityTargetting[focusElement].SetAnchorTop(Mathf.Lerp(abilityTargettingAnchorT[focusElement]*sizeRatio, (mainArea - (0.175f+0.033f)*sizeRatio), time2 / transitionTime));
+                abilityTargetting[focusElement].SetAnchorBottom(Mathf.Lerp(abilityTargettingAnchorB[focusElement]*sizeRatio, (mainArea - (0.175f + 3f*0.033f) * sizeRatio), time2 / transitionTime));
+                abilityTargetting[focusElement].SetAnchorLeft(Mathf.Lerp(abilityTargettingAnchorL[focusElement], 0.5f - 0.15f, time2 / transitionTime));
+                abilityTargetting[focusElement].SetAnchorRight(Mathf.Lerp(abilityTargettingAnchorR[focusElement], 0.5f + 0.15f, time2 / transitionTime));
+                abilityTargetting[focusElement].SetTop(0);
+                abilityTargetting[focusElement].SetBottom(0);
+                abilityTargetting[focusElement].SetLeft(0);
+                abilityTargetting[focusElement].SetRight(0);
+                break;
+        }
+        
+    }
     public void openTopStatDisplay() {
         close();
         pageIndex = -1;
@@ -459,7 +564,7 @@ public class CharacterInfoScreen : MonoBehaviour
             ability.updateDescription();
             //Instantiates it as child of the abilityDisplayPanel
             GameObject displayObject = Instantiate(this.abilityDisplay, abilitiesPanel.transform);
-            abilityDisplays.Add(displayObject);
+            abilityDisplays.Add(displayObject.GetComponent<RectTransform>());
             //copies the anchors of the placeholder
             RectTransform displayRect = displayObject.GetComponent<RectTransform>();
             displayRect.SetAnchorBottom(abilityPlaceholders[count].GetAnchorBottom());
@@ -484,14 +589,14 @@ public class CharacterInfoScreen : MonoBehaviour
                     case (int)Character.TargetList.HighestPDAlly:
                     case (int)Character.TargetList.LowestPDAlly:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.allyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(PDIcon, abilityTargettingIconParent[count]);
                         break;
                     case (int)Character.TargetList.HighestPDEnemy:
                     case (int)Character.TargetList.LowestPDEnemy:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.enemyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(PDIcon, abilityTargettingIconParent[count]);
                         break;
@@ -499,14 +604,14 @@ public class CharacterInfoScreen : MonoBehaviour
                     case (int)Character.TargetList.HighestMDAlly:
                     case (int)Character.TargetList.LowestMDAlly:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.allyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(MDIcon, abilityTargettingIconParent[count]);
                         break;
                     case (int)Character.TargetList.HighestMDEnemy:
                     case (int)Character.TargetList.LowestMDEnemy:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.enemyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(MDIcon, abilityTargettingIconParent[count]);
                         break;
@@ -514,7 +619,7 @@ public class CharacterInfoScreen : MonoBehaviour
                     case (int)Character.TargetList.HighestHPAlly:
                     case (int)Character.TargetList.LowestHPAlly:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.allyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(HPIcon, abilityTargettingIconParent[count]);
                         break;
@@ -522,7 +627,7 @@ public class CharacterInfoScreen : MonoBehaviour
                     case (int)Character.TargetList.HighestHPEnemy:
                     case (int)Character.TargetList.LowestHPEnemy:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.enemyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(HPIcon, abilityTargettingIconParent[count]);
                         break;
@@ -530,7 +635,7 @@ public class CharacterInfoScreen : MonoBehaviour
                     case (int)Character.TargetList.HighestINFAlly:
                     case (int)Character.TargetList.LowestINFAlly:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.allyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(INFIcon, abilityTargettingIconParent[count]);
                         break;
@@ -538,18 +643,18 @@ public class CharacterInfoScreen : MonoBehaviour
                     case (int)Character.TargetList.HighestINFEnemy:
                     case (int)Character.TargetList.LowestINFEnemy:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.enemyHealthBar;
                         //instantiate staticon as child of abilityTargettingIcon
                         Instantiate(INFIcon, abilityTargettingIconParent[count]);
                         break;
 
                     case (int)Character.TargetList.ClosestAlly:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.allyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.allyHealthBar;
                         break;
                     case (int)Character.TargetList.ClosestEnemy:
                         //Sets Color
-                        abilityTargetting[count].image.color = ColorPalette.singleton.enemyHealthBar;
+                        abilityTargetting[count].GetComponent<Button>().image.color = ColorPalette.singleton.enemyHealthBar;
                         break;
 
                     default:
@@ -570,12 +675,7 @@ public class CharacterInfoScreen : MonoBehaviour
                 abilityTargetting[count].gameObject.SetActive(false);
             }
 
-            ////if ability has no target hide the target button
-            //if (!ability.hasTarget) {
-            //    abilityDisplay.btn.gameObject.SetActive(false);
-            //}
-            //else
-            //    abilityDisplay.targettingStrategyText.text = TargetNames.getName((ability.targetStrategy));
+
             //sets the cooldownBar fill amount to CD remaining
             abilityDisplay.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
             //if the ability has no cd anyways(It's a passive)
@@ -588,6 +688,25 @@ public class CharacterInfoScreen : MonoBehaviour
             else
                 //shows how much cd remaining 
                 abilityDisplay.cooldownText.text = (ability.abilityNext).ToString("F1");
+
+            //Makes the ability display clickable
+            switch (count) {
+                case 0:
+                    abilityDisplay.btn.onClick.AddListener(ability1Clicked);
+                    break;
+                case 1:
+                    abilityDisplay.btn.onClick.AddListener(ability2Clicked);
+                    break;
+                case 2:
+                    abilityDisplay.btn.onClick.AddListener(ability3Clicked);
+                    break;
+                case 3:
+                    abilityDisplay.btn.onClick.AddListener(ability4Clicked);
+                    break;
+                case 4:
+                    abilityDisplay.btn.onClick.AddListener(ability5Clicked);
+                    break;
+            }
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             displayObject.transform.localScale = new Vector3(1, 1, 1);
 
@@ -742,7 +861,7 @@ public class CharacterInfoScreen : MonoBehaviour
         //destroys all ability displays
         for(int i = 0;i<abilityDisplays.Count;i++) {
             //Destroys the ability display then refills the placeholder with a background
-            Destroy(abilityDisplays[i]);
+            Destroy(abilityDisplays[i].gameObject);
             Debug.Log("Destroyed" + abilityDisplays[i].name);
             foreach(Transform child in abilityPlaceholders[i].transform) {
                 child.gameObject.SetActive(true);
@@ -757,21 +876,45 @@ public class CharacterInfoScreen : MonoBehaviour
     //The onclick is set in the editor
     public void ability1Clicked() {
         Debug.Log("Ability1Clicked");
+        focusElement = 0;
+        startFocusing();
+        abilityDisplays[0].transform.SetParent(uiManager.focus.transform);
+        abilityTargetting[0].transform.SetParent(uiManager.focus.transform);
     }
 
     public void ability2Clicked() {
         Debug.Log("Ability2Clicked");
+        focusElement = 1;
+        startFocusing();
+        abilityDisplays[1].transform.SetParent(uiManager.focus.transform);
+        abilityTargetting[1].transform.SetParent(uiManager.focus.transform);
+        uiManager.focus.transform.gameObject.SetActive(true);
     }
 
     public void ability3Clicked() {
         Debug.Log("Ability3Clicked");
+        focusElement = 2;
+        startFocusing();
+        abilityDisplays[2].transform.SetParent(uiManager.focus.transform);
+        abilityTargetting[2].transform.SetParent(uiManager.focus.transform);
+        uiManager.focus.transform.gameObject.SetActive(true);
     }
     public void ability4Clicked() {
           Debug.Log("Ability4Clicked");
+        focusElement = 3;
+        startFocusing();
+        abilityDisplays[3].transform.SetParent(uiManager.focus.transform);
+        abilityTargetting[3].transform.SetParent(uiManager.focus.transform);
+        uiManager.focus.transform.gameObject.SetActive(true);
     }
 
     public void ability5Clicked() {
         Debug.Log("Ability5Clicked");
+        focusElement = 4;
+        startFocusing();
+        abilityDisplays[4].transform.SetParent(uiManager.focus.transform);
+        abilityTargetting[4].transform.SetParent(uiManager.focus.transform);
+        uiManager.focus.transform.gameObject.SetActive(true);
     }
 
     //opens target selector for normal attacks
@@ -897,11 +1040,57 @@ public class CharacterInfoScreen : MonoBehaviour
             //no longer in the process of opening
             opening = false;
         }
+        //no longer in process of closing
+        if(time<=0)
+            closing = false;
 
         //once closing is done unpause the game
         if (willHandlePause && time <= 0) {
             uiManager.pausePlay(uiManager.wasPause);
+            //and remove the ability displays;
+            close();
             willHandlePause = false;
+        }
+
+        if(focusing)
+            time2 += Time.unscaledDeltaTime;
+        if(unFocusing)
+            time2 -= Time.unscaledDeltaTime;
+
+        if(focusing || unFocusing) {
+            handleFocusing();
+        }
+
+        if(time2 >= transitionTime) {
+            //no longer in the process of focusing
+            focusing = false;
+        }
+        //no longer in process of unfocusing
+        if (time2 <= 0)
+            unFocusing = false;
+        //once unfucusing is done deactivate the focus
+        if(willHandleDeActivatingFocus && time2 <= 0) {
+            uiManager.focus.transform.gameObject.SetActive(false);
+            //reSets parent from focus to charInfoScreen
+            int count = 0;
+            foreach(RectTransform temp in abilityTargetting) {
+                if (temp.transform.parent == uiManager.focus.transform) {
+                    temp.transform.SetParent(this.abilitiesPanel.transform);
+                    temp.SetAnchorBottom(abilityTargettingAnchorB[count]);
+                    temp.SetAnchorTop(abilityTargettingAnchorT[count]);
+                    temp.SetAnchorLeft(abilityTargettingAnchorL[count]);
+                    temp.SetAnchorRight(abilityTargettingAnchorR[count]);
+
+                    temp.SetLeft(0);
+                    temp.SetRight(0);
+                    temp.SetTop(0);
+                    temp.SetBottom(0);
+                }
+                count++;
+            }
+            //redisplays abilities
+            displayCharacterAbilities(character);
+            willHandleDeActivatingFocus = false;
         }
         if (character != null) {
             if (character.team == (int)Character.teamList.Player) {
@@ -910,5 +1099,7 @@ public class CharacterInfoScreen : MonoBehaviour
             else
                 targetSelectionBtn.interactable = false;
         }
+
+        Debug.Log(abilityTargetting[0].GetLeft());
     }
 }
