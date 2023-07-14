@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Deprecated use TargetSelector.cs
+/// </summary>
 public class AttackTargetSelector : MonoBehaviour {
     public UIManager uiManager;
     //just text 

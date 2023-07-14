@@ -43,6 +43,7 @@ public class AbilityDisplay : MonoBehaviour
         MS.ratio = ability.MSRatio;
         LVL.ratio = ability.LVLRatio;
 
+        //cooldownBar.color = ColorPalette.singleton.getRarityColor(ability.rarity);
 
         //delete whatever isn't applicable
         foreach (Transform child in iconHolder) {
@@ -100,21 +101,21 @@ public class AbilityDisplay : MonoBehaviour
 
     //maybe make the current ability that will have it's target changed in ability header
     public void openTargetSelectorAbility() {
-        //This should open the characterInfoScreen's target selection
-        Debug.Log("Clicked");
-        //if inventoryScreen
-        if (!uiManager.inventoryScreenHidden.hidden) {
-            //sets the ability to be modified
-            uiManager.inventoryScreen.inventoryCharacterScreen.targetSelector.ability = ability;
-            //opens the screen and saits ability to true
-            uiManager.inventoryScreen.inventoryCharacterScreen.openTargetSelectorAbility();
-            Debug.Log("I am sending this ability" + ability.name);
-        }
-        //if regular char screen
-        else {
-            uiManager.characterInfoScreen.targetSelector.ability = ability;
-            uiManager.characterInfoScreen.openTargetSelectorAbility();
-        }
+        ////This should open the characterInfoScreen's target selection
+        //Debug.Log("Clicked");
+        ////if inventoryScreen
+        //if (!uiManager.inventoryScreenHidden.hidden) {
+        //    //sets the ability to be modified
+        //    uiManager.inventoryScreen.inventoryCharacterScreen.targetSelector.ability = ability;
+        //    //opens the screen and saits ability to true
+        //    uiManager.inventoryScreen.inventoryCharacterScreen.openTargetSelectorAbility();
+        //    Debug.Log("I am sending this ability" + ability.name);
+        //}
+        ////if regular char screen
+        //else {
+        //    uiManager.characterInfoScreen.targetSelector.ability = ability;
+        //    uiManager.characterInfoScreen.openTargetSelectorAbility();
+        //}
 
     }
 

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,5 +87,10 @@ public static class UIExtensions {
         Color temp = img.color;
         temp.a = alpha;
         img.color = temp;
+    }
+    public static void SetAlpha(this TextMeshProUGUI text, float alpha) {
+        Color temp = text.color;
+        temp.a = alpha;
+        text.color = temp;
     }
 }

@@ -50,7 +50,20 @@ public class ColorPalette : MonoBehaviour
     {
         
     }
-
+    public Color getRarityColor(int rarity) {
+        switch (rarity) {
+            case 0:
+                return commonRarity;
+            case 1:
+                return rareRarity;
+            case 2:
+                return epicRarity;
+            case 3:
+                return legendaryRarity;
+            default:
+                return defaultColor;
+        }
+    }
     public Color getIndicatorColor(int val) {
         switch (val) {
             case (int)Ability.AbilityTypeList.MagicDamage:

@@ -23,8 +23,8 @@ public class CharacterInfoScreen : MonoBehaviour
     //Used to instantiate AbilityDisplay prefab
     public GameObject abilityDisplay;
 
-    //Selecting target for attacking and also moving for now.
-    public AttackTargetSelector targetSelector;
+    //Selecting target
+    public TargetSelector targetSelector;
 
     public Button targetSelectionBtn;
 
@@ -420,8 +420,15 @@ public class CharacterInfoScreen : MonoBehaviour
     private void startFocusing() {
         if (!focused) {
             uiManager.focus.gameObject.SetActive(true);
-            confirmTargettingBtn.gameObject.SetActive(true);
-            confirmTargettingBtn.transform.SetParent(uiManager.focus.transform);
+            targetSelector.gameObject.SetActive(true);
+            targetSelector.transform.SetParent(uiManager.focus.transform);
+            //Ability target selector or regular target selector
+            if (focusElement >= 0 && focusElement <= 4) {
+                targetSelector.isAbilityTargetSelector = true;
+            }
+            else {
+                targetSelector.isAbilityTargetSelector = false;
+            }
             focused = true;
             //resets time2 to start the transition
             time2 = 0;
@@ -433,8 +440,8 @@ public class CharacterInfoScreen : MonoBehaviour
     private void startUnfocusing() {
         if(focused) {
             //setting the focus image to be inactive done in the update method
-            confirmTargettingBtn.gameObject.SetActive(false);
-            confirmTargettingBtn.transform.SetParent(this.transform);
+            targetSelector.gameObject.SetActive(false);
+            targetSelector.transform.SetParent(this.transform);
             willHandleDeActivatingFocus = true;
             focused = false;
             //sets time2 to start the transition
@@ -492,10 +499,10 @@ public class CharacterInfoScreen : MonoBehaviour
         pageIndex = 0;
     }
     public void openTargetSelectionPage() {
-        close();
-        targetSelector.targetSelection.SetActive(true);
-        targetSelector.updateView();
-        pageIndex = 1;
+        //close();
+        //targetSelector.targetSelection.SetActive(true);
+        //targetSelector.updateView();
+        //pageIndex = 1;
     }
 
     public void openMovementSelectorPage() {
