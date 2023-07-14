@@ -17,7 +17,7 @@ public class AbilityDisplay : MonoBehaviour
     public TextMeshProUGUI cooldownText;
     public Ability ability;
     public Button btn;
-    public TextMeshProUGUI targettingStrategyText;
+    //public TextMeshProUGUI targettingStrategyText;
     public Transform iconHolder;
 
     //we just have the holder so we can better place it visually some horizontal layout group gimic stuff
