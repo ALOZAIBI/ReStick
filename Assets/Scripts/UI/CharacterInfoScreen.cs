@@ -64,6 +64,8 @@ public class CharacterInfoScreen : MonoBehaviour
 
     
     public Button addAbilityBtn;
+    public GameObject addAbilityPanel;
+
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
 
@@ -86,7 +88,7 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField] private bool unFocusing;
     private bool focused;
     //The element to be focused 
-    //0 1 2 3 4 = abilities. 5 = base targetting
+    //0 1 2 3 4 = abilities. 5 = base targetting. 6 = Adding ability screen
     private int focusElement;
     //This is used to set active to false when unfocusing is done
     private bool willHandleDeActivatingFocus;
@@ -215,11 +217,11 @@ public class CharacterInfoScreen : MonoBehaviour
         closeFullScreenBtn.onClick.AddListener(startClosing);
 
         confirmTargettingBtn.onClick.AddListener(startUnfocusing);
+        addAbilityBtn.onClick.AddListener(addAbility);
         //targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         //openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
         //upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
         //upgradeStatsColorPingPong2 = new Color(upgradeStats.color.r * 1.2f, upgradeStats.color.g * 1.2f, upgradeStats.color.b * 1.2f, 1);
-        //addAbilityBtn.onClick.AddListener(addAbility);
         //confirmAddAbilityBtn.onClick.AddListener(confirmAddAbility);
         //confirmAddAbilityBtnImage = confirmAddAbilityBtn.GetComponent<Image>();
     }
@@ -324,9 +326,6 @@ public class CharacterInfoScreen : MonoBehaviour
         closeFullScreenBtn.gameObject.SetActive(bol);
         levelProgress.gameObject.SetActive(bol);
         openTargetSelectionTxt.gameObject.SetActive(bol);
-        foreach(RectTransform temp in abilityTargetting) {
-            temp.gameObject.SetActive(bol);
-        }
     }
 
     private void handleMainPanel() {
@@ -420,14 +419,26 @@ public class CharacterInfoScreen : MonoBehaviour
     private void startFocusing() {
         if (!focused) {
             uiManager.focus.gameObject.SetActive(true);
-            targetSelector.gameObject.SetActive(true);
-            targetSelector.transform.SetParent(uiManager.focus.transform);
+            
             //Ability target selector or regular target selector
             if (focusElement >= 0 && focusElement <= 4) {
+                targetSelector.gameObject.SetActive(true);
+                targetSelector.transform.SetParent(uiManager.focus.transform);
                 targetSelector.setupTargetSelector(abilityDisplays[focusElement].GetComponent<AbilityDisplay>().ability);
+
+                abilityDisplays[focusElement].transform.SetParent(uiManager.focus.transform);
+                abilityTargetting[focusElement].transform.SetParent(uiManager.focus.transform);
             }
-            else {
+            if (focusElement == 5) {
+                targetSelector.gameObject.SetActive(true);
+                targetSelector.transform.SetParent(uiManager.focus.transform);
                 targetSelector.setupTargetSelector();
+            }
+
+            //If add ability 
+            if(focusElement == 6) {
+                addAbilityPanel.gameObject.SetActive(true);
+                addAbilityPanel.transform.SetParent(uiManager.focus.transform);
             }
             focused = true;
             //resets time2 to start the transition
@@ -632,19 +643,15 @@ public class CharacterInfoScreen : MonoBehaviour
 
             count++;
         }
-        ////if the character is player and has less than 5 abilities and zone not started and there are abilities to add available
-        //if(character.team == (int)Character.teamList.Player &&character.abilities.Count<5&& !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount>0) {
-        //    addAbilityBtn.gameObject.SetActive(true);
-        //    //puts the add ability as the last child
-        //    addAbilityBtn.transform.SetAsLastSibling();
-        //}
-        //else
-        //    addAbilityBtn.gameObject.SetActive(false);
-        //if(abilityDisplayPanel.transform.childCount > 3) {
-        //    abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
-        //}
-        //else
-        //    abilityDisplayPanel.GetComponent<VerticalLayoutGroup>().childControlHeight = false;
+        //if the character is player and has less than 5 abilities and zone not started and there are abilities to add available
+        if (character.team == (int)Character.teamList.Player && character.abilities.Count < 5 && !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount > 0) {
+            addAbilityBtn.gameObject.SetActive(true);
+            //puts the add ability on the first free slot
+            addAbilityBtn.transform.parent = abilityPlaceholders[character.abilities.Count];
+            addAbilityBtn.GetComponent<RectTransform>().SetStretchToAnchors();
+        }
+        else
+            addAbilityBtn.gameObject.SetActive(false);
     }
     //displays the stats and cool stats of the character and character screen
 
@@ -953,71 +960,49 @@ public class CharacterInfoScreen : MonoBehaviour
         }
         abilityDisplays.Clear();
         abilities.Clear();
+        //Hides all targetting
+        foreach(RectTransform temp in abilityTargetting) {
+              temp.gameObject.SetActive(false);
+        }
         //targetSelector.targetSelection.SetActive(false);
         //movementSelector.gameObject.SetActive(false);
     }
 
     //The onclick is set in the editor
     public void ability1Clicked() {
-        Debug.Log("Ability1Clicked");
-        focusElement = 0;
-        startFocusing();
-        abilityDisplays[0].transform.SetParent(uiManager.focus.transform);
-        abilityTargetting[0].transform.SetParent(uiManager.focus.transform);
+        //clickable if the character is a player and the zone hasnt started yet
+        if (character.team == (int)Character.teamList.Player && !uiManager.zoneStarted()) { 
+            focusElement = 0;
+            startFocusing();
+        }
     }
 
     public void ability2Clicked() {
-        Debug.Log("Ability2Clicked");
-        focusElement = 1;
-        startFocusing();
-        abilityDisplays[1].transform.SetParent(uiManager.focus.transform);
-        abilityTargetting[1].transform.SetParent(uiManager.focus.transform);
-        uiManager.focus.transform.gameObject.SetActive(true);
+        //clickable if the character is a player and the zone hasnt started yet.
+        if (character.team == (int)Character.teamList.Player && !uiManager.zoneStarted()) { 
+            focusElement = 1;
+            startFocusing();
+        }
     }
 
     public void ability3Clicked() {
-        Debug.Log("Ability3Clicked");
-        focusElement = 2;
-        startFocusing();
-        abilityDisplays[2].transform.SetParent(uiManager.focus.transform);
-        abilityTargetting[2].transform.SetParent(uiManager.focus.transform);
-        uiManager.focus.transform.gameObject.SetActive(true);
+        if (character.team == (int)Character.teamList.Player && !uiManager.zoneStarted()) {
+            focusElement = 2;
+            startFocusing();
+        }
     }
     public void ability4Clicked() {
-          Debug.Log("Ability4Clicked");
-        focusElement = 3;
-        startFocusing();
-        abilityDisplays[3].transform.SetParent(uiManager.focus.transform);
-        abilityTargetting[3].transform.SetParent(uiManager.focus.transform);
-        uiManager.focus.transform.gameObject.SetActive(true);
+        if (character.team == (int)Character.teamList.Player && !uiManager.zoneStarted()) {
+            focusElement = 3;
+            startFocusing();
+        }
     }
 
     public void ability5Clicked() {
-        Debug.Log("Ability5Clicked");
-        focusElement = 4;
-        startFocusing();
-        abilityDisplays[4].transform.SetParent(uiManager.focus.transform);
-        abilityTargetting[4].transform.SetParent(uiManager.focus.transform);
-        uiManager.focus.transform.gameObject.SetActive(true);
-    }
-
-    //opens target selector for normal attacks
-    public void openTargetSelectorNormal() {
-        //Debug.Log("OPen target selector");
-        //if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
-        //    //to indicate that it isnt for an ability
-        //    targetSelector.isAbilityTargetSelector = false;
-        //    openTargetSelectionPage();
-        //}
-    }
-
-    //this function is called in abilityDisplay
-    public void openTargetSelectorAbility() {                   //change back to false. only true for testingf purposes
-        //if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
-        //    //to indicate that it is for an ability
-        //    targetSelector.isAbilityTargetSelector = true;
-        //    openTargetSelectionPage();
-        //}
+        if (character.team == (int)Character.teamList.Player && !uiManager.zoneStarted()) {
+            focusElement = 4;
+            startFocusing();
+        }
     }
 
     public void confirmAddAbilityPage() {
@@ -1027,17 +1012,10 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     //displays the abilities in inventory when clicked
     private void addAbility() {
-        if (character.abilities.Count >= MAX_ABILITIES) {
-            uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
-            return;
-        }
-        //to destroy all abilityDisplayElements
-        close();
-
+        focusElement = 6;
+        startFocusing();
         //then display inventory abilities
         displayInventoryAbilities();
-
-        addAbilityBtn.gameObject.SetActive(false);
     }
 
     public void confirmAddAbility() {
@@ -1152,7 +1130,7 @@ public class CharacterInfoScreen : MonoBehaviour
         //no longer in process of unfocusing
         if (time2 <= 0)
             unFocusing = false;
-        //once unfucusing is done deactivate the focus
+        //once unfocusing is done deactivate the focus
         if(willHandleDeActivatingFocus && time2 <= 0) {
             uiManager.focus.transform.gameObject.SetActive(false);
             //reSets parent from focus to charInfoScreen
@@ -1183,7 +1161,5 @@ public class CharacterInfoScreen : MonoBehaviour
             else
                 targetSelectionBtn.interactable = false;
         }
-
-        Debug.Log(abilityTargetting[0].GetLeft());
     }
 }

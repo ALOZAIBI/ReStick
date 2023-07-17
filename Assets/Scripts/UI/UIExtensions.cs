@@ -58,8 +58,15 @@ public static class UIExtensions {
         rt.SetAnchorLeft(0);
         rt.SetAnchorRight(1);
         rt.SetAnchorTop(1);
-        Debug.Log("Stretched"+rt.gameObject.name);
     }
+
+    public static void SetStretchToAnchors(this RectTransform rt) {
+        rt.SetLeft(0);
+        rt.SetRight(0);
+        rt.SetTop(0);
+        rt.SetBottom(0);
+    }
+
     public static float GetAnchorLeft(this RectTransform rt) {
         return rt.anchorMin.x;
     }

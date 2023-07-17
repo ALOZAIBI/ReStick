@@ -107,14 +107,12 @@ public class TargetSelector : MonoBehaviour
             highestText.SetAlpha(selectedAlpha);
             lowestText.SetAlpha(deselectedAlpha);
             updateText(true);
-            
         }
         else {
             toggleTransform.localPosition = new Vector3(toggleTransform.localPosition.x, yPositionLo, toggleTransform.localPosition.z);
             highestText.SetAlpha(deselectedAlpha);
             lowestText.SetAlpha(selectedAlpha);
             updateText(false);
-            
         }
     }
     private void updateText(bool highest) {
