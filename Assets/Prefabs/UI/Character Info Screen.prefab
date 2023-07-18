@@ -2831,6 +2831,7 @@ MonoBehaviour:
   healthBar: {fileID: 7198828646178422740}
   characterPortrait: {fileID: 612100769414758396}
   abilityDisplay: {fileID: 576495221301038506, guid: 4ec639453873b724c8d3ef3736472c52, type: 3}
+  abilityDisplayAddingAbility: {fileID: 2250040219608279339, guid: 1a9f1e560faf30d46a93e301f057cb60, type: 3}
   targetSelector: {fileID: 2835755602243433838}
   targetSelectionBtn: {fileID: 522142880189568177}
   openTargetSelectionTxt: {fileID: 5808414847104128254}
@@ -2849,7 +2850,9 @@ MonoBehaviour:
   pageIndex: 0
   inventoryAbilityDisplay: {fileID: 0}
   addAbilityBtn: {fileID: 9091345107092064614}
-  addAbilityPanel: {fileID: 854503792526804195}
+  addAbilityPanel: {fileID: 8476113468753618151}
+  addAbilityDisplaysArea: {fileID: 4178204643281265760}
+  cancelAddingAbilityBtn: {fileID: 8935885896334687544}
   confirmAddAbilityBtn: {fileID: 0}
   confirmAddAbilityBtnImage: {fileID: 0}
   opening: 0
@@ -2866,7 +2869,7 @@ MonoBehaviour:
   portraitPanel: {fileID: 4484227758478929190}
   abilitiesPanel: {fileID: 6751546530959600644}
   healthBarPanel: {fileID: 2021084989714534719}
-  transitionTime: 0.3
+  transitionTime: 0.24
   time: 0
   time2: 0
   abilityPlaceholders:
@@ -6141,9 +6144,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c82836880df2907439dd4d790fb27393, type: 3}
---- !u!1 &854503792526804195 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1553508504692776067, guid: c82836880df2907439dd4d790fb27393, type: 3}
+--- !u!224 &4178204643281265760 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2859525803985665024, guid: c82836880df2907439dd4d790fb27393, type: 3}
   m_PrefabInstance: {fileID: 2185623975848712288}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &8476113468753618151 stripped
@@ -6151,6 +6154,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7779353899101371527, guid: c82836880df2907439dd4d790fb27393, type: 3}
   m_PrefabInstance: {fileID: 2185623975848712288}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8935885896334687544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7085923140940440920, guid: c82836880df2907439dd4d790fb27393, type: 3}
+  m_PrefabInstance: {fileID: 2185623975848712288}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2345506665380198845
 PrefabInstance:
   m_ObjectHideFlags: 0

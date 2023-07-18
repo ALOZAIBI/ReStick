@@ -23,6 +23,9 @@ public class CharacterInfoScreen : MonoBehaviour
     //Used to instantiate AbilityDisplay prefab
     public GameObject abilityDisplay;
 
+    //Used to instantiate AbilityDisplayAddAbility prefab
+    public AbilityDisplayAddAbility abilityDisplayAddingAbility;
+
     //Selecting target
     public TargetSelector targetSelector;
 
@@ -64,7 +67,9 @@ public class CharacterInfoScreen : MonoBehaviour
 
     
     public Button addAbilityBtn;
-    public GameObject addAbilityPanel;
+    public RectTransform addAbilityPanel;
+    public RectTransform addAbilityDisplaysArea;
+    public Button cancelAddingAbilityBtn;
 
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
@@ -218,6 +223,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
         confirmTargettingBtn.onClick.AddListener(startUnfocusing);
         addAbilityBtn.onClick.AddListener(addAbility);
+        cancelAddingAbilityBtn.onClick.AddListener(cancelAddingAbility);
         //targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         //openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
         //upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
@@ -439,6 +445,7 @@ public class CharacterInfoScreen : MonoBehaviour
             if(focusElement == 6) {
                 addAbilityPanel.gameObject.SetActive(true);
                 addAbilityPanel.transform.SetParent(uiManager.focus.transform);
+                setupAddAbility();
             }
             focused = true;
             //resets time2 to start the transition
@@ -448,7 +455,7 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
 
-    private void startUnfocusing() {
+    public void startUnfocusing() {
         if(focused) {
             //setting the focus image to be inactive done in the update method
             targetSelector.gameObject.SetActive(false);
@@ -500,6 +507,16 @@ public class CharacterInfoScreen : MonoBehaviour
                 break;
         }
         
+    }
+
+    private void setupAddAbility() {
+        closeInventoryAbilities();
+        //Setting the cell size of the grid layout group
+        float width = addAbilityDisplaysArea.rect.width;
+        float height = addAbilityDisplaysArea.rect.height/2;
+        addAbilityDisplaysArea.GetComponent<GridLayoutGroup>().cellSize = new Vector2(abilityPlaceholders[0].rect.width, abilityPlaceholders[0].rect.height);
+        addAbilityDisplaysArea.GetComponent<GridLayoutGroup>().spacing = new Vector2(0.025f*width, 0.05f*height);
+        displayInventoryAbilities();
     }
     public void openTopStatDisplay() {
         close();
@@ -577,6 +594,8 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     public void displayCharacterAbilities(Character currChar) {
         close();
+        //tells the abilities that this owns them so that they correctly display the description
+        currChar.ownTheAbility();
         int count = 0;
         foreach (Ability ability in currChar.abilities) {
             //updates description
@@ -595,9 +614,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
             AbilityDisplay abilityDisplay = displayObject.GetComponent<AbilityDisplay>();
             //sets the displays name and description
-            abilityDisplay.abilityName.text = ability.abilityName;
-            abilityDisplay.description.text = ability.description;
-            abilityDisplay.ability = ability;
+            abilityDisplay.setupAbilityDisplay(ability);
             //if ability has target display the targetting and the respective text and icon
             if (ability.hasTarget) {
                 updateAbilityTargettingView(ability, count);
@@ -605,20 +622,6 @@ public class CharacterInfoScreen : MonoBehaviour
             else {
                 abilityTargetting[count].gameObject.SetActive(false);
             }
-
-
-            //sets the cooldownBar fill amount to CD remaining
-            abilityDisplay.cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
-            //if the ability has no cd anyways(It's a passive)
-            if (ability.CD == 0)
-                abilityDisplay.cooldownText.text = ("");
-            else
-            //if the ability is ready
-            if (ability.abilityNext == 0)
-                abilityDisplay.cooldownText.text = (ability.displayCDAfterChange());
-            else
-                //shows how much cd remaining 
-                abilityDisplay.cooldownText.text = (ability.abilityNext).ToString("F1");
 
             //Makes the ability display clickable
             switch (count) {
@@ -655,6 +658,30 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     //displays the stats and cool stats of the character and character screen
 
+    private void displayInventoryAbilities() {
+        //Adds the inventory Abilities
+        foreach (Transform child in uiManager.playerParty.abilityInventory.transform) {
+            Debug.Log("Should display inventory ability");
+            Ability ability = child.GetComponent<Ability>();
+            ability.updateDescription();
+            AbilityDisplayAddAbility abilityDisplayAdding = Instantiate(abilityDisplayAddingAbility, addAbilityDisplaysArea.transform);
+            abilityDisplayAdding.setupAbilityDisplay(ability);
+            Debug.Log("Ability name"+ability.name);
+        }
+    }
+    private void cancelAddingAbility() {
+        startUnfocusing();
+        //Moves the addAbilityPanel back to CharacterInfoScreen
+        uiManager.characterInfoScreen.addAbilityPanel.transform.parent = uiManager.characterInfoScreen.transform;
+        //Sets the addAbilityPanel to inactive
+        uiManager.characterInfoScreen.addAbilityPanel.gameObject.SetActive(false);
+    }
+    private void closeInventoryAbilities() {
+        //Closes all ability displays
+        foreach (Transform child in addAbilityDisplaysArea.transform) {
+            Destroy(child.gameObject);
+        }
+    }
     public void updateAbilityTargettingView(Ability ability,int count) {
         abilityTargetting[count].gameObject.SetActive(true);
         //Deletes the old icon by deleting children of abilityTargettingIconParent
@@ -1014,8 +1041,6 @@ public class CharacterInfoScreen : MonoBehaviour
     private void addAbility() {
         focusElement = 6;
         startFocusing();
-        //then display inventory abilities
-        displayInventoryAbilities();
     }
 
     public void confirmAddAbility() {
@@ -1055,26 +1080,6 @@ public class CharacterInfoScreen : MonoBehaviour
         //confirmAddAbilityBtn.gameObject.SetActive(false);
     }
 
-
-    public void displayInventoryAbilities() {
-        ////loops thorugh the abilities in abilityInventory
-        //Debug.Log(uiManager.inventoryScreen.playerParty.abilityInventory.transform.childCount);
-        //foreach (Transform child in uiManager.inventoryScreen.playerParty.abilityInventory.transform) {
-        //    Debug.Log(child.name + "ABILIRTY INVENTORY");
-        //    Ability ability = child.GetComponent<Ability>();
-        //    GameObject temp = Instantiate(inventoryAbilityDisplay);
-        //    //sets the instantiated object as child
-        //    temp.transform.parent = abilityDisplayPanel.transform;
-        //    InventoryAbilityDisplay displayTemp = temp.GetComponent<InventoryAbilityDisplay>();
-        //    //sets the displays name and description
-        //    displayTemp.abilityName.text = ability.abilityName;
-        //    displayTemp.description.text = ability.description;
-        //    displayTemp.ability = ability;
-        //    displayTemp.glow = true;
-        //    //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
-        //    temp.transform.localScale = new Vector3(1, 1, 1);
-        //}
-    }
     #endregion
     private void FixedUpdate() {
         ////make the upgrade stats color pulsate

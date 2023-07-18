@@ -251,17 +251,7 @@ public class Character : MonoBehaviour {
             
         }
 
-        //Tells the abilities that this owns them and resets their cd
-        foreach (Ability temp in abilities) {
-            temp.character = this;
-            //resets the CD if this isn't summoned. We don't wanna reset all the CD of the summoned otherwise cloning itself will be infinite
-            if (!summoned) {
-                temp.available = true;
-                temp.abilityNext = 0;
-            }
-            //Debug.Log(temp.abilityName + "  |  " + temp.character.name);
-            temp.calculateAmt();
-        }
+        ownTheAbility();
         //applies the stats
         foreach(BonusStats temp in bonusStats) {
             temp.character = this;
@@ -287,7 +277,21 @@ public class Character : MonoBehaviour {
         animationManager.animator.SetBool("interrupt", false);
         animationManager.interruptible = true;
     }
-
+    /// <summary>
+    /// Tells the abilities that this owns them and resets their cd
+    /// </summary>
+    public void ownTheAbility() {
+        foreach (Ability temp in abilities) {
+            temp.character = this;
+            //resets the CD if this isn't summoned. We don't wanna reset all the CD of the summoned otherwise cloning itself will be infinite
+            if (!summoned) {
+                temp.available = true;
+                temp.abilityNext = 0;
+            }
+            //Debug.Log(temp.abilityName + "  |  " + temp.character.name);
+            temp.calculateAmt();
+        }
+    }
     //sends position to next frame to be used to check for isIdle
     private void lastFramePosition() {
         lastPosition = transform.position;

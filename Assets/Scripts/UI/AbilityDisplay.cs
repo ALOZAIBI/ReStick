@@ -66,6 +66,24 @@ public class AbilityDisplay : MonoBehaviour
         //    removeButtonHolder.SetActive(false);
         //}
     }
+
+    public void setupAbilityDisplay(Ability abilityToDisplay) {
+        ability = abilityToDisplay;
+        abilityName.text = ability.abilityName;
+        description.text = ability.description;
+        //sets the cooldownBar fill amount to CD remaining
+        cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
+        //if the ability has no cd anyways(It's a passive)
+        if (ability.CD == 0)
+            cooldownText.text = ("");
+        else
+        //if the ability is ready
+        if (ability.abilityNext == 0)
+            cooldownText.text = (ability.displayCDAfterChange());
+        else
+            //shows how much cd remaining 
+            cooldownText.text = (ability.abilityNext).ToString("F1");
+    }
     //this function only happens in inventory screen since the remove button is only visible in the inventorry screen
     private void removeAbility() {
         //sets the parent to be ability inventory

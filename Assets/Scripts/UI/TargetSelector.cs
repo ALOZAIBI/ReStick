@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //Attack Target selector Deprecated use this
@@ -15,6 +16,9 @@ public class TargetSelector : MonoBehaviour
     [SerializeField]private Ability ability;
 
     [SerializeField]private Button toggle;
+
+    [SerializeField] private Button removeAbilityBtn;
+
 
     [SerializeField]private RectTransform toggleTransform;
 
@@ -57,6 +61,8 @@ public class TargetSelector : MonoBehaviour
         HPAlly.onClick.AddListener(selectHPAlly);
         ClosestAlly.onClick.AddListener(selectClosestAlly);
 
+        removeAbilityBtn.onClick.AddListener(removeAbility);
+
     }
     private void toggleClicked() {
         highest = !highest;
@@ -66,6 +72,7 @@ public class TargetSelector : MonoBehaviour
     public void setupTargetSelector() {
         isAbilityTargetSelector = false;
         this.ability = null;
+        removeAbilityBtn.gameObject.SetActive(false);
         if(UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestPDEnemy
             || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestMDEnemy
             || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestINFEnemy
@@ -82,9 +89,11 @@ public class TargetSelector : MonoBehaviour
         }
         updateToggleView();
     }
+    //With parameter so this is ability target selecotr
     public void setupTargetSelector(Ability ability) {
         isAbilityTargetSelector = true;
         this.ability = ability;
+        removeAbilityBtn.gameObject.SetActive(true);
         if (ability.targetStrategy == (int)Character.TargetList.HighestPDEnemy
             || ability.targetStrategy == (int)Character.TargetList.HighestMDEnemy
             || ability.targetStrategy == (int)Character.TargetList.HighestINFEnemy
@@ -296,6 +305,23 @@ public class TargetSelector : MonoBehaviour
         updateTargettingView();
     }
 #endregion buttonFunctions
+
+    private void removeAbility() {
+        //sets the parent to be ability inventory
+        ability.transform.parent = UIManager.singleton.playerParty.abilityInventory.transform;
+        //removes ability from character
+        UIManager.singleton.characterInfoScreen.character.abilities.Remove(ability);
+        //Removes character from ability
+        ability.character = null;
+        //Starts unfocusing
+        UIManager.singleton.characterInfoScreen.startUnfocusing();
+        //saves removing the ability
+        if (SceneManager.GetActiveScene().name == "World") {
+            UIManager.singleton.saveWorldSave();
+        }
+        else
+            UIManager.singleton.saveMapSave();
+    }
     // Update is called once per frame
     void Update()
     {
