@@ -184,8 +184,8 @@ public class UIManager : MonoBehaviour
     }
 
     public void hideCharacter() {
-        topStatDisplayHidden.hidden = true;
-        topStatDisplay.character = null;
+        charInfoScreenHidden.hidden = true;
+        characterInfoScreen.character = null;
     }
     //displays the game won screen and prompts the player to click to go back to the scene with name sceneName
     public void displayGameWon(string sceneName) {
