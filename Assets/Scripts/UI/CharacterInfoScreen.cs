@@ -30,7 +30,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public TargetSelector targetSelector;
 
     public Button targetSelectionBtn;
-    public TextMeshProUGUI openTargetSelectionTxt;
+    public TextMeshProUGUI targetSelectionTxt;
     [SerializeField] private Transform targettingIconParent;
     //Selecting target for attacking and also moving for now.
     public MovementStrategySelector movementSelector;
@@ -217,6 +217,7 @@ public class CharacterInfoScreen : MonoBehaviour
         saveInitPanels();
         
         targetSelectBtnPanel = targetSelectionBtn.GetComponent<RectTransform>();
+        targetSelectionBtn.onClick.AddListener(openPrimaryTargetSelector);
 
         openFullScreenBtn.onClick.AddListener(viewCharacterFullScreen);
         closeFullScreenBtn.onClick.AddListener(startClosing);
@@ -331,7 +332,7 @@ public class CharacterInfoScreen : MonoBehaviour
     private void setPanelStuffActive(bool bol) {
         closeFullScreenBtn.gameObject.SetActive(bol);
         levelProgress.gameObject.SetActive(bol);
-        openTargetSelectionTxt.gameObject.SetActive(bol);
+        targetSelectionTxt.gameObject.SetActive(bol);
     }
 
     private void handleMainPanel() {
@@ -435,10 +436,13 @@ public class CharacterInfoScreen : MonoBehaviour
                 abilityDisplays[focusElement].transform.SetParent(uiManager.focus.transform);
                 abilityTargetting[focusElement].transform.SetParent(uiManager.focus.transform);
             }
+            //If primary target selector
             if (focusElement == 5) {
                 targetSelector.gameObject.SetActive(true);
                 targetSelector.transform.SetParent(uiManager.focus.transform);
                 targetSelector.setupTargetSelector();
+
+                targetSelectionBtn.transform.SetParent(uiManager.focus.transform);
             }
 
             //If add ability 
@@ -837,8 +841,8 @@ public class CharacterInfoScreen : MonoBehaviour
                 Debug.Log("No appropriate strategy or closest");
                 break;
         }
-        openTargetSelectionTxt.gameObject.SetActive(true);
-        openTargetSelectionTxt.text= TargetNames.getName((character.attackTargetStrategy));
+        targetSelectionTxt.gameObject.SetActive(true);
+        targetSelectionTxt.text= TargetNames.getName((character.attackTargetStrategy));
 
         //Stretches the icon by setting the anchors of the children of targettingIconParent to stretch
         foreach (Transform child in targettingIconParent) {
@@ -993,6 +997,14 @@ public class CharacterInfoScreen : MonoBehaviour
         }
         //targetSelector.targetSelection.SetActive(false);
         //movementSelector.gameObject.SetActive(false);
+    }
+
+    private void openPrimaryTargetSelector() {
+        //clickable if the character is a player and the zone hasnt started yet
+        if (character.team == (int)Character.teamList.Player && !uiManager.zoneStarted()) {
+            focusElement = 5;
+            startFocusing();
+        }
     }
 
     //The onclick is set in the editor
@@ -1155,6 +1167,8 @@ public class CharacterInfoScreen : MonoBehaviour
                 }
                 count++;
             }
+
+            targetSelectionBtn.transform.SetParent(transform);
             //redisplays abilities
             displayCharacterAbilities(character);
             willHandleDeActivatingFocus = false;
