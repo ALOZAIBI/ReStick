@@ -15,7 +15,7 @@ public class Summon : Ability
     public override void doAbility() {
         if (available) {
             calculateAmt();
-            playAnimation();
+            playAnimation("castRaise");
         }
     }
     public override void executeAbility() {

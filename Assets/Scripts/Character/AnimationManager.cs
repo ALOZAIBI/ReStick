@@ -68,17 +68,28 @@ public class AnimationManager : MonoBehaviour
     }
     //This is how the abilities work
     //If toBeCast==null >>>> animtion.cast>after some animation> animation.castEvent()>>> executeAbility()
-    public void cast(Ability ability) {
+    //Casts the ability with the raise animation
+    public void cast(Ability ability,string animation) {
         //if (interruptible)
         //    animator.SetTrigger("interrupt");
         if (interruptible) {
             setTargetAngle();
             abilityBuffer = ability;
-            animator.SetTrigger("cast");
-            Debug.Log("Cast");
+            switch (animation) {
+                case "castRaise":
+                    animator.SetTrigger("castRaise");
+                    break;
+                case "castAoePush":
+                    animator.SetTrigger("castAoePush");
+                    break;
+                default:
+                    Debug.LogError("Animation not found");
+                    break;
+            }
             interruptible = false;
         }
     }
+
 
     public void castEvent() {
         interruptible = true;

@@ -33,7 +33,7 @@ public class ApplyBuff : Ability
         //selects target
         if (character.selectTarget(targetStrategy,rangeAbility) && available) {
             calculateAmt();
-            playAnimation();
+            playAnimation("castRaise");
         }
     }
     public override void executeAbility() {

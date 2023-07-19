@@ -62,6 +62,7 @@ public class Buff : MonoBehaviour
     public void applyBuff() {
 
         if (!applied) {
+            gameObject.SetActive(true);
             target.PD += PD;
             target.MD += MD;
             target.INF += INF;

@@ -33,7 +33,7 @@ public class BurstSelfBuff : Ability
         //selects target
         if (available && buffNotOnTarget()) {
             calculateAmt();
-            playAnimation();
+            playAnimation("castRaise");
         }
     }
 

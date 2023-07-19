@@ -21,7 +21,7 @@ public class CastAura : Ability
     public override void doAbility() {
         if (available) {
             calculateAmt();
-            playAnimation();
+            playAnimation("castRaise");
         }
     }
 

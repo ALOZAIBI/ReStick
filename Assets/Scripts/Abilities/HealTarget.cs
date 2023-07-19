@@ -11,7 +11,7 @@ public class HealTarget : Ability
     public override void doAbility() {
         if(available&&character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
-            playAnimation();
+            playAnimation("castRaise");
         }
     }
 

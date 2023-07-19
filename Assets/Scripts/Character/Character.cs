@@ -251,7 +251,7 @@ public class Character : MonoBehaviour {
             
         }
 
-        ownTheAbility();
+        ownTheAbility(true);
         //applies the stats
         foreach(BonusStats temp in bonusStats) {
             temp.character = this;
@@ -278,13 +278,13 @@ public class Character : MonoBehaviour {
         animationManager.interruptible = true;
     }
     /// <summary>
-    /// Tells the abilities that this owns them and resets their cd
+    /// Tells the abilities that this owns them and resets their cd if resetCD is true
     /// </summary>
-    public void ownTheAbility() {
+    public void ownTheAbility(bool resetCD) {
         foreach (Ability temp in abilities) {
             temp.character = this;
             //resets the CD if this isn't summoned. We don't wanna reset all the CD of the summoned otherwise cloning itself will be infinite
-            if (!summoned) {
+            if (resetCD) {
                 temp.available = true;
                 temp.abilityNext = 0;
             }

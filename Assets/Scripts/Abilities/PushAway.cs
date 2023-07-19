@@ -14,36 +14,39 @@ public class PushAway : Ability {
     //prefabObject will hold the buff that will slowthem
     public override void doAbility() {
         //this ability will only be cast if there are enemies within the radius
-        if (available) {
-            //true if enemy is within the radius(rangeAbility)(it has been pushed back)
-            bool enemyAffected=false;
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, (rangeAbility),mask);
+        if (available && character.selectTarget((int)Character.TargetList.ClosestEnemy,rangeAbility)) {
+            calculateAmt();
+            playAnimation("castAoePush");
+        }
+    }
+    public override void executeAbility() {
 
-            // Loop through the detected colliders in the layerMask(Characters)
-            for (int i = 0; i < colliders.Length; i++) {
-                Character temp = colliders[i].GetComponent<Character>();
-                
-                if (temp.team != character.team) {
-                    //apply slow buff
-                    Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
-                    buff.MS = slowAmount - (amt);
-                    buff.caster = character;
-                    buff.target = temp;
-                    buff.duration = slowDuration;
-                    buff.applyBuff();
-                    enemyAffected = true;
-                    // Calculate pushback vector from character to the edge of the circle
-                    Vector2 pushbackVector = colliders[i].transform.position - character.transform.position;
-                    pushbackVector = pushbackVector.normalized * (pushBackDistance+amt*2);
-                    character.damage(temp, amt*20, false);
-                    // Apply pushback vector to the character transform
-                    colliders[i].transform.position = (Vector2)character.transform.position + pushbackVector;
-                }
-            }
-            if (enemyAffected) {
-                startCooldown();
+        //Holds list of enemies affected by the ability (within rangeability)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, (rangeAbility), mask);
+
+        // Loop through the detected colliders in the layerMask(Characters)
+        for (int i = 0; i < colliders.Length; i++) {
+            Character temp = colliders[i].GetComponent<Character>();
+
+            if (temp.team != character.team) {
+                //apply slow buff
+                Buff buff = createBuff();
+                buff.MS = slowAmount - (amt);
+                buff.caster = character;
+                buff.target = temp;
+                buff.duration = slowDuration;
+                buff.applyBuff();
+                // Calculate pushback vector from character to the edge of the circle
+                Vector2 pushbackVector = colliders[i].transform.position - character.transform.position;
+                pushbackVector = pushbackVector.normalized * (pushBackDistance + amt * 2);
+                character.damage(temp, amt * 20, false);
+                // Apply pushback vector to the character transform
+                colliders[i].transform.position = (Vector2)character.transform.position + pushbackVector;
             }
         }
+
+        startCooldown();
+
     }
 
     public override void updateDescription() {

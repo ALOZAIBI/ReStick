@@ -599,7 +599,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public void displayCharacterAbilities(Character currChar) {
         close();
         //tells the abilities that this owns them so that they correctly display the description
-        currChar.ownTheAbility();
+        currChar.ownTheAbility(false);
         int count = 0;
         foreach (Ability ability in currChar.abilities) {
             //updates description

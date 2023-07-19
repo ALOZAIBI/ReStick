@@ -92,11 +92,15 @@ public abstract class Ability : MonoBehaviour
     public virtual void executeAbility() {
         //Some abilities need to play an animation before executing. Once the animation is played call this function.
     }
-    public void playAnimation() {
+    /// <summary>
+    /// Sends the ability to be cast and the animation that will cast it
+    /// </summary>
+    /// <param name="animation"></param>
+    public void playAnimation(string animation) {
         //if there is no ability queued To Be Cast and we are allowed to interrupt the current animation (or there is no animation playing)
         if(character.animationManager.abilityBuffer == null && character.animationManager.interruptible) {
             Debug.Log("animation should play"+character.name+abilityName);
-            character.animationManager.cast(this);
+            character.animationManager.cast(this,animation);
         }
             
     }

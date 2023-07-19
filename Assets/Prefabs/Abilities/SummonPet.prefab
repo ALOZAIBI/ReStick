@@ -48,6 +48,7 @@ MonoBehaviour:
   abilityName: SummonPet
   description: Summons a weak pet
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 7
   rangeAbility: 0
   available: 1
@@ -64,7 +65,8 @@ MonoBehaviour:
   ASRatio: 0
   amt: 0
   hasTarget: 1
-  prefabObject: {fileID: 6813961152882052326, guid: 3ef7f7da9d042fa47a79de032862c092, type: 3}
+  prefabObject: {fileID: 1204772192751909186, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 1
   rarity: 1
   targetStrategy: 1
