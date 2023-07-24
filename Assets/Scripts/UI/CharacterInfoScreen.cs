@@ -522,29 +522,6 @@ public class CharacterInfoScreen : MonoBehaviour
         addAbilityDisplaysArea.GetComponent<GridLayoutGroup>().spacing = new Vector2(0.025f*width, 0.05f*height);
         displayInventoryAbilities();
     }
-    public void openTopStatDisplay() {
-        close();
-        pageIndex = -1;
-    }
-    public void openLandingPage() {
-        close();
-        pageIndex = 0;
-    }
-    public void openTargetSelectionPage() {
-        //close();
-        //targetSelector.targetSelection.SetActive(true);
-        //targetSelector.updateView();
-        //pageIndex = 1;
-    }
-
-    public void openMovementSelectorPage() {
-        if (uiManager.zone == null || uiManager.zone.started == false && character.team == (int)Character.teamList.Player) {
-            close();
-            movementSelector.gameObject.SetActive(true);
-            pageIndex = 1;
-            movementSelector.updateText();
-        }
-    }
     #endregion
     //this function displays the information in the characterInfoScreen
 

@@ -43,6 +43,8 @@ public class TargetSelector : MonoBehaviour
     [SerializeField] private Button HPAlly;
     [SerializeField] private Button ClosestAlly;
 
+    [SerializeField] private GameObject icons;
+
     private const float selectedAlpha = 1;
     private const float deselectedAlpha = 0.4f;
 
@@ -94,21 +96,41 @@ public class TargetSelector : MonoBehaviour
         isAbilityTargetSelector = true;
         this.ability = ability;
         removeAbilityBtn.gameObject.SetActive(true);
-        if (ability.targetStrategy == (int)Character.TargetList.HighestPDEnemy
-            || ability.targetStrategy == (int)Character.TargetList.HighestMDEnemy
-            || ability.targetStrategy == (int)Character.TargetList.HighestINFEnemy
-            || ability.targetStrategy == (int)Character.TargetList.HighestHPEnemy
-            || ability.targetStrategy == (int)Character.TargetList.HighestPDAlly
-            || ability.targetStrategy == (int)Character.TargetList.HighestMDAlly
-            || ability.targetStrategy == (int)Character.TargetList.HighestINFAlly
-            || ability.targetStrategy == (int)Character.TargetList.HighestHPAlly
-            ) {
-            highest = true;
+        if (ability.hasTarget) {
+            showTargettingButtons(true);
+
+            if (ability.targetStrategy == (int)Character.TargetList.HighestPDEnemy
+                || ability.targetStrategy == (int)Character.TargetList.HighestMDEnemy
+                || ability.targetStrategy == (int)Character.TargetList.HighestINFEnemy
+                || ability.targetStrategy == (int)Character.TargetList.HighestHPEnemy
+                || ability.targetStrategy == (int)Character.TargetList.HighestPDAlly
+                || ability.targetStrategy == (int)Character.TargetList.HighestMDAlly
+                || ability.targetStrategy == (int)Character.TargetList.HighestINFAlly
+                || ability.targetStrategy == (int)Character.TargetList.HighestHPAlly
+                ) {
+                highest = true;
+            }
+            else {
+                highest = false;
+            }
+            updateToggleView();
         }
         else {
-            highest = false;
+            showTargettingButtons(false);
         }
-        updateToggleView();
+    }
+    private void showTargettingButtons(bool show) {
+        PDEnemy.gameObject.SetActive(show);
+        MDEnemy.gameObject.SetActive(show);
+        INFEnemy.gameObject.SetActive(show);
+        HPEnemy.gameObject.SetActive(show);
+        ClosestEnemy.gameObject.SetActive(show);
+        PDAlly.gameObject.SetActive(show);
+        MDAlly.gameObject.SetActive(show);
+        INFAlly.gameObject.SetActive(show);
+        HPAlly.gameObject.SetActive(show);
+        ClosestAlly.gameObject.SetActive(show);
+        icons.SetActive(show);
     }
     private void updateToggleView() {
         if (highest) {

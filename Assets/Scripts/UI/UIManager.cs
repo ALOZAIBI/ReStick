@@ -168,7 +168,6 @@ public class UIManager : MonoBehaviour
         character = charSel;
         characterInfoScreen.character = character;
         charInfoScreenHidden.hidden = false;
-        characterInfoScreen.openTopStatDisplay();
     }
     public void viewCharacterInfo(Character currChar) {
         //opens the screen and pauses the game
