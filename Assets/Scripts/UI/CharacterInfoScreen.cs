@@ -532,7 +532,7 @@ public class CharacterInfoScreen : MonoBehaviour
                 abilityTargetting[focusElement].SetRight(0);
                 break;
             case 7:
-                //Sets anchor top of xpPanel to be at the top of mainPanel\
+                //Sets anchor top of xpPanel to be at the top of mainPanel
                 float scaleAmount = (mainPanel.GetAnchorTop() - (1 - mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
                 xpPanel.SetAnchorTop(Mathf.Lerp(statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), mainPanelAnchorT , time2 / transitionTime));
                 //sets the bottom to make the height of the panel twice it's inital height
@@ -542,7 +542,7 @@ public class CharacterInfoScreen : MonoBehaviour
                 //Sets the top of statsPanel to be bottom of xpPanel
                 statsPanel.SetAnchorTop(xpPanel.GetAnchorBottom());
                 //Sets the bottom to be where the top of abilityPanel is
-                statsPanel.SetAnchorBottom(Mathf.Lerp(mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom() / 1.5f, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.7f, time2 / transitionTime));
+                statsPanel.SetAnchorBottom(Mathf.Lerp((mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom()) / 1.5f, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.7f, time2 / transitionTime));
                 //Keep top anchor and bottom anchor on stats panel's bottom anchor with some padding
                 healthBarPanel.SetAnchorTop(statsPanel.GetAnchorBottom() - 0.007f);
                 //To keep the bottom anchor from going all the way to the bottom
@@ -979,11 +979,11 @@ public class CharacterInfoScreen : MonoBehaviour
         
     }
 
-    private void displayXPProgress(Character currChar) {
+    public void displayXPProgress(Character currChar) {
         levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
         //If there are stat points available and zone hasn't started display "Upgrades Available"
         if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
-            levelProgress.text = "Upgrades Available";
+            levelProgress.text = currChar.statPoints+" Upgrades Available";
             levelProgress.enableAutoSizing = false;
             levelProgress.fontSize = 60;
         }

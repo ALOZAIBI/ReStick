@@ -102,6 +102,9 @@ public class StatUpgrading : MonoBehaviour {
         addHP.gameObject.SetActive(false);
         subHP.gameObject.SetActive(false);
         hpIcon.SetActive(false);
+
+        applyChangesBtn.gameObject.SetActive(false);
+        resetChangesBtn.gameObject.SetActive(false);
     }
 
     public void show() {
@@ -127,6 +130,8 @@ public class StatUpgrading : MonoBehaviour {
         addHP.gameObject.SetActive(true);
         subHP.gameObject.SetActive(true);
         hpIcon.SetActive(true);
+        applyChangesBtn.gameObject.SetActive(true);
+        resetChangesBtn.gameObject.SetActive(true);
         updateAddColors();
         updateSubColors();
     }
@@ -152,8 +157,8 @@ public class StatUpgrading : MonoBehaviour {
         addHP.onClick.AddListener(OnAddHPButtonClicked);
         subHP.onClick.AddListener(OnSubHPButtonClicked);
 
-        //applyChangesBtn.onClick.AddListener(applyChanges);
-        //resetChangesBtn.onClick.AddListener(resetChanges);
+        applyChangesBtn.onClick.AddListener(applyChanges);
+        resetChangesBtn.onClick.AddListener(resetChanges);
 
         hide();
 
@@ -198,7 +203,10 @@ public class StatUpgrading : MonoBehaviour {
         }
         else
             UIManager.singleton.saveMapSave();
-        UIManager.singleton.characterInfoScreen.viewCharacterFullScreen(UIManager.singleton.characterInfoScreen.character);
+
+        hide();
+        UIManager.singleton.characterInfoScreen.startUnfocusing();
+
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked
     public void resetChanges() {
@@ -508,6 +516,12 @@ public class StatUpgrading : MonoBehaviour {
             subHP.GetComponent<Image>().SetAlpha(0.2f);
         } else {
             subHP.GetComponent<Image>().SetAlpha(1f);
+        }
+
+        if(SPUsedBuffer == 0) {
+            resetChangesBtn.GetComponent<Image>().SetAlpha(0.2f);
+        } else {
+            resetChangesBtn.GetComponent<Image>().SetAlpha(1f);
         }
     }
 

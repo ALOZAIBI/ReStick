@@ -1567,17 +1567,17 @@ public class Character : MonoBehaviour {
         xpProgress -= xpCap;
         level++;
         //maybe give more stats every 10 levels or smthn level cap setup is done in start method as well.
-        statPoints++;
+        statPoints+= (int)Mathf.Ceil(level/10f)*2;
         //update xpCap depending on level
         xpCap = level + (level * ((level - 1) / 2));
 
         //(this only applies to player characters that are not summoned)
         if(!summoned && team == (int)teamList.Player) {
-            //increase stats a bit
-            HPMax += 12;
-            PD += 0.5f;
-            AS += 0.02f;
-            //heal character by 20% of max HP on level up 
+            ////increase stats a bit
+            //HPMax += 12;
+            //PD += 0.5f;
+            //AS += 0.02f;
+            ////heal character by 20% of max HP on level up 
             HP += 0.25f * HPMax;
 
             //Instantiate the levelupFX and destroy it after 1.5 seconds

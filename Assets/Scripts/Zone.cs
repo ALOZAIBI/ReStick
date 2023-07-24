@@ -63,10 +63,18 @@ public class Zone : MonoBehaviour
             //then extracts the ability names from the save file then fetches them from ability factory to add to reward pool
             uIManager.abilityFactory.addRequestedAbilityToZone(this, abilityNames);
         }
-        //if there is no saveFile for this zone. get abilities from ablity factory to add to reward pool
+        //if there is no saveFile for this zone.
         else {
-            //adds 3 random abilities to the zone
-            uIManager.abilityFactory.addRandomAbilityToZone(this, 3);
+            //if there are no rewards initialized in the editor (Some levels like the tutorial levels I want specific abilities as reward)
+            if(abilityContainer.transform.childCount == 0) {
+                //adds 3 random abilities to the zone
+                uIManager.abilityFactory.addRandomAbilityToZone(this, 3);
+            }
+            //adds the abilities in the reward pool to the zone
+            else { 
+                uIManager.abilityFactory.addAlreadyInitializedRewardAbilityToZone(this);
+            }
+
         }
 
         drawPlaceableOverlay();

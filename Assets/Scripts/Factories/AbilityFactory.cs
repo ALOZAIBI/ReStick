@@ -104,6 +104,11 @@ public class AbilityFactory : MonoBehaviour
         }
     }
 
+    public void addAlreadyInitializedRewardAbilityToZone(Zone zone) {
+        foreach(Transform temp in zone.abilityContainer.transform) {
+            zone.abilityRewardPool.Add(temp.gameObject);
+        }
+    }
     public void addRequestedAbilitiesToCharacter(Character character, string[] abilityNames, int[] abilityTargetting) {
         int count = 0;
         foreach(string name in abilityNames) {
