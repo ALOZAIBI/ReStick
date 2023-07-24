@@ -45,7 +45,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
 
     //Stat point stuff
-    [SerializeField]public StatPointUI statPointUI;
+    [SerializeField]public StatUpgrading statUpgrading;
 
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI levelProgress;
@@ -93,7 +93,7 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField] private bool unFocusing;
     private bool focused;
     //The element to be focused 
-    //0 1 2 3 4 = abilities. 5 = base targetting. 6 = Adding ability screen
+    //0 1 2 3 4 = abilities. 5 = base targetting. 6 = Adding ability screen, 7 = upgrading stats
     private int focusElement;
     //This is used to set active to false when unfocusing is done
     private bool willHandleDeActivatingFocus;
@@ -121,6 +121,7 @@ public class CharacterInfoScreen : MonoBehaviour
     private float mainPanelPositionB;
 
     [SerializeField] private RectTransform xpPanel;
+    private Button xpPanelBtn;
     private float xpPanelAnchorL;
     private float xpPanelAnchorR;
     private float xpPanelAnchorT;
@@ -131,7 +132,9 @@ public class CharacterInfoScreen : MonoBehaviour
     private float xpPanelPositionT;
     private float xpPanelPositionB;
 
+
     [SerializeField] private RectTransform statsPanel;
+    [SerializeField]private Button statsPanelBtn;
     private float statsPanelAnchorL;
     private float statsPanelAnchorR;
     private float statsPanelAnchorT;
@@ -225,6 +228,11 @@ public class CharacterInfoScreen : MonoBehaviour
         confirmTargettingBtn.onClick.AddListener(startUnfocusing);
         addAbilityBtn.onClick.AddListener(addAbility);
         cancelAddingAbilityBtn.onClick.AddListener(cancelAddingAbility);
+        xpPanelBtn = xpPanel.GetComponent<Button>();
+
+        statsPanelBtn.onClick.AddListener(displayUpgradeStats);
+        xpPanelBtn.onClick.AddListener(displayUpgradeStats);
+
         //targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         //openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
         //upgradeStatsColorPingPong1 = new Color(upgradeStats.color.r * .5f, upgradeStats.color.g * .5f, upgradeStats.color.b * .5f, .8f);
@@ -333,6 +341,15 @@ public class CharacterInfoScreen : MonoBehaviour
         closeFullScreenBtn.gameObject.SetActive(bol);
         levelProgress.gameObject.SetActive(bol);
         targetSelectionTxt.gameObject.SetActive(bol);
+
+        if (character.statPoints > 0 && bol && !uiManager.zoneStarted()) {
+            statsPanelBtn.enabled = true;
+            xpPanelBtn.enabled = true;
+        }
+        else {
+            statsPanelBtn.enabled = false;
+            xpPanelBtn.enabled = false;
+        }
     }
 
     private void handleMainPanel() {
@@ -389,7 +406,6 @@ public class CharacterInfoScreen : MonoBehaviour
         //stretches it to the left
         abilitiesPanel.SetAnchorLeft(Mathf.Lerp(abilitiesPanelAnchorL, 1 - abilitiesPanelAnchorR, time / transitionTime));
     }
-
     private void handleHealthBarPanel() {
         //Keep left anchor and right anchor equal to statsPanel
         healthBarPanel.SetAnchorLeft(Mathf.Lerp(healthBarPanelAnchorL, statsPanel.GetAnchorLeft(),time/transitionTime));
@@ -412,7 +428,6 @@ public class CharacterInfoScreen : MonoBehaviour
         mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
         
     }
-
     private void handleTargetSelectorBtnPanel() {
         //Sets the bottom to be the same as portrait Panel. And the top to be in the middle of portrait panel
         targetSelectBtnPanel.SetBottom(portraitPanel.GetBottom());
@@ -422,7 +437,6 @@ public class CharacterInfoScreen : MonoBehaviour
         //Grows the right anchor to the right
         targetSelectBtnPanel.SetAnchorRight(Mathf.Lerp(targetSelectBtnPanel.GetAnchorLeft(), statsPanelAnchorR,time/transitionTime));
     }
-
     private void startFocusing() {
         if (!focused) {
             uiManager.focus.gameObject.SetActive(true);
@@ -451,6 +465,15 @@ public class CharacterInfoScreen : MonoBehaviour
                 addAbilityPanel.transform.SetParent(uiManager.focus.transform);
                 setupAddAbility();
             }
+            //If Upgrading stats
+            if(focusElement == 7) {
+                statUpgrading.show();
+                xpPanel.transform.SetParent(uiManager.focus.transform);
+                statsPanel.transform.SetParent(uiManager.focus.transform);
+                healthBarPanel.transform.SetParent(uiManager.focus.transform);
+                xpPanelBtn.enabled = false;
+                statsPanelBtn.enabled = false;
+            }
             focused = true;
             //resets time2 to start the transition
             time2 = 0;
@@ -458,7 +481,6 @@ public class CharacterInfoScreen : MonoBehaviour
             unFocusing = false;
         }
     }
-
     public void startUnfocusing() {
         if(focused) {
             //setting the focus image to be inactive done in the update method
@@ -508,6 +530,25 @@ public class CharacterInfoScreen : MonoBehaviour
                 abilityTargetting[focusElement].SetBottom(0);
                 abilityTargetting[focusElement].SetLeft(0);
                 abilityTargetting[focusElement].SetRight(0);
+                break;
+            case 7:
+                //Sets anchor top of xpPanel to be at the top of mainPanel\
+                float scaleAmount = (mainPanel.GetAnchorTop() - (1 - mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
+                xpPanel.SetAnchorTop(Mathf.Lerp(statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), mainPanelAnchorT , time2 / transitionTime));
+                //sets the bottom to make the height of the panel twice it's inital height
+                float initHeight = xpPanelAnchorT - xpPanelAnchorB;
+                xpPanel.SetAnchorBottom(Mathf.Lerp(xpPanelAnchorB, xpPanel.GetAnchorTop() - initHeight / 4, time / transitionTime));
+
+                //Sets the top of statsPanel to be bottom of xpPanel
+                statsPanel.SetAnchorTop(xpPanel.GetAnchorBottom());
+                //Sets the bottom to be where the top of abilityPanel is
+                statsPanel.SetAnchorBottom(Mathf.Lerp(mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom() / 1.5f, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.7f, time2 / transitionTime));
+                //Keep top anchor and bottom anchor on stats panel's bottom anchor with some padding
+                healthBarPanel.SetAnchorTop(statsPanel.GetAnchorBottom() - 0.007f);
+                //To keep the bottom anchor from going all the way to the bottom
+                healthBarPanel.SetAnchorBottom(statsPanel.GetAnchorBottom() - 0.03f);
+
+                uiManager.focus.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
                 break;
         }
         
@@ -933,24 +974,42 @@ public class CharacterInfoScreen : MonoBehaviour
         healthBar.manualDisplayHealth();
 
         levelText.text = "LVL: " + currChar.level;
-        levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
-        levelProgress.text = currChar.xpProgress + "/" + currChar.xpCap;
+        
+        displayXPProgress(currChar);
+        
     }
-    private void displayUpgradeStats(Character currChar) {
-        //so that it displays stat points as available/total
-        SP.text = "Upgrade Points " + currChar.statPoints.ToString() + "/" + (statPointUI.SPUsedBuffer + currChar.statPoints);
 
-
-        //displays statPoints if zone hasn't started and if the character has statpoints available
-        if ((currChar.statPoints + statPointUI.SPUsedBuffer) > 0 && !uiManager.zoneStarted()) {
-            //Debug.Log("showing");
-            statPointUI.applied = false;
-            statPointUI.show();
+    private void displayXPProgress(Character currChar) {
+        levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
+        //If there are stat points available and zone hasn't started display "Upgrades Available"
+        if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
+            levelProgress.text = "Upgrades Available";
+            levelProgress.enableAutoSizing = false;
+            levelProgress.fontSize = 60;
         }
         else {
-            statPointUI.hide();
+            levelProgress.text = currChar.xpProgress + "/" + currChar.xpCap;
+            levelProgress.enableAutoSizing = true;
         }
-        statPointUI.lastUsedCharacter = currChar;
+    }
+    private void displayUpgradeStats() {
+        ////so that it displays stat points as available/total
+        //SP.text = "Upgrade Points " + currChar.statPoints.ToString() + "/" + (statPointUI.SPUsedBuffer + currChar.statPoints);
+
+
+        ////displays statPoints if zone hasn't started and if the character has statpoints available
+        //if ((currChar.statPoints + statPointUI.SPUsedBuffer) > 0 && !uiManager.zoneStarted()) {
+        //    //Debug.Log("showing");
+        //    statPointUI.applied = false;
+        //    statPointUI.show();
+        //}
+        //else {
+        //    statPointUI.hide();
+        //}
+        //statPointUI.lastUsedCharacter = currChar;
+        focusElement = 7;
+        startFocusing();
+        Debug.Log("DISPLAYING STATSDUPGRADE");
     }
     private void displayInterestingStats(Character currChar) {
         totalKills.text = currChar.totalKills + "";
@@ -1146,6 +1205,11 @@ public class CharacterInfoScreen : MonoBehaviour
             }
 
             targetSelectionBtn.transform.SetParent(transform);
+            xpPanel.transform.SetParent(transform);
+            statsPanel.transform.SetParent(transform);
+            healthBar.transform.SetParent(transform);
+            statsPanelBtn.enabled = true;
+            xpPanelBtn.enabled = true;
             //redisplays abilities
             displayCharacterAbilities(character);
             willHandleDeActivatingFocus = false;

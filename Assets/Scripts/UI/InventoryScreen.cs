@@ -130,7 +130,7 @@ public class InventoryScreen : MonoBehaviour
                 break;
         }
         //resets statpoint
-        inventoryCharacterScreen.statPointUI.resetChanges();
+        inventoryCharacterScreen.statUpgrading.resetChanges();
     }   
     public void setupInventoryScreen() {
         openLandingPage();

@@ -339,8 +339,8 @@ public class UIManager : MonoBehaviour
         closeUI();
         //applies the statPoints 
         if (!zoneStarted()) {
-            characterInfoScreen.statPointUI.applyChanges();
-            inventoryScreen.inventoryCharacterScreen.statPointUI.applyChanges();
+            characterInfoScreen.statUpgrading.applyChanges();
+            inventoryScreen.inventoryCharacterScreen.statUpgrading.applyChanges();
         }
     }
     //i should improve the pausePlay function to take a bool pausePlay(true) makes the game paused pausePlay(false) makes the game continue 

@@ -7,13 +7,10 @@ using UnityEngine.TextCore.Text;
 using System;
 using UnityEngine.SceneManagement;
 
-public class StatPointUI : MonoBehaviour {
+public class StatUpgrading : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
     //So far this only alters the display. But when the apply button is clicked the stats are added to the character. And if the 
     // reset button is clicked then reset the stats
-
-    //this is initialized within characterInfoScreen
-    public CharacterInfoScreen characterInfoScreen;
 
     //this is set by characterinfoscreen and is only used to check in displayStats if the character to be displayed is new or no. If it is new then it sets applied to false
     public Character lastUsedCharacter;
@@ -47,6 +44,7 @@ public class StatPointUI : MonoBehaviour {
 
     [SerializeField] private Button addHP;
     [SerializeField] private Button subHP;
+    [SerializeField] private GameObject hpIcon;
 
     //the amount that clicking the button adds/removes
     [SerializeField] private float PDAmt;
@@ -83,8 +81,8 @@ public class StatPointUI : MonoBehaviour {
     //thanks chatGPT
     public void hide() {
         // Set all gameObjects to inactive
-        statPointTextContainer.SetActive(false);
-        statPointDisplay.gameObject.SetActive(false);
+        //statPointTextContainer.SetActive(false);
+        //statPointDisplay.gameObject.SetActive(false);
         addPD.gameObject.SetActive(false);
         subPD.gameObject.SetActive(false);
         addMD.gameObject.SetActive(false);
@@ -103,12 +101,13 @@ public class StatPointUI : MonoBehaviour {
         subLS.gameObject.SetActive(false);
         addHP.gameObject.SetActive(false);
         subHP.gameObject.SetActive(false);
+        hpIcon.SetActive(false);
     }
 
     public void show() {
         // Set all gameObjects to active
-        statPointTextContainer.SetActive(true);
-        statPointDisplay.gameObject.SetActive(true);
+        //statPointTextContainer.SetActive(true);
+        //statPointDisplay.gameObject.SetActive(true);
         addPD.gameObject.SetActive(true);
         subPD.gameObject.SetActive(true);
         addMD.gameObject.SetActive(true);
@@ -127,6 +126,7 @@ public class StatPointUI : MonoBehaviour {
         subLS.gameObject.SetActive(true);
         addHP.gameObject.SetActive(true);
         subHP.gameObject.SetActive(true);
+        hpIcon.SetActive(true);
         updateAddColors();
         updateSubColors();
     }
@@ -152,24 +152,27 @@ public class StatPointUI : MonoBehaviour {
         addHP.onClick.AddListener(OnAddHPButtonClicked);
         subHP.onClick.AddListener(OnSubHPButtonClicked);
 
-        applyChangesBtn.onClick.AddListener(applyChanges);
-        resetChangesBtn.onClick.AddListener(resetChanges);
+        //applyChangesBtn.onClick.AddListener(applyChanges);
+        //resetChangesBtn.onClick.AddListener(resetChanges);
 
+        hide();
+
+        Debug.Log("STATUPGRDING HAS STARTED");
         //fakeStatDisplay();
     }
 
     public void applyChanges() {
-        //characterInfoScreen.character.PD += PDbuffer;
-        //characterInfoScreen.character.MD += MDbuffer;
-        //characterInfoScreen.character.AS += ASbuffer;
-        //characterInfoScreen.character.CDR += CDRbuffer;
-        //characterInfoScreen.character.MS += MSbuffer;
-        //characterInfoScreen.character.Range += RNGbuffer;
-        //characterInfoScreen.character.LS += LSbuffer;
-        //characterInfoScreen.character.HPMax += HPbuffer;
-        //characterInfoScreen.character.HP += HPbuffer;
+        //UIManager.singleton.characterInfoScreen.character.PD += PDbuffer;
+        //UIManager.singleton.characterInfoScreen.character.MD += MDbuffer;
+        //UIManager.singleton.characterInfoScreen.character.AS += ASbuffer;
+        //UIManager.singleton.characterInfoScreen.character.CDR += CDRbuffer;
+        //UIManager.singleton.characterInfoScreen.character.MS += MSbuffer;
+        //UIManager.singleton.characterInfoScreen.character.Range += RNGbuffer;
+        //UIManager.singleton.characterInfoScreen.character.LS += LSbuffer;
+        //UIManager.singleton.characterInfoScreen.character.HPMax += HPbuffer;
+        //UIManager.singleton.characterInfoScreen.character.HP += HPbuffer;
 
-        //characterInfoScreen.character.statPoints -= SPUsedBuffer;
+        //UIManager.singleton.characterInfoScreen.character.statPoints -= SPUsedBuffer;
 
         // Reset the buffer values to zero
         PDbuffer = 0;
@@ -182,8 +185,8 @@ public class StatPointUI : MonoBehaviour {
         LSbuffer = 0;
         HPbuffer = 0;
 
-        if (characterInfoScreen.character.Range >= 1.5f) {
-            characterInfoScreen.character.usesProjectile = true;
+        if (UIManager.singleton.characterInfoScreen.character.Range >= 1.5f) {
+            UIManager.singleton.characterInfoScreen.character.usesProjectile = true;
         }
 
         SPUsedBuffer = 0;
@@ -195,24 +198,24 @@ public class StatPointUI : MonoBehaviour {
         }
         else
             UIManager.singleton.saveMapSave();
-        characterInfoScreen.viewCharacterFullScreen(characterInfoScreen.character);
+        UIManager.singleton.characterInfoScreen.viewCharacterFullScreen(UIManager.singleton.characterInfoScreen.character);
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked
     public void resetChanges() {
-        characterInfoScreen.character.PD -= PDbuffer;
-        characterInfoScreen.character.MD -= MDbuffer;
-        characterInfoScreen.character.INF -= INFbuffer;
-        characterInfoScreen.character.AS -= ASbuffer;
-        characterInfoScreen.character.CDR -= CDRbuffer;
-        characterInfoScreen.character.MS -= MSbuffer;
-        characterInfoScreen.character.Range -= RNGbuffer;
-        characterInfoScreen.character.LS -= LSbuffer;
-        characterInfoScreen.character.HPMax -= HPbuffer;
-        characterInfoScreen.character.HP -= HPbuffer;
-        characterInfoScreen.character.statPoints += SPUsedBuffer;
+        UIManager.singleton.characterInfoScreen.character.PD -= PDbuffer;
+        UIManager.singleton.characterInfoScreen.character.MD -= MDbuffer;
+        UIManager.singleton.characterInfoScreen.character.INF -= INFbuffer;
+        UIManager.singleton.characterInfoScreen.character.AS -= ASbuffer;
+        UIManager.singleton.characterInfoScreen.character.CDR -= CDRbuffer;
+        UIManager.singleton.characterInfoScreen.character.MS -= MSbuffer;
+        UIManager.singleton.characterInfoScreen.character.Range -= RNGbuffer;
+        UIManager.singleton.characterInfoScreen.character.LS -= LSbuffer;
+        UIManager.singleton.characterInfoScreen.character.HPMax -= HPbuffer;
+        UIManager.singleton.characterInfoScreen.character.HP -= HPbuffer;
+        UIManager.singleton.characterInfoScreen.character.statPoints += SPUsedBuffer;
 
-        if (characterInfoScreen.character.Range < 1.5f) {
-            characterInfoScreen.character.usesProjectile = false;
+        if (UIManager.singleton.characterInfoScreen.character.Range < 1.5f) {
+            UIManager.singleton.characterInfoScreen.character.usesProjectile = false;
         }
 
         PDbuffer = 0;
@@ -229,207 +232,207 @@ public class StatPointUI : MonoBehaviour {
 
         applied = false;
 
-        fakeStatDisplay();
+        updateStatDisplay();
     }
 
     #region Buttons
     // OnAdd function for PD
     public void OnAddPDButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.PD += PDAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.PD += PDAmt;
             PDbuffer += PDAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for PD
     public void OnSubPDButtonClicked() {
         if (PDbuffer > 0) {
-            characterInfoScreen.character.PD -= PDAmt;
+            UIManager.singleton.characterInfoScreen.character.PD -= PDAmt;
             PDbuffer -= PDAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for MD
     public void OnAddMDButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.MD += MDAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.MD += MDAmt;
             MDbuffer += MDAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for MD
     public void OnSubMDButtonClicked() {
         if (MDbuffer > 0) {
-            characterInfoScreen.character.MD -= MDAmt;
+            UIManager.singleton.characterInfoScreen.character.MD -= MDAmt;
             MDbuffer -= MDAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for INF
     public void OnAddINFButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.INF += INFAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.INF += INFAmt;
             INFbuffer += INFAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for INF
     public void OnSubINFButtonClicked() {
         if (INFbuffer > 0) {
-            characterInfoScreen.character.INF -= INFAmt;
+            UIManager.singleton.characterInfoScreen.character.INF -= INFAmt;
             INFbuffer -= INFAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for AS
     public void OnAddASButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.AS += ASAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.AS += ASAmt;
             ASbuffer += ASAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for AS
     public void OnSubASButtonClicked() {
         if (ASbuffer > 0) {
-            characterInfoScreen.character.AS -= ASAmt;
+            UIManager.singleton.characterInfoScreen.character.AS -= ASAmt;
             ASbuffer -= ASAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for CDR
     public void OnAddCDRButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.CDR += CDRAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.CDR += CDRAmt;
             CDRbuffer += CDRAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for CDR
     public void OnSubCDRButtonClicked() {
         if (CDRbuffer > 0) {
-            characterInfoScreen.character.CDR -= CDRAmt;
+            UIManager.singleton.characterInfoScreen.character.CDR -= CDRAmt;
             CDRbuffer -= CDRAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for MS
     public void OnAddMSButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.MS += MSAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.MS += MSAmt;
             MSbuffer += MSAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for MS
     public void OnSubMSButtonClicked() {
         if (MSbuffer > 0) {
-            characterInfoScreen.character.MS -= MSAmt;
+            UIManager.singleton.characterInfoScreen.character.MS -= MSAmt;
             MSbuffer -= MSAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for RNG
     public void OnAddRNGButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.Range += RNGAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.Range += RNGAmt;
             RNGbuffer += RNGAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for RNG
     public void OnSubRNGButtonClicked() {
         if (RNGbuffer > 0) {
-            characterInfoScreen.character.Range -= RNGAmt;
+            UIManager.singleton.characterInfoScreen.character.Range -= RNGAmt;
             RNGbuffer -= RNGAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for LS
     public void OnAddLSButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.LS += LSAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.LS += LSAmt;
             LSbuffer += LSAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for LS
     public void OnSubLSButtonClicked() {
         if (LSbuffer > 0) {
-            characterInfoScreen.character.LS -= LSAmt;
+            UIManager.singleton.characterInfoScreen.character.LS -= LSAmt;
             LSbuffer -= LSAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnAdd function for HP
     public void OnAddHPButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.HP += HPAmt;
-            characterInfoScreen.character.HPMax += HPAmt;
+        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
+            UIManager.singleton.characterInfoScreen.character.HP += HPAmt;
+            UIManager.singleton.characterInfoScreen.character.HPMax += HPAmt;
             HPbuffer += HPAmt;
-            characterInfoScreen.character.statPoints--;
+            UIManager.singleton.characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
     // OnSub function for HP
     public void OnSubHPButtonClicked() {
         if (HPbuffer > 0) {
-            characterInfoScreen.character.HP -= HPAmt;
-            characterInfoScreen.character.HPMax -= HPAmt;
+            UIManager.singleton.characterInfoScreen.character.HP -= HPAmt;
+            UIManager.singleton.characterInfoScreen.character.HPMax -= HPAmt;
             HPbuffer -= HPAmt;
-            characterInfoScreen.character.statPoints++;
+            UIManager.singleton.characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
-            fakeStatDisplay();
+            updateStatDisplay();
         }
     }
 
@@ -437,81 +440,81 @@ public class StatPointUI : MonoBehaviour {
 
     private void updateAddColors() {
         //Colors all the add buttons grey if the character has no stat points to spend
-        if (characterInfoScreen.character.statPoints == 0) {
-            addPD.GetComponent<Image>().color = Color.grey;
-            addMD.GetComponent<Image>().color = Color.grey;
-            addINF.GetComponent<Image>().color = Color.grey;
-            addAS.GetComponent<Image>().color = Color.grey;
-            addCDR.GetComponent<Image>().color = Color.grey;
-            addMS.GetComponent<Image>().color = Color.grey;
-            addRNG.GetComponent<Image>().color = Color.grey;
-            addLS.GetComponent<Image>().color = Color.grey;
-            addHP.GetComponent<Image>().color = Color.grey;
+        if (UIManager.singleton.characterInfoScreen.character.statPoints == 0) {
+            addPD.GetComponent<Image>().SetAlpha(0.2f);
+            addMD.GetComponent<Image>().SetAlpha(0.2f);
+            addINF.GetComponent<Image>().SetAlpha(0.2f);
+            addAS.GetComponent<Image>().SetAlpha(0.2f);
+            addCDR.GetComponent<Image>().SetAlpha(0.2f);
+            addMS.GetComponent<Image>().SetAlpha(0.2f);
+            addRNG.GetComponent<Image>().SetAlpha(0.2f);
+            addLS.GetComponent<Image>().SetAlpha(0.2f);
+            addHP.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            addPD.GetComponent<Image>().color = Color.white;
-            addMD.GetComponent<Image>().color = Color.white;
-            addINF.GetComponent<Image>().color = Color.white;
-            addAS.GetComponent<Image>().color = Color.white;
-            addCDR.GetComponent<Image>().color = Color.white;
-            addMS.GetComponent<Image>().color = Color.white;
-            addRNG.GetComponent<Image>().color = Color.white;
-            addLS.GetComponent<Image>().color = Color.white;
-            addHP.GetComponent<Image>().color = Color.white;
+            addPD.GetComponent<Image>().SetAlpha(1f);
+            addMD.GetComponent<Image>().SetAlpha(1f);
+            addINF.GetComponent<Image>().SetAlpha(1f);
+            addAS.GetComponent<Image>().SetAlpha(1f);
+            addCDR.GetComponent<Image>().SetAlpha(1f);
+            addMS.GetComponent<Image>().SetAlpha(1f);
+            addRNG.GetComponent<Image>().SetAlpha(1f);
+            addLS.GetComponent<Image>().SetAlpha(1f);
+            addHP.GetComponent<Image>().SetAlpha(1f);
         }
     }
     private void updateSubColors() {
         //Colors the sub buttons grey if that stat's buffer is 0
         if (PDbuffer == 0) {
-            subPD.GetComponent<Image>().color = Color.grey;
+            subPD.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subPD.GetComponent<Image>().color = Color.white;
+            subPD.GetComponent<Image>().SetAlpha(1f);
         }
         if (MDbuffer == 0) {
-            subMD.GetComponent<Image>().color = Color.grey;
+            subMD.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subMD.GetComponent<Image>().color = Color.white;
+            subMD.GetComponent<Image>().SetAlpha(1f);
         }
         if (INFbuffer == 0) {
-            subINF.GetComponent<Image>().color = Color.grey;
+            subINF.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subINF.GetComponent<Image>().color = Color.white;
+            subINF.GetComponent<Image>().SetAlpha(1f);
         }
         if (ASbuffer == 0) {
-            subAS.GetComponent<Image>().color = Color.grey;
+            subAS.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subAS.GetComponent<Image>().color = Color.white;
+            subAS.GetComponent<Image>().SetAlpha(1f);
         }
         if (CDRbuffer == 0) {
-            subCDR.GetComponent<Image>().color = Color.grey;
+            subCDR.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subCDR.GetComponent<Image>().color = Color.white;
+            subCDR.GetComponent<Image>().SetAlpha(1f);
         }
         if (MSbuffer == 0) {
-            subMS.GetComponent<Image>().color = Color.grey;
+            subMS.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subMS.GetComponent<Image>().color = Color.white;
+            subMS.GetComponent<Image>().SetAlpha(1f);
         }
         if (RNGbuffer == 0) {
-            subRNG.GetComponent<Image>().color = Color.grey;
+            subRNG.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subRNG.GetComponent<Image>().color = Color.white;
+            subRNG.GetComponent<Image>().SetAlpha(1f);
         }
         if (LSbuffer == 0) {
-            subLS.GetComponent<Image>().color = Color.grey;
+            subLS.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subLS.GetComponent<Image>().color = Color.white;
+            subLS.GetComponent<Image>().SetAlpha(1f);
         }
         if (HPbuffer == 0) {
-            subHP.GetComponent<Image>().color = Color.grey;
+            subHP.GetComponent<Image>().SetAlpha(0.2f);
         } else {
-            subHP.GetComponent<Image>().color = Color.white;
+            subHP.GetComponent<Image>().SetAlpha(1f);
         }
     }
 
     //updates visual to display change to be applied
-    public void fakeStatDisplay() {
+    public void updateStatDisplay() {
         //Debug.Log("Fakse stats uopdated");
-        characterInfoScreen.viewCharacterFullScreen(characterInfoScreen.character);
+        UIManager.singleton.characterInfoScreen.displayStats(UIManager.singleton.characterInfoScreen.character);
         updateAddColors();
         updateSubColors();
     }
