@@ -21,7 +21,7 @@ public class CharacterFactory : MonoBehaviour
             index = Random.Range(0, names.Count - 1);
             temp.name = names[index];
             //give it a random color
-            temp.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
+            temp.GetComponent<SpriteRenderer>().color = new Color(Random.Range(.8f, 1f), Random.Range(.8f, 1f), Random.Range(.8f, 1f));
             //give it random size between 1.1 and 1.6
             float size = Random.Range(1.3f, 1.5f);
             temp.transform.localScale = new Vector3(size, size, size);

@@ -17,7 +17,7 @@ public class HealTarget : Ability
 
     public override void executeAbility() {
         //heals the target
-        character.target.HP += amt;
+        character.target.HP += valueAmt.getAmtValueFromName(this, "Heal");
         //creates the healing effect
         KeepOnTarget fx = Instantiate(prefabObject, character.target.transform.position, Quaternion.identity).GetComponent<KeepOnTarget>();
         fx.target = character.target.gameObject;
@@ -29,7 +29,7 @@ public class HealTarget : Ability
     public override void updateDescription() {
         if (character != null) {
             calculateAmt();
-            description = "Heals target by " + amt;
+            description = "Heals target by " + valueAmt.getAmtValueFromName(this, "Heal");
         }
         else
             description = "Heals target";

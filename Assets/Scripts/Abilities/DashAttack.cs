@@ -28,7 +28,7 @@ public class DashAttack : Ability
             if (Vector2.Distance(character.transform.position, character.target.transform.position) < 0.5f) {
                 character.agent.enabled = true;//renables to allow for pathfinding again
                 //deal damage
-                character.damage(character.target, amt, true);
+                character.damage(character.target, valueAmt.getAmtValueFromName(this, "DMG"), true);
                 if (character.target.HP < 0) {
                     startCooldown();
                     //reset cd
@@ -49,7 +49,7 @@ public class DashAttack : Ability
         }
         else {
             calculateAmt();
-            description = "Dash towards target dealing " + amt + "Damage reset CD if this kills";
+            description = "Dash towards target dealing " + valueAmt.getAmtValueFromName(this,"DMG") + "Damage reset CD if this kills";
         }
     }
 

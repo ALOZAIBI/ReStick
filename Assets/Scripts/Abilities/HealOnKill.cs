@@ -10,14 +10,14 @@ public class HealOnKill : Ability {
     }
     public override void doAbility() {
         calculateAmt();
-        character.HP += character.killsLastFrame * amt;
+        character.HP += character.killsLastFrame * valueAmt.getAmtValueFromName(this,"Heal");
         Debug.Log(character.killsLastFrame+ character.gameObject.name);
     }
 
     public override void updateDescription() {
         if (character != null) {
             calculateAmt();
-            description = "Heals Character by " + amt + " after every kill";
+            description = "Heals Character by " + valueAmt.getAmtValueFromName(this,"Heal") + " after every kill";
         }
         else {
             description = "Heals Character after every kill";

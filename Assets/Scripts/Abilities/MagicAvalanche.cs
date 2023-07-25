@@ -37,7 +37,7 @@ public class MagicAvalanche : Ability
     public override void doAbility() {
         if (available && character.selectTarget(targetStrategy,rangeAbility)) {
             calculateAmt();
-            ballAmount = (int)amt;
+            ballAmount = (int)valueAmt.getAmtValueFromName(this, "NumberOfBalls");
             delayBetweenBall = channelTime / ballAmount;
             //slow self while casting htis ability
             if (channelStart) {
@@ -66,10 +66,9 @@ public class MagicAvalanche : Ability
                     float randomVal = Random.Range(0.2f, 0.5f);
                     //The way 0.33 was calculated is I assumed there will be 6 balls spawning in that case each ball should have a maximum size of 1 which is how we found 0.33
                     //and all in all size is capped at 3 when the dude is very powerful
-                    float size = Mathf.Clamp((amt * 0.33f) * randomVal, 0.2f, 3);
+                    float size = Mathf.Clamp((valueAmt.getAmtValueFromName(this, "DamagePerBall") * 0.33f) * randomVal, 0.2f, 3);
                     //The way 13.3 was calcualted again we assumed there will be 6 balls so in that case each ball can deal a maximum of 40 etc...
-                    //get youssef's help to create an equation so that total average damage isn't exponential. Currently it's exponential since ball count jumps every 10 MD and at the same time each ball damage increases so yea...
-                    float damage = ((amt * 13.33f) * randomVal);
+                    float damage = ((valueAmt.getAmtValueFromName(this, "DamagePerBall") * 13.33f) * randomVal);
                     //Debug.Log("Damage:" + damage + "Ball Amount" + ballAmount + "Total Average Damage" + amt * 13.33f * 0.35f * ballAmount);
 
                     Vector2 randomPos;
@@ -99,8 +98,7 @@ public class MagicAvalanche : Ability
                     projectile.destination = randomPos;
                     projectile.toDestinationSpeed = 4;
 
-                    //speed minimum is 5 and max is 12
-                    projectile.speed = Mathf.Clamp(amt * 2, 12, 20);
+                    projectile.speed = Mathf.Clamp(valueAmt.getAmtValueFromName(this, "BallSpeed") * 2, 10, 40);
 
                     projectile.delayWanted = channelTime - currentChannelTime;
                 }
@@ -118,9 +116,9 @@ public class MagicAvalanche : Ability
 
     }
     public override void updateDescription() {
-        if(character != null) {
+        if (character != null) {
             calculateAmt();
-            description = "Throws a barrage of magical spheres that deal around" + ((amt * 13.33f) * 0.35f).ToString("F1") + " DMG each";
+            description = "Throws a barrage of"+valueAmt.getAmtValueFromName(this,"NumberOfBalls")+ " magical balls that deal around" + ((valueAmt.getAmtValueFromName(this, "DamagePerBall") * 13.33f) * 0.35f).ToString("F1") + " DMG each";
         }
         else {
             description = "Throws a barrage of magical spheres";

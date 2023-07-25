@@ -48,11 +48,12 @@ MonoBehaviour:
   abilityName: Piercing shots
   description: Your Attacks now Pierce but deal 70% damage
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 0
   rangeAbility: 0
   available: 1
   abilityNext: 0
-  delay: 0
+  valueNames: []
   baseAmt: 0
   PDRatio: 0
   MDRatio: 0
@@ -65,6 +66,7 @@ MonoBehaviour:
   amt: 0
   hasTarget: 0
   prefabObject: {fileID: 3637706766136786258, guid: d6e11601e5737d6498fae689cc2c3846, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 2
   rarity: 2
   targetStrategy: 0

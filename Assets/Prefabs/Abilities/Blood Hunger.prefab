@@ -53,17 +53,17 @@ MonoBehaviour:
   rangeAbility: 0
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 0
-  PDRatio: 0
-  MDRatio: 0
-  INFRatio: 0
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0.01
-  MSRatio: 0
-  ASRatio: 0
-  amt: 0
+  valueNames: []
+  baseAmt: []
+  PDRatio: []
+  MDRatio: []
+  INFRatio: []
+  HPMaxRatio: []
+  HPRatio: []
+  LVLRatio: []
+  MSRatio: []
+  ASRatio: []
+  valueAmt: []
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
   buffPrefab: {fileID: 0}
@@ -72,6 +72,7 @@ MonoBehaviour:
   targetStrategy: 0
   abilityTypeList: 5
   abilityType: 5
+  numberOfValues: 0
   PD: 0
   MD: 0
   INF: 0
@@ -86,4 +87,3 @@ MonoBehaviour:
   silence: 0
   blind: 0
   code: 
-  buffDuration: 3

@@ -16,7 +16,6 @@ public class BuffOnKIll : Ability
     public float LS;
     public float size;
 
-    public float buffDuration;
     //code used to identify duplicate buffs to refresh duration when a new stack is added
     public string code;
 
@@ -40,52 +39,52 @@ public class BuffOnKIll : Ability
                 //Debug.Log("Arrived here");
                 buff.PD = PD;
                 if (PD > 0) {
-                    buff.PD += amt * PD;
+                    buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
                 }
 
                 buff.MD = MD;
                 if (MD > 0) {
-                    buff.MD += amt * MD;
+                    buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
                 }
 
                 buff.INF = INF;
                 if (INF > 0) {
-                    buff.INF += amt * INF;
+                    buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
                 }
 
                 buff.HP = HP;
                 if (HP > 0) {
-                    buff.HP += amt * HP;
+                    buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
                 }
 
                 buff.AS = AS;
                 if (AS > 0) {
-                    buff.AS += amt * AS;
+                    buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
                 }
 
                 buff.CDR = CDR;
                 if (CDR > 0) {
-                    buff.CDR += amt * CDR;
+                    buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
                 }
 
                 buff.MS = MS;
                 if (MS > 0) {
-                    buff.MS += amt * MS;
+                    buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
                 }
 
                 buff.Range = Range;
                 if (Range > 0) {
-                    buff.Range += amt * Range;
+                    buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
                 }
 
                 buff.LS = LS;
                 if (LS > 0) {
-                    buff.LS += amt * LS;
+                    buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
                 }
 
                 buff.size = size;
                 if (size > 0) {
-                    buff.size += amt * size;
+                    buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
                 }
 
                 buff.caster = character;
@@ -94,12 +93,12 @@ public class BuffOnKIll : Ability
                 buff.code = abilityName + character.name;
 
 
-                buff.duration = buffDuration;
+                buff.duration = valueAmt.getAmtValueFromName(this,"Duration");
 
                 //refreshes duration of buff when a new stack is added
                 foreach (Buff temp in character.buffs) {
                     if (temp.code == code) {
-                        temp.durationRemaining = buffDuration;
+                        temp.durationRemaining = valueAmt.getAmtValueFromName(this,"Duration");
                         Debug.Log("try first if");
                     }
                 }
@@ -114,21 +113,21 @@ public class BuffOnKIll : Ability
             calculateAmt();
             description = "On Kill give me ";
             if (PD != 0)
-                description += PD + PD * amt + " PD ";
+                description += PD + PD * valueAmt.getAmtValueFromName(this,"BuffStrength") + " PD ";
             if (MD != 0)
-                description += MD + MD * amt + " MD ";
+                description += MD + MD * valueAmt.getAmtValueFromName(this, "BuffStrength") + " MD ";
             if (INF != 0)
-                description += INF + INF * amt + " INF ";
+                description += INF + INF * valueAmt.getAmtValueFromName(this, "BuffStrength") + " INF ";
             if (HP != 0)
-                description += HP + HP * amt + " HP ";
+                description += HP + HP * valueAmt.getAmtValueFromName(this, "BuffStrength") + " HP ";
             if (AS != 0)
-                description += AS + AS * amt + " AS ";
+                description += AS + AS * valueAmt.getAmtValueFromName(this, "BuffStrength") + " AS ";
             if (MS != 0)
-                description += MS + MS * amt + " MS ";
+                description += MS + MS * valueAmt.getAmtValueFromName(this, "BuffStrength") + " MS ";
             if (Range != 0)
-                description += Range + Range * amt + " Range ";
+                description += Range + Range * valueAmt.getAmtValueFromName(this, "BuffStrength") + " Range ";
             if (LS != 0)
-                description += LS + LS * amt + " LS ";
+                description += LS + LS * valueAmt.getAmtValueFromName(this, "BuffStrength") + " LS ";
         }
         else {
               description = "On Kill give me ";
@@ -156,7 +155,7 @@ public class BuffOnKIll : Ability
             foreach (Buff temp in character.buffs) {
                 //if buff is already applied refresh it's duration
                 if (temp.code == abilityName + character.name) {
-                    temp.durationRemaining = buffDuration;
+                    temp.durationRemaining = valueAmt.getAmtValueFromName(this,"Duration");
                 }
             }
         }

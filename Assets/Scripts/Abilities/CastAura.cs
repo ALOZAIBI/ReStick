@@ -30,7 +30,7 @@ public class CastAura : Ability
         temp.transform.localScale = new Vector3(rangeAbility * 2, rangeAbility * 2, rangeAbility * 2);
         aura = temp.GetComponent<Aura>();
         //sets the amt 
-        aura.amt = amt;
+        aura.amt = valueAmt.getAmtValueFromName(this, "Amount");
         //sets the caster
         aura.caster = character;
         aura.ally = ally;
@@ -41,18 +41,18 @@ public class CastAura : Ability
     }
     public override void updateDescription() {
         if (character == null) {
-            if (baseAmt >= 0)
+            if (baseAmt.getAmtValueFromName(this,"Amount") >= 0)
                 description = "Heals nearby characters";
             else
                 description = "Deals damage to nearby characters";
         }
         else {
             calculateAmt();
-            if (amt > 0) {
-                description = "Heals nearby characters by " + amt + " per second";
+            if (valueAmt.getAmtValueFromName(this,"Amount") > 0) {
+                description = "Heals nearby characters by " + valueAmt + " per second";
             }
             else
-                description = "Deals " + amt + "per second to nearby characters";
+                description = "Deals " + valueAmt + "per second to nearby characters";
         }
     }
     public void startActiveDuration() {

@@ -23,7 +23,6 @@ public class BurstSelfBuff : Ability
 
     //code used to verify if a specific buff is already applied. compare buff to be instantiated's code to the target character's buffs
     public string code;
-    public float buffDuration;
 
     public override void Start() {
         base.Start();
@@ -44,53 +43,53 @@ public class BurstSelfBuff : Ability
         Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
         buff.PD = PD;
         if (PD > 0) {
-            buff.PD += amt;
+            buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.MD = MD;
         if (MD > 0) {
-            buff.MD += amt;
+            buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.INF = INF;
         if (INF > 0) {
-            buff.INF += amt;
+            buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.HP = HP;
         if (HP > 0) {
-            buff.HP += amt;
+            buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.AS = AS;
         if (AS > 0) {
 
-            buff.AS += amt;
+            buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.CDR = CDR;
         if (CDR > 0) {
-            buff.CDR += amt; ;
+            buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength"); ;
         }
 
         buff.MS = MS;
         if (MS > 0) {
-            buff.MS += amt;
+            buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.Range = Range;
         if (Range > 0) {
-            buff.Range += amt;
+            buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.LS = LS;
         if (LS > 0) {
-            buff.LS += amt * 0.01f;
+            buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.size = size;
         if (size > 0) {
-            buff.size += amt;
+            buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
 
@@ -98,7 +97,7 @@ public class BurstSelfBuff : Ability
         buff.caster = character;
         buff.target = character;
         //increases buff duration according to AMT
-        buff.duration = buffDuration;
+        buff.duration = valueAmt.getAmtValueFromName(this, "Duration");
         buff.code = abilityName + character.name;
         //applies the buff
         buff.applyBuff();
@@ -111,23 +110,23 @@ public class BurstSelfBuff : Ability
             calculateAmt();
             description = "Give Me ";
             if (PD != 0)
-                description += (PD + amt) + " PD ";
+                description += (PD + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " PD ";
             if (MD != 0)
-                description += (MD + amt) + " MD ";
+                description += (MD + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " MD ";
             if (INF != 0)
-                description += (INF + amt) + " INF ";
+                description += (INF + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " INF ";
             if (HP != 0)
-                description += (HP + amt) + " HP ";
+                description += (HP + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " HP ";
             if (AS != 0)
-                description += (AS + amt) + " AS ";
+                description += (AS + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " AS ";
             if (CDR != 0)
-                description += (CDR + amt) + " CDR ";
+                description += (CDR + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " CDR ";
             if (MS != 0)
-                description += (MS + amt) + " MS ";
+                description += (MS + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " MS ";
             if (Range != 0)
-                description += (Range + (amt)) + " Range ";
+                description += (Range + (valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " Range ";
             if (LS != 0)
-                description += (LS + amt * 0.01f) + " LS ";
+                description += (LS + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " LS ";
 
             if (root || silence || blind)
                 description += ". ";
@@ -142,7 +141,7 @@ public class BurstSelfBuff : Ability
                 if (blind)
                     description += "Blind target";
             }
-            description += "for " + ((amt / 10) + buffDuration).ToString("F2") + " seconds";
+            description += "for " + ((valueAmt.getAmtValueFromName(this, "Duration"))).ToString("F2") + " seconds";
         }
         else {
             description = "Give Me ";
@@ -178,7 +177,7 @@ public class BurstSelfBuff : Ability
                 if (blind)
                     description += "Blind target";
             }
-            description += "for " + (buffDuration).ToString("F2") + " seconds";
+            description += "for " + (valueAmt.getAmtValueFromName(this, "Duration")).ToString("F2") + " seconds";
         }
     }
 
@@ -187,7 +186,7 @@ public class BurstSelfBuff : Ability
             foreach(Buff temp in character.target.buffs) {
                 //if buff is already applied refresh it's duration
                 if (temp.code == code) {
-                    temp.durationRemaining = buffDuration;
+                    temp.durationRemaining = valueAmt.getAmtValueFromName(this, "Duration");
                     return false;
                 }
             } 

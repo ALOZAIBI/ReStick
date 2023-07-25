@@ -42,7 +42,7 @@ public class CastMeleeAttack : Ability
         //sets the character to be the caster of this ability
         objAttack.character = character;
         //sets the damage amount
-        objAttack.DMG = amt;
+        objAttack.DMG = valueAmt.getAmtValueFromName(this, "Damage");
         //sets the target
         objAttack.target = character.target;
         //tells it this abilityName
@@ -59,52 +59,52 @@ public class CastMeleeAttack : Ability
             {
                 buff.PD = PD;
                 if (PD > 0) {
-                    buff.PD += character.INF * INFRatio * 0.4f * PD;
+                    buff.PD += valueAmt.getAmtValueFromName(this,"BuffStrength")* PD;
                 }
 
                 buff.MD = MD;
                 if (MD > 0) {
-                    buff.MD += character.INF * INFRatio * 0.4f * MD;
+                    buff.MD += valueAmt.getAmtValueFromName(this,"BuffStrength")* MD;
                 }
 
                 buff.INF = INF;
                 if (INF > 0) {
-                    buff.INF += character.INF * INFRatio * 0.4f * INF;
+                    buff.INF += valueAmt.getAmtValueFromName(this,"BuffStrength")* INF;
                 }
 
                 buff.HP = HP;
                 if (HP > 0) {
-                    buff.HP += character.INF * INFRatio * 0.4f * HP;
+                    buff.HP += valueAmt.getAmtValueFromName(this,"BuffStrength")* HP;
                 }
 
                 buff.AS = AS;
                 if (AS > 0) {
-                    buff.AS += character.INF * INFRatio * 0.4f * AS;
+                    buff.AS += valueAmt.getAmtValueFromName(this,"BuffStrength")* AS;
                 }
 
                 buff.CDR = CDR;
                 if (CDR > 0) {
-                    buff.CDR += character.INF * INFRatio * 0.4f * CDR;
+                    buff.CDR += valueAmt.getAmtValueFromName(this,"BuffStrength")* CDR;
                 }
 
                 buff.MS = MS;
                 if (MS > 0) {
-                    buff.MS += character.INF * INFRatio * 0.05f * MS;
+                    buff.MS += valueAmt.getAmtValueFromName(this,"BuffStrength") * MS;
                 }
 
                 buff.Range = Range;
                 if (Range > 0) {
-                    buff.Range += character.INF * INFRatio * 0.4f * Range;
+                    buff.Range += valueAmt.getAmtValueFromName(this,"BuffStrength")* Range;
                 }
 
                 buff.LS = LS;
                 if (LS > 0) {
-                    buff.LS += character.INF * INFRatio * 0.4f * LS;
+                    buff.LS += valueAmt.getAmtValueFromName(this,"BuffStrength")* LS;
                 }
 
                 buff.size = size;
                 if (size > 0) {
-                    buff.size += character.INF * INFRatio * 0.4f * size;
+                    buff.size += valueAmt.getAmtValueFromName(this,"BuffStrength")* size;
                 }
 
                 buff.snare = root;
@@ -114,9 +114,8 @@ public class CastMeleeAttack : Ability
                 //sets caster and target
                 buff.caster = character;
                 buff.target = character.target;
-                //increases buff duration according to AMT
-                buff.duration = buffDuration;
-                buff.duration += character.INF * INFRatio * 0.4f / 10;
+                //increases buff duration
+                buff.duration = valueAmt.getAmtValueFromName(this,"BuffDuration");
                 buff.code = abilityName + character.name;
             }
             objAttack.buff = buff;
@@ -139,7 +138,7 @@ public class CastMeleeAttack : Ability
 
         if (character != null) {
             calculateAmt();
-            description += " dealing " + amt;
+            description += " dealing " + valueAmt.getAmtValueFromName(this, "Damage");
         }
     }
     private void Start() {

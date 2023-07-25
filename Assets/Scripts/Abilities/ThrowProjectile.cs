@@ -23,8 +23,6 @@ public class ThrowProjectile : Ability
     public bool silence;
     public bool blind;
 
-    public float buffDuration;
-
     //Summons a projectile
     //can do cool shit depending on the projectile
     //for example a projectile that throws an AOE that heals
@@ -50,16 +48,16 @@ public class ThrowProjectile : Ability
         //sets the shooter to be the caster of this ability
         projectile.shooter = character;
         //sets the damage amount (doesn't take the inf part much into account)
-        projectile.DMG = amt - character.INF * INFRatio * 0.7f;
+        projectile.DMG = valueAmt.getAmtValueFromName(this,"Damage");
         //sets the target
         projectile.target = character.target;
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;
-        if (buffDuration > 0 && buffPrefab == null) {
+        if (valueAmt.getAmtValueFromName(this,"BuffDuration") > 0 && buffPrefab == null) {
             Debug.Log("DEBOGAS");
         }
         //if there is a buff in this ability
-        if (buffDuration > 0) {
+        if (valueAmt.getAmtValueFromName(this, "BuffDuration") > 0) {
             if (buffPrefab == null)
                 throw new System.Exception("NO BUFF PREFAB");
             Buff buff = createBuff();
@@ -67,52 +65,52 @@ public class ThrowProjectile : Ability
             {
                 buff.PD = PD;
                 if (PD > 0) {
-                    buff.PD += character.INF * INFRatio * 0.4f * PD;
+                    buff.PD += valueAmt.getAmtValueFromName(this,"BuffStrength")* PD;
                 }
 
                 buff.MD = MD;
                 if (MD > 0) {
-                    buff.MD += character.INF * INFRatio * 0.4f * MD;
+                    buff.MD += valueAmt.getAmtValueFromName(this,"BuffStrength")* MD;
                 }
 
                 buff.INF = INF;
                 if (INF > 0) {
-                    buff.INF += character.INF * INFRatio * 0.4f * INF;
+                    buff.INF += valueAmt.getAmtValueFromName(this,"BuffStrength")* INF;
                 }
 
                 buff.HP = HP;
                 if (HP > 0) {
-                    buff.HP += character.INF * INFRatio * 0.4f * HP;
+                    buff.HP += valueAmt.getAmtValueFromName(this,"BuffStrength")* HP;
                 }
 
                 buff.AS = AS;
                 if (AS > 0) {
-                    buff.AS += character.INF * INFRatio * 0.4f * AS;
+                    buff.AS += valueAmt.getAmtValueFromName(this,"BuffStrength")* AS;
                 }
 
                 buff.CDR = CDR;
                 if (CDR > 0) {
-                    buff.CDR += character.INF * INFRatio * 0.4f * CDR;
+                    buff.CDR += valueAmt.getAmtValueFromName(this,"BuffStrength")* CDR;
                 }
 
                 buff.MS = MS;
                 if (MS > 0) {
-                    buff.MS += character.INF * INFRatio * 0.05f * MS;
+                    buff.MS += valueAmt.getAmtValueFromName(this,"BuffStrength") * MS;
                 }
 
                 buff.Range = Range;
                 if (Range > 0) {
-                    buff.Range += character.INF * INFRatio * 0.4f * Range;
+                    buff.Range += valueAmt.getAmtValueFromName(this,"BuffStrength")* Range;
                 }
 
                 buff.LS = LS;
                 if (LS > 0) {
-                    buff.LS += character.INF * INFRatio * 0.4f * LS;
+                    buff.LS += valueAmt.getAmtValueFromName(this,"BuffStrength")* LS;
                 }
 
                 buff.size = size;
                 if (size > 0) {
-                    buff.size += character.INF * INFRatio * 0.4f * size;
+                    buff.size += valueAmt.getAmtValueFromName(this,"BuffStrength")* size;
                 }
 
                 buff.snare = root;
@@ -123,8 +121,7 @@ public class ThrowProjectile : Ability
                 buff.caster = character;
                 buff.target = character.target;
                 //increases buff duration according to AMT
-                buff.duration = buffDuration;
-                buff.duration += character.INF * INFRatio * 0.4f / 10;
+                buff.duration = valueAmt.getAmtValueFromName(this,"BuffDuration");
                 buff.code = abilityName + character.name;
             }
             projectile.buff = buff;
@@ -142,7 +139,7 @@ public class ThrowProjectile : Ability
 
         if(character!=null) {
             calculateAmt();
-            description +=" dealing "+amt ;
+            description +=" dealing "+valueAmt ;
         }
     }
     

@@ -53,17 +53,51 @@ MonoBehaviour:
   rangeAbility: 1.5
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 3
-  PDRatio: 1
-  MDRatio: 0
-  INFRatio: 0
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0
-  MSRatio: 0
-  ASRatio: 0
-  amt: 0
+  numberOfValues: 1
+  valueNames:
+  - 
+  - 
+  - 
+  baseAmt:
+  - 0
+  - 0
+  - 0
+  PDRatio:
+  - 0
+  - 0
+  - 0
+  MDRatio:
+  - 0
+  - 0
+  - 0
+  INFRatio:
+  - 0
+  - 0
+  - 0
+  HPMaxRatio:
+  - 0
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  - 0
+  LVLRatio:
+  - 0
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 0
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
+  - 0
   hasTarget: 1
   prefabObject: {fileID: 1332544870390977845, guid: 16ae2ffd8ea27c74489acc8f23dc375b, type: 3}
   buffPrefab: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}

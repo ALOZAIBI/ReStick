@@ -39,14 +39,14 @@ public class CloneAbility : Ability
         if (clone.team != character.team) {
             //if the clone is of an enemy make it allied.
             clone.team = character.team;
-            //decrease the amount to make enemy clones even weaker otherwise OP innit.
-            amt *= 0.6f;
+            //maybe decrease the amount to make enemy clones even weaker otherwise OP innit.
+            valueAmt.getAmtValueFromName(this,"CloneQuality");
         }
-        clone.PD = clone.PD * amt;
-        clone.MD = clone.MD * amt;
-        clone.INF = clone.INF * amt;
-        clone.HP = clone.HP * amt;
-        clone.HPMax = clone.HPMax * amt;
+        clone.PD = clone.PD * valueAmt.getAmtValueFromName(this, "CloneQuality");
+        clone.MD = clone.MD * valueAmt.getAmtValueFromName(this, "CloneQuality");
+        clone.INF = clone.INF * valueAmt.getAmtValueFromName(this, "CloneQuality");
+        clone.HP = clone.HP * valueAmt.getAmtValueFromName(this, "CloneQuality");
+        clone.HPMax = clone.HPMax * valueAmt.getAmtValueFromName(this, "CloneQuality");
         clone.name = character.target.name + " Clone";
         SpriteRenderer sprite = clone.GetComponent<SpriteRenderer>();
         //darken the color of the clone
@@ -60,7 +60,7 @@ public class CloneAbility : Ability
             description = "Clone a weaker version of my target";
         else {
             calculateAmt();
-            description = "Clone a target with " + amt * 100 + "% of its stats";
+            description = "Clone a target with " + valueAmt.getAmtValueFromName(this, "CloneQuality") * 100 + "% of its stats";
         }
     }
 

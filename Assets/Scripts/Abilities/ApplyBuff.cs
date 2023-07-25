@@ -41,52 +41,52 @@ public class ApplyBuff : Ability
         Buff buff = Instantiate(prefabObject, character.target.transform.position, Quaternion.identity).GetComponent<Buff>();
         buff.PD = PD;
         if (PD > 0) {
-            buff.PD += amt * PD;
+            buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
         }
 
         buff.MD = MD;
         if (MD > 0) {
-            buff.MD += amt * MD;
+            buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
         }
 
         buff.INF = INF;
         if (INF > 0) {
-            buff.INF += amt * INF;
+            buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
         }
 
         buff.HP = HP;
         if (HP > 0) {
-            buff.HP += amt * HP;
+            buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
         }
 
         buff.AS = AS;
         if (AS > 0) {
-            buff.AS += amt * AS;
+            buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
         }
 
         buff.CDR = CDR;
         if (CDR > 0) {
-            buff.CDR += amt * CDR;
+            buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
         }
 
         buff.MS = MS;
         if (MS > 0) {
-            buff.MS += amt * MS;
+            buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
         }
 
         buff.Range = Range;
         if (Range > 0) {
-            buff.Range += amt * Range;
+            buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
         }
 
         buff.LS = LS;
         if (LS > 0) {
-            buff.LS += amt * LS;
+            buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
         }
 
         buff.size = size;
         if (size > 0) {
-            buff.size += amt * size;
+            buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
         }
 
         buff.snare = root;
@@ -97,8 +97,7 @@ public class ApplyBuff : Ability
         buff.caster = character;
         buff.target = character.target;
         //increases buff duration according to AMT
-        buff.duration = buffDuration;
-        buff.duration += amt / 6;
+        buff.duration = valueAmt.getAmtValueFromName(this, "Duration");
         buff.code = abilityName + character.name;
         //applies the buff
         buff.applyBuff();
@@ -112,23 +111,23 @@ public class ApplyBuff : Ability
             calculateAmt();
             description = "Give target ";
             if (PD != 0)
-                description += (PD + (PD * amt)) + " PD ";
+                description += (PD + (PD * valueAmt.getAmtValueFromName(this,"BuffStrength"))) + " PD ";
             if (MD != 0)
-                description += (MD + (MD * amt)) + " MD ";
+                description += (MD + (MD * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " MD ";
             if (INF != 0)
-                description += (INF + (INF * amt)) + " INF ";
+                description += (INF + (INF * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " INF ";
             if (HP != 0)
-                description += (HP + (HP * amt)) + " HP ";
+                description += (HP + (HP * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " HP ";
             if (AS != 0)
-                description += (AS + (AS * amt)) + " AS ";
+                description += (AS + (AS * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " AS ";
             if (CDR != 0)
-                description += (CDR + (CDR * amt)) + " CDR ";
+                description += (CDR + (CDR * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " CDR ";
             if (MS != 0)
-                description += (MS + (MS * amt)) + " MS ";
+                description += (MS + (MS * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " MS ";
             if (Range != 0)
-                description += (Range + (Range * amt)) + " Range ";
+                description += (Range + (Range * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " Range ";
             if (LS != 0)
-                description += (LS + (LS * amt)) + " LS ";
+                description += (LS + (LS * valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " LS ";
 
             if (root || silence || blind)
                 description += ". ";
@@ -143,7 +142,7 @@ public class ApplyBuff : Ability
                 if (blind)
                     description += "Blind target";
             }
-            description += "for " + ((amt / 6) + buffDuration).ToString("F2") + " seconds";
+            description += "for " + (valueAmt.getAmtValueFromName(this, "Duration")).ToString("F2") + " seconds";
         } else {
             description = "Give target ";
             if (PD != 0)

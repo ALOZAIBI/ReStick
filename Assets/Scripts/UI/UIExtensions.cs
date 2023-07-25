@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -99,5 +101,22 @@ public static class UIExtensions {
         Color temp = text.color;
         temp.a = alpha;
         text.color = temp;
+    }
+
+    //Ability calculations extension stuff
+    public static float getAmtValueFromName(this List<float> array, Ability ability,string valueName) {
+        int index = ability.valueNames.IndexOf(valueName);
+        if(index == -1) {
+            Debug.LogError("Value name not found in ability: " + valueName);
+            return 0;
+        }
+        return array[index];
+    }
+    public static float getSumOfValues(this List<float> array) {
+        float sum = 0;
+        foreach (float value in array) {
+            sum += value;
+        }
+        return sum;
     }
 }

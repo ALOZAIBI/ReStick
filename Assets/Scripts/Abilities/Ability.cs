@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
+[CustomEditor(typeof(Ability))]
 public abstract class Ability : MonoBehaviour
 {
     //this is set in initroundstart in character
@@ -23,22 +27,24 @@ public abstract class Ability : MonoBehaviour
     public bool available=true;
     public float abilityNext = 0;
 
-    //player can choose to add delay before an ability is executed
-    public float delay;
+    //There are X values in abilities so each Ratio would be an array of size X. The 0 element of the array would be for the first value then 1 then 2 etc...X
+    //Examples of Values: Dmg, Slow Amount, Buff Duration, etc...
+    //used to calculate values
+    
+    [HideInInspector]public List<string> valueNames= new List<string>();
+    [HideInInspector]public List<float> baseAmt = new List<float>();
+    [HideInInspector]public List<float> PDRatio = new List<float>();
+    [HideInInspector]public List<float> MDRatio = new List<float>();
+    [HideInInspector]public List<float> INFRatio = new List<float>();
+    [HideInInspector]public List<float> HPMaxRatio = new List<float>();
+    [HideInInspector]public List<float> HPRatio = new List<float>();
+    [HideInInspector]public List<float> LVLRatio = new List<float>();//scales with level
+    [HideInInspector]public List<float> MSRatio = new List<float>();
+    [HideInInspector]public List<float> ASRatio = new List<float>();
 
-    //used to calculate amt     //consider adding more ratios such as HPMax HP MS AS etc...
-    public float baseAmt;
-    public float PDRatio;
-    public float MDRatio;
-    public float INFRatio;
-    public float HPMaxRatio;
-    public float HPRatio;
-    public float LVLRatio;//scales with level
-    public float MSRatio;
-    public float ASRatio;
     //amt = baseamt+charPD*PDratio+charMD*MDratio
     //the float value used in an ability what it is used for depends on the ability
-    public float amt;
+    public List<float> valueAmt = new List<float>();
 
     //to be used if this ability uses target(In order to display target in abilityDisplay) for example in healing aura there is no target
     //this still isn't used
@@ -50,6 +56,8 @@ public abstract class Ability : MonoBehaviour
 
     //some abilities apply buffs
     public Buff buffPrefab;
+    //Returns the AmtValue of the respective ValueName
+    
     public enum RaritiesList {
         Common,
         Rare,
@@ -76,6 +84,7 @@ public abstract class Ability : MonoBehaviour
     }
     [SerializeField] AbilityTypeList abilityTypeList;
     public int abilityType;
+    [HideInInspector]public int numberOfValues;
     public virtual void Start() {
         abilityType = (int)abilityTypeList;
         rarity = ((int)Rarities);
@@ -83,10 +92,80 @@ public abstract class Ability : MonoBehaviour
         color = ColorPalette.singleton.getIndicatorColor(abilityType);
     }
     //use onValidate only in values that aren't supposed to change when game starts.
-    private void OnValidate() {
+#if UNITY_EDITOR
+    public void OnValidate() {
         abilityType = (int)abilityTypeList;
         rarity = (int)Rarities;   
+        //Sets size of the lists to be equal to numberOfValues
+        while (valueNames.Count != numberOfValues) {
+            if(valueNames.Count>numberOfValues)
+                valueNames.RemoveAt(valueNames.Count-1);
+            else
+            valueNames.Add("");
+        }
+        while (baseAmt.Count != numberOfValues) {
+            if (baseAmt.Count > numberOfValues)
+                baseAmt.RemoveAt(baseAmt.Count - 1);
+            else
+                baseAmt.Add(0);
+        }
+        while (PDRatio.Count != numberOfValues) {
+            if (PDRatio.Count > numberOfValues)
+                PDRatio.RemoveAt(PDRatio.Count - 1);
+            else
+                PDRatio.Add(0);
+        }
+        while (MDRatio.Count != numberOfValues) {
+            if (MDRatio.Count > numberOfValues)
+                MDRatio.RemoveAt(MDRatio.Count - 1);
+            else
+                MDRatio.Add(0);
+        }
+        while (INFRatio.Count != numberOfValues) {
+            if (INFRatio.Count > numberOfValues)
+                INFRatio.RemoveAt(INFRatio.Count - 1);
+            else
+                INFRatio.Add(0);
+        }
+        while (HPMaxRatio.Count != numberOfValues) {
+            if (HPMaxRatio.Count > numberOfValues)
+                HPMaxRatio.RemoveAt(HPMaxRatio.Count - 1);
+            else
+                HPMaxRatio.Add(0);
+        }
+        while (HPRatio.Count != numberOfValues) {
+            if (HPRatio.Count > numberOfValues)
+                HPRatio.RemoveAt(HPRatio.Count - 1);
+            else
+                HPRatio.Add(0);
+        }
+        while (LVLRatio.Count != numberOfValues) {
+            if (LVLRatio.Count > numberOfValues)
+                LVLRatio.RemoveAt(LVLRatio.Count - 1);
+            else
+                LVLRatio.Add(0);
+        }
+        while (MSRatio.Count != numberOfValues) {
+            if (MSRatio.Count > numberOfValues)
+                MSRatio.RemoveAt(MSRatio.Count - 1);
+            else
+                MSRatio.Add(0);
+        }
+        while (ASRatio.Count != numberOfValues) {
+            if (ASRatio.Count > numberOfValues)
+                ASRatio.RemoveAt(ASRatio.Count - 1);
+            else
+                ASRatio.Add(0);
+        }
+        while (valueAmt.Count != numberOfValues) {
+            if (valueAmt.Count > numberOfValues)
+                valueAmt.RemoveAt(valueAmt.Count - 1);
+            else
+                valueAmt.Add(0);
+        }
+
     }
+    #endif
     //executes this ability
     public abstract void doAbility();
     public virtual void executeAbility() {
@@ -126,10 +205,12 @@ public abstract class Ability : MonoBehaviour
                     UIManager.singleton.inventoryScreen.inventoryCharacterScreen.character.initRoundStart();
 
             }
-            amt = baseAmt + character.PD * PDRatio + character.MD * MDRatio + character.INF * INFRatio + character.HPMax * HPMaxRatio + character.HP * HPRatio + character.level * LVLRatio + character.MS * MSRatio + character.AS * ASRatio;
-            //for example in teh case of damagin aura it should make the amt more negative instead of positive
-            if (baseAmt < 0) {
-                amt = -amt;
+            for (int i = 0; i < valueNames.Count; i++) {
+                valueAmt[i] = baseAmt[i] + character.PD * PDRatio[i] + character.MD * MDRatio[i] + character.INF * INFRatio[i] + character.HPMax * HPMaxRatio[i] + character.HP * HPRatio[i] + character.level * LVLRatio[i] + character.MS * MSRatio[i] + character.AS * ASRatio[i];
+                //for example in teh case of damagin aura it should make the amt more negative instead of positive
+                if (baseAmt[i] < 0) {
+                    valueAmt[i] = -valueAmt[i];
+                }
             }
         }
         catch { /*when starting the game character will be null but also characterinfoscreen.character will be null so this is just to avoid the error when starting the game for the first time*/}
@@ -169,4 +250,6 @@ public abstract class Ability : MonoBehaviour
             return (CD.ToString("F1"));
         }
     }
+
+    
 }

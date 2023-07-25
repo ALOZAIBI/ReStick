@@ -35,13 +35,14 @@ public class AbilityDisplay : MonoBehaviour
     [SerializeField] public StatIcon LVL;
 
     public void Start() {
-        HP.ratio = ability.HPMaxRatio*1.5f;
-        PD.ratio = ability.PDRatio;
-        MD.ratio = ability.MDRatio;
-        INF.ratio = ability.INFRatio;
-        AS.ratio = ability.ASRatio;
-        MS.ratio = ability.MSRatio;
-        LVL.ratio = ability.LVLRatio;
+        //Summs the raio array to get total ratio, This will be used to display the scaling of the ability(in descending order)
+        HP.ratio = ability.HPMaxRatio.getSumOfValues()+ability.HPRatio.getSumOfValues();
+        PD.ratio = ability.PDRatio.getSumOfValues();
+        MD.ratio = ability.MDRatio.getSumOfValues();
+        INF.ratio = ability.INFRatio.getSumOfValues();
+        AS.ratio = ability.ASRatio.getSumOfValues();
+        MS.ratio = ability.MSRatio.getSumOfValues();
+        LVL.ratio = ability.LVLRatio.getSumOfValues();
 
         //cooldownBar.color = ColorPalette.singleton.getRarityColor(ability.rarity);
 
