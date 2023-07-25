@@ -48,26 +48,50 @@ MonoBehaviour:
   abilityName: Dash Attack
   description: Dash and attack reset CD if kills
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 13
   rangeAbility: 6
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 2
-  PDRatio: 1.1
-  MDRatio: 0
-  INFRatio: 0
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0
-  MSRatio: 0
-  ASRatio: 0
-  amt: 7
+  valueNames:
+  - Damage
+  - DashSpeed
+  baseAmt:
+  - 2
+  - 10
+  PDRatio:
+  - 1.1
+  - 0.1
+  MDRatio:
+  - 0
+  - 0
+  INFRatio:
+  - 0
+  - 0
+  HPMaxRatio:
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  LVLRatio:
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 1.7
+  ASRatio:
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
   hasTarget: 1
   prefabObject: {fileID: 0}
+  buffPrefab: {fileID: 0}
   Rarities: 2
   rarity: 2
   targetStrategy: 1
   abilityTypeList: 0
   abilityType: 0
-  dashSpeed: 12
+  numberOfValues: 2

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6519169f9d02e28409eb9c2231b5f3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 6813961152882052331, guid: 3ef7f7da9d042fa47a79de032862c092, type: 3}
+  character: {fileID: 1204772192751909199, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
   abilityName: SummonPet
   description: Summons a weak pet
   color: {r: 0, g: 0, b: 0, a: 0}
@@ -53,17 +53,28 @@ MonoBehaviour:
   rangeAbility: 0
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 0
-  PDRatio: 0
-  MDRatio: 0.05
-  INFRatio: 0.05
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0.05
-  MSRatio: 0
-  ASRatio: 0
-  amt: 0
+  valueNames:
+  - SummonQuality
+  baseAmt:
+  - 0
+  PDRatio:
+  - 0
+  MDRatio:
+  - 0.05
+  INFRatio:
+  - 0.05
+  HPMaxRatio:
+  - 0
+  HPRatio:
+  - 0
+  LVLRatio:
+  - 0
+  MSRatio:
+  - 0
+  ASRatio:
+  - 0
+  valueAmt:
+  - 0
   hasTarget: 1
   prefabObject: {fileID: 1204772192751909186, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
   buffPrefab: {fileID: 0}
@@ -72,3 +83,4 @@ MonoBehaviour:
   targetStrategy: 1
   abilityTypeList: 7
   abilityType: 7
+  numberOfValues: 1

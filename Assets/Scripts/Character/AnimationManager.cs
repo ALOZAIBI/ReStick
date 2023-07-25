@@ -48,7 +48,8 @@ public class AnimationManager : MonoBehaviour
         setTargetAngle();
     }
     private void setTargetAngle() {
-        animator.SetFloat("TargetAngle", (transform.position - character.target.transform.position).x < 0 ? 0 : 1);
+        if(character.target!=null)
+            animator.SetFloat("TargetAngle", (transform.position - character.target.transform.position).x < 0 ? 0 : 1);
     }
     public void attack() {
         ////if there's an animation buffered(ability or attack) then interrupt

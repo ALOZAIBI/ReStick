@@ -48,29 +48,64 @@ MonoBehaviour:
   abilityName: Stunning Boom
   description: Throws thing that stuns
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 10
   rangeAbility: 12
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 4
-  PDRatio: 0
-  MDRatio: 0.3
-  INFRatio: 0.1
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0
-  MSRatio: 0
-  ASRatio: 0
-  amt: 5
+  valueNames:
+  - Damage
+  - BuffStrength
+  - BuffDuration
+  baseAmt:
+  - 4
+  - 0
+  - 2
+  PDRatio:
+  - 0
+  - 0
+  - 0
+  MDRatio:
+  - 0.3
+  - 0
+  - 0
+  INFRatio:
+  - 0.1
+  - 0
+  - 0.05
+  HPMaxRatio:
+  - 0
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  - 0
+  LVLRatio:
+  - 0
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 0
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
+  - 0
   hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 3241d0bb6b8e8a948ab20bab948d77b2, type: 3}
+  buffPrefab: {fileID: 4146658564243946327, guid: 293db5ee274df68409367609920f436b, type: 3}
   Rarities: 2
   rarity: 2
   targetStrategy: 1
   abilityTypeList: 6
   abilityType: 6
-  buffPrefab: {fileID: 4146658564243946327, guid: 293db5ee274df68409367609920f436b, type: 3}
+  numberOfValues: 3
   PD: 0
   MD: 0
   INF: 0
@@ -84,4 +119,3 @@ MonoBehaviour:
   root: 1
   silence: 1
   blind: 1
-  buffDuration: 2

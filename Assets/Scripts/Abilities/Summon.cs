@@ -22,17 +22,17 @@ public class Summon : Ability
         //Summons the character in a slightly random position from the casting character
         GameObject objSummoned = Instantiate(prefabObject, character.transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0), character.transform.rotation);
         Character charSummoned = objSummoned.GetComponent<Character>();
-        charSummoned.HPMax += charSummoned.HPMax * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.HP += charSummoned.HP * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.PD += charSummoned.PD * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.MD += charSummoned.MD * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.INF += charSummoned.INF * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.AS += charSummoned.AS * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.CDR += charSummoned.CDR * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.MS += charSummoned.MS * valueAmt.getAmtValueFromName(this, "SummonedQuality") * 0.2f;
+        charSummoned.HPMax += charSummoned.HPMax * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.HP += charSummoned.HP * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.PD += charSummoned.PD * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.MD += charSummoned.MD * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.INF += charSummoned.INF * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.AS += charSummoned.AS * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.CDR += charSummoned.CDR * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.MS += charSummoned.MS * valueAmt.getAmtValueFromName(this, "SummonQuality") * 0.2f;
         if (charSummoned.Range > 1)//only increase range if the char summoned is ranged
-            charSummoned.Range += charSummoned.Range * valueAmt.getAmtValueFromName(this, "SummonedQuality");
-        charSummoned.LS += charSummoned.LS * valueAmt.getAmtValueFromName(this, "SummonedQuality");
+            charSummoned.Range += charSummoned.Range * valueAmt.getAmtValueFromName(this, "SummonQuality");
+        charSummoned.LS += charSummoned.LS * valueAmt.getAmtValueFromName(this, "SummonQuality");
 
         charSummoned.summoned = true;
         charSummoned.summoner = character;

@@ -53,17 +53,16 @@ MonoBehaviour:
   rangeAbility: 1.5
   available: 1
   abilityNext: 0
-  numberOfValues: 1
   valueNames:
-  - 
-  - 
-  - 
+  - Damage
+  - BuffStrength
+  - BuffDuration
   baseAmt:
-  - 0
+  - 3
   - 0
   - 0
   PDRatio:
-  - 0
+  - 1.1
   - 0
   - 0
   MDRatio:
@@ -106,6 +105,7 @@ MonoBehaviour:
   targetStrategy: 1
   abilityTypeList: 0
   abilityType: 0
+  numberOfValues: 3
   PD: 0
   MD: 0
   INF: 0
@@ -119,5 +119,4 @@ MonoBehaviour:
   root: 0
   silence: 0
   blind: 0
-  buffDuration: 0
   selfRootDuration: 0.2

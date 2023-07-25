@@ -43,53 +43,53 @@ public class BurstSelfBuff : Ability
         Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
         buff.PD = PD;
         if (PD > 0) {
-            buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.PD += PD*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.MD = MD;
         if (MD > 0) {
-            buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.MD += MD*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.INF = INF;
         if (INF > 0) {
-            buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.INF += INF*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.HP = HP;
         if (HP > 0) {
-            buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.HP += HP*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.AS = AS;
         if (AS > 0) {
 
-            buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.AS += AS*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.CDR = CDR;
         if (CDR > 0) {
-            buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength"); ;
+            buff.CDR += CDR*valueAmt.getAmtValueFromName(this, "BuffStrength"); ;
         }
 
         buff.MS = MS;
         if (MS > 0) {
-            buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.MS += MS*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.Range = Range;
         if (Range > 0) {
-            buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.Range += Range*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.LS = LS;
         if (LS > 0) {
-            buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.LS += LS*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
         buff.size = size;
         if (size > 0) {
-            buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength");
+            buff.size += size*valueAmt.getAmtValueFromName(this, "BuffStrength");
         }
 
 

@@ -27,7 +27,6 @@ public class CastMeleeAttack : Ability
     public bool silence;
     public bool blind;
 
-    public float buffDuration;
 
     public float selfRootDuration;
     public override void doAbility() {
@@ -47,11 +46,11 @@ public class CastMeleeAttack : Ability
         objAttack.target = character.target;
         //tells it this abilityName
         objAttack.castingAbilityName = abilityName;
-        if (buffDuration > 0 && buffPrefab == null) {
+        if (valueAmt.getAmtValueFromName(this,"BuffDuration") > 0 && buffPrefab == null) {
             Debug.Log("DEBOGAS");
         }
         //if there is a buff in this ability
-        if (buffDuration > 0) {
+        if (valueAmt.getAmtValueFromName(this, "BuffDuration") > 0) {
             if (buffPrefab == null)
                 throw new System.Exception("NO BUFF PREFAB");
             Buff buff = createBuff();

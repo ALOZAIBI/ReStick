@@ -48,28 +48,53 @@ MonoBehaviour:
   abilityName: Speed on kill
   description: 
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 0
   rangeAbility: 0
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 0
-  PDRatio: 0
-  MDRatio: 0
-  INFRatio: 0.1
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0.2
-  MSRatio: 0
-  ASRatio: 0
-  amt: 0
+  valueNames:
+  - BuffStrength
+  - Duration
+  baseAmt:
+  - 0
+  - 4
+  PDRatio:
+  - 0
+  - 0
+  MDRatio:
+  - 0
+  - 0
+  INFRatio:
+  - 0.1
+  - 0.05
+  HPMaxRatio:
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  LVLRatio:
+  - 0.2
+  - 0
+  MSRatio:
+  - 0.05
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 0
   rarity: 0
   targetStrategy: 1
   abilityTypeList: 5
   abilityType: 5
+  numberOfValues: 2
   PD: 0
   MD: 0
   INF: 0
@@ -80,5 +105,4 @@ MonoBehaviour:
   Range: 0
   LS: 0
   size: 0
-  buffDuration: 4
   code: 

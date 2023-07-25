@@ -139,7 +139,7 @@ public class ThrowProjectile : Ability
 
         if(character!=null) {
             calculateAmt();
-            description +=" dealing "+valueAmt ;
+            description +=" dealing "+valueAmt.getAmtValueFromName(this,"Damage") ;
         }
     }
     

@@ -23,7 +23,6 @@ public class ApplyBuff : Ability
 
     //code used to verify if a specific buff is already applied. compare buff to be instantiated's code to the target character's buffs
     public string code;
-    public float buffDuration;
 
     public override void Start() {
         base.Start();
@@ -177,7 +176,7 @@ public class ApplyBuff : Ability
                 if (blind)
                     description += "Blind target";
             }
-            description += "for " + ( buffDuration).ToString("F2") + " seconds";
+
         }
     }
 
@@ -187,7 +186,7 @@ public class ApplyBuff : Ability
             foreach(Buff temp in character.target.buffs) {
                 //if buff is already applied refresh it's duration
                 if (temp.code == abilityName + character.name) {
-                    temp.durationRemaining = buffDuration;
+                    temp.durationRemaining = valueAmt.getAmtValueFromName(this, "Duration");
                 }
             } 
         }

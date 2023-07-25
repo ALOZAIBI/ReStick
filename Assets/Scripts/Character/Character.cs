@@ -1491,15 +1491,20 @@ public class Character : MonoBehaviour {
     }
     #endregion
 
+    //IF apply LS is true apply 100% LS 
     public void damage(Character victim,float damageAmount,bool applyLS) {
-        victim.HP-=damageAmount;
-        if (applyLS)
-            HP += damageAmount * LS;
-        if (victim.HP <= 0) 
+        damage(victim, damageAmount, applyLS ? 1 : 0);
+    }
+    //Deal Damage then heal from that damage based on LS and LSAmount
+    public void damage(Character victim,float damageAmount,float LSAmount) {
+        victim.HP -= damageAmount;
+
+        HP += damageAmount * LS*LSAmount;
+        if (victim.HP <= 0)
             kill(victim);
         //if summoned also increase the summoner's total damage
-        if (summoned) 
-            summoner.totalDamage+= damageAmount;
+        if (summoned)
+            summoner.totalDamage += damageAmount;
         totalDamage += damageAmount;
     }
     //increase killer's kill stats and xp

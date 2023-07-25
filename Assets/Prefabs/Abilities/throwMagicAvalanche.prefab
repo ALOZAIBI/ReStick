@@ -53,17 +53,50 @@ MonoBehaviour:
   rangeAbility: -1
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 4
-  PDRatio: 0
-  MDRatio: 0.09
-  INFRatio: 0
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0
-  MSRatio: 0
-  ASRatio: 0
-  amt: 0
+  valueNames:
+  - DamagePerBall
+  - NumberOfBalls
+  - BallSpeed
+  baseAmt:
+  - 10
+  - 2
+  - 0
+  PDRatio:
+  - 0
+  - 0
+  - 0
+  MDRatio:
+  - 0.8
+  - 0.2
+  - 0.2
+  INFRatio:
+  - 0
+  - 0
+  - 0
+  HPMaxRatio:
+  - 0
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  - 0
+  LVLRatio:
+  - 0
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 0
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
+  - 0
   hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 21a87259fcff31f479f51b2bb00e480b, type: 3}
   buffPrefab: {fileID: 0}
@@ -72,6 +105,7 @@ MonoBehaviour:
   targetStrategy: 1
   abilityTypeList: 1
   abilityType: 1
+  numberOfValues: 3
   channelTime: 3
   currentChannelTime: 0
   ballAmount: 0

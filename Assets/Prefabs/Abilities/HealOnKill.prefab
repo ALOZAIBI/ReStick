@@ -54,22 +54,27 @@ MonoBehaviour:
   available: 0
   abilityNext: 0
   valueNames:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  baseAmt: 5
-  PDRatio: 0.01
-  MDRatio: 0.01
-  INFRatio: 0
-  HPMaxRatio: 0.05
-  HPRatio: 0
-  LVLRatio: 0.01
-  MSRatio: 0
-  ASRatio: 0
-  amt: 1
+  - Heal
+  baseAmt:
+  - 5
+  PDRatio:
+  - 0.01
+  MDRatio:
+  - 0.01
+  INFRatio:
+  - 0.05
+  HPMaxRatio:
+  - 0.05
+  HPRatio:
+  - 0
+  LVLRatio:
+  - 0.01
+  MSRatio:
+  - 0
+  ASRatio:
+  - 0
+  valueAmt:
+  - 0
   hasTarget: 0
   prefabObject: {fileID: 0}
   buffPrefab: {fileID: 0}
@@ -78,3 +83,4 @@ MonoBehaviour:
   targetStrategy: 1
   abilityTypeList: 2
   abilityType: 2
+  numberOfValues: 1

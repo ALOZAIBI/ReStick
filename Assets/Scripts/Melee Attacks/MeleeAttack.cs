@@ -14,8 +14,8 @@ public abstract class MeleeAttack : MonoBehaviour
     public float lifetime;
     //Damage of the attack
     public float DMG;
-    //Does it LS
-    public bool LS;
+    //LS Amount
+    public float LS;
     //maximum range of the attack
     public float range;
     //an object that is used in some melee attacks to be able to change the object's origin (pivot) https://www.youtube.com/watch?v=NsUJDqEY8tE

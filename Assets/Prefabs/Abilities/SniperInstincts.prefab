@@ -48,28 +48,64 @@ MonoBehaviour:
   abilityName: SniperInstincts
   description: Burst of PD AND RANGE
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 12
   rangeAbility: 0
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 0
-  PDRatio: 0
-  MDRatio: 0
-  INFRatio: 0
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0.01
-  MSRatio: 0
-  ASRatio: 0
-  amt: 0
+  valueNames:
+  - Damage
+  - BuffStrength
+  - BuffDuration
+  baseAmt:
+  - 0
+  - 0
+  - 5
+  PDRatio:
+  - 0.005
+  - 0
+  - 0
+  MDRatio:
+  - 0
+  - 0
+  - 0
+  INFRatio:
+  - 0
+  - 0
+  - 0.05
+  HPMaxRatio:
+  - 0
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  - 0
+  LVLRatio:
+  - 0.01
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 0
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
+  - 0
   hasTarget: 0
   prefabObject: {fileID: 4146658564243946326, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 3
   rarity: 3
   targetStrategy: 0
   abilityTypeList: 5
   abilityType: 5
+  numberOfValues: 3
   PD: 30
   MD: 0
   INF: 0
@@ -84,4 +120,3 @@ MonoBehaviour:
   silence: 0
   blind: 0
   code: 
-  buffDuration: 6

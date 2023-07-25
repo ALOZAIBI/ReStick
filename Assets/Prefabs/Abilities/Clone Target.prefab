@@ -48,25 +48,39 @@ MonoBehaviour:
   abilityName: Clone my Target
   description: 
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 25
   rangeAbility: -1
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 0.3
-  PDRatio: 0
-  MDRatio: 0.01
-  INFRatio: 0.03
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0
-  MSRatio: 0
-  ASRatio: 0
-  amt: 0
+  valueNames:
+  - CloneQuality
+  baseAmt:
+  - 0.3
+  PDRatio:
+  - 0
+  MDRatio:
+  - 0.01
+  INFRatio:
+  - 0.03
+  HPMaxRatio:
+  - 0
+  HPRatio:
+  - 0
+  LVLRatio:
+  - 0
+  MSRatio:
+  - 0
+  ASRatio:
+  - 0
+  valueAmt:
+  - 0
   hasTarget: 1
   prefabObject: {fileID: 0}
+  buffPrefab: {fileID: 0}
   Rarities: 3
   rarity: 3
   targetStrategy: 15
   abilityTypeList: 7
   abilityType: 7
+  numberOfValues: 1

@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(Ability),true)]
+[CanEditMultipleObjects]
 public class CustomInspector : Editor
 {
     public override void OnInspectorGUI() {
@@ -29,7 +30,7 @@ public class CustomInspector : Editor
         EditorGUILayout.EndHorizontal();
 
         //Creates horizontal Display for PDRatio
-        EditorGUILayout.LabelField("Physical Damage Ratio", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Power Ratio", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
         for (int i = 0; i < targetScript.PDRatio.Count; i++) {
             targetScript.PDRatio[i] = EditorGUILayout.FloatField("", targetScript.PDRatio[i]);
@@ -37,7 +38,7 @@ public class CustomInspector : Editor
         EditorGUILayout.EndHorizontal();
 
         //Creates horizontal Display for MDRatio
-        EditorGUILayout.LabelField("Magical Damage Ratio", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Magic Ratio", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
         for (int i = 0; i < targetScript.MDRatio.Count; i++) {
             targetScript.MDRatio[i] = EditorGUILayout.FloatField("", targetScript.MDRatio[i]);
@@ -77,7 +78,7 @@ public class CustomInspector : Editor
         EditorGUILayout.EndHorizontal();
 
         //Creates horizontal Display for MSRatio
-        EditorGUILayout.LabelField("Move Speed Ratio", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Speed Ratio", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
         for (int i = 0; i < targetScript.MSRatio.Count; i++) {
             targetScript.MSRatio[i] = EditorGUILayout.FloatField("", targetScript.MSRatio[i]);
@@ -101,6 +102,8 @@ public class CustomInspector : Editor
             targetScript.valueAmt[i] = EditorGUILayout.FloatField("", targetScript.valueAmt[i]);
         }
         EditorGUILayout.EndHorizontal();
-        
+
+        //To save the changes to prefab. Without this the changes reset when loading the project
+        if (GUI.changed) { EditorUtility.SetDirty(targetScript); }
     }
 }

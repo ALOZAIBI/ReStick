@@ -48,29 +48,64 @@ MonoBehaviour:
   abilityName: UrsusShock
   description: Throws AOE fireball
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 18
   rangeAbility: 20
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 20
-  PDRatio: 0
-  MDRatio: 3.3
-  INFRatio: 0
-  HPMaxRatio: 0
-  HPRatio: 0
-  LVLRatio: 0
-  MSRatio: 0
-  ASRatio: 0
-  amt: 30
+  valueNames:
+  - Damage
+  - BuffStrength
+  - BuffDuration
+  baseAmt:
+  - 20
+  - 0
+  - 0
+  PDRatio:
+  - 0
+  - 0
+  - 0
+  MDRatio:
+  - 3.3
+  - 0
+  - 0
+  INFRatio:
+  - 0
+  - 0
+  - 0
+  HPMaxRatio:
+  - 0
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  - 0
+  LVLRatio:
+  - 0
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 0
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
+  - 0
   hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 066c12bce1222a64a8cdd37d578acca7, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 3
   rarity: 3
   targetStrategy: 1
   abilityTypeList: 1
   abilityType: 1
-  buffPrefab: {fileID: 0}
+  numberOfValues: 3
   PD: 0
   MD: 0
   INF: 0
@@ -84,4 +119,3 @@ MonoBehaviour:
   root: 0
   silence: 0
   blind: 0
-  buffDuration: 0

@@ -48,28 +48,42 @@ MonoBehaviour:
   abilityName: HealingAura
   description: Heal Aura Lmao
   color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 7
   rangeAbility: 5
   available: 1
   abilityNext: 0
-  delay: 0
-  baseAmt: 1
-  PDRatio: 0
-  MDRatio: 0.2
-  INFRatio: 0.6
-  HPMaxRatio: 0.03
-  HPRatio: 0
-  LVLRatio: 0
-  MSRatio: 0
-  ASRatio: 0
-  amt: 1
+  valueNames:
+  - Amount
+  baseAmt:
+  - 0
+  PDRatio:
+  - 0
+  MDRatio:
+  - 0.2
+  INFRatio:
+  - 0.6
+  HPMaxRatio:
+  - 0.03
+  HPRatio:
+  - 0
+  LVLRatio:
+  - 0
+  MSRatio:
+  - 0
+  ASRatio:
+  - 0
+  valueAmt:
+  - 0
   hasTarget: 0
   prefabObject: {fileID: 6616426771428068873, guid: 918d34f347090fc4697bfa9f7eae0764, type: 3}
+  buffPrefab: {fileID: 0}
   Rarities: 1
   rarity: 1
   targetStrategy: 1
   abilityTypeList: 2
   abilityType: 2
+  numberOfValues: 1
   duration: 3
   durationRemaining: 0
   active: 0
