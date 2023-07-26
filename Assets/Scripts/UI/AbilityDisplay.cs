@@ -20,9 +20,6 @@ public class AbilityDisplay : MonoBehaviour
     //public TextMeshProUGUI targettingStrategyText;
     public Transform iconHolder;
 
-    //we just have the holder so we can better place it visually some horizontal layout group gimic stuff
-    public GameObject removeButtonHolder;
-    public Button removeButton;
     [SerializeField] public StatIcon HP;
     [SerializeField] public StatIcon PD;
     [SerializeField] public StatIcon MD;
@@ -53,9 +50,8 @@ public class AbilityDisplay : MonoBehaviour
                 Destroy(temp.gameObject);
             }
         }
-        showScaling();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+        
 
         //btn.onClick.AddListener(openTargetSelectorAbility);
         ////if inventory Screen display the remove button
@@ -68,8 +64,10 @@ public class AbilityDisplay : MonoBehaviour
         //}
     }
 
-    public void setupAbilityDisplay(Ability abilityToDisplay) {
+    public virtual void setupAbilityDisplay(Ability abilityToDisplay) {
         ability = abilityToDisplay;
+        showScaling();
+        self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
         abilityName.text = ability.abilityName;
         description.text = ability.description;
         //sets the cooldownBar fill amount to CD remaining
@@ -85,22 +83,7 @@ public class AbilityDisplay : MonoBehaviour
             //shows how much cd remaining 
             cooldownText.text = (ability.abilityNext).ToString("F1");
     }
-    //this function only happens in inventory screen since the remove button is only visible in the inventorry screen
-    private void removeAbility() {
-        //sets the parent to be ability inventory
-        ability.transform.parent = uiManager.playerParty.abilityInventory.transform;
-        //removes ability from character
-        uiManager.inventoryScreen.characterSelected.abilities.Remove(ability);
-        //updates the character info screen view
-        uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacterFullScreen(uiManager.inventoryScreen.characterSelected);
-        //saves removing the ability
-        if (SceneManager.GetActiveScene().name == "World") {
-            uiManager.saveWorldSave();
-        }
-        else
-            uiManager.saveMapSave();
-    }
-    private void showScaling() {
+    protected void showScaling() {
         //sorts them in descending order
         for (int i = 0; i < iconHolder.childCount-1; i++) {
             //assume first is max

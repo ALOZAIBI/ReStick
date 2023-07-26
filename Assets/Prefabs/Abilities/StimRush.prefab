@@ -54,47 +54,36 @@ MonoBehaviour:
   available: 1
   abilityNext: 0
   valueNames:
-  - Damage
   - BuffStrength
-  - BuffDuration
+  - Duration
   baseAmt:
-  - 0
   - 0
   - 3
   PDRatio:
   - 0
   - 0
-  - 0
   MDRatio:
-  - 0
   - 0
   - 0
   INFRatio:
   - 0.025
-  - 0
   - 0.05
   HPMaxRatio:
-  - 0
   - 0
   - 0
   HPRatio:
   - 0
   - 0
-  - 0
   LVLRatio:
   - 0.1
   - 0
-  - 0
   MSRatio:
-  - 0
   - 0
   - 0
   ASRatio:
   - 0
   - 0
-  - 0
   valueAmt:
-  - 0
   - 0
   - 0
   hasTarget: 0
@@ -105,7 +94,7 @@ MonoBehaviour:
   targetStrategy: 0
   abilityTypeList: 5
   abilityType: 5
-  numberOfValues: 3
+  numberOfValues: 2
   PD: 0
   MD: 0
   INF: 0

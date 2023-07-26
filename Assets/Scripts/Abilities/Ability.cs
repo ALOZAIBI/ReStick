@@ -250,6 +250,15 @@ public abstract class Ability : MonoBehaviour
             return (CD.ToString("F1"));
         }
     }
+    public float getCDAfterChange() {
+        try {
+            return (CD - CD * character.CDR);
+        }
+        catch {
+            //catch happens when an ability's character hasn't been set yet
+            return (CD);
+        }
+    }   
 
     
 }

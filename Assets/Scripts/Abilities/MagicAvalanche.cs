@@ -118,7 +118,7 @@ public class MagicAvalanche : Ability
     public override void updateDescription() {
         if (character != null) {
             calculateAmt();
-            description = "Throws a barrage of "+valueAmt.getAmtValueFromName(this,"NumberOfBalls")+ " magical balls that deal around" + ((valueAmt.getAmtValueFromName(this, "DamagePerBall")) * 0.35f).ToString("F1") + " DMG each";
+            description = "Throws a barrage of "+(int)valueAmt.getAmtValueFromName(this,"NumberOfBalls")+ " magical balls that deal around" + ((valueAmt.getAmtValueFromName(this, "DamagePerBall")) * 0.35f).ToString("F1") + " DMG each";
         }
         else {
             description = "Throws a barrage of magical spheres";

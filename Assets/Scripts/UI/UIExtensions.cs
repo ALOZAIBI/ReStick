@@ -103,6 +103,14 @@ public static class UIExtensions {
         text.color = temp;
     }
 
+    //Slighlty darkens the color of an image
+    public static void Darken(this Image img) {
+        Color temp = img.color;
+        temp.r *= 0.8f;
+        temp.g *= 0.8f;
+        temp.b *= 0.8f;
+        img.color = temp;
+    }
     //Ability calculations extension stuff
     public static float getAmtValueFromName(this List<float> array, Ability ability,string valueName) {
         int index = ability.valueNames.IndexOf(valueName);

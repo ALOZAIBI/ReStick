@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.TextCore.Text;
 using System;
 using UnityEngine.SceneManagement;
+using static System.TimeZoneInfo;
 
 public class StatUpgrading : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
@@ -70,14 +71,18 @@ public class StatUpgrading : MonoBehaviour {
     private float RNGbuffer;
     private float LSbuffer;
     private float HPbuffer;
+    //How much SP used
+    [SerializeField] public int SPUsedBuffer;
 
 
     //wether the stats have been appleid or not
     public bool applied;
 
-    //How much SP used
-    [SerializeField] public int SPUsedBuffer;
+    //The object to be initialised that will display the improvements in the ability
+    public GameObject abilityDisplayStatDifferences;
+    public List<AbilityDisplayStatDifference> abilityDisplayList;
 
+    public bool createdAbilityDisplays;
     //thanks chatGPT
     public void hide() {
         // Set all gameObjects to inactive
@@ -105,9 +110,11 @@ public class StatUpgrading : MonoBehaviour {
 
         applyChangesBtn.gameObject.SetActive(false);
         resetChangesBtn.gameObject.SetActive(false);
+        closeAbilityDisplays();
     }
 
     public void show() {
+        createdAbilityDisplays = false;
         // Set all gameObjects to active
         //statPointTextContainer.SetActive(true);
         //statPointDisplay.gameObject.SetActive(true);
@@ -161,24 +168,10 @@ public class StatUpgrading : MonoBehaviour {
         resetChangesBtn.onClick.AddListener(resetChanges);
 
         hide();
-
-        Debug.Log("STATUPGRDING HAS STARTED");
         //fakeStatDisplay();
     }
 
     public void applyChanges() {
-        //UIManager.singleton.characterInfoScreen.character.PD += PDbuffer;
-        //UIManager.singleton.characterInfoScreen.character.MD += MDbuffer;
-        //UIManager.singleton.characterInfoScreen.character.AS += ASbuffer;
-        //UIManager.singleton.characterInfoScreen.character.CDR += CDRbuffer;
-        //UIManager.singleton.characterInfoScreen.character.MS += MSbuffer;
-        //UIManager.singleton.characterInfoScreen.character.Range += RNGbuffer;
-        //UIManager.singleton.characterInfoScreen.character.LS += LSbuffer;
-        //UIManager.singleton.characterInfoScreen.character.HPMax += HPbuffer;
-        //UIManager.singleton.characterInfoScreen.character.HP += HPbuffer;
-
-        //UIManager.singleton.characterInfoScreen.character.statPoints -= SPUsedBuffer;
-
         // Reset the buffer values to zero
         PDbuffer = 0;
         MDbuffer = 0;
@@ -529,10 +522,51 @@ public class StatUpgrading : MonoBehaviour {
     public void updateStatDisplay() {
         //Debug.Log("Fakse stats uopdated");
         UIManager.singleton.characterInfoScreen.displayStats(UIManager.singleton.characterInfoScreen.character);
+        UIManager.singleton.characterInfoScreen.displayCharacterAbilities(UIManager.singleton.characterInfoScreen.character);
         updateAddColors();
         updateSubColors();
+        
+        createdAbilityDisplays = true;
+
+        showOrHideAbilityDisplays();
     }
 
+    //Creates abilityDisplays and puts them in their place
+    public void createAbilityDisplayStatDifferences() {
+        closeAbilityDisplays();
+        //Goes through all abilities
+        for(int i = 0; i < UIManager.singleton.characterInfoScreen.character.abilities.Count; i++) {
+            //Instantiates as child of focus
+            abilityDisplayList.Add(Instantiate(abilityDisplayStatDifferences.GetComponent<AbilityDisplayStatDifference>(), UIManager.singleton.focus.transform));
+            abilityDisplayList[i].setupAbilityDisplay(UIManager.singleton.characterInfoScreen.character.abilities[i]);
+            RectTransform rectTransform = abilityDisplayList[i].GetComponent<RectTransform>();
+
+            //We're just getteing the top anchor since this is basically the ratio
+            float sizeRatio = UIManager.singleton.characterInfoScreen.abilitiesPanel.GetAnchorTop();
+
+
+            rectTransform.SetAnchorTop(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorTop()*sizeRatio);
+            rectTransform.SetAnchorBottom(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorBottom()*sizeRatio);
+            rectTransform.SetAnchorLeft(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorLeft());
+            rectTransform.SetAnchorRight(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorRight());
+            rectTransform.SetStretchToAnchors();
+
+            Debug.Log("Created a display"+rectTransform.name);
+        }
+    }
+    private void showOrHideAbilityDisplays() {
+        for(int i = 0;i<abilityDisplayList.Count;i++) {
+            abilityDisplayList[i].showOrHide(UIManager.singleton.characterInfoScreen.character.abilities[i].valueAmt);
+        }
+    }
+    private void closeAbilityDisplays() {
+        //Deletes all abilityDisplays GameObjects
+        for(int i = 0; i < abilityDisplayList.Count; i++) {
+            Destroy(abilityDisplayList[i].gameObject);
+        }
+        //Clears the list
+        abilityDisplayList.Clear();
+    }
     private void Update() {
     }
 

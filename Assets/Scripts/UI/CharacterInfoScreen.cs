@@ -157,7 +157,7 @@ public class CharacterInfoScreen : MonoBehaviour
     private float portraitPanelPositionT;
     private float portraitPanelPositionB;
 
-    [SerializeField] private RectTransform abilitiesPanel;
+    [SerializeField] public RectTransform abilitiesPanel;
 
     private float abilitiesPanelAnchorL;
     private float abilitiesPanelAnchorR;
@@ -189,14 +189,14 @@ public class CharacterInfoScreen : MonoBehaviour
 
     
     //to be able to place the ability displays here
-    [SerializeField] private List<RectTransform> abilityPlaceholders= new List<RectTransform>();
+    [SerializeField] public List<RectTransform> abilityPlaceholders= new List<RectTransform>();
     private List<float> abilityPlaceHoldersAnchorL = new List<float>(new float[5]);
     private List<float> abilityPlaceHoldersAnchorR = new List<float>(new float[5]);
     private List<float> abilityPlaceHoldersAnchorT = new List<float>(new float[5]);
     private List<float> abilityPlaceHoldersAnchorB = new List<float>(new float[5]);
 
     //to be able to delete all abilityDisplays
-    [SerializeField] private List<RectTransform> abilityDisplays = new List<RectTransform>();
+    [SerializeField] public List<RectTransform> abilityDisplays = new List<RectTransform>();
     public List<Ability> abilities = new List<Ability>();
 
     [SerializeField] private List<RectTransform> abilityTargetting = new List<RectTransform>();
@@ -547,6 +547,9 @@ public class CharacterInfoScreen : MonoBehaviour
                 healthBarPanel.SetAnchorTop(statsPanel.GetAnchorBottom() - 0.007f);
                 //To keep the bottom anchor from going all the way to the bottom
                 healthBarPanel.SetAnchorBottom(statsPanel.GetAnchorBottom() - 0.03f);
+
+                //Sets the top of abilities Panel to be bottom of healthbarpanel
+                abilitiesPanel.SetAnchorTop(Mathf.Lerp(healthBarPanel.GetAnchorBottom() - 0.015f, healthBarPanel.GetAnchorBottom() - 0.045f,time2/transitionTime));
 
                 uiManager.focus.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
                 break;
@@ -1020,7 +1023,6 @@ public class CharacterInfoScreen : MonoBehaviour
         for(int i = 0;i<abilityDisplays.Count;i++) {
             //Destroys the ability display then refills the placeholder with a background
             Destroy(abilityDisplays[i].gameObject);
-            Debug.Log("Destroyed" + abilityDisplays[i].name);
             foreach(Transform child in abilityPlaceholders[i].transform) {
                 child.gameObject.SetActive(true);
             }
@@ -1179,6 +1181,11 @@ public class CharacterInfoScreen : MonoBehaviour
         if(time2 >= transitionTime) {
             //no longer in the process of focusing
             focusing = false;
+            //if the focus element is statUpgrading then create the abilityDisplays if it wasnt already created
+            if(focusElement == 7 && !statUpgrading.createdAbilityDisplays) {
+                statUpgrading.createAbilityDisplayStatDifferences();
+                statUpgrading.createdAbilityDisplays = true;
+            }
         }
         //no longer in process of unfocusing
         if (time2 <= 0)
