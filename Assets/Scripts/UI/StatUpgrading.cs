@@ -59,8 +59,8 @@ public class StatUpgrading : MonoBehaviour {
     [SerializeField] private float HPAmt;
 
 
-    [SerializeField] private Button applyChangesBtn;
-    [SerializeField] private Button resetChangesBtn;
+    [SerializeField] public Button applyChangesBtn;
+    [SerializeField] public Button resetChangesBtn;
     //how much stats are modified so far (not applied)
     private float PDbuffer;
     private float MDbuffer;

@@ -470,6 +470,8 @@ public class CharacterInfoScreen : MonoBehaviour
                 statUpgrading.show();
                 xpPanel.transform.SetParent(uiManager.focus.transform);
                 statsPanel.transform.SetParent(uiManager.focus.transform);
+                statUpgrading.resetChangesBtn.transform.SetParent(uiManager.focus.transform);
+                statUpgrading.applyChangesBtn.transform.SetParent(uiManager.focus.transform);
                 healthBarPanel.transform.SetParent(uiManager.focus.transform);
                 xpPanelBtn.enabled = false;
                 statsPanelBtn.enabled = false;
@@ -1214,6 +1216,8 @@ public class CharacterInfoScreen : MonoBehaviour
             targetSelectionBtn.transform.SetParent(transform);
             xpPanel.transform.SetParent(transform);
             statsPanel.transform.SetParent(transform);
+            statUpgrading.resetChangesBtn.transform.SetParent(transform);
+            statUpgrading.applyChangesBtn.transform.SetParent(transform);
             healthBar.transform.SetParent(transform);
             statsPanelBtn.enabled = true;
             xpPanelBtn.enabled = true;

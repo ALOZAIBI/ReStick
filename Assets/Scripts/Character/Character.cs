@@ -1433,7 +1433,7 @@ public class Character : MonoBehaviour {
     //}
 
     private void customMouseDown() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverGameObject()) {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,LayerMask.GetMask("Characters"));
             //Debug.Log("This thing is getting touched"+hit.collider.name);
             if(hit.collider != null && hit.collider.tag == "Character") {
@@ -1628,6 +1628,8 @@ public class Character : MonoBehaviour {
     void FixedUpdate()
     {
         
+        if (xpProgress >= xpCap)
+            levelUp();
 
         handleDeath();
         if (!(blind>0))
@@ -1642,8 +1644,6 @@ public class Character : MonoBehaviour {
         if(!(silence>0))
             doAbilities();
         capHP();
-        if (xpProgress >= xpCap)
-            levelUp();
         previousMovementState = movementState; // this will be used to see if the movementState changed or not
         resetKillsLastFrame();//always keep me last in update
     }

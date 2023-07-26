@@ -49,10 +49,10 @@ public class CastAura : Ability
         else {
             calculateAmt();
             if (valueAmt.getAmtValueFromName(this,"Amount") > 0) {
-                description = "Heals nearby characters by " + valueAmt + " per second";
+                description = "Heals nearby characters by " + valueAmt.getAmtValueFromName(this,"Amount") + " per second";
             }
             else
-                description = "Deals " + valueAmt + "per second to nearby characters";
+                description = "Deals " + valueAmt.getAmtValueFromName(this,"Amount") + "per second to nearby characters";
         }
     }
     public void startActiveDuration() {

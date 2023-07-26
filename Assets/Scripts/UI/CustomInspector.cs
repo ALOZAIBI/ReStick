@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(Ability),true)]
 [CanEditMultipleObjects]
 public class CustomInspector : Editor
@@ -107,3 +107,4 @@ public class CustomInspector : Editor
         if (GUI.changed) { EditorUtility.SetDirty(targetScript); }
     }
 }
+#endif

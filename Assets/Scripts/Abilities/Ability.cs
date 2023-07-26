@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-[CustomEditor(typeof(Ability))]
+
 public abstract class Ability : MonoBehaviour
 {
     //this is set in initroundstart in character
