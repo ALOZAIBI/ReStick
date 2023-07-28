@@ -13,7 +13,7 @@ public class GameWonScreen : MonoBehaviour
     public Button goToNextZoneBtn;
     public Button goBackToMapBtn;
     public GameObject contents;
-    public int chanceToGetRewardPercent;
+    public int rewardEveryNZone;
 
     private void Start() {
         rewardSelectHidden = rewardSelect.GetComponent<HideUI>();
@@ -22,9 +22,7 @@ public class GameWonScreen : MonoBehaviour
     }
 
     public void zoneWon() {
-    //60% chance for a reward to happen AND IF ZONE WASN'T COMPLETED BEFORE
-        int giveReward = UnityEngine.Random.Range(0, 100);
-        if (giveReward <= chanceToGetRewardPercent/*&& !UIManager.singleton.zone.completed*/) {
+        if (SaveSystem.giveReward()) {
             displayRewards();
         }
         else

@@ -3215,7 +3215,7 @@ MonoBehaviour:
   goToNextZoneBtn: {fileID: 1113625909}
   goBackToMapBtn: {fileID: 1205328836}
   contents: {fileID: 1323135915}
-  chanceToGetRewardPercent: 100
+  rewardEveryNZone: 3
 --- !u!1 &215885583
 GameObject:
   m_ObjectHideFlags: 0
@@ -5840,7 +5840,7 @@ MonoBehaviour:
   dragOrigin: {x: 0, y: 0}
   dragDifference: {x: 0, y: 0}
   zoomMin: 2
-  zoomMax: 20
+  zoomMax: 18
   pannable: 1
 --- !u!114 &519420035
 MonoBehaviour:
@@ -20531,6 +20531,7 @@ MonoBehaviour:
   applied: 0
   abilityDisplayStatDifferences: {fileID: 0}
   abilityDisplayList: []
+  createdAbilityDisplays: 0
 --- !u!114 &1004008752828151349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21180,6 +21181,10 @@ PrefabInstance:
     - target: {fileID: 1126838707960267151, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1170394049843031013, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.5881348
       objectReference: {fileID: 0}
     - target: {fileID: 1192597572203834756, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchoredPosition.x

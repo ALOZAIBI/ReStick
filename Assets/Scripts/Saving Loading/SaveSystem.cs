@@ -47,10 +47,69 @@ static class SaveSystem
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            //creates inventory folder in each slot folder in each map
+            //creates shop and shop info folder in each slot folder in each map
             path = Application.persistentDataPath + saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
+
+            //creates mapSaves folder in each slot folder
+            path = Application.persistentDataPath + saveSlot + "/mapSave/rewardProgress";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
+    }
+    //When a new map is loaded set the reward progress to 0
+    public static void setRewardProgress(int setTo=0) {
+        RewardProgressData data = new RewardProgressData();
+        data.zonesSinceLastReward = setTo;
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/rewardProgress/rewardProgress.xrt";
+
+        using (FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+            //the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(data));
+
+            writer.Flush();
+        }
+    }
+    //Gives reward every N zones where N is defined in GameWonScreen
+    public static bool giveReward() {
+        //Reads the progress file
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/rewardProgress/rewardProgress.xrt";
+        if (File.Exists(path)) {
+            using (FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+
+                //this is the non encrypted version
+                RewardProgressData data = JsonConvert.DeserializeObject<RewardProgressData>(reader.ReadString());
+                //Checks if progress is 0 to give the reward
+                if (data.zonesSinceLastReward == 0) {
+                    //increment the progress
+                    data.zonesSinceLastReward++;
+                    data.zonesSinceLastReward %= UIManager.singleton.gameWonScreen.rewardEveryNZone;
+                    reader.Close();
+                    //Save the incremented progress
+                    setRewardProgress(data.zonesSinceLastReward);
+                    return true;
+                }
+                else {
+                    //increment the progress
+                    data.zonesSinceLastReward++;
+                    data.zonesSinceLastReward %= UIManager.singleton.gameWonScreen.rewardEveryNZone;
+                    reader.Close();
+                    //Save the incremented progress
+                    setRewardProgress(data.zonesSinceLastReward);
+                    return false;
+                }
+            }
+        }
+        else {
+            Debug.LogError("file doesn't exist in " + path);
+            return false;
         }
     }
     //this is called when loading a new map. To reinitialise shop

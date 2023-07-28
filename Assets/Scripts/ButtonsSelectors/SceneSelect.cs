@@ -92,6 +92,8 @@ public class SceneSelect : MonoBehaviour
             //and also save MapSave so that I have a mapSave to base stuff off of
             uiManager.saveMapSave();
             uiManager.inZone = false;
+            //Initializes rewardProgress
+            SaveSystem.setRewardProgress();
         }
         if (zone) {
             //save MapSave
