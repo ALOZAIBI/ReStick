@@ -33,15 +33,9 @@ public class AttackTargetSelector : MonoBehaviour {
     public void close() {
         //updates the characterInfoScreenview
         //do for regular charInfoScreen
-        if (uiManager.inventoryScreenHidden.hidden) {
-            uiManager.characterInfoScreen.close();
-            uiManager.viewCharacter(character);
-        }
-        //do for inventory charInfoScreen
-        else {
-            uiManager.inventoryScreen.inventoryCharacterScreen.close();
-            uiManager.inventoryScreen.inventoryCharacterScreen.viewCharacterFullScreen(character);
-        }
+        uiManager.characterInfoScreen.close();
+        uiManager.viewCharacter(character);
+
     }
 
     public void updateView() {

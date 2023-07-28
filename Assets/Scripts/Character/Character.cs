@@ -1594,6 +1594,8 @@ public class Character : MonoBehaviour {
 
     //returns wether the character is selected ornot
     public bool getSelected() {
+        if (UIManager.singleton.characterInfoScreen.character == null)
+            return false;
         return UIManager.singleton.characterInfoScreen.character == this;
     }
     //displays range and arrow to target

@@ -150,6 +150,15 @@ public class UIManager : MonoBehaviour
         closeUIBtn.onClick.AddListener(closeUIButton);
         openInventoryBtn.onClick.AddListener(openInventory);
     }
+
+    public void viewCharacterInInventory(Character charSel) {
+        charInfoScreenHidden.hidden = false;
+        //Insantly makes it full Screen
+        characterInfoScreen.inventoryScreen = true;
+        characterInfoScreen.viewCharacterFullScreen(charSel);
+        characterInfoScreen.time = characterInfoScreen.transitionTime*0.95f;
+
+    }
     //on first time clicking character Display its info in the topstatDisplay
     //then if character is clicked again or more info button was clicked open the charInfoScreen
     public void viewCharacter(Character charSel) {
@@ -340,7 +349,7 @@ public class UIManager : MonoBehaviour
         //applies the statPoints 
         if (!zoneStarted()) {
             characterInfoScreen.statUpgrading.applyChanges();
-            inventoryScreen.inventoryCharacterScreen.statUpgrading.applyChanges();
+            //inventoryScreen.inventoryCharacterScreen.statUpgrading.applyChanges();
         }
     }
     //i should improve the pausePlay function to take a bool pausePlay(true) makes the game paused pausePlay(false) makes the game continue 
@@ -392,8 +401,8 @@ public class UIManager : MonoBehaviour
     }
 
     public void openInventory() {
-        closeUIBtn.gameObject.SetActive(true);
-        openInventoryBtn.gameObject.SetActive(false);
+        //closeUIBtn.gameObject.SetActive(true);
+        //openInventoryBtn.gameObject.SetActive(false);
         inventoryScreenHidden.hidden = false;
         inventoryScreen.setupInventoryScreen();
     }

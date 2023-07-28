@@ -61,14 +61,8 @@ public class MovementStrategySelector : MonoBehaviour {
     public void close() {
         //updates the characterInfoScreenview
         //do for regular charInfoScreen
-        if (UIManager.singleton.inventoryScreenHidden.hidden) {
-            UIManager.singleton.characterInfoScreen.close();
-            UIManager.singleton.viewCharacter(character);
-        }
-        //do for inventory charInfoScreen
-        else {
-            UIManager.singleton.inventoryScreen.inventoryCharacterScreen.close();
-            UIManager.singleton.inventoryScreen.inventoryCharacterScreen.viewCharacterFullScreen(character);
-        }
+        UIManager.singleton.characterInfoScreen.close();
+        UIManager.singleton.viewCharacter(character);
+
     }
 }

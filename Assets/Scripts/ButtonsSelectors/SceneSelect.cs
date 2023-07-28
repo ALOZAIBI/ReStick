@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 //To make this Start function execute Before Map's Start function
 [DefaultExecutionOrder(-100)]
@@ -47,12 +48,21 @@ public class SceneSelect : MonoBehaviour
     }
 
     //clicky stuff
-    private float mouseHoldDuration = 0;
-    private bool click = false;
+    public float mouseHoldDuration = 0;
+    public bool click = false;
 
     //onclick load specified scene
-    private void OnMouseDown() {
-        click = true;
+    private void customMouseDown() {
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverGameObject()) {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, LayerMask.GetMask("SceneSelect"));
+            //Debug.Log("This thing is getting touched"+hit.collider.name);
+            if (hit.collider != null && hit.collider.tag == "SceneSelect") {
+                hit.collider.GetComponent<SceneSelect>().click = true;
+            }
+            else {
+                //Debug.Log("Blocking raycast" + hit.collider.name);
+            }
+        }
     }
 
     //checks wether the click is held or not
@@ -112,7 +122,7 @@ public class SceneSelect : MonoBehaviour
     }
 
     private void Update() {
-
+        customMouseDown();
         mouseClickedNotHeld();
     }
 
@@ -120,5 +130,23 @@ public class SceneSelect : MonoBehaviour
     public void DisplayName() {
         string result = sceneToLoad.Replace("Map", "").Replace("Zone", "");
         nameTxt.text = result;
+    }
+    public static bool IsPointerOverGameObject() {
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return true;
+        }
+
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++) {
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began) {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

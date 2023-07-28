@@ -80,6 +80,8 @@ public class CharacterInfoScreen : MonoBehaviour
     //base page wehn opening charinfoscreen
 
     private HideUI hideUI;
+    //To be Ablew to force full screen, since hideUI's init values will be constantly changing we can look back to the Vector2 that holds the initinitValues
+    [SerializeField]private Vector2 hideUIInitValues;
     //used for initial full screen opening
     [SerializeField] private bool opening;
     [SerializeField] private bool closing;
@@ -181,9 +183,9 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private RectTransform targetSelectBtnPanel;
 
-    [SerializeField] private float transitionTime;
+    [SerializeField] public float transitionTime;
     //Used for opening and closing fullscreen.
-    [SerializeField] private float time;
+    [SerializeField] public float time;
     //Used for focusing elements
     [SerializeField] private float time2;
 
@@ -209,6 +211,9 @@ public class CharacterInfoScreen : MonoBehaviour
     //The children of this will be the stat Icons
     [SerializeField] private List<Transform> abilityTargettingIconParent = new List<Transform>();
 
+    //If this Character Info Screen is opened from the inventory screen
+    public bool inventoryScreen;
+
 
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
@@ -216,7 +221,8 @@ public class CharacterInfoScreen : MonoBehaviour
         time = transitionTime;
         time2 = transitionTime;
         hideUI = GetComponent<HideUI>();
-
+        hideUIInitValues.x = hideUI.initPos.x;
+        hideUIInitValues.y = hideUI.initPos.y;
         saveInitPanels();
         
         targetSelectBtnPanel = targetSelectionBtn.GetComponent<RectTransform>();
@@ -335,6 +341,10 @@ public class CharacterInfoScreen : MonoBehaviour
             opening = false;
             closing = true;
             willHandlePause = true;
+            if (inventoryScreen) {
+                time = 0; //so that it will close instantly
+                UIManager.singleton.charInfoScreenHidden.hidden = true;
+            }
         }
     }
     private void setPanelStuffActive(bool bol) {
@@ -1156,8 +1166,13 @@ public class CharacterInfoScreen : MonoBehaviour
         }
 
         if (time >= transitionTime) {
-            //no longer in the process of opening
-            opening = false;
+            //no longer in the process of opening(opening should be done)
+            //Forcing the position since if we click on a character that is already apparent in top stat display before the screen is fully unhidden it will be in the wrong position(you can test it out by removing the 2 bottom lines then double clicking a character)
+            if (opening) {
+                hideUI.initPos.x = 0;
+                hideUI.initPos.y = 0;
+                opening = false;
+            }
         }
         //no longer in process of closing
         if(time<=0)

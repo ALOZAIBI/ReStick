@@ -197,13 +197,7 @@ public abstract class Ability : MonoBehaviour
         //what a fucked explanation lmao
         try {
             if (character == null) {
-                //Debug.Log("TYOLD EM"+abilityName);
-                //if we're doing this to regular character screen
-                if (UIManager.singleton.inventoryScreenHidden.hidden)
-                    UIManager.singleton.characterInfoScreen.character.initRoundStart();
-                else//we're doing this to inventory Character Screen
-                    UIManager.singleton.inventoryScreen.inventoryCharacterScreen.character.initRoundStart();
-
+                UIManager.singleton.characterInfoScreen.character.initRoundStart();
             }
             for (int i = 0; i < valueNames.Count; i++) {
                 valueAmt[i] = baseAmt[i] + character.PD * PDRatio[i] + character.MD * MDRatio[i] + character.INF * INFRatio[i] + character.HPMax * HPMaxRatio[i] + character.HP * HPRatio[i] + character.level * LVLRatio[i] + character.MS * MSRatio[i] + character.AS * ASRatio[i];

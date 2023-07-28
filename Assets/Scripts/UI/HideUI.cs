@@ -16,7 +16,6 @@ public class HideUI : MonoBehaviour
     public bool hidden;
     public int speed=500;
 
-
     private void Start() {
         if (!manualInit) { 
             setInitPos();

@@ -14,15 +14,11 @@ public class InventoryCharacterDisplay : MonoBehaviour
     [SerializeField] private Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
     [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private GameObject notification;
-
-
-    //to make the button glow
-    public bool glow;
-    public ColorBlock defaultColor;
+    public GameObject deathSkull;
     void Start()
     {
-        inventoryScreen = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>().inventoryScreen;
         btn.onClick.AddListener(viewCharacter);
         //sets the image
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
@@ -31,41 +27,19 @@ public class InventoryCharacterDisplay : MonoBehaviour
         healthBar.character = character;
         //sets the name
         name.text = character.name;
-        defaultColor = btn.colors;
     }
-
-    public void viewCharacter() {
-        //if character selectetd first
-        //(Still in landingPage
-        if (inventoryScreen.pageIndex == 0) {
-            inventoryScreen.characterSelected = character;
-            inventoryScreen.viewCharacter();
-        }
-        //if ability selected first then character selected
-        if(inventoryScreen.pageIndex == 1) {
-            inventoryScreen.characterSelected = character;
-            inventoryScreen.viewCharacter();
-            inventoryScreen.openAbilityCharacterPage();
-            inventoryScreen.inventoryCharacterScreen.confirmAddAbilityPage();
-        }
-        //and also open CharacterScreen with character
+    private void viewCharacter() {
+        UIManager.singleton.viewCharacterInInventory(character);
     }
     private void Update() {
-        if (glow) {
-            float x = Mathf.PingPong(Time.unscaledTime * 0.3f, 0.5f);
-            new Color(x, x, x);
-            ColorBlock cb = btn.colors;
-            cb.normalColor = defaultColor.normalColor + new Color(x, x, x);
-            btn.colors = cb;
-        }
-        else {
-            btn.colors = defaultColor;
-        }
+        deathSkull.SetActive(!character.alive);
+
         if (character.statPoints > 0) {
             notification.SetActive(true);
         }
         else
             notification.SetActive(false);
     }
+
 
 }
