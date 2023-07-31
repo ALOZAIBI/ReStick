@@ -187,7 +187,7 @@ public class CharacterInfoScreen : MonoBehaviour
     //Used for opening and closing fullscreen.
     [SerializeField] public float time;
     //Used for focusing elements
-    [SerializeField] private float time2;
+    [SerializeField] public float time2;
 
     
     //to be able to place the ability displays here
@@ -344,6 +344,7 @@ public class CharacterInfoScreen : MonoBehaviour
             if (inventoryScreen) {
                 time = 0; //so that it will close instantly
                 UIManager.singleton.charInfoScreenHidden.hidden = true;
+                UIManager.singleton.charInfoScreenHidden.instantMove();
             }
         }
     }

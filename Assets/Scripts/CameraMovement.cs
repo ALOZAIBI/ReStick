@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Tilemaps;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float zoomMin;
     [SerializeField] private float zoomMax;
 
+    [SerializeField] private bool zoomingBackIn;
+    [SerializeField] private float zoomSpeed;
+    [SerializeField] private int zoomTarget;
+    [SerializeField] public Tilemap tilemapToDisplayFully;
+    [SerializeField] private float zoomLevelBeforeDisplayingFully;
     //used to get first touch to be used in dragOrigin
     private bool touching = false;
 
@@ -50,6 +56,43 @@ public class CameraMovement : MonoBehaviour
         }
 
     }
+
+    //Instantly zooms out and centers camera so that all tiles of the tilemape are visible, then after a delay zoom back into the previous zoom level
+    public void showMapIntoZoom() {
+        if (tilemapToDisplayFully == null)
+            return;
+
+        pannable = false;
+        zoomingBackIn = true;
+        zoomLevelBeforeDisplayingFully = cam.orthographicSize;
+        BoundsInt bounds = tilemapToDisplayFully.cellBounds;
+        float aspectRatio = (float)Screen.width / Screen.height;
+
+        // Calculate the width and height of the bounds in world space
+        float boundsWidth = bounds.size.x * tilemapToDisplayFully.cellSize.x;
+        float boundsHeight = bounds.size.y * tilemapToDisplayFully.cellSize.y;
+
+        // Add padding to avoid tiles being too close to the edge of the camera view
+        float padding = 0f;
+
+        // Calculate the required camera size based on the bounds and padding
+        float targetWidth = boundsWidth + padding;
+        float targetHeight = boundsHeight / aspectRatio + padding;
+
+        // Determine the larger dimension and set the targetOrthographicSize accordingly
+        cam.orthographicSize = Mathf.Max(targetWidth, targetHeight) * 0.5f;
+
+        //// Ensure the targetOrthographicSize doesn't go below the minimum specified value
+        //targetOrthographicSize = Mathf.Max(targetOrthographicSize, minOrthographicSize);
+
+        // Calculate the center position of the Tilemap in world space
+        Vector3 tilemapCenter = tilemapToDisplayFully.cellBounds.center;
+        Vector3 tilemapCenterWorld = tilemapToDisplayFully.transform.TransformPoint(tilemapCenter);
+
+        // Set the camera's position to the center of the Tilemap
+        cam.transform.position = new Vector3(tilemapCenterWorld.x, tilemapCenterWorld.y, cam.transform.position.z);
+    
+    }
     private void Update() {
         if (pannable) {
             panCamera();
@@ -72,6 +115,16 @@ public class CameraMovement : MonoBehaviour
             else
             //multiplied by 2 just to increase sens
             zoom(Input.GetAxis("Mouse ScrollWheel") * 2);
+        }
+        //Maybe add delay before zooming in
+        if (zoomingBackIn) {
+            if ((int)cam.orthographicSize != zoomTarget) {
+                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomTarget, zoomSpeed * Time.unscaledDeltaTime);
+            }
+            else {
+                zoomingBackIn = false;
+                pannable = true;
+            }
         }
     }
 

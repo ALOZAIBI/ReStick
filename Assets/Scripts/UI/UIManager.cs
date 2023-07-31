@@ -153,10 +153,12 @@ public class UIManager : MonoBehaviour
 
     public void viewCharacterInInventory(Character charSel) {
         charInfoScreenHidden.hidden = false;
+        charInfoScreenHidden.instantMove();
         //Insantly makes it full Screen
         characterInfoScreen.inventoryScreen = true;
         characterInfoScreen.viewCharacterFullScreen(charSel);
-        characterInfoScreen.time = characterInfoScreen.transitionTime*0.95f;
+        characterInfoScreen.time = characterInfoScreen.transitionTime* 0.95f;
+        characterInfoScreen.time2 = characterInfoScreen.transitionTime* 0.95f;
 
     }
     //on first time clicking character Display its info in the topstatDisplay
@@ -176,6 +178,7 @@ public class UIManager : MonoBehaviour
     public void viewTopstatDisplay(Character charSel) {
         character = charSel;
         characterInfoScreen.character = character;
+        characterInfoScreen.inventoryScreen = false;
         charInfoScreenHidden.hidden = false;
     }
     public void viewCharacterInfo(Character currChar) {

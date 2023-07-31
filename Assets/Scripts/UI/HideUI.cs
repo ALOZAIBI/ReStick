@@ -15,6 +15,7 @@ public class HideUI : MonoBehaviour
     private bool initPosSet;
     public bool hidden;
     public int speed=500;
+    public bool debugging;
 
     private void Start() {
         if (!manualInit) { 
@@ -31,6 +32,25 @@ public class HideUI : MonoBehaviour
             try { other.transform.localPosition = otherInitPos + targetPosDelta; } catch { }
         }
         initPosSet = true;
+        
+    }
+    //To unhide/hide instantly
+    public void instantMove() {
+        if (initPosSet) {
+            //local position since child of cmaera
+            //if this is to be hidden move it towards init - targetPosDelta;
+            if (hidden) {
+                transform.localPosition = initPos + targetPosDelta;
+                try { other.transform.localPosition =otherInitPos + targetPosDelta; } catch { }
+            }
+            //else return to init
+            else {
+                transform.localPosition = initPos;
+                try { other.transform.localPosition =otherInitPos;} catch { }
+
+            }
+        }
+        debugging = true;
     }
     // Update is called once per frame
     void Update() {

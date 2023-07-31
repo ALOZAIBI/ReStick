@@ -1708,6 +1708,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 12000
+  debugging: 0
 --- !u!114 &171991567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2603,6 +2604,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 15000
+  debugging: 0
 --- !u!61 &209563749
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5206,6 +5208,11 @@ MonoBehaviour:
   dragDifference: {x: 0, y: 0}
   zoomMin: 2
   zoomMax: 18
+  zoomingBackIn: 0
+  zoomSpeed: 3
+  zoomTarget: 15
+  tilemapToDisplayFully: {fileID: 0}
+  zoomLevelBeforeDisplayingFully: 0
   pannable: 1
 --- !u!114 &519420035
 MonoBehaviour:
@@ -5611,6 +5618,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 10000
+  debugging: 0
 --- !u!1 &563015696
 GameObject:
   m_ObjectHideFlags: 0
@@ -7382,6 +7390,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 150000
+  debugging: 0
 --- !u!1 &620569512
 GameObject:
   m_ObjectHideFlags: 0
@@ -7924,6 +7933,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 20000
+  debugging: 0
 --- !u!114 &670925390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9742,6 +9752,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 4000
+  debugging: 0
 --- !u!1 &871650819
 GameObject:
   m_ObjectHideFlags: 0
@@ -10237,6 +10248,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 2400
+  debugging: 0
 --- !u!114 &927581419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10571,6 +10583,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 12000
+  debugging: 0
 --- !u!1001 &985888471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12561,6 +12574,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 2000
+  debugging: 0
 --- !u!114 &1167869883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13337,7 +13351,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 411.7
+  m_fontSize: 355.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
