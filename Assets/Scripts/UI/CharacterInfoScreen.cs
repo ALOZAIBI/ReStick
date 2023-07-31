@@ -321,7 +321,7 @@ public class CharacterInfoScreen : MonoBehaviour
         healthBarPanelPositionB = healthBarPanel.GetBottom();
     }
     #region movingUIElementsNStuff
-    private void startOpening() {
+    public void startOpening() {
         if (!opened) {
             setPanelStuffActive(true);
             opened = true;
@@ -341,11 +341,8 @@ public class CharacterInfoScreen : MonoBehaviour
             opening = false;
             closing = true;
             willHandlePause = true;
-            if (inventoryScreen) {
-                time = 0; //so that it will close instantly
-                UIManager.singleton.charInfoScreenHidden.hidden = true;
-                UIManager.singleton.charInfoScreenHidden.instantMove();
-            }
+            if(inventoryScreen)
+                gameObject.SetActive(false);
         }
     }
     private void setPanelStuffActive(bool bol) {
@@ -384,7 +381,13 @@ public class CharacterInfoScreen : MonoBehaviour
         //The comments are in the case of expanding the panel but they are also applicable in reverse I guess
         //Puts it below Portrait Panel (Where stats panel was initially)
         //by finding the scale amount we can find the position of the initial bottom anchor and then set the top to thatposition
-        float scaleAmount = (mainPanel.GetAnchorTop() - (1-mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
+        float scaleAmount;
+        if (inventoryScreen)
+            scaleAmount = (uiManager.characterInfoScreen.mainPanel.GetAnchorTop() - (1 - uiManager.characterInfoScreen.mainPanel.GetAnchorTop())) / (uiManager.characterInfoScreen.mainPanelAnchorT - uiManager.characterInfoScreen.mainPanelAnchorB);
+        else
+            scaleAmount = (mainPanel.GetAnchorTop() - (1 - mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
+
+        Debug.Log(scaleAmount);
         xpPanel.SetAnchorTop(Mathf.Lerp(xpPanelAnchorT, statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), time / transitionTime));
 
         //Stretches it to the right
@@ -456,7 +459,7 @@ public class CharacterInfoScreen : MonoBehaviour
             if (focusElement >= 0 && focusElement <= 4) {
                 targetSelector.gameObject.SetActive(true);
                 targetSelector.transform.SetParent(uiManager.focus.transform);
-                targetSelector.setupTargetSelector(abilityDisplays[focusElement].GetComponent<AbilityDisplay>().ability);
+                targetSelector.setupTargetSelector(abilityDisplays[focusElement].GetComponent<AbilityDisplay>().ability,this);
 
                 abilityDisplays[focusElement].transform.SetParent(uiManager.focus.transform);
                 abilityTargetting[focusElement].transform.SetParent(uiManager.focus.transform);
@@ -465,7 +468,7 @@ public class CharacterInfoScreen : MonoBehaviour
             if (focusElement == 5) {
                 targetSelector.gameObject.SetActive(true);
                 targetSelector.transform.SetParent(uiManager.focus.transform);
-                targetSelector.setupTargetSelector();
+                targetSelector.setupTargetSelector(this);
 
                 targetSelectionBtn.transform.SetParent(uiManager.focus.transform);
             }
@@ -606,6 +609,7 @@ public class CharacterInfoScreen : MonoBehaviour
         //foreach (Ability temp in currChar.abilities) {
         //    temp.character = currChar;
         //}
+
         character = currChar;
         displayNameAndPortrait(currChar);
         //openLandingPage();
@@ -1235,8 +1239,7 @@ public class CharacterInfoScreen : MonoBehaviour
             statUpgrading.resetChangesBtn.transform.SetParent(transform);
             statUpgrading.applyChangesBtn.transform.SetParent(transform);
             healthBar.transform.SetParent(transform);
-            statsPanelBtn.enabled = true;
-            xpPanelBtn.enabled = true;
+            setPanelStuffActive(true);
             //redisplays abilities
             displayCharacterAbilities(character);
             willHandleDeActivatingFocus = false;

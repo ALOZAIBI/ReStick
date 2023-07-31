@@ -1675,6 +1675,7 @@ MonoBehaviour:
   cancelAddingAbilityBtn: {fileID: 8935885896334687544}
   confirmAddAbilityBtn: {fileID: 0}
   confirmAddAbilityBtnImage: {fileID: 0}
+  hideUIInitValues: {x: 0, y: 0}
   opening: 0
   closing: 0
   opened: 0
@@ -1719,6 +1720,7 @@ MonoBehaviour:
   - {fileID: 254819075334578583}
   - {fileID: 1447174856814338269}
   - {fileID: 284074364734305559}
+  inventoryScreen: 0
   openingFullScreen: 0
 --- !u!114 &5774335063356062309
 MonoBehaviour:
@@ -1809,6 +1811,7 @@ MonoBehaviour:
   manualInit: 0
   hidden: 1
   speed: 12000
+  debugging: 0
 --- !u!114 &1100062144125885247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5993,6 +5996,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5585093124736032322}
+    - target: {fileID: 7690365411659297195, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.773
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690365411659297195, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6112846
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690365411659297195, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2943222
+      objectReference: {fileID: 0}
     - target: {fileID: 7798682026055911244, guid: d884841d325d67a4a99a30951a2c2d3f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -151,16 +151,6 @@ public class UIManager : MonoBehaviour
         openInventoryBtn.onClick.AddListener(openInventory);
     }
 
-    public void viewCharacterInInventory(Character charSel) {
-        charInfoScreenHidden.hidden = false;
-        charInfoScreenHidden.instantMove();
-        //Insantly makes it full Screen
-        characterInfoScreen.inventoryScreen = true;
-        characterInfoScreen.viewCharacterFullScreen(charSel);
-        characterInfoScreen.time = characterInfoScreen.transitionTime* 0.95f;
-        characterInfoScreen.time2 = characterInfoScreen.transitionTime* 0.95f;
-
-    }
     //on first time clicking character Display its info in the topstatDisplay
     //then if character is clicked again or more info button was clicked open the charInfoScreen
     public void viewCharacter(Character charSel) {
@@ -178,7 +168,6 @@ public class UIManager : MonoBehaviour
     public void viewTopstatDisplay(Character charSel) {
         character = charSel;
         characterInfoScreen.character = character;
-        characterInfoScreen.inventoryScreen = false;
         charInfoScreenHidden.hidden = false;
     }
     public void viewCharacterInfo(Character currChar) {
@@ -301,8 +290,6 @@ public class UIManager : MonoBehaviour
         shopScreenHidden.hidden = true;
         shopScreen.close();    
         inventoryScreenHidden.hidden = true;
-        inventoryScreen.closeHeader();
-        inventoryScreen.closeBody();
         gameWonScreenHidden.hidden = true;
         mapWonScreenHidden.hidden = true;
 
@@ -407,7 +394,7 @@ public class UIManager : MonoBehaviour
         //closeUIBtn.gameObject.SetActive(true);
         //openInventoryBtn.gameObject.SetActive(false);
         inventoryScreenHidden.hidden = false;
-        inventoryScreen.setupInventoryScreen();
+        inventoryScreen.setupInventoryScreen(); 
     }
     
     public void openShop(Shop shop) {

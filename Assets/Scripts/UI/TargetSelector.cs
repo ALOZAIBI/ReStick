@@ -13,6 +13,8 @@ public class TargetSelector : MonoBehaviour
 
     public bool isAbilityTargetSelector;
 
+    CharacterInfoScreen characterInfoScreen;
+
     [SerializeField]private Ability ability;
 
     [SerializeField]private Button toggle;
@@ -71,18 +73,19 @@ public class TargetSelector : MonoBehaviour
         updateToggleView();
     }
     //if without parameter then this is not ability target selector
-    public void setupTargetSelector() {
+    public void setupTargetSelector(CharacterInfoScreen characterInfoScreen) {
+        this.characterInfoScreen = characterInfoScreen;
         isAbilityTargetSelector = false;
         this.ability = null;
         removeAbilityBtn.gameObject.SetActive(false);
-        if(UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestPDEnemy
-            || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestMDEnemy
-            || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestINFEnemy
-            || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestHPEnemy
-            || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestPDAlly
-            || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestMDAlly
-            || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestINFAlly
-            || UIManager.singleton.characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestHPAlly 
+        if(characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestPDEnemy
+            || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestMDEnemy
+            || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestINFEnemy
+            || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestHPEnemy
+            || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestPDAlly
+            || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestMDAlly
+            || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestINFAlly
+            || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestHPAlly 
             ) {
             highest = true;
         }
@@ -92,7 +95,8 @@ public class TargetSelector : MonoBehaviour
         updateToggleView();
     }
     //With parameter so this is ability target selecotr
-    public void setupTargetSelector(Ability ability) {
+    public void setupTargetSelector(Ability ability,CharacterInfoScreen characterInfoScreen) {
+        this.characterInfoScreen = characterInfoScreen;
         isAbilityTargetSelector = true;
         this.ability = ability;
         removeAbilityBtn.gameObject.SetActive(true);
@@ -181,12 +185,12 @@ public class TargetSelector : MonoBehaviour
     private void updateTargettingView() {
         if (isAbilityTargetSelector) {
             //Get it's index within charinfoscreen
-            int index = UIManager.singleton.characterInfoScreen.abilities.IndexOf(ability);
+            int index = characterInfoScreen.abilities.IndexOf(ability);
             //Updates the targetting view
-            UIManager.singleton.characterInfoScreen.updateAbilityTargettingView(ability,index);
+            characterInfoScreen.updateAbilityTargettingView(ability,index);
         }
         else {
-            UIManager.singleton.characterInfoScreen.updatePrimaryTargettingView();
+            characterInfoScreen.updatePrimaryTargettingView();
         }
 
     }
@@ -203,10 +207,10 @@ public class TargetSelector : MonoBehaviour
         else {
 
             if (highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestPDEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestPDEnemy;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestPDEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestPDEnemy;
             }
         }
         updateTargettingView();
@@ -223,10 +227,10 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             if(highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestMDEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestMDEnemy;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestMDEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestMDEnemy;
             }
         }
         updateTargettingView();
@@ -243,10 +247,10 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             if (highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestINFEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestINFEnemy;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestINFEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestINFEnemy;
             }
         }
         updateTargettingView();
@@ -263,10 +267,10 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             if(highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestHPEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestHPEnemy;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestHPEnemy;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestHPEnemy;
             }
         }
         updateTargettingView();
@@ -277,7 +281,7 @@ public class TargetSelector : MonoBehaviour
             ability.targetStrategy = (int)Character.TargetList.ClosestEnemy;
         }
         else {
-            UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.ClosestEnemy;
+            characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.ClosestEnemy;
         }
         updateTargettingView();
     }
@@ -293,10 +297,10 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             if(highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestPDAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestPDAlly;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestPDAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestPDAlly;
             }
         }
         updateTargettingView();
@@ -312,10 +316,10 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             if(highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestMDAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestMDAlly;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestMDAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestMDAlly;
             }
         }
         updateTargettingView();
@@ -331,10 +335,10 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             if(highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestINFAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestINFAlly;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestINFAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestINFAlly;
             }
         }
         updateTargettingView();
@@ -350,10 +354,10 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             if(highest) {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestHPAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestHPAlly;
             }
             else {
-                UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestHPAlly;
+                characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestHPAlly;
             }
         }
         updateTargettingView();
@@ -363,7 +367,7 @@ public class TargetSelector : MonoBehaviour
             ability.targetStrategy = (int)Character.TargetList.ClosestAlly;
         }
         else {
-            UIManager.singleton.characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.ClosestAlly;
+            characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.ClosestAlly;
         }
         updateTargettingView();
     }
@@ -373,11 +377,11 @@ public class TargetSelector : MonoBehaviour
         //sets the parent to be ability inventory
         ability.transform.parent = UIManager.singleton.playerParty.abilityInventory.transform;
         //removes ability from character
-        UIManager.singleton.characterInfoScreen.character.abilities.Remove(ability);
+        characterInfoScreen.character.abilities.Remove(ability);
         //Removes character from ability
         ability.character = null;
         //Starts unfocusing
-        UIManager.singleton.characterInfoScreen.startUnfocusing();
+        characterInfoScreen.startUnfocusing();
         //saves removing the ability
         if (SceneManager.GetActiveScene().name == "World") {
             UIManager.singleton.saveWorldSave();

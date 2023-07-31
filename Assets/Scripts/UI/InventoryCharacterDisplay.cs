@@ -29,7 +29,7 @@ public class InventoryCharacterDisplay : MonoBehaviour
         name.text = character.name;
     }
     private void viewCharacter() {
-        UIManager.singleton.viewCharacterInInventory(character);
+        UIManager.singleton.inventoryScreen.viewCharacter(character);
     }
     private void Update() {
         deathSkull.SetActive(!character.alive);
