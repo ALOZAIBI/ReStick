@@ -153,11 +153,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872176, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -12.911808
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872176, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5.392501
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872176, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_LocalPosition.z
@@ -190,6 +190,10 @@ PrefabInstance:
     - target: {fileID: 1105442034894872176, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872177, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.109375
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: AS
@@ -240,17 +244,25 @@ PrefabInstance:
       value: Fire Mage
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872191, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ef00acd155bd61f4994a51f1ed1459ce, type: 3}
+    - target: {fileID: 1105442034894872191, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_Color.b
-      value: 0.14070843
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872191, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_Color.g
-      value: 0.3161929
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872191, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_Color.r
-      value: 0.9622642
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9176932429385858113, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: aefa4fccef8a6fe45940600374c1f8ec, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
 --- !u!4 &7729010245940618883 stripped

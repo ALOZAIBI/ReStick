@@ -429,6 +429,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7729010245940618892, guid: 89f89c947e633ce468e9f2b73664e2e0, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729010245940618892, guid: 89f89c947e633ce468e9f2b73664e2e0, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729010245940618892, guid: 89f89c947e633ce468e9f2b73664e2e0, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7729010245940618893, guid: 89f89c947e633ce468e9f2b73664e2e0, type: 3}
       propertyPath: m_Name
       value: Fire Mage
@@ -7385,6 +7397,7 @@ MonoBehaviour:
   abilityNames: []
   placeableOverlay: {fileID: 0}
   overlayTile: {fileID: 11400000, guid: a10ffefb0d9e3bb448bb6e0e24e5be67, type: 2}
+  tileMapToShowFully: {fileID: 1382720684}
 --- !u!483693784 &1884627745
 TilemapRenderer:
   m_ObjectHideFlags: 0
