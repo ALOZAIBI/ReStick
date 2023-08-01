@@ -118,7 +118,7 @@ public class CameraMovement : MonoBehaviour
         }
         //Maybe add delay before zooming in
         if (zoomingBackIn) {
-            if ((int)cam.orthographicSize != zoomTarget) {
+            if (Mathf.RoundToInt(cam.orthographicSize) != zoomTarget) {
                 cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomTarget, zoomSpeed * Time.unscaledDeltaTime);
             }
             else {

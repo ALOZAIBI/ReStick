@@ -708,6 +708,7 @@ public class CharacterInfoScreen : MonoBehaviour
             ability.updateDescription();
             AbilityDisplayAddAbility abilityDisplayAdding = Instantiate(abilityDisplayAddingAbility, addAbilityDisplaysArea.transform);
             abilityDisplayAdding.setupAbilityDisplay(ability);
+            abilityDisplayAdding.characterInfoScreen = this;
             Debug.Log("Ability name"+ability.name);
         }
     }

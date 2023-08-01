@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class AbilityDisplayAddAbility : AbilityDisplay
 {
+    public CharacterInfoScreen characterInfoScreen;
     private void Start() {
         base.Start();
         btn.onClick.AddListener(addToCharacter);
@@ -14,11 +15,11 @@ public class AbilityDisplayAddAbility : AbilityDisplay
 
     private void addToCharacter() {
         //Adds the clicked ability to the selected character(selected in charInfoScreen)
-        uiManager.characterInfoScreen.character.abilities.Add(ability);
+        characterInfoScreen.character.abilities.Add(ability);
         //Sets parent of ability to playerParty's active abilities
         ability.transform.parent = uiManager.playerParty.activeAbilities.transform;
         //Starts unfocusing
-        uiManager.characterInfoScreen.startUnfocusing();
+        characterInfoScreen.startUnfocusing();
 
         //saves adding the ability
         if (SceneManager.GetActiveScene().name == "World") {
@@ -28,8 +29,8 @@ public class AbilityDisplayAddAbility : AbilityDisplay
             uiManager.saveMapSave();
 
         //Moves the addAbilityPanel back to CharacterInfoScreen
-        uiManager.characterInfoScreen.addAbilityPanel.transform.parent = uiManager.characterInfoScreen.transform;
+        characterInfoScreen.addAbilityPanel.transform.parent = characterInfoScreen.transform;
         //Sets the addAbilityPanel to inactive
-        uiManager.characterInfoScreen.addAbilityPanel.gameObject.SetActive(false);
+        characterInfoScreen.addAbilityPanel.gameObject.SetActive(false);
     }
 }
