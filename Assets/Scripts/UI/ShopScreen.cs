@@ -17,7 +17,7 @@ public class ShopScreen : MonoBehaviour
     public GameObject characterPlayerPartyArea;
 
     public Button backBtn;
-
+    public Button closeBtn;
     public TextMeshProUGUI goldText;
 
     //cost of purchase of abilities
@@ -41,6 +41,7 @@ public class ShopScreen : MonoBehaviour
 
     private void Start() {
         backBtn.onClick.AddListener(back);
+        closeBtn.onClick.AddListener(closeScreen);
     }
 
     //goes from hospital screen to regular shop screen
@@ -100,6 +101,10 @@ public class ShopScreen : MonoBehaviour
         closeCharactersPlayerParty();
         listAbilities.Clear();
         listCharacters.Clear();
+    }
+    private void closeScreen() {
+        close();
+        UIManager.singleton.shopScreenHidden.hidden = true;
     }
     public void displayAbilities() {
         //creates ability Displays
@@ -163,7 +168,7 @@ public class ShopScreen : MonoBehaviour
         characterArea.SetActive(true);
         characterPlayerPartyArea.SetActive(true);
         backBtn.gameObject.SetActive(false);
-        UIManager.singleton.closeUIBtn.gameObject.SetActive(true);
+        //UIManager.singleton.closeUIBtn.gameObject.SetActive(true);
         hospitalTrainingScreen.gameObject.SetActive(false);
         pageIndex = 0;
     }
@@ -173,7 +178,7 @@ public class ShopScreen : MonoBehaviour
         characterArea.SetActive(false);
         characterPlayerPartyArea.SetActive(true);
         backBtn.gameObject.SetActive(true);
-        UIManager.singleton.closeUIBtn.gameObject.SetActive(false);
+        //UIManager.singleton.closeUIBtn.gameObject.SetActive(false);
         hospitalTrainingScreen.gameObject.SetActive(true);
         hospitalTrainingScreen.updateButtons();
         pageIndex = 1;

@@ -53,40 +53,7 @@ public class Shop : MonoBehaviour
             //then saves the purchase info
             SaveSystem.saveShopAbilitiesAndPurchaseInfo(this);
         }
+
+        UIManager.singleton.shopScreen.shop = this;
     }
-
-
-
-    //onclick load specified scene
-    private void OnMouseDown() {
-        click = true;
-    }
-
-    //checks wether the click is held or not
-    private void mouseClickedNotHeld() {
-
-        if (click) {
-            //counts mouse down to determine if click or hold
-            if (Input.GetMouseButton(0)) {
-                mouseHoldDuration += Time.unscaledDeltaTime;
-            }
-            //if click 
-            else if (mouseHoldDuration < 0.2f) {
-                //open shop
-                UIManager.singleton.openShop(this);
-                click = false;
-            }
-            //if HOLD
-            else {
-                //reset values
-                mouseHoldDuration = 0;
-                click = false;
-            }
-        }
-    }
-
-    private void Update() {
-        mouseClickedNotHeld();
-    }
-    //when closing the shop save the abilites and characters and if they were sold or not
 }

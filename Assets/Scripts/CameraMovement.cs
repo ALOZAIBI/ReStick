@@ -14,9 +14,12 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float zoomMax;
 
     [SerializeField] private bool zoomingBackIn;
+    [SerializeField] private float pauseDuration;
     [SerializeField] private float zoomSpeed;
+    [SerializeField] private float pauseDurationTarget;
     [SerializeField] private int zoomTarget;
     [SerializeField] public Tilemap tilemapToDisplayFully;
+    [SerializeField] public Tilemap tilemapToFocus;
     [SerializeField] private float zoomLevelBeforeDisplayingFully;
     //used to get first touch to be used in dragOrigin
     private bool touching = false;
@@ -61,7 +64,7 @@ public class CameraMovement : MonoBehaviour
     public void showMapIntoZoom() {
         if (tilemapToDisplayFully == null)
             return;
-
+        pauseDuration = 0;
         pannable = false;
         zoomingBackIn = true;
         zoomLevelBeforeDisplayingFully = cam.orthographicSize;
@@ -76,21 +79,34 @@ public class CameraMovement : MonoBehaviour
         float padding = 0f;
 
         // Calculate the required camera size based on the bounds and padding
-        float targetWidth = boundsWidth + padding;
+        float targetWidth = boundsWidth / aspectRatio + padding;
         float targetHeight = boundsHeight / aspectRatio + padding;
 
         // Determine the larger dimension and set the targetOrthographicSize accordingly
-        cam.orthographicSize = Mathf.Max(targetWidth, targetHeight) * 0.5f;
+        cam.orthographicSize = Mathf.Max(targetWidth, targetHeight) * 0.4f;
 
         //// Ensure the targetOrthographicSize doesn't go below the minimum specified value
         //targetOrthographicSize = Mathf.Max(targetOrthographicSize, minOrthographicSize);
 
-        // Calculate the center position of the Tilemap in world space
-        Vector3 tilemapCenter = tilemapToDisplayFully.cellBounds.center;
-        Vector3 tilemapCenterWorld = tilemapToDisplayFully.transform.TransformPoint(tilemapCenter);
+        
 
-        // Set the camera's position to the center of the Tilemap
-        cam.transform.position = new Vector3(tilemapCenterWorld.x, tilemapCenterWorld.y, cam.transform.position.z);
+        if (tilemapToFocus != null) {
+            // Calculate the center position of the Tilemap to focus in world space
+            Vector3 tilemapCenter1 = tilemapToFocus.cellBounds.center;
+            Vector3 tilemapCenterWorld1 = tilemapToFocus.transform.TransformPoint(tilemapCenter1);
+
+            // Set the camera's position to the center of the Tilemap to focus
+            cam.transform.position = new Vector3(tilemapCenterWorld1.x, tilemapCenterWorld1.y, cam.transform.position.z);
+        }
+
+        else {
+            // Calculate the center position of the Tilemap in world space
+            Vector3 tilemapCenter = tilemapToDisplayFully.cellBounds.center;
+            Vector3 tilemapCenterWorld = tilemapToDisplayFully.transform.TransformPoint(tilemapCenter);
+
+            cam.transform.position = new Vector3(tilemapCenterWorld.x, tilemapCenterWorld.y, cam.transform.position.z);
+        }
+        
     
     }
     private void Update() {
@@ -118,12 +134,18 @@ public class CameraMovement : MonoBehaviour
         }
         //Maybe add delay before zooming in
         if (zoomingBackIn) {
-            if (Mathf.RoundToInt(cam.orthographicSize) != zoomTarget) {
-                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomTarget, zoomSpeed * Time.unscaledDeltaTime);
+            //pause zoom delay
+            if (pauseDuration < pauseDurationTarget) {
+                pauseDuration += Time.unscaledDeltaTime;
             }
             else {
-                zoomingBackIn = false;
-                pannable = true;
+                if (Mathf.RoundToInt(cam.orthographicSize) != zoomTarget) {
+                    cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomTarget, zoomSpeed * Time.unscaledDeltaTime);
+                }
+                else {
+                    zoomingBackIn = false;
+                    pannable = true;
+                }
             }
         }
     }

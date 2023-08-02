@@ -606,7 +606,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1407,16 +1407,16 @@ Tilemap:
   - m_RefCount: 80
     m_Data: {fileID: 11400000, guid: 70d3a729056d00b4dacf559bbaa33694, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 1002301257, guid: 0a6a6fb301c585a40b78de41ab21555d, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 6
     m_Data: {fileID: -1344358058, guid: 0a6a6fb301c585a40b78de41ab21555d, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 1915207833, guid: 0a6a6fb301c585a40b78de41ab21555d, type: 3}
   - m_RefCount: 35
     m_Data: {fileID: -1934181031, guid: 0a6a6fb301c585a40b78de41ab21555d, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1002301257, guid: 0a6a6fb301c585a40b78de41ab21555d, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: -1864052340, guid: 0a6a6fb301c585a40b78de41ab21555d, type: 3}
   - m_RefCount: 1
@@ -11193,6 +11193,7 @@ MonoBehaviour:
   abilityNames: []
   placeableOverlay: {fileID: 0}
   overlayTile: {fileID: 11400000, guid: a10ffefb0d9e3bb448bb6e0e24e5be67, type: 2}
+  tileMapToShowFully: {fileID: 1382720684}
 --- !u!483693784 &1884627745
 TilemapRenderer:
   m_ObjectHideFlags: 0

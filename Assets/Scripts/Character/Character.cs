@@ -1327,8 +1327,8 @@ public class Character : MonoBehaviour {
                 startCooldown(1 / AS, (int)ActionAvailable.Attack);
 
                 //start cooldown of movement(Character stops moving for a bit after attack)
-                //When character has more than 5 AS there is no stopping movement
-                if (AS < 5)
+                //When character has more than 3.5f AS there is no stopping movement
+                if (AS < 3.5f)
                     startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
             }
             else {

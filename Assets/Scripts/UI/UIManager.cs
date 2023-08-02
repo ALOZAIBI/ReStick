@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
     public InventoryScreen inventoryScreen;
 
     public ShopScreen shopScreen;
+    public Button openShopButton;
     //Character Screen Stuff
     public CharacterInfoScreen characterInfoScreen;
     
@@ -152,6 +153,7 @@ public class UIManager : MonoBehaviour
         pausePlayBtn.onClick.AddListener(pausePlay);
         closeUIBtn.onClick.AddListener(closeUIButton);
         openInventoryBtn.onClick.AddListener(openInventory);
+        openShopButton.onClick.AddListener(openShop);
     }
 
     //on first time clicking character Display its info in the topstatDisplay
@@ -395,10 +397,9 @@ public class UIManager : MonoBehaviour
         inventoryScreen.setupInventoryScreen(); 
     }
     
-    public void openShop(Shop shop) {
+    public void openShop() {
         closeUIBtn.gameObject.SetActive(true);
         shopScreenHidden.hidden = false;
-        shopScreen.shop = shop;
         shopScreen.setupShopScreen();
     }
     //removes buffs from player characters. To be called in loadZone and on Restart

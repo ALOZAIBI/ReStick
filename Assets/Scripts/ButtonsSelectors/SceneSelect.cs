@@ -91,8 +91,8 @@ public class SceneSelect : MonoBehaviour
 
     //jumps to scene and sets all characters to inactive
     private void goTo() {
-        Camera.main.transform.position = new Vector3(0, 0, -10);
         if (map) {
+            Camera.main.transform.position = new Vector3(0, 0, -10);
             //Save GamestateData to be in this map
             SaveSystem.saveGameState(sceneToLoad, true);
             //deletes shop since everytime you visit a new map a new shop shouild be initialized

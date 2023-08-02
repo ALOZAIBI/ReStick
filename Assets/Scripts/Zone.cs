@@ -47,6 +47,8 @@ public class Zone : MonoBehaviour
     [SerializeField] private TileBase overlayTile;
 
     public Tilemap tileMapToShowFully;
+    public Tilemap tileMapToFocus;
+
     //connects to UImanager
     private void Start() {
         abilityContainer = GameObject.FindGameObjectWithTag("ZoneRewards");
@@ -83,6 +85,7 @@ public class Zone : MonoBehaviour
         drawPlaceableOverlay();
 
         Camera.main.GetComponent<CameraMovement>().tilemapToDisplayFully = tileMapToShowFully;
+        Camera.main.GetComponent<CameraMovement>().tilemapToFocus = tileMapToFocus;
         Camera.main.GetComponent<CameraMovement>().showMapIntoZoom();
     }
     //draws an overlay using placeable Tile over the placeable tilemap

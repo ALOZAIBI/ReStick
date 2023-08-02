@@ -2471,7 +2471,7 @@ MonoBehaviour:
   m_VoxelSize: 0.016666668
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: bb739530c8148754b839efe1965db139, type: 2}
 --- !u!4 &1150281382
 Transform:
   m_ObjectHideFlags: 0
@@ -2672,7 +2672,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 14
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2882,7 +2882,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 8
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3682,7 +3682,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 6
+      m_TileSpriteIndex: 8
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6632,7 +6632,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6842,7 +6842,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6859,18 +6859,18 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 1637794800, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 20
     m_Data: {fileID: 125608373, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -1845180168, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
+    m_Data: {fileID: 1637794800, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 786826399, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
+    m_Data: {fileID: -1845180168, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
   - m_RefCount: 17
     m_Data: {fileID: 1120954266, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -793731114, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
+    m_Data: {fileID: 786826399, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
   - m_RefCount: 60
     m_Data: {fileID: -1769794995, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
   - m_RefCount: 32
@@ -6882,9 +6882,9 @@ Tilemap:
   - m_RefCount: 17
     m_Data: {fileID: 1745712341, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
   - m_RefCount: 1
+    m_Data: {fileID: -793731114, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: 801013243, guid: 79af81aec5ff1274c8031f207e77960e, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 92
     m_Data:
@@ -7092,7 +7092,7 @@ MonoBehaviour:
   abilityNames: []
   placeableOverlay: {fileID: 0}
   overlayTile: {fileID: 11400000, guid: a10ffefb0d9e3bb448bb6e0e24e5be67, type: 2}
-  tileMapToShowFully: {fileID: 0}
+  tileMapToShowFully: {fileID: 1382720684}
 --- !u!483693784 &1884627745
 TilemapRenderer:
   m_ObjectHideFlags: 0
