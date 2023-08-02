@@ -13832,7 +13832,7 @@ MonoBehaviour:
   defaultColor: {r: 0.21960784, g: 0.25490198, b: 0.27058825, a: 1}
   buff: {r: 0.15294118, g: 0.4862745, b: 0.08627451, a: 1}
   debuff: {r: 0.6901961, g: 0.3137255, b: 0.1254902, a: 1}
-  allyHealthBar: {r: 0.08627451, g: 0.4862745, b: 0.21960784, a: 1}
+  allyHealthBar: {r: 0.10980392, g: 0.6039216, b: 0.52156866, a: 1}
   enemyHealthBar: {r: 0.8490566, g: 0.09211465, b: 0.09211465, a: 1}
   commonRarity: {r: 1, g: 1, b: 1, a: 1}
   rareRarity: {r: 0.18970275, g: 0.8207547, b: 0.7881843, a: 1}
@@ -17126,6 +17126,14 @@ PrefabInstance:
     - target: {fileID: 1105442034894872176, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872177, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.546875
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872177, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.6875
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: team

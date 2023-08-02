@@ -11,7 +11,7 @@ public abstract class Ability : MonoBehaviour
     //this is set in initroundstart in character
     public Character character;
     //This is used to save who the target is when the ability is triggered(Before the animation starts). Because in some cases the animation can start then the target moves out of range and hence becomes null on character.target. Also because character.target might be different from the target of the ability
-    protected Character lockedTarget;
+    [SerializeField]protected Character lockedTarget;
     public string abilityName;
     public string description;
 
