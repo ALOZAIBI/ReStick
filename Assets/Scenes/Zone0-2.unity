@@ -353,8 +353,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
+      propertyPath: HP
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
       propertyPath: MS
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
+      propertyPath: HPMax
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4215390622916315658, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
       propertyPath: m_Name
@@ -369,6 +377,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1040222488806866995, guid: 89f89c947e633ce468e9f2b73664e2e0, type: 3}
+      propertyPath: rangeAbility
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6629208629465333610, guid: 89f89c947e633ce468e9f2b73664e2e0, type: 3}
       propertyPath: attackRange
       value: 7
@@ -916,8 +928,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
+      propertyPath: HP
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
       propertyPath: MS
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
+      propertyPath: HPMax
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4215390622916315658, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
       propertyPath: m_Name
@@ -7277,8 +7297,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
+      propertyPath: HP
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
       propertyPath: MS
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
+      propertyPath: HPMax
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4215390622916315658, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
       propertyPath: m_Name
@@ -7398,6 +7426,8 @@ MonoBehaviour:
   placeableOverlay: {fileID: 0}
   overlayTile: {fileID: 11400000, guid: a10ffefb0d9e3bb448bb6e0e24e5be67, type: 2}
   tileMapToShowFully: {fileID: 1884627746}
+  tileMapToFocus: {fileID: 0}
+  zoomFocusAmount: 0
 --- !u!483693784 &1884627745
 TilemapRenderer:
   m_ObjectHideFlags: 0

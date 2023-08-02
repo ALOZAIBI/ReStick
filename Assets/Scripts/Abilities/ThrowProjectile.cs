@@ -34,6 +34,7 @@ public class ThrowProjectile : Ability
         if (available&& character.selectTarget(targetStrategy,rangeAbility)) {
             calculateAmt();
             playAnimation("castRaise");
+            lockedTarget = character.target;
         }
 
     }
@@ -50,12 +51,10 @@ public class ThrowProjectile : Ability
         //sets the damage amount (doesn't take the inf part much into account)
         projectile.DMG = valueAmt.getAmtValueFromName(this,"Damage");
         //sets the target
-        projectile.target = character.target;
+        projectile.target = lockedTarget;
+        Debug.Log("Projectile has no target");
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;
-        if (valueAmt.getAmtValueFromName(this,"BuffDuration") > 0 && buffPrefab == null) {
-            Debug.Log("DEBOGAS");
-        }
         //if there is a buff in this ability
         if (valueAmt.getAmtValueFromName(this, "BuffDuration") > 0) {
             if (buffPrefab == null)

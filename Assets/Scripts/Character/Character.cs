@@ -1579,11 +1579,11 @@ public class Character : MonoBehaviour {
         //(this only applies to player characters that are not summoned)
         if(!summoned && team == (int)teamList.Player) {
             ////increase stats a bit
-            //HPMax += 12;
+            HPMax += 12;
             //PD += 0.5f;
             //AS += 0.02f;
-            ////heal character by 20% of max HP on level up 
-            HP += 0.25f * HPMax;
+            ////heal character by 20% of max HP on level up and + 10 flat so that it helps with the early game
+            HP += 0.25f * HPMax + 10f;
 
             //Instantiate the levelupFX and destroy it after 1.5 seconds
             KeepOnTarget temp = Instantiate(levelUpFX, transform.position, Quaternion.identity);

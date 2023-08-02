@@ -17,7 +17,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float pauseDuration;
     [SerializeField] private float zoomSpeed;
     [SerializeField] private float pauseDurationTarget;
-    [SerializeField] private int zoomTarget;
+    [SerializeField] public int zoomTarget;
     [SerializeField] public Tilemap tilemapToDisplayFully;
     [SerializeField] public Tilemap tilemapToFocus;
     [SerializeField] private float zoomLevelBeforeDisplayingFully;

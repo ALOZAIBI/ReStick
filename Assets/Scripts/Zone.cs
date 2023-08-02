@@ -48,6 +48,7 @@ public class Zone : MonoBehaviour
 
     public Tilemap tileMapToShowFully;
     public Tilemap tileMapToFocus;
+    public int zoomFocusAmount;
 
     //connects to UImanager
     private void Start() {
@@ -83,10 +84,12 @@ public class Zone : MonoBehaviour
         }
 
         drawPlaceableOverlay();
-
-        Camera.main.GetComponent<CameraMovement>().tilemapToDisplayFully = tileMapToShowFully;
-        Camera.main.GetComponent<CameraMovement>().tilemapToFocus = tileMapToFocus;
-        Camera.main.GetComponent<CameraMovement>().showMapIntoZoom();
+        CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
+        cameraMovement.tilemapToDisplayFully = tileMapToShowFully;
+        cameraMovement.tilemapToFocus = tileMapToFocus;
+        if(zoomFocusAmount!=0)
+            cameraMovement.zoomTarget = zoomFocusAmount;
+        cameraMovement.showMapIntoZoom();
     }
     //draws an overlay using placeable Tile over the placeable tilemap
     private void drawPlaceableOverlay() {
