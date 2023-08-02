@@ -57,6 +57,7 @@ public class Zone : MonoBehaviour
 
         uIManager.retryBtn.gameObject.SetActive(true);
         uIManager.exitBtn.gameObject.SetActive(true);
+        uIManager.menuUIHidden.hidden = true;
         playerParty = GameObject.FindGameObjectWithTag("PlayerParty").GetComponent<PlayerManager>();
         zoneName = gameObject.scene.name;
 

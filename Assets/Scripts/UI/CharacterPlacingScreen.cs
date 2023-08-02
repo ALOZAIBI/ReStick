@@ -75,8 +75,6 @@ public class CharacterPlacingScreen : MonoBehaviour
         catch { }
         //hides the screen
         GetComponent<HideUI>().hidden = true;
-        //hides inventory
-        uiManager.openInventoryBtn.gameObject.SetActive(false);
         //Randomizes the CDs a bit on zoneStart so that the character won't throw everything all at once
         foreach(Transform child in uiManager.playerParty.transform) {
             if(child.tag == "Character") {

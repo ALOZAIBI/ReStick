@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
 
     public Tooltip tooltip;
 
+    public GameObject menuUI;
     public Button openInventoryBtn;
     //notifies if there are abilities in inventory
     public Image openInventoryNotification;
@@ -115,6 +116,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector]public HideUI gameLostScreenHidden;
     [HideInInspector]public HideUI topStatDisplayHidden;
     [HideInInspector]public HideUI shopScreenHidden;
+    [HideInInspector]public HideUI menuUIHidden;
 
     
 
@@ -136,6 +138,7 @@ public class UIManager : MonoBehaviour
         gameLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
         topStatDisplayHidden = topStatDisplay.GetComponent<HideUI>();
         shopScreenHidden = shopScreen.GetComponent<HideUI>();
+        menuUIHidden = menuUI.GetComponent<HideUI>();
 
         //
         lostToMapBtn.onClick.AddListener(backToMap);
@@ -236,8 +239,6 @@ public class UIManager : MonoBehaviour
         //pausePlayBtn.gameObject.SetActive(true);
         //hides timecontrol
         timeControlHidden.hidden = true;
-        //unhides inventory but it will be hidden again when start button is clicked in characte rplacing
-        openInventoryBtn.gameObject.SetActive(true);
         
         //characters are set to inactive in Scene Select        
         SceneManager.LoadScene(sceneToLoad);
@@ -277,7 +278,6 @@ public class UIManager : MonoBehaviour
         //hides the screen and shows pause again
         gameLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
-        openInventoryBtn.gameObject.SetActive(true);
         
         loadMapSave();
         DontDestroyOnLoad(playerParty);
@@ -301,7 +301,6 @@ public class UIManager : MonoBehaviour
         //unhides placing screen if zone not started
                 if (!zone.started) {
                     placingScreenHidden.hidden = false;
-                    openInventoryBtn.gameObject.SetActive(true);
                     
                 }
                 else {
@@ -316,7 +315,6 @@ public class UIManager : MonoBehaviour
         else {
             pausePlayBtn.gameObject.SetActive(false);
             timeControlHidden.hidden = true;
-            openInventoryBtn.gameObject.SetActive(true);
             exitBtn.gameObject.SetActive(false);
             retryBtn.gameObject.SetActive(false);
         }
@@ -431,11 +429,11 @@ public class UIManager : MonoBehaviour
     }
 
     private void inventoryNotification() {
-        if (playerParty.abilityInventory.transform.childCount > 0) {
-            openInventoryNotification.gameObject.SetActive(true);
-        }
-        else
-            openInventoryNotification.gameObject.SetActive(false);
+        //if (playerParty.abilityInventory.transform.childCount > 0) {
+        //    openInventoryNotification.gameObject.SetActive(true);
+        //}
+        //else
+        //    openInventoryNotification.gameObject.SetActive(false);
     }
     private void Update() {
         inventoryNotification();

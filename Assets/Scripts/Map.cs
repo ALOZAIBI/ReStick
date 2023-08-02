@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
     private void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         sceneSelectors = FindObjectsOfType<SceneSelect>();
-
+        uiManager.menuUIHidden.hidden = false;
         //Displays Map Won Screen
         if (allComplete()) {
             //revives and heals all characters to full
