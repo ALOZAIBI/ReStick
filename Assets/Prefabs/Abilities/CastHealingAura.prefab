@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  lockedTarget: {fileID: 0}
   abilityName: HealingAura
   description: Heal Aura Lmao
   color: {r: 0, g: 0, b: 0, a: 0}
@@ -56,7 +57,7 @@ MonoBehaviour:
   valueNames:
   - Amount
   baseAmt:
-  - 2
+  - 7
   PDRatio:
   - 0
   MDRatio:

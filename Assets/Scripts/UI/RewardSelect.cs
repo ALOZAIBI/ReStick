@@ -55,6 +55,7 @@ public class RewardSelect : MonoBehaviour
         //clears the list to be reinitialized in another zone
         listReward.Clear();
         }
+        SaveSystem.setRewardProgress(1);
     }
     //Displays the abilities and greys out the Button.
     public void displayAbilities() {

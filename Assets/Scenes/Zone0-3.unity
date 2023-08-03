@@ -1675,15 +1675,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204772192751909196, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1204772192751909196, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.860977
+      value: 6.87
       objectReference: {fileID: 0}
     - target: {fileID: 1204772192751909196, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5962549
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 1204772192751909196, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2364,15 +2364,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4254537352894640665, guid: 07dda5ae38b8617468fd74adbf984e79, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4254537352894640665, guid: 07dda5ae38b8617468fd74adbf984e79, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.266235
+      value: -4.57
       objectReference: {fileID: 0}
     - target: {fileID: 4254537352894640665, guid: 07dda5ae38b8617468fd74adbf984e79, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.68120563
+      value: 1.61
       objectReference: {fileID: 0}
     - target: {fileID: 4254537352894640665, guid: 07dda5ae38b8617468fd74adbf984e79, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2531,11 +2531,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2188304198075914644, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.7315786
+      value: -2.9
       objectReference: {fileID: 0}
     - target: {fileID: 2188304198075914644, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.973234
+      value: 7.8
       objectReference: {fileID: 0}
     - target: {fileID: 2188304198075914644, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2568,6 +2568,14 @@ PrefabInstance:
     - target: {fileID: 2188304198075914644, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188304198075914647, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
+      propertyPath: HP
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188304198075914647, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
+      propertyPath: HPMax
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2188304198075914650, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
       propertyPath: m_Name
@@ -7093,6 +7101,8 @@ MonoBehaviour:
   placeableOverlay: {fileID: 0}
   overlayTile: {fileID: 11400000, guid: a10ffefb0d9e3bb448bb6e0e24e5be67, type: 2}
   tileMapToShowFully: {fileID: 1382720684}
+  tileMapToFocus: {fileID: 0}
+  zoomFocusAmount: 14
 --- !u!483693784 &1884627745
 TilemapRenderer:
   m_ObjectHideFlags: 0

@@ -88,12 +88,14 @@ static class SaveSystem
                 RewardProgressData data = JsonConvert.DeserializeObject<RewardProgressData>(reader.ReadString());
                 //Checks if progress is 0 to give the reward
                 if (data.zonesSinceLastReward == 0) {
-                    //increment the progress
-                    data.zonesSinceLastReward++;
-                    data.zonesSinceLastReward %= UIManager.singleton.gameWonScreen.rewardEveryNZone;
-                    reader.Close();
-                    //Save the incremented progress
-                    setRewardProgress(data.zonesSinceLastReward);
+                    ////increment the progress
+                    //data.zonesSinceLastReward++;
+                    //data.zonesSinceLastReward %= UIManager.singleton.gameWonScreen.rewardEveryNZone;
+                    //reader.Close();
+                    ////Save the incremented progress
+                    //setRewardProgress(data.zonesSinceLastReward);
+                    
+                    //The rewardPorgress is reset when the ability is taken.
                     return true;
                 }
                 else {

@@ -1583,7 +1583,7 @@ public class Character : MonoBehaviour {
             //PD += 0.5f;
             //AS += 0.02f;
             ////heal character by 20% of max HP on level up and + 10 flat so that it helps with the early game
-            HP += 0.25f * HPMax + 10f;
+            HP += 0.25f * HPMax + 5f;
 
             //Instantiate the levelupFX and destroy it after 1.5 seconds
             KeepOnTarget temp = Instantiate(levelUpFX, transform.position, Quaternion.identity);
