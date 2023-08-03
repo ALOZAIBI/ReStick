@@ -32,8 +32,8 @@ public class CastMeleeAttack : Ability
     public override void doAbility() {
         if(available && character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
-            playAnimation("castRaise");
             lockedTarget = character.target;
+            playAnimation("castRaise");
         }
     }
 
@@ -44,7 +44,7 @@ public class CastMeleeAttack : Ability
         //sets the damage amount
         objAttack.DMG = valueAmt.getAmtValueFromName(this, "Damage");
         //sets the target
-        objAttack.target = lockedTarget.target;
+        objAttack.target = lockedTarget;
         //tells it this abilityName
         objAttack.castingAbilityName = abilityName;
         if (valueAmt.getAmtValueFromName(this,"BuffDuration") > 0 && buffPrefab == null) {
