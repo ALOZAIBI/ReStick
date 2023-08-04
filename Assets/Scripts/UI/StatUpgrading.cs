@@ -143,7 +143,21 @@ public class StatUpgrading : MonoBehaviour {
         updateAddColors();
         updateSubColors();
     }
+    public void focusAbilityIconHolder() {
+        foreach(RectTransform rectTransform in characterInfoScreen.abilityDisplays) {
+            AbilityDisplay abilityDisplay = rectTransform.GetComponent<AbilityDisplay>();
+            abilityDisplay.iconHolder.transform.SetParent(UIManager.singleton.focus.transform);
+        }
+    }
+    public void unFocusAbilityIconHolder() {
+        foreach (RectTransform rectTransform in characterInfoScreen.abilityDisplays) {
+            AbilityDisplay abilityDisplay = rectTransform.GetComponent<AbilityDisplay>();
+            Debug.Log("  "+abilityDisplay.iconHolder.transform.parent + " " + rectTransform);
+            abilityDisplay.iconHolder.transform.SetParent(rectTransform);
+            Debug.Log("  " + abilityDisplay.iconHolder.transform.parent + " " + rectTransform);
 
+        }
+    }
     private void Start() {
         // Add onClick listeners for all buttons
         addPD.onClick.AddListener(OnAddPDButtonClicked);
@@ -199,6 +213,7 @@ public class StatUpgrading : MonoBehaviour {
             UIManager.singleton.saveMapSave();
 
         hide();
+        unFocusAbilityIconHolder();
         characterInfoScreen.startUnfocusing();
 
     }
@@ -522,6 +537,7 @@ public class StatUpgrading : MonoBehaviour {
     //updates visual to display change to be applied
     public void updateStatDisplay() {
         //Debug.Log("Fakse stats uopdated");
+        unFocusAbilityIconHolder();
         characterInfoScreen.displayStats(characterInfoScreen.character);
         characterInfoScreen.displayCharacterAbilities(characterInfoScreen.character);
         updateAddColors();
@@ -549,7 +565,7 @@ public class StatUpgrading : MonoBehaviour {
             rectTransform.SetAnchorRight(characterInfoScreen.abilityPlaceholders[i].GetAnchorRight());
             rectTransform.SetStretchToAnchors();
 
-            abilityDisplayList[i].transform.SetParent(UIManager.singleton.focus.transform,true);
+            abilityDisplayList[i].transform.SetParent(UIManager.singleton.focus.transform);
             Debug.Log("Created a display"+rectTransform.name);
         }
     }

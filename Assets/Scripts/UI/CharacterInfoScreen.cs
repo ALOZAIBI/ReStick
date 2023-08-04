@@ -1203,12 +1203,13 @@ public class CharacterInfoScreen : MonoBehaviour
         }
 
         if(time2 >= transitionTime) {
-            //no longer in the process of focusing
+            //no longer in the process of focusing(Done focusing)
             focusing = false;
             //if the focus element is statUpgrading then create the abilityDisplays if it wasnt already created
             if(focusElement == 7 && !statUpgrading.createdAbilityDisplays) {
                 statUpgrading.createAbilityDisplayStatDifferences();
                 statUpgrading.createdAbilityDisplays = true;
+                statUpgrading.focusAbilityIconHolder();
             }
         }
         //no longer in process of unfocusing
