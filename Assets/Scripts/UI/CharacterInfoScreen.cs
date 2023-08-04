@@ -481,6 +481,7 @@ public class CharacterInfoScreen : MonoBehaviour
             }
             //If Upgrading stats
             if(focusElement == 7) {
+                statUpgrading.characterInfoScreen = this;
                 statUpgrading.show();
                 xpPanel.transform.SetParent(uiManager.focus.transform);
                 statsPanel.transform.SetParent(uiManager.focus.transform);
@@ -715,9 +716,9 @@ public class CharacterInfoScreen : MonoBehaviour
     private void cancelAddingAbility() {
         startUnfocusing();
         //Moves the addAbilityPanel back to CharacterInfoScreen
-        uiManager.characterInfoScreen.addAbilityPanel.transform.parent = uiManager.characterInfoScreen.transform;
+        addAbilityPanel.transform.parent = uiManager.characterInfoScreen.transform;
         //Sets the addAbilityPanel to inactive
-        uiManager.characterInfoScreen.addAbilityPanel.gameObject.SetActive(false);
+        addAbilityPanel.gameObject.SetActive(false);
     }
     private void closeInventoryAbilities() {
         //Closes all ability displays

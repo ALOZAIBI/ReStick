@@ -15,6 +15,7 @@ public class StatUpgrading : MonoBehaviour {
 
     //this is set by characterinfoscreen and is only used to check in displayStats if the character to be displayed is new or no. If it is new then it sets applied to false
     public Character lastUsedCharacter;
+    public CharacterInfoScreen characterInfoScreen;
 
     [SerializeField] private GameObject statPointTextContainer;
     [SerializeField] private TextMeshProUGUI statPointDisplay;
@@ -183,8 +184,8 @@ public class StatUpgrading : MonoBehaviour {
         LSbuffer = 0;
         HPbuffer = 0;
 
-        if (UIManager.singleton.characterInfoScreen.character.Range >= 1.5f) {
-            UIManager.singleton.characterInfoScreen.character.usesProjectile = true;
+        if (characterInfoScreen.character.Range >= 1.5f) {
+            characterInfoScreen.character.usesProjectile = true;
         }
 
         SPUsedBuffer = 0;
@@ -198,25 +199,25 @@ public class StatUpgrading : MonoBehaviour {
             UIManager.singleton.saveMapSave();
 
         hide();
-        UIManager.singleton.characterInfoScreen.startUnfocusing();
+        characterInfoScreen.startUnfocusing();
 
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked
     public void resetChanges() {
-        UIManager.singleton.characterInfoScreen.character.PD -= PDbuffer;
-        UIManager.singleton.characterInfoScreen.character.MD -= MDbuffer;
-        UIManager.singleton.characterInfoScreen.character.INF -= INFbuffer;
-        UIManager.singleton.characterInfoScreen.character.AS -= ASbuffer;
-        UIManager.singleton.characterInfoScreen.character.CDR -= CDRbuffer;
-        UIManager.singleton.characterInfoScreen.character.MS -= MSbuffer;
-        UIManager.singleton.characterInfoScreen.character.Range -= RNGbuffer;
-        UIManager.singleton.characterInfoScreen.character.LS -= LSbuffer;
-        UIManager.singleton.characterInfoScreen.character.HPMax -= HPbuffer;
-        UIManager.singleton.characterInfoScreen.character.HP -= HPbuffer;
-        UIManager.singleton.characterInfoScreen.character.statPoints += SPUsedBuffer;
+        characterInfoScreen.character.PD -= PDbuffer;
+        characterInfoScreen.character.MD -= MDbuffer;
+        characterInfoScreen.character.INF -= INFbuffer;
+        characterInfoScreen.character.AS -= ASbuffer;
+        characterInfoScreen.character.CDR -= CDRbuffer;
+        characterInfoScreen.character.MS -= MSbuffer;
+        characterInfoScreen.character.Range -= RNGbuffer;
+        characterInfoScreen.character.LS -= LSbuffer;
+        characterInfoScreen.character.HPMax -= HPbuffer;
+        characterInfoScreen.character.HP -= HPbuffer;
+        characterInfoScreen.character.statPoints += SPUsedBuffer;
 
-        if (UIManager.singleton.characterInfoScreen.character.Range < 1.5f) {
-            UIManager.singleton.characterInfoScreen.character.usesProjectile = false;
+        if (characterInfoScreen.character.Range < 1.5f) {
+            characterInfoScreen.character.usesProjectile = false;
         }
 
         PDbuffer = 0;
@@ -239,10 +240,10 @@ public class StatUpgrading : MonoBehaviour {
     #region Buttons
     // OnAdd function for PD
     public void OnAddPDButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.PD += PDAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.PD += PDAmt;
             PDbuffer += PDAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -251,9 +252,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for PD
     public void OnSubPDButtonClicked() {
         if (PDbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.PD -= PDAmt;
+            characterInfoScreen.character.PD -= PDAmt;
             PDbuffer -= PDAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -261,10 +262,10 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for MD
     public void OnAddMDButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.MD += MDAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.MD += MDAmt;
             MDbuffer += MDAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -273,9 +274,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for MD
     public void OnSubMDButtonClicked() {
         if (MDbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.MD -= MDAmt;
+            characterInfoScreen.character.MD -= MDAmt;
             MDbuffer -= MDAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -283,10 +284,10 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for INF
     public void OnAddINFButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.INF += INFAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.INF += INFAmt;
             INFbuffer += INFAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -295,9 +296,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for INF
     public void OnSubINFButtonClicked() {
         if (INFbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.INF -= INFAmt;
+            characterInfoScreen.character.INF -= INFAmt;
             INFbuffer -= INFAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -305,10 +306,10 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for AS
     public void OnAddASButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.AS += ASAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.AS += ASAmt;
             ASbuffer += ASAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -317,9 +318,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for AS
     public void OnSubASButtonClicked() {
         if (ASbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.AS -= ASAmt;
+            characterInfoScreen.character.AS -= ASAmt;
             ASbuffer -= ASAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -327,10 +328,10 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for CDR
     public void OnAddCDRButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.CDR += CDRAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.CDR += CDRAmt;
             CDRbuffer += CDRAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -339,9 +340,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for CDR
     public void OnSubCDRButtonClicked() {
         if (CDRbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.CDR -= CDRAmt;
+            characterInfoScreen.character.CDR -= CDRAmt;
             CDRbuffer -= CDRAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -349,10 +350,10 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for MS
     public void OnAddMSButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.MS += MSAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.MS += MSAmt;
             MSbuffer += MSAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -361,9 +362,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for MS
     public void OnSubMSButtonClicked() {
         if (MSbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.MS -= MSAmt;
+            characterInfoScreen.character.MS -= MSAmt;
             MSbuffer -= MSAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -371,10 +372,10 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for RNG
     public void OnAddRNGButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.Range += RNGAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.Range += RNGAmt;
             RNGbuffer += RNGAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -383,9 +384,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for RNG
     public void OnSubRNGButtonClicked() {
         if (RNGbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.Range -= RNGAmt;
+            characterInfoScreen.character.Range -= RNGAmt;
             RNGbuffer -= RNGAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -393,10 +394,10 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for LS
     public void OnAddLSButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.LS += LSAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.LS += LSAmt;
             LSbuffer += LSAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -405,9 +406,9 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for LS
     public void OnSubLSButtonClicked() {
         if (LSbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.LS -= LSAmt;
+            characterInfoScreen.character.LS -= LSAmt;
             LSbuffer -= LSAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -415,11 +416,11 @@ public class StatUpgrading : MonoBehaviour {
 
     // OnAdd function for HP
     public void OnAddHPButtonClicked() {
-        if ((UIManager.singleton.characterInfoScreen.character.statPoints) > 0) {
-            UIManager.singleton.characterInfoScreen.character.HP += HPAmt;
-            UIManager.singleton.characterInfoScreen.character.HPMax += HPAmt;
+        if ((characterInfoScreen.character.statPoints) > 0) {
+            characterInfoScreen.character.HP += HPAmt;
+            characterInfoScreen.character.HPMax += HPAmt;
             HPbuffer += HPAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints--;
+            characterInfoScreen.character.statPoints--;
             SPUsedBuffer++;
             updateStatDisplay();
         }
@@ -428,10 +429,10 @@ public class StatUpgrading : MonoBehaviour {
     // OnSub function for HP
     public void OnSubHPButtonClicked() {
         if (HPbuffer > 0) {
-            UIManager.singleton.characterInfoScreen.character.HP -= HPAmt;
-            UIManager.singleton.characterInfoScreen.character.HPMax -= HPAmt;
+            characterInfoScreen.character.HP -= HPAmt;
+            characterInfoScreen.character.HPMax -= HPAmt;
             HPbuffer -= HPAmt;
-            UIManager.singleton.characterInfoScreen.character.statPoints++;
+            characterInfoScreen.character.statPoints++;
             SPUsedBuffer--;
             updateStatDisplay();
         }
@@ -441,7 +442,7 @@ public class StatUpgrading : MonoBehaviour {
 
     private void updateAddColors() {
         //Colors all the add buttons grey if the character has no stat points to spend
-        if (UIManager.singleton.characterInfoScreen.character.statPoints == 0) {
+        if (characterInfoScreen.character.statPoints == 0) {
             addPD.GetComponent<Image>().SetAlpha(0.2f);
             addMD.GetComponent<Image>().SetAlpha(0.2f);
             addINF.GetComponent<Image>().SetAlpha(0.2f);
@@ -521,8 +522,8 @@ public class StatUpgrading : MonoBehaviour {
     //updates visual to display change to be applied
     public void updateStatDisplay() {
         //Debug.Log("Fakse stats uopdated");
-        UIManager.singleton.characterInfoScreen.displayStats(UIManager.singleton.characterInfoScreen.character);
-        UIManager.singleton.characterInfoScreen.displayCharacterAbilities(UIManager.singleton.characterInfoScreen.character);
+        characterInfoScreen.displayStats(characterInfoScreen.character);
+        characterInfoScreen.displayCharacterAbilities(characterInfoScreen.character);
         updateAddColors();
         updateSubColors();
         
@@ -535,20 +536,21 @@ public class StatUpgrading : MonoBehaviour {
     public void createAbilityDisplayStatDifferences() {
         closeAbilityDisplays();
         //Goes through all abilities
-        for(int i = 0; i < UIManager.singleton.characterInfoScreen.character.abilities.Count; i++) {
+        for(int i = 0; i < characterInfoScreen.character.abilities.Count; i++) {
             //Instantiates as child of focus
             abilityDisplayList.Add(Instantiate(abilityDisplayStatDifferences.GetComponent<AbilityDisplayStatDifference>(), UIManager.singleton.focus.transform));
-            abilityDisplayList[i].setupAbilityDisplay(UIManager.singleton.characterInfoScreen.character.abilities[i]);
+            abilityDisplayList[i].setupAbilityDisplay(characterInfoScreen.character.abilities[i]);
             RectTransform rectTransform = abilityDisplayList[i].GetComponent<RectTransform>();
 
             //We're just getteing the top anchor since this is basically the ratio
-            float sizeRatio = UIManager.singleton.characterInfoScreen.abilitiesPanel.GetAnchorTop();
+            float sizeRatioY = characterInfoScreen.abilitiesPanel.GetAnchorTop();
+            float sizeRatioX = characterInfoScreen.abilitiesPanel.GetAnchorRight();
 
 
-            rectTransform.SetAnchorTop(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorTop()*sizeRatio);
-            rectTransform.SetAnchorBottom(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorBottom()*sizeRatio);
-            rectTransform.SetAnchorLeft(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorLeft());
-            rectTransform.SetAnchorRight(UIManager.singleton.characterInfoScreen.abilityPlaceholders[i].GetAnchorRight());
+            rectTransform.SetAnchorTop(characterInfoScreen.abilityPlaceholders[i].GetAnchorTop()*sizeRatioY);
+            rectTransform.SetAnchorBottom(characterInfoScreen.abilityPlaceholders[i].GetAnchorBottom()*sizeRatioY);
+            rectTransform.SetAnchorLeft(characterInfoScreen.abilityPlaceholders[i].GetAnchorLeft()*sizeRatioX);
+            rectTransform.SetAnchorRight(characterInfoScreen.abilityPlaceholders[i].GetAnchorRight()*sizeRatioX);
             rectTransform.SetStretchToAnchors();
 
             Debug.Log("Created a display"+rectTransform.name);
@@ -556,7 +558,7 @@ public class StatUpgrading : MonoBehaviour {
     }
     private void showOrHideAbilityDisplays() {
         for(int i = 0;i<abilityDisplayList.Count;i++) {
-            abilityDisplayList[i].showOrHide(UIManager.singleton.characterInfoScreen.character.abilities[i].valueAmt);
+            abilityDisplayList[i].showOrHide(characterInfoScreen.character.abilities[i].valueAmt);
         }
     }
     private void closeAbilityDisplays() {
