@@ -537,22 +537,19 @@ public class StatUpgrading : MonoBehaviour {
         closeAbilityDisplays();
         //Goes through all abilities
         for(int i = 0; i < characterInfoScreen.character.abilities.Count; i++) {
-            //Instantiates as child of focus
-            abilityDisplayList.Add(Instantiate(abilityDisplayStatDifferences.GetComponent<AbilityDisplayStatDifference>(), UIManager.singleton.focus.transform));
+            //Instantiates as child of abilitiesPanel so that the rectTransform is correctly scaled and positioned
+            abilityDisplayList.Add(Instantiate(abilityDisplayStatDifferences.GetComponent<AbilityDisplayStatDifference>(),characterInfoScreen.abilitiesPanel));
             abilityDisplayList[i].setupAbilityDisplay(characterInfoScreen.character.abilities[i]);
             RectTransform rectTransform = abilityDisplayList[i].GetComponent<RectTransform>();
 
-            //We're just getteing the top anchor since this is basically the ratio
-            float sizeRatioY = characterInfoScreen.abilitiesPanel.GetAnchorTop();
-            float sizeRatioX = characterInfoScreen.abilitiesPanel.GetAnchorRight();
 
-
-            rectTransform.SetAnchorTop(characterInfoScreen.abilityPlaceholders[i].GetAnchorTop()*sizeRatioY);
-            rectTransform.SetAnchorBottom(characterInfoScreen.abilityPlaceholders[i].GetAnchorBottom()*sizeRatioY);
-            rectTransform.SetAnchorLeft(characterInfoScreen.abilityPlaceholders[i].GetAnchorLeft()*sizeRatioX);
-            rectTransform.SetAnchorRight(characterInfoScreen.abilityPlaceholders[i].GetAnchorRight()*sizeRatioX);
+            rectTransform.SetAnchorTop(characterInfoScreen.abilityPlaceholders[i].GetAnchorTop());
+            rectTransform.SetAnchorBottom(characterInfoScreen.abilityPlaceholders[i].GetAnchorBottom());
+            rectTransform.SetAnchorLeft(characterInfoScreen.abilityPlaceholders[i].GetAnchorLeft());
+            rectTransform.SetAnchorRight(characterInfoScreen.abilityPlaceholders[i].GetAnchorRight());
             rectTransform.SetStretchToAnchors();
 
+            abilityDisplayList[i].transform.SetParent(UIManager.singleton.focus.transform,true);
             Debug.Log("Created a display"+rectTransform.name);
         }
     }
