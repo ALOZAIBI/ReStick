@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  lockedTarget: {fileID: 0}
   abilityName: MagicHit
   description: Throw Magic ting
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 4
+  CD: 3
   rangeAbility: 8
   available: 1
   abilityNext: 0
@@ -58,7 +59,7 @@ MonoBehaviour:
   - BuffStrength
   - BuffDuration
   baseAmt:
-  - 8
+  - 10
   - 0
   - 0
   PDRatio:
