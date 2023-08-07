@@ -90,6 +90,8 @@ public class Zone : MonoBehaviour
         if(zoomFocusAmount!=0)
             cameraMovement.zoomTarget = zoomFocusAmount;
         cameraMovement.showMapIntoZoom();
+
+        uIManager.tutorial.draggingCharactersTutorial();
     }
     //draws an overlay using placeable Tile over the placeable tilemap
     private void drawPlaceableOverlay() {

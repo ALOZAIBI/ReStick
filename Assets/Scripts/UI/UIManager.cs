@@ -91,6 +91,8 @@ public class UIManager : MonoBehaviour
     public Image eyeOnImage;
     public bool showAbilityIndicator = true;
 
+    public Tutorial tutorial;
+
     //This is an image that is on the top most ui layer. So if you wanna emphasize or focus on a UI element put it as a child of this.
     public Image focus;
     public RectTransform focusRect;

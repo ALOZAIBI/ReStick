@@ -1119,7 +1119,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
             topstatAbilityDisplays[i].fillAmount = (character.abilities[i].getCDAfterChange() - character.abilities[i].abilityNext) / character.abilities[i].getCDAfterChange();
             topstatAbilityDisplays[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
-            topstatAbilityDisplays[i].SetAlpha(0.6f);
+            topstatAbilityDisplays[i].SetAlpha(0.8f);
 
             if (character.abilities[i].available) {
                 topstatAbilityDisplaysBorder[i].color = Color.white;
