@@ -192,20 +192,20 @@ public class CharacterInfoScreen : MonoBehaviour
     
     //to be able to place the ability displays here
     [SerializeField] public List<RectTransform> abilityPlaceholders= new List<RectTransform>();
-    private List<float> abilityPlaceHoldersAnchorL = new List<float>(new float[5]);
-    private List<float> abilityPlaceHoldersAnchorR = new List<float>(new float[5]);
-    private List<float> abilityPlaceHoldersAnchorT = new List<float>(new float[5]);
-    private List<float> abilityPlaceHoldersAnchorB = new List<float>(new float[5]);
+    private List<float> abilityPlaceHoldersAnchorL = new List<float>(new float[MAX_ABILITIES]);
+    private List<float> abilityPlaceHoldersAnchorR = new List<float>(new float[MAX_ABILITIES]);
+    private List<float> abilityPlaceHoldersAnchorT = new List<float>(new float[MAX_ABILITIES]);
+    private List<float> abilityPlaceHoldersAnchorB = new List<float>(new float[MAX_ABILITIES]);
 
     //to be able to delete all abilityDisplays
     [SerializeField] public List<RectTransform> abilityDisplays = new List<RectTransform>();
     public List<Ability> abilities = new List<Ability>();
 
     [SerializeField] private List<RectTransform> abilityTargetting = new List<RectTransform>();
-    private List<float> abilityTargettingAnchorL = new List<float>(new float[5]);
-    private List<float> abilityTargettingAnchorR = new List<float>(new float[5]);
-    private List<float> abilityTargettingAnchorT = new List<float>(new float[5]);
-    private List<float> abilityTargettingAnchorB = new List<float>(new float[5]);
+    private List<float> abilityTargettingAnchorL = new List<float>(new float[MAX_ABILITIES]);
+    private List<float> abilityTargettingAnchorR = new List<float>(new float[MAX_ABILITIES]);
+    private List<float> abilityTargettingAnchorT = new List<float>(new float[MAX_ABILITIES]);
+    private List<float> abilityTargettingAnchorB = new List<float>(new float[MAX_ABILITIES]);
 
     [SerializeField] private List<TextMeshProUGUI> abilityTargettingText = new List<TextMeshProUGUI>();
     //The children of this will be the stat Icons
@@ -213,6 +213,10 @@ public class CharacterInfoScreen : MonoBehaviour
 
     //If this Character Info Screen is opened from the inventory screen
     public bool inventoryScreen;
+
+    [SerializeField]private List<SlicedFilledImage> topstatAbilityDisplays = new List<SlicedFilledImage>(new SlicedFilledImage[MAX_ABILITIES]);
+    [SerializeField]private List<Image> topstatAbilityDisplaysFill = new List<Image>(new Image[MAX_ABILITIES]);
+    [SerializeField]private List<Image> topstatAbilityDisplaysBorder = new List<Image>(new Image[MAX_ABILITIES]);
 
 
     public void Start() {
@@ -387,7 +391,6 @@ public class CharacterInfoScreen : MonoBehaviour
         else
             scaleAmount = (mainPanel.GetAnchorTop() - (1 - mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
 
-        Debug.Log(scaleAmount);
         xpPanel.SetAnchorTop(Mathf.Lerp(xpPanelAnchorT, statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), time / transitionTime));
 
         //Stretches it to the right
@@ -1101,54 +1104,42 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
 
-    public void confirmAddAbilityPage() {
-        addAbilityBtn.gameObject.SetActive(false);
-        confirmAddAbilityBtn.gameObject.SetActive(true);
-        pageIndex = 4;
-    }
     //displays the abilities in inventory when clicked
     private void addAbility() {
         focusElement = 6;
         startFocusing();
     }
 
-    public void confirmAddAbility() {
-        //pageIndex = 4;
-        //if (character.abilities.Count >= MAX_ABILITIES) {
-        //    uiManager.tooltip.showMessage("Cannot add ability. Character already has max abilities.");
-        //    return;
-        //}
-        ////since inventoryCharacterScreen and characterScreen where seperate I have to do some spaghetti code
-        ////adds the ability to Character
-        //character.abilities.Add(uiManager.inventoryScreen.abilitySelected);
-        ////sets the ability's character to this character
-        //character.initRoundStart();
-        ////adds ability to activeAbilities in playermanager
-        ////Debug.Log(uiManager.inventoryScreen.playerParty.activeAbilities.name);
-        //uiManager.inventoryScreen.abilitySelected.gameObject.transform.parent = uiManager.playerParty.activeAbilities.transform;
-        ////if in inventory
-        //if (!uiManager.inventoryScreenHidden.hidden) {
-        //    //if ability was selected first go back to inventory screen landing page
-        //    if (uiManager.inventoryScreen.pageIndex == 2) {
-        //        uiManager.inventoryScreen.openLandingPage();
-        //    }
-        //    else {
-        //        //update the character's ability display
-        //        displayCharacterAbilities(uiManager.inventoryScreen.characterSelected);
-        //    }
-        //}
-        ////else if regular character screen
-        //else
-        //    displayCharacterAbilities(character);
-        ////saves adding the ability
-        //if (SceneManager.GetActiveScene().name == "World") {
-        //    uiManager.saveWorldSave();
-        //}
-        //else
-        //    uiManager.saveMapSave();
-        //confirmAddAbilityBtn.gameObject.SetActive(false);
-    }
+    //Displays CDs in top left corner under topstatdisplay
+    public void displayTopStatAbilities() {
+        for (int i = 0; i < character.abilities.Count; i++) {
+            topstatAbilityDisplays[i].gameObject.SetActive(true);
+            topstatAbilityDisplaysBorder[i].gameObject.SetActive(true);
+            topstatAbilityDisplaysFill[i].gameObject.SetActive(true);
 
+            topstatAbilityDisplays[i].fillAmount = (character.abilities[i].getCDAfterChange() - character.abilities[i].abilityNext) / character.abilities[i].getCDAfterChange();
+            topstatAbilityDisplays[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
+            topstatAbilityDisplays[i].SetAlpha(0.6f);
+
+            if (character.abilities[i].available) {
+                topstatAbilityDisplaysBorder[i].color = Color.white;
+                topstatAbilityDisplaysBorder[i].SetAlpha(.4f);
+            }
+            else {
+                topstatAbilityDisplaysBorder[i].color = Color.grey;
+                topstatAbilityDisplaysBorder[i].SetAlpha(0.4f);
+            }
+
+            topstatAbilityDisplaysFill[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
+            topstatAbilityDisplaysFill[i].SetAlpha(0.4f);
+        }
+        //Sets the remaining to inactive
+        for(int i = MAX_ABILITIES; i > character.abilities.Count; i--) {
+            topstatAbilityDisplays[i-1].gameObject.SetActive(false);
+            topstatAbilityDisplaysBorder[i-1].gameObject.SetActive(false);
+            topstatAbilityDisplaysFill[i-1].gameObject.SetActive(false);
+        }
+    }
     #endregion
     private void FixedUpdate() {
         ////make the upgrade stats color pulsate
@@ -1156,11 +1147,15 @@ public class CharacterInfoScreen : MonoBehaviour
         ////to make the button glow in and out for emphasis
         //float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);
         //confirmAddAbilityBtnImage.color = new Color(x, x, x);
+        
     }
     public bool openingFullScreen;
     private void Update() {
-        if (uiManager.charInfoScreenHidden.hidden == false)
+        if (uiManager.charInfoScreenHidden.hidden == false && !inventoryScreen)
             viewCharacterTopStatDisplay(character);
+
+        if (!inventoryScreen && character!=null)
+            displayTopStatAbilities();
 
         if (opening)
             time += Time.unscaledDeltaTime;
@@ -1254,5 +1249,6 @@ public class CharacterInfoScreen : MonoBehaviour
             else
                 targetSelectionBtn.interactable = false;
         }
+
     }
 }

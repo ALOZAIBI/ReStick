@@ -97,6 +97,12 @@ public static class UIExtensions {
         temp.a = alpha;
         img.color = temp;
     }
+
+    public static void SetAlpha(this SlicedFilledImage img, float alpha) {
+        Color temp = img.color;
+        temp.a = alpha;
+        img.color = temp;
+    }
     public static void SetAlpha(this TextMeshProUGUI text, float alpha) {
         Color temp = text.color;
         temp.a = alpha;

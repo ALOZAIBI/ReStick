@@ -162,11 +162,13 @@ public class UIManager : MonoBehaviour
         //if the character to be viewed is already selected
         if (charSel.getSelected()) {
             viewCharacterInfo(charSel);
+            Debug.Log("FullSCreening");
         }
         //if character wasn't already selected
         else {
             character = charSel;
             viewTopstatDisplay(charSel);
+            Debug.Log("TopStatting");
         }
     }
     //in some cases we want it to only viewTopStat
@@ -174,6 +176,7 @@ public class UIManager : MonoBehaviour
         character = charSel;
         characterInfoScreen.character = character;
         charInfoScreenHidden.hidden = false;
+        //characterInfoScreen.displayTopStatAbilities();
     }
     public void viewCharacterInfo(Character currChar) {
         //opens the screen and pauses the game

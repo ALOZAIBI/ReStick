@@ -65,7 +65,7 @@ public class Indicators : MonoBehaviour
     public void drawAbilitiesCircles(Vector3 position) {
         int index = 0;
         foreach(Ability ability in character.abilities) {
-            float fillAmount = (ability.CD - ability.abilityNext) / ability.CD;fillAmount *= 100;
+            float fillAmount = (ability.getCDAfterChange() - ability.abilityNext) / ability.getCDAfterChange();fillAmount *= 100;
             if(ability.rangeAbility > 0) {
                 drawCircle(position, ability.rangeAbility, abilitiesRangeRenderer[index],100);
                 //if ability has range but no target draw the cooldown on the range

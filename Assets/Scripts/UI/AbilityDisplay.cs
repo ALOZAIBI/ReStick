@@ -71,7 +71,7 @@ public class AbilityDisplay : MonoBehaviour
         abilityName.text = ability.abilityName;
         description.text = ability.description;
         //sets the cooldownBar fill amount to CD remaining
-        cooldownBar.fillAmount = (ability.CD - ability.abilityNext) / ability.CD;
+        cooldownBar.fillAmount = (ability.getCDAfterChange() - ability.abilityNext) / ability.getCDAfterChange();
         //if the ability has no cd anyways(It's a passive)
         if (ability.CD == 0)
             cooldownText.text = ("");
