@@ -177,7 +177,6 @@ public class BurstSelfBuff : Ability
                 if (blind)
                     description += "Blind target";
             }
-            description += "for " + (valueAmt.getAmtValueFromName(this, "Duration")).ToString("F2") + " seconds";
         }
     }
 
