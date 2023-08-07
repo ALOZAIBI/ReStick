@@ -542,8 +542,10 @@ public class StatUpgrading : MonoBehaviour {
         characterInfoScreen.displayCharacterAbilities(characterInfoScreen.character);
         updateAddColors();
         updateSubColors();
-        
+
+        focusAbilityIconHolder();
         createdAbilityDisplays = true;
+        
 
         showOrHideAbilityDisplays();
     }

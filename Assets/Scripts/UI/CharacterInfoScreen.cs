@@ -550,7 +550,7 @@ public class CharacterInfoScreen : MonoBehaviour
                 break;
             case 7:
                 //Sets anchor top of xpPanel to be at the top of mainPanel
-                float scaleAmount = (mainPanel.GetAnchorTop() - (1 - mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
+                float scaleAmount = (uiManager.characterInfoScreen.mainPanel.GetAnchorTop() - (1 - uiManager.characterInfoScreen.mainPanel.GetAnchorTop())) / (uiManager.characterInfoScreen.mainPanelAnchorT - uiManager.characterInfoScreen.mainPanelAnchorB);
                 xpPanel.SetAnchorTop(Mathf.Lerp(statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), mainPanelAnchorT , time2 / transitionTime));
                 //sets the bottom to make the height of the panel twice it's inital height
                 float initHeight = xpPanelAnchorT - xpPanelAnchorB;
