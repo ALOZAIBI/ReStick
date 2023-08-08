@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
 public class AbilityDisplayAddAbility : AbilityDisplay
 {
@@ -20,6 +21,11 @@ public class AbilityDisplayAddAbility : AbilityDisplay
         ability.transform.parent = uiManager.playerParty.activeAbilities.transform;
         //Starts unfocusing
         characterInfoScreen.startUnfocusing();
+
+        if(!uiManager.tutorial.addingAbilityTutorialDone && uiManager.tutorial.addingAbilityTutorialStep == 5) {
+            uiManager.tutorial.continueAddingAbilityCloseCharacterInfoScreen();
+            uiManager.characterInfoScreen.displayCharacterAbilities(uiManager.characterInfoScreen.character);
+        }
 
         //saves adding the ability
         if (SceneManager.GetActiveScene().name == "World") {

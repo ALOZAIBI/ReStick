@@ -49,7 +49,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                 //if held drag character to mouse Position
                 if (mouseHoldDuration > 0.2f) {
                     
-                    //Tutorial Stuff
+                    //Tutorial Stuff (triggered when dragging character)
                     if (!uiManager.tutorial.draggingCharactersTutorialDone)
                         uiManager.tutorial.endDraggingCharactersTutorial();
 
@@ -106,7 +106,10 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                 click = false;
                 camMov.pannable = true;
             }
-
+            //Tutorial stuff triggered when character is tapped
+            if(!uiManager.tutorial.addingAbilityTutorialDone && uiManager.tutorial.addingAbilityTutorialStep == 2) {
+                uiManager.tutorial.conitnueAddingAbilityClickTopStatDisplay();
+            }
         }
         else
             mouseHoldDuration = 0;

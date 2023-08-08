@@ -92,7 +92,7 @@ public class CharacterInfoScreen : MonoBehaviour
     private bool willHandlePause;
 
     [SerializeField] private bool focusing;
-    [SerializeField] private bool unFocusing;
+    [SerializeField] public bool unFocusing;
     private bool focused;
     //The element to be focused 
     //0 1 2 3 4 = abilities. 5 = base targetting. 6 = Adding ability screen, 7 = upgrading stats
@@ -105,8 +105,8 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private bool opened2;
     //this is the main panel itself and maybe I will add another button for clarity later
-    [SerializeField] private Button openFullScreenBtn;
-    [SerializeField] private Button closeFullScreenBtn;
+    [SerializeField] public Button openFullScreenBtn;
+    [SerializeField] public Button closeFullScreenBtn;
 
     [SerializeField] private Button confirmTargettingBtn;
 
@@ -1176,6 +1176,10 @@ public class CharacterInfoScreen : MonoBehaviour
                 hideUI.initPos.x = 0;
                 hideUI.initPos.y = 0;
                 opening = false;
+            }
+            //Tutorial stuff (Prompt to add ability)
+            if (!uiManager.tutorial.addingAbilityTutorialDone && uiManager.tutorial.addingAbilityTutorialStep == 3 && opened) {
+                uiManager.tutorial.continueAddingAbilityClickAddButton();
             }
         }
         //no longer in process of closing

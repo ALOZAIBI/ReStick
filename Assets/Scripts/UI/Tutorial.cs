@@ -33,6 +33,10 @@ public class Tutorial : MonoBehaviour
     public bool chooseRewardTutorialDone;
     [SerializeField] private GameObject chooseRewardScreen;
 
+    public bool addingAbilityTutorialDone;
+    //Which step in the tutorial we're in. 
+    public int addingAbilityTutorialStep;
+    [SerializeField] private CharacterInfoScreen characterInfoScreen;
     //Explains how to drag characters into the map
     public void beginDraggingCharactersTutorial() {
         if (draggingCharactersTutorialDone)
@@ -84,6 +88,109 @@ public class Tutorial : MonoBehaviour
         chooseRewardTutorialDone = true;
     }
 
+    public void beginAddingAbilityTutorial() {
+        //If there are no abilities to add then don't show tutorial
+        if (addingAbilityTutorialDone || UIManager.singleton.playerParty.abilityInventory.transform.childCount == 0)
+            return;
+
+        addingAbilityTutorialStep = 1;
+        gameObject.SetActive(true);
+
+        nextBtn.gameObject.SetActive(true);
+        textBox.gameObject.SetActive(true);
+        positionTextBox(0.6f, 0.7f, 0.2f, 0.8f);
+        text.text = "Now, I will teach you how to add abilities to your characters";
+
+        focus();
+
+        //Jumps to next part of tutorial
+        SetListener(continueAddingAbilityClickPortrait);
+
+        
+    }
+    //The continuation of the adding ability tutorial. (Focuses character portrait and prompts to click it)
+    private void continueAddingAbilityClickPortrait() {
+        addingAbilityTutorialStep = 2;
+        nextBtn.gameObject.SetActive(false);
+        textBox.gameObject.SetActive(true);
+        positionTextBox(0.5f, 0.6f, 0.2f, 0.8f);
+        text.text = "Select a character to add an ability to";
+        //Focuses the character placing screen
+        objectsToBeFocused.Add(characterPlacingScreen.transform);
+        focus();
+    }
+    public void conitnueAddingAbilityClickTopStatDisplay() {
+        addingAbilityTutorialStep = 3;
+        returnToParents();
+
+        nextBtn.gameObject.SetActive(false);
+        textBox.gameObject.SetActive(true);
+        positionTextBox(0.7f, 0.8f, 0.2f, 0.8f);
+        text.text = "Click on the stat display to open the character screen";
+
+        nextBtn.onClick.RemoveAllListeners();
+        textBoxBtn.onClick.RemoveAllListeners();
+
+        objectsToBeFocused.Add(characterInfoScreen.transform);
+
+        focus();
+
+    }
+    public void continueAddingAbilityClickAddButton() {
+        addingAbilityTutorialStep = 4;
+        returnToParents();
+
+        nextBtn.gameObject.SetActive(false);
+        textBox.gameObject.SetActive(true);
+
+        text.text = "Click on the add button";
+        //Focuses the availabile ability display placeholder and the add Button
+        objectsToBeFocused.Add(characterInfoScreen.abilityPlaceholders[characterInfoScreen.character.abilities.Count]);
+        objectsToBeFocused.Add(characterInfoScreen.addAbilityBtn.transform);
+
+        focus();
+
+        //Adds a listener to the add button to proceed with tutorial
+        characterInfoScreen.addAbilityBtn.onClick.AddListener(continueAddingAbilityClickAbilityDisplay);
+    }
+
+    public void continueAddingAbilityClickAbilityDisplay() {
+        //Removes the listener that was added
+        characterInfoScreen.addAbilityBtn.onClick.RemoveListener(continueAddingAbilityClickAbilityDisplay);
+        addingAbilityTutorialStep = 5;
+        returnToParents();
+
+        nextBtn.gameObject.SetActive(false);
+        textBox.gameObject.SetActive(true);
+
+        text.text = "Click on the ability you want to add to the character";
+        focus();
+        //the ability display to be added is already focused from another function
+
+    }
+
+    public void continueAddingAbilityCloseCharacterInfoScreen() {
+        addingAbilityTutorialStep = 6;
+        returnToParents();
+
+        nextBtn.gameObject.SetActive(false);
+        textBox.gameObject.SetActive(true);
+
+        text.text = "Now you can close the character screen and return to combat";
+        objectsToBeFocused.Add(characterInfoScreen.closeFullScreenBtn.transform);
+        focus();
+
+        characterInfoScreen.closeFullScreenBtn.onClick.AddListener(endAddingAbilityTutorial);
+        characterInfoScreen.unFocusing = false;
+    }
+    private void endAddingAbilityTutorial() {
+        //remove listener from close button
+        characterInfoScreen.closeFullScreenBtn.onClick.RemoveListener(endAddingAbilityTutorial);
+        returnToParents();
+
+        addingAbilityTutorialDone = true;
+        unfocusing = true;
+    }
     private void positionTextBox(float bottomAnchor, float topAnchor, float leftAnchor, float rightAnchor) {
         textBox.rectTransform.SetAnchorBottom(bottomAnchor);
         textBox.rectTransform.SetAnchorTop(topAnchor);
