@@ -41,12 +41,19 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     //drag
     private void dragToZone() {
         if (click) {
+            
             camMov.pannable = false;
             //Debug.Log("Mouse clicking?" + Input.GetMouseButton(0));
             if (Input.GetMouseButton(0)) {
                 mouseHoldDuration += Time.unscaledDeltaTime;
                 //if held drag character to mouse Position
                 if (mouseHoldDuration > 0.2f) {
+                    
+                    //Tutorial Stuff
+                    if (!uiManager.tutorial.draggingCharactersTutorialDone)
+                        uiManager.tutorial.endDraggingCharactersTutorial();
+
+                    
                     camMov.pannable = false;
                     character.gameObject.SetActive(true);
                     character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);

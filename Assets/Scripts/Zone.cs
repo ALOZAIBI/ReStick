@@ -91,7 +91,8 @@ public class Zone : MonoBehaviour
             cameraMovement.zoomTarget = zoomFocusAmount;
         cameraMovement.showMapIntoZoom();
 
-        uIManager.tutorial.draggingCharactersTutorial();
+        //Tutorial Stuff
+        uIManager.tutorial.beginDraggingCharactersTutorial();
     }
     //draws an overlay using placeable Tile over the placeable tilemap
     private void drawPlaceableOverlay() {

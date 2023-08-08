@@ -658,6 +658,7 @@ public class CharacterInfoScreen : MonoBehaviour
             displayRect.SetAnchorLeft(abilityPlaceholders[count].GetAnchorLeft());
             displayRect.SetAnchorRight(abilityPlaceholders[count].GetAnchorRight());
 
+            
             AbilityDisplay abilityDisplay = displayObject.GetComponent<AbilityDisplay>();
             //sets the displays name and description
             abilityDisplay.setupAbilityDisplay(ability);
@@ -689,6 +690,7 @@ public class CharacterInfoScreen : MonoBehaviour
             }
             //resetting scale to 1 cuz for somereaosn the scale is 167 otherwise
             displayObject.transform.localScale = new Vector3(1, 1, 1);
+
 
             count++;
         }

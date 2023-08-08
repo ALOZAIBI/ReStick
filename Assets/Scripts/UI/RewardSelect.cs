@@ -81,6 +81,9 @@ public class RewardSelect : MonoBehaviour
         //greys out the button;
         greyOutBtn();
         //the button will be ungreyed out in AbilityRewardDisplayScript
+
+        //Tutorial stuff
+        uiManager.tutorial.beginChooseRewardTutorial();
     }
 
     public void greyOutBtn() {

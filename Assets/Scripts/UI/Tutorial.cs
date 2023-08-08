@@ -23,30 +23,67 @@ public class Tutorial : MonoBehaviour
     public List<Transform> objectsToBeFocused = new List<Transform>();
     //Saves the parent's of the objects that will be focused on so that they can be returned to their parent
     public List<Transform> objectsParents = new List<Transform>();
+    //Saves the Object's index in it's parent
+    public List<int> objectsIndex = new List<int>();
 
     //Explains How to Drag Character into map
     public bool draggingCharactersTutorialDone;
+    [SerializeField] private GameObject characterPlacingScreen;
+    
+    public bool chooseRewardTutorialDone;
+    [SerializeField] private GameObject chooseRewardScreen;
 
-    private void Start() {
-        //nextBtn.onClick.AddListener(returnToParents);
-        //textBoxBtn.onClick.AddListener(returnToParents);
-    }
-    public void draggingCharactersTutorial() {
+    //Explains how to drag characters into the map
+    public void beginDraggingCharactersTutorial() {
         if (draggingCharactersTutorialDone)
             return;
+
         gameObject.SetActive(true);
+
+        nextBtn.gameObject.SetActive(false);
+        textBox.gameObject.SetActive(true);
+
+        objectsToBeFocused.Add(characterPlacingScreen.transform);
         focus();
 
         positionTextBox(0.6f,0.7f,0.2f,0.8f);
-        text.text = "Drag the character into the dotted area on the map";
+        text.text = "Tap and hold, then drag the character into the dotted area on the map";
 
-        //Clicking will simply Unfocus
-        SetListener(draggingCharactersDone);
+        //To Unfocus Have to drag characterDisplay
     }
-    private void draggingCharactersDone() {
+    public void endDraggingCharactersTutorial() {
         unfocusing = true;
         draggingCharactersTutorialDone = true;
     }
+
+    public void beginChooseRewardTutorial() {
+        if (chooseRewardTutorialDone)
+            return;
+
+        gameObject.SetActive(true);
+
+        nextBtn.gameObject.SetActive(false);
+        textBox.gameObject.SetActive(true);
+
+        objectsToBeFocused.Add(chooseRewardScreen.transform);
+        focus();
+
+        //Positions it above reward screen
+        RectTransform rt = chooseRewardScreen.GetComponent<RectTransform>();
+        positionTextBox(rt.GetAnchorTop(),rt.GetAnchorTop()*1.2f, 0.2f, 0.8f);
+        text.text = "Pick a reward";
+
+        RewardSelect rewardSelect = chooseRewardScreen.GetComponent<RewardSelect>();
+        foreach(AbilityDisplayReward reward in rewardSelect.listReward) {
+            SetListener(reward.self, endChooseRewardTutorial);
+        }
+    }
+
+    public void endChooseRewardTutorial() {
+        unfocusing = true;
+        chooseRewardTutorialDone = true;
+    }
+
     private void positionTextBox(float bottomAnchor, float topAnchor, float leftAnchor, float rightAnchor) {
         textBox.rectTransform.SetAnchorBottom(bottomAnchor);
         textBox.rectTransform.SetAnchorTop(topAnchor);
@@ -61,10 +98,14 @@ public class Tutorial : MonoBehaviour
         nextBtn.onClick.AddListener(() => listener());
         textBoxBtn.onClick.AddListener(() => listener());
     }
+    private void SetListener(Button button, ButtonSetListener listener) {
+        button.onClick.AddListener(() => listener());
+    }
     private void focus() {
         UIManager.singleton.focus.gameObject.SetActive(true);
         foreach(Transform t in objectsToBeFocused) {
             objectsParents.Add(t.parent);
+            objectsIndex.Add(t.GetSiblingIndex());
             t.SetParent(UIManager.singleton.focus.transform);
         }
         focusing = true;
@@ -75,9 +116,11 @@ public class Tutorial : MonoBehaviour
     private void returnToParents() {
         foreach(Transform t in objectsToBeFocused) {
             t.SetParent(objectsParents[objectsToBeFocused.IndexOf(t)]);
+            t.SetSiblingIndex(objectsIndex[objectsToBeFocused.IndexOf(t)]);
         }
         objectsToBeFocused.Clear();
         objectsParents.Clear();
+        objectsIndex.Clear();
         //Reset's it's parent
         textBox.transform.SetParent(transform);
         nextBtn.transform.SetParent(transform);
