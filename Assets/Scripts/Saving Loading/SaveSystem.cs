@@ -58,6 +58,41 @@ static class SaveSystem
                 Directory.CreateDirectory(path);
         }
     }
+
+    public static void saveTutorialProgress(Tutorial tutorial) {
+        TutorialData data = new TutorialData(tutorial);
+
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/tutorialProgress.xrt";
+        using (FileStream fs = File.Open(path, FileMode.Create)) {
+            BinaryWriter writer = new BinaryWriter(fs);
+            //the 2 lines that follow are the encrypted version
+            //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
+            //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+            //this is the non encrypted version
+            writer.Write(JsonConvert.SerializeObject(data));
+
+            writer.Flush();
+        }
+    }
+
+    public static void loadTutorialProgress() {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/tutorialProgress.xrt";
+        if (File.Exists(path)) {
+            using(FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+                //the 2 lines that follow are the encrypted version
+                //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                //GameStateData data = JsonConvert.DeserializeObject < GameStateData>(Encoding.UTF8.GetString(encodedBytes));
+
+                //this is the non encrypted version
+                TutorialData data = JsonConvert.DeserializeObject<TutorialData>(reader.ReadString());
+                UIManager.singleton.tutorial.draggingCharactersTutorialDone = data.draggingCharactersTutorialDone;
+                UIManager.singleton.tutorial.chooseRewardTutorialDone = data.chooseRewardTutorialDone;
+                UIManager.singleton.tutorial.addingAbilityTutorialDone = data.addingAbilityTutorialDone;
+            }
+        }
+    }
     //When a new map is loaded set the reward progress to 0
     public static void setRewardProgress(int setTo=0) {
         RewardProgressData data = new RewardProgressData();

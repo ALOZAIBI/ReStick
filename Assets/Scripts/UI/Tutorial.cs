@@ -58,6 +58,8 @@ public class Tutorial : MonoBehaviour
     public void endDraggingCharactersTutorial() {
         unfocusing = true;
         draggingCharactersTutorialDone = true;
+
+        SaveSystem.saveTutorialProgress(this);
     }
 
     public void beginChooseRewardTutorial() {
@@ -86,6 +88,9 @@ public class Tutorial : MonoBehaviour
     public void endChooseRewardTutorial() {
         unfocusing = true;
         chooseRewardTutorialDone = true;
+
+        SaveSystem.saveTutorialProgress(this);
+
     }
 
     public void beginAddingAbilityTutorial() {
@@ -190,6 +195,9 @@ public class Tutorial : MonoBehaviour
 
         addingAbilityTutorialDone = true;
         unfocusing = true;
+
+        SaveSystem.saveTutorialProgress(this);
+
     }
     private void positionTextBox(float bottomAnchor, float topAnchor, float leftAnchor, float rightAnchor) {
         textBox.rectTransform.SetAnchorBottom(bottomAnchor);

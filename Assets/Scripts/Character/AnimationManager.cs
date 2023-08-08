@@ -83,6 +83,9 @@ public class AnimationManager : MonoBehaviour
                 case "castAoePush":
                     animator.SetTrigger("castAoePush");
                     break;
+                case "castPierce":
+                    animator.SetTrigger("castPierce");
+                    break;
                 default:
                     Debug.LogError("Animation not found");
                     break;

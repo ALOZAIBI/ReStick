@@ -29,6 +29,8 @@ public class SaveSlotSelector : MonoBehaviour {
             (UIManager.singleton.playerParty.transform.childCount == 2) {
             UIManager.singleton.loadWorldSave();
         }
+
+        SaveSystem.loadTutorialProgress();
     }
 
     public void startSlot2() {
@@ -44,6 +46,9 @@ public class SaveSlotSelector : MonoBehaviour {
             (UIManager.singleton.playerParty.transform.childCount == 2) {
             UIManager.singleton.loadWorldSave();
         }
+
+        SaveSystem.loadTutorialProgress();
+
     }
 
     public void startSlot3() {
@@ -59,5 +64,7 @@ public class SaveSlotSelector : MonoBehaviour {
             (UIManager.singleton.playerParty.transform.childCount == 2) {
             UIManager.singleton.loadWorldSave();
         }
+        SaveSystem.loadTutorialProgress();
+
     }
 }
