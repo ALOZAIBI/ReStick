@@ -94,6 +94,7 @@ public class Zone : MonoBehaviour
         //Tutorial Stuff
         uIManager.tutorial.beginDraggingCharactersTutorial();
         uIManager.tutorial.beginAddingAbilityTutorial();
+        uIManager.tutorial.beginUpgradingStatsTutorial();
     }
     //draws an overlay using placeable Tile over the placeable tilemap
     private void drawPlaceableOverlay() {

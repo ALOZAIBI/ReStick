@@ -110,6 +110,10 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
             if(!uiManager.tutorial.addingAbilityTutorialDone && uiManager.tutorial.addingAbilityTutorialStep == 2) {
                 uiManager.tutorial.conitnueAddingAbilityClickTopStatDisplay();
             }
+
+            if(!uiManager.tutorial.upgradingStatsTutorialDone && uiManager.tutorial.upgradingStatsTutorialStep == 2 && character.statPoints>=6) {
+                uiManager.tutorial.continueUpgradingStatsClickTopStatDisplay();
+            }
         }
         else
             mouseHoldDuration = 0;

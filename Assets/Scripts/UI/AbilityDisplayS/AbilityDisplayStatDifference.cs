@@ -57,7 +57,6 @@ public class AbilityDisplayStatDifference : AbilityDisplay
             }
         }
         //Displays the CD if it's different
-        Debug.Log("Ability CD" +ability.getCDAfterChange());
         if (coolDownInit != ability.getCDAfterChange()) {
             showAbilityDisplay = true;
             updateCoolDownDisplay();

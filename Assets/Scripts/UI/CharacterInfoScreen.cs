@@ -122,8 +122,8 @@ public class CharacterInfoScreen : MonoBehaviour
     private float mainPanelPositionT;
     private float mainPanelPositionB;
 
-    [SerializeField] private RectTransform xpPanel;
-    private Button xpPanelBtn;
+    [SerializeField]public RectTransform xpPanel;
+    public Button xpPanelBtn;
     private float xpPanelAnchorL;
     private float xpPanelAnchorR;
     private float xpPanelAnchorT;
@@ -135,8 +135,8 @@ public class CharacterInfoScreen : MonoBehaviour
     private float xpPanelPositionB;
 
 
-    [SerializeField] private RectTransform statsPanel;
-    [SerializeField]private Button statsPanelBtn;
+    [SerializeField]public RectTransform statsPanel;
+    [SerializeField]public Button statsPanelBtn;
     private float statsPanelAnchorL;
     private float statsPanelAnchorR;
     private float statsPanelAnchorT;
@@ -1181,6 +1181,9 @@ public class CharacterInfoScreen : MonoBehaviour
             if (!uiManager.tutorial.addingAbilityTutorialDone && uiManager.tutorial.addingAbilityTutorialStep == 3 && opened) {
                 uiManager.tutorial.continueAddingAbilityClickAddButton();
             }
+            if(!uiManager.tutorial.upgradingStatsTutorialDone && uiManager.tutorial.upgradingStatsTutorialStep == 3 && opened) {
+                uiManager.tutorial.continueUpgradingStatsClickOnStats();
+            }
         }
         //no longer in process of closing
         if(time<=0)
@@ -1211,6 +1214,9 @@ public class CharacterInfoScreen : MonoBehaviour
                 statUpgrading.createAbilityDisplayStatDifferences();
                 statUpgrading.createdAbilityDisplays = true;
                 statUpgrading.focusAbilityIconHolder();
+                if (!uiManager.tutorial.upgradingStatsTutorialDone && uiManager.tutorial.upgradingStatsTutorialStep == 4) {
+                    uiManager.tutorial.continueUpgradingStatsExplainBriefly();
+                }
             }
         }
         //no longer in process of unfocusing
@@ -1247,6 +1253,12 @@ public class CharacterInfoScreen : MonoBehaviour
             //redisplays abilities
             displayCharacterAbilities(character);
             willHandleDeActivatingFocus = false;
+
+            //Tutorial stuff
+            if (!uiManager.tutorial.upgradingStatsTutorialDone && uiManager.tutorial.upgradingStatsTutorialStep>=15)
+            {
+                uiManager.tutorial.continueUpgradingStatsLastMessage();
+            }
         }
         if (character != null) {
             if (character.team == (int)Character.teamList.Player) {

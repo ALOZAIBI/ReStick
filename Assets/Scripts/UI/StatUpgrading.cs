@@ -7,6 +7,7 @@ using UnityEngine.TextCore.Text;
 using System;
 using UnityEngine.SceneManagement;
 using static System.TimeZoneInfo;
+using TMPro.EditorUtilities;
 
 public class StatUpgrading : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
@@ -20,33 +21,41 @@ public class StatUpgrading : MonoBehaviour {
     [SerializeField] private GameObject statPointTextContainer;
     [SerializeField] private TextMeshProUGUI statPointDisplay;
 
-    [SerializeField] private Button addPD;
-    [SerializeField] private Button subPD;
+    [SerializeField] public Button addPD;
+    [SerializeField] public Button subPD;
+    public GameObject PDIcon;
 
-    [SerializeField] private Button addMD;
-    [SerializeField] private Button subMD;
+    [SerializeField] public Button addMD;
+    [SerializeField] public Button subMD;
+    public GameObject MDIcon;
 
-    [SerializeField] private Button addINF;
-    [SerializeField] private Button subINF;
+    [SerializeField] public Button addINF;
+    [SerializeField] public Button subINF;
+    public GameObject INFIcon;
 
-    [SerializeField] private Button addAS;
-    [SerializeField] private Button subAS;
+    [SerializeField] public Button addAS;
+    [SerializeField] public Button subAS;
+    public GameObject ASIcon;
 
-    [SerializeField] private Button addCDR;
-    [SerializeField] private Button subCDR;
+    [SerializeField] public Button addCDR;
+    [SerializeField] public Button subCDR;
+    public GameObject CDRIcon;
 
-    [SerializeField] private Button addMS;
-    [SerializeField] private Button subMS;
+    [SerializeField] public Button addMS;
+    [SerializeField] public Button subMS;
+    public GameObject MSIcon;
 
-    [SerializeField] private Button addRNG;
-    [SerializeField] private Button subRNG;
+    [SerializeField] public Button addRNG;
+    [SerializeField] public Button subRNG;
+    public GameObject RNGIcon;
 
-    [SerializeField] private Button addLS;
-    [SerializeField] private Button subLS;
+    [SerializeField] public Button addLS;
+    [SerializeField] public Button subLS;
+    public GameObject LSIcon;
 
-    [SerializeField] private Button addHP;
-    [SerializeField] private Button subHP;
-    [SerializeField] private GameObject hpIcon;
+    [SerializeField] public Button addHP;
+    [SerializeField] public Button subHP;
+    [SerializeField] public GameObject HPIcon;
 
     //the amount that clicking the button adds/removes
     [SerializeField] private float PDAmt;
@@ -59,6 +68,17 @@ public class StatUpgrading : MonoBehaviour {
     [SerializeField] private float LSAmt;
     [SerializeField] private float HPAmt;
 
+    public LayoutGroup textLayoutGroup1;
+    public LayoutGroup textLayoutGroup2;
+
+    public LayoutGroup iconLayoutGroup1;
+    public LayoutGroup iconLayoutGroup2;
+
+    public LayoutGroup numberLayoutGroup1;
+    public LayoutGroup numberLayoutGroup2;
+
+    public LayoutGroup column1;
+    public LayoutGroup column2;
 
     [SerializeField] public Button applyChangesBtn;
     [SerializeField] public Button resetChangesBtn;
@@ -107,7 +127,7 @@ public class StatUpgrading : MonoBehaviour {
         subLS.gameObject.SetActive(false);
         addHP.gameObject.SetActive(false);
         subHP.gameObject.SetActive(false);
-        hpIcon.SetActive(false);
+        HPIcon.SetActive(false);
 
         applyChangesBtn.gameObject.SetActive(false);
         resetChangesBtn.gameObject.SetActive(false);
@@ -137,7 +157,7 @@ public class StatUpgrading : MonoBehaviour {
         subLS.gameObject.SetActive(true);
         addHP.gameObject.SetActive(true);
         subHP.gameObject.SetActive(true);
-        hpIcon.SetActive(true);
+        HPIcon.SetActive(true);
         applyChangesBtn.gameObject.SetActive(true);
         resetChangesBtn.gameObject.SetActive(true);
         updateAddColors();
@@ -152,10 +172,7 @@ public class StatUpgrading : MonoBehaviour {
     public void unFocusAbilityIconHolder() {
         foreach (RectTransform rectTransform in characterInfoScreen.abilityDisplays) {
             AbilityDisplay abilityDisplay = rectTransform.GetComponent<AbilityDisplay>();
-            Debug.Log("  "+abilityDisplay.iconHolder.transform.parent + " " + rectTransform);
             abilityDisplay.iconHolder.transform.SetParent(rectTransform);
-            Debug.Log("  " + abilityDisplay.iconHolder.transform.parent + " " + rectTransform);
-
         }
     }
     private void Start() {
