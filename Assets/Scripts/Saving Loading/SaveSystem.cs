@@ -62,7 +62,7 @@ static class SaveSystem
     public static void saveTutorialProgress(Tutorial tutorial) {
         TutorialData data = new TutorialData(tutorial);
 
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/tutorialProgress.xrt";
+        string path = Application.persistentDataPath + "/tutorialProgress.xrt";
         using (FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
             //the 2 lines that follow are the encrypted version
@@ -77,7 +77,7 @@ static class SaveSystem
     }
 
     public static void loadTutorialProgress() {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/tutorialProgress.xrt";
+        string path = Application.persistentDataPath +"/tutorialProgress.xrt";
         if (File.Exists(path)) {
             using(FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);

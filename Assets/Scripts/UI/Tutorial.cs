@@ -37,6 +37,10 @@ public class Tutorial : MonoBehaviour
     //Which step in the tutorial we're in. 
     public int addingAbilityTutorialStep;
     [SerializeField] private CharacterInfoScreen characterInfoScreen;
+
+    public bool upgradingStatsTutorialDone;
+
+    public int upgradingStatsTutorialStep;
     //Explains how to drag characters into the map
     public void beginDraggingCharactersTutorial() {
         if (draggingCharactersTutorialDone)
@@ -51,7 +55,7 @@ public class Tutorial : MonoBehaviour
         focus();
 
         positionTextBox(0.6f,0.7f,0.2f,0.8f);
-        text.text = "Tap and hold, then drag the character into the dotted area on the map";
+        text.text = "Tap and hold your character, then drag it into the dotted area on the map";
 
         //To Unfocus Have to drag characterDisplay
     }
@@ -198,6 +202,28 @@ public class Tutorial : MonoBehaviour
 
         SaveSystem.saveTutorialProgress(this);
 
+    }
+
+    //Decides wether to show the upgrading stats tutorial
+    //It Will show 
+    private bool showUpgradingStatTutorial() {
+        return false;
+    }
+    public void beingUpgradingStatsTutorial() {
+        //if (upgradingStatsTutorialDone || )
+        //    return;
+
+        gameObject.SetActive(true);
+
+        nextBtn.gameObject.SetActive(true);
+        textBox.gameObject.SetActive(true);
+
+        positionTextBox(0.6f, 0.7f, 0.2f, 0.8f);
+        text.text = "Did you know you can upgrade the stats of your characters?";
+
+        focus();
+
+        //SetListener(continueUpgradingStatsClickPortrait);
     }
     private void positionTextBox(float bottomAnchor, float topAnchor, float leftAnchor, float rightAnchor) {
         textBox.rectTransform.SetAnchorBottom(bottomAnchor);
