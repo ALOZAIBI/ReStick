@@ -52,7 +52,10 @@ public abstract class Projectile : MonoBehaviour
         catch { return true; };
         return true;
     }
-
+    /// <summary>
+    /// Creates an instance of the buff and applies it on the victim
+    /// </summary>
+    /// <param name="victim"></param>
     public void applyBuff(Character victim) {
         if (buff != null) {
             if (buffNotOnCharacter(victim)) {

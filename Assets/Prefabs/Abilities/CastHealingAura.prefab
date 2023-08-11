@@ -56,37 +56,74 @@ MonoBehaviour:
   abilityNext: 0
   valueNames:
   - Amount
+  - BuffStrength
+  - BuffDuration
   baseAmt:
   - 4
+  - 0
+  - 0
   PDRatio:
+  - 0
+  - 0
   - 0
   MDRatio:
   - 0.2
+  - 0
+  - 0
   INFRatio:
   - 0.6
+  - 0
+  - 0
   HPMaxRatio:
   - 0.03
+  - 0
+  - 0
   HPRatio:
+  - 0
+  - 0
   - 0
   LVLRatio:
   - 0
+  - 0
+  - 0
   MSRatio:
+  - 0
+  - 0
   - 0
   ASRatio:
   - 0
+  - 0
+  - 0
   valueAmt:
+  - 0
+  - 0
   - 0
   hasTarget: 0
   prefabObject: {fileID: 6616426771428068873, guid: 918d34f347090fc4697bfa9f7eae0764, type: 3}
-  buffPrefab: {fileID: 0}
+  buffPrefab: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 1
   rarity: 1
   targetStrategy: 1
   abilityTypeList: 2
   abilityType: 2
-  numberOfValues: 1
+  numberOfValues: 3
   duration: 3
   durationRemaining: 0
   active: 0
   enemy: 0
-  ally: 1
+  ally: 0
+  damage: 0
+  heal: 1
+  PD: 0
+  MD: 0
+  INF: 0
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  root: 0
+  silence: 0
+  blind: 0

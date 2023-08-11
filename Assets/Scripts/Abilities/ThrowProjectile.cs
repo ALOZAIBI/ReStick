@@ -5,7 +5,7 @@ using UnityEngine;
 public class ThrowProjectile : Ability
 {
     
-
+    //Buff Values
     public float PD;
     public float MD;
     public float INF;

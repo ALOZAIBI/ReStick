@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4571139232650429766
+--- !u!1 &2068909676930976843
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2261049920216737851}
-  - component: {fileID: 5313168026851692318}
+  - component: {fileID: 4375546544193823030}
+  - component: {fileID: 7666787523881371155}
   m_Layer: 0
-  m_Name: CastDamaginAura
+  m_Name: CastSpeedAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2261049920216737851
+--- !u!4 &4375546544193823030
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4571139232650429766}
+  m_GameObject: {fileID: 2068909676930976843}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.351489, y: 0.51654696, z: 598.6198}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5313168026851692318
+--- !u!114 &7666787523881371155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4571139232650429766}
+  m_GameObject: {fileID: 2068909676930976843}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63c1cd0bbcba8234e95f657b6f000bad, type: 3}
@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   lockedTarget: {fileID: 0}
-  abilityName: DamaginAura
+  abilityName: Hype team
   description: Heal Aura Lmao
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 7
-  rangeAbility: 4
+  rangeAbility: 8
   available: 1
   abilityNext: 0
   valueNames:
@@ -59,23 +59,23 @@ MonoBehaviour:
   - BuffStrength
   - BuffDuration
   baseAmt:
-  - 0.3
   - 0
   - 0
+  - 1
   PDRatio:
   - 0
   - 0
   - 0
   MDRatio:
-  - 0.2
+  - 0
   - 0
   - 0
   INFRatio:
   - 0
-  - 0
+  - 0.05
   - 0
   HPMaxRatio:
-  - 0.03
+  - 0
   - 0
   - 0
   HPRatio:
@@ -99,28 +99,28 @@ MonoBehaviour:
   - 0
   - 0
   hasTarget: 0
-  prefabObject: {fileID: 6616426771428068873, guid: c3dd24c40c4aa844ca459a71eec2d5a0, type: 3}
+  prefabObject: {fileID: 6616426771428068873, guid: 0d89520b2ec7d4a4ba9b14df6876f896, type: 3}
   buffPrefab: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 1
   rarity: 1
   targetStrategy: 1
-  abilityTypeList: 8
-  abilityType: 8
+  abilityTypeList: 3
+  abilityType: 3
   numberOfValues: 3
   duration: 3
   durationRemaining: 0
   active: 0
   enemy: 0
   ally: 0
-  damage: 1
-  heal: 0
+  damage: 0
+  heal: 1
   PD: 0
   MD: 0
   INF: 0
   HP: 0
-  AS: 0
+  AS: 0.4
   CDR: 0
-  MS: 0
+  MS: 1.5
   Range: 0
   LS: 0
   size: 0

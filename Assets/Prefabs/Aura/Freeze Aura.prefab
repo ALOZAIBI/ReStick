@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 341013456702988521}
   - component: {fileID: 6330922870570894010}
   - component: {fileID: 4074138880490405865}
-  - component: {fileID: -7981106596544255203}
+  - component: {fileID: -8712153692495336169}
   m_Layer: 2
-  m_Name: DamaginAura
+  m_Name: Freeze Aura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,10 +28,10 @@ Transform:
   m_GameObject: {fileID: 6616426771428068873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.8093797, y: -0.25452495, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8566716129265674413}
+  - {fileID: 6645059960987167276}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9137255, g: 0.47672102, b: 0.27058828, a: 0.48235294}
+  m_Color: {r: 0.14901961, g: 0.4509804, b: 0.43780813, a: 0.60784316}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -103,7 +103,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-7981106596544255203
+--- !u!114 &-8712153692495336169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +123,7 @@ MonoBehaviour:
   heal: 0
   buff: {fileID: 0}
   castingAbilityName: 
---- !u!1001 &8951952438441090263
+--- !u!1001 &6264315137550442070
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -136,15 +136,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 781567767320228986, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.49999997
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 781567767320228986, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.49999997
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 781567767320228986, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.49999997
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 781567767320228986, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -191,20 +191,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.b
-      value: 0.05085821
+      value: 0.9288213
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.9716981
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.r
-      value: 0.7169812
+      value: 0.5087665
       objectReference: {fileID: 0}
     - target: {fileID: 6641201484394630654, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Name
@@ -212,8 +208,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
---- !u!4 &8566716129265674413 stripped
+--- !u!4 &6645059960987167276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 781567767320228986, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
-  m_PrefabInstance: {fileID: 8951952438441090263}
+  m_PrefabInstance: {fileID: 6264315137550442070}
   m_PrefabAsset: {fileID: 0}

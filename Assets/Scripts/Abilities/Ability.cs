@@ -179,7 +179,7 @@ public abstract class Ability : MonoBehaviour
     public void playAnimation(string animation) {
         //if there is no ability queued To Be Cast and we are allowed to interrupt the current animation (or there is no animation playing)
         if(character.animationManager.abilityBuffer == null && character.animationManager.interruptible) {
-            Debug.Log("animation should play"+character.name+abilityName);
+            //Debug.Log("animation should play"+character.name+abilityName);
             character.animationManager.cast(this,animation);
         }
             

@@ -6,9 +6,28 @@ public class DashAttack : Ability
 {
     //how much cd will be at once it's reset
     private float cdReset=0.03f;
-
+    [SerializeField] private bool resetOnKill;
     //Maybe add this in the future it is taken frmo the initial stick project check my gitlab
     //public float resetPossibility = 0.7f;   //target has 0.7 seconds to die after dash for the dash to reset
+
+    //Buff Values
+    public float PD;
+    public float MD;
+    public float INF;
+    public float HP;
+    public float AS;
+    public float CDR;
+    public float MS;
+    public float Range;
+    public float LS;
+
+    public float size;
+
+    //used to root silence and blind etc..
+    public bool root;
+    public bool silence;
+    public bool blind;
+
     public override void Start() {
         base.Start();
         updateDescription();
@@ -28,7 +47,7 @@ public class DashAttack : Ability
                 character.agent.enabled = true;//renables to allow for pathfinding again
                 //deal damage
                 character.damage(character.target, valueAmt.getAmtValueFromName(this, "Damage"), true);
-                if (character.target.HP < 0) {
+                if (resetOnKill && character.target.HP < 0) {
                     startCooldown();
                     //reset cd
                     abilityNext = cdReset;
@@ -36,6 +55,77 @@ public class DashAttack : Ability
                 else {
                     //start cd
                     startCooldown();
+                }
+                //Apply buffs
+                //if there is a buff in this ability
+                if (valueAmt.getAmtValueFromName(this, "BuffDuration") > 0) {
+                    if (buffPrefab == null)
+                        throw new System.Exception("NO BUFF PREFAB");
+                    Buff buff = createBuff();
+                    //makes the buffs scale with character's inf
+                    {
+                        buff.PD = PD;
+                        if (PD > 0) {
+                            buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
+                        }
+
+                        buff.MD = MD;
+                        if (MD > 0) {
+                            buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
+                        }
+
+                        buff.INF = INF;
+                        if (INF > 0) {
+                            buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
+                        }
+
+                        buff.HP = HP;
+                        if (HP > 0) {
+                            buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
+                        }
+
+                        buff.AS = AS;
+                        if (AS > 0) {
+                            buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
+                        }
+
+                        buff.CDR = CDR;
+                        if (CDR > 0) {
+                            buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
+                        }
+
+                        buff.MS = MS;
+                        if (MS > 0) {
+                            buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
+                        }
+
+                        buff.Range = Range;
+                        if (Range > 0) {
+                            buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
+                        }
+
+                        buff.LS = LS;
+                        if (LS > 0) {
+                            buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
+                        }
+
+                        buff.size = size;
+                        if (size > 0) {
+                            buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
+                        }
+
+                        buff.snare = root;
+                        buff.silence = silence;
+                        buff.blind = blind;
+
+                        //sets caster and target
+                        buff.caster = character;
+                        buff.target = character.target;
+                        //increases buff duration according to AMT
+                        buff.duration = valueAmt.getAmtValueFromName(this, "BuffDuration");
+                        buff.code = abilityName + character.name;
+                    }
+                    buff.applyBuff();
                 }
             }
             

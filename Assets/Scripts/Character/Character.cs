@@ -1656,7 +1656,8 @@ public class Character : MonoBehaviour {
             levelUp();
 
         handleDeath();
-        if (!(blind>0))
+        //Sometimes after debuffs the AS is less than 0 so it is importatnt to prevent attacking in that case, otherways it'll be a machinegun
+        if (!(blind>0)&&AS>0)
             attack();
         cooldown();
         if (!(snare>0))

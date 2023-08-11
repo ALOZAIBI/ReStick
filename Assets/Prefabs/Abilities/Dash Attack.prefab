@@ -45,12 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  lockedTarget: {fileID: 0}
   abilityName: Dash Attack
   description: Dash and attack reset CD if kills
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
   CD: 13
-  rangeAbility: 6
+  rangeAbility: 6.5
   available: 1
   abilityNext: 0
   valueNames:
@@ -95,3 +96,4 @@ MonoBehaviour:
   abilityTypeList: 0
   abilityType: 0
   numberOfValues: 2
+  resetOnKill: 1

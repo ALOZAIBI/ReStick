@@ -11,4 +11,41 @@ public abstract class Aura : MonoBehaviour
     public bool enemy;
     public bool ally;
 
+    public bool damage;
+    public bool heal;
+
+    public Buff buff;
+
+    public string castingAbilityName;
+
+    //returns true if no buff on character and if there is the sameBuff on Character simply refresh it's duration
+    public bool buffNotOnCharacter(Character victim) {
+        try {
+            foreach (Buff temp in victim.buffs) {
+                //if buff is already applied refresh it's duration
+                if (temp.code == castingAbilityName + caster.name) {
+                    temp.durationRemaining = buff.duration;
+                    return false;
+                }
+            }
+        }
+        catch { return true; };
+        return true;
+    }
+    /// <summary>
+    /// Creates an instance of the buff and applies it on the victim
+    /// </summary>
+    /// <param name="victim"></param>
+    public void applyBuff(Character victim) {
+        if (buff != null) {
+            if (buffNotOnCharacter(victim)) {
+                //create an instance of the buff
+                Buff temp = Instantiate(buff);
+                temp.gameObject.SetActive(true);
+                temp.target = victim;
+                temp.applyBuff();
+            }
+        }
+    }
+
 }
