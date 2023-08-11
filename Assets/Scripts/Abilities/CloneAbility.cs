@@ -27,6 +27,7 @@ public class CloneAbility : Ability
             if (temp is CloneAbility) {
                 temp.startCooldown();
                 Debug.Log("CloneAbility cd is set to " + temp.abilityNext + temp.available);
+                Time.timeScale = 0;
             }
             //however all other abilities will be ready.
             else {
