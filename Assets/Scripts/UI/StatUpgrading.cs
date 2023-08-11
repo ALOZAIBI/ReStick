@@ -7,8 +7,6 @@ using UnityEngine.TextCore.Text;
 using System;
 using UnityEngine.SceneManagement;
 using static System.TimeZoneInfo;
-using TMPro.EditorUtilities;
-
 public class StatUpgrading : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
     //So far this only alters the display. But when the apply button is clicked the stats are added to the character. And if the 

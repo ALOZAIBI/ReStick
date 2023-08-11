@@ -76,11 +76,11 @@ public class CameraMovement : MonoBehaviour
         float boundsHeight = bounds.size.y * tilemapToDisplayFully.cellSize.y;
 
         // Add padding to avoid tiles being too close to the edge of the camera view
-        float padding = 0f;
+        float padding = 1.25f;
 
         // Calculate the required camera size based on the bounds and padding
-        float targetWidth = boundsWidth / aspectRatio + padding;
-        float targetHeight = boundsHeight / aspectRatio + padding;
+        float targetWidth = boundsWidth / aspectRatio * padding;
+        float targetHeight = boundsHeight / aspectRatio * padding;
 
         // Determine the larger dimension and set the targetOrthographicSize accordingly
         cam.orthographicSize = Mathf.Max(targetWidth, targetHeight) * 0.4f;

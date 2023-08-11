@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  abilityName: SniperInstincts
+  lockedTarget: {fileID: 0}
+  abilityName: Sniper Instincts
   description: Burst of PD AND RANGE
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
@@ -66,7 +67,7 @@ MonoBehaviour:
   - 0
   - 0
   INFRatio:
-  - 0
+  - 0.01
   - 0.05
   HPMaxRatio:
   - 0

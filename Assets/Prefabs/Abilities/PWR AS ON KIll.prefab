@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6921296547719086673
+--- !u!1 &847425543974145565
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6921296547719086687}
-  - component: {fileID: 6921296547719086672}
+  - component: {fileID: 847425543974145555}
+  - component: {fileID: 4655622526788934958}
   m_Layer: 0
-  m_Name: Cast AS Buff
+  m_Name: PWR AS ON KIll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6921296547719086687
+--- !u!4 &847425543974145555
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6921296547719086673}
+  m_GameObject: {fileID: 847425543974145565}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.8396406, y: -0.5352577, z: 601.99005}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,25 +32,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6921296547719086672
+--- !u!114 &4655622526788934958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6921296547719086673}
+  m_GameObject: {fileID: 847425543974145565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d524443ee8dc06444ab7bc75d31fcb9f, type: 3}
+  m_Script: {fileID: 11500000, guid: f9b40a800fe0cfd4daa0c0190c43f964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  abilityName: Cast AS Buff Innit
-  description: AS Buff
+  lockedTarget: {fileID: 0}
+  abilityName: Vulture
+  description: 
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 8
-  rangeAbility: 10
+  CD: 0
+  rangeAbility: 0
   available: 1
   abilityNext: 0
   valueNames:
@@ -58,16 +59,16 @@ MonoBehaviour:
   - Duration
   baseAmt:
   - 0
-  - 3
+  - 5
   PDRatio:
   - 0
   - 0
   MDRatio:
-  - 0.05
+  - 0
   - 0
   INFRatio:
-  - 0.2
-  - 0.02
+  - 0.1
+  - 0
   HPMaxRatio:
   - 0
   - 0
@@ -75,7 +76,7 @@ MonoBehaviour:
   - 0
   - 0
   LVLRatio:
-  - 0
+  - 0.2
   - 0
   MSRatio:
   - 0
@@ -86,26 +87,23 @@ MonoBehaviour:
   valueAmt:
   - 0
   - 0
-  hasTarget: 1
-  prefabObject: {fileID: 4146658564243946326, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
+  hasTarget: 0
+  prefabObject: {fileID: 4146658564243946326, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   buffPrefab: {fileID: 0}
-  Rarities: 0
-  rarity: 0
-  targetStrategy: 15
-  abilityTypeList: 3
-  abilityType: 3
+  Rarities: 1
+  rarity: 1
+  targetStrategy: 1
+  abilityTypeList: 5
+  abilityType: 5
   numberOfValues: 2
-  PD: 0
+  PD: 2.5
   MD: 0
   INF: 0
   HP: 0
-  AS: 0.7
+  AS: 0.1
   CDR: 0
   MS: 0
   Range: 0
   LS: 0
   size: 0
-  root: 0
-  silence: 0
-  blind: 0
   code: 
