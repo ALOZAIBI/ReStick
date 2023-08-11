@@ -9,6 +9,7 @@ public class TutorialData
     public bool draggingCharactersTutorialDone;
     public bool chooseRewardTutorialDone;
     public bool addingAbilityTutorialDone;
+    public bool upgradingStatsTutorialDone;
 
     public TutorialData() { }
 
@@ -16,5 +17,6 @@ public class TutorialData
         draggingCharactersTutorialDone = tutorial.draggingCharactersTutorialDone;
         chooseRewardTutorialDone = tutorial.chooseRewardTutorialDone;
         addingAbilityTutorialDone = tutorial.addingAbilityTutorialDone;
+        upgradingStatsTutorialDone = tutorial.upgradingStatsTutorialDone;
     }
 }

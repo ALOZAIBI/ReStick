@@ -2043,9 +2043,10 @@ MonoBehaviour:
   levelText: {fileID: 7806212137637475792}
   levelProgress: {fileID: 472408038288849900}
   levelBar: {fileID: 6954633413146116356}
-  upgradeStats: {fileID: 0}
-  upgradeStatsColorPingPong1: {r: 0, g: 0, b: 0, a: 0}
-  upgradeStatsColorPingPong2: {r: 0, g: 0, b: 0, a: 0}
+  statsBorder: {fileID: 9096397112226750677}
+  statsBorderRectTransform: {fileID: 0}
+  upgradeStatsColorPingPong1: {r: 0.003921569, g: 0.11764706, b: 0.18039216, a: 1}
+  upgradeStatsColorPingPong2: {r: 0.73700607, g: 0.8578537, b: 0.9245283, a: 1}
   pageIndex: 0
   inventoryAbilityDisplay: {fileID: 0}
   addAbilityBtn: {fileID: 9091345107092064614}
@@ -2065,6 +2066,7 @@ MonoBehaviour:
   confirmTargettingBtn: {fileID: 3794626291121719419}
   mainPanel: {fileID: 3597172688560082594}
   xpPanel: {fileID: 518392057290371518}
+  xpPanelBtn: {fileID: 0}
   statsPanel: {fileID: 8139078255009357912}
   statsPanelBtn: {fileID: 6488228319205567092}
   portraitPanel: {fileID: 4484227758478929190}
@@ -6053,6 +6055,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5095569301761824565, guid: 0712b1960da721941bf0088db7caa480, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5197292609446874250, guid: 0712b1960da721941bf0088db7caa480, type: 3}
       propertyPath: m_fontSize
       value: 46.45
@@ -6698,6 +6704,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5221973512268044216, guid: 0712b1960da721941bf0088db7caa480, type: 3}
   m_PrefabInstance: {fileID: 4074629232553900000}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9096397112226750677 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5095569301761824565, guid: 0712b1960da721941bf0088db7caa480, type: 3}
+  m_PrefabInstance: {fileID: 4074629232553900000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4249070072206880569
 PrefabInstance:
   m_ObjectHideFlags: 0

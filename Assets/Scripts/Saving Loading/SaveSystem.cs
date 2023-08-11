@@ -90,6 +90,7 @@ static class SaveSystem
                 UIManager.singleton.tutorial.draggingCharactersTutorialDone = data.draggingCharactersTutorialDone;
                 UIManager.singleton.tutorial.chooseRewardTutorialDone = data.chooseRewardTutorialDone;
                 UIManager.singleton.tutorial.addingAbilityTutorialDone = data.addingAbilityTutorialDone;
+                UIManager.singleton.tutorial.upgradingStatsTutorialDone = data.upgradingStatsTutorialDone;
             }
         }
     }

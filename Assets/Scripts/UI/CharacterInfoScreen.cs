@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 //The values of how I calculated the initAnchors is in the notebook page 76
 public class CharacterInfoScreen : MonoBehaviour
 {
@@ -53,7 +54,8 @@ public class CharacterInfoScreen : MonoBehaviour
 
 
     //this will be glowing to display that there are stat points available
-    public Image upgradeStats;
+    public Image statsBorder;
+    public RectTransform statsBorderRectTransform;
     public Color upgradeStatsColorPingPong1;
     public Color upgradeStatsColorPingPong2;
 
@@ -242,6 +244,8 @@ public class CharacterInfoScreen : MonoBehaviour
 
         statsPanelBtn.onClick.AddListener(displayUpgradeStats);
         xpPanelBtn.onClick.AddListener(displayUpgradeStats);
+
+        statsBorderRectTransform = statsBorder.GetComponent<RectTransform>();
 
         //targetSelectionBtn.onClick.AddListener(openTargetSelectorNormal);
         //openMovementSelectorBtn.onClick.AddListener(openMovementSelectorPage);
@@ -1149,7 +1153,7 @@ public class CharacterInfoScreen : MonoBehaviour
         ////to make the button glow in and out for emphasis
         //float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);
         //confirmAddAbilityBtnImage.color = new Color(x, x, x);
-        
+
     }
     public bool openingFullScreen;
     private void Update() {
@@ -1266,6 +1270,28 @@ public class CharacterInfoScreen : MonoBehaviour
             }
             else
                 targetSelectionBtn.interactable = false;
+        }
+
+        //Emphasizes the upgrade stats border when points are available and the player has been taught how to upgrade stats
+        if (character!=null && character.statPoints > 0 && uiManager.tutorial.upgradingStatsTutorialDone && opened) {
+            float lerpFactor = Mathf.PingPong(Time.unscaledTime*1.5f, 1);
+            statsBorder.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, lerpFactor);
+
+            statsBorderRectTransform.SetLeft(Mathf.Lerp(-2,-15,lerpFactor));
+            statsBorderRectTransform.SetRight(Mathf.Lerp(-2, -15, lerpFactor));
+            statsBorderRectTransform.SetTop(Mathf.Lerp(-2, -15, lerpFactor));
+            statsBorderRectTransform.SetBottom(Mathf.Lerp(-2, -15, lerpFactor));
+
+            statsBorder.pixelsPerUnitMultiplier = Mathf.Lerp(1, 0.5f, lerpFactor);
+        }
+        else {
+            statsBorder.color = upgradeStatsColorPingPong1;
+            statsBorderRectTransform.SetLeft(-2);
+            statsBorderRectTransform.SetRight(-2);
+            statsBorderRectTransform.SetTop(-2);
+            statsBorderRectTransform.SetBottom(-2);
+
+            statsBorder.pixelsPerUnitMultiplier = 1;
         }
 
     }
