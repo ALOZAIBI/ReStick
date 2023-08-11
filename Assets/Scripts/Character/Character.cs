@@ -172,9 +172,12 @@ public class Character : MonoBehaviour {
     public enum MovementStrategies {
         Default,    //walks to target and kite
         StayNearAlly,   //for now it is stay near closest ally. Update it later to make it so that it stays near stayNearAllyTarget
-        DontMove,
+        DontMove,   //Holds position (Attacks Nearby Enemies then walks back to original position)
         RunAwayFromNearestEnemy
     }
+
+    [SerializeField] private Vector2 holdPosition;
+    [SerializeField] private bool holdPositionSaved;
 
     //A function passes what action it wants a cooldown on then the cooldown function using a switch case does the appropriate thing
     public enum ActionAvailable {
@@ -260,6 +263,8 @@ public class Character : MonoBehaviour {
         //to force the character to go through the moveTowardsFunction gets the stats on round start
         timeSinceDestinationUpdate = 100;
         previousMovementState = 99;
+
+        holdPosition = transform.position;
 
         MovNext = 0;
         AtkNext = 0;
@@ -383,8 +388,25 @@ public class Character : MonoBehaviour {
                 }
                 break;
 
+            //Hold Position, Does default strategy if Enemy is almost in range otherwise return to hold position
             case (int)MovementStrategies.DontMove:
-                agent.isStopped = true;
+                //Hold position is saved in initroundStart
+                seekRange = 6;
+                //If target is within seekRange do default strategy
+                if (target.alive && canMove && Vector2.Distance(transform.position, target.transform.position) < seekRange) {
+                    doMoveStrategy((int)MovementStrategies.Default);
+                }
+                //if target is not within seekRange move towards hold position
+                else {
+                    if (Vector2.Distance(transform.position, holdPosition) < 0.5f) {
+                        agent.isStopped = true;
+                    }
+                    else {
+                        agent.isStopped = false;
+                        moveTowards(holdPosition);
+                    }
+                }
+
                 break;
 
             case (int)MovementStrategies.RunAwayFromNearestEnemy:
