@@ -202,10 +202,10 @@ public abstract class Ability : MonoBehaviour
             }
             for (int i = 0; i < valueNames.Count; i++) {
                 valueAmt[i] = baseAmt[i] + character.PD * PDRatio[i] + character.MD * MDRatio[i] + character.INF * INFRatio[i] + character.HPMax * HPMaxRatio[i] + character.HP * HPRatio[i] + character.level * LVLRatio[i] + character.MS * MSRatio[i] + character.AS * ASRatio[i];
-                //for example in teh case of damagin aura it should make the amt more negative instead of positive
-                if (baseAmt[i] < 0) {
-                    valueAmt[i] = -valueAmt[i];
-                }
+                ////for example in teh case of damagin aura it should make the amt more negative instead of positive
+                //if (baseAmt[i] < 0) {
+                //    valueAmt[i] = -valueAmt[i];
+                //}
             }
         }
         catch { /*when starting the game character will be null but also characterinfoscreen.character will be null so this is just to avoid the error when starting the game for the first time*/}
