@@ -12,7 +12,7 @@ public class BuffingAura : Aura
                 //deals damage to everyhing not in the casters team
                 if (characterAffected.team != caster.team) {
                     applyBuff(characterAffected);
-                    caster.damage(characterAffected, amt * Time.fixedDeltaTime, false);
+                    caster.damage(characterAffected, amt * Time.fixedDeltaTime, 0.33f);
                 }
             }
             if (heal) {

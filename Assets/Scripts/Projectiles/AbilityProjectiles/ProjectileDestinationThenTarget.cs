@@ -57,7 +57,7 @@ public class ProjectileDestinationThenTarget : Projectile
         if (collision.tag == "Character") {
             Character victim = collision.GetComponent<Character>();
             if (victim.team != shooter.team) {
-                shooter.damage(victim, DMG, false);
+                shooter.damage(victim, DMG, 0.33f);
                 //Destroy This Projectile After Hit
                 Destroy(gameObject);
             }

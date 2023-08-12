@@ -29,7 +29,7 @@ public class ProjectileSimpleHit : Projectile
             if (victim.team != shooter.team) {
                 applyBuff(victim);
                
-                shooter.damage(victim, DMG, false);
+                shooter.damage(victim, DMG, 0.75f);
                 //Destroy This Projectile After Hit
                 Destroy(gameObject);
             }

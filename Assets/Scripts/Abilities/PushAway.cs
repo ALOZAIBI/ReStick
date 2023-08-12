@@ -35,7 +35,7 @@ public class PushAway : Ability {
                 // Calculate pushback vector from character to the edge of the circle
                 Vector2 pushbackVector = colliders[i].transform.position - character.transform.position;
                 pushbackVector = pushbackVector.normalized * valueAmt.getAmtValueFromName(this, "PushBackDistance");
-                character.damage(temp, valueAmt.getAmtValueFromName(this,"Damage"), false);
+                character.damage(temp, valueAmt.getAmtValueFromName(this,"Damage"), 0.33f);
                 // Apply pushback vector to the character transform
                 colliders[i].transform.position = (Vector2)character.transform.position + pushbackVector;
             }

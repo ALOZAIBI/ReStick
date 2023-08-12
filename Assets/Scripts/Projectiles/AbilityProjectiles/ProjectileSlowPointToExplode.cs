@@ -55,7 +55,7 @@ public class ProjectileSlowPointToExplode : Projectile
                 //deals damage to everyhing not in the shooters team
                 if (victim.team != shooter.team) {
                     applyBuff(victim);
-                    shooter.damage(victim, DMG * Time.fixedDeltaTime, false);
+                    shooter.damage(victim, DMG * Time.fixedDeltaTime, 0.33f);
                 }
             }
         }
