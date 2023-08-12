@@ -584,7 +584,6 @@ public class Tutorial : MonoBehaviour
             characterInfoScreen.statUpgrading.addHP.interactable = true;
             characterInfoScreen.statUpgrading.subHP.interactable = true;
             objectsToBeFocused.Add(characterInfoScreen.healthBar.transform);
-            objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addHP.transform);
             hpLeftToAdd--;
             text.text = "Upgrade health for some increased defenses";
         }
@@ -621,7 +620,6 @@ public class Tutorial : MonoBehaviour
             characterInfoScreen.statUpgrading.addHP.interactable = true;
             characterInfoScreen.statUpgrading.subHP.interactable = true;
             objectsToBeFocused.Add(characterInfoScreen.healthBar.transform);
-            objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addHP.transform);
             hpLeftToAdd--;
             text.text = "Upgrade health for some increased defenses and a stronger heal";
         }
@@ -652,7 +650,6 @@ public class Tutorial : MonoBehaviour
             characterInfoScreen.statUpgrading.addHP.interactable = true;
             characterInfoScreen.statUpgrading.subHP.interactable = true;
             objectsToBeFocused.Add(characterInfoScreen.healthBar.transform);
-            objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addHP.transform);
             hpLeftToAdd--;
             text.text = "Upgrade health for some increased defenses";
         }
@@ -753,9 +750,12 @@ public class Tutorial : MonoBehaviour
     }
     private void focus() {
         UIManager.singleton.focus.gameObject.SetActive(true);
+        //We're doing 2 seperate loops to prevent bugs that happen when we are focusing 2 objects of the same parent (issue with the index)
         foreach(Transform t in objectsToBeFocused) {
             objectsParents.Add(t.parent);
             objectsIndex.Add(t.GetSiblingIndex());
+        }
+        foreach (Transform t in objectsToBeFocused) {
             t.SetParent(UIManager.singleton.focus.transform);
         }
         focusing = true;
