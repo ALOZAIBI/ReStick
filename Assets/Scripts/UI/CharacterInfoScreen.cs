@@ -76,7 +76,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
 
-    const int MAX_ABILITIES = 5;
+    public const int MAX_ABILITIES = 5;
     //pageindex 3 = prompt to add ability
     //pageindex 4 = confirm ability adding
     //base page wehn opening charinfoscreen

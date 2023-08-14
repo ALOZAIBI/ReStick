@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  lockedTarget: {fileID: 0}
   abilityName: Stab
   description: 
   color: {r: 0, g: 0, b: 0, a: 0}
@@ -103,6 +104,8 @@ MonoBehaviour:
   Rarities: 0
   rarity: 0
   targetStrategy: 1
+  canTargetAlly: 0
+  canTargetEnemy: 1
   abilityTypeList: 0
   abilityType: 0
   numberOfValues: 3

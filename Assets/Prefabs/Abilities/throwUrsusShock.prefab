@@ -50,7 +50,7 @@ MonoBehaviour:
   description: Throws AOE fireball
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 18
+  CD: 35
   rangeAbility: 20
   available: 1
   abilityNext: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
   Rarities: 3
   rarity: 3
   targetStrategy: 1
+  canTargetAlly: 0
+  canTargetEnemy: 1
   abilityTypeList: 1
   abilityType: 1
   numberOfValues: 3

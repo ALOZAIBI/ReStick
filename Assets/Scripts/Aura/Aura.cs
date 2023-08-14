@@ -48,4 +48,11 @@ public abstract class Aura : MonoBehaviour
         }
     }
 
+    private void FixedUpdate() {
+        //If the character is silenced or dead then destroy the aura
+        if (caster == null || caster.silence>0 || !caster.alive) {
+            Destroy(gameObject);
+        }
+    }
+
 }

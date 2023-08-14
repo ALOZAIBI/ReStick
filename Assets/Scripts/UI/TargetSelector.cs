@@ -47,6 +47,10 @@ public class TargetSelector : MonoBehaviour
 
     [SerializeField] private GameObject icons;
 
+    [SerializeField]private List<GameObject> valueHolders = new List<GameObject>(new GameObject[5]);
+    [SerializeField]private List<TextMeshProUGUI> valueName = new List<TextMeshProUGUI>(new TextMeshProUGUI[5]);
+    [SerializeField]private List<TextMeshProUGUI> valueAmt = new List<TextMeshProUGUI>(new TextMeshProUGUI[5]);
+
     private const float selectedAlpha = 1;
     private const float deselectedAlpha = 0.4f;
 
@@ -128,6 +132,24 @@ public class TargetSelector : MonoBehaviour
                 highest = false;
             }
             updateToggleView();
+        }
+        //Gets valueAmt and sets valueHolders to active for each value
+        for (int i = 0; i < valueHolders.Count; i++) {
+            //Sets to false and leaves the loop if done showing the correct amount of values
+            if (i >= ability.numberOfValues) {
+                valueHolders[i].SetActive(false);
+                continue;
+            }
+
+            string valueNameToBeUsed = ability.valueNames[i];
+            if(ability.valueAmt.getAmtValueFromName(ability, valueNameToBeUsed) == 0) {
+                valueHolders[i].SetActive(false);
+                //Continue jumpts to the next iteration of the loop
+                continue;
+            }
+            valueHolders[i].SetActive(true);
+            valueName[i].text = ability.valueNames[i];
+            valueAmt[i].text = ability.valueAmt.getAmtValueFromName(ability, valueNameToBeUsed).ToString("F2");
         }
     }
 
@@ -333,13 +355,14 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.ClosestEnemy;
-        }
-        //Also changes the targetting of all character's abilities that are currently targetting an enemy
-        foreach (Ability ability in characterInfoScreen.character.abilities) {
-            if (TargetNames.isEnemy(ability.targetStrategy)) {
-                ability.targetStrategy = characterInfoScreen.character.attackTargetStrategy;
+            //Also changes the targetting of all character's abilities that are currently targetting an enemy
+            foreach (Ability ability in characterInfoScreen.character.abilities) {
+                if (TargetNames.isEnemy(ability.targetStrategy)) {
+                    ability.targetStrategy = characterInfoScreen.character.attackTargetStrategy;
+                }
             }
         }
+        
         updateTargettingView();
     }
 
