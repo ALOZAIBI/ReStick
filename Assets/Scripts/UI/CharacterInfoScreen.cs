@@ -462,7 +462,7 @@ public class CharacterInfoScreen : MonoBehaviour
         if (!focused) {
             uiManager.focus.gameObject.SetActive(true);
             
-            //Ability target selector or regular target selector
+            //Ability target selector
             if (focusElement >= 0 && focusElement <= 4) {
                 targetSelector.gameObject.SetActive(true);
                 targetSelector.transform.SetParent(uiManager.focus.transform);
