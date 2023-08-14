@@ -30,6 +30,7 @@ public class ProjectileSimpleHit : Projectile
                 applyBuff(victim);
                
                 shooter.damage(victim, DMG, 0.75f);
+                applyHitFX(victim);
                 //Destroy This Projectile After Hit
                 Destroy(gameObject);
             }

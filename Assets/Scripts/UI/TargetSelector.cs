@@ -98,6 +98,10 @@ public class TargetSelector : MonoBehaviour
         else {
             highest = false;
         }
+        //Hides all valueHolders
+        for (int i = 0; i < valueHolders.Count; i++) {
+            valueHolders[i].SetActive(false);
+        }
         updateToggleView();
     }
     //With parameter so this is ability target selecotr

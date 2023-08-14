@@ -28,6 +28,7 @@ public abstract class Projectile : MonoBehaviour
     //name of the ability that created this projectile. This is used in BuffNotOnTarget check
     public string castingAbilityName;
 
+    public HitFX hitFX;
     //handles the trajectory of the projectile
     public abstract void trajectory();
 
@@ -68,4 +69,15 @@ public abstract class Projectile : MonoBehaviour
         }
     }
 
+    //Instantiates an active HitFX at position
+    public void applyHitFX(Character character) {
+        applyHitFX(character.transform.position);
+    }
+    public void applyHitFX(Vector3 position) {
+        HitFX temp = Instantiate(hitFX, position,Quaternion.identity);
+        temp.gameObject.SetActive(true);
+        //Makes the instantiated object's color same as the projectile color
+        temp.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+    }
+    
 }

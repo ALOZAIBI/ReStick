@@ -59,6 +59,7 @@ public class ProjectileDestinationThenTarget : Projectile
             if (victim.team != shooter.team) {
                 shooter.damage(victim, DMG, 0.33f);
                 //Destroy This Projectile After Hit
+                applyHitFX(victim);
                 Destroy(gameObject);
             }
         }
