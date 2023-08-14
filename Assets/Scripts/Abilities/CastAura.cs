@@ -9,9 +9,7 @@ public class CastAura : Ability
     //duration remaining
     public float durationRemaining=0;
     public bool active = false;
-    //wether it targets enemy or ally or both
-    public bool enemy;
-    public bool ally;
+    
 
     public bool damage;
     public bool heal;
@@ -127,8 +125,6 @@ public class CastAura : Ability
         aura.amt = valueAmt.getAmtValueFromName(this, "Amount");
         //sets the caster
         aura.caster = character;
-        aura.ally = ally;
-        aura.enemy = enemy;
         aura.damage = damage;
         aura.heal = heal;
         aura.castingAbilityName = abilityName;

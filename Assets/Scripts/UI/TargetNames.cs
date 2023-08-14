@@ -102,4 +102,41 @@ public class TargetNames : MonoBehaviour
         }
         return "";
     }
+
+    public static bool isEnemy(int target) {
+        switch (target) {
+            case (int)Character.TargetList.DefaultEnemy:
+            case (int)Character.TargetList.ClosestEnemy:
+            case (int)Character.TargetList.HighestPDEnemy:
+            case (int)Character.TargetList.LowestPDEnemy:
+            case (int)Character.TargetList.HighestMDEnemy:
+            case (int)Character.TargetList.LowestMDEnemy:
+            case (int)Character.TargetList.HighestINFEnemy:
+            case (int)Character.TargetList.LowestINFEnemy:
+            case (int)Character.TargetList.HighestASEnemy:
+            case (int)Character.TargetList.LowestASEnemy:
+            case (int)Character.TargetList.HighestMSEnemy:
+            case (int)Character.TargetList.LowestMSEnemy:
+            case (int)Character.TargetList.HighestRangeEnemy:
+            case (int)Character.TargetList.LowestRangeEnemy:
+            case (int)Character.TargetList.HighestHPEnemy:
+            case (int)Character.TargetList.LowestHPEnemy:
+                return true;
+
+            case (int)Character.TargetList.ClosestAlly:
+            case (int)Character.TargetList.HighestPDAlly:
+            case (int)Character.TargetList.LowestPDAlly:
+            case (int)Character.TargetList.HighestMDAlly:
+            case (int)Character.TargetList.LowestMDAlly:
+            case (int)Character.TargetList.HighestINFAlly:
+            case (int)Character.TargetList.LowestINFAlly:
+            case (int)Character.TargetList.HighestASAlly:
+            case (int)Character.TargetList.LowestASAlly:
+            case (int)Character.TargetList.HighestMSAlly:
+            case (int)Character.TargetList.LowestMSAlly:
+            default:
+                return false;
+
+        }
+    }
 }

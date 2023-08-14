@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  lockedTarget: {fileID: 0}
   abilityName: Inspire
   description: Power up target(HP PD)
   color: {r: 0, g: 0, b: 0, a: 0}
@@ -92,6 +93,8 @@ MonoBehaviour:
   Rarities: 1
   rarity: 1
   targetStrategy: 15
+  canTargetAlly: 1
+  canTargetEnemy: 0
   abilityTypeList: 3
   abilityType: 3
   numberOfValues: 2

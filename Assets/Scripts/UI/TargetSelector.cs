@@ -78,6 +78,8 @@ public class TargetSelector : MonoBehaviour
         isAbilityTargetSelector = false;
         this.ability = null;
         removeAbilityBtn.gameObject.SetActive(false);
+        hideAllyTargetting();
+        showEnemyTargetting();
         if(characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestPDEnemy
             || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestMDEnemy
             || characterInfoScreen.character.attackTargetStrategy == (int)Character.TargetList.HighestINFEnemy
@@ -100,9 +102,17 @@ public class TargetSelector : MonoBehaviour
         isAbilityTargetSelector = true;
         this.ability = ability;
         removeAbilityBtn.gameObject.SetActive(true);
+        //Hides targetting buttons
+        hideAllyTargetting();
+        hideEnemyTargetting();
         if (ability.hasTarget) {
-            showTargettingButtons(true);
-
+            //Shows targetting buttons depending on ability
+            if(ability.canTargetAlly) {
+                showAllyTargetting();
+            }
+            if(ability.canTargetEnemy) {
+                showEnemyTargetting();
+            }
             if (ability.targetStrategy == (int)Character.TargetList.HighestPDEnemy
                 || ability.targetStrategy == (int)Character.TargetList.HighestMDEnemy
                 || ability.targetStrategy == (int)Character.TargetList.HighestINFEnemy
@@ -119,23 +129,8 @@ public class TargetSelector : MonoBehaviour
             }
             updateToggleView();
         }
-        else {
-            showTargettingButtons(false);
-        }
     }
-    private void showTargettingButtons(bool show) {
-        PDEnemy.gameObject.SetActive(show);
-        MDEnemy.gameObject.SetActive(show);
-        INFEnemy.gameObject.SetActive(show);
-        HPEnemy.gameObject.SetActive(show);
-        ClosestEnemy.gameObject.SetActive(show);
-        PDAlly.gameObject.SetActive(show);
-        MDAlly.gameObject.SetActive(show);
-        INFAlly.gameObject.SetActive(show);
-        HPAlly.gameObject.SetActive(show);
-        ClosestAlly.gameObject.SetActive(show);
-        icons.SetActive(show);
-    }
+
     private void updateToggleView() {
         if (highest) {
             toggleTransform.localPosition = new Vector3(toggleTransform.localPosition.x, yPositionHi, toggleTransform.localPosition.z);
@@ -194,6 +189,39 @@ public class TargetSelector : MonoBehaviour
         }
 
     }
+
+    //Sets the enemy targetting buttons to inactive
+    private void hideEnemyTargetting() {
+        PDEnemy.gameObject.SetActive(false);
+        MDEnemy.gameObject.SetActive(false);
+        INFEnemy.gameObject.SetActive(false);
+        HPEnemy.gameObject.SetActive(false);
+        ClosestEnemy.gameObject.SetActive(false);
+    }
+    private void showEnemyTargetting() {
+        PDEnemy.gameObject.SetActive(true);
+        MDEnemy.gameObject.SetActive(true);
+        INFEnemy.gameObject.SetActive(true);
+        HPEnemy.gameObject.SetActive(true);
+        ClosestEnemy.gameObject.SetActive(true);
+    }
+    //Sets the ally targetting buttons to inactive
+    private void hideAllyTargetting() {
+        PDAlly.gameObject.SetActive(false);
+        MDAlly.gameObject.SetActive(false);
+        INFAlly.gameObject.SetActive(false);
+        HPAlly.gameObject.SetActive(false);
+        ClosestAlly.gameObject.SetActive(false);
+    }
+    private void showAllyTargetting() {
+        PDAlly.gameObject.SetActive(true);
+        MDAlly.gameObject.SetActive(true);
+        INFAlly.gameObject.SetActive(true);
+        HPAlly.gameObject.SetActive(true);
+        ClosestAlly.gameObject.SetActive(true);
+    }
+
+
     #region buttonFunctions
     private void selectPDEnemy() {
         if (isAbilityTargetSelector) {
@@ -205,12 +233,17 @@ public class TargetSelector : MonoBehaviour
             }
         }
         else {
-
             if (highest) {
                 characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.HighestPDEnemy;
             }
             else {
                 characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestPDEnemy;
+            }
+            //Also changes the targetting of all character's abilities that are currently targetting an enemy
+            foreach (Ability ability in characterInfoScreen.character.abilities) {
+                if (TargetNames.isEnemy(ability.targetStrategy)) {
+                    ability.targetStrategy = characterInfoScreen.character.attackTargetStrategy;
+                }
             }
         }
         updateTargettingView();
@@ -232,6 +265,12 @@ public class TargetSelector : MonoBehaviour
             else {
                 characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestMDEnemy;
             }
+            //Also changes the targetting of all character's abilities that are currently targetting an enemy
+            foreach (Ability ability in characterInfoScreen.character.abilities) {
+                if (TargetNames.isEnemy(ability.targetStrategy)) {
+                    ability.targetStrategy = characterInfoScreen.character.attackTargetStrategy;
+                }
+            }
         }
         updateTargettingView();
     }
@@ -251,6 +290,12 @@ public class TargetSelector : MonoBehaviour
             }
             else {
                 characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestINFEnemy;
+            }
+            //Also changes the targetting of all character's abilities that are currently targetting an enemy
+            foreach (Ability ability in characterInfoScreen.character.abilities) {
+                if (TargetNames.isEnemy(ability.targetStrategy)) {
+                    ability.targetStrategy = characterInfoScreen.character.attackTargetStrategy;
+                }
             }
         }
         updateTargettingView();
@@ -272,6 +317,12 @@ public class TargetSelector : MonoBehaviour
             else {
                 characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.LowestHPEnemy;
             }
+            //Also changes the targetting of all character's abilities that are currently targetting an enemy
+            foreach (Ability ability in characterInfoScreen.character.abilities) {
+                if (TargetNames.isEnemy(ability.targetStrategy)) {
+                    ability.targetStrategy = characterInfoScreen.character.attackTargetStrategy;
+                }
+            }
         }
         updateTargettingView();
     }
@@ -282,6 +333,12 @@ public class TargetSelector : MonoBehaviour
         }
         else {
             characterInfoScreen.character.attackTargetStrategy = (int)Character.TargetList.ClosestEnemy;
+        }
+        //Also changes the targetting of all character's abilities that are currently targetting an enemy
+        foreach (Ability ability in characterInfoScreen.character.abilities) {
+            if (TargetNames.isEnemy(ability.targetStrategy)) {
+                ability.targetStrategy = characterInfoScreen.character.attackTargetStrategy;
+            }
         }
         updateTargettingView();
     }

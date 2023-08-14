@@ -71,6 +71,10 @@ public abstract class Ability : MonoBehaviour
     //Abilities targetStrategy
     public int targetStrategy;
 
+    //Used for target Selection
+    public bool canTargetAlly;
+    public bool canTargetEnemy;
+
     public enum AbilityTypeList {
         PhysicalDamage,
         MagicDamage,
