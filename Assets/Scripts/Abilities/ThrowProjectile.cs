@@ -52,7 +52,7 @@ public class ThrowProjectile : Ability
         projectile.DMG = valueAmt.getAmtValueFromName(this,"Damage");
         //sets the target
         projectile.target = lockedTarget;
-        Debug.Log("Projectile has no target");
+        Debug.Log("Projectile has no target"+projectile.name + projectile.shooter);
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;
         //if there is a buff in this ability

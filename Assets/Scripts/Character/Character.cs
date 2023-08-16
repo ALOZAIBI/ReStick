@@ -1666,8 +1666,12 @@ public class Character : MonoBehaviour {
             agent.ResetPath();
             animationManager.move(false);
             }
-        if(!(silence>0))
+        if (!(silence > 0)) {
+            //if (name == "Cortes") {
+            //    Debug.Log("Doing abilities");
+            //}
             doAbilities();
+        }
         capHP();
         previousMovementState = movementState; // this will be used to see if the movementState changed or not
         resetKillsLastFrame();//always keep me last in update

@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9137255, g: 0.88947743, b: 0.27058828, a: 0.3254902}
+  m_Color: {r: 0.42609897, g: 0.9137255, b: 0.27058828, a: 0.3254902}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,6 +123,8 @@ MonoBehaviour:
   heal: 0
   buff: {fileID: 0}
   castingAbilityName: 
+  saveCharacterInAura: 0
+  charactersInAura: []
 --- !u!1001 &6264315137550442070
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,6 +18,10 @@ public abstract class Aura : MonoBehaviour
 
     public string castingAbilityName;
 
+    //We will use this list in the DashALotThenSheath
+    public bool saveCharacterInAura;
+    public List<Character> charactersInAura = new List<Character>();
+
     //returns true if no buff on character and if there is the sameBuff on Character simply refresh it's duration
     public bool buffNotOnCharacter(Character victim) {
         try {
@@ -44,6 +48,7 @@ public abstract class Aura : MonoBehaviour
                 temp.gameObject.SetActive(true);
                 temp.target = victim;
                 temp.applyBuff();
+                Debug.Log("IOssue");
             }
         }
     }

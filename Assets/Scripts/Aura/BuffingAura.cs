@@ -15,10 +15,15 @@ public class BuffingAura : Aura
                     caster.damage(characterAffected, amt * Time.fixedDeltaTime, 0.33f);
                 }
             }
-            if (heal) {
-                if (characterAffected.team == caster.team) {
+            if (heal) {//If this targets both enemies and allies then don't target self
+                if ((characterAffected.team == caster.team && !damage)||damage && characterAffected!=caster) {
                     applyBuff(characterAffected);
                     characterAffected.HP += amt * Time.fixedDeltaTime;
+                }
+            }
+            if (saveCharacterInAura) {
+                if (!charactersInAura.Contains(characterAffected)) {
+                    charactersInAura.Add(characterAffected);
                 }
             }
         }

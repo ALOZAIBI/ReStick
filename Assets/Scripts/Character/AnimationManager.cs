@@ -90,6 +90,7 @@ public class AnimationManager : MonoBehaviour
                     Debug.LogError("Animation not found");
                     break;
             }
+            animator.SetFloat("animationSpeed", 0.75f + character.AS * 0.1f + character.CDR * 0.9f);
             interruptible = false;
         }
     }

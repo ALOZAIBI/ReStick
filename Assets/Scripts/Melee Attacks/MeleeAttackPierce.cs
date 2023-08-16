@@ -44,6 +44,7 @@ public class MeleeAttackPierce : MeleeAttack
             Character victim = collision.gameObject.GetComponent<Character>();
             if(victim.team != character.team&& !charactersHit.Contains(victim)) {
                 character.damage(victim, DMG, LS);
+                applyHitFX(victim);
                 applyBuff(victim);
             }
             charactersHit.Add(victim);

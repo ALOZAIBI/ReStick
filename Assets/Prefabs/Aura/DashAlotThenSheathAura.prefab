@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4074138880490405865}
   - component: {fileID: -8712153692495336169}
   m_Layer: 2
-  m_Name: Freeze Aura
+  m_Name: DashAlotThenSheathAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.14901961, g: 0.4509804, b: 0.43780813, a: 0.60784316}
+  m_Color: {r: 0.27058828, g: 0.9137255, b: 0.85776526, a: 0.16470589}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -119,11 +119,11 @@ MonoBehaviour:
   amt: 0
   enemy: 0
   ally: 0
-  damage: 0
-  heal: 0
+  damage: 1
+  heal: 1
   buff: {fileID: 0}
   castingAbilityName: 
-  saveCharacterInAura: 0
+  saveCharacterInAura: 1
   charactersInAura: []
 --- !u!1001 &6264315137550442070
 PrefabInstance:
@@ -193,16 +193,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
+      propertyPath: m_Color.a
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.b
-      value: 0.9288213
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.g
-      value: 0.9716981
+      value: 0.8958945
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.r
-      value: 0.5087665
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6641201484394630654, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Name

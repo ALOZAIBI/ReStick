@@ -132,6 +132,94 @@ public class CastAura : Ability
         startCooldown();
         startActiveDuration();
     }
+
+    ////This is called from other abilities to start the aura (the aura should be saved in the prefabObject of the ability)
+    //public static void castAura(this Ability ability) {
+    //    GameObject temp = Instantiate(ability.prefabObject);
+    //    Aura aura = temp.GetComponent<Aura>();
+    //    aura.transform.localScale = new Vector3(ability.rangeAbility * 2, ability.rangeAbility * 2, ability.rangeAbility * 2);
+    //    //if there is a buff in this ability
+    //    if (ability.valueAmt.getAmtValueFromName(ability, "BuffDuration") > 0) {
+    //        if (ability.buffPrefab == null)
+    //            throw new System.Exception("NO BUFF PREFAB");
+    //        Buff buff = ability.createBuff();
+    //        //makes the buffs scale with character's inf
+    //        {
+    //            buff.PD = ability.PD;
+    //            if (ability.PD > 0) {
+    //                buff.PD += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.PD;
+    //            }
+
+    //            buff.MD = ability.MD;
+    //            if (ability.MD > 0) {
+    //                buff.MD += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.MD;
+    //            }
+
+    //            buff.INF = ability.INF;
+    //            if (ability.INF > 0) {
+    //                buff.INF += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.INF;
+    //            }
+
+    //            buff.HP = ability.HP;
+    //            if (ability.HP > 0) {
+    //                buff.HP += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.HP;
+    //            }
+
+    //            buff.AS = ability.AS;
+    //            if (ability.AS > 0) {
+    //                buff.AS += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.AS;
+    //            }
+
+    //            buff.CDR = ability.CDR;
+    //            if (ability.CDR > 0) {
+    //                buff.CDR += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.CDR;
+    //            }
+
+    //            buff.MS = ability.MS;
+    //            if (ability.MS > 0) {
+    //                buff.MS += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.MS;
+    //            }
+
+    //            buff.Range = ability.Range;
+    //            if (ability.Range > 0) {
+    //                buff.Range += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.Range;
+    //            }
+
+    //            buff.LS = ability.LS;
+    //            if (ability.LS > 0) {
+    //                buff.LS += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.LS;
+    //            }
+
+    //            buff.size = ability.size;
+    //            if (ability.size > 0) {
+    //                buff.size += ability.valueAmt.getAmtValueFromName(ability, "BuffStrength") * ability.size;
+    //            }
+
+    //            buff.snare = ability.root;
+    //            buff.silence = ability.silence;
+    //            buff.blind = ability.blind;
+
+    //            //sets caster and target
+    //            buff.caster = ability.character;
+    //            buff.target = ability.character.target;
+
+    //            //increases buff duration according to AMT
+    //            buff.duration = ability.valueAmt.getAmtValueFromName(ability, "BuffDuration");
+    //            buff.code = ability.abilityName + ability.character.name;
+    //        }
+    //        aura.buff = buff;
+    //    }
+
+    //    //sets the amt 
+    //    aura.amt = ability.valueAmt.getAmtValueFromName(ability, "Amount");
+    //    //sets the caster
+    //    aura.caster = ability.character;
+    //    //This will be set in the abilitie's aura prefab
+    //    //aura.damage = damage;
+    //    //aura.heal = heal;
+    //    aura.castingAbilityName = ability.abilityName;
+    //    ability.prefabObject.SetActive(true);
+    //}
     public override void updateDescription() {
         description = "";
         if (character == null) {

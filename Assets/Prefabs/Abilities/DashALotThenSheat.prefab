@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3556907670124379864
+--- !u!1 &8211127950920380162
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,67 +8,67 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3556907670124379865}
-  - component: {fileID: 3556907670124379866}
+  - component: {fileID: 8211127950920380160}
+  - component: {fileID: 714584997061494516}
   m_Layer: 0
-  m_Name: Slow Debuff
+  m_Name: DashALotThenSheat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3556907670124379865
+--- !u!4 &8211127950920380160
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3556907670124379864}
+  m_GameObject: {fileID: 8211127950920380162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8396406, y: -0.5352577, z: 601.99005}
+  m_LocalPosition: {x: -1.0231647, y: -0.13104515, z: 0.0023247432}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3556907670124379866
+--- !u!114 &714584997061494516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3556907670124379864}
+  m_GameObject: {fileID: 8211127950920380162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d524443ee8dc06444ab7bc75d31fcb9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 95cf28aebf3a9f149a07cf1e98f5238f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   lockedTarget: {fileID: 0}
-  abilityName: Slow Curse
-  description: Slow my target
+  abilityName: Relentless
+  description: 
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 8
-  rangeAbility: 8.5
+  CD: 20
+  rangeAbility: 6
   available: 1
   abilityNext: 0
   valueNames:
-  - BuffStrength
-  - Duration
+  - Damage
+  - DashSpeed
   baseAmt:
-  - 0
-  - 4
+  - 50
+  - 20
   PDRatio:
-  - 0
+  - 3
   - 0
   MDRatio:
-  - 0.0025
+  - 0
   - 0
   INFRatio:
-  - 0.04
-  - 0.05
+  - 0
+  - 0
   HPMaxRatio:
   - 0
   - 0
@@ -87,28 +87,19 @@ MonoBehaviour:
   valueAmt:
   - 0
   - 0
-  hasTarget: 1
-  prefabObject: {fileID: 4146658564243946326, guid: 6cc3ab36963a24a48987920dbe1a6d62, type: 3}
-  buffPrefab: {fileID: 0}
-  Rarities: 0
-  rarity: 0
-  targetStrategy: 1
+  hasTarget: 0
+  prefabObject: {fileID: 6616426771428068873, guid: 84a3aa36738367c48b451df718e5fcc9, type: 3}
+  buffPrefab: {fileID: 4146658564243946327, guid: b7d7accae8a77ef44a10b2377dedcd17, type: 3}
+  Rarities: 3
+  rarity: 3
+  targetStrategy: 0
   canTargetAlly: 0
-  canTargetEnemy: 1
-  abilityTypeList: 4
-  abilityType: 4
+  canTargetEnemy: 0
+  step: 0
+  hitFX: {fileID: 3272547360703979223, guid: d28e16c478726804cbdccfc590882c08, type: 3}
+  hitFXColor: {r: 0.5330188, g: 0.7626469, b: 1, a: 1}
+  abilityTypeList: 0
+  abilityType: 0
   numberOfValues: 2
-  PD: 0
-  MD: 0
-  INF: 0
-  HP: 0
-  AS: 0
-  CDR: 0
-  MS: -1.25
-  Range: 0
-  LS: 0
-  size: 0
-  root: 0
-  silence: 0
-  blind: 0
-  code: 
+  enemiesHit: []
+  toDashTo: {fileID: 0}

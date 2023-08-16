@@ -75,6 +75,28 @@ public abstract class Ability : MonoBehaviour
     public bool canTargetAlly;
     public bool canTargetEnemy;
 
+    //Some abilities have multiple steps and play a different animation for each step, so in these abilities the execute ability function will increment step and the cooldown function will reset step.
+    [SerializeField]protected int step;
+
+    [SerializeField]protected HitFX hitFX;
+    [SerializeField]protected Color hitFXColor;
+    ////Buff Values
+    //public float PD;
+    //public float MD;
+    //public float INF;
+    //public float HP;
+    //public float AS;
+    //public float CDR;
+    //public float MS;
+    //public float Range;
+    //public float LS;
+
+    //public float size;
+
+    ////used to root silence and blind etc..
+    //public bool root;
+    //public bool silence;
+    //public bool blind;
     public enum AbilityTypeList {
         PhysicalDamage,
         MagicDamage,
@@ -220,6 +242,7 @@ public abstract class Ability : MonoBehaviour
         //starts the CD
         abilityNext = CD - CD*character.CDR;
         available = false;
+        step = 0;
     }
     //and put this in the fixedupdate function
     public void cooldown() {
@@ -239,6 +262,18 @@ public abstract class Ability : MonoBehaviour
         buff.gameObject.SetActive(false);
         return buff;
     }
+
+    //Instantiates an active HitFX at position
+    public void applyHitFX(Character character) {
+        applyHitFX(character.transform.position);
+    }
+    public void applyHitFX(Vector3 position) {
+        HitFX temp = Instantiate(hitFX, position, Quaternion.identity);
+        temp.gameObject.SetActive(true);
+        //Makes the instantiated object's color same as the projectile color
+        temp.GetComponent<SpriteRenderer>().color = hitFXColor;
+    }
+
     //just to be able to display the CD after the CDR stat has been updated (Since increasing CDR shouldn't change base CD)
     public string displayCDAfterChange() {
         try {
