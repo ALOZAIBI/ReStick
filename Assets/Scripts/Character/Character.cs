@@ -192,6 +192,7 @@ public class Character : MonoBehaviour {
     public List<Ability> abilities = new List<Ability>();
     //This is needed for abilities that apply on kill for example heal after a kill
     public int killsLastFrame = 0;
+    [HideInInspector]public List<int> averageLevelOfKillsLastFrame = new List<int>();
     //Bonus Stats
     public List<BonusStats> bonusStats = new List<BonusStats>();
     //Buffs/Debuffs
@@ -1428,6 +1429,7 @@ public class Character : MonoBehaviour {
     //resets kills last frame at the end of this frame. always keep last in the update function
     private void resetKillsLastFrame() {
         killsLastFrame = 0;
+        averageLevelOfKillsLastFrame.Clear();
     }
    
     public void handleDeath() {
@@ -1536,16 +1538,19 @@ public class Character : MonoBehaviour {
             if (summoned) {
                 summoner.totalKills++;
                 summoner.killsLastFrame++;
+                summoner.averageLevelOfKillsLastFrame.Add(victim.level);
             }
             else {
                 totalKills++;
                 killsLastFrame++;
+                averageLevelOfKillsLastFrame.Add(victim.level);
             }
         }
         else {
             if (summoned) {
                 summoner.totalKills++;
                 summoner.killsLastFrame++;
+                summoner.averageLevelOfKillsLastFrame.Add(victim.level);
                 // level progress will depend on victim's level the equation is open to changing
                 increasePartyXP(victim.level);
                 //add gold
@@ -1556,6 +1561,7 @@ public class Character : MonoBehaviour {
             else {
                 totalKills++;
                 killsLastFrame++;
+                averageLevelOfKillsLastFrame.Add(victim.level);
                 //level progress will depend on victim's level the equation is open to changing
                 increasePartyXP(victim.level);
                 //add gold

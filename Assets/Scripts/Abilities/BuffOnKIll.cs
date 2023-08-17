@@ -32,59 +32,59 @@ public class BuffOnKIll : Ability
         if (character.killsLastFrame > 0) {
             calculateAmt();
             Debug.Log("There was a kill last frame");
-            for (int i = 0; i < character.killsLastFrame; i++) {
+            foreach(int i in character.averageLevelOfKillsLastFrame){
                 //creates buff for every kill last frame
                 Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
                 //Debug.Log("kills>0"+ buff.transform.parent.name);
                 //Debug.Log("Arrived here");
-                buff.PD = PD;
+                buff.PD = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * PD;
                 if (PD > 0) {
-                    buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
+                    buff.PD += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
                 }
 
-                buff.MD = MD;
+                buff.MD = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * MD;
                 if (MD > 0) {
-                    buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
+                    buff.MD += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
                 }
 
-                buff.INF = INF;
+                buff.INF = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * INF;
                 if (INF > 0) {
-                    buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
+                    buff.INF += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
                 }
 
-                buff.HP = HP;
+                buff.HP = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * HP;
                 if (HP > 0) {
-                    buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
+                    buff.HP += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
                 }
 
-                buff.AS = AS;
+                buff.AS = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * AS;
                 if (AS > 0) {
-                    buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
+                    buff.AS += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
                 }
 
-                buff.CDR = CDR;
+                buff.CDR = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * CDR;
                 if (CDR > 0) {
-                    buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
+                    buff.CDR += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
                 }
 
-                buff.MS = MS;
+                buff.MS = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * MS;
                 if (MS > 0) {
-                    buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
+                    buff.MS += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
                 }
 
-                buff.Range = Range;
+                buff.Range = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * Range;
                 if (Range > 0) {
-                    buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
+                    buff.Range += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
                 }
 
-                buff.LS = LS;
+                buff.LS = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * LS;
                 if (LS > 0) {
-                    buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
+                    buff.LS += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
                 }
 
-                buff.size = size;
+                buff.size = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * size;
                 if (size > 0) {
-                    buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
+                    buff.size += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
                 }
 
                 buff.caster = character;
