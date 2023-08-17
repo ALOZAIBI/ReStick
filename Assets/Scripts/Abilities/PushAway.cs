@@ -7,6 +7,7 @@ public class PushAway : Ability {
     //to detect only character collisions
     public LayerMask mask;
 
+
     //prefabObject will hold the buff that will slowthem
     public override void doAbility() {
         //this ability will only be cast if there are enemies within the radius
@@ -19,6 +20,8 @@ public class PushAway : Ability {
 
         //Holds list of enemies affected by the ability (within rangeability)
         Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, (rangeAbility), mask);
+
+        applyHitFX(character,rangeAbility*2);
 
         // Loop through the detected colliders in the layerMask(Characters)
         for (int i = 0; i < colliders.Length; i++) {

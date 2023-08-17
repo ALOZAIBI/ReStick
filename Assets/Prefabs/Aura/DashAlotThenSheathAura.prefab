@@ -32,6 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6645059960987167276}
+  - {fileID: 3538365574542084433}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.27058828, g: 0.9137255, b: 0.85776526, a: 0.16470589}
+  m_Color: {r: 0.27058828, g: 0.9137255, b: 0.85776526, a: 0.050980393}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -125,6 +126,68 @@ MonoBehaviour:
   castingAbilityName: 
   saveCharacterInAura: 1
   charactersInAura: []
+--- !u!1001 &6060072328463849523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 341013456702988521}
+    m_Modifications:
+    - target: {fileID: 7278801141927661917, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_Name
+      value: SmokeAway
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+--- !u!4 &3538365574542084433 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7278801141927661922, guid: 38292dd9734ca704196865e9988b4692, type: 3}
+  m_PrefabInstance: {fileID: 6060072328463849523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6264315137550442070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.a
-      value: 0.35686275
+      value: 0.14901961
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.b
@@ -211,6 +274,10 @@ PrefabInstance:
     - target: {fileID: 6641201484394630654, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Name
       value: Bloom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641201484394630654, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}

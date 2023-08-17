@@ -273,7 +273,17 @@ public abstract class Ability : MonoBehaviour
         //Makes the instantiated object's color same as the projectile color
         temp.GetComponent<SpriteRenderer>().color = hitFXColor;
     }
+    public void applyHitFX(Character character, float size) {
+        applyHitFX(character.transform.position, size);
+    }
 
+    public void applyHitFX(Vector3 position,float size) {
+        HitFX temp = Instantiate(hitFX, position, Quaternion.identity);
+        temp.transform.localScale = new Vector3(size, size, size);
+        temp.gameObject.SetActive(true);
+        //Makes the instantiated object's color same as the projectile color
+        temp.GetComponent<SpriteRenderer>().color = hitFXColor;
+    }
     //just to be able to display the CD after the CDR stat has been updated (Since increasing CDR shouldn't change base CD)
     public string displayCDAfterChange() {
         try {
