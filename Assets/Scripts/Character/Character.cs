@@ -1526,9 +1526,12 @@ public class Character : MonoBehaviour {
         HP += damageAmount * LS*LSAmount;
         if (victim.HP <= 0)
             kill(victim);
-        //if summoned also increase the summoner's total damage
-        if (summoned)
+        //if summoned also increase the summoner's total damage and apply the heal from lifesteal to them too
+        if (summoned) {
             summoner.totalDamage += damageAmount;
+            //if summoned heal the summoner by the damageDealt and the summoner's LifeSteal amount
+            summoner.HP += damageAmount * summoner.LS * LSAmount;
+        }
         totalDamage += damageAmount;
     }
     //increase killer's kill stats and xp
