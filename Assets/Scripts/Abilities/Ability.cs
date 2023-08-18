@@ -262,6 +262,12 @@ public abstract class Ability : MonoBehaviour
         buff.gameObject.SetActive(false);
         return buff;
     }
+    //Used to interrupt dashes
+    protected void interrupt(Character victim) {
+        //Since dashes disable navmeshagent, we need to reenable it when interrupting.
+        victim.agent.enabled = true;
+        //Later when you have a dash animation, the animation would hold the ability that is being cast in the buffer, so we need to put that ability on cooldown since it has been interuppted.
+    }
 
     //Instantiates an active HitFX at position
     public void applyHitFX(Character character) {
@@ -276,7 +282,6 @@ public abstract class Ability : MonoBehaviour
     public void applyHitFX(Character character, float size) {
         applyHitFX(character.transform.position, size);
     }
-
     public void applyHitFX(Vector3 position,float size) {
         HitFX temp = Instantiate(hitFX, position, Quaternion.identity);
         temp.transform.localScale = new Vector3(size, size, size);

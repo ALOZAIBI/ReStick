@@ -22,6 +22,18 @@ public abstract class Aura : MonoBehaviour
     public bool saveCharacterInAura;
     public List<Character> charactersInAura = new List<Character>();
 
+    [SerializeField]private float timeToGrow = 0.5f;
+    [SerializeField]private float time = 0;
+    [SerializeField]private float sizeTarget;
+    const int INITSIZE = 5;
+
+    private void Start() {
+        //Saves size target
+        sizeTarget = transform.localScale.x;
+        //Sets the size to INITSIZE
+        transform.localScale = new Vector3(INITSIZE, INITSIZE, INITSIZE);
+    }
+
     //returns true if no buff on character and if there is the sameBuff on Character simply refresh it's duration
     public bool buffNotOnCharacter(Character victim) {
         try {
@@ -57,6 +69,14 @@ public abstract class Aura : MonoBehaviour
         //If the character is silenced or dead then destroy the aura
         if (caster == null || caster.silence>0 || !caster.alive) {
             Destroy(gameObject);
+        }
+        //Grow the aura to targetsize over timeToGrow seconds
+        
+        if(time < timeToGrow) {
+            time+=Time.fixedDeltaTime;
+            float scaleAmount =Mathf.Lerp(INITSIZE, sizeTarget, time/timeToGrow);
+            transform.localScale = new Vector3(scaleAmount, scaleAmount, scaleAmount);
+
         }
     }
 

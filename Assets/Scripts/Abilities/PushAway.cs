@@ -41,6 +41,7 @@ public class PushAway : Ability {
                 character.damage(temp, valueAmt.getAmtValueFromName(this,"Damage"), 0.33f);
                 // Apply pushback vector to the character transform
                 colliders[i].transform.position = (Vector2)character.transform.position + pushbackVector;
+                interrupt(temp);
             }
         }
 
