@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3637706766136786256}
   - component: {fileID: 3637706766136786257}
   - component: {fileID: 3637706766136786271}
+  - component: {fileID: 6371209474290996618}
   - component: {fileID: 3637706766136786270}
   - component: {fileID: 8774151034656527860}
   m_Layer: 2
@@ -110,6 +111,25 @@ MonoBehaviour:
   description: Burn characters within
   direction: {x: 0, y: 0}
   castingAbilityName: 
+  hitFX: {fileID: 0}
+  createFXOnTargetsWithin: {fileID: 6371209474290996618}
+--- !u!114 &6371209474290996618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637706766136786258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367cb134a63b24f4199cf9c6f3f972ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitFXs: []
+  hitFXPrefab: {fileID: 6105823650600277167, guid: fc50acb2b444fd34387fc568411ae618, type: 3}
+  caster: {fileID: 0}
+  enemy: 0
+  ally: 0
 --- !u!58 &3637706766136786270
 CircleCollider2D:
   m_ObjectHideFlags: 0

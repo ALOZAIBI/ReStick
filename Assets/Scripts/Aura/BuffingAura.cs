@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class BuffingAura : Aura
 {
+    [SerializeField] private CreateFXOnTargetsWithin createFXOnTargetsWithin;
+
+    private new void Start() {
+        base.Start();
+        //Sets up the FXCreator
+        if(createFXOnTargetsWithin!=null) {
+            createFXOnTargetsWithin.caster = caster;
+            createFXOnTargetsWithin.ally = heal;
+            createFXOnTargetsWithin.enemy = damage;
+        }
+    }
     //deals damage to enemies that this passes over
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.tag == "Character") {

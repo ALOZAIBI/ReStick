@@ -32,7 +32,7 @@ public abstract class Aura : MonoBehaviour
     [SerializeField]private float sizeTarget;
     const int INITSIZE = 5;
 
-    private void Start() {
+    protected void Start() {
         if (grow) {
             //Saves size target
             sizeTarget = transform.localScale.x;
