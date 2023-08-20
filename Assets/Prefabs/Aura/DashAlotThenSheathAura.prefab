@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e2e2741f01410469af09c304d16368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 6330922870570894010}
   caster: {fileID: 0}
   amt: 0
   enemy: 0
@@ -126,6 +127,10 @@ MonoBehaviour:
   castingAbilityName: 
   saveCharacterInAura: 1
   charactersInAura: []
+  grow: 0
+  timeToSetupAura: 0.5
+  time: 0
+  sizeTarget: 0
 --- !u!1001 &6060072328463849523
 PrefabInstance:
   m_ObjectHideFlags: 0
