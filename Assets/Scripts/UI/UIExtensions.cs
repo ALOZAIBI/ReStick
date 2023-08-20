@@ -98,6 +98,12 @@ public static class UIExtensions {
         img.color = temp;
     }
 
+    public static void SetAlpha(this SpriteRenderer img, float alpha) {
+        Color temp = img.color;
+        temp.a = alpha;
+        img.color = temp;
+    }
+
     public static void SetAlpha(this SlicedFilledImage img, float alpha) {
         Color temp = img.color;
         temp.a = alpha;

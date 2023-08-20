@@ -37,7 +37,8 @@ public class DashALotThenSheath : Ability {
             case 0:
                 Debug.Log("Step0");
             GameObject temp = Instantiate(prefabObject);
-            temp.transform.localScale = new Vector3(rangeAbility * 2, rangeAbility * 2, rangeAbility * 2);
+                //Makes the aura slightly bigger than the range that triggers the aura to grow. 
+            temp.transform.localScale = new Vector3((rangeAbility+1) * 2, (rangeAbility+1) * 2, (rangeAbility + 1) * 2);
             temp.transform.position = character.transform.position;
             aura = temp.GetComponent<Aura>();
             aura.caster = character; 

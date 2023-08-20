@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Aura : MonoBehaviour
 {
+
+    public SpriteRenderer spriteRenderer;
     public Character caster;
 
     public float amt;
@@ -22,16 +25,20 @@ public abstract class Aura : MonoBehaviour
     public bool saveCharacterInAura;
     public List<Character> charactersInAura = new List<Character>();
 
-    [SerializeField]private float timeToGrow = 0.5f;
+    [SerializeField]private bool grow = true;
+    //Time to grow and/or time to set Alpha to 1
+    [SerializeField]private float timeToSetupAura = 0.5f;
     [SerializeField]private float time = 0;
     [SerializeField]private float sizeTarget;
     const int INITSIZE = 5;
 
     private void Start() {
-        //Saves size target
-        sizeTarget = transform.localScale.x;
-        //Sets the size to INITSIZE
-        transform.localScale = new Vector3(INITSIZE, INITSIZE, INITSIZE);
+        if (grow) {
+            //Saves size target
+            sizeTarget = transform.localScale.x;
+            //Sets the size to INITSIZE
+            transform.localScale = new Vector3(INITSIZE, INITSIZE, INITSIZE);
+        }
     }
 
     //returns true if no buff on character and if there is the sameBuff on Character simply refresh it's duration
@@ -70,14 +77,22 @@ public abstract class Aura : MonoBehaviour
         if (caster == null || caster.silence>0 || !caster.alive) {
             Destroy(gameObject);
         }
+
         //Grow the aura to targetsize over timeToGrow seconds
-        
-        if(time < timeToGrow) {
-            time+=Time.fixedDeltaTime;
-            float scaleAmount =Mathf.Lerp(INITSIZE, sizeTarget, time/timeToGrow);
-            transform.localScale = new Vector3(scaleAmount, scaleAmount, scaleAmount);
+        if (time < timeToSetupAura) {
+            time += Time.fixedDeltaTime;
+            if (grow) {
+                float scaleAmount = Mathf.Lerp(INITSIZE, sizeTarget, time / timeToSetupAura);
+                transform.localScale = new Vector3(scaleAmount, scaleAmount, scaleAmount);
+            }
+            //Set the alpha to 1 over timeToGrow seconds
+            if (spriteRenderer != null) {
+                spriteRenderer.SetAlpha(Mathf.Lerp(0, 1, time / timeToSetupAura));
+            }
 
         }
+        
+
     }
 
 }
