@@ -5,7 +5,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 [CustomEditor(typeof(Ability),true)]
 [CanEditMultipleObjects]
-public class CustomInspector : Editor
+public class CustomAbilityInspector : Editor
 {
     public override void OnInspectorGUI() {
         Ability targetScript = (Ability)target;

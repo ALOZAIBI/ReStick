@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 [System.Serializable]
 public class CharacterData
 {
+    //Which Sprite To Use and which Projectile to use
     public int prefabIndex;
 
     public string charName;
@@ -47,11 +48,10 @@ public class CharacterData
     public string[] abilities;
     //contains the targetting of the respective index ability
     public int[] abilityTargetting;
-    public float size;
 
-    public float red;
-    public float green;
-    public float blue;
+
+    public bool hasArchetype;
+    public string archetypeName;
 
     public CharacterData(Character character) {
         prefabIndex = character.prefabIndex;
@@ -84,12 +84,10 @@ public class CharacterData
             abilities[i] = character.abilities[i].abilityName;
             abilityTargetting[i] = character.abilities[i].targetStrategy;
         }
-        //taking x is enough since the scale is square
-        size = character.gameObject.transform.localScale.x;
-        //taking the color
-        red = character.GetComponent<SpriteRenderer>().color.r;
-        green = character.GetComponent<SpriteRenderer>().color.g;
-        blue = character.GetComponent<SpriteRenderer>().color.b;    
+
+
+        hasArchetype = character.hasArchetype;
+        archetypeName = character.archetypeName;
     }
 
     //this is needed for SaveSystem to be able to deserialize it

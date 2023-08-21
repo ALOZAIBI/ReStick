@@ -220,6 +220,10 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField]private List<Image> topstatAbilityDisplaysFill = new List<Image>(new Image[MAX_ABILITIES]);
     [SerializeField]private List<Image> topstatAbilityDisplaysBorder = new List<Image>(new Image[MAX_ABILITIES]);
 
+    const int ARCHETYPESELECTLEVEL = 7;
+
+    [SerializeField]private SelectArchetype selectArchetype;
+
 
     public void Start() {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
@@ -242,8 +246,8 @@ public class CharacterInfoScreen : MonoBehaviour
         cancelAddingAbilityBtn.onClick.AddListener(cancelAddingAbility);
         xpPanelBtn = xpPanel.GetComponent<Button>();
 
-        statsPanelBtn.onClick.AddListener(displayUpgradeStats);
-        xpPanelBtn.onClick.AddListener(displayUpgradeStats);
+        statsPanelBtn.onClick.AddListener(displayUpgradeStatsOrPickArchetype);
+        xpPanelBtn.onClick.AddListener(displayUpgradeStatsOrPickArchetype);
 
         statsBorderRectTransform = statsBorder.GetComponent<RectTransform>();
 
@@ -1012,6 +1016,13 @@ public class CharacterInfoScreen : MonoBehaviour
 
     public void displayXPProgress(Character currChar) {
         levelBar.fillAmount = (float)currChar.xpProgress / currChar.xpCap;
+        //If no archetype was selected yet and reached Archetype Level, display "Select Archetype"
+        if(!currChar.hasArchetype && currChar.level >= ARCHETYPESELECTLEVEL && !uiManager.zoneStarted()) {
+            levelProgress.text = "Select Archetype";
+            levelProgress.enableAutoSizing = false;
+            levelProgress.fontSize = 60;
+            return;
+        }
         //If there are stat points available and zone hasn't started display "Upgrades Available"
         if (currChar.statPoints > 0 && !uiManager.zoneStarted()) {
             levelProgress.text = currChar.statPoints+" Upgrades Available";
@@ -1023,24 +1034,22 @@ public class CharacterInfoScreen : MonoBehaviour
             levelProgress.enableAutoSizing = true;
         }
     }
-    private void displayUpgradeStats() {
-        ////so that it displays stat points as available/total
-        //SP.text = "Upgrade Points " + currChar.statPoints.ToString() + "/" + (statPointUI.SPUsedBuffer + currChar.statPoints);
+    private void displayUpgradeStatsOrPickArchetype() {
 
+        if (character.level >= ARCHETYPESELECTLEVEL && !character.hasArchetype && !uiManager.zoneStarted()) {
+            //focusElement 
+            //start focusing();
+            //I should do the stuff after start focusing similar to the else statement but for now this is just for testing purposes
 
-        ////displays statPoints if zone hasn't started and if the character has statpoints available
-        //if ((currChar.statPoints + statPointUI.SPUsedBuffer) > 0 && !uiManager.zoneStarted()) {
-        //    //Debug.Log("showing");
-        //    statPointUI.applied = false;
-        //    statPointUI.show();
-        //}
-        //else {
-        //    statPointUI.hide();
-        //}
-        //statPointUI.lastUsedCharacter = currChar;
+            selectArchetype.getStatsUpgraded(character);
+            selectArchetype.setPickChance();
+        }
+        else { 
         focusElement = 7;
         startFocusing();
-        Debug.Log("DISPLAYING STATSDUPGRADE");
+        }
+
+
     }
     private void displayInterestingStats(Character currChar) {
         totalKills.text = currChar.totalKills + "";
@@ -1272,8 +1281,8 @@ public class CharacterInfoScreen : MonoBehaviour
                 targetSelectionBtn.interactable = false;
         }
 
-        //Emphasizes the upgrade stats border when points are available and the player has been taught how to upgrade stats
-        if (character!=null && character.statPoints > 0 && uiManager.tutorial.upgradingStatsTutorialDone && opened) {
+        //Emphasizes the upgrade stats border when points are available or archetype select is available and the player has been taught how to upgrade stats
+        if (character!=null && (character.statPoints > 0 || character.level >= ARCHETYPESELECTLEVEL) && uiManager.tutorial.upgradingStatsTutorialDone && opened) {
             float lerpFactor = Mathf.PingPong(Time.unscaledTime*1.5f, 1);
             statsBorder.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, lerpFactor);
 

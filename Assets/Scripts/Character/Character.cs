@@ -214,6 +214,11 @@ public class Character : MonoBehaviour {
 
     [SerializeField] private KeepOnTarget levelUpFX;
 
+    public bool hasArchetype;
+    public string archetypeName;
+
+    
+
     ////for the character to detect which zone it's in
     //private void OnTriggerEnter2D(Collider2D collision) {
     //    if (collision.tag == "Zone") {
@@ -1610,6 +1615,7 @@ public class Character : MonoBehaviour {
         //(this only applies to player characters that are not summoned)
         if(!summoned && team == (int)teamList.Player) {
             ////increase stats a bit
+            //If you modify HPMAX amount remember to modify SelectArchetype as well
             HPMax += 12;
             //PD += 0.5f;
             //AS += 0.02f;

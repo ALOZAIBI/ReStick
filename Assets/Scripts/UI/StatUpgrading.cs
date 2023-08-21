@@ -56,15 +56,15 @@ public class StatUpgrading : MonoBehaviour {
     [SerializeField] public GameObject HPIcon;
 
     //the amount that clicking the button adds/removes
-    [SerializeField] private float PDAmt;
-    [SerializeField] private float MDAmt;
-    [SerializeField] private float INFAmt;
-    [SerializeField] private float ASAmt;
-    [SerializeField] private float CDRAmt;
-    [SerializeField] private float MSAmt;
-    [SerializeField] private float RNGAmt;
-    [SerializeField] private float LSAmt;
-    [SerializeField] private float HPAmt;
+    [SerializeField] public float PDAmt;
+    [SerializeField] public float MDAmt;
+    [SerializeField] public float INFAmt;
+    [SerializeField] public float ASAmt;
+    [SerializeField] public float CDRAmt;
+    [SerializeField] public float MSAmt;
+    [SerializeField] public float RNGAmt;
+    [SerializeField] public float LSAmt;
+    [SerializeField] public float HPAmt;
 
     public LayoutGroup textLayoutGroup1;
     public LayoutGroup textLayoutGroup2;
