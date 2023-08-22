@@ -71,12 +71,12 @@ public class Zone : MonoBehaviour
         }
         //if there is no saveFile for this zone.
         else {
-            //if there are no rewards initialized in the editor (Some levels like the tutorial levels I want specific abilities as reward)
-            if(abilityContainer.transform.childCount == 0) {
+            //if there are no rewards initialized in the editor or if it's the tutorial level and tutorial already completed 
+            if(abilityContainer.transform.childCount == 0 || uIManager.tutorial.upgradingStatsTutorialDone) {
                 //adds 3 random abilities to the zone
                 uIManager.abilityFactory.addRandomAbilityToZone(this, 3);
             }
-            //adds the abilities in the reward pool to the zone
+            //adds the abilities in the reward pool to the zone (Some levels like the tutorial levels I want specific abilities as reward that are initialized in the editor)
             else { 
                 uIManager.abilityFactory.addAlreadyInitializedRewardAbilityToZone(this);
             }

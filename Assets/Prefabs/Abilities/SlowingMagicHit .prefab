@@ -50,7 +50,7 @@ MonoBehaviour:
   description: Throw Magic ting
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 6
+  CD: 5
   rangeAbility: 10
   available: 1
   abilityNext: 0
@@ -106,6 +106,9 @@ MonoBehaviour:
   targetStrategy: 1
   canTargetAlly: 0
   canTargetEnemy: 1
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 4
   abilityType: 4
   numberOfValues: 3

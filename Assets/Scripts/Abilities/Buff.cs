@@ -81,7 +81,9 @@ public class Buff : MonoBehaviour
             target.snare += snare ? 1:0;
             target.silence += silence ? 1:0;
             target.blind += blind ? 1:0;
-
+            if (snare || silence) {
+                interruptDash(target);
+            }
             target.gameObject.transform.localScale += new Vector3(size, size, size);
             //increase range with size otherwise character becomes too big and pushes it's target with it's collision and can't hit
             target.Range += 0.75f*size;
@@ -90,6 +92,15 @@ public class Buff : MonoBehaviour
             startDuration();
             applied = true;
             //Debug.Log("Applying buff on " + target.name);
+        }
+    }
+
+    private void interruptDash(Character victim) {
+        //Since dashes disable navmeshagent, we need to reenable it when interrupting.
+        victim.agent.enabled = true;
+        if (victim.currentDashingAbility != null) {
+            victim.currentDashingAbility.startCooldown();
+            victim.currentDashingAbility = null;
         }
     }
 

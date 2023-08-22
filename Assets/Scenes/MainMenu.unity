@@ -14758,9 +14758,9 @@ MonoBehaviour:
   backBtn: {fileID: 502100721}
   closeBtn: {fileID: 56182462}
   goldText: {fileID: 2072928079}
-  commonCost: 70
-  rareCost: 170
-  epicCost: 400
+  commonCost: 100
+  rareCost: 200
+  epicCost: 450
   legendaryCost: 700
   shop: {fileID: 0}
   hospitalTrainingScreen: {fileID: 3624356817839391567}
@@ -35160,18 +35160,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3053708118700960267, guid: fc50acb2b444fd34387fc568411ae618, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3053708118700960267, guid: fc50acb2b444fd34387fc568411ae618, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3053708118700960267, guid: fc50acb2b444fd34387fc568411ae618, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 19169435
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc50acb2b444fd34387fc568411ae618, type: 3}
 --- !u!1001 &3194935370077325815
@@ -35693,8 +35681,8 @@ MonoBehaviour:
   heal10PercentBtn: {fileID: 1158494507}
   reviveOrHealToFullBtn: {fileID: 712111090}
   healAndRevivePartyBtn: {fileID: 0}
-  costPerHp: 0.5
-  costForRevive: 70
+  costPerHp: 1
+  costForRevive: 150
 --- !u!114 &3624356817839391568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37124,6 +37112,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdafca58273681c489855b6fd28fbe27, type: 3}
+--- !u!1001 &8695702254797535173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5966605933431504268, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_Name
+      value: Burn Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -25.232
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.079364
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966605933431504271, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
 --- !u!4 &8922466082711429275 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4946495850632637726, guid: ab02a4e27ddc7a74e9d644fce6bab55b, type: 3}

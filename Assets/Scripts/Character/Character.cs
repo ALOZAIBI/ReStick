@@ -99,6 +99,9 @@ public class Character : MonoBehaviour {
     //indicator stuff
     public Indicators indicators;
 
+    //Used to prevent multiple Dashing abilities from being used at the same time and allows for stuns and pushes to interrupt dashes.
+    public Ability currentDashingAbility;
+
     public enum teamList {
         Player,
         Enemy1,
@@ -283,6 +286,8 @@ public class Character : MonoBehaviour {
         zsMS   = MS;
         zsRange= Range;
         zsLS   = LS;
+
+        currentDashingAbility = null;
 
         animationManager.abilityBuffer = null;
         animationManager.animator.SetBool("interrupt", false);

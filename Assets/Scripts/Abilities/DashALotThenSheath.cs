@@ -9,23 +9,25 @@ public class DashALotThenSheath : Ability {
     [SerializeField]private List<Character> enemiesHit = new List<Character>();
     [SerializeField]private Character toDashTo;
     public override void doAbility() {
-        if (available && step == 0&& character.selectTarget((int)Character.TargetList.ClosestEnemy, rangeAbility)) {
+        if (available && step == 0&& character.selectTarget((int)Character.TargetList.ClosestEnemy, rangeAbility) && canUseDash()) {
+            Debug.Log("Dashing alot casted");
             calculateAmt();
+            character.currentDashingAbility = this;
             playAnimation("castRaise");
         }
         else
         //This step dashes to all enemies
-        if(available && step == 1) {
+        if(available && step == 1 && canUseDash()) {
             calculateAmt();
             //playAnimation("castDash");
             executeAbility();
         }
         //Steps back to original position then deals the damage here
-        if(available && step == 2) {
+        if(available && step == 2 && canUseDash()) {
             calculateAmt();
             executeAbility();
         }
-        if(available && step == 3) {
+        if(available && step == 3 && canUseDash()) {
             calculateAmt();
             executeAbility();
         }

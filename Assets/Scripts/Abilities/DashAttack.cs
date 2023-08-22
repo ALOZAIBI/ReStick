@@ -37,8 +37,9 @@ public class DashAttack : Ability
         cooldown();
     }
     public override void doAbility() {
-        if (available&& character.selectTarget(targetStrategy,rangeAbility)) {
+        if (available&& character.selectTarget(targetStrategy,rangeAbility) && canUseDash()) {
             calculateAmt();
+            character.currentDashingAbility = this;
             //dashes to target
             character.agent.enabled = false;//to allow the target to dash through obstacles
             character.transform.position = Vector2.MoveTowards(character.transform.position, character.target.transform.position, valueAmt.getAmtValueFromName(this,"DashSpeed")*Time.fixedDeltaTime);

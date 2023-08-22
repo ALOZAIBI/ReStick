@@ -243,6 +243,20 @@ public abstract class Ability : MonoBehaviour
         abilityNext = CD - CD*character.CDR;
         available = false;
         step = 0;
+        if(character.currentDashingAbility == this) {
+            character.currentDashingAbility = null;
+        }
+    }
+
+    protected bool canUseDash() {
+        //if the character is not dashing or is dashing with this ability then enable doing the ability
+        if(character.currentDashingAbility == null || character.currentDashingAbility == this) {
+            Debug.Log("can use dash"+this);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     //and put this in the fixedupdate function
     public void cooldown() {
@@ -263,9 +277,14 @@ public abstract class Ability : MonoBehaviour
         return buff;
     }
     //Used to interrupt dashes
-    protected void interrupt(Character victim) {
+    protected void interruptDash(Character victim) {
         //Since dashes disable navmeshagent, we need to reenable it when interrupting.
         victim.agent.enabled = true;
+        if (victim.currentDashingAbility != null) {
+            victim.currentDashingAbility.step = 0;
+            victim.currentDashingAbility.startCooldown();
+        }
+            
         //Later when you have a dash animation, the animation would hold the ability that is being cast in the buffer, so we need to put that ability on cooldown since it has been interuppted.
     }
 

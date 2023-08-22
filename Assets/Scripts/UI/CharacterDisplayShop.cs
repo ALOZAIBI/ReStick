@@ -25,7 +25,7 @@ public class CharacterDisplayShop : MonoBehaviour {
     public bool purchased;    
     private void Start() {
         //price depends on how many characters the player has.
-        price = 60*(UIManager.singleton.playerParty.transform.childCount-2);
+        price = 120*(UIManager.singleton.playerParty.transform.childCount-2);
         priceText.text = price + "";
         //sets the image
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;

@@ -49,7 +49,7 @@ public class SelectArchetype : MonoBehaviour {
 
         getStatsUpgraded(character);
         setPickChance();
-        randomizePickChance(6);
+        randomizePickChance(10);
         saveMaximumPickChance();
     }
     private void errorCheck() {
@@ -102,7 +102,7 @@ public class SelectArchetype : MonoBehaviour {
     private void randomizePickChance(int n) {
         //Increase or decrease the pickChance of the non maximum by Random.Range(-n, n)
         for (int i = 0; i < pickChance.Count; i++) {
-            pickChance[i] += Random.Range(-n, n);
+            pickChance[i] += Random.Range(-n/2, n);
         }
     }
     private void saveMaximumPickChance() {

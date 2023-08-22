@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3637706766136786256}
   - component: {fileID: 3637706766136786257}
   - component: {fileID: 3637706766136786271}
+  - component: {fileID: -551106594072261584}
   - component: {fileID: 3637706766136786270}
   m_Layer: 2
   m_Name: FrostAOE
@@ -109,6 +110,25 @@ MonoBehaviour:
   description: Burn and slow characters within
   direction: {x: 0, y: 0}
   castingAbilityName: 
+  hitFX: {fileID: 0}
+  createFXOnTargetsWithin: {fileID: -551106594072261584}
+--- !u!114 &-551106594072261584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637706766136786258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367cb134a63b24f4199cf9c6f3f972ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitFXs: []
+  hitFXPrefab: {fileID: 3175435089370465066, guid: e1a2f617614754340a4cfe475c1015be, type: 3}
+  caster: {fileID: 0}
+  enemy: 0
+  ally: 0
 --- !u!58 &3637706766136786270
 CircleCollider2D:
   m_ObjectHideFlags: 0

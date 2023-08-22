@@ -43,8 +43,14 @@ public class CastMeleeAttack : Ability
         objAttack.character = character;
         //sets the damage amount
         objAttack.DMG = valueAmt.getAmtValueFromName(this, "Damage");
-        //sets the target
-        objAttack.target = lockedTarget;
+        if (lockedTarget.alive) {
+            //sets the target
+            objAttack.target = lockedTarget;
+        }
+        else {
+            character.selectTarget(targetStrategy, rangeAbility);
+            objAttack.target = character.target;
+        }
         //tells it this abilityName
         objAttack.castingAbilityName = abilityName;
         if (valueAmt.getAmtValueFromName(this,"BuffDuration") > 0 && buffPrefab == null) {

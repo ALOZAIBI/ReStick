@@ -50,8 +50,14 @@ public class ThrowProjectile : Ability
         projectile.shooter = character;
         //sets the damage amount (doesn't take the inf part much into account)
         projectile.DMG = valueAmt.getAmtValueFromName(this,"Damage");
-        //sets the target
-        projectile.target = lockedTarget;
+        if (lockedTarget.alive) {
+            //sets the target
+            projectile.target = lockedTarget;
+        }
+        else {
+            character.selectTarget(targetStrategy, rangeAbility);
+            projectile.target = character.target;
+        }
         Debug.Log("Projectile has no target"+projectile.name + projectile.shooter);
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;
