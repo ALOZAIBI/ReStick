@@ -18,7 +18,14 @@ public class Archetype : MonoBehaviour
     public int AS;
     public int CDR;
     public int SPD;
+    //Range is counted as 0
     public int Range;
     public int LS;
+
+    private void Start() {
+        if(archetypeName == "") {
+            archetypeName = name;
+        }
+    }
 
 }

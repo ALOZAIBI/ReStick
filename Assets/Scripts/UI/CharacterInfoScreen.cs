@@ -97,7 +97,7 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField] public bool unFocusing;
     private bool focused;
     //The element to be focused 
-    //0 1 2 3 4 = abilities. 5 = base targetting. 6 = Adding ability screen, 7 = upgrading stats
+    //0 1 2 3 4 = abilities. 5 = base targetting. 6 = Adding ability screen, 7 = upgrading stats,8 = selectArchetype
     private int focusElement;
     //This is used to set active to false when unfocusing is done
     private bool willHandleDeActivatingFocus;
@@ -501,6 +501,13 @@ public class CharacterInfoScreen : MonoBehaviour
                 healthBarPanel.transform.SetParent(uiManager.focus.transform);
                 xpPanelBtn.enabled = false;
                 statsPanelBtn.enabled = false;
+            }
+            if(focusElement == 8) {
+                selectArchetype.characterInfoScreen = this;
+                selectArchetype.gameObject.SetActive(true);
+                selectArchetype.setupAndView(character);
+                //Focus it
+                selectArchetype.transform.SetParent(uiManager.focus.transform);
             }
             focused = true;
             //resets time2 to start the transition
@@ -1037,12 +1044,10 @@ public class CharacterInfoScreen : MonoBehaviour
     private void displayUpgradeStatsOrPickArchetype() {
 
         if (character.level >= ARCHETYPESELECTLEVEL && !character.hasArchetype && !uiManager.zoneStarted()) {
-            //focusElement 
-            //start focusing();
-            //I should do the stuff after start focusing similar to the else statement but for now this is just for testing purposes
+            focusElement = 8;
+            startFocusing();
 
-            selectArchetype.getStatsUpgraded(character);
-            selectArchetype.setPickChance();
+            
         }
         else { 
         focusElement = 7;
@@ -1261,6 +1266,8 @@ public class CharacterInfoScreen : MonoBehaviour
             statsPanel.transform.SetParent(transform);
             statUpgrading.resetChangesBtn.transform.SetParent(transform);
             statUpgrading.applyChangesBtn.transform.SetParent(transform);
+            selectArchetype.transform.SetParent(transform);
+            selectArchetype.gameObject.SetActive(false);
             healthBar.transform.SetParent(transform);
             setPanelStuffActive(true);
             //redisplays abilities

@@ -109,6 +109,8 @@ public class UIManager : MonoBehaviour
     //used to fetch random abilities for rewards and shop
     public CharacterFactory characterFactory;
 
+    //Used to fetch archetypes
+    public Transform archetypeList;
     //used to deal with Hiding and unHiding UI ELEMENTS
     [HideInInspector]public HideUI placingScreenHidden;
     [HideInInspector]public HideUI timeControlHidden;

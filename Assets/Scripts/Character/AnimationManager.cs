@@ -60,7 +60,7 @@ public class AnimationManager : MonoBehaviour
         animator.SetTrigger("attack");
         interruptible = false;
         target = character.target;
-        animator.SetFloat("animationSpeed", 0.75f + character.AS*0.5f);
+        animator.SetFloat("animationSpeed", 1 + character.AS*0.5f);
         }
     }
     public void attackEvent() {
