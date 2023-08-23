@@ -39,98 +39,109 @@ public class DashAttack : Ability
     public override void doAbility() {
         if (available&& character.selectTarget(targetStrategy,rangeAbility) && canUseDash()) {
             calculateAmt();
-            character.currentDashingAbility = this;
-            //dashes to target
-            character.agent.enabled = false;//to allow the target to dash through obstacles
-            character.transform.position = Vector2.MoveTowards(character.transform.position, character.target.transform.position, valueAmt.getAmtValueFromName(this,"DashSpeed")*Time.fixedDeltaTime);
-            //once in range deal damage and start CD if kills target reset CD 0.5f is the range in this case
-            if (Vector2.Distance(character.transform.position, character.target.transform.position) < 0.5f) {
-                character.agent.enabled = true;//renables to allow for pathfinding again
-                //deal damage
-                character.damage(character.target, valueAmt.getAmtValueFromName(this, "Damage"), true);
-                if (resetOnKill && character.target.HP < 0) {
-                    startCooldown();
-                    //reset cd
-                    abilityNext = cdReset;
-                }
-                else {
-                    //start cd
-                    startCooldown();
-                }
-                //Apply buffs
-                //if there is a buff in this ability
-                if (valueAmt.getAmtValueFromName(this, "BuffDuration") > 0) {
-                    if (buffPrefab == null)
-                        throw new System.Exception("NO BUFF PREFAB");
-                    Buff buff = createBuff();
-                    //makes the buffs scale with character's inf
-                    {
-                        buff.PD = PD;
-                        if (PD > 0) {
-                            buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
-                        }
-
-                        buff.MD = MD;
-                        if (MD > 0) {
-                            buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
-                        }
-
-                        buff.INF = INF;
-                        if (INF > 0) {
-                            buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
-                        }
-
-                        buff.HP = HP;
-                        if (HP > 0) {
-                            buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
-                        }
-
-                        buff.AS = AS;
-                        if (AS > 0) {
-                            buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
-                        }
-
-                        buff.CDR = CDR;
-                        if (CDR > 0) {
-                            buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
-                        }
-
-                        buff.MS = MS;
-                        if (MS > 0) {
-                            buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
-                        }
-
-                        buff.Range = Range;
-                        if (Range > 0) {
-                            buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
-                        }
-
-                        buff.LS = LS;
-                        if (LS > 0) {
-                            buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
-                        }
-
-                        buff.size = size;
-                        if (size > 0) {
-                            buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
-                        }
-
-                        buff.snare = root;
-                        buff.silence = silence;
-                        buff.blind = blind;
-
-                        //sets caster and target
-                        buff.caster = character;
-                        buff.target = character.target;
-                        //increases buff duration according to AMT
-                        buff.duration = valueAmt.getAmtValueFromName(this, "BuffDuration");
-                        buff.code = abilityName + character.name;
-                    }
-                    buff.applyBuff();
-                }
+            playAnimation("castDash");
+            //executeAbility();
+            //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
+            if(character.currentDashingAbility == this) {
+                executeAbility();
             }
-            
         }
+    }
+
+    public override void executeAbility() {
+        character.currentDashingAbility = this;
+        //dashes to target
+        character.agent.enabled = false;//to allow the target to dash through obstacles
+        character.transform.position = Vector2.MoveTowards(character.transform.position, character.target.transform.position, valueAmt.getAmtValueFromName(this, "DashSpeed") * Time.fixedDeltaTime);
+        //once in range deal damage and start CD if kills target reset CD 0.5f is the range in this case
+        if (Vector2.Distance(character.transform.position, character.target.transform.position) < 0.5f) {
+            character.agent.enabled = true;//renables to allow for pathfinding again
+                                           //deal damage
+            character.damage(character.target, valueAmt.getAmtValueFromName(this, "Damage"), true);
+            if (resetOnKill && character.target.HP < 0) {
+                startCooldown();
+                character.animationManager.forceStop();
+                //reset cd
+                abilityNext = cdReset;
+            }
+            else {
+                //start cd
+                startCooldown();
+                character.animationManager.forceStop();
+            }
+            //Apply buffs
+            //if there is a buff in this ability
+            if (valueAmt.getAmtValueFromName(this, "BuffDuration") > 0) {
+                if (buffPrefab == null)
+                    throw new System.Exception("NO BUFF PREFAB");
+                Buff buff = createBuff();
+                //makes the buffs scale with character's inf
+                {
+                    buff.PD = PD;
+                    if (PD > 0) {
+                        buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
+                    }
+
+                    buff.MD = MD;
+                    if (MD > 0) {
+                        buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
+                    }
+
+                    buff.INF = INF;
+                    if (INF > 0) {
+                        buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
+                    }
+
+                    buff.HP = HP;
+                    if (HP > 0) {
+                        buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
+                    }
+
+                    buff.AS = AS;
+                    if (AS > 0) {
+                        buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
+                    }
+
+                    buff.CDR = CDR;
+                    if (CDR > 0) {
+                        buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
+                    }
+
+                    buff.MS = MS;
+                    if (MS > 0) {
+                        buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
+                    }
+
+                    buff.Range = Range;
+                    if (Range > 0) {
+                        buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
+                    }
+
+                    buff.LS = LS;
+                    if (LS > 0) {
+                        buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
+                    }
+
+                    buff.size = size;
+                    if (size > 0) {
+                        buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
+                    }
+
+                    buff.snare = root;
+                    buff.silence = silence;
+                    buff.blind = blind;
+
+                    //sets caster and target
+                    buff.caster = character;
+                    buff.target = character.target;
+                    //increases buff duration according to AMT
+                    buff.duration = valueAmt.getAmtValueFromName(this, "BuffDuration");
+                    buff.code = abilityName + character.name;
+                }
+                buff.applyBuff();
+            }
+        }
+
     }
 
     public override void updateDescription() {

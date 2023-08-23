@@ -1,10 +1,10 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AnimationManager : MonoBehaviour
-{
+public class AnimationManager : MonoBehaviour {
     //Attacking has 2 transition states back to walk/idle one is if interrupt is true which cuts the animation as soon as the function is executed,
     //the other is if the animation is finished.
 
@@ -24,8 +24,7 @@ public class AnimationManager : MonoBehaviour
 
     public Ability abilityBuffer;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
@@ -39,9 +38,22 @@ public class AnimationManager : MonoBehaviour
         }
         Vector3 dest = agent.destination;
         //0 is right 1 is left
-        float angle = (transform.position-dest).x<0 ? 0:1;
+        float angle = (transform.position - dest).x < 0 ? 0 : 1;
 
-        animator.SetFloat("MoveAngle",angle);
+        animator.SetFloat("MoveAngle", angle);
+    }
+    //This is used inDashAlot, when all dashes are done the ability becomes interruptible
+    public void forceStop() {
+        //using animator.SetTrigger causes a bug for DashALotThenSheath since this trigger and another trigger(ATTACK) will be set at the same time which will make the animator ignore one of them, so don't do that mistake and dont use triggers for this.
+        //animator.SetTrigger("forceIdle");
+        abilityBuffer = null;
+        //attackBuffered = false;
+        interruptible = true;
+        //Debug.Log("Interruptible:"+interruptible);
+    }
+    //if you want to stop the animation but continue within the same ability, such as the case in dashAlot
+    public void keepAbilityMakeInterupttible() {
+        interruptible = true;
     }
     private void idle() {
         //idling facing that direction
@@ -55,10 +67,13 @@ public class AnimationManager : MonoBehaviour
         ////if there's an animation buffered(ability or attack) then interrupt
         //if (interruptible)
         //    animator.SetTrigger("interrupt");
-        if (interruptible) { 
+        //If there is no ability buffered and the animator is interupttible 
+        if (abilityBuffer==null && interruptible) {
+            //Debug.Log("Attack interruptible before setting:" + interruptible);
         setTargetAngle();
         animator.SetTrigger("attack");
         interruptible = false;
+            //Debug.Log("Attack set interruptible to:" + interruptible);
         target = character.target;
         animator.SetFloat("animationSpeed", 1 + character.AS*0.5f);
         }
@@ -71,9 +86,8 @@ public class AnimationManager : MonoBehaviour
     //If toBeCast==null >>>> animtion.cast>after some animation> animation.castEvent()>>> executeAbility()
     //Casts the ability with the raise animation
     public void cast(Ability ability,string animation) {
-        //if (interruptible)
-        //    animator.SetTrigger("interrupt");
-        if (interruptible) {
+        //If there is no ability buffered or the same ability thaqt is already buffered called this. and the animator is interupttible
+        if (interruptible && (abilityBuffer == null || abilityBuffer == ability)) {
             setTargetAngle();
             abilityBuffer = ability;
             switch (animation) {
@@ -86,12 +100,16 @@ public class AnimationManager : MonoBehaviour
                 case "castPierce":
                     animator.SetTrigger("castPierce");
                     break;
+                case "castDash":
+                    animator.SetTrigger("castDash");
+                    break;
                 default:
                     Debug.LogError("Animation not found");
                     break;
             }
             animator.SetFloat("animationSpeed", 0.75f + character.AS * 0.1f + character.CDR * 0.9f);
             interruptible = false;
+            //Debug.Log("Cast set interruptible to :" + interruptible);
         }
     }
 
@@ -102,9 +120,17 @@ public class AnimationManager : MonoBehaviour
         abilityBuffer.executeAbility();
         abilityBuffer = null;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log(name + agent.velocity);
+    //In some cases we don't want it to become interupttible after the castEvent is done such as the case of dashalothtenseheath, since we don't wnat it to be interruptible until after All the dashes are done. We should however make it interuptible manually using forceStop()
+    public void castEventDontInterrupt() {
+        Debug.Log("CasteventDontInterrupt set interruptible to :" + interruptible);
+        character.selectTarget(abilityBuffer.targetStrategy, abilityBuffer.rangeAbility);
+        abilityBuffer.executeAbility();
     }
+    //// Update is called once per frame
+    //void FixedUpdate()
+    //{
+    //    if(name == "Mathew") {
+    //        Debug.Log("Update:" + interruptible);
+    //    }
+    //}
 }

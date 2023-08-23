@@ -299,8 +299,8 @@ public class Character : MonoBehaviour {
     public void ownTheAbility(bool resetCD) {
         foreach (Ability temp in abilities) {
             temp.character = this;
-            //resets the CD if this isn't summoned. We don't wanna reset all the CD of the summoned otherwise cloning itself will be infinite
-            if (resetCD) {
+            //If this is summoned then reset everything except the summon ability
+            if (resetCD && (!summoned|| (summoned && !(temp is CloneAbility)))) {
                 temp.available = true;
                 temp.abilityNext = 0;
             }

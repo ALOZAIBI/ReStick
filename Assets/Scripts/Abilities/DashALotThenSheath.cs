@@ -16,19 +16,22 @@ public class DashALotThenSheath : Ability {
             playAnimation("castRaise");
         }
         else
-        //This step dashes to all enemies
+        //This step checks if all enies have been hit
         if(available && step == 1 && canUseDash()) {
             calculateAmt();
-            //playAnimation("castDash");
+            //To end the dash animation from step 2 before perhaps redoing it to go to step 3 or 2 again
+            character.animationManager.keepAbilityMakeInterupttible();
             executeAbility();
         }
-        //Steps back to original position then deals the damage here
+        //Dashes to all enemies that haven't been hit (goes back to step 1 after each completed dash)
         if(available && step == 2 && canUseDash()) {
             calculateAmt();
+            playAnimation("castDash");
             executeAbility();
-        }
+        }//Dashes back to the original position and deals damage and start cooldown
         if(available && step == 3 && canUseDash()) {
             calculateAmt();
+            playAnimation("castDash");
             executeAbility();
         }
     }
@@ -37,7 +40,6 @@ public class DashALotThenSheath : Ability {
         switch (step) {
             //First step creates the aura and disables the pathfinding agent
             case 0:
-                Debug.Log("Step0");
             GameObject temp = Instantiate(prefabObject);
                 //Makes the aura slightly bigger than the range that triggers the aura to grow. 
             temp.transform.localScale = new Vector3((rangeAbility+1) * 2, (rangeAbility+1) * 2, (rangeAbility + 1) * 2);
@@ -65,7 +67,6 @@ public class DashALotThenSheath : Ability {
 
             //Checking if all enemies have been hit
             case 1:
-                Debug.Log("Step 1");
                 
                 bool allEnemiesHit = true;
                 bool thereIsSomethingInAura=false;
@@ -82,19 +83,19 @@ public class DashALotThenSheath : Ability {
                         }
                     }
                 }
-                //If there is nothing in the aura remain in this step (Leave the case so that we go back to this step when doability is called again)
+                //If there is nothing in the aura remain in this step (Leave the case so that we go back to this step when do ability is called again)
                 if(!thereIsSomethingInAura) {
                     break;
                 }
 
-                Debug.Log("all hit "+allEnemiesHit +" total in aura"+aura.charactersInAura.Count);
+
                 if (!allEnemiesHit) {
                     step = 2;
                     //Selects a random enemy that hasn't been hit yet
                     bool foundEnemy = false;
                     while (!foundEnemy) {
                         int rand = Random.Range(0, aura.charactersInAura.Count);
-                        Debug.Log("Random Enemy" + rand);
+
                         if (aura.charactersInAura[rand].team != character.team && aura.charactersInAura[rand].alive) {
                             if (!enemiesHit.Contains(aura.charactersInAura[rand])) {
                                 toDashTo = aura.charactersInAura[rand];
@@ -111,7 +112,6 @@ public class DashALotThenSheath : Ability {
                 break;
             //Dashes to an enemy that hasn't been hit
             case 2:
-                Debug.Log("Step 2");
                 //Dash
                 character.transform.position = Vector2.MoveTowards(character.transform.position, toDashTo.transform.position, valueAmt.getAmtValueFromName(this,"DashSpeed") * Time.fixedDeltaTime);
                 //Once in Range MarkAsHit
@@ -124,7 +124,6 @@ public class DashALotThenSheath : Ability {
 
             //Dashes back to the original position and deals damage to all enemiesHit then starts the cooldown
             case 3:
-                Debug.Log("Step 3");
                 //Dash to original position (position of the aura)
                 character.transform.position = Vector2.MoveTowards(character.transform.position, aura.transform.position, valueAmt.getAmtValueFromName(this, "DashSpeed")/2 * Time.fixedDeltaTime);
                 int numOfEnemies = 0;
@@ -140,10 +139,11 @@ public class DashALotThenSheath : Ability {
                         if (victim.alive) {
                         character.damage(victim, valueAmt.getAmtValueFromName(this, "Damage")/numOfEnemies, 0.5f);
                         applyHitFX(victim);
-                        Debug.Log("Did stuff to " + victim.name);
                         }
                     }
 
+                    //Once all is done you can set the animation to interupttible again
+                    character.animationManager.forceStop();
                     startCooldown();
                     Destroy(aura.gameObject);
                     character.agent.enabled = true;
@@ -151,6 +151,7 @@ public class DashALotThenSheath : Ability {
                 
                 break;
             default:
+                character.animationManager.forceStop();
                 break;
         }
     }

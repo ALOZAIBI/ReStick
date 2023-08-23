@@ -203,12 +203,7 @@ public abstract class Ability : MonoBehaviour
     /// </summary>
     /// <param name="animation"></param>
     public void playAnimation(string animation) {
-        //if there is no ability queued To Be Cast and we are allowed to interrupt the current animation (or there is no animation playing)
-        if(character.animationManager.abilityBuffer == null && character.animationManager.interruptible) {
-            //Debug.Log("animation should play"+character.name+abilityName);
-            character.animationManager.cast(this,animation);
-        }
-            
+        character.animationManager.cast(this,animation); 
     }
     //call this when ability level increases to update the description to show the new stats
     public abstract void updateDescription();
@@ -251,7 +246,6 @@ public abstract class Ability : MonoBehaviour
     protected bool canUseDash() {
         //if the character is not dashing or is dashing with this ability then enable doing the ability
         if(character.currentDashingAbility == null || character.currentDashingAbility == this) {
-            Debug.Log("can use dash"+this);
             return true;
         }
         else {
@@ -281,6 +275,7 @@ public abstract class Ability : MonoBehaviour
         //Since dashes disable navmeshagent, we need to reenable it when interrupting.
         victim.agent.enabled = true;
         if (victim.currentDashingAbility != null) {
+            victim.animationManager.forceStop();
             victim.currentDashingAbility.step = 0;
             victim.currentDashingAbility.startCooldown();
         }

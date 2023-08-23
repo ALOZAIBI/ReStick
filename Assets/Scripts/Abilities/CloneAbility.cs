@@ -26,8 +26,6 @@ public class CloneAbility : Ability
             //the clone ability's cd will not be ready so that the cloning won't go to infinity instantly
             if (temp is CloneAbility) {
                 temp.startCooldown();
-                Debug.Log("CloneAbility cd is set to " + temp.abilityNext + temp.available);
-                Time.timeScale = 0;
             }
             //however all other abilities will be ready.
             else {
@@ -43,6 +41,12 @@ public class CloneAbility : Ability
             //maybe decrease the amount to make enemy clones even weaker otherwise OP innit.
             valueAmt.getAmtValueFromName(this,"CloneQuality");
         }
+
+        //Changes movement strategy to be appropriate for a clone
+        if(clone.movementStrategy == (int)Character.MovementStrategies.DontMove) {
+            clone.movementStrategy = (int)Character.MovementStrategies.Default;
+        }
+
         clone.PD = clone.PD * valueAmt.getAmtValueFromName(this, "CloneQuality");
         clone.MD = clone.MD * valueAmt.getAmtValueFromName(this, "CloneQuality");
         clone.INF = clone.INF * valueAmt.getAmtValueFromName(this, "CloneQuality");
