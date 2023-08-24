@@ -192,6 +192,11 @@ public class SelectArchetype : MonoBehaviour {
         character.Range += archetypeList[selectedArchetypes[selected]].Range*UIManager.singleton.characterInfoScreen.statUpgrading.RNGAmt;
         character.LS += archetypeList[selectedArchetypes[selected]].LS*UIManager.singleton.characterInfoScreen.statUpgrading.LSAmt;
 
+        //Take the archetypes animator and sprite and size
+        Character newCharacter = UIManager.singleton.characterFactory.characters[character.prefabIndex].GetComponent<Character>();
+        character.animationManager.animator.runtimeAnimatorController = newCharacter.animationManager.animator.runtimeAnimatorController;
+        character.transform.localScale = newCharacter.transform.localScale;
+
         //saves the archetype
         if (SceneManager.GetActiveScene().name == "World") {
             UIManager.singleton.saveWorldSave();

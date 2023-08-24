@@ -12,6 +12,7 @@ public class CharacterFactory : MonoBehaviour
     //maybe add parameter that chooses what team the character isin in case I want to create random enemy units as well etc..
     //this is using a simple gameobject as parameter and not the playerParty since sometimes
     //we might want objects that aren't player party like the shop for example
+    
     public void addRandomCharacterAsChild(Transform parent,int amount) {
         for (int i = 0; i < amount; i++) {
             //instantiates a random character as a child of parent
@@ -21,6 +22,13 @@ public class CharacterFactory : MonoBehaviour
             index = Random.Range(0, names.Count - 1);
             temp.name = names[index];
         }
+    }
+
+    public void addDefaultCharacter(Transform parent) {
+        Character temo = Instantiate(characters[0], parent).GetComponent<Character>();
+        //Give it a random name
+        int index = Random.Range(0, names.Count - 1);
+        temo.name = names[index];
     }
 
     public void addCharacterAsChild(CharacterData data,Transform parent) {
