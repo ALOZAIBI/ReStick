@@ -51,6 +51,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872177, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872177, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.90625
+      objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: HP
       value: 60
@@ -92,6 +100,10 @@ PrefabInstance:
       value: Healer
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872191, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 82c33321505f87a448c757ecbfded418, type: 3}
+    - target: {fileID: 1105442034894872191, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_Color.b
       value: 0.56768113
       objectReference: {fileID: 0}
@@ -103,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.36779106
       objectReference: {fileID: 0}
+    - target: {fileID: 9176932429385858113, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: aefa4fccef8a6fe45940600374c1f8ec, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
 --- !u!4 &5065661158407500165 stripped

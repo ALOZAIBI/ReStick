@@ -57,6 +57,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acd29982c025afe459e27f1a22c8cf80, type: 3}
+--- !u!114 &828673838903178613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 921150785941874267, guid: acd29982c025afe459e27f1a22c8cf80, type: 3}
+  m_PrefabInstance: {fileID: 524844957112505134}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19517f502a798b4cb42f0bafab46daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2709855365402932079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,6 +125,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2571625fe44b26f448f9a6f29dcb43f3, type: 3}
+--- !u!114 &7040209761385649539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4312040087955822868, guid: 2571625fe44b26f448f9a6f29dcb43f3, type: 3}
+  m_PrefabInstance: {fileID: 2709855365402932079}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8c7fee07e1d1d44ab294813a2febd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3773020892093475945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,6 +219,18 @@ PrefabInstance:
       propertyPath: level
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: abilities.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: abilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 828673838903178613}
+    - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: abilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 7040209761385649539}
     - target: {fileID: 1105442034894872190, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_Name
       value: Warrior
