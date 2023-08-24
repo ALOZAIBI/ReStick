@@ -1289,7 +1289,7 @@ public class CharacterInfoScreen : MonoBehaviour
         }
 
         //Emphasizes the upgrade stats border when points are available or archetype select is available and the player has been taught how to upgrade stats
-        if (character!=null && (character.statPoints > 0 || character.level >= ARCHETYPESELECTLEVEL) && uiManager.tutorial.upgradingStatsTutorialDone && opened) {
+        if (character!=null && (character.statPoints > 0 || (character.level >= ARCHETYPESELECTLEVEL && !character.hasArchetype)) && uiManager.tutorial.upgradingStatsTutorialDone && opened) {
             float lerpFactor = Mathf.PingPong(Time.unscaledTime*1.5f, 1);
             statsBorder.color = Color.Lerp(upgradeStatsColorPingPong1, upgradeStatsColorPingPong2, lerpFactor);
 
