@@ -58,6 +58,8 @@ public class Zone : MonoBehaviour
         uIManager.displayCharacterPlacing();
         uIManager.hideCharacter();
 
+        uIManager.showAbilityIndicator = true;
+
         uIManager.retryBtn.gameObject.SetActive(true);
         uIManager.exitBtn.gameObject.SetActive(true);
         uIManager.menuUIHidden.hidden = true;

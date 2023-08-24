@@ -58,6 +58,7 @@ public class CharacterPlacingScreen : MonoBehaviour
         uiManager.pausePlayBtn.gameObject.SetActive(true);
         uiManager.timeControlHidden.hidden = false;
         uiManager.pausePlay(false);
+        uiManager.showAbilityIndicator = false;
         //this has to be set to pause since we dont want it to be true when zone gameplay starts
         uiManager.wasPause = false;
         close();
