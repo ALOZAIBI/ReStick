@@ -239,7 +239,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: MoveAngle
     m_Mirror: 0
-  m_BlendParameter: MoveAngle
+  m_BlendParameter: TargetAngle
   m_BlendParameterY: MoveAngle
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -289,13 +289,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 433880890961877980}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: animationSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -338,13 +338,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -2847226247522629613}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: animationSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -853,13 +853,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7087908827411714635}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: animationSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -912,7 +912,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: MoveAngle
     m_Mirror: 0
-  m_BlendParameter: MoveAngle
+  m_BlendParameter: TargetAngle
   m_BlendParameterY: MoveAngle
   m_MinThreshold: 0
   m_MaxThreshold: 1
