@@ -41,14 +41,23 @@ public class DashAttack : Ability
             calculateAmt();
             playAnimation("castDash");
             //executeAbility();
-            //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
-            if(character.currentDashingAbility == this) {
-                executeAbility();
-            }
+            
+        }
+        //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
+        //It is done outside the initial if statement so that we can go through the if Dead or null check. Becaise if there are no characters within range then the ability won't be executed and won't go through the check.
+        if (character.currentDashingAbility == this) {
+            executeAbility();
         }
     }
 
     public override void executeAbility() {
+        //If my target is dead or null cancel the ability
+        if (character.target == null || !character.target.alive) {
+            character.agent.enabled = true;
+            character.animationManager.forceStop();
+            Debug.Log("Cancel dashAbility");
+            return;
+        }
         character.currentDashingAbility = this;
         //dashes to target
         character.agent.enabled = false;//to allow the target to dash through obstacles

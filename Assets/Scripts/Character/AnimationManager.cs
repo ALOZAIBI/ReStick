@@ -49,6 +49,7 @@ public class AnimationManager : MonoBehaviour {
         abilityBuffer = null;
         //attackBuffered = false;
         interruptible = true;
+        character.currentDashingAbility = null;
         //Debug.Log("Interruptible:"+interruptible);
     }
     //if you want to stop the animation but continue within the same ability, such as the case in dashAlot

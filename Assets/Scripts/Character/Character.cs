@@ -402,7 +402,7 @@ public class Character : MonoBehaviour {
             //Hold Position, Does default strategy if Enemy is almost in range otherwise return to hold position
             case (int)MovementStrategies.DontMove:
                 //Hold position is saved in initroundStart
-                seekRange = 8;
+                seekRange = 10;
                 //If target is within seekRange do default strategy
                 if (target.alive && Vector2.Distance(transform.position, target.transform.position) < seekRange) {
                     doMoveStrategy((int)MovementStrategies.Default);
