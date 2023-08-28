@@ -121,27 +121,31 @@ public class Buff : MonoBehaviour
         }
     }
 
+    //In some cases we want to removeThe stats without deleting the buff Object, like when cloning a target that has a buff on it. The clone will initially have the buff(the same object that the cloned target has) so if we delete the object it iwll be removed from both the clone and the original target.
+    public void removeBuffAppliedStats(Character toBeRemovedFrom) {
+        toBeRemovedFrom.PD -= PD;
+        toBeRemovedFrom.MD -= MD;
+        toBeRemovedFrom.INF -= INF;
+        //just decrements HP cap
+        toBeRemovedFrom.HPMax -= HP;
+        toBeRemovedFrom.AS -= AS;
+        toBeRemovedFrom.CDR -= CDR;
+        toBeRemovedFrom.MS -= MS;
+        toBeRemovedFrom.Range -= Range;
+        //toBeRemovedFrom.usesProjectile = initRanged;
+        toBeRemovedFrom.LS -= LS;
+
+        toBeRemovedFrom.snare -= snare ? 1 : 0;
+        toBeRemovedFrom.silence -= silence ? 1 : 0;
+        toBeRemovedFrom.blind -= blind ? 1 : 0;
+
+        toBeRemovedFrom.gameObject.transform.localScale -= new Vector3(size, size, size);
+        toBeRemovedFrom.Range -= 0.75f * size;//see apply buff
+        toBeRemovedFrom.buffs.Remove(this);
+    }
     //removes the applied stats then deletes this gameobject
     public void removeBuff() {
-        target.PD -= PD;
-        target.MD -= MD;
-        target.INF -= INF;
-        //just decrements HP cap
-        target.HPMax -= HP;
-        target.AS -= AS;
-        target.CDR -= CDR;
-        target.MS -= MS;
-        target.Range -= Range;
-        //target.usesProjectile = initRanged;
-        target.LS -= LS;
-
-        target.snare -= snare ? 1 : 0;
-        target.silence -= silence ? 1 : 0;
-        target.blind -= blind ? 1 : 0;
-
-        target.gameObject.transform.localScale -= new Vector3(size, size, size);
-        target.Range -= 0.75f*size;//see apply buff
-        target.buffs.Remove(this);
+        removeBuffAppliedStats(target);
         Destroy(gameObject);
     }
 

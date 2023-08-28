@@ -19,6 +19,14 @@ public class CloneAbility : Ability
         clone.summoned = true;
         clone.summoner = character;
 
+        if (clone.buffs.Count > 0) {
+            Debug.Log("Clone name" + clone.name);
+            //the .ToArray is used to prevent the error of modifying the list while iterating through it.
+            foreach(Buff tempBuff in clone.buffs.ToArray()) {
+                tempBuff.removeBuffAppliedStats(clone);
+            }
+        }
+
         //clones the abilities
         int index = 0;
         foreach (Ability ability in character.target.abilities) {
