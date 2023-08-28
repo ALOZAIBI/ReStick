@@ -58,6 +58,20 @@ public class Buff : MonoBehaviour
             }
         }
     }
+
+    //Prevents debuffs from setting target's AS below 0.1 and MS below 0.5
+    private void setMinimumAS() {
+        if(target.AS + AS < 0.1f && target.AS >= 0.1f) {
+            AS = target.AS - 0.1f;
+            AS = -AS;
+        }
+    }
+    private void setMinimumMS() {
+        if (target.MS + MS < 0.8f && target.MS >= 0.8f) {
+            MS = target.MS - 0.8f;
+            MS = -MS;
+        }
+    }
     //applies the buff
     public void applyBuff() {
 
@@ -70,8 +84,10 @@ public class Buff : MonoBehaviour
             target.HPMax += HP;
             target.HP += HP;
 
+            setMinimumAS();
             target.AS += AS;
             target.CDR += CDR;
+            setMinimumMS();
             target.MS += MS;
             target.Range += Range;
             //make ranged if this gives range.
