@@ -32,8 +32,19 @@ public class AbilityDisplay : MonoBehaviour
     [SerializeField] public StatIcon LVL;
 
     public void Start() {
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+
+       
+        
+        
+    }
+
+    public virtual void setupAbilityDisplay(Ability abilityToDisplay) {
+        ability = abilityToDisplay;
+
         //Summs the raio array to get total ratio, This will be used to display the scaling of the ability(in descending order)
-        HP.ratio = ability.HPMaxRatio.getSumOfValues()+ability.HPRatio.getSumOfValues();
+        HP.ratio = ability.HPMaxRatio.getSumOfValues() + ability.HPRatio.getSumOfValues();
+        HP.ratio *= 10;
         PD.ratio = ability.PDRatio.getSumOfValues();
         MD.ratio = ability.MDRatio.getSumOfValues();
         INF.ratio = ability.INFRatio.getSumOfValues();
@@ -50,22 +61,8 @@ public class AbilityDisplay : MonoBehaviour
                 Destroy(temp.gameObject);
             }
         }
-        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+
         
-
-        //btn.onClick.AddListener(openTargetSelectorAbility);
-        ////if inventory Screen display the remove button
-        //if (uiManager.inventoryScreenHidden.hidden == false && uiManager.inventoryScreen.inventoryCharacterScreen.isActiveAndEnabled) {
-        //    removeButtonHolder.SetActive(true);
-        //    removeButton.onClick.AddListener(removeAbility);
-        //}
-        //else {
-        //    removeButtonHolder.SetActive(false);
-        //}
-    }
-
-    public virtual void setupAbilityDisplay(Ability abilityToDisplay) {
-        ability = abilityToDisplay;
         showScaling();
         self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
         abilityName.text = ability.abilityName;
@@ -87,16 +84,15 @@ public class AbilityDisplay : MonoBehaviour
         //sorts them in descending order
         for (int i = 0; i < iconHolder.childCount-1; i++) {
             //assume first is max
-            //Debug.Log(i);
-            //StatIcon max = transform.GetChild(i).GetComponent<StatIcon>();
+            StatIcon max = iconHolder.transform.GetChild(i).GetComponent<StatIcon>();
             for (int j = i+1; j < iconHolder.childCount; j++) {
-                //StatIcon curr = transform.GetChild(j).GetComponent<StatIcon>();
-                ////if (curr.ratio > max.ratio) {
-                ////    max = curr;
-                ////}
+                StatIcon curr = iconHolder.transform.GetChild(j).GetComponent<StatIcon>();
+                if (curr.ratio > max.ratio) {
+                    max = curr;
+                }
             }
             //Debug.Log(max);
-            //max.transform.SetSiblingIndex(i);
+            max.transform.SetSiblingIndex(i);
         }
         
     }

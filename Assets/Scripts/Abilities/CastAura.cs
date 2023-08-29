@@ -34,6 +34,8 @@ public class CastAura : Ability
     public bool silence;
     public bool blind;
 
+    [SerializeField] private string initDescription;
+
     public override void Start() {
         base.Start();
         updateDescription();
@@ -221,20 +223,27 @@ public class CastAura : Ability
     //    ability.prefabObject.SetActive(true);
     //}
     public override void updateDescription() {
-        description = "";
+        description = initDescription;
         if (character == null) {
-            if (heal)
-                description += "Heals nearby allies ";
-            if(damage)
-                description += "Deals damage to nearby enemies";
+            //if (heal)
+            //    description += "Heals nearby allies ";
+            //if(damage)
+            //    description += "Deals damage to nearby enemies";
+            if(buffPrefab != null) {
+                description += getDescription();
+            }
         }
         else {
             calculateAmt();
             if (heal) {
-                description += "Heals nearby allies by " + valueAmt.getAmtValueFromName(this,"Amount") + " per second ";
+                description += " by " + valueAmt.getAmtValueFromName(this,"Amount") + " per second.";
             }
             if(damage)
-                description += "Deals " + valueAmt.getAmtValueFromName(this,"Amount") + "per second to nearby enemies";
+                description += " dealing " + valueAmt.getAmtValueFromName(this,"Amount") + "per second.";
+
+            if (buffPrefab != null) {
+                description += getDescription(valueAmt.getAmtValueFromName(this, "BuffStrength"));
+            }
         }
     }
     public void startActiveDuration() {
@@ -263,5 +272,88 @@ public class CastAura : Ability
             keepAuraObjectOnCaster();
         }
         catch { /*Avoided error when there is no aura instantiated yet. Before ability is done */}
+    }
+
+    public string getDescription(float buffStrength) {
+        string description = " Gives";
+        if (PD != 0) {
+            description += " " + (PD + PD * buffStrength).ToString("F1") + " PWR";
+        }
+        if (MD != 0) {
+            description += " " + (MD + MD * buffStrength).ToString("F1") + " MGC";
+        }
+        if (INF != 0) {
+            description += " " + (INF + INF * buffStrength).ToString("F1") + " INF";
+        }
+        if (HP != 0) {
+            description += " " + (HP + HP * buffStrength).ToString("F1") + " HP";
+        }
+        if (AS != 0) {
+            description += " " + (AS + AS * buffStrength).ToString("F1") + " AS";
+        }
+        if (CDR != 0) {
+            description += " " + (CDR + CDR * buffStrength).ToString("F1") + " CDR";
+        }
+        if (MS != 0) {
+            description += " " + (MS + MS * buffStrength).ToString("F1") + " SPD";
+        }
+        if (Range != 0) {
+            description += " " + (Range + Range * buffStrength).ToString("F1") + " Range";
+        }
+        if (LS != 0) {
+            description += " " + (LS + LS * buffStrength).ToString("F1") + " LS";
+        }
+        if (root) {
+            description += " Root";
+        }
+        if (silence) {
+            description += " Silence";
+        }
+        if (blind) {
+            description += " Blind";
+        }
+
+        return description;
+    }
+    public string getDescription() {
+        string description = "Gives";
+        if (PD != 0) {
+            description += " " + PD + " PWR";
+        }
+        if (MD != 0) {
+            description += " " + MD + " MGC";
+        }
+        if (INF != 0) {
+            description += " " + INF + " INF";
+        }
+        if (HP != 0) {
+            description += " " + HP + " HP";
+        }
+        if (AS != 0) {
+            description += " " + AS + " AS";
+        }
+        if (CDR != 0) {
+            description += " " + CDR + " CDR";
+        }
+        if (MS != 0) {
+            description += " " + MS + " SPD";
+        }
+        if (Range != 0) {
+            description += " " + Range + " Range";
+        }
+        if (LS != 0) {
+            description += " " + LS + " LS";
+        }
+        if (root) {
+            description += " Root";
+        }
+        if (silence) {
+            description += " Silence";
+        }
+        if (blind) {
+            description += " Blind";
+        }
+
+        return description;
     }
 }

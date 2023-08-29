@@ -17,7 +17,10 @@ public class TargetSelector : MonoBehaviour
 
     [SerializeField]private Ability ability;
 
+    //Makes both the toggle and the bar clickable
     [SerializeField]private Button toggle;
+    [SerializeField]private Button toggleBar;
+
 
     [SerializeField] private Button removeAbilityBtn;
 
@@ -45,7 +48,7 @@ public class TargetSelector : MonoBehaviour
     [SerializeField] private Button HPAlly;
     [SerializeField] private Button ClosestAlly;
 
-    [SerializeField] private GameObject icons;
+    [SerializeField] private List<GameObject> icons;
 
     [SerializeField]private List<GameObject> valueHolders = new List<GameObject>(new GameObject[5]);
     [SerializeField]private List<TextMeshProUGUI> valueName = new List<TextMeshProUGUI>(new TextMeshProUGUI[5]);
@@ -57,6 +60,7 @@ public class TargetSelector : MonoBehaviour
     void Start()
     {
         toggle.onClick.AddListener(toggleClicked);
+        toggleBar.onClick.AddListener(toggleClicked);
         PDEnemy.onClick.AddListener(selectPDEnemy);
         MDEnemy.onClick.AddListener(selectMDEnemy);
         INFEnemy.onClick.AddListener(selectINFEnemy);
@@ -223,6 +227,9 @@ public class TargetSelector : MonoBehaviour
         INFEnemy.gameObject.SetActive(false);
         HPEnemy.gameObject.SetActive(false);
         ClosestEnemy.gameObject.SetActive(false);
+        foreach(GameObject icon in icons) {
+            icon.SetActive(false);
+        }
     }
     private void showEnemyTargetting() {
         PDEnemy.gameObject.SetActive(true);
@@ -230,6 +237,9 @@ public class TargetSelector : MonoBehaviour
         INFEnemy.gameObject.SetActive(true);
         HPEnemy.gameObject.SetActive(true);
         ClosestEnemy.gameObject.SetActive(true);
+        foreach (GameObject icon in icons) {
+            icon.SetActive(true);
+        }
     }
     //Sets the ally targetting buttons to inactive
     private void hideAllyTargetting() {
@@ -238,6 +248,9 @@ public class TargetSelector : MonoBehaviour
         INFAlly.gameObject.SetActive(false);
         HPAlly.gameObject.SetActive(false);
         ClosestAlly.gameObject.SetActive(false);
+        foreach (GameObject icon in icons) {
+            icon.SetActive(false);
+        }
     }
     private void showAllyTargetting() {
         PDAlly.gameObject.SetActive(true);
@@ -245,6 +258,9 @@ public class TargetSelector : MonoBehaviour
         INFAlly.gameObject.SetActive(true);
         HPAlly.gameObject.SetActive(true);
         ClosestAlly.gameObject.SetActive(true);
+        foreach (GameObject icon in icons) {
+            icon.SetActive(true);
+        }
     }
 
 

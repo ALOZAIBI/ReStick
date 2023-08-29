@@ -33,7 +33,7 @@ public class CastMeleeAttack : Ability
         if(available && character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
             lockedTarget = character.target;
-            playAnimation("castPierce");
+            playAnimation(animationToPlay);
         }
     }
 

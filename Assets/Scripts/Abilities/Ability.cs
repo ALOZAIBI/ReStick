@@ -112,12 +112,14 @@ public abstract class Ability : MonoBehaviour
     [SerializeField] AbilityTypeList abilityTypeList;
     public int abilityType;
     [HideInInspector]public int numberOfValues;
+    [SerializeField] protected string animationToPlay;
     public virtual void Start() {
         abilityType = (int)abilityTypeList;
         rarity = ((int)Rarities);
 
         color = ColorPalette.singleton.getIndicatorColor(abilityType);
     }
+    
     //use onValidate only in values that aren't supposed to change when game starts.
 #if UNITY_EDITOR
     public void OnValidate() {

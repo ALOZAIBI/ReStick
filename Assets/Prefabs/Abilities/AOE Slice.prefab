@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5175372440954022020}
   - component: {fileID: -4312040087955822868}
   m_Layer: 0
-  m_Name: Stab
+  m_Name: AOE Slice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   lockedTarget: {fileID: 0}
-  abilityName: Stab
+  abilityName: AOE Slice
   description: 
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 4
-  rangeAbility: 1.5
+  CD: 5
+  rangeAbility: 3
   available: 1
   abilityNext: 0
   valueNames:
@@ -59,11 +59,11 @@ MonoBehaviour:
   - BuffStrength
   - BuffDuration
   baseAmt:
-  - 3
+  - 5
   - 0
   - 0
   PDRatio:
-  - 1.1
+  - 0.8
   - 0
   - 0
   MDRatio:
@@ -99,10 +99,10 @@ MonoBehaviour:
   - 0
   - 0
   hasTarget: 1
-  prefabObject: {fileID: 1332544870390977845, guid: 16ae2ffd8ea27c74489acc8f23dc375b, type: 3}
+  prefabObject: {fileID: 1332544870390977845, guid: 6b3c73fc35e2d4c44847ebac0280b0cf, type: 3}
   buffPrefab: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
-  Rarities: 0
-  rarity: 0
+  Rarities: 1
+  rarity: 1
   targetStrategy: 1
   canTargetAlly: 0
   canTargetEnemy: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
   abilityTypeList: 0
   abilityType: 0
   numberOfValues: 3
-  animationToPlay: castPierce
+  animationToPlay: castAoePush
   PD: 0
   MD: 0
   INF: 0
@@ -126,4 +126,4 @@ MonoBehaviour:
   root: 0
   silence: 0
   blind: 0
-  selfRootDuration: 0.2
+  selfRootDuration: 0.3

@@ -38,6 +38,7 @@ public class Buff : MonoBehaviour
     //if the character was ranged before the buff.
     public bool initRanged;
 
+
     private void Start() {
         initRanged = target.usesProjectile;
     }
@@ -120,6 +121,89 @@ public class Buff : MonoBehaviour
             victim.currentDashingAbility = null;
         }
     }
+
+    //public string getDescription() {
+    //    string description = "Gives";
+    //    if(PD!=0) {
+    //        description += " " + PD + " PWR";
+    //    }
+    //    if (MD != 0) {
+    //        description += " " + MD + " MGC";
+    //    }
+    //    if (INF != 0) {
+    //        description += " " + INF + " INF";
+    //    }
+    //    if (HP != 0) {
+    //        description += " " + HP + " HP";
+    //    }
+    //    if (AS != 0) {
+    //        description += " " + AS + " AS";
+    //    }
+    //    if (CDR != 0) {
+    //        description += " " + CDR + " CDR";
+    //    }
+    //    if (MS != 0) {
+    //        description += " " + MS + " SPD";
+    //    }
+    //    if (Range != 0) {
+    //        description += " " + Range + " Range";
+    //    }
+    //    if (LS != 0) {
+    //        description += " " + LS + " LS";
+    //    }
+    //    if (snare) {
+    //        description += " Snare";
+    //    }
+    //    if (silence) {
+    //        description += " Silence";
+    //    }
+    //    if (blind) {
+    //        description += " Blind";
+    //    }
+
+    //    return description;
+    //}
+    //public string getDescription(float buffStrength) {
+    //    string description = "Gives";
+    //    if (PD != 0) {
+    //        description += " " + PD + PD*buffStrength + " PWR";
+    //    }
+    //    if (MD != 0) {
+    //        description += " " + MD + MD*buffStrength + " MGC";
+    //    }
+    //    if (INF != 0) {
+    //        description += " " + INF + INF*buffStrength + " INF";
+    //    }
+    //    if (HP != 0) {
+    //        description += " " + HP + HP * buffStrength + " HP";
+    //    }
+    //    if (AS != 0) {
+    //        description += " " + AS + AS * buffStrength + " AS";
+    //    }
+    //    if (CDR != 0) {
+    //        description += " " + CDR +CDR * buffStrength + " CDR";
+    //    }
+    //    if (MS != 0) {
+    //        description += " " + MS + MS * buffStrength + " SPD";
+    //    }
+    //    if (Range != 0) {
+    //        description += " " + Range + Range * buffStrength + " Range";
+    //    }
+    //    if (LS != 0) {
+    //        description += " " + LS + LS * buffStrength + " LS";
+    //    }
+    //    if (snare) {
+    //        description += " Snare";
+    //    }
+    //    if (silence) {
+    //        description += " Silence";
+    //    }
+    //    if (blind) {
+    //        description += " Blind";
+    //    }
+
+    //    return description;
+    //}
 
     //In some cases we want to removeThe stats without deleting the buff Object, like when cloning a target that has a buff on it. The clone will initially have the buff(the same object that the cloned target has) so if we delete the object it iwll be removed from both the clone and the original target.
     public void removeBuffAppliedStats(Character toBeRemovedFrom) {
