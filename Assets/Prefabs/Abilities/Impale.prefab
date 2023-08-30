@@ -58,15 +58,19 @@ MonoBehaviour:
   - Damage
   - BuffStrength
   - BuffDuration
+  - HealPercent
   baseAmt:
   - 7
+  - 0
   - 0
   - 0
   PDRatio:
   - 2.2
   - 0
   - 0
+  - 0
   MDRatio:
+  - 0
   - 0
   - 0
   - 0
@@ -74,7 +78,9 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  - 0
   HPMaxRatio:
+  - 0
   - 0
   - 0
   - 0
@@ -82,7 +88,9 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  - 0
   LVLRatio:
+  - 0
   - 0
   - 0
   - 0
@@ -90,11 +98,14 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  - 0
   ASRatio:
   - 0
   - 0
   - 0
+  - 0
   valueAmt:
+  - 0
   - 0
   - 0
   - 0
@@ -111,7 +122,7 @@ MonoBehaviour:
   hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 0
   abilityType: 0
-  numberOfValues: 3
+  numberOfValues: 4
   animationToPlay: castPierce
   PD: 0
   MD: 0

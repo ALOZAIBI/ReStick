@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6306243906633550890
+--- !u!1 &5175372440954022026
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,77 +8,84 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6306243906633550888}
-  - component: {fileID: 6306243906633550891}
+  - component: {fileID: 5175372440954022020}
+  - component: {fileID: -4312040087955822868}
   m_Layer: 0
-  m_Name: boomBoom
+  m_Name: AOE Drain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6306243906633550888
+--- !u!4 &5175372440954022020
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6306243906633550890}
+  m_GameObject: {fileID: 5175372440954022026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0231647, y: -0.13104515, z: 0.0023247432}
+  m_LocalPosition: {x: 2.8396406, y: -0.5352577, z: 601.99005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6306243906633550891
+--- !u!114 &-4312040087955822868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6306243906633550890}
+  m_GameObject: {fileID: 5175372440954022026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef1f245ba2adb554d9f7c17969e7f85c, type: 3}
+  m_Script: {fileID: 11500000, guid: df8c7fee07e1d1d44ab294813a2febd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   lockedTarget: {fileID: 0}
-  abilityName: Boom Boom
-  description: Throws thing that stuns
+  abilityName: Health Drain
+  description: 
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 6
-  rangeAbility: 12
+  CD: 8
+  rangeAbility: 4.5
   available: 1
   abilityNext: 0
   valueNames:
   - Damage
   - BuffStrength
   - BuffDuration
+  - HealPercent
   baseAmt:
-  - 4
+  - 5
   - 0
   - 0
+  - 2
   PDRatio:
+  - 0.3
   - 0
   - 0
   - 0
   MDRatio:
-  - 1
+  - 0.3
+  - 0
   - 0
   - 0
   INFRatio:
   - 0
   - 0
   - 0
+  - 0.05
   HPMaxRatio:
+  - 0.05
   - 0
   - 0
-  - 0
+  - 0.01
   HPRatio:
+  - 0
   - 0
   - 0
   - 0
@@ -86,7 +93,9 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  - 0
   MSRatio:
+  - 0
   - 0
   - 0
   - 0
@@ -94,13 +103,15 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  - 0
   valueAmt:
   - 0
   - 0
   - 0
+  - 0
   hasTarget: 1
-  prefabObject: {fileID: 3637706766136786258, guid: 782cff1844b6eb04da57676347888c77, type: 3}
-  buffPrefab: {fileID: 0}
+  prefabObject: {fileID: 1332544870390977845, guid: 235147b0a7e21b14997c8112ec5a6407, type: 3}
+  buffPrefab: {fileID: 4146658564243946327, guid: 4596320b17b3b8f4093531ff2905276a, type: 3}
   Rarities: 1
   rarity: 1
   targetStrategy: 1
@@ -109,10 +120,10 @@ MonoBehaviour:
   step: 0
   hitFX: {fileID: 0}
   hitFXColor: {r: 0, g: 0, b: 0, a: 0}
-  abilityTypeList: 1
-  abilityType: 1
-  numberOfValues: 3
-  animationToPlay: 
+  abilityTypeList: 8
+  abilityType: 8
+  numberOfValues: 4
+  animationToPlay: castAoePush
   PD: 0
   MD: 0
   INF: 0
@@ -126,3 +137,4 @@ MonoBehaviour:
   root: 0
   silence: 0
   blind: 0
+  selfRootDuration: 0.05

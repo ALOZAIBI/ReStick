@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6330922870570894010}
   - component: {fileID: 4074138880490405865}
   - component: {fileID: -8712153692495336169}
+  - component: {fileID: -3462447452564677662}
   m_Layer: 2
   m_Name: DashAlotThenSheathAura
   m_TagString: Untagged
@@ -132,6 +133,18 @@ MonoBehaviour:
   time: 0
   sizeTarget: 0
   createFXOnTargetsWithin: {fileID: 0}
+--- !u!114 &-3462447452564677662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6616426771428068873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1252294139, guid: 42c3f40ad0520e442aa80842ab9748a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6060072328463849523
 PrefabInstance:
   m_ObjectHideFlags: 0

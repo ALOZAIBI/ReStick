@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4375546544193823030}
   - component: {fileID: 7666787523881371155}
   m_Layer: 0
-  m_Name: CastStunEnemies
+  m_Name: CastSlowNearbyEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,18 +100,22 @@ MonoBehaviour:
   - 0
   hasTarget: 0
   prefabObject: {fileID: 6616426771428068873, guid: 53b57ed9f0b23a94093c0a346086a41d, type: 3}
-  buffPrefab: {fileID: 343584321739377260, guid: 946b159f30914df4aab754b4fa62129a, type: 3}
+  buffPrefab: {fileID: 4146658564243946327, guid: b7d7accae8a77ef44a10b2377dedcd17, type: 3}
   Rarities: 2
   rarity: 2
   targetStrategy: 1
+  canTargetAlly: 0
+  canTargetEnemy: 0
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 6
   abilityType: 6
   numberOfValues: 3
+  animationToPlay: 
   duration: 3
   durationRemaining: 0
   active: 0
-  enemy: 0
-  ally: 0
   damage: 1
   heal: 0
   PD: 0
@@ -120,10 +124,11 @@ MonoBehaviour:
   HP: 0
   AS: 0
   CDR: 0
-  MS: 0
+  MS: -2
   Range: 0
   LS: 0
   size: 0
-  root: 1
+  root: 0
   silence: 0
   blind: 0
+  initDescription: Slows Around

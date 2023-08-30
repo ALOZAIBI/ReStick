@@ -24,6 +24,8 @@ public abstract class MeleeAttack : MonoBehaviour
     //the buff will be added by the ability creating the attack
     public Buff buff;
 
+    public float healPercent;
+
     //This is stikll not in use
     //some attack's  have a description that will be read by the castMeleeAttack ability
     public string description;

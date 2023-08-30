@@ -67,12 +67,12 @@ MonoBehaviour:
   - 0
   - 0
   MDRatio:
-  - 0.3
-  - 0.05
+  - 0.2
+  - 0.01
   - 0
   INFRatio:
   - 0
-  - 0.07
+  - 0.04
   - 0.05
   HPMaxRatio:
   - 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   abilityTypeList: 1
   abilityType: 1
   numberOfValues: 3
+  animationToPlay: 
   duration: 7
   durationRemaining: 0
   active: 0
@@ -130,4 +131,4 @@ MonoBehaviour:
   root: 0
   silence: 0
   blind: 0
-  initDescription: Freezes around
+  initDescription: Slows movement and attacks

@@ -43,6 +43,7 @@ public class CastMeleeAttack : Ability
         objAttack.character = character;
         //sets the damage amount
         objAttack.DMG = valueAmt.getAmtValueFromName(this, "Damage");
+        objAttack.healPercent = valueAmt.getAmtValueFromName(this, "HealPercent");
         if (lockedTarget.alive) {
             //sets the target
             objAttack.target = lockedTarget;
@@ -145,6 +146,9 @@ public class CastMeleeAttack : Ability
         if (character != null) {
             calculateAmt();
             description += " dealing " + valueAmt.getAmtValueFromName(this, "Damage");
+            if (valueAmt.getAmtValueFromName(this, "HealPercent") > 0) {
+                  description += ". Healing:" + valueAmt.getAmtValueFromName(this, "HealPercent").ToString("F1") + "% of your health for every enemy hit";
+            }
         }
     }
     private void Start() {

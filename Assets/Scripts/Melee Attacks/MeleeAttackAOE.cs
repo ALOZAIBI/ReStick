@@ -45,6 +45,9 @@ public class MeleeAttackAOE : MeleeAttack {
                 character.damage(victim, DMG, LS);
                 applyHitFX(victim);
                 applyBuff(victim);
+                Debug.Log("Character before heal: " + character.HP+"Should heal"+healPercent);
+                character.HP += healPercent*0.01f*character.HPMax;
+                Debug.Log("Character after heal: " + character.HP);
             }
             charactersHit.Add(victim);
         }

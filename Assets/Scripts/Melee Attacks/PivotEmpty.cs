@@ -17,6 +17,7 @@ public class PivotEmpty : MeleeAttack
         child.speed = speed;
         child.LS = LS;
         child.range= range;
+        child.healPercent = healPercent;
         child.lifetime = lifetime;
         child.buff = buff;
         child.description = description;
