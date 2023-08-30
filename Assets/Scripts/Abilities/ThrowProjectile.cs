@@ -23,6 +23,9 @@ public class ThrowProjectile : Ability
     public bool silence;
     public bool blind;
 
+    public float initSize;
+    public float growSpeed;
+
     //Summons a projectile
     //can do cool shit depending on the projectile
     //for example a projectile that throws an AOE that heals
@@ -50,6 +53,10 @@ public class ThrowProjectile : Ability
         projectile.shooter = character;
         //sets the damage amount (doesn't take the inf part much into account)
         projectile.DMG = valueAmt.getAmtValueFromName(this,"Damage");
+
+        projectile.initSize = initSize;
+        projectile.targetSize = projectile.transform.localScale.x;
+        projectile.growSpeed = growSpeed;
         if (lockedTarget.alive) {
             //sets the target
             projectile.target = lockedTarget;

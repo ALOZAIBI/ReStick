@@ -110,6 +110,7 @@ public class CameraMovement : MonoBehaviour
     
     }
     private void Update() {
+        //Panning and zooming
         if (pannable) {
             panCamera();
             
@@ -132,6 +133,7 @@ public class CameraMovement : MonoBehaviour
             //multiplied by 2 just to increase sens
             zoom(Input.GetAxis("Mouse ScrollWheel") * 2);
         }
+        //Focusing Map
         //Maybe add delay before zooming in
         if (zoomingBackIn) {
             //pause zoom delay

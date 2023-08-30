@@ -29,6 +29,7 @@ public class ProjectileAOECircle : Projectile
     //travels in target direction
     public override void trajectory() {
         transform.position = (Vector2)transform.position + (direction * (speed * Time.fixedDeltaTime));
+        grow();
     }
 
     //deals damage to enemies that this passes over

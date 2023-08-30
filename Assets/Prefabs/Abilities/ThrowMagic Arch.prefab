@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4063992068385495928}
   - component: {fileID: 4063992068385495931}
   m_Layer: 0
-  m_Name: throwAOEFireball
+  m_Name: ThrowMagic Arch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   lockedTarget: {fileID: 0}
-  abilityName: Fireball
-  description: Throws AOE fireball
+  abilityName: Throws Magic Arch
+  description: Throws Ma
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 12
-  rangeAbility: 7
+  CD: 10
+  rangeAbility: 15
   available: 1
   abilityNext: 0
   valueNames:
@@ -59,7 +59,7 @@ MonoBehaviour:
   - BuffStrength
   - BuffDuration
   baseAmt:
-  - 5
+  - 10
   - 0
   - 0
   PDRatio:
@@ -67,7 +67,7 @@ MonoBehaviour:
   - 0
   - 0
   MDRatio:
-  - 0.4
+  - 0.8
   - 0
   - 0
   INFRatio:
@@ -99,10 +99,10 @@ MonoBehaviour:
   - 0
   - 0
   hasTarget: 1
-  prefabObject: {fileID: 3637706766136786258, guid: 24bbdf36ffab83047ad9eb912fe3de0d, type: 3}
+  prefabObject: {fileID: 5878387610954688566, guid: 22bf1ff7b76b5cb4e911bab140353ce2, type: 3}
   buffPrefab: {fileID: 0}
-  Rarities: 1
-  rarity: 1
+  Rarities: 2
+  rarity: 2
   targetStrategy: 1
   canTargetAlly: 0
   canTargetEnemy: 1
@@ -126,5 +126,5 @@ MonoBehaviour:
   root: 0
   silence: 0
   blind: 0
-  initSize: 1
-  growSpeed: 3
+  initSize: 0.25
+  growSpeed: 0.4

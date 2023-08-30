@@ -92,7 +92,7 @@ public class AbilityFactory : MonoBehaviour
     public void addRandomAbilityToZone(Zone zone,int amount) {
         for (int i = 0; i < amount; i++) {
 
-            addsObjectToZone(zone, randomAbility(35, 20, 5));
+            addsObjectToZone(zone, randomAbility(37, 20, 5));
         }
     }
 
