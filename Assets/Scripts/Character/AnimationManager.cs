@@ -22,6 +22,9 @@ public class AnimationManager : MonoBehaviour {
     public bool interruptible = false;
     public bool attackBuffered;
 
+    //If true then the attack is ranged
+    private bool attackRanged = false;
+
     public Ability abilityBuffer;
     // Start is called before the first frame update
     void Start() {
@@ -64,7 +67,11 @@ public class AnimationManager : MonoBehaviour {
         if(character.target!=null)
             animator.SetFloat("TargetAngle", (transform.position - character.target.transform.position).x < 0 ? 0 : 1);
     }
-    public void attack() {
+
+    public void startAttackCooldown() {
+        character.startAttackCooldown();
+    }
+    public void attack(bool ranged) {
         ////if there's an animation buffered(ability or attack) then interrupt
         //if (interruptible)
         //    animator.SetTrigger("interrupt");
@@ -77,12 +84,18 @@ public class AnimationManager : MonoBehaviour {
             //Debug.Log("Attack set interruptible to:" + interruptible);
         target = character.target;
         animator.SetFloat("animationSpeed", 1 + character.AS*0.5f);
+
+        attackRanged = ranged;
         }
     }
     public void attackEvent() {
         interruptible = true;
-        character.executeAttackMelee(target);
+        if(attackRanged)
+            character.executeAttackRanged(target);
+        else
+            character.executeAttackMelee(target);
     }
+
     //This is how the abilities work
     //If toBeCast==null >>>> animtion.cast>after some animation> animation.castEvent()>>> executeAbility()
     //Casts the ability with the raise animation

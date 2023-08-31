@@ -1347,38 +1347,42 @@ public class Character : MonoBehaviour {
             //we can't rely on range as a conditional since range does increase when character size is buffed but that doesn't mean that they become ranged
             //nvm for now we rely on range
             if (Range > 2.1f || usesProjectile) {
-                GameObject temp = Instantiate(projectile, transform.position, transform.rotation);
-                Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
-                instantiatedProjectile.shooter = this;
-                instantiatedProjectile.DMG = PD;
-                //THE SPEED IS SET IN THE PROJECTILE OBJECT ITSELF
-                //instantiatedProjectile.speed = 4;       //can make this an attribute to character
-                instantiatedProjectile.lifetime = 2;    //can make this an attribute to character
-                instantiatedProjectile.target = target;
-                instantiatedProjectile.LS = LS;
-                //start cooldown of attack
-                startCooldown(1 / AS, (int)ActionAvailable.Attack);
-
-                //start cooldown of movement(Character stops moving for a bit after attack)
-                //When character has more than 3.5f AS there is no stopping movement
-                if (AS < 3.5f)
-                    startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
+                try { animationManager.attack(true); } catch { /*No attack animation*/executeAttackRanged(target); startAttackCooldown(); }
             }
             else {
-                try { animationManager.attack(); } catch { /*No attack animation*/executeAttackMelee(target);}
+                try { animationManager.attack(false); } catch { /*No attack animation*/executeAttackMelee(target); startAttackCooldown(); }
             }
         }
+    }
+    public void executeAttackRanged(Character animationTarget) {
+        GameObject temp = Instantiate(projectile, transform.position, transform.rotation);
+        Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
+        instantiatedProjectile.shooter = this;
+        instantiatedProjectile.DMG = PD;
+        //THE SPEED IS SET IN THE PROJECTILE OBJECT ITSELF
+        //instantiatedProjectile.speed = 4;       //can make this an attribute to character
+        instantiatedProjectile.lifetime = 2;    //can make this an attribute to character
+        instantiatedProjectile.target = animationTarget;
+        instantiatedProjectile.LS = LS;
+
+        //start cooldown of movement(Character stops moving for a bit after attack)
+        //When character has more than 3.5f AS there is no stopping movement
+        if (AS < 3.5f)
+            startCooldown(1 / (AS * 2.5f), (int)ActionAvailable.Moving);
     }
     public void executeAttackMelee(Character animationTarget) {
         //since the targetting might change before the animaiton is done, we save the target in the animationmanager then call it here
         damage(animationTarget, PD, true);
-        //start cooldown of attack
-        startCooldown(1 / AS, (int)ActionAvailable.Attack);
 
         //start cooldown of movement(Character stops moving for a bit after attack)
         //When character has more than 5 AS there is no stopping movement
         if (AS < 5)
             startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
+    }
+    //This will happen at the beginning of the attack animation
+    public void startAttackCooldown() {
+        //start cooldown of attack
+        startCooldown(1 / AS, (int)ActionAvailable.Attack);
     }
     //used to set the ActionNext value to CD value. It will actually be cooled down in the cooldown function which is called in the update function
     private void startCooldown(float cooldownDuration,int action) {
@@ -1568,7 +1572,7 @@ public class Character : MonoBehaviour {
                 increasePartyXP(victim.level);
                 //add gold
                 if (this.team == (int)teamList.Player) {
-                    uiManager.playerParty.gold += 15 + victim.level * 3;
+                    uiManager.playerParty.gold += 15*Mathf.CeilToInt(victim.level / 4);
                 }
             }
             else {
