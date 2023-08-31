@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2992473041580574266, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
+      propertyPath: hitFXColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2992473041580574266, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
+      propertyPath: hitFXColor.g
+      value: 0.050980397
+      objectReference: {fileID: 0}
+    - target: {fileID: -2992473041580574266, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
+      propertyPath: hitFXColor.r
+      value: 0.85098046
+      objectReference: {fileID: 0}
     - target: {fileID: 3637706766136786256, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -52,16 +64,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3637706766136786257, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7ed6b3f8c0bdf524692d5b425370f0c8, type: 3}
+    - target: {fileID: 3637706766136786257, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3637706766136786257, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
       propertyPath: m_Color.g
-      value: 0.24024706
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3637706766136786257, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
       propertyPath: m_Color.r
-      value: 0.8509804
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3637706766136786258, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
       propertyPath: m_Name
@@ -79,5 +95,9 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.7254902
       objectReference: {fileID: 0}
+    - target: {fileID: 6444936033135640641, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: e56d5a15af268b245b14b5a9ce9ba443, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
