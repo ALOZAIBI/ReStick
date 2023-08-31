@@ -21,6 +21,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] public Tilemap tilemapToDisplayFully;
     [SerializeField] public Tilemap tilemapToFocus;
     [SerializeField] private float zoomLevelBeforeDisplayingFully;
+
+    private int touchCount;
     //used to get first touch to be used in dragOrigin
     private bool touching = false;
 
@@ -35,12 +37,15 @@ public class CameraMovement : MonoBehaviour
             return;
         }
         //to prevent weird stuff when two touches happen(to zoom for instance) we seperate the functionality of mouse and touch
+        
         if (Input.touchCount > 0) {
-            if(!touching)
-                dragOrigin = (Vector2)cam.ScreenToWorldPoint(Input.GetTouch(0).position);
+            //If touchcount changed from previous frame recalculate the drag origin
+            if(!touching || Input.touchCount != touchCount)
+                dragOrigin = (Vector2)cam.ScreenToWorldPoint(avgPosOfTouches());
             touching = true;
+            touchCount = Input.touchCount;
             if (touching) {
-                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(Input.GetTouch(0).position);
+                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(avgPosOfTouches());
                 cam.transform.position += (Vector3)dragDifference;
             }
         }
@@ -58,6 +63,16 @@ public class CameraMovement : MonoBehaviour
             }
         }
 
+    }
+
+    private Vector2 avgPosOfTouches() {
+        //Gets the average position of all touches
+        Vector2 avgPos = new Vector2(0, 0);
+        for (int i = 0; i < Input.touchCount; i++) {
+            avgPos += Input.GetTouch(i).position;
+        }
+        avgPos /= Input.touchCount;
+        return avgPos;
     }
 
     //Instantly zooms out and centers camera so that all tiles of the tilemape are visible, then after a delay zoom back into the previous zoom level
