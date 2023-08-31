@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3637706766136786257}
   - component: {fileID: 3637706766136786270}
   - component: {fileID: -2992473041580574266}
+  - component: {fileID: 6444936033135640641}
   m_Layer: 2
   m_Name: SimpleRyzeQ
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3637706766136786258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3031561261286253131}
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 19169435
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0.37680826, b: 0.8490566, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 88c11c7f521f3194ba3e86034f63e180, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,11 +122,35 @@ MonoBehaviour:
   lifetime: 10
   DMG: 0
   LS: 0
+  initSize: 0
+  targetSize: 0
+  growSpeed: 0
   buff: {fileID: 0}
   description: 'Throws magic '
   direction: {x: 0, y: 0}
   castingAbilityName: 
   hitFX: {fileID: 3272547360703979223, guid: d28e16c478726804cbdccfc590882c08, type: 3}
+  hitFXColor: {r: 0, g: 0.37647063, b: 0.85098046, a: 1}
+--- !u!95 &6444936033135640641
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637706766136786258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 83665f697b5f0bd44938f11e9e8c4c7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2362959726000018993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,15 +220,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.b
-      value: 0.7254902
+      value: 0.8207547
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.g
-      value: 0.32941177
+      value: 0.40081915
       objectReference: {fileID: 0}
     - target: {fileID: 2196800260573242441, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Color.r
-      value: 0.24705882
+      value: 0.058072258
       objectReference: {fileID: 0}
     - target: {fileID: 6641201484394630654, guid: 93f8cbccc2124be4080e28148e9067c1, type: 3}
       propertyPath: m_Name

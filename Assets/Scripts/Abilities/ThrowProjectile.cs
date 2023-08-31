@@ -65,6 +65,7 @@ public class ThrowProjectile : Ability
             character.selectTarget(targetStrategy, rangeAbility);
             projectile.target = character.target;
         }
+        projectile.angle();
         Debug.Log("Projectile has no target"+projectile.name + projectile.shooter);
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;

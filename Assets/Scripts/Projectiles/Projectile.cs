@@ -33,6 +33,7 @@ public abstract class Projectile : MonoBehaviour
     public string castingAbilityName;
 
     public HitFX hitFX;
+    public Color hitFXColor;
     //handles the trajectory of the projectile
     public abstract void trajectory();
 
@@ -91,14 +92,12 @@ public abstract class Projectile : MonoBehaviour
     public void applyHitFX(Vector3 position) {
         HitFX temp = Instantiate(hitFX, position,Quaternion.identity);
         temp.gameObject.SetActive(true);
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null) {
-            temp.GetComponent<SpriteRenderer>().color = GetComponent<SpriteShapeRenderer>().color;
-        }
-        else {
-            //Makes the instantiated object's color same as the projectile color
-            temp.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
-        }
+        temp.GetComponent<SpriteRenderer>().color = hitFXColor;
     }
-    
+
+    //angles the attack towards the target
+    public void angle() {
+        float angle = Mathf.Atan2(target.transform.position.y - transform.position.y, target.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle + 90);
+    }
 }
