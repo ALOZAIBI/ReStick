@@ -50,7 +50,7 @@ MonoBehaviour:
   description: Heal Aura Lmao
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 7
+  CD: 14
   rangeAbility: 4
   available: 1
   abilityNext: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   - 0
   - 0
   MDRatio:
-  - 0.2
+  - 0.1
   - 0
   - 0
   INFRatio:
@@ -75,7 +75,7 @@ MonoBehaviour:
   - 0
   - 0
   HPMaxRatio:
-  - 0.03
+  - 0.015
   - 0
   - 0
   HPRatio:
@@ -112,7 +112,8 @@ MonoBehaviour:
   abilityTypeList: 8
   abilityType: 8
   numberOfValues: 3
-  duration: 3
+  animationToPlay: 
+  duration: 9
   durationRemaining: 0
   active: 0
   damage: 1
