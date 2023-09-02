@@ -1572,7 +1572,8 @@ public class Character : MonoBehaviour {
                 increasePartyXP(victim.level);
                 //add gold
                 if (this.team == (int)teamList.Player) {
-                    uiManager.playerParty.gold += 7*Mathf.CeilToInt(victim.level / 3);
+                    uiManager.playerParty.gold += 7 * (1 + Mathf.CeilToInt(victim.level / 4));
+
                 }
             }
             else {
@@ -1583,7 +1584,7 @@ public class Character : MonoBehaviour {
                 increasePartyXP(victim.level);
                 //add gold
                 if (this.team == (int)teamList.Player) {
-                    uiManager.playerParty.gold += 15 + victim.level * 3;
+                    uiManager.playerParty.gold += 7 * (1+Mathf.CeilToInt(victim.level / 4));
                 }
             }
         }

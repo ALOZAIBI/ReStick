@@ -380,26 +380,30 @@ public class CharacterInfoScreen : MonoBehaviour
 
     private float portraitScaleAmount=2;
     private void handlePortraitPanel() {
-        //just scales it up
-        scalePortraitPanel(portraitScaleAmount);
+        //Gets the initial size of the portrait panel
+        float initSize = portraitPanelAnchorT - portraitPanelAnchorB;
+        //Gets the character info screen scale amount as it expands
+        float scaleAmount = (mainPanelAnchorT - mainPanel.GetAnchorBottom()) / ((mainPanelAnchorT)-mainPanelAnchorB) ;
+        //Sets the bottom anchor to be the same as as it was before the transition started by dividing it by the scale amount, but also double it's size as it was before thre transition
+        portraitPanel.SetAnchorBottom(Mathf.Lerp(portraitPanelAnchorB, (portraitPanelAnchorT - (initSize*1.5f / scaleAmount)), time/transitionTime));
+        Debug.Log(scaleAmount + " " + initSize);
+        portraitPanel.SetAnchorTop(Mathf.Lerp(portraitPanelAnchorT,0.99f, time / transitionTime));
+        
+        //Scale it to the right a bit too
+        portraitPanel.SetAnchorRight(Mathf.Lerp(portraitPanelAnchorR, (portraitPanelAnchorR*1.5f), time/transitionTime));
     }
     
-    private void scalePortraitPanel(float amount) {
-        portraitPanel.SetRight(Mathf.Lerp(portraitPanelPositionR, portraitPanelPositionR * amount, time/transitionTime));
-        portraitPanel.SetBottom(Mathf.Lerp(portraitPanelPositionB, portraitPanelPositionB * amount, time/transitionTime));
-    }
+    //private void scalePortraitPanel(float amount) {
+    //    portraitPanel.SetRight(Mathf.Lerp(portraitPanelPositionR, portraitPanelPositionR * amount, time/transitionTime));
+    //    portraitPanel.SetBottom(Mathf.Lerp(portraitPanelPositionB, portraitPanelPositionB * amount, time/transitionTime));
+    //}
 
     private void handleXpPanel() {
         //The comments are in the case of expanding the panel but they are also applicable in reverse I guess
         //Puts it below Portrait Panel (Where stats panel was initially)
-        //by finding the scale amount we can find the position of the initial bottom anchor and then set the top to thatposition
-        float scaleAmount;
-        if (inventoryScreen)
-            scaleAmount = (uiManager.characterInfoScreen.mainPanel.GetAnchorTop() - (1 - uiManager.characterInfoScreen.mainPanel.GetAnchorTop())) / (uiManager.characterInfoScreen.mainPanelAnchorT - uiManager.characterInfoScreen.mainPanelAnchorB);
-        else
-            scaleAmount = (mainPanel.GetAnchorTop() - (1 - mainPanel.GetAnchorTop())) / (mainPanelAnchorT - mainPanelAnchorB);
+        //puts xpPanel under the portrait panel
 
-        xpPanel.SetAnchorTop(Mathf.Lerp(xpPanelAnchorT, statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), time / transitionTime));
+        xpPanel.SetAnchorTop(Mathf.Lerp(xpPanelAnchorT, portraitPanel.GetAnchorBottom() - 0.005f, time / transitionTime));
 
         //Stretches it to the right
         xpPanel.SetAnchorRight(Mathf.Lerp(xpPanelAnchorR, 1 - xpPanelAnchorL, time / transitionTime));
@@ -418,19 +422,10 @@ public class CharacterInfoScreen : MonoBehaviour
         statsPanel.SetAnchorLeft(Mathf.Lerp(statsPanelAnchorL, 1 - statsPanelAnchorR, time / transitionTime));
 
         //sets the bottom to be in the top third kinda of main panel
-        statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.5f, time / transitionTime));
+        statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.6f, time / transitionTime));
 
     }
 
-    private void handleAbilitiesPanel() {
-        //Sets the top to be the bottom of healthBarPanel with some padding
-        abilitiesPanel.SetAnchorTop(Mathf.Lerp(abilitiesPanelAnchorT, healthBarPanel.GetAnchorBottom()-0.015f, time / transitionTime));
-        //Sets the bottom to be slightly above the bottom of the mainPanel
-        abilitiesPanel.SetAnchorBottom(Mathf.Lerp(abilitiesPanelAnchorB, mainPanel.GetAnchorBottom(), time / transitionTime));
-
-        //stretches it to the left
-        abilitiesPanel.SetAnchorLeft(Mathf.Lerp(abilitiesPanelAnchorL, 1 - abilitiesPanelAnchorR, time / transitionTime));
-    }
     private void handleHealthBarPanel() {
         //Keep left anchor and right anchor equal to statsPanel
         healthBarPanel.SetAnchorLeft(Mathf.Lerp(healthBarPanelAnchorL, statsPanel.GetAnchorLeft(),time/transitionTime));
@@ -440,12 +435,22 @@ public class CharacterInfoScreen : MonoBehaviour
         //To keep the bottom anchor from going all the way to the bottom
         healthBarPanel.SetAnchorBottom(Mathf.Lerp(healthBarPanelAnchorB, statsPanel.GetAnchorBottom()-0.03f,time/transitionTime));
     }
+
+    private void handleAbilitiesPanel() {
+        //Sets the top to be the bottom of healthBarPanel with some padding
+        abilitiesPanel.SetAnchorTop(Mathf.Lerp(abilitiesPanelAnchorT, healthBarPanel.GetAnchorBottom()-0.007f, time / transitionTime));
+        //Sets the bottom to be slightly above the bottom 
+        abilitiesPanel.SetAnchorBottom(Mathf.Lerp(abilitiesPanelAnchorB, 0+0.005f, time / transitionTime));
+
+        //stretches it to the left
+        abilitiesPanel.SetAnchorLeft(Mathf.Lerp(abilitiesPanelAnchorL, 1 - abilitiesPanelAnchorR, time / transitionTime));
+    }
     private void handlePanels() {
         //this is needed to update stats text position and size as we expand and shrink the panel
-        handleXpPanel();
-        handleStatsPanel();
         handleMainPanel();
         handlePortraitPanel();
+        handleXpPanel();
+        handleStatsPanel();
         handleTargetSelectorBtnPanel();
         handleHealthBarPanel();
         handleAbilitiesPanel();
@@ -455,10 +460,12 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     private void handleTargetSelectorBtnPanel() {
         //Sets the bottom to be the same as portrait Panel. And the top to be in the middle of portrait panel
-        targetSelectBtnPanel.SetBottom(portraitPanel.GetBottom());
-        targetSelectBtnPanel.SetTop((portraitPanel.GetTop() - portraitPanel.GetBottom()) / 2);
+        targetSelectBtnPanel.SetAnchorBottom(portraitPanel.GetAnchorBottom());
+        float portraitPanelHeight = portraitPanel.GetAnchorTop() - portraitPanel.GetAnchorBottom();
+        targetSelectBtnPanel.SetAnchorTop(portraitPanel.GetAnchorTop() - (portraitPanelHeight / 2));
+        //targetSelectBtnPanel.SetAnchorTop();
         //sets the left anchor to be to the right of the portrait panel.
-        targetSelectBtnPanel.SetAnchorLeft(statsPanelAnchorL*portraitScaleAmount);
+        targetSelectBtnPanel.SetAnchorLeft(portraitPanel.GetAnchorRight()+0.01f);
         //Grows the right anchor to the right
         targetSelectBtnPanel.SetAnchorRight(Mathf.Lerp(targetSelectBtnPanel.GetAnchorLeft(), statsPanelAnchorR,time/transitionTime));
     }
@@ -568,8 +575,7 @@ public class CharacterInfoScreen : MonoBehaviour
                 break;
             case 7:
                 //Sets anchor top of xpPanel to be at the top of mainPanel
-                float scaleAmount = (uiManager.characterInfoScreen.mainPanel.GetAnchorTop() - (1 - uiManager.characterInfoScreen.mainPanel.GetAnchorTop())) / (uiManager.characterInfoScreen.mainPanelAnchorT - uiManager.characterInfoScreen.mainPanelAnchorB);
-                xpPanel.SetAnchorTop(Mathf.Lerp(statsPanelAnchorB * scaleAmount - (statsPanelAnchorT), mainPanelAnchorT , time2 / transitionTime));
+                xpPanel.SetAnchorTop(Mathf.Lerp(portraitPanel.GetAnchorBottom() - 0.005f, mainPanelAnchorT  , time2 / transitionTime));
                 //sets the bottom to make the height of the panel twice it's inital height
                 float initHeight = xpPanelAnchorT - xpPanelAnchorB;
                 xpPanel.SetAnchorBottom(Mathf.Lerp(xpPanelAnchorB, xpPanel.GetAnchorTop() - initHeight / 4, time / transitionTime));
@@ -647,6 +653,7 @@ public class CharacterInfoScreen : MonoBehaviour
     private void displayNameAndPortrait(Character currChar) {
         characterName.text = currChar.name;
         //sets the image of character
+        characterPortrait.preserveAspect = true;
         characterPortrait.sprite = currChar.GetComponent<SpriteRenderer>().sprite;
         characterPortrait.color = currChar.GetComponent<SpriteRenderer>().color;
     }

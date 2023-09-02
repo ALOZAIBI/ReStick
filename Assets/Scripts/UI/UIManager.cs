@@ -451,12 +451,9 @@ public class UIManager : MonoBehaviour
             }
             catch { }
         }
-        if (inZone) {
-            topBarUI.SetActive(true);
-            goldtext.text = "G:" + playerParty.gold;
-        }
-        else
-            topBarUI.SetActive(false);
+        
+        goldtext.text = playerParty.gold.ToString();
+        
         ////display gold if in zone with goldgainedsofar in zone if possible
         //try {
         //    goldtext.text = "G:" + (playerParty.gold + zone.goldSoFar);
