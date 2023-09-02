@@ -22,5 +22,6 @@ public class PivotEmpty : MeleeAttack
         child.buff = buff;
         child.description = description;
         child.hitFX = hitFX;
+        child.hitFXColor = hitFXColor;
     }
 }

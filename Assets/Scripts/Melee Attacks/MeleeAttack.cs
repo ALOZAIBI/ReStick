@@ -35,6 +35,7 @@ public abstract class MeleeAttack : MonoBehaviour
     public string castingAbilityName;
 
     public HitFX hitFX;
+    public Color hitFXColor;
 
     //handles the attack. In some cases it's a circle AOE that grows, in others its a box that grows towards axis it's been angled at
     public abstract void attackHandler();
@@ -79,7 +80,7 @@ public abstract class MeleeAttack : MonoBehaviour
         HitFX temp = Instantiate(hitFX, position, Quaternion.identity);
         temp.gameObject.SetActive(true);
         //Makes the instantiated object's color same as the projectile color
-        temp.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+        temp.GetComponent<SpriteRenderer>().color = hitFXColor;
     }
 
 }
