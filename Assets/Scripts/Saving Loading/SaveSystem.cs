@@ -250,6 +250,7 @@ static class SaveSystem
     public static void saveInventoryInWorld() {
         InventoryData data = new InventoryData();
         data.gold = UIManager.singleton.playerParty.gold;
+        data.lifeShards = UIManager.singleton.playerParty.lifeShards;
         //adds abilities
         foreach (Transform child in UIManager.singleton.playerParty.abilityInventory.transform) {
             Ability temp = child.GetComponent<Ability>();
@@ -281,15 +282,49 @@ static class SaveSystem
                 InventoryData data = JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
                 UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(data.abilityNames);
                 UIManager.singleton.playerParty.gold = data.gold;
+                UIManager.singleton.playerParty.lifeShards = data.lifeShards;
             }
         }
         else
             Debug.Log("File doesn't exist in " + path);
 
     }
+    //Will only do for map for now, might need to do an in world version
+    //This will rewrite the saveFile with the new lifeShards value
+    public static void updateLifeShardsInMap() {
+        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
+        InventoryData data;
+        if (File.Exists(path)) {
+            using (FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+                //the 2 lines that follow are the encrypted version
+                //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
+
+                //reads the data
+                data = JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
+                //Changes it's value
+                data.lifeShards = UIManager.singleton.playerParty.lifeShards;
+            }
+            using(FileStream fs = File.Open(path, FileMode.Create)) {
+                BinaryWriter writer = new BinaryWriter(fs);
+
+                // the 2 lines that follow are the encrypted version
+                //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(abilityNames));
+                //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+                //Now saves the new value
+                writer.Write(JsonConvert.SerializeObject(data));
+                writer.Flush();
+            }
+        }
+        else
+            Debug.Log("File doesn't exist in " + path);
+    }
     public static void saveInventoryInMap() {
         InventoryData data = new InventoryData();
         data.gold = UIManager.singleton.playerParty.gold;
+        data.lifeShards = UIManager.singleton.playerParty.lifeShards;
         //adds abilities
         foreach(Transform child in UIManager.singleton.playerParty.abilityInventory.transform) {
             Ability temp = child.GetComponent<Ability>();
@@ -321,6 +356,7 @@ static class SaveSystem
                 InventoryData data= JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
                 UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(data.abilityNames);
                 UIManager.singleton.playerParty.gold = data.gold;
+                UIManager.singleton.playerParty.lifeShards = data.lifeShards;
             }
         }
         else

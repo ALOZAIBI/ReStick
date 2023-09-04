@@ -142,7 +142,7 @@ public class CharacterInfoScreen : MonoBehaviour
     private float statsPanelAnchorL;
     private float statsPanelAnchorR;
     private float statsPanelAnchorT;
-    private float statsPanelAnchorB;
+    [SerializeField]private float statsPanelAnchorB;
                   
     private float statsPanelPositionL;
     private float statsPanelPositionR;
@@ -176,8 +176,8 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField] private RectTransform healthBarPanel;
     private float healthBarPanelAnchorL;
     private float healthBarPanelAnchorR;
-    private float healthBarPanelAnchorT;
-    private float healthBarPanelAnchorB;
+    [SerializeField] private float healthBarPanelAnchorT;
+    [SerializeField] private float healthBarPanelAnchorB;
     private float healthBarPanelPositionL;
     private float healthBarPanelPositionR;
     private float healthBarPanelPositionT;
@@ -424,6 +424,7 @@ public class CharacterInfoScreen : MonoBehaviour
         //sets the bottom to be in the top third kinda of main panel
         statsPanel.SetAnchorBottom(Mathf.Lerp(statsPanelAnchorB, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.6f, time / transitionTime));
 
+        statsPanel.SetStretchToAnchors();
     }
 
     private void handleHealthBarPanel() {
@@ -434,6 +435,9 @@ public class CharacterInfoScreen : MonoBehaviour
         healthBarPanel.SetAnchorTop(Mathf.Lerp(healthBarPanelAnchorT, statsPanel.GetAnchorBottom()-0.007f,time/transitionTime));
         //To keep the bottom anchor from going all the way to the bottom
         healthBarPanel.SetAnchorBottom(Mathf.Lerp(healthBarPanelAnchorB, statsPanel.GetAnchorBottom()-0.03f,time/transitionTime));
+
+        healthBarPanel.SetStretchToAnchors();
+
     }
 
     private void handleAbilitiesPanel() {

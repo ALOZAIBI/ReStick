@@ -157,7 +157,8 @@ public class Zone : MonoBehaviour
             }
             //otherwise zone is lost
             uIManager.displayGameLost(belongsToMap);
-            playerParty.totalLives--;
+            playerParty.lifeShards--;
+            SaveSystem.updateLifeShardsInMap();
             uIManager.pausePlay(true);
             //started is re set to false to prevent totallives to decrement infintely
             started = false;

@@ -69,6 +69,9 @@ public class UIManager : MonoBehaviour
 
     //displays how much gold player has
     public TextMeshProUGUI goldtext;
+    
+    //displays how many life shards the player has remaining
+    public TextMeshProUGUI lifeShardText;
 
     public TopStatDisplay topStatDisplay;
 
@@ -256,6 +259,11 @@ public class UIManager : MonoBehaviour
     }
     //Once player loses a zone and chooses not to restart
     public void backToMap() {
+        //If the zone already started then exiting will cost a life shard.(To prevent exploiting) (Player exits as soon as about to lose)
+        if (zoneStarted()) {
+            playerParty.lifeShards -= 1;
+            SaveSystem.updateLifeShardsInMap();
+        }
         //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
         //so A way to optimize is to load only if it this function is called from zone lost to map
         Camera.main.transform.position = new Vector3(0, 0, -10);
@@ -279,6 +287,11 @@ public class UIManager : MonoBehaviour
     //tis is triggered by a button;
     //loads the previous mapSave then reloads the scene
     private void restartZone() {
+        //If the zone already started then restarting will cost a life shard.(To prevent exploiting) (Player restars as soon as about to lose)
+        if(zoneStarted()) {
+            playerParty.lifeShards -= 1;
+            SaveSystem.updateLifeShardsInMap();
+        }
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
 
@@ -454,6 +467,7 @@ public class UIManager : MonoBehaviour
         
         goldtext.text = playerParty.gold.ToString();
         
+        lifeShardText.text = playerParty.lifeShards.ToString();
         ////display gold if in zone with goldgainedsofar in zone if possible
         //try {
         //    goldtext.text = "G:" + (playerParty.gold + zone.goldSoFar);

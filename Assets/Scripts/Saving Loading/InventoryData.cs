@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 public class InventoryData
 {
     public int gold;
+    public int lifeShards;
     public List<string> abilityNames;
 
 
