@@ -95,7 +95,7 @@ public class CharacterDisplayShop : MonoBehaviour {
                 //update display since the price would change after a purchase
                 UIManager.singleton.shopScreen.closeCharacters();
                 UIManager.singleton.shopScreen.displayCharacters();
-                UIManager.singleton.shopScreen.displayPlayerParty();
+                //UIManager.singleton.shopScreen.displayPlayerParty();
                 //save character in map since shop is so far only available in maps
                 UIManager.singleton.saveMapSave();
   

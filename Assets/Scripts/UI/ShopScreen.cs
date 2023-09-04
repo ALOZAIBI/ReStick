@@ -16,15 +16,16 @@ public class ShopScreen : MonoBehaviour
     public GameObject characterArea;
     public GameObject characterPlayerPartyArea;
 
-    public Button backBtn;
     public Button closeBtn;
-    public TextMeshProUGUI goldText;
+
+    public Button buyLifeShardBtn;
 
     //cost of purchase of abilities
     public int commonCost;
     public int rareCost;
     public int epicCost;
     public int legendaryCost;
+    public int lifeShardCost;
 
     public Shop shop;
 
@@ -40,23 +41,23 @@ public class ShopScreen : MonoBehaviour
     public List<CharacterDisplayShop> listCharacters = new List<CharacterDisplayShop>();
 
     private void Start() {
-        backBtn.onClick.AddListener(back);
         closeBtn.onClick.AddListener(closeScreen);
+        buyLifeShardBtn.onClick.AddListener(buyLifeShard);
     }
 
-    //goes from hospital screen to regular shop screen
-    private void back() {
-        if(pageIndex == 1) {
-            openLandingPage();
+    public void buyLifeShard() {
+        //If the player has enough money to buy shards and has less than maximum shards then buy it
+        if (UIManager.singleton.playerParty.gold >= lifeShardCost && UIManager.singleton.playerParty.lifeShards< UIManager.singleton.playerParty.maxLifeShards) {
+            UIManager.singleton.playerParty.gold -= lifeShardCost;
+            UIManager.singleton.playerParty.lifeShards ++;
+            UIManager.singleton.saveMapSave();
         }
     }
-
     public void setupShopScreen() {
         close();
-        openLandingPage();
         displayAbilities();
         displayCharacters();
-        displayPlayerParty();
+        buyLifeShardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Buy a Life Shard "+ lifeShardCost;
     }
 
 
@@ -89,16 +90,16 @@ public class ShopScreen : MonoBehaviour
         }
     }
 
-    public void closeCharactersPlayerParty() {
-        foreach (Transform child in characterPlayerPartyArea.transform) {
-            if (child.tag != "DontDelete")
-                Destroy(child.gameObject);
-        }
-    }
+    //public void closeCharactersPlayerParty() {
+    //    foreach (Transform child in characterPlayerPartyArea.transform) {
+    //        if (child.tag != "DontDelete")
+    //            Destroy(child.gameObject);
+    //    }
+    //}
     public void close() {
         closeAbilities();
         closeCharacters();
-        closeCharactersPlayerParty();
+        //closeCharactersPlayerParty();
         listAbilities.Clear();
         listCharacters.Clear();
     }
@@ -142,48 +143,48 @@ public class ShopScreen : MonoBehaviour
         }
     }
 
-    public void displayPlayerParty() {
-        //deletes all created instances before recreating to account for dead characters etc..
-        closeCharactersPlayerParty();
-        //loops through children of playerParty
-        foreach (Transform child in UIManager.singleton.playerParty.transform) {
-            //Debug.Log(child.name);
-            if (child.tag == "Character") {
-                Character temp = child.GetComponent<Character>();
+    //public void displayPlayerParty() {
+    //    //deletes all created instances before recreating to account for dead characters etc..
+    //    closeCharactersPlayerParty();
+    //    //loops through children of playerParty
+    //    foreach (Transform child in UIManager.singleton.playerParty.transform) {
+    //        //Debug.Log(child.name);
+    //        if (child.tag == "Character") {
+    //            Character temp = child.GetComponent<Character>();
 
-                //instantiates a charcaterDisplay
-                CharacterDisplayShopHospitalTraining display = Instantiate(characterPlayerPartyDisplayObj).GetComponent<CharacterDisplayShopHospitalTraining>();
-                display.character = temp;
-                //sets this display as a child 
-                display.transform.parent = characterPlayerPartyArea.transform;
-                //sets the scale for some reason if I dont do this the scale is set to 167
-                display.gameObject.transform.localScale = new Vector3(1, 1, 1);
+    //            //instantiates a charcaterDisplay
+    //            CharacterDisplayShopHospitalTraining display = Instantiate(characterPlayerPartyDisplayObj).GetComponent<CharacterDisplayShopHospitalTraining>();
+    //            display.character = temp;
+    //            //sets this display as a child 
+    //            display.transform.parent = characterPlayerPartyArea.transform;
+    //            //sets the scale for some reason if I dont do this the scale is set to 167
+    //            display.gameObject.transform.localScale = new Vector3(1, 1, 1);
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
-    public void openLandingPage() {
-        abilityArea.SetActive(true);
-        characterArea.SetActive(true);
-        characterPlayerPartyArea.SetActive(true);
-        backBtn.gameObject.SetActive(false);
-        //UIManager.singleton.closeUIBtn.gameObject.SetActive(true);
-        hospitalTrainingScreen.gameObject.SetActive(false);
-        pageIndex = 0;
-    }
+    //public void openLandingPage() {
+    //    abilityArea.SetActive(true);
+    //    characterArea.SetActive(true);
+    //    characterPlayerPartyArea.SetActive(true);
+    //    backBtn.gameObject.SetActive(false);
+    //    //UIManager.singleton.closeUIBtn.gameObject.SetActive(true);
+    //    hospitalTrainingScreen.gameObject.SetActive(false);
+    //    pageIndex = 0;
+    //}
 
-    public void openHospitalTrainingPage() {
-        abilityArea.SetActive(false);
-        characterArea.SetActive(false);
-        characterPlayerPartyArea.SetActive(true);
-        backBtn.gameObject.SetActive(true);
-        //UIManager.singleton.closeUIBtn.gameObject.SetActive(false);
-        hospitalTrainingScreen.gameObject.SetActive(true);
-        hospitalTrainingScreen.updateButtons();
-        pageIndex = 1;
-    }
-    private void Update() {
-        goldText.text = "G:"+UIManager.singleton.playerParty.gold;
-    }
+    //public void openHospitalTrainingPage() {
+    //    abilityArea.SetActive(false);
+    //    characterArea.SetActive(false);
+    //    characterPlayerPartyArea.SetActive(true);
+    //    backBtn.gameObject.SetActive(true);
+    //    //UIManager.singleton.closeUIBtn.gameObject.SetActive(false);
+    //    hospitalTrainingScreen.gameObject.SetActive(true);
+    //    hospitalTrainingScreen.updateButtons();
+    //    pageIndex = 1;
+    //}
+    //private void Update() {
+    //    goldText.text = "G:"+UIManager.singleton.playerParty.gold;
+    //}
 }

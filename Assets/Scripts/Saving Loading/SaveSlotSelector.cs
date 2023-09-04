@@ -17,7 +17,7 @@ public class SaveSlotSelector : MonoBehaviour {
     }
 
     public void startSlot1() {
-        UIManager.saveSlot = "slot1";
+        UIManager.singleton.saveSlot = "slot1";
 
         //if it's a new Save add a character to player party making playerparty have 3 children
         //if in map load characters in map else load characters in world
@@ -34,7 +34,7 @@ public class SaveSlotSelector : MonoBehaviour {
     }
 
     public void startSlot2() {
-        UIManager.saveSlot = "slot2";
+        UIManager.singleton.saveSlot = "slot2";
 
         //if it's a new Save add a character to player party making playerparty have 3 children
         //if in map load characters in map else load characters in world
@@ -52,7 +52,7 @@ public class SaveSlotSelector : MonoBehaviour {
     }
 
     public void startSlot3() {
-        UIManager.saveSlot = "slot3";
+        UIManager.singleton.saveSlot = "slot3";
 
         //if it's a new Save add a character to player party making playerparty have 3 children
         //if in map load characters in map else load characters in world

@@ -106,8 +106,7 @@ public class AbilityDisplayShop : MonoBehaviour
     }
     private void markPurchased() {
         purchased = true;
-        //index relative to siblings - 1 since the text is a sibling
-        int index = transform.GetSiblingIndex()-1;
+        int index = transform.GetSiblingIndex();
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.abilitiyPurchased[index] = true;
         displaySold();

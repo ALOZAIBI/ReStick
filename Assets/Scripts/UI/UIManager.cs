@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     public GameObject dontDestroys;
     //holds the name of the current saveSlot
     //this is static so that it can be accessible in SaveSystem
-    public static string saveSlot;
+    public  string saveSlot;
     //used to reset cam position when changing scenes 
     public Camera cam;
 
@@ -64,6 +64,8 @@ public class UIManager : MonoBehaviour
 
     //the scene to be loaded
     public string sceneToLoad;
+
+    public GameOverScreen gameOverScreen;
 
     public GameObject topBarUI;
 
@@ -119,9 +121,10 @@ public class UIManager : MonoBehaviour
     [HideInInspector]public HideUI timeControlHidden;
     [HideInInspector]public HideUI charInfoScreenHidden;
     [HideInInspector]public HideUI inventoryScreenHidden;
-    [HideInInspector]public HideUI gameWonScreenHidden;
+    [HideInInspector]public HideUI zoneWonScreenHidden;
     [HideInInspector]public HideUI mapWonScreenHidden;
-    [HideInInspector]public HideUI gameLostScreenHidden;
+    [HideInInspector]public HideUI zoneLostScreenHidden;
+    [HideInInspector]public HideUI gameOverScreenHidden;
     [HideInInspector]public HideUI topStatDisplayHidden;
     [HideInInspector]public HideUI shopScreenHidden;
     [HideInInspector]public HideUI menuUIHidden;
@@ -141,9 +144,10 @@ public class UIManager : MonoBehaviour
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
         charInfoScreenHidden = characterInfoScreen.GetComponent<HideUI>();
         inventoryScreenHidden = inventoryScreen.GetComponent<HideUI>();
-        gameWonScreenHidden = gameWonScreen.GetComponent<HideUI>();
+        zoneWonScreenHidden = gameWonScreen.GetComponent<HideUI>();
         mapWonScreenHidden = mapWonScreen.GetComponent<HideUI>();
-        gameLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
+        gameOverScreenHidden = gameOverScreen.GetComponent<HideUI>();
+        zoneLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
         topStatDisplayHidden = topStatDisplay.GetComponent<HideUI>();
         shopScreenHidden = shopScreen.GetComponent<HideUI>();
         menuUIHidden = menuUI.GetComponent<HideUI>();
@@ -206,7 +210,7 @@ public class UIManager : MonoBehaviour
     public void displayGameWon(string sceneName) {
         //if (!displayed) {
             //displayGameWon and display the rewards
-            gameWonScreenHidden.hidden = false;
+            zoneWonScreenHidden.hidden = false;
             gameWonScreen.zoneWon();
             pausePlayBtn.gameObject.SetActive(false);
             exitBtn.gameObject.SetActive(false);
@@ -218,8 +222,8 @@ public class UIManager : MonoBehaviour
         //}
     }
 
-    public void displayGameLost(string sceneName) {
-        gameLostScreenHidden.hidden = false;
+    public void displayZoneLost(string sceneName) {
+        zoneLostScreenHidden.hidden = false;
         pausePlayBtn.gameObject.SetActive(false);
         timeControlHidden.hidden = true;
         sceneToLoad = sceneName;
@@ -245,8 +249,8 @@ public class UIManager : MonoBehaviour
         clearBuffs();
         //resets position of camera
         Camera.main.transform.position = new Vector3(0, 0, -10);
-        gameWonScreenHidden.hidden = true;
-        gameLostScreenHidden.hidden = true;
+        zoneWonScreenHidden.hidden = true;
+        zoneLostScreenHidden.hidden = true;
         hideCharacter();
         //pausePlayBtn.gameObject.SetActive(true);
         //hides timecontrol
@@ -263,6 +267,7 @@ public class UIManager : MonoBehaviour
         if (zoneStarted()) {
             playerParty.lifeShards -= 1;
             SaveSystem.updateLifeShardsInMap();
+            checkGameOver();
         }
         //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
         //so A way to optimize is to load only if it this function is called from zone lost to map
@@ -286,11 +291,16 @@ public class UIManager : MonoBehaviour
     }
     //tis is triggered by a button;
     //loads the previous mapSave then reloads the scene
+    //From GameOverScreen we want to restart without losing a life shard after checking zone started so we pass false
     private void restartZone() {
+        restartZone(true);
+    }
+    public void restartZone(bool checkZoneStarted = true) {
         //If the zone already started then restarting will cost a life shard.(To prevent exploiting) (Player restars as soon as about to lose)
-        if(zoneStarted()) {
+        if(zoneStarted() && checkZoneStarted) {
             playerParty.lifeShards -= 1;
             SaveSystem.updateLifeShardsInMap();
+            checkGameOver();
         }
         //resets position of camera
         cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
@@ -298,12 +308,23 @@ public class UIManager : MonoBehaviour
         hideCharacter();
         clearBuffs();
         //hides the screen and shows pause again
-        gameLostScreenHidden.hidden = true;
+        zoneLostScreenHidden.hidden = true;
         pausePlayBtn.gameObject.SetActive(true);
         
         loadMapSave();
         DontDestroyOnLoad(playerParty);
         SceneManager.LoadScene(zone.zoneName);
+    }
+
+    public bool checkGameOver() {
+        Debug.Log("GAME OVER MAN");
+
+        if (playerParty.lifeShards < 0) {
+            gameOverScreen.setup();
+            gameOverScreenHidden.hidden = false;
+            return true;
+        }
+        return false;
     }
     //closes all uiScreen except some depending on if currently in zone or not so make sure to set the inZone boolean before calling loadSCene which calls closeUI
     public void closeUI() {
@@ -312,7 +333,7 @@ public class UIManager : MonoBehaviour
         shopScreenHidden.hidden = true;
         shopScreen.close();    
         inventoryScreenHidden.hidden = true;
-        gameWonScreenHidden.hidden = true;
+        zoneWonScreenHidden.hidden = true;
         mapWonScreenHidden.hidden = true;
 
         //the try catch was initially used since I didn't have the inZone boolean so I wasnt sure if zone was accessible so I'm pretty sure it's safe to remove
@@ -418,7 +439,7 @@ public class UIManager : MonoBehaviour
     }
     
     public void openShop() {
-        closeUIBtn.gameObject.SetActive(true);
+        //closeUIBtn.gameObject.SetActive(true);
         shopScreenHidden.hidden = false;
         shopScreen.setupShopScreen();
     }

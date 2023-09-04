@@ -67,7 +67,7 @@ public class HospitalTrainingScreen : MonoBehaviour
             healthBar.manualDisplayHealth();
         }
         UIManager.singleton.saveMapSave();
-        UIManager.singleton.shopScreen.displayPlayerParty();
+        //UIManager.singleton.shopScreen.displayPlayerParty();
     }
 
     public void reviveOrHealToFull() {
@@ -85,7 +85,7 @@ public class HospitalTrainingScreen : MonoBehaviour
         healthBar.manualDisplayHealth();
         UIManager.singleton.saveMapSave();
         //to update display 
-        UIManager.singleton.shopScreen.displayPlayerParty();
+        //UIManager.singleton.shopScreen.displayPlayerParty();
     }
 
     public void updateButtons() {

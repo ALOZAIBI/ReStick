@@ -12,6 +12,12 @@ using System.Collections.Generic;
 //the hierarchy of the save directory is written on notebook page 45
 static class SaveSystem
 {
+    public static void deleteSave(string saveSlot) {
+        string path = Application.persistentDataPath +"/" +saveSlot;
+        if (Directory.Exists(path)) {
+            Directory.Delete(path, true);
+        }
+    }
     //creates the folders to be used in saving this will be called in UIManager's start function
     public static void initialiseSaveSlots() {
         //creates root slot folders
@@ -98,7 +104,7 @@ static class SaveSystem
     public static void setRewardProgress(int setTo=0) {
         RewardProgressData data = new RewardProgressData();
         data.zonesSinceLastReward = setTo;
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/rewardProgress/rewardProgress.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/rewardProgress/rewardProgress.xrt";
 
         using (FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
@@ -115,7 +121,7 @@ static class SaveSystem
     //Gives reward every N zones where N is defined in GameWonScreen
     public static bool giveReward() {
         //Reads the progress file
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/rewardProgress/rewardProgress.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/rewardProgress/rewardProgress.xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -153,14 +159,14 @@ static class SaveSystem
     //this is called when loading a new map. To reinitialise shop
     //need to figure out however a diffewrent way to save shop stuff since.. if I complete map 1 then compelte map 2 then go back to map1 map 1's shop would have changed what I can do isntead is if you complete a map make the shop inaccessible you can say something like the shopkeeper left since he was bored and lonely haha
     public static void deleteShop() {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop";
         string[] files = Directory.GetFiles(path);
         //Debug.Log("The files are" + files[0]);
 
         foreach (string file in files) {
             File.Delete(file);
         }
-        path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo";
+        path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo";
         files = Directory.GetFiles(path);
         foreach (string file in files) {
             File.Delete(file);
@@ -172,7 +178,7 @@ static class SaveSystem
     public static void saveShopCharacters(Character character) {
         CharacterData data = new CharacterData(character);
 
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopCharacter" + characterNumber + ".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop/shopCharacter" + characterNumber + ".xrt";
         using (FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
             //the 2 lines that follow are the encrypted version
@@ -187,7 +193,7 @@ static class SaveSystem
         characterNumber++;
     }
     public static void loadShopCharacters(Shop shop) {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop";
         string[] files = Directory.GetFiles(path);
         //Debug.Log("The files are" + files[0]);
 
@@ -213,7 +219,7 @@ static class SaveSystem
         //creates a list of abilityNames from the abilities in shop
         List<string>abilityNames = new List<string>();
         ShopData data = new ShopData(shop);
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
 
         using(FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
@@ -229,7 +235,7 @@ static class SaveSystem
     }
     //returns false if there is no savefile
     public static bool loadShopAbilitiesAndPurchaseInfo(Shop shop) {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -256,7 +262,7 @@ static class SaveSystem
             Ability temp = child.GetComponent<Ability>();
             data.abilityNames.Add(temp.abilityName);
         }
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/inventory/inventory.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/worldSave/inventory/inventory.xrt";
         using (FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
 
@@ -270,7 +276,7 @@ static class SaveSystem
         }
     }
     public static void loadInventoryInWorld() {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/inventory/inventory.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/worldSave/inventory/inventory.xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -291,8 +297,9 @@ static class SaveSystem
     }
     //Will only do for map for now, might need to do an in world version
     //This will rewrite the saveFile with the new lifeShards value
+    //We dont call save inventoryInMap since that would save the gold that was gained before dying on this zone
     public static void updateLifeShardsInMap() {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/inventory/inventory.xrt";
         InventoryData data;
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
@@ -321,6 +328,37 @@ static class SaveSystem
         else
             Debug.Log("File doesn't exist in " + path);
     }
+    //We call this instead of saveInventoryInMap since we dont want to save the gold that was gained before dying on this zone but we still want to reduce the gold directly into the saveFiled
+    public static void reduceGoldInMap(int toReduce) {
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/inventory/inventory.xrt";
+        InventoryData data;
+        if (File.Exists(path)) {
+            using (FileStream fs = File.Open(path, FileMode.Open)) {
+                BinaryReader reader = new BinaryReader(fs);
+                //the 2 lines that follow are the encrypted version
+                //byte[] encodedBytes = Convert.FromBase64String(reader.ReadString());
+                //abilityNames = JsonConvert.DeserializeObject < List<string>>(Encoding.UTF8.GetString(encodedBytes));
+
+                //reads the data
+                data = JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
+                //Changes it's value
+                data.gold -= toReduce;
+            }
+            using (FileStream fs = File.Open(path, FileMode.Create)) {
+                BinaryWriter writer = new BinaryWriter(fs);
+
+                // the 2 lines that follow are the encrypted version
+                //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(abilityNames));
+                //writer.Write(Convert.ToBase64String(plainTextBytes));
+
+                //Now saves the new value
+                writer.Write(JsonConvert.SerializeObject(data));
+                writer.Flush();
+            }
+        }
+        else
+            Debug.Log("File doesn't exist in " + path);
+    }
     public static void saveInventoryInMap() {
         InventoryData data = new InventoryData();
         data.gold = UIManager.singleton.playerParty.gold;
@@ -330,7 +368,7 @@ static class SaveSystem
             Ability temp = child.GetComponent<Ability>();
             data.abilityNames.Add(temp.abilityName);
         }
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/inventory/inventory.xrt";
         using(FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
 
@@ -344,7 +382,7 @@ static class SaveSystem
         }
     }
     public static void loadInventoryInMap() {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/inventory/inventory.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/inventory/inventory.xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -368,7 +406,7 @@ static class SaveSystem
     public static void saveCharacterInMap(Character character) {
         CharacterData data = new CharacterData(character);
 
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/" + "character" + characterNumber + ".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/" + "character" + characterNumber + ".xrt";
         using (FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
             //the 2 lines that follow are the encrypted version
@@ -386,7 +424,7 @@ static class SaveSystem
     //loads all character's map saves
     public static void loadCharactersInMap() {
         //Debug.Log("Loading char in map");
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/mapSave/";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/";
         string[] files = Directory.GetFiles(path);
 
         foreach (string charSave in files) {
@@ -412,7 +450,7 @@ static class SaveSystem
     public static void saveCharacterInWorld(Character character) {
         CharacterData data = new CharacterData(character);
 
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/" + "character"+characterNumber+".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/worldSave/" + "character"+characterNumber+".xrt";
         using(FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
             //the 2 lines that follow are the encrypted version
@@ -431,7 +469,7 @@ static class SaveSystem
     //loads all character's world saves
     public static void loadCharactersInWorld() {
         //Debug.Log("Loading char in world");
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/worldSave/";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/worldSave/";
         string[] files = Directory.GetFiles(path);
         //Debug.Log("The files are" + files[0]);
 
@@ -457,7 +495,7 @@ static class SaveSystem
         GameStateData data = new GameStateData(mapName, inMap);
         //Debug.Log("In save game state map nampe is =" + data.mapName + data.inMap);
 
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/gamestate.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/gamestate.xrt";
         using(FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
             //the 2 lines that follow are the encrypted version
@@ -475,7 +513,7 @@ static class SaveSystem
     //to playerParty savegamestate then load world
     //returns true if in map. False Otherqwise
     public static bool loadGameState() {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/gamestate.xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/gamestate.xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -505,7 +543,7 @@ static class SaveSystem
         ZoneData data = new ZoneData(zone);
 
         //xrt is just a random file extension im using because it soiunds and looks cool
-        string path = Application.persistentDataPath +"/"+ UIManager.saveSlot+ "/zones"+ "/" + zone.zoneName + ".xrt";
+        string path = Application.persistentDataPath +"/"+ UIManager.singleton.saveSlot+ "/zones"+ "/" + zone.zoneName + ".xrt";
         using(FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
             //the 2 lines that follow are the encrypted version
@@ -524,7 +562,7 @@ static class SaveSystem
     //returns true if saveFile exists 
     //this function is called in zoneStart to load the zone if a savefile exists
     public static bool loadZone(Zone zone) {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/zones" + "/" + zone.zoneName + ".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/zones" + "/" + zone.zoneName + ".xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -546,7 +584,7 @@ static class SaveSystem
     }
     //loads wether or not a Zone has been completed to SceneSelect
     public static bool loadCompletionSceneSelect(SceneSelect sceneSelect) {
-        string path = Application.persistentDataPath + "/" + UIManager.saveSlot + "/zones" + "/" + sceneSelect.sceneToLoad + ".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/zones" + "/" + sceneSelect.sceneToLoad + ".xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);

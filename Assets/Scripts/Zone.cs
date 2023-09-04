@@ -155,10 +155,14 @@ public class Zone : MonoBehaviour
                 if (child.GetComponent<Character>().team == (int)Character.teamList.Player && child.GetComponent<Character>().alive)
                     return;
             }
-            //otherwise zone is lost
-            uIManager.displayGameLost(belongsToMap);
             playerParty.lifeShards--;
             SaveSystem.updateLifeShardsInMap();
+            //otherwise zone is lost
+            //If game over display Game over screen otherwise display zonelostScreen
+            if (!uIManager.checkGameOver()) {
+                uIManager.displayZoneLost(belongsToMap);
+            }
+            
             uIManager.pausePlay(true);
             //started is re set to false to prevent totallives to decrement infintely
             started = false;
