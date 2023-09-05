@@ -25,7 +25,9 @@ public class CharacterDisplayShop : MonoBehaviour {
     public bool purchased;    
     private void Start() {
         //price depends on how many characters the player has.
-        price = 120*(UIManager.singleton.playerParty.transform.childCount-2);
+        //First character costs 70, then increment by 120 for each new Character
+        //We do -3 cuz  -2 for the children  of playerParty and -1 for to make the first cost only 70
+        price = 70+120*((UIManager.singleton.playerParty.transform.childCount-3));
         priceText.text = price + "";
         //sets the image
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
@@ -107,8 +109,7 @@ public class CharacterDisplayShop : MonoBehaviour {
 
     private void markPurchased() {
         purchased = true;
-        //index relative to siblings -1 since the first child is the title
-        int index = transform.GetSiblingIndex()-1;
+        int index = transform.GetSiblingIndex();
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.characterPurchased[index] = true;
         displaySold();

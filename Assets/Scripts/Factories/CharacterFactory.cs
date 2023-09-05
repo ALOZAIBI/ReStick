@@ -13,11 +13,11 @@ public class CharacterFactory : MonoBehaviour
     //this is using a simple gameobject as parameter and not the playerParty since sometimes
     //we might want objects that aren't player party like the shop for example
     
-    public void addRandomCharacterAsChild(Transform parent,int amount) {
+    public void addCharactersToShop(Transform parent,int amount) {
         for (int i = 0; i < amount; i++) {
             //instantiates a random character as a child of parent
             int index = Random.Range(0, characters.Count);
-            Character temp = Instantiate(characters[index], parent).GetComponent<Character>();
+            Character temp = Instantiate(characters[0], parent).GetComponent<Character>();
             //give it a random name
             index = Random.Range(0, names.Count - 1);
             temp.name = names[index];

@@ -43,6 +43,14 @@ public class ThrowProjectile : Ability
     }
 
     public override void executeAbility() {
+        //If the target dies before the ability is executed then try to find another target in range, if there is no in range, then simply cancel the ability
+        if (lockedTarget == null || !lockedTarget.alive) {
+            if (character.selectTarget(targetStrategy, rangeAbility)) {
+                lockedTarget = character.target;
+            }
+            else
+                return;
+        }
         //Debug.Log("ABILITY DONE WHAT");
 
 
@@ -57,14 +65,7 @@ public class ThrowProjectile : Ability
         projectile.initSize = initSize;
         projectile.targetSize = projectile.transform.localScale.x;
         projectile.growSpeed = growSpeed;
-        if (lockedTarget.alive) {
-            //sets the target
-            projectile.target = lockedTarget;
-        }
-        else {
-            character.selectTarget(targetStrategy, rangeAbility);
-            projectile.target = character.target;
-        }
+        projectile.target = lockedTarget;
         projectile.angle();
         Debug.Log("Projectile has no target"+projectile.name + projectile.shooter);
         //tells it this abilityName

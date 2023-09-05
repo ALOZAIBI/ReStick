@@ -44,7 +44,7 @@ public class Shop : MonoBehaviour
             //so do add characters.
             int characterAmount = 2;
             SaveSystem.characterNumber = 0;
-            UIManager.singleton.characterFactory.addRandomCharacterAsChild(characterHolder.transform,characterAmount);
+            UIManager.singleton.characterFactory.addCharactersToShop(characterHolder.transform,characterAmount);
             characterPurchased = new bool[characterAmount];
             foreach (Transform child  in characterHolder.transform) {
                 if(child.tag=="Character")

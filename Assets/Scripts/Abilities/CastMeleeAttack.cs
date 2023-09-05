@@ -33,25 +33,29 @@ public class CastMeleeAttack : Ability
         if(available && character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
             lockedTarget = character.target;
+            Debug.Log("LockedTarget:" + lockedTarget.name);
             playAnimation(animationToPlay);
         }
     }
 
     public override void executeAbility() {
+        //If the target dies before the ability is executed then try to find another target in range, if there is no in range, then simply cancel the ability
+        if (lockedTarget == null || !lockedTarget.alive) {
+            if(character.selectTarget(targetStrategy, rangeAbility)){
+                lockedTarget = character.target;
+            }
+            else
+                return;
+        }
         MeleeAttack objAttack = Instantiate(prefabObject, character.transform.position, character.transform.rotation).GetComponent<MeleeAttack>();
         //sets the character to be the caster of this ability
         objAttack.character = character;
         //sets the damage amount
         objAttack.DMG = valueAmt.getAmtValueFromName(this, "Damage");
         objAttack.healPercent = valueAmt.getAmtValueFromName(this, "HealPercent");
-        if (lockedTarget.alive) {
-            //sets the target
-            objAttack.target = lockedTarget;
-        }
-        else {
-            character.selectTarget(targetStrategy, rangeAbility);
-            objAttack.target = character.target;
-        }
+
+        
+        objAttack.target = lockedTarget;
         //tells it this abilityName
         objAttack.castingAbilityName = abilityName;
         if (valueAmt.getAmtValueFromName(this,"BuffDuration") > 0 && buffPrefab == null) {
