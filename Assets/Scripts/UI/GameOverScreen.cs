@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverScreen : MonoBehaviour {
@@ -18,13 +19,17 @@ public class GameOverScreen : MonoBehaviour {
     //For now this just deletes the save. Later it will take you to the main menu
     private void giveUP() {
         SaveSystem.deleteSave(UIManager.singleton.saveSlot);
+        SceneManager.LoadScene("MainMenu");
+        UIManager.singleton.playerParty.Reset();
+        SaveSystem.initialiseSaveSlots();
+        UIManager.singleton.gameOverScreenHidden.hidden = true;
     }
     public void setup() { 
         //If the player has enough money then display the buy button and the relevant text
-        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost+50) {
+        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost) {
             waitBuyLifeShardText.gameObject.SetActive(true);
             buyLifeShardBtn.interactable = true;
-            buyLifeShardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Buy an Emergency Life Shard " + UIManager.singleton.shopScreen.lifeShardCost+50;
+            buyLifeShardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Buy an Emergency Life Shard " + UIManager.singleton.shopScreen.lifeShardCost;
         }
         else {
             waitBuyLifeShardText.gameObject.SetActive(false);
@@ -35,8 +40,8 @@ public class GameOverScreen : MonoBehaviour {
 
     public void buyLifeShard() {
         //If the player has enough money to buy shards and has less than maximum shards then buy it
-        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost+50 && UIManager.singleton.playerParty.lifeShards < UIManager.singleton.playerParty.maxLifeShards) {
-            UIManager.singleton.playerParty.gold -= UIManager.singleton.shopScreen.lifeShardCost+50;
+        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost && UIManager.singleton.playerParty.lifeShards < UIManager.singleton.playerParty.maxLifeShards) {
+            UIManager.singleton.playerParty.gold -= UIManager.singleton.shopScreen.lifeShardCost;
             UIManager.singleton.playerParty.lifeShards++;
             SaveSystem.updateLifeShardsInMap();
             SaveSystem.reduceGoldInMap(UIManager.singleton.shopScreen.lifeShardCost);

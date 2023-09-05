@@ -143,6 +143,8 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(dontDestroys);
 
         SaveSystem.initialiseSaveSlots();
+        //On start load to Main Menu. We don't manually start at Main Menu because when we want to restart the game there would be 2 dontdestroys
+        SceneManager.LoadScene("MainMenu");
 
         placingScreenHidden = characterPlacingScreen.GetComponent<HideUI>();
         timeControlHidden = timeControlHidden.GetComponent<HideUI>();
