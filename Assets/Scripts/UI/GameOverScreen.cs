@@ -21,10 +21,10 @@ public class GameOverScreen : MonoBehaviour {
     }
     public void setup() { 
         //If the player has enough money then display the buy button and the relevant text
-        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost) {
+        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost+50) {
             waitBuyLifeShardText.gameObject.SetActive(true);
             buyLifeShardBtn.interactable = true;
-            buyLifeShardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Buy a Life Shard " + UIManager.singleton.shopScreen.lifeShardCost;
+            buyLifeShardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Buy an Emergency Life Shard " + UIManager.singleton.shopScreen.lifeShardCost+50;
         }
         else {
             waitBuyLifeShardText.gameObject.SetActive(false);
@@ -35,8 +35,8 @@ public class GameOverScreen : MonoBehaviour {
 
     public void buyLifeShard() {
         //If the player has enough money to buy shards and has less than maximum shards then buy it
-        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost && UIManager.singleton.playerParty.lifeShards < UIManager.singleton.playerParty.maxLifeShards) {
-            UIManager.singleton.playerParty.gold -= UIManager.singleton.shopScreen.lifeShardCost;
+        if (UIManager.singleton.playerParty.gold >= UIManager.singleton.shopScreen.lifeShardCost+50 && UIManager.singleton.playerParty.lifeShards < UIManager.singleton.playerParty.maxLifeShards) {
+            UIManager.singleton.playerParty.gold -= UIManager.singleton.shopScreen.lifeShardCost+50;
             UIManager.singleton.playerParty.lifeShards++;
             SaveSystem.updateLifeShardsInMap();
             SaveSystem.reduceGoldInMap(UIManager.singleton.shopScreen.lifeShardCost);

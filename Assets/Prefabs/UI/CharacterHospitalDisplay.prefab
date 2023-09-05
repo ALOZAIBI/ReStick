@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: -5471498932259729588}
   - component: {fileID: -6856646068034617904}
   m_Layer: 5
-  m_Name: CharacterDisplayShopHospitalTraining
+  m_Name: CharacterHospitalDisplay
   m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,14 +278,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.12156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2099004466, guid: e1721f6187693804aa664586a24b95c9, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: ee9bfef9d17799d40a2d406e3b7c5b33, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -391,7 +391,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -47}
+  m_AnchoredPosition: {x: 0, y: -18.900024}
   m_SizeDelta: {x: 44.4, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1138859775436358988
@@ -468,7 +468,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -47}
+  m_AnchoredPosition: {x: 0, y: -18.9}
   m_SizeDelta: {x: 44.4, y: 13.333333}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8266874038898100735

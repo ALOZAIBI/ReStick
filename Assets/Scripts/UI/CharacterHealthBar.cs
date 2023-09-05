@@ -54,8 +54,8 @@ public class CharacterHealthBar : MonoBehaviour
     }
     void Update()
     {
-        if (uiManager.zoneStarted()) {
-            manualDisplayHealth();
-        }
+
+        manualDisplayHealth();
+        
     }
 }

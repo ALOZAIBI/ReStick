@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour
 
     public ShopScreen shopScreen;
     public Button openShopButton;
+
+    public HospitalScreen hospitalScreen;
+    public Button openHospitalBtn;
     //Character Screen Stuff
     public CharacterInfoScreen characterInfoScreen;
     
@@ -127,6 +130,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector]public HideUI gameOverScreenHidden;
     [HideInInspector]public HideUI topStatDisplayHidden;
     [HideInInspector]public HideUI shopScreenHidden;
+    [HideInInspector]public HideUI hospitalScreenHidden;
     [HideInInspector]public HideUI menuUIHidden;
 
     
@@ -150,6 +154,7 @@ public class UIManager : MonoBehaviour
         zoneLostScreenHidden = gameLostScreen.GetComponent<HideUI>();
         topStatDisplayHidden = topStatDisplay.GetComponent<HideUI>();
         shopScreenHidden = shopScreen.GetComponent<HideUI>();
+        hospitalScreenHidden = hospitalScreen.GetComponent<HideUI>();
         menuUIHidden = menuUI.GetComponent<HideUI>();
 
         //
@@ -165,6 +170,7 @@ public class UIManager : MonoBehaviour
         closeUIBtn.onClick.AddListener(closeUIButton);
         openInventoryBtn.onClick.AddListener(openInventory);
         openShopButton.onClick.AddListener(openShop);
+        openHospitalBtn.onClick.AddListener(openHospital);
     }
 
     //on first time clicking character Display its info in the topstatDisplay
@@ -442,6 +448,12 @@ public class UIManager : MonoBehaviour
         //closeUIBtn.gameObject.SetActive(true);
         shopScreenHidden.hidden = false;
         shopScreen.setupShopScreen();
+    }
+
+    public void openHospital() {
+        //closeUIBtn.gameObject.SetActive(true);
+        hospitalScreenHidden.hidden = false;
+        hospitalScreen.setupHospitalScreen();
     }
     //removes buffs from player characters. To be called in loadZone and on Restart
     public void clearBuffs() {

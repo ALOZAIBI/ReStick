@@ -4,9 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HospitalTrainingScreen : MonoBehaviour
+public class HospitalScreen : MonoBehaviour
 {
     public TextMeshProUGUI characterName;
+
+    public Transform characterPlayerPartyArea;
+
+    public GameObject characterHospitalDisplayPrefab;
     //stats texts
     public TextMeshProUGUI PD, MD, INF, AS, CDR, MS, RNG, LS, SP;
     public CharacterHealthBar healthBar;
@@ -25,6 +29,8 @@ public class HospitalTrainingScreen : MonoBehaviour
 
     public Button healAndRevivePartyBtn;
 
+    [SerializeField]private Button closeBtn;
+
     [SerializeField] private float costPerHp;
     [SerializeField] private int costForRevive;
 
@@ -37,8 +43,40 @@ public class HospitalTrainingScreen : MonoBehaviour
     public void Start() {
         heal10PercentBtn.onClick.AddListener(heal10Percent);
         reviveOrHealToFullBtn.onClick.AddListener(reviveOrHealToFull);
+        closeBtn.onClick.AddListener(close);
     }
+    private void close() {
+        UIManager.singleton.hospitalScreenHidden.hidden = true;
+    }
+    public void setupHospitalScreen() {
+        displayPlayerParty();
+    }
+    private void closeCharactersPlayerParty() {
+        foreach (Transform child in characterPlayerPartyArea.transform) {
+            if (!child.CompareTag("DontDelete"))
+                Destroy(child.gameObject);
+        }
+    }
+    private void displayPlayerParty() {
+        //deletes all created instances before recreating to account for dead characters etc..
+        closeCharactersPlayerParty();
+        //loops through children of playerParty
+        foreach (Transform child in UIManager.singleton.playerParty.transform) {
+            //Debug.Log(child.name);
+            if (child.CompareTag("Character")) {
+                Character temp = child.GetComponent<Character>();
 
+                //instantiates a charcaterDisplay
+                CharacterDisplayShopHospitalTraining display = Instantiate(characterHospitalDisplayPrefab).GetComponent<CharacterDisplayShopHospitalTraining>();
+                display.character = temp;
+                //sets this display as a child 
+                display.transform.parent = characterPlayerPartyArea.transform;
+                //sets the scale for some reason if I dont do this the scale is set to 167
+                display.gameObject.transform.localScale = new Vector3(1, 1, 1);
+
+            }
+        }
+    }
     private int calculateCost(Character characterToHeal,int percentage) {
         return (int)(calculateAmountToHeal(characterToHeal,percentage) * costPerHp);
     }
@@ -125,8 +163,7 @@ public class HospitalTrainingScreen : MonoBehaviour
 
         character = currChar;
 
-        displayStats(currChar);
-        healthBar.manualDisplayHealth();
+        healthBar.character = currChar;
         updateButtons();
     }
 

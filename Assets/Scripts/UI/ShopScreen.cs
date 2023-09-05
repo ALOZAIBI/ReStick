@@ -29,7 +29,7 @@ public class ShopScreen : MonoBehaviour
 
     public Shop shop;
 
-    public HospitalTrainingScreen hospitalTrainingScreen;
+    public HospitalScreen hospitalTrainingScreen;
 
     //0 is landing apge
     //1 is Hospital/Training Area
