@@ -210,6 +210,9 @@ public abstract class Ability : MonoBehaviour
     //call this when ability level increases to update the description to show the new stats
     public abstract void updateDescription();
 
+    public virtual List<Character> excludeTargets() {
+        return null;
+    }
     
     //call this in doAbility();
     /// <summary>

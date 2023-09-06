@@ -61,9 +61,9 @@ MonoBehaviour:
   PDRatio:
   - 0
   MDRatio:
-  - 0.01
+  - 0.017
   INFRatio:
-  - 0.03
+  - 0.017
   HPMaxRatio:
   - 0
   HPRatio:
@@ -84,6 +84,10 @@ MonoBehaviour:
   targetStrategy: 15
   canTargetAlly: 1
   canTargetEnemy: 1
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 7
   abilityType: 7
   numberOfValues: 1
+  animationToPlay: 

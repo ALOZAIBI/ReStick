@@ -7,6 +7,8 @@ public class DashAttack : Ability
     //how much cd will be at once it's reset
     private float cdReset=0.03f;
     [SerializeField] private bool resetOnKill;
+    [SerializeField] private string initDescription;
+
     //Maybe add this in the future it is taken frmo the initial stick project check my gitlab
     //public float resetPossibility = 0.7f;   //target has 0.7 seconds to die after dash for the dash to reset
 
@@ -27,6 +29,7 @@ public class DashAttack : Ability
     public bool root;
     public bool silence;
     public bool blind;
+
 
     public override void Start() {
         base.Start();
@@ -67,6 +70,7 @@ public class DashAttack : Ability
             character.agent.enabled = true;//renables to allow for pathfinding again
                                            //deal damage
             character.damage(character.target, valueAmt.getAmtValueFromName(this, "Damage"), true);
+            applyHitFX(character.target);
             if (resetOnKill && character.target.HP < 0) {
                 startCooldown();
                 character.animationManager.forceStop();
@@ -155,11 +159,17 @@ public class DashAttack : Ability
 
     public override void updateDescription() {
         if (character == null) {
-            description = "Dash towards target and strike it,Resets CD on kill";
+            description = initDescription;
+            if(resetOnKill) {
+                description += " If this kills target reset CD";
+            }
         }
         else {
             calculateAmt();
-            description = "Dash towards target dealing " + valueAmt.getAmtValueFromName(this,"Damage") + "Damage reset CD if this kills";
+            description = initDescription + valueAmt.getAmtValueFromName(this, "Damage");
+            if(resetOnKill) {
+                description += " If this kills target reset CD";
+            }
         }
     }
 

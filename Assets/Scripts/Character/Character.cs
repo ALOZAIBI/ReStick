@@ -480,7 +480,8 @@ public class Character : MonoBehaviour {
     //does targetting logic to select target
     //returns true if it was able to find a target within the range false otherwise
     //if withinRange is set to -1 skip the withinRange check
-    public bool selectTarget(int whatStrategy,float withinRange) {
+    //toBeExcluded is a list of characters that should be excluded from the target list such as characters that are full HP when healing, targets that are already stunned when stunning etc... this list is set by the calling ability
+    public bool selectTarget(int whatStrategy,float withinRange,List<Character>toBeExcluded = null) {
         //initially sets target to null
         target = null;
         switch (whatStrategy) {
@@ -1295,8 +1296,14 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the minHPAlly Character
                 Character minHPAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
+
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded"+temp.name);
+                        continue;
+                    }
+
                     if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
-                    //if temp in same team and not self
+                    //if temp in same team
                     if (temp.team == team && temp) {
                         //minHPAlly.team != team is done in case the minHPAlly init was actually an enemy
                         if (minHPAlly.team != team || withinRange != -1 && Vector2.Distance(minHPAlly.transform.position, transform.position) > withinRange)

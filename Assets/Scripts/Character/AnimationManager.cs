@@ -130,7 +130,7 @@ public class AnimationManager : MonoBehaviour {
 
     public void castEvent() {
         interruptible = true;
-        character.selectTarget(abilityBuffer.targetStrategy, abilityBuffer.rangeAbility);
+        character.selectTarget(abilityBuffer.targetStrategy, abilityBuffer.rangeAbility,abilityBuffer.excludeTargets());
         abilityBuffer.executeAbility();
         abilityBuffer = null;
     }

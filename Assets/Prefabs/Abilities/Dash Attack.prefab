@@ -62,7 +62,7 @@ MonoBehaviour:
   - 10
   PDRatio:
   - 1.1
-  - 0.1
+  - 0.05
   MDRatio:
   - 0
   - 0
@@ -95,10 +95,15 @@ MonoBehaviour:
   targetStrategy: 1
   canTargetAlly: 0
   canTargetEnemy: 1
+  step: 0
+  hitFX: {fileID: 4626020206710984125, guid: 28da3992181c0e541959da30a11d026e, type: 3}
+  hitFXColor: {r: 0.6037736, g: 0, b: 0, a: 1}
   abilityTypeList: 0
   abilityType: 0
   numberOfValues: 2
+  animationToPlay: 
   resetOnKill: 1
+  initDescription: Dash towards target and strike it
   PD: 0
   MD: 0
   INF: 0

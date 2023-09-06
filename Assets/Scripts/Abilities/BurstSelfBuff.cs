@@ -110,9 +110,9 @@ public class BurstSelfBuff : Ability
             calculateAmt();
             description = "Give Me ";
             if (PD != 0)
-                description += (PD + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " PD ";
+                description += (PD + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " PWR ";
             if (MD != 0)
-                description += (MD + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " MD ";
+                description += (MD + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " MGC ";
             if (INF != 0)
                 description += (INF + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " INF ";
             if (HP != 0)
@@ -122,7 +122,7 @@ public class BurstSelfBuff : Ability
             if (CDR != 0)
                 description += (CDR + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " CDR ";
             if (MS != 0)
-                description += (MS + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " MS ";
+                description += (MS + valueAmt.getAmtValueFromName(this, "BuffStrength")) + " SPD ";
             if (Range != 0)
                 description += (Range + (valueAmt.getAmtValueFromName(this, "BuffStrength"))) + " Range ";
             if (LS != 0)
@@ -146,9 +146,9 @@ public class BurstSelfBuff : Ability
         else {
             description = "Give Me ";
             if (PD != 0)
-                description += (PD) + " PD ";
+                description += (PD) + " PWR ";
             if (MD != 0)
-                description += (MD) + " MD ";
+                description += (MD) + " MGC ";
             if (INF != 0)
                 description += (INF) + " INF ";
             if (HP != 0)
@@ -158,7 +158,7 @@ public class BurstSelfBuff : Ability
             if (CDR != 0)
                 description += (CDR) + " CDR ";
             if (MS != 0)
-                description += (MS) + " MS ";
+                description += (MS) + " SPD ";
             if (Range != 0)
                 description += (Range) + " Range ";
             if (LS != 0)
