@@ -386,7 +386,6 @@ public class CharacterInfoScreen : MonoBehaviour
         float scaleAmount = (mainPanelAnchorT - mainPanel.GetAnchorBottom()) / ((mainPanelAnchorT)-mainPanelAnchorB) ;
         //Sets the bottom anchor to be the same as as it was before the transition started by dividing it by the scale amount, but also double it's size as it was before thre transition
         portraitPanel.SetAnchorBottom(Mathf.Lerp(portraitPanelAnchorB, (portraitPanelAnchorT - (initSize*1.5f / scaleAmount)), time/transitionTime));
-        Debug.Log(scaleAmount + " " + initSize);
         portraitPanel.SetAnchorTop(Mathf.Lerp(portraitPanelAnchorT,0.99f, time / transitionTime));
         
         //Scale it to the right a bit too

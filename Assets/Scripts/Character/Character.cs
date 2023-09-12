@@ -488,6 +488,10 @@ public class Character : MonoBehaviour {
             case (int)TargetList.DefaultEnemy:
                 //loops through all characters
                 foreach (Character temp in zone.charactersInside) {
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
                     if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange) {
                     //if temp is in a different team make it the target and exit loop
                         if (temp.team != team) {
@@ -506,6 +510,10 @@ public class Character : MonoBehaviour {
                     closest = zone.charactersInside[1];
                 //loops through all characters
                 foreach(Character temp in zone.charactersInside) {
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
                     if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange) {
                         //if temp in different team
                         if (temp.team != team) {
@@ -526,6 +534,10 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxPD Character
                 Character maxPD = zone.charactersInside[0];
                 foreach(Character temp in zone.charactersInside) {
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
                     if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange) {
                         //if temp in different team(enemy)
                         if (temp.team != team) {
@@ -554,6 +566,12 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MinPD Character
                 Character minPD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
+
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+
                     if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange) {
                         //if temp in different team(enemy)
                         if (temp.team != team) {
@@ -582,6 +600,10 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMD Character
                 Character maxMD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
                     if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange) {
                         //if temp in different team(enemy)
                         if (temp.team != team) {
@@ -609,7 +631,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMD Character
                 Character minMD = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(Vector2.Distance(temp.transform.position,transform.position)<withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (Vector2.Distance(temp.transform.position,transform.position)<withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         if (minMD.team == team || withinRange != -1 && Vector2.Distance(minMD.transform.position, transform.position) > withinRange) {
@@ -637,7 +663,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxINF Character
                 Character maxINF = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         if (maxINF.team == team || withinRange != -1 && Vector2.Distance(maxINF.transform.position, transform.position) > withinRange) {
@@ -662,7 +692,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxINF Character
                 Character minINF = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         if (minINF.team == team || withinRange != -1 && Vector2.Distance(minINF.transform.position, transform.position) > withinRange) {
@@ -687,7 +721,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxAS Character
                 Character maxAS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         if(maxAS.team == team || withinRange != -1 && Vector2.Distance(maxAS.transform.position, transform.position) > withinRange) {
@@ -712,7 +750,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxAS Character
                 Character minAS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         if (minAS.team == team || withinRange != -1 && Vector2.Distance(minAS.transform.position, transform.position) > withinRange) {
@@ -738,7 +780,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMS Character
                 Character maxMS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         if (maxMS.team == team || withinRange != -1 && Vector2.Distance(maxMS.transform.position, transform.position) > withinRange) {
@@ -766,7 +812,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMS Character
                 Character minMS = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         if (minMS.team == team || withinRange != -1 && Vector2.Distance(minMS.transform.position, transform.position) > withinRange) {
@@ -793,7 +843,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxRange Character
                 Character maxRange = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         //if maxrange init was an ally
@@ -821,7 +875,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxRange Character
                 Character minRange = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         //if minrange init was actually an ally
@@ -850,7 +908,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxHP Character
                 Character maxHP = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         //if maxHP init was actually an ally
@@ -879,7 +941,13 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the minHP Character
                 Character minHP = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in different team(enemy)
                     if (temp.team != team) {
                         //if minHP init was actually an ally
@@ -917,7 +985,13 @@ public class Character : MonoBehaviour {
                     closestAlly = zone.charactersInside[1];
                 //loops through all characters
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and is not itself
                     if (temp.team == team&& temp!=this) {
                         //closest.team !=team is done in case closest was actually an enemy
@@ -937,7 +1011,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxPD Character
                 Character maxPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team 
                     if (temp.team == team) {
                         //if maxPD init was an enemy select the first ally
@@ -968,7 +1046,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxPD Character
                 Character minPDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and not itself
                     if (temp.team == team) {
                         //minPDAlly.team != team is done in case the MaxPD init was actually an enemy
@@ -996,7 +1078,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMD Character
                 Character maxMDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and is not itself
                     if (temp.team == team) {
                         //maxMD.team == team is done in case the MaxMD init was actually an enemy
@@ -1024,7 +1110,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMD Character
                 Character minMDAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team 
                     if (temp.team == team) {
                         //minMDAlly.team != team is done in case the MaxMD init was actually an enemy
@@ -1052,7 +1142,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxINF Character
                 Character maxINFAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and is not itself
                     if (temp.team == team) {
                         //maxINF.team == team is done in case the MaxINF init was actually an enemy
@@ -1079,7 +1173,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxINF Character
                 Character minINFAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and not itself
                     if (temp.team == team) {
                         if (minINFAlly.team != team || withinRange != -1 && Vector2.Distance(minINFAlly.transform.position, transform.position) > withinRange) {
@@ -1106,7 +1204,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxAS Character
                 Character maxASAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and is not itself
                     if (temp.team == team) {
                         //maxAS.team == team is done in case the MaxAS init was actually an enemy
@@ -1134,7 +1236,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxAS Character
                 Character minASAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and not itself
                     if (temp.team == team) {
                         //minASAlly.team != team is done in case the MaxAS init was actually an enemy
@@ -1162,7 +1268,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMS Character
                 Character maxMSAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and is not itself
                     if (temp.team == team) {
                         //maxMS.team == team is done in case the MaxMS init was actually an enemy
@@ -1190,7 +1300,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxMS Character
                 Character minMSAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and not itself
                     if (temp.team == team) {
                         //minMSAlly.team != team is done in case the MaxMS init was actually an enemy
@@ -1217,7 +1331,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxRange Character
                 Character maxRangeAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and is not itself
                     if (temp.team == team) {
                         //maxRange.team == team is done in case the MaxRange init was actually an enemy
@@ -1243,7 +1361,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the MaxRange Character
                 Character minRangeAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and not itself
                     if (temp.team == team) {
                         if (minRangeAlly.team != team || withinRange != -1 && Vector2.Distance(minRangeAlly.transform.position, transform.position) > withinRange) {
@@ -1270,7 +1392,11 @@ public class Character : MonoBehaviour {
                 //initially assume that this is the maxHPAlly Character
                 Character maxHPAlly = zone.charactersInside[0];
                 foreach (Character temp in zone.charactersInside) {
-                    if(withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
+                    if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
+                        Debug.Log("Character is excluded" + temp.name);
+                        continue;
+                    }
+                    if (withinRange == -1 || Vector2.Distance(temp.transform.position, transform.position) < withinRange)
                     //if temp in same team and not self
                     if (temp.team == team) {
                         //maxHPAlly.team != team is done in case the maxHPAlly init was actually an enemy

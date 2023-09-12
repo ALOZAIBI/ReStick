@@ -29,10 +29,13 @@ public class ApplyBuff : Ability
         updateDescription();
     }
     public override void doAbility() {
-        //selects target
-        if (character.selectTarget(targetStrategy,rangeAbility) && available) {
-            calculateAmt();
-            playAnimation("castRaise");
+        //Added the check if interruptible to not make this function called every frame.
+        if (character.animationManager.interruptible && available) {
+            //selects target
+            if (character.selectTarget(targetStrategy, rangeAbility,excludeTargets())) {
+                calculateAmt();
+                playAnimation("castRaise");
+            }
         }
     }
     public override void executeAbility() {
@@ -97,7 +100,7 @@ public class ApplyBuff : Ability
         buff.target = character.target;
         //increases buff duration according to AMT
         buff.duration = valueAmt.getAmtValueFromName(this, "Duration");
-        buff.code = abilityName + character.name;
+        buff.code = getCodeString();
         //applies the buff
         buff.applyBuff();
         refreshDuration();
@@ -180,17 +183,49 @@ public class ApplyBuff : Ability
         }
     }
 
+    public string getCodeString() {
+        return abilityName + character.name;
+    }
     //refreshes duration of other stacks of the same buff.
     public void refreshDuration() {
         try {
             foreach(Buff temp in character.target.buffs) {
                 //if buff is already applied refresh it's duration
-                if (temp.code == abilityName + character.name) {
+                if (temp.code == getCodeString()) {
                     temp.durationRemaining = valueAmt.getAmtValueFromName(this, "Duration");
                 }
             } 
         }
         catch {};
+    }
+
+    public override List<Character> excludeTargets() {
+        List<Character> alreadyHasBuff = new List<Character>();
+
+        foreach(Character c in character.zone.charactersInside) {
+        //If target already has buff, exclude them from targets
+            if (buffOnTarget(c)) {
+                alreadyHasBuff.Add(c);
+            }
+        }
+
+        return alreadyHasBuff;
+
+    }
+
+    //This will be used to exclude the targets that have already been buffed by this ability.
+    private bool buffOnTarget(Character target) {
+        try {
+            foreach (Buff temp in target.buffs) {
+                //if buff is already applied return true
+                if (temp.code == getCodeString()) {
+                    return true;
+                }
+            }
+        }
+        catch { return false; };
+        //otherwise return True which does doAbility()
+        return false;
     }
 
     private void FixedUpdate() {
