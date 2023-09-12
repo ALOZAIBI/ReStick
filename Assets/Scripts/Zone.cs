@@ -143,6 +143,8 @@ public class Zone : MonoBehaviour
             //marks zone as completed then saves
             completed = true;
             zoneDone = true;
+
+            resetGameSpeed();
         }
         
     }
@@ -174,7 +176,11 @@ public class Zone : MonoBehaviour
                 completed = false;
                 SaveSystem.saveZone(this);
             }
+            resetGameSpeed();
         }
+    }
+    private void resetGameSpeed() {
+        Time.timeScale = 1;
     }
 
 
