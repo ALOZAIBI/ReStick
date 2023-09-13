@@ -117,6 +117,8 @@ public class Zone : MonoBehaviour
         //get bounds of placeable
         BoundsInt bounds = placeable.cellBounds;
 
+        //Saves the placeableOverlay so that it can be shown when dragging another character in after zone has started.
+
         //loop through all the tiles in the placeableOverlay and set them to overlayTile
         foreach (Vector3Int pos in bounds.allPositionsWithin) {
             //checks if tile is not null in placeable

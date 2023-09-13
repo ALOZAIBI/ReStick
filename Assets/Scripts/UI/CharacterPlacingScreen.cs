@@ -40,6 +40,8 @@ public class CharacterPlacingScreen : MonoBehaviour
                 
             }
         }
+        //show the button
+        startBtn.gameObject.SetActive(true);
     }
 
     //deletes all the created instances and hides button and screen
@@ -61,7 +63,7 @@ public class CharacterPlacingScreen : MonoBehaviour
         uiManager.showAbilityIndicator = false;
         //this has to be set to pause since we dont want it to be true when zone gameplay starts
         uiManager.wasPause = false;
-        close();
+        //close();
         uiManager.zone.started = true;
         //does initRoundStart for playerParty Character's this is enough only on playerPartyCharacter's because the other character's will have initroundstart called anyways in the start function
         try {
@@ -74,35 +76,34 @@ public class CharacterPlacingScreen : MonoBehaviour
             }
         }
         catch { }
-        //hides the screen
-        GetComponent<HideUI>().hidden = true;
-        //Randomizes the CDs a bit on zoneStart so that the character won't throw everything all at once
-        foreach(Transform child in uiManager.playerParty.transform) {
-            if(child.tag == "Character") {
-                Character temp = child.GetComponent<Character>();
-                foreach(Ability ability in temp.abilities) {
-                    ability.abilityNext = Random.Range(0.5f, 3);
-                }
-            }
-        }
+        ////hides the screen
+        //GetComponent<HideUI>().hidden = true;
+
+        //Hides the button
+        startBtn.gameObject.SetActive(false);
+        
         //hides the placeable overlay in zone
         uiManager.zone.placeableOverlay.gameObject.SetActive(false);
     }
 
     //checks if zone is startable(if atleast 1 playerCharacter)
     private void zoneStartableHmm() {
-        //loops through player characters
-        foreach(Transform child in uiManager.playerParty.transform) {
-            //if atleast 1 character is active display startBtn
-            if (child.tag == "Character") {
-                if (child.gameObject.activeSelf) {
-                    startBtn.gameObject.SetActive(true);
-                    return;
+        //if zone hasn't started show start button when there's atleast a character place
+        if (!uiManager.zoneStarted()) {
+            //loops through player characters
+            foreach (Transform child in uiManager.playerParty.transform) {
+                //if atleast 1 character is active display startBtn
+                if (child.tag == "Character") {
+                    if (child.gameObject.activeSelf) {
+                        startBtn.gameObject.SetActive(true);
+                        return;
+                    }
                 }
             }
+            //otherwise hide startbtn
+            startBtn.gameObject.SetActive(false);
         }
-        //otherwise hide startbtn
-        startBtn.gameObject.SetActive(false);
+        
     }
 
 

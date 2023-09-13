@@ -53,6 +53,11 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     if (!uiManager.tutorial.draggingCharactersTutorialDone)
                         uiManager.tutorial.endDraggingCharactersTutorial();
 
+                    //If the zone has started display the placeable overlay since it won't be displayed after the zone has started
+                    if (uiManager.zoneStarted()) {
+                        uiManager.zone.placeableOverlay.gameObject.SetActive(true);
+                    }
+
                     
                     camMov.pannable = false;
                     character.gameObject.SetActive(true);
@@ -105,6 +110,10 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                 //resets values
                 click = false;
                 camMov.pannable = true;
+                //And if zone has started hide the placeable overlay
+                if (uiManager.zoneStarted()) {
+                    uiManager.zone.placeableOverlay.gameObject.SetActive(false);
+                }
             }
             //Tutorial stuff triggered when character is tapped
             if(!uiManager.tutorial.addingAbilityTutorialDone && uiManager.tutorial.addingAbilityTutorialStep == 2) {
@@ -130,6 +139,8 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
         }
         else
             notification.SetActive(false);
+
+        level.text = character.level.ToString();
     }
 
     public void OnPointerDown(PointerEventData eventData) {
