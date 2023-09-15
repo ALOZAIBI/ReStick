@@ -91,6 +91,8 @@ public class Character : MonoBehaviour {
     public int silence;
     public int blind;
 
+    public bool dropped = true;
+
     public Character target;
 
     //animation stuff
@@ -1836,7 +1838,8 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
-        if(zone == null) {
+        //Only characters that are dropped will be added to the zone and hence be a part of the game, (Characters that are still being dragged in but not dropped won't be able to be hit or hit others)
+        if(zone == null && dropped) {
             zone = uiManager.zone;
             zone.charactersInside.Add(this);
         }

@@ -36,6 +36,15 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    //Sets the character's to not be dropped.
+    public void unDrop() {
+        foreach (Transform child in transform) {
+            if (child.CompareTag("Character")) {
+                child.GetComponent<Character>().dropped = false;
+            }
+        }
+    }
+
 
     //if you're gonan change the number of children the player party has onAwake look at the save slot selector code and modify the amount of hcildren
 }

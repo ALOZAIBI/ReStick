@@ -45,9 +45,15 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
             camMov.pannable = false;
             //Debug.Log("Mouse clicking?" + Input.GetMouseButton(0));
             if (Input.GetMouseButton(0)) {
+                //If the character is already dropped and the zone has started hold on the display would focus the camera on the character but won't move the character hence the return statement
+                if (character.dropped && uiManager.zoneStarted()) {
+                    cam.transform.position = character.transform.position;
+                }
+
                 mouseHoldDuration += Time.unscaledDeltaTime;
-                //if held drag character to mouse Position
-                if (mouseHoldDuration > 0.2f) {
+                //if held drag character to mouse Position (this only works if the zone hasn't started or character hasn't been dropped already)
+                if (mouseHoldDuration > 0.2f && (!uiManager.zoneStarted() || !character.dropped)) {
+                    character.dropped = false;
                     
                     //Tutorial Stuff (triggered when dragging character)
                     if (!uiManager.tutorial.draggingCharactersTutorialDone)
@@ -57,6 +63,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     if (uiManager.zoneStarted()) {
                         uiManager.zone.placeableOverlay.gameObject.SetActive(true);
                     }
+
 
                     
                     camMov.pannable = false;
@@ -80,9 +87,12 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
             }
            
             else{//on release (when cahracter is dropped)
-                if(mouseHoldDuration >= 0.2f) {
+                if(mouseHoldDuration >= 0.2f && (!uiManager.zoneStarted() || !character.dropped)) {
+                    character.dropped = true;
+
                     //re-enabling it
                     character.agent.enabled = true;
+
 
                     //Do a raycast to see if this hit's a layer called placeable
                     RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,LayerMask.GetMask("Placeable"));

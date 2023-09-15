@@ -85,6 +85,8 @@ public class Zone : MonoBehaviour
 
         }
 
+        playerParty.unDrop();
+
         drawPlaceableOverlay();
         CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
         cameraMovement.tilemapToDisplayFully = tileMapToShowFully;
@@ -166,7 +168,8 @@ public class Zone : MonoBehaviour
             if (!uIManager.checkGameOver()) {
                 uIManager.displayZoneLost(belongsToMap);
             }
-            
+            uIManager.placingScreenHidden.hidden = true;
+
             uIManager.pausePlay(true);
             //started is re set to false to prevent totallives to decrement infintely
             started = false;
