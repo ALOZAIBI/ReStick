@@ -84,6 +84,9 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     Physics.SyncTransforms();
                     //Debug.Log("PHYSICS STYNCED");
                 }
+                else
+                    //if hold but after zone has started and character is dropped just display topstat display
+                    uiManager.viewTopstatDisplay(character);
             }
            
             else{//on release (when cahracter is dropped)
@@ -105,6 +108,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                         image.color = temp;
                         //removes character
                         character.gameObject.SetActive(false);
+                        character.dropped = false;
                         character.zone = null;
                         uiManager.zone.charactersInside.Remove(character);
                         //tooltip can't place character here
@@ -117,6 +121,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     uiManager.viewCharacter(character);
                     mouseHoldDuration = 0;
                 }
+                
                 //resets values
                 click = false;
                 camMov.pannable = true;
