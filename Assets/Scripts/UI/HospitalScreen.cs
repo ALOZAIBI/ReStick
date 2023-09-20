@@ -15,6 +15,8 @@ public class HospitalScreen : MonoBehaviour
     public TextMeshProUGUI PD, MD, INF, AS, CDR, MS, RNG, LS, SP;
     public CharacterHealthBar healthBar;
 
+    [SerializeField] private TextMeshProUGUI selectCharacterTxt;
+
     public Image characterPortrait;
     //character that is currently being viewed
     public Character character;
@@ -48,8 +50,18 @@ public class HospitalScreen : MonoBehaviour
     private void close() {
         UIManager.singleton.hospitalScreenHidden.hidden = true;
     }
+    //Displays "Select a character to Heal" and hides character portrait
+    private void displayPlaceHolder() {
+        characterPortrait.gameObject.SetActive(false);
+        selectCharacterTxt.gameObject.SetActive(true);
+    }
+    public void hidePlaceHolder() {
+        characterPortrait.gameObject.SetActive(true);
+        selectCharacterTxt.gameObject.SetActive(false);
+    }
     public void setupHospitalScreen() {
         displayPlayerParty();
+        displayPlaceHolder();
     }
     private void closeCharactersPlayerParty() {
         foreach (Transform child in characterPlayerPartyArea.transform) {

@@ -28,6 +28,7 @@ public class CharacterDisplayShopHospitalTraining : MonoBehaviour {
     //Opens HospitalTrainingScreen with this as a character
     private void select() {
         UIManager.singleton.hospitalScreen.viewCharacter(character);
+        UIManager.singleton.hospitalScreen.hidePlaceHolder();
         //UIManager.singleton.shopScreen.openHospitalTrainingPage();
     }
 
