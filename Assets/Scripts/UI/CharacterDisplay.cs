@@ -50,11 +50,11 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     cam.transform.position = character.transform.position;
                 }
 
-                mouseHoldDuration += Time.unscaledDeltaTime;
+                
                 //if held drag character to mouse Position (this only works if the zone hasn't started or character hasn't been dropped already)
                 if (mouseHoldDuration > 0.2f && (!uiManager.zoneStarted() || !character.dropped)) {
                     character.dropped = false;
-                    
+
                     //Tutorial Stuff (triggered when dragging character)
                     if (!uiManager.tutorial.draggingCharactersTutorialDone)
                         uiManager.tutorial.endDraggingCharactersTutorial();
@@ -65,7 +65,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     }
 
 
-                    
+
                     camMov.pannable = false;
                     character.gameObject.SetActive(true);
                     character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
@@ -84,9 +84,14 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     Physics.SyncTransforms();
                     //Debug.Log("PHYSICS STYNCED");
                 }
-                else
-                    //if hold but after zone has started and character is dropped just display topstat display
+                //if hold but after zone has started and character is dropped just display topstat display
+                //This only happens once (when mouse hold duration is 0)
+                else if(Mathf.Approximately(mouseHoldDuration,0)){
                     uiManager.viewTopstatDisplay(character);
+                    Debug.Log("View topstat display");
+                }
+
+                mouseHoldDuration += Time.unscaledDeltaTime;
             }
            
             else{//on release (when cahracter is dropped)
@@ -116,11 +121,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     }
                         
                 }
-                //if just a click display characterInfoScreen
-                if (mouseHoldDuration < 0.2f) {
-                    uiManager.viewCharacter(character);
-                    mouseHoldDuration = 0;
-                }
+
                 
                 //resets values
                 click = false;
