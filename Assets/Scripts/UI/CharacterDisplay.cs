@@ -84,11 +84,11 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     Physics.SyncTransforms();
                     //Debug.Log("PHYSICS STYNCED");
                 }
-                //if hold but after zone has started and character is dropped just display topstat display
-                //This only happens once (when mouse hold duration is 0)
-                else if(Mathf.Approximately(mouseHoldDuration,0)){
+
+                if (mouseHoldDuration >= 0.2f) {
+                    //This happens only if held longer than 0.2f seconds, if it's just a tap that would happen in the else statement
+                    //The reason we are doing this is to make it so that holding a display puts the topstatdisplay and focuses camera on them, and if it's just a top just view character
                     uiManager.viewTopstatDisplay(character);
-                    Debug.Log("View topstat display");
                 }
 
                 mouseHoldDuration += Time.unscaledDeltaTime;
@@ -121,6 +121,10 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     }
                         
                 }
+                if(mouseHoldDuration <= 0.2f) {
+                    uiManager.viewCharacter(character);
+                    mouseHoldDuration = 0;
+                }
 
                 
                 //resets values
@@ -131,6 +135,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     uiManager.zone.placeableOverlay.gameObject.SetActive(false);
                 }
             }
+
             //Tutorial stuff triggered when character is tapped
             if(!uiManager.tutorial.addingAbilityTutorialDone && uiManager.tutorial.addingAbilityTutorialStep == 2) {
                 uiManager.tutorial.conitnueAddingAbilityClickTopStatDisplay();

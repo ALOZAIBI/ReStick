@@ -59,7 +59,7 @@ MonoBehaviour:
   - Duration
   baseAmt:
   - 0
-  - 5
+  - 8
   PDRatio:
   - 0
   - 0
@@ -93,9 +93,15 @@ MonoBehaviour:
   Rarities: 1
   rarity: 1
   targetStrategy: 1
+  canTargetAlly: 0
+  canTargetEnemy: 0
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 5
   abilityType: 5
   numberOfValues: 2
+  animationToPlay: 
   PD: 2.5
   MD: 0
   INF: 0
