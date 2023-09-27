@@ -165,9 +165,10 @@ public class CameraMovement : MonoBehaviour
                 }
             }
         }
-        //If not in zone keep camera locked in the x axis
+        //If not in zone keep camera locked in the x axis and locked at 11 zoom
         if(UIManager.singleton.inZone == false) {
             cam.transform.position = new Vector3(0, cam.transform.position.y, cam.transform.position.z);
+            cam.orthographicSize = 11;
         }
     }
 

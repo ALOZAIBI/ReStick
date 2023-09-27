@@ -32,6 +32,10 @@ public class Map : MonoBehaviour
         uiManager.retryBtn.gameObject.SetActive(false);
         uiManager.exitBtn.gameObject.SetActive(false);
 
+        //Focuses camera on the next level
+        Transform nextLevel = getNextLevel();
+        Camera.main.transform.position = new Vector3(0, nextLevel.position.y, Camera.main.transform.position.z);
+
     }
 
     private bool allComplete() {
@@ -40,5 +44,32 @@ public class Map : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    //Returns the transform of the level after the highest completed level
+    private Transform getNextLevel() {
+        SceneSelect highestCompleted = sceneSelectors[0];
+        int maxCompleted = 0;
+        foreach (SceneSelect tempSelect in sceneSelectors) {
+            if (tempSelect.completed) {
+                //Get the level number by extracting the number after the - from the sceneToLoad
+                int levelNumber = int.Parse(tempSelect.sceneToLoad.Split('-')[1]);
+                if (levelNumber > int.Parse(highestCompleted.sceneToLoad.Split('-')[1])) {
+                    maxCompleted = levelNumber;
+                    highestCompleted = tempSelect;
+                }
+            }
+                
+        }
+        Debug.Log("Max completed" + maxCompleted);
+        //Finds the sceneSelector with level number 1 higher than the highest completed level
+        foreach (SceneSelect tempSelect in sceneSelectors) {
+            if (tempSelect.sceneToLoad.Split('-')[1] == (maxCompleted + 1).ToString()) {
+                Debug.Log("Next Level isss " + tempSelect.sceneToLoad);
+                return tempSelect.transform;
+            }
+        }
+        Debug.Log("Next Level is " + maxCompleted);
+        return highestCompleted.transform;
     }
 }
