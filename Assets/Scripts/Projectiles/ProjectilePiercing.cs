@@ -25,7 +25,7 @@ public class ProjectilePiercing : Projectile
             Character victim = collision.GetComponent<Character>();
             //deals damage to everyhing not in the shooters team
             if (victim.team != shooter.team) {
-                shooter.damage(victim, 1f * DMG, 0.33f);
+                shooter.damage(victim, 1f * DMG, 0.5f);
                 applyHitFX(victim);
             }
         }
