@@ -148,7 +148,7 @@ public class Zone : MonoBehaviour
             completed = true;
             zoneDone = true;
 
-            resetGameSpeed();
+            uIManager.timeControl.resetTime();
         }
         
     }
@@ -181,11 +181,8 @@ public class Zone : MonoBehaviour
                 completed = false;
                 SaveSystem.saveZone(this);
             }
-            resetGameSpeed();
+            uIManager.timeControl.resetTime();
         }
-    }
-    private void resetGameSpeed() {
-        Time.timeScale = 1;
     }
 
 

@@ -34,6 +34,13 @@ public class TimeControl : MonoBehaviour
         }
     }
 
+    public void resetTime() {
+        Time.timeScale = 1;
+        currTimeScale = 1;
+        displayCurrScale.text = currTimeScale + "x";
+        Debug.Log("Time reset");
+    }
+
     private void scaleDown() {
         //can change scale if game not pauysed
         if (Time.timeScale != 0) {

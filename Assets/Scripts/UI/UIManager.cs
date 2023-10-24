@@ -219,6 +219,7 @@ public class UIManager : MonoBehaviour
         //if (!displayed) {
             //displayGameWon and display the rewards
             zoneWonScreenHidden.hidden = false;
+            timeControlHidden.hidden = true;
             gameWonScreen.zoneWon();
             pausePlayBtn.gameObject.SetActive(false);
             exitBtn.gameObject.SetActive(false);
