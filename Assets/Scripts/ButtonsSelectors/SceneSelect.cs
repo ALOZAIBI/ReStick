@@ -118,7 +118,7 @@ public class SceneSelect : MonoBehaviour
             }
         }
         DontDestroyOnLoad(dontDestroys);
-        SceneManager.LoadScene(sceneToLoad);
+        UIManager.singleton.loadSceneBlink(sceneToLoad);
     }
 
     private void Update() {

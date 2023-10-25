@@ -23,10 +23,10 @@ public class GameStateData
     
     public void loadMapOrWorldScene() {
         if (inMap) {
-            SceneManager.LoadScene(mapName);
+            UIManager.singleton.loadSceneBlink(mapName);
         }
         else {
-            SceneManager.LoadScene("World");
+            UIManager.singleton.loadSceneBlink("World");
         }
     }
     //this is needed for SaveSystem to be able to deserialize it
@@ -39,6 +39,6 @@ public class GameStateData
         //then saves the new character
         UIManager.singleton.saveWorldSave();
         //then loads world
-        SceneManager.LoadScene("World");
+        UIManager.singleton.loadSceneBlink("World");
     }
 }

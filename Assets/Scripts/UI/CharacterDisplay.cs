@@ -155,7 +155,8 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
         if (!uiManager.placingScreenHidden.hidden) {
             dragToZone();
         }
-        if (character.statPoints > 0) {
+        //Displays notifications when stat points are available and when zone not started
+        if (character.statPoints > 0 && !uiManager.zoneStarted()) {
             notification.SetActive(true);
         }
         else

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadToGame : MonoBehaviour
 {
-    
+
     void Start()
     {
         SceneManager.LoadScene("World");

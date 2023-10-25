@@ -19,7 +19,7 @@ public class GameOverScreen : MonoBehaviour {
     //For now this just deletes the save. Later it will take you to the main menu
     private void giveUP() {
         SaveSystem.deleteSave(UIManager.singleton.saveSlot);
-        SceneManager.LoadScene("MainMenu");
+        UIManager.singleton.loadSceneBlink("MainMenu");
         UIManager.singleton.playerParty.Reset();
         SaveSystem.initialiseSaveSlots();
         UIManager.singleton.gameOverScreenHidden.hidden = true;

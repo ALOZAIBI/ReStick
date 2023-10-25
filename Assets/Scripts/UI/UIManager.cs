@@ -106,6 +106,8 @@ public class UIManager : MonoBehaviour
     public RectTransform focusRect;
     public float focusOpacity;
 
+    public ScreenBlink screenBlink;
+
     //used to restartZone
     public Zone zone;
 
@@ -257,7 +259,7 @@ public class UIManager : MonoBehaviour
 
         clearBuffs();
         //resets position of camera
-        Camera.main.transform.position = new Vector3(0, 0, -10);
+        //Camera.main.transform.position = new Vector3(0, 0, -10);
         zoneWonScreenHidden.hidden = true;
         zoneLostScreenHidden.hidden = true;
         hideCharacter();
@@ -266,7 +268,7 @@ public class UIManager : MonoBehaviour
         timeControlHidden.hidden = true;
         
         //characters are set to inactive in Scene Select        
-        SceneManager.LoadScene(sceneToLoad);
+        UIManager.singleton.loadSceneBlink(sceneToLoad);
         closeUI();
         
     }
@@ -280,7 +282,7 @@ public class UIManager : MonoBehaviour
         }
         //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
         //so A way to optimize is to load only if it this function is called from zone lost to map
-        Camera.main.transform.position = new Vector3(0, 0, -10);
+        //Camera.main.transform.position = new Vector3(0, 0, -10);
         placingScreenHidden.hidden = true;
         loadMapSave();
         sceneToLoad = zone.belongsToMap;
@@ -312,7 +314,7 @@ public class UIManager : MonoBehaviour
             checkGameOver();
         }
         //resets position of camera
-        cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
+        //cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
 
         hideCharacter();
         clearBuffs();
@@ -322,7 +324,7 @@ public class UIManager : MonoBehaviour
         
         loadMapSave();
         DontDestroyOnLoad(playerParty);
-        SceneManager.LoadScene(zone.zoneName);
+        UIManager.singleton.loadSceneBlink(zone.zoneName);
     }
 
     public bool checkGameOver() {
@@ -585,5 +587,34 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    
+    //LoadingScene extension to allow for ui blink during scene transition
+    public void loadSceneBlink(string sceneName) {
+        screenBlink.startBlinkClose();
+        StartCoroutine(loadingScene(sceneName));
+    }
+
+    private IEnumerator loadingScene(string sceneName) {
+        //Waits for blink to close before starting scene loading
+        while (screenBlink.blinkClose) { yield return null; } ;
+        
+        //Start scene loading
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
+        //Pauses scene activation so that all the start and awake functions are called normally in the new scene
+        async.allowSceneActivation = false;
+
+
+        while(!async.isDone) {
+            // Check if the load has finished
+            if (async.progress >= 0.9f) {
+                //Activate the Scene
+                async.allowSceneActivation = true;
+                Debug.Log("SCene activation now allowed"); ;
+                screenBlink.startBlinkOpen();
+            }
+            yield return null;
+        }
+       
+    }
+
+
 }

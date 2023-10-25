@@ -77,12 +77,12 @@ public class CameraMovement : MonoBehaviour
 
     //Instantly zooms out and centers camera so that all tiles of the tilemape are visible, then after a delay zoom back into the previous zoom level
     public void showMapIntoZoom() {
+        Debug.Log("Showing map fully");
         if (tilemapToDisplayFully == null)
             return;
         pauseDuration = 0;
         pannable = false;
         zoomingBackIn = true;
-        zoomLevelBeforeDisplayingFully = cam.orthographicSize;
         BoundsInt bounds = tilemapToDisplayFully.cellBounds;
         float aspectRatio = (float)Screen.width / Screen.height;
 
