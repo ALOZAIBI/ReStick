@@ -161,13 +161,9 @@ public class Zone : MonoBehaviour
                 if (child.GetComponent<Character>().team == (int)Character.teamList.Player && child.GetComponent<Character>().alive)
                     return;
             }
+            //otherwise zone is lost
             playerParty.lifeShards--;
             SaveSystem.updateLifeShardsInMap();
-            //otherwise zone is lost
-            //If game over display Game over screen otherwise display zonelostScreen
-            if (!uIManager.checkGameOver()) {
-                uIManager.displayZoneLost(belongsToMap);
-            }
             uIManager.placingScreenHidden.hidden = true;
 
             uIManager.pausePlay(true);
@@ -182,6 +178,10 @@ public class Zone : MonoBehaviour
                 SaveSystem.saveZone(this);
             }
             uIManager.timeControl.resetTime();
+            //If game over display Game over screen otherwise blink back to level select
+            if (!uIManager.checkGameOver()) {
+                uIManager.backToMap();
+            }
         }
     }
 
