@@ -8,13 +8,9 @@ public class HealOnKill : Ability {
         base.Start();
         updateDescription();
     }
-    //Heals character depending on the target's level, max Heal at target level 5
     public override void doAbility() {
         calculateAmt();
-        foreach(int i in character.averageLevelOfKillsLastFrame) {
-            character.HP+= Mathf.Clamp01(((i - 0.4f) * 0.25f)) *valueAmt.getAmtValueFromName(this,"Heal");
-        }
-        Debug.Log(character.killsLastFrame+ character.gameObject.name);
+        character.HP+= character.killsLastFrame * valueAmt.getAmtValueFromName(this,"Heal");   
     }
 
     public override void updateDescription() {
