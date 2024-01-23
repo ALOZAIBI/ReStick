@@ -54,22 +54,25 @@ public class Map : MonoBehaviour
             if (tempSelect.completed) {
                 //Get the level number by extracting the number after the - from the sceneToLoad
                 int levelNumber = int.Parse(tempSelect.sceneToLoad.Split('-')[1]);
-                if (levelNumber > int.Parse(highestCompleted.sceneToLoad.Split('-')[1])) {
+                Debug.Log("DBG " + tempSelect.sceneToLoad + " is completed?" + tempSelect.completed + " LevelNumber =" +levelNumber);
+                if (levelNumber > maxCompleted) {
                     maxCompleted = levelNumber;
                     highestCompleted = tempSelect;
+                    //Debug.Log("DBG Max completed" + maxCompleted);
                 }
             }
                 
         }
-        Debug.Log("Max completed" + maxCompleted);
+        Debug.Log("DBG Max completed" + maxCompleted);
         //Finds the sceneSelector with level number 1 higher than the highest completed level
         foreach (SceneSelect tempSelect in sceneSelectors) {
             if (tempSelect.sceneToLoad.Split('-')[1] == (maxCompleted + 1).ToString()) {
-                Debug.Log("Next Level isss " + tempSelect.sceneToLoad);
+                Debug.Log("DBG Next Level isss " + tempSelect.sceneToLoad);
                 return tempSelect.transform;
             }
         }
-        Debug.Log("Next Level is " + maxCompleted);
+        //This return shouldnt be used it's just there to make the compiler happy
+        Debug.Log("DBG Next Level is " + maxCompleted);
         return highestCompleted.transform;
     }
 }

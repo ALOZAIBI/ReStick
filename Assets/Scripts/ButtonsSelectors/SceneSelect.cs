@@ -44,6 +44,7 @@ public class SceneSelect : MonoBehaviour
 
         if (completed) {
             GetComponent<SpriteRenderer>().color = new Color(0,1,0);
+            Debug.Log("DBG SceneSelect: " + sceneToLoad + " is completed");
         }
     }
 
