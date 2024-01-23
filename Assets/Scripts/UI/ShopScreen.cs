@@ -113,6 +113,7 @@ public class ShopScreen : MonoBehaviour
             //creates the display and makes it a child of abilityArea
             AbilityDisplayShop abilityDisplay = Instantiate(abilityDisplayObj,abilityArea.transform).GetComponent<AbilityDisplayShop>();
             listAbilities.Add(abilityDisplay);
+            abilityDisplay.index = i;
             //gets the ability from shop
             Ability temp = shop.abilityHolder.transform.GetChild(i).GetComponent<Ability>();
             abilityDisplay.price = costOfAbility(temp);
@@ -136,6 +137,7 @@ public class ShopScreen : MonoBehaviour
             Debug.Log("Character holder cjild amount" + shop.characterHolder.transform.childCount);
             CharacterDisplayShop characterDisplay = Instantiate(characterDisplayObj,characterArea.transform).GetComponent<CharacterDisplayShop>() ;
             listCharacters.Add(characterDisplay);
+            characterDisplay.index = i;
             Character temp = shop.characterHolder.transform.GetChild(i).GetComponent<Character>();
             characterDisplay.character = temp;
             //then marks if it was purchased

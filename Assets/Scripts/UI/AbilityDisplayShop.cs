@@ -27,6 +27,8 @@ public class AbilityDisplayShop : MonoBehaviour
 
     public int price;
 
+    public int index;
+
     private void Start() {
         priceText.text = price+ "";
         self.onClick.AddListener(select);
@@ -106,7 +108,6 @@ public class AbilityDisplayShop : MonoBehaviour
     }
     private void markPurchased() {
         purchased = true;
-        int index = transform.GetSiblingIndex();
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.abilitiyPurchased[index] = true;
         displaySold();

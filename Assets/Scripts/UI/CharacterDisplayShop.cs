@@ -22,7 +22,9 @@ public class CharacterDisplayShop : MonoBehaviour {
     public int price;
 
     public bool selected;
-    public bool purchased;    
+    public bool purchased;
+
+    public int index;
     private void Start() {
         //price depends on how many characters the player has.
         //First character costs 70, then increment by 120 for each new Character
@@ -83,6 +85,7 @@ public class CharacterDisplayShop : MonoBehaviour {
         }
         //if already selected then clicked again
         else if (!purchased) {
+            Debug.Log("Purchased");
             //if can afford
             if(UIManager.singleton.playerParty.gold >= price) {
                 markPurchased();
@@ -109,7 +112,6 @@ public class CharacterDisplayShop : MonoBehaviour {
 
     private void markPurchased() {
         purchased = true;
-        int index = transform.GetSiblingIndex();
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.characterPurchased[index] = true;
         displaySold();
