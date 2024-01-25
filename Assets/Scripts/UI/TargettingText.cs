@@ -13,11 +13,11 @@ public class TargettingText : KeepOnTarget {
     [SerializeField] private float speed = 1f;
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         //Slowly move up
-        distance += speed*Time.fixedDeltaTime;
-        speed += 10f*Time.fixedDeltaTime;
+        distance += speed*Time.fixedUnscaledDeltaTime;
+        speed += 10f*Time.fixedUnscaledDeltaTime;
         //Set the transform
         transform.position = target.transform.position + new Vector3(0, distance, 0);
         

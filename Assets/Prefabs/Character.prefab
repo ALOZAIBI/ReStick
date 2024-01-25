@@ -392,6 +392,8 @@ MonoBehaviour:
   attackTargetStrategy: 1
   movementStrategy: 0
   stayNearAllyTarge: 15
+  previousAttackTargetStrategy: 0
+  manualTarget: {fileID: 0}
   snare: 0
   silence: 0
   blind: 0
@@ -947,6 +949,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3287178171783070686}
     m_Modifications:
+    - target: {fileID: 1005370753190702663, guid: 36b057e713439e24fa84597626ba835f, type: 3}
+      propertyPath: m_Parameters.colorGradient.atime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005370753190702663, guid: 36b057e713439e24fa84597626ba835f, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.17354932
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005370753190702663, guid: 36b057e713439e24fa84597626ba835f, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.77534014
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005370753190702663, guid: 36b057e713439e24fa84597626ba835f, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.9433962
+      objectReference: {fileID: 0}
     - target: {fileID: 1746185066664521123, guid: 36b057e713439e24fa84597626ba835f, type: 3}
       propertyPath: m_RootOrder
       value: 2

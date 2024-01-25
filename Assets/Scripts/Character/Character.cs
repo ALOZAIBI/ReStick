@@ -1478,7 +1478,10 @@ public class Character : MonoBehaviour {
     //Changes targetting to manual
     public void selectManualTarget(Character character) {
         manualTarget = character;
-        previousAttackTargetStrategy = attackTargetStrategy;
+        //Only change previousAttackTargetStrategy if it is not already manual
+        if (attackTargetStrategy != (int)TargetList.ManualEnemy) {
+            previousAttackTargetStrategy = attackTargetStrategy;
+        }
         attackTargetStrategy = (int)TargetList.ManualEnemy;
         displayTargettingText();
     }
@@ -1647,18 +1650,13 @@ public class Character : MonoBehaviour {
 
                 //Every thing commented out is to be able to reposition character after it has been placed before game starts.
 
-                //if held 
+                //if held manually target
                 if (team == (int)teamList.Player && mouseHoldDuration > 0.2f) {
                     held = true;
-                    //zone didn't start and is playercharacter then drag move character
-                    if (!zone.started)
-                        transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-                    else {
-                        //If zone started then make this the character to be controlled in ManualTargetting script
-                        uiManager.manualTargetting.characterToControl = this;
-                        //Also select tthe character make topstatdisplay show them
-                        uiManager.viewTopstatDisplay(this);
-                    }
+                    uiManager.manualTargetting.characterToControl = this;
+                    //Also select tthe character make topstatdisplay show them
+                    uiManager.viewTopstatDisplay(this);
+                    //uiManager.manualTargetting.selectTarget();
                     camMov.pannable = false;
                 }
 

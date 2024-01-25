@@ -13,10 +13,21 @@ public class ManualTargetting : MonoBehaviour
     public Character target;
     //Used to rotate the indicator in character.cs
     public float indicatorRotation=0;
+
+    //To make the selecting target work by dragging/holding from the characterToControl to the target
+    private bool holding=false;
+
+    //Used to draw circle on the character to be targetted
+    [SerializeField] private int circleQuality;//how many steps
+
+    [SerializeField] private LineRenderer toBeTargettedRenderer;
+    //Line to the target to be, this is good for clarity since the finger can block the toBeTargettedRenderer so a line to the target is needed
+    [SerializeField] private LineRenderer lineToTargetToBe;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        lineToTargetToBe.positionCount = 2;
     }
     //Select the character that is closest to the mouse
     private void customMouseDown() {
@@ -44,12 +55,14 @@ public class ManualTargetting : MonoBehaviour
     }
 
     //Select the target that is closest to the mouse(This will be used to select the target of the characterToControl)
-    private void selectTarget() {
+    public void selectTarget() {
         if (characterToControl != null) {
-            Debug.Log("Selecting target");
-             if (Input.GetMouseButtonDown(0) && !IsPointerOverGameObject()) {
+            //While held
+             if (Input.GetMouseButton(0) && !IsPointerOverGameObject()) {
+                //holding = true;
+                Debug.Log("Selecting target");
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Collider2D[] characters = Physics2D.OverlapCircleAll(mousePos, radius, LayerMask.GetMask("Characters"));
+                Collider2D[] characters = Physics2D.OverlapCircleAll(mousePos, radius*2, LayerMask.GetMask("Characters"));
 
                 GameObject closestCharacter = null;
                 float minDistance = float.MaxValue;
@@ -69,12 +82,32 @@ public class ManualTargetting : MonoBehaviour
                 }
 
                 if (closestCharacter != null) {
-                    //Set the target of the characterToControl
+                    //Saves the potential target
                     target = closestCharacter.GetComponent<Character>();
-                    characterToControl.selectManualTarget(target);
-                    //Unselect the characterToControl
-                    characterToControl = null;
+                    toBeTargettedRenderer.enabled = true;
+                    lineToTargetToBe.enabled = true;
+                    drawCircle(target.transform.position, 0.8f, toBeTargettedRenderer, 80, indicatorRotation+60);
+                    drawTargetLine(characterToControl.transform.position, target.transform.position);
                 }
+                else {
+                    target = null;
+                    toBeTargettedRenderer.enabled = false;
+                    lineToTargetToBe.enabled = false;
+                }
+
+            }
+             //When button released
+             //Sets the target of the characterToControl
+             if(Input.GetMouseButtonUp(0) && !IsPointerOverGameObject()) {
+                if (target != null) {
+                    characterToControl.selectManualTarget(target);
+                }
+                else
+                    characterToControl.endManualTarget();
+                //Unselect the characterToControl
+                characterToControl = null;
+                toBeTargettedRenderer.enabled = false;
+                lineToTargetToBe.enabled = false;
             }
         }
             
@@ -84,6 +117,10 @@ public class ManualTargetting : MonoBehaviour
     {
         customMouseDown();
         selectTarget();
+
+        //if (Input.GetMouseButtonDown(0)) {
+        //    Debug.Log("Manual targetting Clickiiinig");
+        //}
     }
 
     //to prevent clicking thorugh UI
@@ -105,5 +142,36 @@ public class ManualTargetting : MonoBehaviour
         }
 
         return false;
+    }
+
+    //precondition fillAmount could at most be = circlequality
+    public void drawCircle(Vector3 position, float radius, LineRenderer lr, float fillAmount, float offset = 0) {
+        if (fillAmount == 100)
+            lr.loop = true;//to close hte circle
+        else
+            lr.loop = false;
+        lr.enabled = true;
+        float angle = 0f + offset;
+        float angleIncrement = (2f * Mathf.PI) / (circleQuality);
+
+        int numPoints = Mathf.CeilToInt(circleQuality * fillAmount / 100); // Calculate the number of points based on the fill amount
+        lr.positionCount = numPoints;
+
+        for (int i = 0; i < numPoints; i++) {
+            float x = Mathf.Sin(angle) * radius;
+            float y = Mathf.Cos(angle) * radius;
+
+            Vector3 point = new Vector3(x, y, 0f);
+            point += position;
+            lr.SetPosition(i, point);
+
+            angle += angleIncrement;
+        }
+    }
+
+    public void drawTargetLine(Vector3 startPos, Vector3 endPos) {
+        lineToTargetToBe.enabled = true;
+        lineToTargetToBe.SetPosition(0, startPos);
+        lineToTargetToBe.SetPosition(1, endPos);
     }
 }

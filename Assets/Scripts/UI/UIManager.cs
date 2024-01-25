@@ -285,6 +285,15 @@ public class UIManager : MonoBehaviour
         //This is kinda inefficient since in the case that this function is called in zoneWonScreen then we would be loading what we just saved
         //so A way to optimize is to load only if it this function is called from zone lost to map
         //Camera.main.transform.position = new Vector3(0, 0, -10);
+
+        //Removes manual targeting from all allied characters
+        foreach (Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                temp.endManualTarget();
+            }
+        }
+
         placingScreenHidden.hidden = true;
         loadMapSave();
         sceneToLoad = zone.belongsToMap;
@@ -317,6 +326,14 @@ public class UIManager : MonoBehaviour
         }
         //resets position of camera
         //cam.transform.position = new Vector3(0, 0, cam.transform.position.z);
+
+        //Removes manual targeting from all allied characters
+        foreach (Transform child in playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                temp.endManualTarget();
+            }
+        }
 
         hideCharacter();
         clearBuffs();
