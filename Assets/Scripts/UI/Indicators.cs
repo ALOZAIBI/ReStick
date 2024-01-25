@@ -11,6 +11,9 @@ public class Indicators : MonoBehaviour
     [SerializeField] private LineRenderer targetRenderer;
     [SerializeField] public LineRenderer rangeRenderer;
 
+    //Highlights the character that is to be controlled by manual targetting script
+    [SerializeField] public LineRenderer toBeControlledRenderer;
+
     public List<LineRenderer> abilitiesTargetRenderer = new List<LineRenderer>();
     public List<LineRenderer> abilitiesRangeRenderer = new List<LineRenderer>();
     //this will be displayed on top of target renderer and will be filled when cooldown is ready
@@ -24,12 +27,10 @@ public class Indicators : MonoBehaviour
     public bool abilitiesSetup;
     void Start()
     {
-        character = GetComponentInParent<Character>();
-        targetRenderer = target.GetComponent<LineRenderer>();
         // 2 points for a straight line
         targetRenderer.positionCount = 2;
-        rangeRenderer = range.GetComponent<LineRenderer>();
         rangeRenderer.positionCount = circleQuality;
+        toBeControlledRenderer.positionCount = circleQuality;
     }
 
     public void drawTargetLine(Vector3 startPos,Vector3 endPos) {
@@ -38,13 +39,13 @@ public class Indicators : MonoBehaviour
         targetRenderer.SetPosition(1, endPos);
     }
     //precondition fillAmount could at most be = circlequality
-    public void drawCircle(Vector3 position,float radius,LineRenderer lr,float fillAmount) {
+    public void drawCircle(Vector3 position,float radius,LineRenderer lr,float fillAmount,float offset=0) {
         if(fillAmount == 100)
             lr.loop = true;//to close hte circle
         else
             lr.loop = false;
         lr.enabled = true;
-        float angle = 0f;
+        float angle = 0f+offset;
         float angleIncrement = (2f * Mathf.PI) / (circleQuality);
 
         int numPoints = Mathf.CeilToInt(circleQuality * fillAmount/100); // Calculate the number of points based on the fill amount
@@ -145,7 +146,7 @@ public class Indicators : MonoBehaviour
                 continue;
             }
 
-            if (child.name != "Range" && child.name != "Target") {
+            if (child.name != "Range" && child.name != "Target" && child.name != "ToBeControlled") {
                 if (child.gameObject != null) {
                     Destroy(child.gameObject);
                 }
@@ -172,5 +173,8 @@ public class Indicators : MonoBehaviour
         foreach (LineRenderer temp in abilitiesCooldownRenderer) {
             temp.enabled = false;
         }
+    }
+    public void eraseToBeControlledLine() {
+          toBeControlledRenderer.enabled = false;
     }
 }

@@ -8,7 +8,7 @@ public class KeepOnTarget : MonoBehaviour
     
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.position = target.transform.position;
     }

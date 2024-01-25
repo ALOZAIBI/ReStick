@@ -72,6 +72,9 @@ public class CharacterPlacingScreen : MonoBehaviour
                 if (temp.tag == "Character") {
                     Character tempChar = temp.GetComponent<Character>();
                     tempChar.initRoundStart();
+                    //Displays the targetting of all allied characters that have dropped
+                    if(tempChar.dropped)
+                        tempChar.displayTargettingText();
                 }
             }
         }
@@ -84,6 +87,9 @@ public class CharacterPlacingScreen : MonoBehaviour
         
         //hides the placeable overlay in zone
         uiManager.zone.placeableOverlay.gameObject.SetActive(false);
+
+        
+
     }
 
     //checks if zone is startable(if atleast 1 playerCharacter)

@@ -48,6 +48,8 @@ public class UIManager : MonoBehaviour
     //currently selected character
     public Character character;
 
+    public ManualTargetting manualTargetting;
+
     //screen that pops up oin lelve start
     public CharacterPlacingScreen characterPlacingScreen;
 

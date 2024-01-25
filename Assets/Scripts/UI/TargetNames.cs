@@ -54,6 +54,9 @@ public class TargetNames : MonoBehaviour
             case (int)Character.TargetList.LowestHPEnemy:
                 return "Lowest HP";
 
+            case (int)Character.TargetList.ManualEnemy:
+                return "Selected";
+
             case (int)Character.TargetList.ClosestAlly:
                 return "Closest";
 
@@ -121,6 +124,7 @@ public class TargetNames : MonoBehaviour
             case (int)Character.TargetList.LowestRangeEnemy:
             case (int)Character.TargetList.HighestHPEnemy:
             case (int)Character.TargetList.LowestHPEnemy:
+            case (int)Character.TargetList.ManualEnemy:
                 return true;
 
             case (int)Character.TargetList.ClosestAlly:

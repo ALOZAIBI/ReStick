@@ -138,9 +138,10 @@ public class Zone : MonoBehaviour
     //    }
     //}
 
+
     //if there are no enemies alive and there is atleast 1 playerCharacter alive show win screen
     private void zoneWon() {
-        if (enemiesAlive == 0 && alliesAlive>0) {
+        if (enemiesAlive == 0 && alliesAlive > 0) {
             //pauses the game and displays game won
             uIManager.pausePlay(true);
             uIManager.displayGameWon(belongsToMap);
@@ -149,8 +150,14 @@ public class Zone : MonoBehaviour
             zoneDone = true;
 
             uIManager.timeControl.resetTime();
+            //Removes manual targeting from all allied characters
+            foreach (Transform child in UIManager.singleton.playerParty.transform) {
+                if (child.tag == "Character") {
+                    Character temp = child.GetComponent<Character>();
+                    temp.endManualTarget();
+                }
+            }
         }
-        
     }
     //if all player Character's in play died decrease totallives and displaygamelost
     private void zoneLost() {
@@ -161,6 +168,15 @@ public class Zone : MonoBehaviour
                 if (child.GetComponent<Character>().team == (int)Character.teamList.Player && child.GetComponent<Character>().alive)
                     return;
             }
+
+            //Removes manual targeting from all allied characters
+            foreach (Transform child in UIManager.singleton.playerParty.transform) {
+                if (child.tag == "Character") {
+                    Character temp = child.GetComponent<Character>();
+                    temp.endManualTarget();
+                }
+            }
+
             //otherwise zone is lost
             playerParty.lifeShards--;
             SaveSystem.updateLifeShardsInMap();
