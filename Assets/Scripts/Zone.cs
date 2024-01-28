@@ -94,6 +94,8 @@ public class Zone : MonoBehaviour
         if(zoomFocusAmount!=0)
             cameraMovement.zoomTarget = zoomFocusAmount;
         cameraMovement.showMapIntoZoom();
+        //Makes sure camera not focusing anything
+        cameraMovement.characterToFocusOn = null;
 
         //Tutorial Stuff
         uIManager.tutorial.beginDraggingCharactersTutorial();

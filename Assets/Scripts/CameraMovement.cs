@@ -29,6 +29,8 @@ public class CameraMovement : MonoBehaviour
     //pannalbe is set to off when dragging a character from the characterPlacingScreen so it is set to off in the CharacterDisplay Script
     public bool pannable=true;
 
+    //Camera focusing on a character
+    public Character characterToFocusOn;
     //tutorial used https://www.youtube.com/watch?v=R6scxu1BHhs
     private void panCamera() {
         //prevent clicking through UI
@@ -55,11 +57,18 @@ public class CameraMovement : MonoBehaviour
             //gets position of initial click
             if (Input.GetMouseButtonDown(0)) {
                 dragOrigin = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+
             }
 
             if (Input.GetMouseButton(0)) {
                 dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-                cam.transform.position += (Vector3)dragDifference;
+                //To unlock the camera from character drag difference has to be greater than 0.1
+                if (dragDifference.magnitude > 0.2f) {
+                    characterToFocusOn = null;
+                }
+                //Only move camera if no character currently being focused on
+                if (characterToFocusOn == null)
+                    cam.transform.position += (Vector3)dragDifference;
             }
         }
 
@@ -77,7 +86,7 @@ public class CameraMovement : MonoBehaviour
 
     //Instantly zooms out and centers camera so that all tiles of the tilemape are visible, then after a delay zoom back into the previous zoom level
     public void showMapIntoZoom() {
-        Debug.Log("Showing map fully");
+        //Debug.Log("Showing map fully");
         if (tilemapToDisplayFully == null)
             return;
         pauseDuration = 0;
@@ -129,6 +138,11 @@ public class CameraMovement : MonoBehaviour
         if (pannable) {
             panCamera();
             
+            //Focus camera on character when zone has started
+            if (characterToFocusOn != null && UIManager.singleton.zoneStarted()) {
+                cam.transform.position = new Vector3(characterToFocusOn.transform.position.x, characterToFocusOn.transform.position.y, cam.transform.position.z);
+            }
+
             //zoom using touch https://www.youtube.com/watch?v=K_aAnBn5khA
             if (Input.touchCount == 2) {
                 Touch touchZero = Input.GetTouch(0);

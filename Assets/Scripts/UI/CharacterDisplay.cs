@@ -45,57 +45,56 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
             camMov.pannable = false;
             //Debug.Log("Mouse clicking?" + Input.GetMouseButton(0));
             if (Input.GetMouseButton(0)) {
-                //If the character is already dropped and the zone has started hold on the display would focus the camera on the character but won't move the character hence the return statement
-                if (character.dropped && uiManager.zoneStarted()) {
-                    cam.transform.position = character.transform.position;
-                }
 
-                
-                //if held drag character to mouse Position (this only works if the zone hasn't started or character hasn't been dropped already)
-                if (mouseHoldDuration > 0.2f && (!uiManager.zoneStarted() || !character.dropped)) {
-                    character.dropped = false;
+                //If held longer than 0.2f seconds
+                if (mouseHoldDuration > 0.2f) {
+                    //drag character to mouse Position (this only works if the zone hasn't started or character hasn't been dropped already)
+                    if ((!character.dropped)||!uiManager.zoneStarted()) {
+                        character.dropped = false;
 
-                    //Tutorial Stuff (triggered when dragging character)
-                    if (!uiManager.tutorial.draggingCharactersTutorialDone)
-                        uiManager.tutorial.endDraggingCharactersTutorial();
+                        //Tutorial Stuff (triggered when dragging character)
+                        if (!uiManager.tutorial.draggingCharactersTutorialDone)
+                            uiManager.tutorial.endDraggingCharactersTutorial();
 
-                    //If the zone has started display the placeable overlay since it won't be displayed after the zone has started
-                    if (uiManager.zoneStarted()) {
-                        uiManager.zone.placeableOverlay.gameObject.SetActive(true);
+                        //If the zone has started display the placeable overlay since it won't be displayed after the zone has started
+                        if (uiManager.zoneStarted()) {
+                            uiManager.zone.placeableOverlay.gameObject.SetActive(true);
+                        }
+
+
+
+                        camMov.pannable = false;
+                        character.gameObject.SetActive(true);
+                        character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+                        uiManager.viewTopstatDisplay(character);
+                        try {
+                            //We are disabling the agent here since if it enabled and while im dragging a chracter into the scene if it bumps an obstacle the agent will be stopped by the obstacle the but visually it will look fine until I start the game wher what happens is the character teleports to where the agent is
+                            character.agent.enabled = false;
+                        }
+                        catch { /*Maybe fixes stuff?*/}
+
+                        Image image = gameObject.GetComponent<Image>();
+                        Color temp = image.color;
+                        temp.a = 0.1f;
+                        image.color = temp;
+                        //this is done to update collider position when timescale is set to 0 so that the character dragged in is correctly clickable.
+                        Physics.SyncTransforms();
+                        //Debug.Log("PHYSICS STYNCED");
                     }
-
-
-
-                    camMov.pannable = false;
-                    character.gameObject.SetActive(true);
-                    character.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-                    uiManager.viewTopstatDisplay(character);
-                    try {
-                        //We are disabling the agent here since if it enabled and while im dragging a chracter into the scene if it bumps an obstacle the agent will be stopped by the obstacle the but visually it will look fine until I start the game wher what happens is the character teleports to where the agent is
-                        character.agent.enabled = false;
+                    //If held on a characterDisplay that has already been dropped and that the zone has started
+                    else if (character.dropped && uiManager.zoneStarted()) {
+                        uiManager.manualTargetting.characterToControl = character;
                     }
-                    catch { /*Maybe fixes stuff?*/}
-
-                    Image image = gameObject.GetComponent<Image>();
-                    Color temp = image.color;
-                    temp.a = 0.1f;
-                    image.color = temp;
-                    //this is done to update collider position when timescale is set to 0 so that the character dragged in is correctly clickable.
-                    Physics.SyncTransforms();
-                    //Debug.Log("PHYSICS STYNCED");
-                }
-
-                if (mouseHoldDuration >= 0.2f) {
-                    //This happens only if held longer than 0.2f seconds, if it's just a tap that would happen in the else statement
-                    //The reason we are doing this is to make it so that holding a display puts the topstatdisplay and focuses camera on them, and if it's just a top just view character
-                    uiManager.viewTopstatDisplay(character);
                 }
 
                 mouseHoldDuration += Time.unscaledDeltaTime;
             }
            
-            else{//on release (when cahracter is dropped)
-                if(mouseHoldDuration >= 0.2f && (!uiManager.zoneStarted() || !character.dropped)) {
+            else{
+                //on release
+                //if held(when cahracter is dropped)
+              
+                if (mouseHoldDuration >= 0.2f && (!character.dropped)) {
                     character.dropped = true;
 
                     //re-enabling it
@@ -119,14 +118,20 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                         //tooltip can't place character here
                         uiManager.tooltip.showMessage("Can't place character here");
                     }
-                        
+                    //Camera focuses character that has just dropped
+                    camMov.characterToFocusOn = character;
+
                 }
-                if(mouseHoldDuration <= 0.2f) {
+                //if just a click
+                else if(mouseHoldDuration <= 0.2f) {
                     uiManager.viewCharacter(character);
+                    //Camera focuses character that was just clicked
+                    camMov.characterToFocusOn = character;
                     mouseHoldDuration = 0;
                 }
 
                 
+
                 //resets values
                 click = false;
                 camMov.pannable = true;

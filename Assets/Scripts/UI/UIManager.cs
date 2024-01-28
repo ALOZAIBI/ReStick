@@ -627,7 +627,7 @@ public class UIManager : MonoBehaviour
             if (async.progress >= 0.9f) {
                 //Activate the Scene
                 async.allowSceneActivation = true;
-                Debug.Log("SCene activation now allowed"); ;
+                //Debug.Log("SCene activation now allowed");
                 screenBlink.startBlinkOpen();
             }
             yield return null;
