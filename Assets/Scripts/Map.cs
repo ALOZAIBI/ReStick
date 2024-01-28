@@ -15,19 +15,6 @@ public class Map : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         sceneSelectors = FindObjectsOfType<SceneSelect>();
         uiManager.menuUIHidden.hidden = false;
-        //Displays Map Won Screen
-        if (allComplete()) {
-            //revives and heals all characters to full
-            foreach(Transform child in uiManager.playerParty.transform) {
-                if(child.tag == "Character") {
-                    Character temp = child.GetComponent<Character>();
-                    temp.alive = true;
-                    temp.HP = temp.HPMax;
-                }
-            }
-            uiManager.sceneToLoad = belongsToWorld;
-            uiManager.mapWonScreenHidden.hidden = false;
-        }
 
         uiManager.retryBtn.gameObject.SetActive(false);
         uiManager.exitBtn.gameObject.SetActive(false);
@@ -36,15 +23,45 @@ public class Map : MonoBehaviour
         Transform nextLevel = getNextLevel();
         Camera.main.transform.position = new Vector3(0, nextLevel.position.y, Camera.main.transform.position.z);
 
+        checkIfWon();
+
+    }
+    private void displayMapWon() {
+        uiManager.sceneToLoad = belongsToWorld;
+        uiManager.mapWonScreenHidden.hidden = false;
+        //revives and heals all characters to full
+        foreach (Transform child in uiManager.playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                temp.alive = true;
+                temp.HP = temp.HPMax;
+            }
+        }
+    }
+    //Checks if won by checking the highest sceneSelector number then checks if that one is completed
+
+    public void checkIfWon() {
+        //Debug.Log("DBG Checking if won");
+        //Finds the highest sceneSelector number
+        int max = 0;
+        foreach (SceneSelect tempSelect in sceneSelectors) {
+            int levelNumber = int.Parse(tempSelect.sceneToLoad.Split('-')[1]);
+            if (levelNumber > max) {
+                max = levelNumber;
+            }
+        }
+        //Debug.Log("DBG Max is " + max);
+        //Finds the sceneSelector with the highest number
+        foreach (SceneSelect tempSelect in sceneSelectors) {
+            if (tempSelect.sceneToLoad.Split('-')[1] == max.ToString()) {
+                //Debug.Log("DBG Max is " + max + " and is completed?" + tempSelect.completed);
+                if (tempSelect.completed) {
+                    displayMapWon();
+                }
+            }
+        }
     }
 
-    private bool allComplete() {
-        foreach (SceneSelect sceneSelector in sceneSelectors) {
-            if (sceneSelector.completed == false)
-                return false;
-        }
-        return true;
-    }
 
     //Returns the transform of the level after the highest completed level
     private Transform getNextLevel() {
