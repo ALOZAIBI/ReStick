@@ -32,79 +32,71 @@ public class BuffOnKIll : Ability
         if (character.killsLastFrame > 0) {
             calculateAmt();
             Debug.Log("There was a kill last frame");
-            foreach(int i in character.averageLevelOfKillsLastFrame){
-                //creates buff for every kill last frame
-                Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
-                //Debug.Log("kills>0"+ buff.transform.parent.name);
-                //Debug.Log("Arrived here");
-                buff.PD = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * PD;
-                if (PD > 0) {
-                    buff.PD += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
-                }
-
-                buff.MD = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * MD;
-                if (MD > 0) {
-                    buff.MD += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
-                }
-
-                buff.INF = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * INF;
-                if (INF > 0) {
-                    buff.INF += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
-                }
-
-                buff.HP = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * HP;
-                if (HP > 0) {
-                    buff.HP += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
-                }
-
-                buff.AS = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * AS;
-                if (AS > 0) {
-                    buff.AS += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
-                }
-
-                buff.CDR = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * CDR;
-                if (CDR > 0) {
-                    buff.CDR += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
-                }
-
-                buff.MS = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * MS;
-                if (MS > 0) {
-                    buff.MS += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
-                }
-
-                buff.Range = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * Range;
-                if (Range > 0) {
-                    buff.Range += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
-                }
-
-                buff.LS = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * LS;
-                if (LS > 0) {
-                    buff.LS += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
-                }
-
-                buff.size = Mathf.Clamp01(((i - 0.4f) * 0.25f)) * size;
-                if (size > 0) {
-                    buff.size += Mathf.Clamp01(((i - 0.4f) * 0.25f)) * valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
-                }
-
-                buff.caster = character;
-                buff.target = character;
-
-                buff.code = abilityName + character.name;
-
-
-                buff.duration = valueAmt.getAmtValueFromName(this,"Duration");
-
-                //refreshes duration of buff when a new stack is added
-                foreach (Buff temp in character.buffs) {
-                    if (temp.code == code) {
-                        temp.durationRemaining = valueAmt.getAmtValueFromName(this,"Duration");
-                        Debug.Log("try first if");
-                    }
-                }
-                buff.applyBuff();
-                refreshDuration();
+            
+            //creates buff for every kill last frame
+            Buff buff = Instantiate(prefabObject).GetComponent<Buff>();
+            //Debug.Log("kills>0"+ buff.transform.parent.name);
+            //Debug.Log("Arrived here");
+                
+            if (PD > 0) {
+                buff.PD += character.killsLastFrame*valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
             }
+
+                
+            if (MD > 0) {
+                buff.MD += character.killsLastFrame*valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
+            }
+
+            if (INF > 0) {
+                buff.INF += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
+            }
+
+            if (HP > 0) {
+                buff.HP += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
+            }
+
+            if (AS > 0) {
+                buff.AS += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
+            }
+
+            if (CDR > 0) {
+                buff.CDR += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
+            }
+
+            if (MS > 0) {
+                buff.MS += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
+            }
+
+            if (Range > 0) {
+                buff.Range += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
+            }
+
+            if (LS > 0) {
+                buff.LS += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
+            }
+
+            if (size > 0) {
+                buff.size += character.killsLastFrame * valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
+            }
+
+            buff.caster = character;
+            buff.target = character;
+
+            buff.code = abilityName + character.name;
+
+
+            buff.duration = valueAmt.getAmtValueFromName(this,"Duration");
+
+            //refreshes duration of buff when a new stack is added
+            foreach (Buff temp in character.buffs) {
+                if (temp.code == code) {
+                    temp.durationRemaining = valueAmt.getAmtValueFromName(this,"Duration");
+                    Debug.Log("try first if");
+                }
+            }
+            buff.applyBuff();
+            refreshDuration();
+            
         }
     }
 
