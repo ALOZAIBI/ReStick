@@ -24,6 +24,9 @@ public class ManualTargetting : MonoBehaviour
     //Line to the target to be, this is good for clarity since the finger can block the toBeTargettedRenderer so a line to the target is needed
     [SerializeField] private LineRenderer lineToTargetToBe;
 
+    //The CD on each character's manual targetting
+    public const int manualTargettingCD = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +59,7 @@ public class ManualTargetting : MonoBehaviour
 
     //Select the target that is closest to the mouse(This will be used to select the target of the characterToControl)
     public void selectTarget() {
-        if (characterToControl != null) {
+        if (characterToControl != null && characterToControl.manualTargettingCDRemaining <= 0) {
             //While held
              if (Input.GetMouseButton(0) && !IsPointerOverGameObject()) {
                 //holding = true;

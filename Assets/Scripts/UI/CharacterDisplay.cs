@@ -15,6 +15,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private Button btn;
     [SerializeField] private GameObject notification;
+    [SerializeField] private SlicedFilledImage manualTargettingCDDisplay;
     public GameObject deathSkull;
 
     //to get position of mouse to be used in MOuseUp
@@ -83,7 +84,10 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                     }
                     //If held on a characterDisplay that has already been dropped and that the zone has started
                     else if (character.dropped && uiManager.zoneStarted()) {
-                        uiManager.manualTargetting.characterToControl = character;
+                        if(character.manualTargettingCDRemaining <= 0)
+                            uiManager.manualTargetting.characterToControl = character;
+                        else
+                            uiManager.tooltip.showMessage("Commanding this character is on cooldown");
                     }
                 }
 
@@ -168,6 +172,11 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
             notification.SetActive(false);
 
         level.text = character.level.ToString();
+
+        //Display the manual targetting cooldown by filling the image accordingly
+        
+        manualTargettingCDDisplay.fillAmount = (ManualTargetting.manualTargettingCD - character.manualTargettingCDRemaining) / ManualTargetting.manualTargettingCD;
+        
     }
 
     public void OnPointerDown(PointerEventData eventData) {

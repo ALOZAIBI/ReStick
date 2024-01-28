@@ -86,7 +86,7 @@ public class Character : MonoBehaviour {
 
     [SerializeField] private int previousAttackTargetStrategy;
     [SerializeField] private Character manualTarget;
-    private List<int> previousAbilityTargettings = new List<int>();
+    public float manualTargettingCDRemaining = 0;
 
     //used to root silence and blind etc..
     //the number is increased by 1 every time the character is rooted/silenced/blinded
@@ -1468,7 +1468,7 @@ public class Character : MonoBehaviour {
             target = null;
         }
         return target != null;
-    }
+        }
 
     //this is used when there is no need for range i.e auto attack movement
     public bool selectTarget(int whatStrategy) {
@@ -1484,6 +1484,8 @@ public class Character : MonoBehaviour {
         }
         attackTargetStrategy = (int)TargetList.ManualEnemy;
         displayTargettingText();
+        if(uiManager.zoneStarted())
+            manualTargettingCDRemaining = ManualTargetting.manualTargettingCD;
     }
 
     //If manually targetting End manual targetting
@@ -1652,12 +1654,16 @@ public class Character : MonoBehaviour {
 
                 //if held manually target
                 if (team == (int)teamList.Player && mouseHoldDuration > 0.2f) {
-                    held = true;
-                    uiManager.manualTargetting.characterToControl = this;
-                    //Also select tthe character make topstatdisplay show them
-                    uiManager.viewTopstatDisplay(this);
-                    //uiManager.manualTargetting.selectTarget();
-                    camMov.pannable = false;
+                    if (manualTargettingCDRemaining <= 0) {
+                        held = true;
+                        uiManager.manualTargetting.characterToControl = this;
+                        //Also select tthe character make topstatdisplay show them
+                        uiManager.viewTopstatDisplay(this);
+                        //uiManager.manualTargetting.selectTarget();
+                        camMov.pannable = false;
+                    }
+                    else
+                        uiManager.tooltip.showMessage("Commanding this character is on cooldown");
                 }
 
             }
@@ -1869,6 +1875,13 @@ public class Character : MonoBehaviour {
         //Checks if the manualTarget is still alive if it's not then end manualTargetting
         if(manualTarget !=null && !manualTarget.alive) {
             endManualTarget();
+        }
+
+        if(manualTargettingCDRemaining > 0) {
+            manualTargettingCDRemaining -= Time.fixedDeltaTime;
+        }
+        else {
+            manualTargettingCDRemaining = 0;
         }
     }
 

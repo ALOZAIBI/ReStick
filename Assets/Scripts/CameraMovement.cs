@@ -48,7 +48,13 @@ public class CameraMovement : MonoBehaviour
             touchCount = Input.touchCount;
             if (touching) {
                 dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(avgPosOfTouches());
-                cam.transform.position += (Vector3)dragDifference;
+                //To unlock the camera from character drag difference has to be greater than 0.1
+                if (dragDifference.magnitude > 0.2f) {
+                    characterToFocusOn = null;
+                }
+                //Only move camera if no character currently being focused on
+                if (characterToFocusOn == null)
+                    cam.transform.position += (Vector3)dragDifference;
             }
         }
         else {

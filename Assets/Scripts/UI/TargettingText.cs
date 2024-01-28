@@ -17,7 +17,7 @@ public class TargettingText : KeepOnTarget {
     {
         //Slowly move up
         distance += speed*Time.fixedUnscaledDeltaTime;
-        speed += 10f*Time.fixedUnscaledDeltaTime;
+        speed += 5f*Time.fixedUnscaledDeltaTime;
         //Set the transform
         transform.position = target.transform.position + new Vector3(0, distance, 0);
         
