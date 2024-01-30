@@ -151,14 +151,7 @@ public class Zone : MonoBehaviour
             completed = true;
             zoneDone = true;
 
-            uIManager.timeControl.resetTime();
-            //Removes manual targeting from all allied characters
-            foreach (Transform child in UIManager.singleton.playerParty.transform) {
-                if (child.tag == "Character") {
-                    Character temp = child.GetComponent<Character>();
-                    temp.endManualTarget();
-                }
-            }
+            endZone();
         }
     }
     //if all player Character's in play died decrease totallives and displaygamelost
@@ -171,13 +164,8 @@ public class Zone : MonoBehaviour
                     return;
             }
 
-            //Removes manual targeting from all allied characters
-            foreach (Transform child in UIManager.singleton.playerParty.transform) {
-                if (child.tag == "Character") {
-                    Character temp = child.GetComponent<Character>();
-                    temp.endManualTarget();
-                }
-            }
+
+            endZone();
 
             //otherwise zone is lost
             playerParty.lifeShards--;
@@ -195,7 +183,6 @@ public class Zone : MonoBehaviour
                 completed = false;
                 SaveSystem.saveZone(this);
             }
-            uIManager.timeControl.resetTime();
             //If game over display Game over screen otherwise blink back to level select
             if (!uIManager.checkGameOver()) {
                 uIManager.backToMap();
@@ -203,6 +190,19 @@ public class Zone : MonoBehaviour
         }
     }
 
+    public void endZone() {
+        //Removes manual targeting from all allied characters and reset manual targeting cd
+        foreach (Transform child in UIManager.singleton.playerParty.transform) {
+            if (child.tag == "Character") {
+                Character temp = child.GetComponent<Character>();
+                temp.endManualTarget();
+                temp.manualTargettingCDRemaining = 0;
+            }
+        }
+
+        uIManager.timeControl.resetTime();
+
+    }
 
     void FixedUpdate()
     {
