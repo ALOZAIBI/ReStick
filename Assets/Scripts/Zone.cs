@@ -191,16 +191,24 @@ public class Zone : MonoBehaviour
     }
 
     public void endZone() {
+        //revive dead characters and set them to 20 % health
         //Removes manual targeting from all allied characters and reset manual targeting cd
         foreach (Transform child in UIManager.singleton.playerParty.transform) {
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
                 temp.endManualTarget();
                 temp.manualTargettingCDRemaining = 0;
+                if(!temp.alive) {
+                    temp.alive = true;
+                    temp.HP= 0.2f*temp.HPMax ;
+                }
             }
         }
 
         uIManager.timeControl.resetTime();
+
+        //End of zone 
+
 
     }
 

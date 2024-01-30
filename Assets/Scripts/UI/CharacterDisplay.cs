@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEditor.Experimental.GraphView;
 
 public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     public Character character;
@@ -174,11 +175,17 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
         level.text = character.level.ToString();
 
         //Display the manual targetting cooldown by filling the image accordingly
+        if (character.alive) { 
+            manualTargettingCDDisplay.fillAmount = (ManualTargetting.manualTargettingCD - character.manualTargettingCDRemaining) / ManualTargetting.manualTargettingCD; 
+        }
+        else
+            manualTargettingCDDisplay.fillAmount = 0;
+            
         
-        manualTargettingCDDisplay.fillAmount = (ManualTargetting.manualTargettingCD - character.manualTargettingCDRemaining) / ManualTargetting.manualTargettingCD;
-
         //Continously update image
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
+
+        deathSkull.SetActive(!character.alive);
 
     }
 
