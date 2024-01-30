@@ -176,7 +176,10 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
         //Display the manual targetting cooldown by filling the image accordingly
         
         manualTargettingCDDisplay.fillAmount = (ManualTargetting.manualTargettingCD - character.manualTargettingCDRemaining) / ManualTargetting.manualTargettingCD;
-        
+
+        //Continously update image
+        characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
+
     }
 
     public void OnPointerDown(PointerEventData eventData) {
