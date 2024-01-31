@@ -53,7 +53,7 @@ public class AbilityDisplayShop : MonoBehaviour
         }
     }
     //selected click again to buy
-    public void highlight() {
+    public virtual void highlight() {
         if (!purchased) {
             Color temp = background.color;
             temp.a = 1f;
@@ -61,7 +61,7 @@ public class AbilityDisplayShop : MonoBehaviour
             buy.SetActive(true);
         }
     }
-    public void unHighlight() {
+    public virtual void unHighlight() {
         if (!purchased) {
             Color temp = background.color;
             temp.a = 0.7f;

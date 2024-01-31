@@ -5,9 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopScreen : MonoBehaviour
-{
+public class ShopScreen : MonoBehaviour {
     public GameObject abilityDisplayObj;
+    public GameObject sellAbilityDisplayObj;
+
     public GameObject characterDisplayObj;
     public GameObject characterPlayerPartyDisplayObj;
 
@@ -16,9 +17,21 @@ public class ShopScreen : MonoBehaviour
     public GameObject characterArea;
     public GameObject characterPlayerPartyArea;
 
+    public GameObject sellAbilityArea;
+
+
     public Button closeBtn;
 
     public Button buyLifeShardBtn;
+
+    public GameObject buyScreen;
+    public GameObject sellScreen;
+
+    public Button goToBuyScreenBtn;
+    public Button goToSellScreenBtn;
+
+    public List<Image> buyScreenBtnImages = new List<Image>();
+    public List<Image> sellScreenBtnImages = new List<Image>();
 
     //cost of purchase of abilities
     public int commonCost;
@@ -40,24 +53,29 @@ public class ShopScreen : MonoBehaviour
     //Haven't done yet but should do same as listAbilities
     public List<CharacterDisplayShop> listCharacters = new List<CharacterDisplayShop>();
 
+    //so that AbilityDisplaySell can deselect everything else when it is selected
+    public List<AbilityDisplaySell> listSellableAbilities = new List<AbilityDisplaySell>();
+
     private void Start() {
         closeBtn.onClick.AddListener(closeScreen);
         buyLifeShardBtn.onClick.AddListener(buyLifeShard);
+
+        goToBuyScreenBtn.onClick.AddListener(displayBuyScreen);
+        goToSellScreenBtn.onClick.AddListener(displaySellScreen);
     }
+
 
     public void buyLifeShard() {
         //If the player has enough money to buy shards and has less than maximum shards then buy it
-        if (UIManager.singleton.playerParty.gold >= lifeShardCost && UIManager.singleton.playerParty.lifeShards< UIManager.singleton.playerParty.maxLifeShards) {
+        if (UIManager.singleton.playerParty.gold >= lifeShardCost && UIManager.singleton.playerParty.lifeShards < UIManager.singleton.playerParty.maxLifeShards) {
             UIManager.singleton.playerParty.gold -= lifeShardCost;
-            UIManager.singleton.playerParty.lifeShards ++;
+            UIManager.singleton.playerParty.lifeShards++;
             UIManager.singleton.saveMapSave();
         }
     }
     public void setupShopScreen() {
-        close();
-        displayAbilities();
-        displayCharacters();
-        buyLifeShardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Buy a Life Shard "+ lifeShardCost;
+        displayBuyScreen();
+        //buyLifeShardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Buy a Life Shard " + lifeShardCost;
     }
 
 
@@ -78,14 +96,15 @@ public class ShopScreen : MonoBehaviour
     }
     //closes the abilityDisplays
     private void closeAbilities() {
-        foreach(Transform child in abilityArea.transform) {
+        foreach (Transform child in abilityArea.transform) {
             if (child.tag != "DontDelete")
                 Destroy(child.gameObject);
         }
     }
+    
     public void closeCharacters() {
         foreach (Transform child in characterArea.transform) {
-            if (child.tag != "DontDelete") 
+            if (child.tag != "DontDelete")
                 Destroy(child.gameObject);
         }
     }
@@ -96,22 +115,33 @@ public class ShopScreen : MonoBehaviour
     //            Destroy(child.gameObject);
     //    }
     //}
-    public void close() {
+    public void closeBuyScreen() {
         closeAbilities();
         closeCharacters();
         //closeCharactersPlayerParty();
         listAbilities.Clear();
         listCharacters.Clear();
     }
+    private void closeSellAbilities() {
+        foreach (Transform child in sellAbilityArea.transform) {
+            if (child.tag != "DontDelete")
+                Destroy(child.gameObject);
+        }
+    }
+    public void closeSellScreen() {
+        closeSellAbilities();
+        listSellableAbilities.Clear();
+    }
     private void closeScreen() {
-        close();
+        closeBuyScreen();
+        closeSellScreen();
         UIManager.singleton.shopScreenHidden.hidden = true;
     }
     public void displayAbilities() {
         //creates ability Displays
         for (int i = 0; i < shop.abilityHolder.transform.childCount; i++) {
             //creates the display and makes it a child of abilityArea
-            AbilityDisplayShop abilityDisplay = Instantiate(abilityDisplayObj,abilityArea.transform).GetComponent<AbilityDisplayShop>();
+            AbilityDisplayShop abilityDisplay = Instantiate(abilityDisplayObj, abilityArea.transform).GetComponent<AbilityDisplayShop>();
             listAbilities.Add(abilityDisplay);
             abilityDisplay.index = i;
             //gets the ability from shop
@@ -133,9 +163,9 @@ public class ShopScreen : MonoBehaviour
 
     public void displayCharacters() {
         //creates character Displays
-        for(int i = 0;i<shop.characterHolder.transform.childCount;i++) {
+        for (int i = 0; i < shop.characterHolder.transform.childCount; i++) {
             Debug.Log("Character holder cjild amount" + shop.characterHolder.transform.childCount);
-            CharacterDisplayShop characterDisplay = Instantiate(characterDisplayObj,characterArea.transform).GetComponent<CharacterDisplayShop>() ;
+            CharacterDisplayShop characterDisplay = Instantiate(characterDisplayObj, characterArea.transform).GetComponent<CharacterDisplayShop>();
             listCharacters.Add(characterDisplay);
             characterDisplay.index = i;
             Character temp = shop.characterHolder.transform.GetChild(i).GetComponent<Character>();
@@ -145,6 +175,60 @@ public class ShopScreen : MonoBehaviour
         }
     }
 
+    //Display buy screen
+    private void displayBuyScreen() {
+        closeBuyScreen();
+        displayAbilities();
+        displayCharacters();
+
+        buyScreen.SetActive(true);
+        sellScreen.SetActive(false);
+        //grey out the sellScreenBtn images
+        foreach (Image image in sellScreenBtnImages) {
+            image.SetAlpha(0.5f);
+        }
+
+        //Ungrey the buyScreenBtn images
+        foreach (Image image in buyScreenBtnImages) {
+            image.SetAlpha(1);
+        }
+
+    }
+    public void displaySellScreen() {
+        closeSellScreen();
+        buyScreen.SetActive(false);
+        sellScreen.SetActive(true);
+        //grey out the buyScreenBtn images
+        foreach (Image image in buyScreenBtnImages) {
+            image.SetAlpha(0.5f);
+        }
+
+        //Ungrey the sellScreenBtn images
+        foreach (Image image in sellScreenBtnImages) {
+            image.SetAlpha(1);
+        }
+
+        displaySellableItems();
+    }
+    private void displaySellableItems() {
+        //creates ability Displays
+        for (int i = 0; i < UIManager.singleton.playerParty.abilityInventory.transform.childCount; i++) {
+            //creates the display and makes it a child of abilityArea
+            AbilityDisplaySell abilityDisplay = Instantiate(sellAbilityDisplayObj, sellAbilityArea.transform).GetComponent<AbilityDisplaySell>();
+            listSellableAbilities.Add(abilityDisplay);
+            abilityDisplay.index = i;
+            //gets the ability from inventory
+            Ability temp = UIManager.singleton.playerParty.abilityInventory.transform.GetChild(i).GetComponent<Ability>();
+            //Sell price is half of buy price
+            abilityDisplay.price = costOfAbility(temp)/2;
+            abilityDisplay.ability = temp;
+            abilityDisplay.abilityName.text = temp.abilityName;
+            abilityDisplay.description.text = temp.description;
+            //sets the scale for some reason if I dont do this the scale is set to 167
+            abilityDisplay.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+
+    }
     //public void displayPlayerParty() {
     //    //deletes all created instances before recreating to account for dead characters etc..
     //    closeCharactersPlayerParty();
@@ -189,4 +273,6 @@ public class ShopScreen : MonoBehaviour
     //private void Update() {
     //    goldText.text = "G:"+UIManager.singleton.playerParty.gold;
     //}
+
+
 }
