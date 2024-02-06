@@ -18,6 +18,8 @@ public class ScreenBlink : MonoBehaviour
     private float blinkCloseStartTime;
     private float blinkOpenStartTime;
 
+    //Used to make lerp work with deltaTime
+    private float timeSinceBlinkStart;
 
     // Start is called before the first frame update
     void Start()
@@ -55,16 +57,21 @@ public class ScreenBlink : MonoBehaviour
 
         blinkClose = true;
         blinkCloseStartTime = Time.unscaledTime;
+        timeSinceBlinkStart = blinkCloseStartTime;
     }
 
     public void startBlinkOpen() {
         blinkOpen = true;
+
         blinkOpenStartTime = Time.unscaledTime;
+        timeSinceBlinkStart = blinkOpenStartTime;
     }
     // Update is called once per frame
     void Update() {
         if (blinkClose) {
-            float t = (Time.unscaledTime - blinkCloseStartTime) / blinkDuration;
+            timeSinceBlinkStart += Time.unscaledDeltaTime;
+
+            float t = (timeSinceBlinkStart - blinkCloseStartTime) / blinkDuration;
             panel1.transform.position = Vector2.Lerp(panel1.transform.position, Camera.main.transform.position, t);
             panel2.transform.position = Vector2.Lerp(panel2.transform.position, Camera.main.transform.position, t);
 
@@ -76,7 +83,9 @@ public class ScreenBlink : MonoBehaviour
         }
 
         if (blinkOpen && !blinkClose) {
-            float t = (Time.unscaledTime - blinkOpenStartTime) / blinkDuration;
+            timeSinceBlinkStart += Time.unscaledDeltaTime;
+
+            float t = (timeSinceBlinkStart - blinkOpenStartTime) / blinkDuration;
             panel1.transform.position = Vector2.Lerp(panel1.transform.position, panel1OutOfViewPos(), t);
             panel2.transform.position = Vector2.Lerp(panel2.transform.position, panel2OutOfViewPos(), t);
 
