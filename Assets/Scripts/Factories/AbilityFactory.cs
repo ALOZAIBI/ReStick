@@ -78,7 +78,7 @@ public class AbilityFactory : MonoBehaviour
     }
     public void addRandomAbilityToShop(Shop shop,int amount) {
         for(int i = 0;i < amount; i++) {
-            Instantiate(randomAbility(33,18,8),shop.abilityHolder.transform);
+            Instantiate(randomAbility(48,23,7),shop.abilityHolder.transform);
         }
     }
     public void addRequestedAbilitiesToShop(Shop shop, List<string> abilityNames) {
