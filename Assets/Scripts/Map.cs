@@ -12,7 +12,7 @@ public class Map : MonoBehaviour
 
     public SceneSelect[] sceneSelectors;
     private void Start() {
-        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        uiManager = UIManager.singleton;
         sceneSelectors = FindObjectsOfType<SceneSelect>();
         uiManager.menuUIHidden.hidden = false;
 
@@ -22,6 +22,9 @@ public class Map : MonoBehaviour
         //Focuses camera on the next level
         Transform nextLevel = getNextLevel();
         Camera.main.transform.position = new Vector3(0, nextLevel.position.y, Camera.main.transform.position.z);
+
+        //Makes camera pannable (Sometimes it's not pannable since the camera isnot done doing the focus thing)
+        uiManager.camMov.pannable = true;
 
         checkIfWon();
 

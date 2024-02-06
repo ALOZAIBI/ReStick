@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     public  string saveSlot;
     //used to reset cam position when changing scenes 
     public Camera cam;
+    public CameraMovement camMov;
 
     //Btn used to close all UI
     public Button closeUIBtn;
@@ -177,6 +178,8 @@ public class UIManager : MonoBehaviour
         openInventoryBtn.onClick.AddListener(openInventory);
         openShopButton.onClick.AddListener(openShop);
         openHospitalBtn.onClick.AddListener(openHospital);
+
+        camMov = Camera.main.GetComponent<CameraMovement>();
     }
 
     //on first time clicking character Display its info in the topstatDisplay
