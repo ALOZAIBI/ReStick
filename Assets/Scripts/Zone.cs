@@ -144,6 +144,7 @@ public class Zone : MonoBehaviour
     //if there are no enemies alive and there is atleast 1 playerCharacter alive show win screen
     private void zoneWon() {
         if (enemiesAlive == 0 && alliesAlive > 0) {
+            endZone();
             //pauses the game and displays game won
             uIManager.pausePlay(true);
             uIManager.displayGameWon(belongsToMap);
@@ -151,7 +152,6 @@ public class Zone : MonoBehaviour
             completed = true;
             zoneDone = true;
 
-            endZone();
         }
     }
     //if all player Character's in play died decrease totallives and displaygamelost
@@ -206,7 +206,13 @@ public class Zone : MonoBehaviour
         }
 
         uIManager.timeControl.resetTime();
-
+        
+        uIManager.clearBuffs();
+        //Removes all the auras
+        Aura[] auras = FindObjectsOfType<Aura>();
+        foreach (Aura aura in auras) {
+            Destroy(aura.gameObject);
+        }
         //End of zone 
 
 

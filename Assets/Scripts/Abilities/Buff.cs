@@ -108,7 +108,7 @@ public class Buff : MonoBehaviour
             target.buffs.Add(this);
             startDuration();
             applied = true;
-            //Debug.Log("Applying buff on " + target.name);
+            Debug.Log("Applying buff on " + target.name);
         }
     }
 
@@ -226,11 +226,13 @@ public class Buff : MonoBehaviour
         toBeRemovedFrom.gameObject.transform.localScale -= new Vector3(size, size, size);
         toBeRemovedFrom.Range -= 0.75f * size;//see apply buff
         toBeRemovedFrom.buffs.Remove(this);
+        Debug.Log("Buff:" + code + "Not in stats anymore ");
     }
     //removes the applied stats then deletes this gameobject
     public void removeBuff() {
         removeBuffAppliedStats(target);
         Destroy(gameObject);
+        Debug.Log("Buff:" + code + "Removed !!");
     }
 
     //keeps the visual fx on target

@@ -262,7 +262,7 @@ public class UIManager : MonoBehaviour
     //loads map and removes buffs
     public void loadScene() {
 
-        clearBuffs();
+        //clearBuffs();
         //resets position of camera
         //Camera.main.transform.position = new Vector3(0, 0, -10);
         zoneWonScreenHidden.hidden = true;
@@ -490,6 +490,7 @@ public class UIManager : MonoBehaviour
                 if (temp.buffs.Count > 0) {
                     //the .ToArray is needed to prevent the error of collection is modified while accessing it
                     foreach (Buff buff in temp.buffs.ToArray()) {
+                        Debug.Log("Buff:"+buff.code + "Removed from" + temp.name);
                         buff.removeBuff();
                     }
                 }
