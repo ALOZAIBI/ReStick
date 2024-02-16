@@ -79,5 +79,7 @@ public class Pull : Ability
     {
         if(pulling)
             doPull();
+
+        cooldown();
     }
 }

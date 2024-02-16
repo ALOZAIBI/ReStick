@@ -229,6 +229,8 @@ public class Character : MonoBehaviour {
     public bool hasArchetype;
     public string archetypeName;
 
+    [SerializeField] private GameObject coin;
+
     //Text that appears on top of the character when zone starts indicating it's targetting strategy
 
 
@@ -1619,6 +1621,11 @@ public class Character : MonoBehaviour {
             zone.charactersInside.Remove(this);
             gameObject.SetActive(false);
             alive = false;
+            //if the character is not a player character instantiate a coin
+            if(team != (int)teamList.Player) {
+                GameObject temp = Instantiate(coin, transform.position, Quaternion.identity);
+                temp.GetComponent<Coin>().valueInGold = calculateGold(level);
+            }
         }
     }
     //to prevent HP going over the maximum
@@ -1708,6 +1715,9 @@ public class Character : MonoBehaviour {
         }
         totalDamage += damageAmount;
     }
+    private int calculateGold(int level) {
+        return 11 * (1 + Mathf.CeilToInt(level / 4));
+    }
     //increase killer's kill stats and xp
     public void kill(Character victim) {
         //if victim is summoned don't increase XP and gold (to prevent exploits)
@@ -1732,7 +1742,7 @@ public class Character : MonoBehaviour {
                 increasePartyXP(victim.level);
                 //add gold
                 if (this.team == (int)teamList.Player) {
-                    uiManager.playerParty.gold += 11 * (1 + Mathf.CeilToInt(victim.level / 4));
+                    uiManager.playerParty.gold += calculateGold(victim.level);
 
                 }
             }
@@ -1744,7 +1754,7 @@ public class Character : MonoBehaviour {
                 increasePartyXP(victim.level);
                 //add gold
                 if (this.team == (int)teamList.Player) {
-                    uiManager.playerParty.gold += 11 * (1 + Mathf.CeilToInt(victim.level / 4));
+                    uiManager.playerParty.gold += calculateGold(victim.level);
                 }
             }
         }

@@ -138,7 +138,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector]public HideUI hospitalScreenHidden;
     [HideInInspector]public HideUI menuUIHidden;
 
-    
+    public CoinManager coinManager;
 
     private void Awake() {
         singleton = this;

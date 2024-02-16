@@ -51,7 +51,7 @@ MonoBehaviour:
   description: 
   color: {r: 0, g: 0, b: 0, a: 0}
   buffFXColor: {r: 0, g: 0, b: 0, a: 0}
-  CD: 0
+  CD: 8
   rangeAbility: 4
   available: 1
   abilityNext: 0
@@ -88,14 +88,14 @@ MonoBehaviour:
   valueAmt:
   - 0
   - 0
-  hasTarget: 0
+  hasTarget: 1
   prefabObject: {fileID: 0}
   buffPrefab: {fileID: 0}
   Rarities: 1
   rarity: 1
-  targetStrategy: 0
+  targetStrategy: 1
   canTargetAlly: 0
-  canTargetEnemy: 0
+  canTargetEnemy: 1
   step: 0
   hitFX: {fileID: 0}
   hitFXColor: {r: 0, g: 0, b: 0, a: 0}

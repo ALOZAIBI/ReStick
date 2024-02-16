@@ -69,7 +69,7 @@ public class AbilityDisplayReward : MonoBehaviour
         }
         background.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
 
-        unHighlight();
+        //unHighlight();
     }
 
     public void highlight() {
@@ -79,7 +79,7 @@ public class AbilityDisplayReward : MonoBehaviour
     }
     public void unHighlight() {
         Color temp = background.color;
-        temp.a = 0.7f;
+        temp.a = 0.3f;
         background.color = temp;
     }
 

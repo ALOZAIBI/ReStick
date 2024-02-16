@@ -101,6 +101,8 @@ public class Zone : MonoBehaviour
         uIManager.tutorial.beginDraggingCharactersTutorial();
         uIManager.tutorial.beginAddingAbilityTutorial();
         uIManager.tutorial.beginUpgradingStatsTutorial();
+
+        uIManager.coinManager.setUp();
     }
     //draws an overlay using placeable Tile over the placeable tilemap
     private void drawPlaceableOverlay() {
@@ -144,6 +146,7 @@ public class Zone : MonoBehaviour
     //if there are no enemies alive and there is atleast 1 playerCharacter alive show win screen
     private void zoneWon() {
         if (enemiesAlive == 0 && alliesAlive > 0) {
+            uIManager.coinManager.zoneEnded = true;
             endZone();
             //pauses the game and displays game won
             uIManager.pausePlay(true);
@@ -213,7 +216,7 @@ public class Zone : MonoBehaviour
         foreach (Aura aura in auras) {
             Destroy(aura.gameObject);
         }
-        //End of zone 
+
 
 
     }
