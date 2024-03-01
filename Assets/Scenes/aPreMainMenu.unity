@@ -10198,6 +10198,7 @@ GameObject:
   - component: {fileID: 564994028}
   - component: {fileID: 564994030}
   - component: {fileID: 564994029}
+  - component: {fileID: 564994031}
   m_Layer: 10
   m_Name: Gold Bar
   m_TagString: Untagged
@@ -10266,6 +10267,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564994027}
   m_CullTransparentMesh: 1
+--- !u!114 &564994031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564994027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9eb8748b1e69c408d4ad18b1076040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 929411064}
+  goldToDisplay: 0
+  totalMoveTime: 0.5
 --- !u!1001 &570105008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21452,7 +21468,7 @@ MonoBehaviour:
   sceneToLoad: 
   gameOverScreen: {fileID: 1283602304}
   topBarUI: {fileID: 1001199166}
-  goldtext: {fileID: 929411064}
+  goldtext: {fileID: 564994031}
   lifeShardText: {fileID: 49064351}
   topStatDisplay: {fileID: 1675908487}
   pausePlayBtn: {fileID: 1265529265}

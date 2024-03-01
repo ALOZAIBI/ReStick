@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
 {
     public float speed = 10f;
     //This will determine the size of the coin (It's scale will be multiplied by this value)
-    public float valueInGold;
+    public int valueInGold;
 
     [SerializeField]private SpriteRenderer spriteRenderer;
     void Start()
@@ -29,9 +29,15 @@ public class Coin : MonoBehaviour
         spriteRenderer.SetAlpha(1);
 
         transform.position = Vector2.MoveTowards(transform.position, UIManager.singleton.goldtext.transform.position, speed * Time.unscaledDeltaTime);
+        //Remove the coin from the scene once it has reached the goldtext
         if (Vector2.Distance(transform.position, UIManager.singleton.goldtext.transform.position) < 0.05f) {
             UIManager.singleton.coinManager.coins.Remove(this);
-            Destroy(gameObject);
+            //To simulate the coin hitting
+            UIManager.singleton.goldtext.moveDisplayUp();
+            //Increment the gold to display
+            UIManager.singleton.goldtext.goldToDisplay += valueInGold;
+            UIManager.singleton.goldtext.updateView();
+            gameObject.SetActive(false);
         }
     }
             

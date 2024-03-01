@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
     public GameObject topBarUI;
 
     //displays how much gold player has
-    public TextMeshProUGUI goldtext;
+    public GoldText goldtext;
     
     //displays how many life shards the player has remaining
     public TextMeshProUGUI lifeShardText;
@@ -271,7 +271,9 @@ public class UIManager : MonoBehaviour
         //pausePlayBtn.gameObject.SetActive(true);
         //hides timecontrol
         timeControlHidden.hidden = true;
+
         
+
         //characters are set to inactive in Scene Select        
         UIManager.singleton.loadSceneBlink(sceneToLoad);
         closeUI();
@@ -497,6 +499,11 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    public void updateGoldtextToCurrent() {
+        //Update the goldToDisplay to the actual currentGold
+        goldtext.goldToDisplay = playerParty.gold;
+        goldtext.updateView();
+    }
     //returns if zone started or not
     public bool zoneStarted() {
         //this test is done when game isn;t in zone and hence zone.started cant be tested 
@@ -525,8 +532,8 @@ public class UIManager : MonoBehaviour
             }
             catch { }
         }
-        
-        goldtext.text = playerParty.gold.ToString();
+
+        //goldtext.text = playerParty.gold.ToString();
         
         lifeShardText.text = playerParty.lifeShards.ToString();
         ////display gold if in zone with goldgainedsofar in zone if possible
