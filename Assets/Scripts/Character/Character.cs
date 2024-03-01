@@ -1621,8 +1621,8 @@ public class Character : MonoBehaviour {
             zone.charactersInside.Remove(this);
             gameObject.SetActive(false);
             alive = false;
-            //if the character is not a player character instantiate a coin
-            if(team != (int)teamList.Player) {
+            //if the character is not a player character and is not summoned instantiate a coin
+            if(team != (int)teamList.Player && !summoned) {
                 GameObject temp = Instantiate(coin, transform.position, Quaternion.identity);
                 temp.GetComponent<Coin>().valueInGold = calculateGold(level);
             }
