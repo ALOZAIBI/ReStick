@@ -496,6 +496,15 @@ public class Character : MonoBehaviour {
     public bool selectTarget(int whatStrategy, float withinRange, List<Character> toBeExcluded = null,bool forceNonManual=false) {
         //This is used when abilities attempt to target the manual target but can't because it is out of range
         int abilityNonManualTarget = whatStrategy;
+        //If we are manually targetting an enemy
+        if(attackTargetStrategy == (int)TargetList.ManualEnemy) {
+            //If the current strategy is targetting an ally
+            if (!TargetNames.isEnemy(whatStrategy)) {
+                //Do not change the target to the manual target
+                forceNonManual = true;
+            }
+            
+        }
         //forceNonManual will be set in the manual enemy targetting case to prevent infinite recursion
         if(attackTargetStrategy == (int)TargetList.ManualEnemy && !forceNonManual) {
             whatStrategy = (int)TargetList.ManualEnemy;
