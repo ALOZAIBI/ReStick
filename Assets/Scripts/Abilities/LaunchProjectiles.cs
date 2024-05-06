@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowProjectile : Ability
+//Similar to throwProjectile, but this is a lot more customizable
+public class LaunchProjectiles : Ability
 {
-    
     //Buff Values
     public float PD;
     public float MD;
@@ -26,33 +26,37 @@ public class ThrowProjectile : Ability
     public float initSize;
     public float growSpeed;
 
-    //Summons a projectile
-    //can do cool shit depending on the projectile
-    //for example a projectile that throws an AOE that heals
+    public float numProjectiles;
+    //At what angle width will the projectiles be launched
+    public float angle;
+    public float delayBetweenProjectiles = 0;
+
+
+    //These values need to be reset once the ability is done
+    private float numProjectilesLaunched = 0;
+    private float delaySinceLastProjectile = 0;
+
+    //So that the doAbility can be called even if the target went out of range
+    //___________But what will it be targetting then?_____________
+    private bool startedAbility = false;
+
     public override void Start() {
         base.Start();
         updateDescription();
     }
+
     public override void doAbility() {
-        if (available&& character.selectTarget(targetStrategy,rangeAbility)) {
+        if (available && character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
-            playAnimation("castRaise");
+            if (!startedAbility) {
+                playAnimation("castRaise");
+                startedAbility = true;
+            }
             lockedTarget = character.target;
         }
-
     }
 
-    public override void executeAbility() {
-        //If the target dies before the ability is executed then try to find another target in range, if there is no in range, then simply cancel the ability
-        if (lockedTarget == null || !lockedTarget.alive) {
-            if (character.selectTarget(targetStrategy, rangeAbility)) {
-                lockedTarget = character.target;
-            }
-            else
-                return;
-        }
-        //Debug.Log("ABILITY DONE WHAT");
-
+    private void createProjectile() {
 
         //creates the projectile
         GameObject objProjectile = Instantiate(prefabObject, character.transform.position, character.transform.rotation);
@@ -60,14 +64,14 @@ public class ThrowProjectile : Ability
         //sets the shooter to be the caster of this ability
         projectile.shooter = character;
         //sets the damage amount 
-        projectile.DMG = valueAmt.getAmtValueFromName(this,"Damage");
+        projectile.DMG = valueAmt.getAmtValueFromName(this, "Damage");
 
         projectile.initSize = initSize;
         projectile.targetSize = projectile.transform.localScale.x;
         projectile.growSpeed = growSpeed;
         projectile.target = lockedTarget;
         projectile.angle();
-        Debug.Log("Projectile has no target"+projectile.name + projectile.shooter);
+        Debug.Log("Projectile has no target" + projectile.name + projectile.shooter);
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;
         //if there is a buff in this ability
@@ -79,52 +83,52 @@ public class ThrowProjectile : Ability
             {
                 buff.PD = PD;
                 if (PD > 0) {
-                    buff.PD += valueAmt.getAmtValueFromName(this,"BuffStrength")* PD;
+                    buff.PD += valueAmt.getAmtValueFromName(this, "BuffStrength") * PD;
                 }
 
                 buff.MD = MD;
                 if (MD > 0) {
-                    buff.MD += valueAmt.getAmtValueFromName(this,"BuffStrength")* MD;
+                    buff.MD += valueAmt.getAmtValueFromName(this, "BuffStrength") * MD;
                 }
 
                 buff.INF = INF;
                 if (INF > 0) {
-                    buff.INF += valueAmt.getAmtValueFromName(this,"BuffStrength")* INF;
+                    buff.INF += valueAmt.getAmtValueFromName(this, "BuffStrength") * INF;
                 }
 
                 buff.HP = HP;
                 if (HP > 0) {
-                    buff.HP += valueAmt.getAmtValueFromName(this,"BuffStrength")* HP;
+                    buff.HP += valueAmt.getAmtValueFromName(this, "BuffStrength") * HP;
                 }
 
                 buff.AS = AS;
                 if (AS > 0) {
-                    buff.AS += valueAmt.getAmtValueFromName(this,"BuffStrength")* AS;
+                    buff.AS += valueAmt.getAmtValueFromName(this, "BuffStrength") * AS;
                 }
 
                 buff.CDR = CDR;
                 if (CDR > 0) {
-                    buff.CDR += valueAmt.getAmtValueFromName(this,"BuffStrength")* CDR;
+                    buff.CDR += valueAmt.getAmtValueFromName(this, "BuffStrength") * CDR;
                 }
 
                 buff.MS = MS;
                 if (MS > 0) {
-                    buff.MS += valueAmt.getAmtValueFromName(this,"BuffStrength") * MS;
+                    buff.MS += valueAmt.getAmtValueFromName(this, "BuffStrength") * MS;
                 }
 
                 buff.Range = Range;
                 if (Range > 0) {
-                    buff.Range += valueAmt.getAmtValueFromName(this,"BuffStrength")* Range;
+                    buff.Range += valueAmt.getAmtValueFromName(this, "BuffStrength") * Range;
                 }
 
                 buff.LS = LS;
                 if (LS > 0) {
-                    buff.LS += valueAmt.getAmtValueFromName(this,"BuffStrength")* LS;
+                    buff.LS += valueAmt.getAmtValueFromName(this, "BuffStrength") * LS;
                 }
 
                 buff.size = size;
                 if (size > 0) {
-                    buff.size += valueAmt.getAmtValueFromName(this,"BuffStrength")* size;
+                    buff.size += valueAmt.getAmtValueFromName(this, "BuffStrength") * size;
                 }
 
                 buff.snare = root;
@@ -135,31 +139,10 @@ public class ThrowProjectile : Ability
                 buff.caster = character;
                 buff.target = character.target;
                 //increases buff duration according to AMT
-                buff.duration = valueAmt.getAmtValueFromName(this,"BuffDuration");
+                buff.duration = valueAmt.getAmtValueFromName(this, "BuffDuration");
                 buff.code = abilityName + character.name;
             }
             projectile.buff = buff;
         }
-
-
-        ////sets the projectiles direction
-        //projectile.direction = character.target.transform.position - character.transform.position;
-        ////normalises the direction so that projectile speed won't be affected by target distance
-        //projectile.direction = (10 * projectile.direction).normalized;
-        startCooldown();
     }
-    public override void updateDescription() {
-        description = prefabObject.GetComponent<Projectile>().description;
-
-        if(character!=null) {
-            calculateAmt();
-            description +=" dealing "+valueAmt.getAmtValueFromName(this,"Damage") ;
-        }
-    }
-    
-    private void FixedUpdate() {
-        cooldown();
-    }
-
-
 }

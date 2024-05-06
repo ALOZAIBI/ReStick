@@ -57,6 +57,11 @@ public abstract class Ability : MonoBehaviour
 
     //some abilities apply buffs
     public Buff buffPrefab;
+
+    /// <summary>
+    /// When the animation is done playing if this is set to true then execute of the ability will be called
+    /// </summary>
+    public bool executeAbilityOnEvent = true;
     //Returns the AmtValue of the respective ValueName
     
     public enum RaritiesList {

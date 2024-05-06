@@ -97,6 +97,7 @@ public abstract class Projectile : MonoBehaviour
 
     //angles the attack towards the target
     public void angle() {
+        //Add parameter to choose the angle away from the target
         float angle = Mathf.Atan2(target.transform.position.y - transform.position.y, target.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle + 90);
     }
