@@ -48,7 +48,6 @@ public abstract class Ability : MonoBehaviour
     public List<float> valueAmt = new List<float>();
 
     //to be used if this ability uses target(In order to display target in abilityDisplay) for example in healing aura there is no target
-    //this still isn't used
     public bool hasTarget;
 
     //someAbilities can instantiate prefabs or object

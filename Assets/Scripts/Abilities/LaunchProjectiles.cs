@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //Similar to throwProjectile, but this is a lot more customizable
 public class LaunchProjectiles : Ability
@@ -26,37 +27,90 @@ public class LaunchProjectiles : Ability
     public float initSize;
     public float growSpeed;
 
-    public float numProjectiles;
+    public float numProjectiles=1;
     //At what angle width will the projectiles be launched
-    public float angle;
+    public float angle=0;
     public float delayBetweenProjectiles = 0;
+
+    //How many waves of projectiles will be launched
+    public float numWaves = 1;
+    public float delayBetweenWaves = 1;
 
 
     //These values need to be reset once the ability is done
-    private float numProjectilesLaunched = 0;
+    [SerializeField]private float numProjectilesLaunched = 0;
     private float delaySinceLastProjectile = 0;
+    [SerializeField] private float numWavesLaunched = 0;
+    private float delaySinceLastWave = 0;
 
-    //So that the doAbility can be called even if the target went out of range
-    //___________But what will it be targetting then?_____________
-    private bool startedAbility = false;
+
+    //So that the doAbility can be continuously called until all projecqtiles are launched or if there are no targets
+    private bool abilityStarted = false;
 
     public override void Start() {
         base.Start();
         updateDescription();
+        ////This ability is not executed on animation event
+        //executeAbilityOnEvent = false;
+        //The delay between waves should be more than the delay between projectiles * numProjectiles\
+        if (delayBetweenWaves < delayBetweenProjectiles * numProjectiles)
+            throw new System.Exception("The delay between waves should be more than the delay between projectiles * numProjectiles");
+    }
+
+    public override void executeAbility() {
+        base.executeAbility();
+        abilityStarted = true;
     }
 
     public override void doAbility() {
-        if (available && character.selectTarget(targetStrategy, rangeAbility)) {
+        if (abilityStarted||(available && character.selectTarget(targetStrategy, rangeAbility))) {
+            Debug.Log("LAUNCH PROJECTILE DONE");
             calculateAmt();
-            if (!startedAbility) {
-                playAnimation("castRaise");
-                startedAbility = true;
-            }
             lockedTarget = character.target;
+            //So that the animation is only played once
+            if (!abilityStarted) {
+                playAnimation("castRaise");
+                //So that the wave is launched immediately
+                delaySinceLastWave = delayBetweenWaves;
+            }
+            //After animation is palyed commence the ability
+            else {
+                if (delaySinceLastWave >= delayBetweenWaves || numWaves == 1) {
+
+                    //If the delay has passed since the last projectile was launched
+                    if (delaySinceLastProjectile >= delayBetweenProjectiles) {
+                        playAnimation("castRaise");
+                        //The angle starts from the left of the target and goes to the right
+                        float angleBetweenProjectiles = numProjectiles >1 ? angle / (numProjectiles - 1) : 0;
+                        float angleAwayFromCenter = angle / 2 + -angleBetweenProjectiles * numProjectilesLaunched;
+                        createProjectile(angleAwayFromCenter);
+                        delaySinceLastProjectile = 0;
+                        numProjectilesLaunched++;
+                    }
+
+                    //all projectiles of this wave have been launched
+                    if (numProjectilesLaunched == numProjectiles) {
+                        numProjectilesLaunched = 0;
+                        delaySinceLastProjectile = 0;
+                        delaySinceLastWave = 0;
+                        numWavesLaunched++;
+                    }
+                }
+
+                //What would happen if level is reloaded before all projectiles are launched??
+                if (numWavesLaunched == numWaves) {
+                    abilityStarted = false;
+                    numProjectilesLaunched = 0;
+                    delaySinceLastProjectile = 0;
+                    startCooldown();
+                    //In case the animation is still playing we stop it so that it doesn't set abilityStarted to true again
+                    character.animationManager.forceStop();
+                }
+            }
         }
     }
 
-    private void createProjectile() {
+    private void createProjectile(float angle) {
 
         //creates the projectile
         GameObject objProjectile = Instantiate(prefabObject, character.transform.position, character.transform.rotation);
@@ -70,7 +124,7 @@ public class LaunchProjectiles : Ability
         projectile.targetSize = projectile.transform.localScale.x;
         projectile.growSpeed = growSpeed;
         projectile.target = lockedTarget;
-        projectile.angle();
+        projectile.setAngle(angle);
         Debug.Log("Projectile has no target" + projectile.name + projectile.shooter);
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;
@@ -143,6 +197,22 @@ public class LaunchProjectiles : Ability
                 buff.code = abilityName + character.name;
             }
             projectile.buff = buff;
+        }
+    }
+    public override void updateDescription() {
+        description = prefabObject.GetComponent<Projectile>().description;
+
+        if (character != null) {
+            calculateAmt();
+            description += " dealing " + valueAmt.getAmtValueFromName(this, "Damage");
+        }
+    }
+
+    private void FixedUpdate() {
+        cooldown();
+        if (abilityStarted) {
+            delaySinceLastProjectile += Time.fixedDeltaTime;
+            delaySinceLastWave += Time.fixedDeltaTime;
         }
     }
 }

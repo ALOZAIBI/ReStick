@@ -66,7 +66,7 @@ public class ThrowProjectile : Ability
         projectile.targetSize = projectile.transform.localScale.x;
         projectile.growSpeed = growSpeed;
         projectile.target = lockedTarget;
-        projectile.angle();
+        projectile.setAngle();
         Debug.Log("Projectile has no target"+projectile.name + projectile.shooter);
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;

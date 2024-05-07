@@ -11,15 +11,15 @@ public class ProjectileSimpleHit : Projectile
         //does base start to make the projectile die after lifetime
         base.Start();
         
-        //sets the projectiles direction
-        direction = target.transform.position - shooter.transform.position;
-        //normalises the direction so that projectile speed won't be affected by target distance
-        direction = (10 * direction).normalized;
+        //The angle of the object is set by the ability
     }
 
     //travels in target direction
     public override void trajectory() {
-        transform.position = (Vector2)transform.position + (direction * (speed * Time.fixedDeltaTime));
+        //Move the projectile opposite it's y axis
+        transform.position += speed * Time.fixedDeltaTime * -transform.up;
+
+        
     }
 
     //deals damage to first EnemyHit

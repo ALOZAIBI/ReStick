@@ -34,8 +34,16 @@ public abstract class Projectile : MonoBehaviour
 
     public HitFX hitFX;
     public Color hitFXColor;
-    //handles the trajectory of the projectile
-    public abstract void trajectory();
+    //handles the trajectory of the projectile. Some projectiles will have an angle that makes it not travel directly to the target but at an angle away from them
+    //This would be used for example when we launch multiple projectile in a cone
+    public virtual void trajectory(float angle) {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void trajectory() {
+        throw new System.NotImplementedException();
+    }
+
 
     public virtual void Start() {
         //destroys projectile after lifetime
@@ -95,10 +103,9 @@ public abstract class Projectile : MonoBehaviour
         temp.GetComponent<SpriteRenderer>().color = hitFXColor;
     }
 
-    //angles the attack towards the target
-    public void angle() {
-        //Add parameter to choose the angle away from the target
+    //Sets the angle so that it is visually right
+    public void setAngle(float angleAwayFromTarget=0) {
         float angle = Mathf.Atan2(target.transform.position.y - transform.position.y, target.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle + 90);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle + 90+angleAwayFromTarget);
     }
 }
