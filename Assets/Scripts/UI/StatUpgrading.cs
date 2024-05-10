@@ -7,6 +7,8 @@ using UnityEngine.TextCore.Text;
 using System;
 using UnityEngine.SceneManagement;
 using static System.TimeZoneInfo;
+using Unity.VisualScripting;
+
 public class StatUpgrading : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
     //So far this only alters the display. But when the apply button is clicked the stats are added to the character. And if the 
@@ -16,70 +18,38 @@ public class StatUpgrading : MonoBehaviour {
     public Character lastUsedCharacter;
     public CharacterInfoScreen characterInfoScreen;
 
-    [SerializeField] private GameObject statPointTextContainer;
-    [SerializeField] private TextMeshProUGUI statPointDisplay;
-
-    [SerializeField] public Button addPD;
-    [SerializeField] public Button subPD;
     public GameObject PDIcon;
 
-    [SerializeField] public Button addMD;
-    [SerializeField] public Button subMD;
     public GameObject MDIcon;
 
-    [SerializeField] public Button addINF;
-    [SerializeField] public Button subINF;
     public GameObject INFIcon;
 
-    [SerializeField] public Button addAS;
-    [SerializeField] public Button subAS;
     public GameObject ASIcon;
 
-    [SerializeField] public Button addCDR;
-    [SerializeField] public Button subCDR;
     public GameObject CDRIcon;
 
-    [SerializeField] public Button addMS;
-    [SerializeField] public Button subMS;
     public GameObject MSIcon;
 
-    [SerializeField] public Button addRNG;
-    [SerializeField] public Button subRNG;
     public GameObject RNGIcon;
 
-    [SerializeField] public Button addLS;
-    [SerializeField] public Button subLS;
+   
     public GameObject LSIcon;
 
-    [SerializeField] public Button addHP;
-    [SerializeField] public Button subHP;
-    [SerializeField] public GameObject HPIcon;
+    public GameObject HPIcon;
 
     //the amount that clicking the button adds/removes
-    [SerializeField] public float PDAmt;
-    [SerializeField] public float MDAmt;
-    [SerializeField] public float INFAmt;
-    [SerializeField] public float ASAmt;
-    [SerializeField] public float CDRAmt;
-    [SerializeField] public float MSAmt;
-    [SerializeField] public float RNGAmt;
-    [SerializeField] public float LSAmt;
-    [SerializeField] public float HPAmt;
+    public float PDAmt;
+    public float MDAmt;
+    public float INFAmt;
+    public float ASAmt;
+    public float CDRAmt;
+    public float MSAmt;
+    public float RNGAmt;
+    public float LSAmt;
+    public float HPAmt;
 
-    public LayoutGroup textLayoutGroup1;
-    public LayoutGroup textLayoutGroup2;
+  
 
-    public LayoutGroup iconLayoutGroup1;
-    public LayoutGroup iconLayoutGroup2;
-
-    public LayoutGroup numberLayoutGroup1;
-    public LayoutGroup numberLayoutGroup2;
-
-    public LayoutGroup column1;
-    public LayoutGroup column2;
-
-    [SerializeField] public Button applyChangesBtn;
-    [SerializeField] public Button resetChangesBtn;
     //how much stats are modified so far (not applied)
     private float PDbuffer;
     private float MDbuffer;
@@ -91,76 +61,28 @@ public class StatUpgrading : MonoBehaviour {
     private float LSbuffer;
     private float HPbuffer;
     //How much SP used
-    [SerializeField] public int SPUsedBuffer;
+    public int SPUsedBuffer;
 
 
     //wether the stats have been appleid or not
     public bool applied;
+
+    [SerializeField]public RectTransform upgradeOptions;
+
+    [SerializeField]public Button applyChangesBtn;
+    [SerializeField]public Button resetChangesBtn;
 
     //The object to be initialised that will display the improvements in the ability
     public GameObject abilityDisplayStatDifferences;
     public List<AbilityDisplayStatDifference> abilityDisplayList;
 
     public bool createdAbilityDisplays;
-    //thanks chatGPT
-    public void hide() {
-        // Set all gameObjects to inactive
-        //statPointTextContainer.SetActive(false);
-        //statPointDisplay.gameObject.SetActive(false);
-        addPD.gameObject.SetActive(false);
-        subPD.gameObject.SetActive(false);
-        addMD.gameObject.SetActive(false);
-        subMD.gameObject.SetActive(false);
-        addINF.gameObject.SetActive(false);
-        subINF.gameObject.SetActive(false);
-        addAS.gameObject.SetActive(false);
-        subAS.gameObject.SetActive(false);
-        addCDR.gameObject.SetActive(false);
-        subCDR.gameObject.SetActive(false);
-        addMS.gameObject.SetActive(false);
-        subMS.gameObject.SetActive(false);
-        addRNG.gameObject.SetActive(false);
-        subRNG.gameObject.SetActive(false);
-        addLS.gameObject.SetActive(false);
-        subLS.gameObject.SetActive(false);
-        addHP.gameObject.SetActive(false);
-        subHP.gameObject.SetActive(false);
-        HPIcon.SetActive(false);
 
-        applyChangesBtn.gameObject.SetActive(false);
-        resetChangesBtn.gameObject.SetActive(false);
-        closeAbilityDisplays();
-    }
-
-    public void show() {
-        createdAbilityDisplays = false;
-        // Set all gameObjects to active
-        //statPointTextContainer.SetActive(true);
-        //statPointDisplay.gameObject.SetActive(true);
-        addPD.gameObject.SetActive(true);
-        subPD.gameObject.SetActive(true);
-        addMD.gameObject.SetActive(true);
-        subMD.gameObject.SetActive(true);
-        addINF.gameObject.SetActive(true);
-        subINF.gameObject.SetActive(true);
-        addAS.gameObject.SetActive(true);
-        subAS.gameObject.SetActive(true);
-        addCDR.gameObject.SetActive(true);
-        subCDR.gameObject.SetActive(true);
-        addMS.gameObject.SetActive(true);
-        subMS.gameObject.SetActive(true);
-        addRNG.gameObject.SetActive(true);
-        subRNG.gameObject.SetActive(true);
-        addLS.gameObject.SetActive(true);
-        subLS.gameObject.SetActive(true);
-        addHP.gameObject.SetActive(true);
-        subHP.gameObject.SetActive(true);
-        HPIcon.SetActive(true);
+    public void showUpgrades() {
         applyChangesBtn.gameObject.SetActive(true);
         resetChangesBtn.gameObject.SetActive(true);
-        updateAddColors();
-        updateSubColors();
     }
+
     public void focusAbilityIconHolder() {
         foreach(RectTransform rectTransform in characterInfoScreen.abilityDisplays) {
             AbilityDisplay abilityDisplay = rectTransform.GetComponent<AbilityDisplay>();
@@ -174,31 +96,8 @@ public class StatUpgrading : MonoBehaviour {
         }
     }
     private void Start() {
-        // Add onClick listeners for all buttons
-        addPD.onClick.AddListener(OnAddPDButtonClicked);
-        subPD.onClick.AddListener(OnSubPDButtonClicked);
-        addMD.onClick.AddListener(OnAddMDButtonClicked);
-        subMD.onClick.AddListener(OnSubMDButtonClicked);
-        addINF.onClick.AddListener(OnAddINFButtonClicked);
-        subINF.onClick.AddListener(OnSubINFButtonClicked);
-        addAS.onClick.AddListener(OnAddASButtonClicked);
-        subAS.onClick.AddListener(OnSubASButtonClicked);
-        addCDR.onClick.AddListener(OnAddCDRButtonClicked);
-        subCDR.onClick.AddListener(OnSubCDRButtonClicked);
-        addMS.onClick.AddListener(OnAddMSButtonClicked);
-        subMS.onClick.AddListener(OnSubMSButtonClicked);
-        addRNG.onClick.AddListener(OnAddRNGButtonClicked);
-        subRNG.onClick.AddListener(OnSubRNGButtonClicked);
-        addLS.onClick.AddListener(OnAddLSButtonClicked);
-        subLS.onClick.AddListener(OnSubLSButtonClicked);
-        addHP.onClick.AddListener(OnAddHPButtonClicked);
-        subHP.onClick.AddListener(OnSubHPButtonClicked);
-
         applyChangesBtn.onClick.AddListener(applyChanges);
         resetChangesBtn.onClick.AddListener(resetChanges);
-
-        hide();
-        //fakeStatDisplay();
     }
 
     public void applyChanges() {
@@ -227,9 +126,10 @@ public class StatUpgrading : MonoBehaviour {
         else
             UIManager.singleton.saveMapSave();
 
-        hide();
+        //hide();
         unFocusAbilityIconHolder();
         characterInfoScreen.startUnfocusing();
+
 
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked
@@ -267,296 +167,12 @@ public class StatUpgrading : MonoBehaviour {
         updateStatDisplay();
     }
 
-    #region Buttons
-    // OnAdd function for PD
-    public void OnAddPDButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.PD += PDAmt;
-            PDbuffer += PDAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for PD
-    public void OnSubPDButtonClicked() {
-        if (PDbuffer > 0) {
-            characterInfoScreen.character.PD -= PDAmt;
-            PDbuffer -= PDAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for MD
-    public void OnAddMDButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.MD += MDAmt;
-            MDbuffer += MDAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for MD
-    public void OnSubMDButtonClicked() {
-        if (MDbuffer > 0) {
-            characterInfoScreen.character.MD -= MDAmt;
-            MDbuffer -= MDAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for INF
-    public void OnAddINFButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.INF += INFAmt;
-            INFbuffer += INFAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for INF
-    public void OnSubINFButtonClicked() {
-        if (INFbuffer > 0) {
-            characterInfoScreen.character.INF -= INFAmt;
-            INFbuffer -= INFAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for AS
-    public void OnAddASButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.AS += ASAmt;
-            ASbuffer += ASAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for AS
-    public void OnSubASButtonClicked() {
-        if (ASbuffer > 0) {
-            characterInfoScreen.character.AS -= ASAmt;
-            ASbuffer -= ASAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for CDR
-    public void OnAddCDRButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.CDR += CDRAmt;
-            CDRbuffer += CDRAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for CDR
-    public void OnSubCDRButtonClicked() {
-        if (CDRbuffer > 0) {
-            characterInfoScreen.character.CDR -= CDRAmt;
-            CDRbuffer -= CDRAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for MS
-    public void OnAddMSButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.MS += MSAmt;
-            MSbuffer += MSAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for MS
-    public void OnSubMSButtonClicked() {
-        if (MSbuffer > 0) {
-            characterInfoScreen.character.MS -= MSAmt;
-            MSbuffer -= MSAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for RNG
-    public void OnAddRNGButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.Range += RNGAmt;
-            RNGbuffer += RNGAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for RNG
-    public void OnSubRNGButtonClicked() {
-        if (RNGbuffer > 0) {
-            characterInfoScreen.character.Range -= RNGAmt;
-            RNGbuffer -= RNGAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for LS
-    public void OnAddLSButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.LS += LSAmt;
-            LSbuffer += LSAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for LS
-    public void OnSubLSButtonClicked() {
-        if (LSbuffer > 0) {
-            characterInfoScreen.character.LS -= LSAmt;
-            LSbuffer -= LSAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    // OnAdd function for HP
-    public void OnAddHPButtonClicked() {
-        if ((characterInfoScreen.character.statPoints) > 0) {
-            characterInfoScreen.character.HP += HPAmt;
-            characterInfoScreen.character.HPMax += HPAmt;
-            HPbuffer += HPAmt;
-            characterInfoScreen.character.statPoints--;
-            SPUsedBuffer++;
-            updateStatDisplay();
-        }
-    }
-
-    // OnSub function for HP
-    public void OnSubHPButtonClicked() {
-        if (HPbuffer > 0) {
-            characterInfoScreen.character.HP -= HPAmt;
-            characterInfoScreen.character.HPMax -= HPAmt;
-            HPbuffer -= HPAmt;
-            characterInfoScreen.character.statPoints++;
-            SPUsedBuffer--;
-            updateStatDisplay();
-        }
-    }
-
-    #endregion
-
-    private void updateAddColors() {
-        //Colors all the add buttons grey if the character has no stat points to spend
-        if (characterInfoScreen.character.statPoints == 0) {
-            addPD.GetComponent<Image>().SetAlpha(0.2f);
-            addMD.GetComponent<Image>().SetAlpha(0.2f);
-            addINF.GetComponent<Image>().SetAlpha(0.2f);
-            addAS.GetComponent<Image>().SetAlpha(0.2f);
-            addCDR.GetComponent<Image>().SetAlpha(0.2f);
-            addMS.GetComponent<Image>().SetAlpha(0.2f);
-            addRNG.GetComponent<Image>().SetAlpha(0.2f);
-            addLS.GetComponent<Image>().SetAlpha(0.2f);
-            addHP.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            addPD.GetComponent<Image>().SetAlpha(1f);
-            addMD.GetComponent<Image>().SetAlpha(1f);
-            addINF.GetComponent<Image>().SetAlpha(1f);
-            addAS.GetComponent<Image>().SetAlpha(1f);
-            addCDR.GetComponent<Image>().SetAlpha(1f);
-            addMS.GetComponent<Image>().SetAlpha(1f);
-            addRNG.GetComponent<Image>().SetAlpha(1f);
-            addLS.GetComponent<Image>().SetAlpha(1f);
-            addHP.GetComponent<Image>().SetAlpha(1f);
-        }
-    }
-    private void updateSubColors() {
-        //Colors the sub buttons grey if that stat's buffer is 0
-        if (PDbuffer == 0) {
-            subPD.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subPD.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (MDbuffer == 0) {
-            subMD.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subMD.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (INFbuffer == 0) {
-            subINF.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subINF.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (ASbuffer == 0) {
-            subAS.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subAS.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (CDRbuffer == 0) {
-            subCDR.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subCDR.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (MSbuffer == 0) {
-            subMS.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subMS.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (RNGbuffer == 0) {
-            subRNG.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subRNG.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (LSbuffer == 0) {
-            subLS.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subLS.GetComponent<Image>().SetAlpha(1f);
-        }
-        if (HPbuffer == 0) {
-            subHP.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            subHP.GetComponent<Image>().SetAlpha(1f);
-        }
-
-        if(SPUsedBuffer == 0) {
-            resetChangesBtn.GetComponent<Image>().SetAlpha(0.2f);
-        } else {
-            resetChangesBtn.GetComponent<Image>().SetAlpha(1f);
-        }
-    }
-
     //updates visual to display change to be applied
     public void updateStatDisplay() {
         //Debug.Log("Fakse stats uopdated");
         unFocusAbilityIconHolder();
         characterInfoScreen.displayStats(characterInfoScreen.character);
         characterInfoScreen.displayCharacterAbilities(characterInfoScreen.character);
-        updateAddColors();
-        updateSubColors();
 
         focusAbilityIconHolder();
         createdAbilityDisplays = true;

@@ -292,17 +292,17 @@ public class Tutorial : MonoBehaviour
         upgradingStatsTutorialStep = -1;
         returnToParents();
 
-        //Turns off all layoutgroups
-        characterInfoScreen.statUpgrading.iconLayoutGroup1.enabled = false;
-        characterInfoScreen.statUpgrading.iconLayoutGroup2.enabled = false;
-        characterInfoScreen.statUpgrading.numberLayoutGroup1.enabled = false;
-        characterInfoScreen.statUpgrading.numberLayoutGroup2.enabled = false;
-        characterInfoScreen.statUpgrading.textLayoutGroup1.enabled = false;
-        characterInfoScreen.statUpgrading.textLayoutGroup2.enabled = false;
-        characterInfoScreen.statUpgrading.column1.enabled = false;
-        characterInfoScreen.statUpgrading.column2.enabled = false;
+        ////Turns off all layoutgroups
+        //characterInfoScreen.statUpgrading.iconLayoutGroup1.enabled = false;
+        //characterInfoScreen.statUpgrading.iconLayoutGroup2.enabled = false;
+        //characterInfoScreen.statUpgrading.numberLayoutGroup1.enabled = false;
+        //characterInfoScreen.statUpgrading.numberLayoutGroup2.enabled = false;
+        //characterInfoScreen.statUpgrading.textLayoutGroup1.enabled = false;
+        //characterInfoScreen.statUpgrading.textLayoutGroup2.enabled = false;
+        //characterInfoScreen.statUpgrading.column1.enabled = false;
+        //characterInfoScreen.statUpgrading.column2.enabled = false;
 
-        characterInfoScreen.statUpgrading.applyChangesBtn.interactable = false;
+        //characterInfoScreen.statUpgrading.applyChangesBtn.interactable = false;
 
         nextBtn.gameObject.SetActive(true);
         textBox.gameObject.SetActive(true);
@@ -475,8 +475,8 @@ public class Tutorial : MonoBehaviour
         text.text = "Health: The amount of damage you can take before dying";
 
         objectsToBeFocused.Add(characterInfoScreen.healthBar.transform);
-        characterInfoScreen.statUpgrading.addHP.interactable = false;
-        characterInfoScreen.statUpgrading.subHP.interactable = false;
+        //characterInfoScreen.statUpgrading.addHP.interactable = false;
+        //characterInfoScreen.statUpgrading.subHP.interactable = false;
 
         focus();
 
@@ -523,16 +523,16 @@ public class Tutorial : MonoBehaviour
                             pwrLeftToAdd = 4;
                             hpLeftToAdd = 2;
                             SetListener(continueUpgradingStatsStabAbility);
-                            AddListener(characterInfoScreen.statUpgrading.addPD, continueUpgradingStatsStabAbility);
-                            AddListener(characterInfoScreen.statUpgrading.addHP, continueUpgradingStatsStabAbility);
+                            //AddListener(characterInfoScreen.statUpgrading.addPD, continueUpgradingStatsStabAbility);
+                            //AddListener(characterInfoScreen.statUpgrading.addHP, continueUpgradingStatsStabAbility);
                             break;
 
                         case "Magic Hit":
                             mgcLeftToAdd = 4;
                             hpLeftToAdd = 2;
                             SetListener(continueUpgradingStatsMagicHitAbility);
-                            AddListener(characterInfoScreen.statUpgrading.addMD, continueUpgradingStatsMagicHitAbility);
-                            AddListener(characterInfoScreen.statUpgrading.addHP, continueUpgradingStatsMagicHitAbility);
+                            //AddListener(characterInfoScreen.statUpgrading.addMD, continueUpgradingStatsMagicHitAbility);
+                            //AddListener(characterInfoScreen.statUpgrading.addHP, continueUpgradingStatsMagicHitAbility);
                             break;
 
                         case "Healing Aura":
@@ -540,9 +540,9 @@ public class Tutorial : MonoBehaviour
                             infLeftToAdd = 2;
                             hpLeftToAdd = 2;
                             SetListener(continueUpgradingStatsHealAbility);
-                            AddListener(characterInfoScreen.statUpgrading.addHP, continueUpgradingStatsHealAbility);
-                            AddListener(characterInfoScreen.statUpgrading.addMD, continueUpgradingStatsHealAbility);
-                            AddListener(characterInfoScreen.statUpgrading.addINF, continueUpgradingStatsHealAbility);
+                            //AddListener(characterInfoScreen.statUpgrading.addHP, continueUpgradingStatsHealAbility);
+                            //AddListener(characterInfoScreen.statUpgrading.addMD, continueUpgradingStatsHealAbility);
+                            //AddListener(characterInfoScreen.statUpgrading.addINF, continueUpgradingStatsHealAbility);
                             break;
                         default:
                             continueUpgradingStatsLastMessage();
@@ -576,13 +576,13 @@ public class Tutorial : MonoBehaviour
         if (pwrLeftToAdd>0) {
             objectsToBeFocused.Add(characterInfoScreen.statUpgrading.PDIcon.transform);
             objectsToBeFocused.Add(characterInfoScreen.PD.transform);
-            objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addPD.transform);
+            //objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addPD.transform);
             pwrLeftToAdd--;
             text.text = "Upgrade power for higher Stab and regular attack damage";
         }//Has to be more than one so that it correctly goes to Else.
         else if (hpLeftToAdd>0) {
-            characterInfoScreen.statUpgrading.addHP.interactable = true;
-            characterInfoScreen.statUpgrading.subHP.interactable = true;
+            //characterInfoScreen.statUpgrading.addHP.interactable = true;
+            //characterInfoScreen.statUpgrading.subHP.interactable = true;
             objectsToBeFocused.Add(characterInfoScreen.healthBar.transform);
             hpLeftToAdd--;
             text.text = "Upgrade health for some increased defenses";
@@ -605,20 +605,20 @@ public class Tutorial : MonoBehaviour
         if (mgcLeftToAdd>0) {
             objectsToBeFocused.Add(characterInfoScreen.statUpgrading.MDIcon.transform);
             objectsToBeFocused.Add(characterInfoScreen.MD.transform);
-            objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addMD.transform);
+            //objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addMD.transform);
             mgcLeftToAdd--;
             text.text = "Upgrade magic for a stronger heal";
         }
         else if (infLeftToAdd>0) {
             objectsToBeFocused.Add(characterInfoScreen.statUpgrading.INFIcon.transform);
             objectsToBeFocused.Add(characterInfoScreen.INF.transform);
-            objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addINF.transform);
+            //objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addINF.transform);
             infLeftToAdd--;
             text.text = "Upgrade influence for a stronger heal";
         }
         else if (hpLeftToAdd>0) {
-            characterInfoScreen.statUpgrading.addHP.interactable = true;
-            characterInfoScreen.statUpgrading.subHP.interactable = true;
+            //characterInfoScreen.statUpgrading.addHP.interactable = true;
+            //characterInfoScreen.statUpgrading.subHP.interactable = true;
             objectsToBeFocused.Add(characterInfoScreen.healthBar.transform);
             hpLeftToAdd--;
             text.text = "Upgrade health for some increased defenses and a stronger heal";
@@ -642,13 +642,13 @@ public class Tutorial : MonoBehaviour
         if (mgcLeftToAdd>0) {
             objectsToBeFocused.Add(characterInfoScreen.statUpgrading.MDIcon.transform);
             objectsToBeFocused.Add(characterInfoScreen.MD.transform);
-            objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addMD.transform);
+            //objectsToBeFocused.Add(characterInfoScreen.statUpgrading.addMD.transform);
             mgcLeftToAdd--;
             text.text = "Upgrade magic for increased Magic damage";
         }
         else if (hpLeftToAdd>0) {
-            characterInfoScreen.statUpgrading.addHP.interactable = true;
-            characterInfoScreen.statUpgrading.subHP.interactable = true;
+            //characterInfoScreen.statUpgrading.addHP.interactable = true;
+            //characterInfoScreen.statUpgrading.subHP.interactable = true;
             objectsToBeFocused.Add(characterInfoScreen.healthBar.transform);
             hpLeftToAdd--;
             text.text = "Upgrade health for some increased defenses";
@@ -662,15 +662,15 @@ public class Tutorial : MonoBehaviour
     }
     //Prompt to click confirm
     private void continueUpgradingStatsConfirm() {
-        characterInfoScreen.statUpgrading.addPD.onClick.RemoveListener(continueUpgradingStatsStabAbility);
-        characterInfoScreen.statUpgrading.addHP.onClick.RemoveListener(continueUpgradingStatsStabAbility);
+        //characterInfoScreen.statUpgrading.addPD.onClick.RemoveListener(continueUpgradingStatsStabAbility);
+        //characterInfoScreen.statUpgrading.addHP.onClick.RemoveListener(continueUpgradingStatsStabAbility);
 
-        characterInfoScreen.statUpgrading.addHP.onClick.RemoveListener(continueUpgradingStatsHealAbility);
-        characterInfoScreen.statUpgrading.addMD.onClick.RemoveListener(continueUpgradingStatsHealAbility);
-        characterInfoScreen.statUpgrading.addINF.onClick.RemoveListener(continueUpgradingStatsHealAbility);
+        //characterInfoScreen.statUpgrading.addHP.onClick.RemoveListener(continueUpgradingStatsHealAbility);
+        //characterInfoScreen.statUpgrading.addMD.onClick.RemoveListener(continueUpgradingStatsHealAbility);
+        //characterInfoScreen.statUpgrading.addINF.onClick.RemoveListener(continueUpgradingStatsHealAbility);
 
-        characterInfoScreen.statUpgrading.addMD.onClick.RemoveListener(continueUpgradingStatsMagicHitAbility);
-        characterInfoScreen.statUpgrading.addHP.onClick.RemoveListener(continueUpgradingStatsMagicHitAbility);
+        //characterInfoScreen.statUpgrading.addMD.onClick.RemoveListener(continueUpgradingStatsMagicHitAbility);
+        //characterInfoScreen.statUpgrading.addHP.onClick.RemoveListener(continueUpgradingStatsMagicHitAbility);
 
 
         upgradingStatsTutorialStep = 17;
@@ -682,22 +682,22 @@ public class Tutorial : MonoBehaviour
         positionTextBox(0.4f, 0.5f, 0.2f, 0.8f);
         text.text = "Click confirm to apply the upgrades";
 
-        objectsToBeFocused.Add(characterInfoScreen.statUpgrading.applyChangesBtn.transform);
+        //objectsToBeFocused.Add(characterInfoScreen.statUpgrading.applyChangesBtn.transform);
 
         //turns on all layoutgroups
-        characterInfoScreen.statUpgrading.iconLayoutGroup1.enabled = true;
-        characterInfoScreen.statUpgrading.iconLayoutGroup2.enabled = true;
-        characterInfoScreen.statUpgrading.numberLayoutGroup1.enabled = true;
-        characterInfoScreen.statUpgrading.numberLayoutGroup2.enabled = true;
-        characterInfoScreen.statUpgrading.textLayoutGroup1.enabled = true;
-        characterInfoScreen.statUpgrading.textLayoutGroup2.enabled = true;
-        characterInfoScreen.statUpgrading.column1.enabled = true;
-        characterInfoScreen.statUpgrading.column2.enabled = true;
+        //characterInfoScreen.statUpgrading.iconLayoutGroup1.enabled = true;
+        //characterInfoScreen.statUpgrading.iconLayoutGroup2.enabled = true;
+        //characterInfoScreen.statUpgrading.numberLayoutGroup1.enabled = true;
+        //characterInfoScreen.statUpgrading.numberLayoutGroup2.enabled = true;
+        //characterInfoScreen.statUpgrading.textLayoutGroup1.enabled = true;
+        //characterInfoScreen.statUpgrading.textLayoutGroup2.enabled = true;
+        //characterInfoScreen.statUpgrading.column1.enabled = true;
+        //characterInfoScreen.statUpgrading.column2.enabled = true;
 
-        characterInfoScreen.statUpgrading.addHP.interactable = true;
-        characterInfoScreen.statUpgrading.subHP.interactable = true;
+        //characterInfoScreen.statUpgrading.addHP.interactable = true;
+        //characterInfoScreen.statUpgrading.subHP.interactable = true;
 
-        characterInfoScreen.statUpgrading.applyChangesBtn.interactable = true;
+        //characterInfoScreen.statUpgrading.applyChangesBtn.interactable = true;
 
         focus();
     }

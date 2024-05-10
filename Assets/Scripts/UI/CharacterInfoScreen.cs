@@ -502,13 +502,14 @@ public class CharacterInfoScreen : MonoBehaviour
             }
             //If Upgrading stats
             if(focusElement == 7) {
+                statUpgrading.showUpgrades();
+                statUpgrading.upgradeOptions.gameObject.SetActive(true);
+                statUpgrading.upgradeOptions.transform.SetParent(uiManager.focus.transform);
                 statUpgrading.characterInfoScreen = this;
-                statUpgrading.show();
-                xpPanel.transform.SetParent(uiManager.focus.transform);
                 statsPanel.transform.SetParent(uiManager.focus.transform);
+                healthBarPanel.transform.SetParent(uiManager.focus.transform);
                 statUpgrading.resetChangesBtn.transform.SetParent(uiManager.focus.transform);
                 statUpgrading.applyChangesBtn.transform.SetParent(uiManager.focus.transform);
-                healthBarPanel.transform.SetParent(uiManager.focus.transform);
                 xpPanelBtn.enabled = false;
                 statsPanelBtn.enabled = false;
             }
@@ -577,24 +578,17 @@ public class CharacterInfoScreen : MonoBehaviour
                 abilityTargetting[focusElement].SetRight(0);
                 break;
             case 7:
-                //Sets anchor top of xpPanel to be at the top of mainPanel
-                xpPanel.SetAnchorTop(Mathf.Lerp(portraitPanel.GetAnchorBottom() - 0.005f, mainPanelAnchorT  , time2 / transitionTime));
-                //sets the bottom to make the height of the panel twice it's inital height
-                float initHeight = xpPanelAnchorT - xpPanelAnchorB;
-                xpPanel.SetAnchorBottom(Mathf.Lerp(xpPanelAnchorB, xpPanel.GetAnchorTop() - initHeight / 4, time / transitionTime));
-
-                //Sets the top of statsPanel to be bottom of xpPanel
-                statsPanel.SetAnchorTop(xpPanel.GetAnchorBottom());
-                //Sets the bottom to be where the top of abilityPanel is
-                statsPanel.SetAnchorBottom(Mathf.Lerp((mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom()) / 1.5f, (mainPanel.GetAnchorTop() - mainPanel.GetAnchorBottom())/1.7f, time2 / transitionTime));
-                //Keep top anchor and bottom anchor on stats panel's bottom anchor with some padding
-                healthBarPanel.SetAnchorTop(statsPanel.GetAnchorBottom() - 0.007f);
-                //To keep the bottom anchor from going all the way to the bottom
-                healthBarPanel.SetAnchorBottom(statsPanel.GetAnchorBottom() - 0.03f);
-
-                //Sets the top of abilities Panel to be bottom of healthbarpanel
-                abilitiesPanel.SetAnchorTop(Mathf.Lerp(healthBarPanel.GetAnchorBottom() - 0.015f, healthBarPanel.GetAnchorBottom() - 0.045f,time2/transitionTime));
-
+                //Put the stat upgrading options display's top to be at the top of the portrait
+                //And the bottom at the bottom of the XP bar
+                statUpgrading.upgradeOptions.SetAnchorTop(portraitPanel.GetAnchorTop());
+                statUpgrading.upgradeOptions.SetAnchorBottom(Mathf.Lerp(portraitPanel.GetAnchorTop(),xpPanel.GetAnchorBottom(),time2/transitionTime));
+                //Left and right to be same as xp panel
+                statUpgrading.upgradeOptions.SetAnchorLeft(xpPanel.GetAnchorLeft());
+                statUpgrading.upgradeOptions.SetAnchorRight(xpPanel.GetAnchorRight());
+                statUpgrading.upgradeOptions.SetTop(0);
+                statUpgrading.upgradeOptions.SetBottom(0);
+                statUpgrading.upgradeOptions.SetLeft(0);
+                statUpgrading.upgradeOptions.SetRight(0);
                 uiManager.focus.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
                 break;
         }
@@ -1276,6 +1270,8 @@ public class CharacterInfoScreen : MonoBehaviour
             statsPanel.transform.SetParent(transform);
             statUpgrading.resetChangesBtn.transform.SetParent(transform);
             statUpgrading.applyChangesBtn.transform.SetParent(transform);
+            statUpgrading.upgradeOptions.transform.SetParent(transform);
+            statUpgrading.upgradeOptions.gameObject.SetActive(false);
             selectArchetype.transform.SetParent(transform);
             selectArchetype.gameObject.SetActive(false);
             healthBar.transform.SetParent(transform);
