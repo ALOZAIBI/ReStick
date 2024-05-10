@@ -50,8 +50,7 @@ public class LaunchProjectiles : Ability
     public override void Start() {
         base.Start();
         updateDescription();
-        ////This ability is not executed on animation event
-        //executeAbilityOnEvent = false;
+
         //The delay between waves should be more than the delay between projectiles * numProjectiles\
         if (delayBetweenWaves < delayBetweenProjectiles * numProjectiles)
             throw new System.Exception("The delay between waves should be more than the delay between projectiles * numProjectiles");
@@ -60,6 +59,8 @@ public class LaunchProjectiles : Ability
     public override void executeAbility() {
         base.executeAbility();
         abilityStarted = true;
+        //Subsequent waves don't require the animation to be finished to fire
+        executeAbilityOnEvent = false;
     }
 
     public override void doAbility() {
@@ -69,6 +70,7 @@ public class LaunchProjectiles : Ability
             lockedTarget = character.target;
             //So that the animation is only played once
             if (!abilityStarted) {
+                resetStuff();
                 playAnimation("castRaise");
                 //So that the wave is launched immediately
                 delaySinceLastWave = delayBetweenWaves;
@@ -104,10 +106,9 @@ public class LaunchProjectiles : Ability
                 }
 
                 //What would happen if level is reloaded before all projectiles are launched??
+                //Once all waves are launched, the ability is done
                 if (numWavesLaunched == numWaves) {
                     abilityStarted = false;
-                    numProjectilesLaunched = 0;
-                    delaySinceLastProjectile = 0;
                     startCooldown();
                     //In case the animation is still playing we stop it so that it doesn't set abilityStarted to true again
                     character.animationManager.forceStop();
@@ -214,6 +215,13 @@ public class LaunchProjectiles : Ability
         }
     }
 
+    private void resetStuff() {
+        numProjectilesLaunched = 0;
+        delaySinceLastProjectile = 0;
+        numWavesLaunched = 0;
+        //Only the first wave requires the animation to be done to fire. Subsequent waves just play the animation for looks
+        executeAbilityOnEvent = true;
+    }
     private void FixedUpdate() {
         cooldown();
         if (abilityStarted) {

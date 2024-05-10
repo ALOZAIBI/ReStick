@@ -130,9 +130,11 @@ public class AnimationManager : MonoBehaviour {
 
     public void castEvent() {
         interruptible = true;
-        character.selectTarget(abilityBuffer.targetStrategy, abilityBuffer.rangeAbility,abilityBuffer.excludeTargets());
-        if(abilityBuffer.executeAbilityOnEvent)
-            abilityBuffer.executeAbility();
+        if (abilityBuffer.executeAbilityOnEvent) {
+            character.selectTarget(abilityBuffer.targetStrategy, abilityBuffer.rangeAbility, abilityBuffer.excludeTargets());
+            if (abilityBuffer.executeAbilityOnEvent)
+                abilityBuffer.executeAbility();
+        }
         abilityBuffer = null;
     }
     //In some cases we don't want it to become interupttible after the castEvent is done such as the case of dashalothtenseheath, since we don't wnat it to be interruptible until after All the dashes are done. We should however make it interuptible manually using forceStop()
