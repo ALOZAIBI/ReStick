@@ -915,78 +915,63 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
     private void handleColor(Character currChar) {
-        if (currChar.PD > currChar.zsPD)
+        //Sets the color to buff or debuff if there has been a significant change
+        if (Mathf.Approximately(currChar.PD, currChar.zsPD))
+            PD.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.PD > currChar.zsPD)
             PD.color = ColorPalette.singleton.buff;
         else
-        if (currChar.PD < currChar.zsPD)
             PD.color = ColorPalette.singleton.debuff;
-        else
-            PD.color = ColorPalette.singleton.defaultColor;
-            //PD.color = Color.green;
 
-        if (currChar.MD > currChar.zsMD)
+        if (Mathf.Approximately(currChar.MD, currChar.zsMD))
+            MD.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.MD > currChar.zsMD)
             MD.color = ColorPalette.singleton.buff;
         else
-       if (currChar.MD < currChar.zsMD)
             MD.color = ColorPalette.singleton.debuff;
-        else
-            MD.color = ColorPalette.singleton.defaultColor;
 
-        if (currChar.INF > currChar.zsINF)
+        if (Mathf.Approximately(currChar.INF, currChar.zsINF))
+            INF.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.INF > currChar.zsINF)
             INF.color = ColorPalette.singleton.buff;
         else
-       if (currChar.INF < currChar.zsINF)
             INF.color = ColorPalette.singleton.debuff;
-        else
-            INF.color = ColorPalette.singleton.defaultColor;
 
-        if (currChar.AS > currChar.zsAS)
+        if (Mathf.Approximately(currChar.AS, currChar.zsAS))
+            AS.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.AS > currChar.zsAS)
             AS.color = ColorPalette.singleton.buff;
         else
-        if (currChar.AS < currChar.zsAS)
             AS.color = ColorPalette.singleton.debuff;
-        else
-            AS.color = ColorPalette.singleton.defaultColor;
 
-        if (currChar.CDR > currChar.zsCDR)
+        if (Mathf.Approximately(currChar.CDR, currChar.zsCDR))
+            CDR.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.CDR > currChar.zsCDR)
             CDR.color = ColorPalette.singleton.buff;
         else
-        if (currChar.CDR < currChar.zsCDR)
             CDR.color = ColorPalette.singleton.debuff;
-        else
-            CDR.color = ColorPalette.singleton.defaultColor;
 
-        if (currChar.MS > currChar.zsMS)
+        if (Mathf.Approximately(currChar.MS, currChar.zsMS))
+            MS.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.MS > currChar.zsMS)
             MS.color = ColorPalette.singleton.buff;
         else
-        if (currChar.MS < currChar.zsMS)
             MS.color = ColorPalette.singleton.debuff;
-        else
-            MS.color = ColorPalette.singleton.defaultColor;
 
-        if (currChar.Range > currChar.zsRange)
+        if (Mathf.Approximately(currChar.Range, currChar.zsRange))
+            RNG.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.Range > currChar.zsRange)
             RNG.color = ColorPalette.singleton.buff;
         else
-        if (currChar.Range < currChar.zsRange)
             RNG.color = ColorPalette.singleton.debuff;
-        else
-            RNG.color = ColorPalette.singleton.defaultColor;
 
-        if (currChar.Range > currChar.zsRange)
-            RNG.color = ColorPalette.singleton.buff;
-        else
-        if (currChar.Range < currChar.zsRange)
-            RNG.color = ColorPalette.singleton.debuff;
-        else
-            RNG.color = ColorPalette.singleton.defaultColor;
-
-        if (currChar.LS > currChar.zsLS)
+        if (Mathf.Approximately(currChar.LS, currChar.zsLS))
+            LS.color = ColorPalette.singleton.defaultColor;
+        else if (currChar.LS > currChar.zsLS)
             LS.color = ColorPalette.singleton.buff;
         else
-        if (currChar.LS < currChar.zsLS)
             LS.color = ColorPalette.singleton.debuff;
-        else
-            LS.color = ColorPalette.singleton.defaultColor;
+
 
         //colors the healthbar according to team
         switch (character.team) {
@@ -1268,8 +1253,13 @@ public class CharacterInfoScreen : MonoBehaviour
             targetSelectionBtn.transform.SetParent(transform);
             xpPanel.transform.SetParent(transform);
             statsPanel.transform.SetParent(transform);
+
             statUpgrading.resetChangesBtn.transform.SetParent(transform);
             statUpgrading.applyChangesBtn.transform.SetParent(transform);
+
+            statUpgrading.applyChangesBtn.gameObject.SetActive(false);
+            statUpgrading.resetChangesBtn.gameObject.SetActive(false);
+
             statUpgrading.upgradeOptions.transform.SetParent(transform);
             statUpgrading.upgradeOptions.gameObject.SetActive(false);
             selectArchetype.transform.SetParent(transform);

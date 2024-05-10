@@ -1796,8 +1796,7 @@ public class Character : MonoBehaviour {
     private void levelUp() {
         xpProgress -= xpCap;
         level++;
-        //maybe give more stats every 10 levels or smthn level cap setup is done in start method as well.
-        statPoints += (int)Mathf.Ceil(level / 10f) * 2;
+        statPoints++;
         //update xpCap depending on level
         xpCap = level + (level * ((level - 1) / 2));
 
