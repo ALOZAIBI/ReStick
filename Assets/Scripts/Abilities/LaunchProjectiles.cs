@@ -80,10 +80,16 @@ public class LaunchProjectiles : Ability
                     //If the delay has passed since the last projectile was launched
                     if (delaySinceLastProjectile >= delayBetweenProjectiles) {
                         playAnimation("castRaise");
-                        //The angle starts from the left of the target and goes to the right
-                        float angleBetweenProjectiles = numProjectiles >1 ? angle / (numProjectiles - 1) : 0;
-                        float angleAwayFromCenter = angle / 2 + -angleBetweenProjectiles * numProjectilesLaunched;
-                        createProjectile(angleAwayFromCenter);
+                        //If the angle is 360, first projectile will always be launched at 0
+                        if (angle == 360 && numProjectilesLaunched == 0) {
+                            createProjectile(0);
+                        }
+                        else {
+                            //The angle starts from the left of the target and goes to the right
+                            float angleBetweenProjectiles = numProjectiles > 1 ? angle / (numProjectiles - 1) : 0;
+                            float angleAwayFromCenter = angle / 2 + -angleBetweenProjectiles * numProjectilesLaunched;
+                            createProjectile(angleAwayFromCenter);
+                        }
                         delaySinceLastProjectile = 0;
                         numProjectilesLaunched++;
                     }
