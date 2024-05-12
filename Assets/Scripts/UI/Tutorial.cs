@@ -42,6 +42,17 @@ public class Tutorial : MonoBehaviour
 
     public int upgradingStatsTutorialStep;
     //Explains how to drag characters into the map
+
+    //Just to avoid going through tutorial for now
+    private void Start() {
+        //Make all bools true
+        draggingCharactersTutorialDone = true;
+        chooseRewardTutorialDone = true;
+        addingAbilityTutorialDone = true;
+        upgradingStatsTutorialDone = true;
+        SaveSystem.saveTutorialProgress(this);
+
+    }
     public void beginDraggingCharactersTutorial() {
         if (draggingCharactersTutorialDone)
             return;

@@ -8,6 +8,7 @@ using System;
 using UnityEngine.SceneManagement;
 using static System.TimeZoneInfo;
 using Unity.VisualScripting;
+using System.Net.NetworkInformation;
 
 public class StatUpgrading : MonoBehaviour {
     // So what this Script does is when the add and sub buttons are clicked decrease and increase the stat display accordingly.
@@ -78,22 +79,26 @@ public class StatUpgrading : MonoBehaviour {
 
     //Contains the index of the stat to be upgraded from the stats array
     [SerializeField] private (string,GameObject,float) upgrade1;
+    //So that you can't infinitely select upgrade
     [SerializeField] private bool clickedUpgrade1;
     [SerializeField] private Button upgrade1Btn;
     [SerializeField] private TextMeshProUGUI textUpgrade1;
-    [SerializeField] private GameObject iconUpgrade1;
+    [SerializeField] private GameObject iconHolder1;
+    [SerializeField] private Image upgrade1Image;
 
     [SerializeField] private (string, GameObject, float) upgrade2;
     [SerializeField] private bool clickedUpgrade2;
     [SerializeField] private Button upgrade2Btn;
     [SerializeField] private TextMeshProUGUI textUpgrade2;
-    [SerializeField] private GameObject iconUpgrade2;
+    [SerializeField] private GameObject iconHolder2;
+    [SerializeField] private Image upgrade2Image;
 
     [SerializeField] private (string, GameObject, float) upgrade3;
     [SerializeField] private bool clickedUpgrade3;
     [SerializeField] private Button upgrade3Btn;
     [SerializeField] private TextMeshProUGUI textUpgrade3;
-    [SerializeField] private GameObject iconUpgrade3;
+    [SerializeField] private GameObject iconHolder3;
+    [SerializeField] private Image upgrade3Image;
 
     
     [SerializeField] private Button rerollBtn;
@@ -103,6 +108,8 @@ public class StatUpgrading : MonoBehaviour {
     private (string, GameObject,float)[] stats;
     //So that when we reroll we don't get the same stat again
     private List<int> statsUsedIndices = new List<int>();
+
+    [SerializeField]private List<GameObject> instantiatedStuff = new List<GameObject>();
 
     private void Start() {
         applyChangesBtn.onClick.AddListener(applyChanges);
@@ -123,9 +130,23 @@ public class StatUpgrading : MonoBehaviour {
         stats[7] = ("Lifesteal", LSIcon,LSAmt);
         stats[8] = ("Health", HPIcon,HPAmt);
 
-
+        upgrade1Image = upgrade1Btn.GetComponent<Image>();
+        upgrade2Image = upgrade2Btn.GetComponent<Image>();
+        upgrade3Image = upgrade3Btn.GetComponent<Image>();
     }
 
+    //Unhighlights all buttons
+    private void highlightSelected(int selected) {
+        upgrade1Image.SetAlpha(0.3f);
+        upgrade2Image.SetAlpha(0.3f);
+        upgrade3Image.SetAlpha(0.3f);
+        if(selected == 1)
+            upgrade1Image.SetAlpha(1f);
+        else if(selected == 2)
+            upgrade2Image.SetAlpha(1f);
+        else if(selected == 3)
+            upgrade3Image.SetAlpha(1f);
+    }
     private void setUpgrades() {
         //Get a random int from length of statsArray without it being in statsUsedIndices
         int randomIndex = UnityEngine.Random.Range(0, stats.Length);
@@ -135,7 +156,12 @@ public class StatUpgrading : MonoBehaviour {
         statsUsedIndices.Add(randomIndex);
         upgrade1 = stats[randomIndex];
         textUpgrade1.text = "+ " + upgrade1.Item3 +" "+upgrade1.Item1;
-        iconUpgrade1 = upgrade1.Item2;
+        //Instantiate the icon and place it in the iconHolder1
+        GameObject icon = Instantiate(upgrade1.Item2, iconHolder1.transform);
+        RectTransform rt = icon.GetComponent<RectTransform>();
+        rt.SetAnchorsStretch();
+        rt.SetStretchToAnchors();
+        instantiatedStuff.Add(icon);
 
         randomIndex = UnityEngine.Random.Range(0, stats.Length);
         while (statsUsedIndices.Contains(randomIndex)) {
@@ -144,7 +170,11 @@ public class StatUpgrading : MonoBehaviour {
         statsUsedIndices.Add(randomIndex);
         upgrade2 = stats[randomIndex];
         textUpgrade2.text = "+ " + upgrade2.Item3 + " " + upgrade2.Item1;
-        iconUpgrade2 = upgrade2.Item2;
+        icon = Instantiate(upgrade2.Item2, iconHolder2.transform);
+        rt = icon.GetComponent<RectTransform>();
+        rt.SetAnchorsStretch();
+        rt.SetStretchToAnchors();
+        instantiatedStuff.Add(icon);
 
         randomIndex = UnityEngine.Random.Range(0, stats.Length);
         while (statsUsedIndices.Contains(randomIndex)) {
@@ -153,7 +183,11 @@ public class StatUpgrading : MonoBehaviour {
         statsUsedIndices.Add(randomIndex);
         upgrade3 = stats[randomIndex];
         textUpgrade3.text = "+ " + upgrade3.Item3 + " " + upgrade3.Item1;
-        iconUpgrade3 = upgrade3.Item2;
+        icon = Instantiate(upgrade3.Item2, iconHolder3.transform);
+        rt = icon.GetComponent<RectTransform>();
+        rt.SetAnchorsStretch();
+        rt.SetStretchToAnchors();
+        instantiatedStuff.Add(icon);
     }
 
     private void upgrade1Clicked() {
@@ -205,6 +239,7 @@ public class StatUpgrading : MonoBehaviour {
         characterInfoScreen.character.statPoints--;
         addBufferToCharacter();
         updateStatDisplay();
+        highlightSelected(1);
     }
     private void upgrade2Clicked() {
         if(clickedUpgrade2) {
@@ -254,7 +289,7 @@ public class StatUpgrading : MonoBehaviour {
         SPUsedBuffer++;
         addBufferToCharacter();
         updateStatDisplay();
-
+        highlightSelected(2);
     }
     private void upgrade3Clicked() {
         if (clickedUpgrade3) {
@@ -305,7 +340,7 @@ public class StatUpgrading : MonoBehaviour {
         clickedUpgrade3 = true; 
         addBufferToCharacter();
         updateStatDisplay();
-
+        highlightSelected(3);
     }
     private void addBufferToCharacter() {
         characterInfoScreen.character.PD += PDbuffer;
@@ -325,6 +360,8 @@ public class StatUpgrading : MonoBehaviour {
         resetChangesBtn.gameObject.SetActive(true);
 
         setUpgrades();
+        createdAbilityDisplays = false;
+
     }
 
     public void focusAbilityIconHolder() {
@@ -379,6 +416,11 @@ public class StatUpgrading : MonoBehaviour {
         unFocusAbilityIconHolder();
         characterInfoScreen.startUnfocusing();
 
+        //delete the instnatied stuff
+        foreach (GameObject go in instantiatedStuff) {
+            Destroy(go);
+        }
+
 
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked
@@ -424,6 +466,7 @@ public class StatUpgrading : MonoBehaviour {
         clickedUpgrade3 = false;
 
         updateStatDisplay();
+        highlightSelected(0);
     }
 
     //updates visual to display change to be applied
@@ -473,6 +516,7 @@ public class StatUpgrading : MonoBehaviour {
         }
         //Clears the list
         abilityDisplayList.Clear();
+        Debug.Log("Closed all abilityDisplays");
     }
     private void Update() {
     }
