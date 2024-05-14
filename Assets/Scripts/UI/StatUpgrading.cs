@@ -111,6 +111,7 @@ public class StatUpgrading : MonoBehaviour {
 
     [SerializeField]private List<GameObject> instantiatedStuff = new List<GameObject>();
 
+
     private void Start() {
         applyChangesBtn.onClick.AddListener(applyChanges);
         resetChangesBtn.onClick.AddListener(resetChanges);
@@ -133,6 +134,25 @@ public class StatUpgrading : MonoBehaviour {
         upgrade1Image = upgrade1Btn.GetComponent<Image>();
         upgrade2Image = upgrade2Btn.GetComponent<Image>();
         upgrade3Image = upgrade3Btn.GetComponent<Image>();
+
+        rerollBtn.onClick.AddListener(reroll);
+    }
+
+    //Reroll
+    private void reroll() {
+        //delete the instnatied stuff
+        foreach (GameObject go in instantiatedStuff) {
+            Destroy(go);
+        }
+        //Reroll new stats
+        if (statsUsedIndices.Count <= stats.Length - 3) {
+            setUpgrades();
+        }
+        //If we have gone through all stats then the statsUsed will be cleared so we might reroll tthe same stats once more
+        else {
+            statsUsedIndices.Clear();
+            setUpgrades();
+        }
     }
 
     //Unhighlights all buttons
