@@ -5251,7 +5251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: LSAmt
-      value: 0.09
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: MDAmt
@@ -5259,7 +5259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: MSAmt
-      value: 0.75
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: PDAmt
@@ -5271,12 +5271,12 @@ PrefabInstance:
       objectReference: {fileID: 2411918899600298700, guid: 5eaa10b69bcdb4a4685825d197ca7f89, type: 3}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: CDRAmt
-      value: 0.12
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: HPIcon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2411918899600298700, guid: c05990634c66e2541a0950e136f8acad, type: 3}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: INFAmt
       value: 7
@@ -5299,7 +5299,7 @@ PrefabInstance:
       objectReference: {fileID: 6685417797063223000, guid: 71f3d9a3a0cc4d746a24576846e2f5eb, type: 3}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: RNGAmt
-      value: 2.25
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: CDRIcon
@@ -5313,6 +5313,10 @@ PrefabInstance:
       propertyPath: RNGIcon
       value: 
       objectReference: {fileID: 7458622510786430990, guid: 5940d996bbdd5d944a45730646ce0ccb, type: 3}
+    - target: {fileID: 5233265517295577725, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+      propertyPath: rerollBtn
+      value: 
+      objectReference: {fileID: 2036719024}
     - target: {fileID: 5237975903277685299, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 222.74828
@@ -28891,6 +28895,17 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2036719024 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9015337252996744281, guid: d8097b91478c0594bbb2f04152c4b937, type: 3}
+  m_PrefabInstance: {fileID: 178290663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2040033592
 PrefabInstance:
   m_ObjectHideFlags: 0
