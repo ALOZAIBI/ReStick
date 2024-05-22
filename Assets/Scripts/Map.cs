@@ -25,10 +25,13 @@ public class Map : MonoBehaviour
 
         //Makes camera pannable (Sometimes it's not pannable since the camera isnot done doing the focus thing)
         uiManager.camMov.pannable = true;
-        uiManager.updateGoldtextToCurrent();
 
         checkIfWon();
 
+    }
+
+    private void Update() {
+        uiManager.updateGoldtextToCurrent();
     }
     private void displayMapWon() {
         uiManager.sceneToLoad = belongsToWorld;
