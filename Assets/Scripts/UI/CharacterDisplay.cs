@@ -17,6 +17,7 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
     [SerializeField] private GameObject notification;
     [SerializeField] private SlicedFilledImage manualTargettingCDDisplay;
     public GameObject deathSkull;
+    [SerializeField] private GameObject cameraOnIcon;
 
     //to get position of mouse to be used in MOuseUp
     public Camera cam;
@@ -37,6 +38,12 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
 
     private float mouseHoldDuration = 0;
     public bool click = false;
+
+    //Used to check for double click
+    [SerializeField] private float timeSinceFirstClick = 0;
+    [SerializeField] private bool firstClickHappened = false;
+    //If second click comes within doubleClicktime, open charScreen
+    [SerializeField] private float doubleClickTime = 0.25f;
 
     //when the characterDisplay is clicked
     //drag
@@ -128,10 +135,22 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
                 }
                 //if just a click
                 else if(mouseHoldDuration <= 0.2f) {
-                    uiManager.viewCharacter(character);
+                    uiManager.viewTopstatDisplay(character);
                     //Camera focuses character that was just clicked
                     camMov.characterToFocusOn = character;
                     mouseHoldDuration = 0;
+                    //Double Click stuff
+                    //If this is the first click(so firstClick didnt happen)
+                    if (!firstClickHappened) {
+                        firstClickHappened = true;
+                    }
+                    //If this isn't the first click(Double click)
+                    else if(timeSinceFirstClick < doubleClickTime) {
+                        firstClickHappened = false;
+                        timeSinceFirstClick = 0;
+
+                        uiManager.viewCharacterInfo(character);
+                    }
                 }
 
                 
@@ -185,6 +204,19 @@ public class CharacterDisplay : MonoBehaviour, IPointerDownHandler {
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
 
         deathSkull.SetActive(!character.alive);
+
+        if (firstClickHappened) {
+            timeSinceFirstClick += Time.unscaledDeltaTime;
+            if(timeSinceFirstClick > doubleClickTime) {
+                firstClickHappened = false;
+                timeSinceFirstClick = 0;
+            }
+        }
+
+        //Camera icon when this dude is the focus and the dude is on the map
+        cameraOnIcon.SetActive(camMov.characterToFocusOn == character
+            &&
+            character.dropped);
 
     }
 
