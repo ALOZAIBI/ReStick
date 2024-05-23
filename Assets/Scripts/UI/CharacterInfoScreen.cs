@@ -220,7 +220,7 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField]private List<Image> topstatAbilityDisplaysFill = new List<Image>(new Image[MAX_ABILITIES]);
     [SerializeField]private List<Image> topstatAbilityDisplaysBorder = new List<Image>(new Image[MAX_ABILITIES]);
 
-    const int ARCHETYPESELECTLEVEL = 10;
+    const int ARCHETYPESELECTLEVEL = 20;
 
     [SerializeField]private SelectArchetype selectArchetype;
 
