@@ -33,6 +33,10 @@ public class CharacterInfoScreen : MonoBehaviour
     public Button targetSelectionBtn;
     public TextMeshProUGUI targetSelectionTxt;
     [SerializeField] private Transform targettingIconParent;
+
+    public Button abilityScreenBtn;
+    public Button itemScreenBtn;
+
     //Selecting target for attacking and also moving for now.
     public MovementStrategySelector movementSelector;
     
@@ -140,7 +144,7 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField]public RectTransform statsPanel;
     [SerializeField]public Button statsPanelBtn;
     private float statsPanelAnchorL;
-    private float statsPanelAnchorR;
+    [SerializeField]private float statsPanelAnchorR;
     private float statsPanelAnchorT;
     [SerializeField]private float statsPanelAnchorB;
                   
@@ -184,6 +188,9 @@ public class CharacterInfoScreen : MonoBehaviour
     private float healthBarPanelPositionB;
 
     private RectTransform targetSelectBtnPanel;
+
+    private RectTransform abilityScreenBtnPanel;
+    private RectTransform itemScreenBtnPanel;
 
     [SerializeField] public float transitionTime;
     //Used for opening and closing fullscreen.
@@ -237,6 +244,11 @@ public class CharacterInfoScreen : MonoBehaviour
         
         targetSelectBtnPanel = targetSelectionBtn.GetComponent<RectTransform>();
         targetSelectionBtn.onClick.AddListener(openPrimaryTargetSelector);
+
+        abilityScreenBtnPanel = abilityScreenBtn.GetComponent<RectTransform>();
+        itemScreenBtnPanel = itemScreenBtn.GetComponent<RectTransform>();
+
+
 
         openFullScreenBtn.onClick.AddListener(viewCharacterFullScreen);
         closeFullScreenBtn.onClick.AddListener(startClosing);
@@ -454,12 +466,31 @@ public class CharacterInfoScreen : MonoBehaviour
         handlePortraitPanel();
         handleXpPanel();
         handleStatsPanel();
+        handleOpenScreenBtnsPanel();
         handleTargetSelectorBtnPanel();
         handleHealthBarPanel();
         handleAbilitiesPanel();
         hideUI.setInitPos();
         mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
-        
+    }
+    //Handles the open item and ability screen
+    private void handleOpenScreenBtnsPanel() {
+        //Sets the bottom to be the same as portrait Panel. And the top to be in the middle of portrait panel
+        abilityScreenBtnPanel.SetAnchorBottom(portraitPanel.GetAnchorBottom());
+        itemScreenBtnPanel.SetAnchorBottom(portraitPanel.GetAnchorBottom());
+        float portraitPanelHeight = portraitPanel.GetAnchorTop() - portraitPanel.GetAnchorBottom();
+        abilityScreenBtnPanel.SetAnchorTop(portraitPanel.GetAnchorTop() - (portraitPanelHeight / 2));
+        itemScreenBtnPanel.SetAnchorTop(portraitPanel.GetAnchorTop() - (portraitPanelHeight / 2));
+        //Sets the abilityBtn to be on Left and itemBtn on right
+        //So we need to get the distance from the right of the portraitPanel to the right of the statPanel
+        float distance =  statsPanelAnchorR - portraitPanel.GetAnchorRight();
+
+        abilityScreenBtnPanel.SetAnchorLeft(portraitPanel.GetAnchorRight() + 0.01f);
+        abilityScreenBtnPanel.SetAnchorRight(portraitPanel.GetAnchorRight() + (distance / 2) - 0.01f);
+
+        itemScreenBtnPanel.SetAnchorLeft(portraitPanel.GetAnchorRight() + (distance / 2) + 0.01f);
+        itemScreenBtnPanel.SetAnchorRight(statsPanelAnchorR);
+
     }
     private void handleTargetSelectorBtnPanel() {
         //Sets the bottom to be the same as portrait Panel. And the top to be in the middle of portrait panel
