@@ -177,6 +177,9 @@ public class CharacterInfoScreen : MonoBehaviour
     private float abilitiesPanelPositionT;
     private float abilitiesPanelPositionB;
 
+    [SerializeField] public RectTransform itemsPanel;
+
+
     [SerializeField] private RectTransform healthBarPanel;
     private float healthBarPanelAnchorL;
     private float healthBarPanelAnchorR;
@@ -248,6 +251,9 @@ public class CharacterInfoScreen : MonoBehaviour
         abilityScreenBtnPanel = abilityScreenBtn.GetComponent<RectTransform>();
         itemScreenBtnPanel = itemScreenBtn.GetComponent<RectTransform>();
 
+
+        abilityScreenBtn.onClick.AddListener(openAbilityScreen);
+        itemScreenBtn.onClick.AddListener(openItemScreen);
 
 
         openFullScreenBtn.onClick.AddListener(viewCharacterFullScreen);
@@ -460,6 +466,13 @@ public class CharacterInfoScreen : MonoBehaviour
         //stretches it to the left
         abilitiesPanel.SetAnchorLeft(Mathf.Lerp(abilitiesPanelAnchorL, 1 - abilitiesPanelAnchorR, time / transitionTime));
     }
+    //Just copy abilitiesPanel
+    private void handleItemsPanel() {
+        itemsPanel.SetAnchorTop(abilitiesPanel.GetAnchorTop());
+        itemsPanel.SetAnchorBottom(abilitiesPanel.GetAnchorBottom());
+        itemsPanel.SetAnchorLeft(abilitiesPanel.GetAnchorLeft());
+        itemsPanel.SetAnchorRight(abilitiesPanel.GetAnchorRight());
+    }
     private void handlePanels() {
         //this is needed to update stats text position and size as we expand and shrink the panel
         handleMainPanel();
@@ -470,6 +483,7 @@ public class CharacterInfoScreen : MonoBehaviour
         handleTargetSelectorBtnPanel();
         handleHealthBarPanel();
         handleAbilitiesPanel();
+        handleItemsPanel();
         hideUI.setInitPos();
         mainPanel.gameObject.RefreshLayoutGroupsImmediateAndRecursive();
     }
@@ -626,6 +640,15 @@ public class CharacterInfoScreen : MonoBehaviour
         
     }
 
+    private void openAbilityScreen() {
+        abilitiesPanel.gameObject.SetActive(true);
+        itemsPanel.gameObject.SetActive(false);
+    }
+
+    private void openItemScreen() {
+        abilitiesPanel.gameObject.SetActive(false);
+        itemsPanel.gameObject.SetActive(true);
+    }
     private void setupAddAbility() {
         closeInventoryAbilities();
         //Setting the cell size of the grid layout group
