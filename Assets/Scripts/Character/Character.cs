@@ -201,6 +201,9 @@ public class Character : MonoBehaviour {
     [SerializeField] private UIManager uiManager;
     //Ability Stuff
     public List<Ability> abilities = new List<Ability>();
+    //Item stuff
+    public List<Item> items = new List<Item>();
+
     //This is needed for abilities that apply on kill for example heal after a kill
     public int killsLastFrame = 0;
     [HideInInspector] public List<int> averageLevelOfKillsLastFrame = new List<int>();
@@ -276,6 +279,7 @@ public class Character : MonoBehaviour {
         }
 
         ownTheAbility(true);
+        ownTheItems();
         //applies the stats
         foreach (BonusStats temp in bonusStats) {
             temp.character = this;
@@ -318,6 +322,11 @@ public class Character : MonoBehaviour {
             }
             //Debug.Log(temp.abilityName + "  |  " + temp.character.name);
             temp.calculateAmt();
+        }
+    }
+    public void ownTheItems() {
+        foreach (Item item in items) {
+            item.character = this;
         }
     }
     //sends position to next frame to be used to check for isIdle
