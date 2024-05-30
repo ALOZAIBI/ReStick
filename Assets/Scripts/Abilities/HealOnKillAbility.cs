@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealOnKill : Ability {
+public class HealOnKillAbility : Ability {
     //amt here is the heal amt
     public override void Start() {
         base.Start();

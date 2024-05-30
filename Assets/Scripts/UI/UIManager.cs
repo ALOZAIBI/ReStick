@@ -617,6 +617,9 @@ public class UIManager : MonoBehaviour
         foreach (Transform child in playerParty.abilityInventory.transform) {
             Destroy(child.gameObject);
         }
+        foreach (Transform child in playerParty.itemInventory.transform) {
+            Destroy(child.gameObject);
+        }
     }
 
     //LoadingScene extension to allow for ui blink during scene transition

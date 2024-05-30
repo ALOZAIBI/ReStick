@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffOnKIll : Ability
+public class BuffOnKIllAbility : Ability
 {
     //on kill instantiate a buff with the following stats, then add it to the character
     public float PD;

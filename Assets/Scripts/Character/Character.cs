@@ -1744,11 +1744,13 @@ public class Character : MonoBehaviour {
                 summoner.totalKills++;
                 summoner.killsLastFrame++;
                 summoner.averageLevelOfKillsLastFrame.Add(victim.level);
+                itemOnKill(victim);
             }
             else {
                 totalKills++;
                 killsLastFrame++;
                 averageLevelOfKillsLastFrame.Add(victim.level);
+                itemOnKill(victim);
             }
         }
         else {
@@ -1761,8 +1763,9 @@ public class Character : MonoBehaviour {
                 //add gold
                 if (this.team == (int)teamList.Player) {
                     uiManager.playerParty.gold += calculateGold(victim.level);
-
                 }
+                //Trigger onKill of summoner
+                summoner.itemOnKill(victim);
             }
             else {
                 totalKills++;
@@ -1774,10 +1777,17 @@ public class Character : MonoBehaviour {
                 if (this.team == (int)teamList.Player) {
                     uiManager.playerParty.gold += calculateGold(victim.level);
                 }
+                itemOnKill(victim);
+
             }
         }
 
 
+    }
+    private void itemOnKill(Character victim) {
+        foreach(Item item in items) {
+            item.onKill();
+        }
     }
     //Shares XP TO ALL ACTIVE PLAYERPARTY MEMBERS
     private void increasePartyXP(int level) {
