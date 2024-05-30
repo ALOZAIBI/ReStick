@@ -406,7 +406,7 @@ public class UIManager : MonoBehaviour
         
         
         
-        characterInfoScreen.close();
+        characterInfoScreen.closeAbilityDisplays();
         //characterPlacingScreen.close();
     }
     //we made this a seperate function so that it can also applyChanges without messing up the loadscene function. If the applyChanges was in the regular closeUI it would've made loadScene function also save which causes a duplicate character bug

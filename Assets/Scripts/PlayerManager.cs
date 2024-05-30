@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour
     //holds the abilities that are currently being used by a character in the party
     public GameObject activeAbilities;
 
+    public GameObject itemInventory;
+    public GameObject activeItems;
     public int gold = 0;
 
     private int initLifeShards;

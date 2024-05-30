@@ -33,7 +33,7 @@ public class AttackTargetSelector : MonoBehaviour {
     public void close() {
         //updates the characterInfoScreenview
         //do for regular charInfoScreen
-        uiManager.characterInfoScreen.close();
+        uiManager.characterInfoScreen.closeAbilityDisplays();
         uiManager.viewCharacter(character);
 
     }

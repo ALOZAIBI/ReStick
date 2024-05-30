@@ -524,7 +524,7 @@ public class StatUpgrading : MonoBehaviour {
             Debug.Log("Created a display"+rectTransform.name);
         }
     }
-    private void showOrHideAbilityDisplays() {
+    public void showOrHideAbilityDisplays() {
         for(int i = 0;i<abilityDisplayList.Count;i++) {
             abilityDisplayList[i].showOrHide(characterInfoScreen.character.abilities[i].valueAmt);
         }

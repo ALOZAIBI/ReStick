@@ -61,7 +61,7 @@ public class MovementStrategySelector : MonoBehaviour {
     public void close() {
         //updates the characterInfoScreenview
         //do for regular charInfoScreen
-        UIManager.singleton.characterInfoScreen.close();
+        UIManager.singleton.characterInfoScreen.closeAbilityDisplays();
         UIManager.singleton.viewCharacter(character);
 
     }

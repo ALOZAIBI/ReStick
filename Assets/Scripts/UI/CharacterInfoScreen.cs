@@ -27,6 +27,11 @@ public class CharacterInfoScreen : MonoBehaviour
     //Used to instantiate AbilityDisplayAddAbility prefab
     public AbilityDisplayAddAbility abilityDisplayAddingAbility;
 
+    //Used to instantiate the prefab
+    public ItemDisplay itemDisplay;
+
+    public GameObject addItemBtn;
+
     //Selecting target
     public TargetSelector targetSelector;
 
@@ -71,7 +76,10 @@ public class CharacterInfoScreen : MonoBehaviour
     //to be instantiated this is a different gameobject than the regular abilityDisplay because this one will have diff color
     public GameObject inventoryAbilityDisplay;
 
-    
+
+    public Transform addItemPanel;
+    public Transform addItemDisplaysArea;
+
     public Button addAbilityBtn;
     public RectTransform addAbilityPanel;
     public RectTransform addAbilityDisplaysArea;
@@ -81,6 +89,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public Image confirmAddAbilityBtnImage;
 
     public const int MAX_ABILITIES = 5;
+    public const int MAX_ITEMS = 5;
     //pageindex 3 = prompt to add ability
     //pageindex 4 = confirm ability adding
     //base page wehn opening charinfoscreen
@@ -565,6 +574,12 @@ public class CharacterInfoScreen : MonoBehaviour
                 //Focus it
                 selectArchetype.transform.SetParent(uiManager.focus.transform);
             }
+            //If add item
+            if(focusElement == 9) {
+                addItemPanel.gameObject.SetActive(true);
+                addItemPanel.transform.SetParent(uiManager.focus.transform);
+                displayInventoryItems();
+            }
             focused = true;
             //resets time2 to start the transition
             time2 = 0;
@@ -692,6 +707,7 @@ public class CharacterInfoScreen : MonoBehaviour
         displayStats(currChar);
         updatePrimaryTargettingView();
         displayCharacterAbilities(currChar);
+        displayCharacterItems(currChar);
         startOpening();
 
     }
@@ -712,7 +728,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
     }
     public void displayCharacterAbilities(Character currChar) {
-        close();
+        closeAbilityDisplays();
         //tells the abilities that this owns them so that they correctly display the description
         currChar.ownTheAbility(false);
         int count = 0;
@@ -893,6 +909,48 @@ public class CharacterInfoScreen : MonoBehaviour
         foreach (Transform child in abilityTargettingIconParent[count]) {
             RectTransform iconRect = child.GetComponent<RectTransform>();
             iconRect.SetAnchorsStretch();
+        }
+    }
+    private void closeItemDisplays() {
+        foreach(Transform child in itemsPanel.transform) {
+            if(child.tag !="DontDelete")
+                Destroy(child.gameObject);
+        }
+    }
+    public void displayCharacterItems(Character currChar) {
+        closeItemDisplays();
+        foreach(Item item in currChar.items) {
+            ItemDisplay disp = Instantiate(itemDisplay, itemsPanel.transform);
+            disp.item = item;
+            disp.characterInfoScreen = this;
+        }
+        //If it is an allied character and zone hasn't started, and there are items available to add show the add button
+        if(currChar.team == (int)Character.teamList.Player && currChar.items.Count < MAX_ITEMS && !uiManager.zoneStarted() && uiManager.playerParty.itemInventory.transform.childCount > 0) {
+            //Add AddItem button
+            Button btn = Instantiate(addItemBtn, itemsPanel.transform).GetComponent<Button>();
+
+            btn.onClick.AddListener(startFocusingItemInventory);
+        }
+    }
+    private void startFocusingItemInventory() {
+        focusElement = 9;
+        startFocusing();
+    }
+    private void closeInventoryItems() {
+        foreach (Transform child in addItemDisplaysArea.transform) {
+            if(child.tag != "DontDelete")
+                Destroy(child.gameObject);
+        }
+    }
+
+    private void displayInventoryItems() {
+        closeInventoryItems();
+        foreach(Transform child in uiManager.playerParty.itemInventory.transform) {
+            Item item = child.GetComponent<Item>();
+            ItemDisplay display = Instantiate(itemDisplay, addItemDisplaysArea);
+            display.item = item;
+            display.characterInfoScreen = this;
+            display.adding = true;
         }
     }
 
@@ -1103,7 +1161,7 @@ public class CharacterInfoScreen : MonoBehaviour
         totalKills.text = currChar.totalKills + "";
         totalDamage.text = currChar.totalDamage.ToString("F0");
     }
-    public void close() {
+    public void closeAbilityDisplays() {
         //destroys all ability displays
         for(int i = 0;i<abilityDisplays.Count;i++) {
             //Destroys the ability display then refills the placeholder with a background
@@ -1254,7 +1312,8 @@ public class CharacterInfoScreen : MonoBehaviour
         if (willHandlePause && time <= 0) {
             uiManager.pausePlay(uiManager.wasPause);
             //and remove the ability displays;
-            close();
+            closeAbilityDisplays();
+            closeItemDisplays();
             willHandlePause = false;
         }
 
@@ -1270,8 +1329,8 @@ public class CharacterInfoScreen : MonoBehaviour
         if(time2 >= transitionTime) {
             //no longer in the process of focusing(Done focusing)
             focusing = false;
-            //if the focus element is statUpgrading then create the abilityDisplays if it wasnt already created
-            if(focusElement == 7 && !statUpgrading.createdAbilityDisplays) {
+            //if the focus element is statUpgrading or adding Ability then create the abilityDisplays(To display the difference in abilities after the stat upgrade) if it wasnt already created
+            if((focusElement == 7)&& !statUpgrading.createdAbilityDisplays) {
                 statUpgrading.createAbilityDisplayStatDifferences();
                 statUpgrading.createdAbilityDisplays = true;
                 statUpgrading.focusAbilityIconHolder();
@@ -1280,6 +1339,7 @@ public class CharacterInfoScreen : MonoBehaviour
                 }
             }
         }
+
         //no longer in process of unfocusing
         if (time2 <= 0)
             unFocusing = false;
@@ -1322,6 +1382,8 @@ public class CharacterInfoScreen : MonoBehaviour
             setPanelStuffActive(true);
             //redisplays abilities
             displayCharacterAbilities(character);
+            //redisplays items
+            displayCharacterItems(character);
             willHandleDeActivatingFocus = false;
 
             //Tutorial stuff
