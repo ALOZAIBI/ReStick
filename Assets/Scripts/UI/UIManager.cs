@@ -121,6 +121,8 @@ public class UIManager : MonoBehaviour
     public AbilityFactory abilityFactory;
     //used to fetch random abilities for rewards and shop
     public CharacterFactory characterFactory;
+    //Used to fetch random items for rewards and shop
+    public ItemFactory itemFactory;
 
     //Used to fetch archetypes
     public Transform archetypeList;

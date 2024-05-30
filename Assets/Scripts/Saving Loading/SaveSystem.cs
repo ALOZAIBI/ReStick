@@ -262,6 +262,10 @@ static class SaveSystem
             Ability temp = child.GetComponent<Ability>();
             data.abilityNames.Add(temp.abilityName);
         }
+        foreach(Transform child in UIManager.singleton.playerParty.itemInventory.transform) {
+            Item temp = child.GetComponent<Item>();
+            data.itemNames.Add(temp.itemName);
+        }
         string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/worldSave/inventory/inventory.xrt";
         using (FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
@@ -287,6 +291,7 @@ static class SaveSystem
                 //adds abilities and gold
                 InventoryData data = JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
                 UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(data.abilityNames);
+                UIManager.singleton.itemFactory.addRequestedItemsToInventory(data.itemNames);
                 UIManager.singleton.playerParty.gold = data.gold;
                 UIManager.singleton.playerParty.lifeShards = data.lifeShards;
             }
@@ -368,6 +373,10 @@ static class SaveSystem
             Ability temp = child.GetComponent<Ability>();
             data.abilityNames.Add(temp.abilityName);
         }
+        foreach (Transform child in UIManager.singleton.playerParty.itemInventory.transform) {
+            Item temp = child.GetComponent<Item>();
+            data.itemNames.Add(temp.itemName);
+        }
         string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/inventory/inventory.xrt";
         using(FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
@@ -393,6 +402,7 @@ static class SaveSystem
                 //adds abilities and gold
                 InventoryData data= JsonConvert.DeserializeObject<InventoryData>(reader.ReadString());
                 UIManager.singleton.abilityFactory.addRequestedAbilitiesToInventory(data.abilityNames);
+                UIManager.singleton.itemFactory.addRequestedItemsToInventory(data.itemNames);
                 UIManager.singleton.playerParty.gold = data.gold;
                 UIManager.singleton.playerParty.lifeShards = data.lifeShards;
             }

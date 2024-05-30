@@ -63,8 +63,9 @@ public class CharacterFactory : MonoBehaviour
         temp.archetypeName = data.archetypeName;
         //add the abilities
         UIManager.singleton.abilityFactory.addRequestedAbilitiesToCharacter(temp, data.abilities,data.abilityTargetting);
+        UIManager.singleton.itemFactory.addRequestedAbilitiesToCharacter(temp, data.items);
         //if(parent==UIManager.singleton.playerParty.transform)
-            //Debug.Log("Character loaded" + temp.name+temp.HP+" PlayerPartyChildCOunt"+UIManager.singleton.playerParty.transform.childCount);
+        //Debug.Log("Character loaded" + temp.name+temp.HP+" PlayerPartyChildCOunt"+UIManager.singleton.playerParty.transform.childCount);
         //create another array for each ability holding the int of targetting strategy
     }
     //on starts adds all children to the characters list and sets the index 

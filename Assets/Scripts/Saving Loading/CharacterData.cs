@@ -49,6 +49,9 @@ public class CharacterData
     //contains the targetting of the respective index ability
     public int[] abilityTargetting;
 
+    //contains the names of items that will then be fetched from item factory
+    public string[] items;
+
 
     public bool hasArchetype;
     public string archetypeName;
@@ -85,6 +88,10 @@ public class CharacterData
             abilityTargetting[i] = character.abilities[i].targetStrategy;
         }
 
+        items = new string[character.items.Count];
+        for(int i = 0; i < character.items.Count; i++) {
+            items[i] = character.items[i].itemName;
+        }
 
         hasArchetype = character.hasArchetype;
         archetypeName = character.archetypeName;
