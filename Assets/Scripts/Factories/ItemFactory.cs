@@ -17,7 +17,7 @@ public class ItemFactory : MonoBehaviour
     }
 
     //returns the gameObject from the abilities list given the ability's name
-    private GameObject objectFromName(string name) {
+    public GameObject objectFromName(string name) {
         foreach (GameObject obj in items) {
             if (obj.GetComponent<Item>().itemName == name) {
                 return obj;
@@ -47,5 +47,11 @@ public class ItemFactory : MonoBehaviour
             Instantiate(obj, UIManager.singleton.playerParty.itemInventory.transform);
         }
     }
+
+    //Returns a random item from the list
+    public GameObject randomItem() {
+        return items[Random.Range(0, items.Count)];
+    }
+
 
 }

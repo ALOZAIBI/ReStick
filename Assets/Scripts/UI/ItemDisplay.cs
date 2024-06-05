@@ -13,6 +13,7 @@ public class ItemDisplay : MonoBehaviour
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemDescription;
 
+    public Image wholeThingImage;
     //When adding this button is used to add item, otherwise this item displays the remove btn
     public Button wholeThingBtn;
     public Button removeBtn;
@@ -21,6 +22,11 @@ public class ItemDisplay : MonoBehaviour
 
     //If adding is true, clicking the display will add the item to the character
     public bool adding = false;
+
+    //Reward stuff
+    public bool reward = false;
+    public RewardSelectItem rewardSelect;
+    public bool selected = false;
 
     [SerializeField] private GameObject PWR;
     [SerializeField] private TextMeshProUGUI PWRText;
@@ -41,11 +47,16 @@ public class ItemDisplay : MonoBehaviour
     [SerializeField] private GameObject LS;
     [SerializeField] private TextMeshProUGUI LSText;
 
-    void Start()
-    {
+    void Start() {
         itemName.text = item.itemName;
         itemDescription.text = item.description;
-        wholeThingBtn.onClick.AddListener(click);
+        wholeThingImage = wholeThingBtn.GetComponent<Image>();
+
+        if (reward) {
+            wholeThingBtn.onClick.AddListener(selectReward);
+        }
+        else
+            wholeThingBtn.onClick.AddListener(click);
 
         removeBtn.onClick.AddListener(removeItem);
         if (item.PD != 0 ){
@@ -130,4 +141,23 @@ public class ItemDisplay : MonoBehaviour
     }
 
 
+    //Reward stuff
+    public void highlight() {
+        wholeThingImage.SetAlpha(1);
+    }
+    public void unhighlight() {
+        wholeThingImage.SetAlpha(0.3f);
+    }
+    private void selectReward() {
+        selected = true;
+        highlight();
+        //Deselect all others
+        foreach (ItemDisplay itemDisplay in rewardSelect.listItemReward) {
+            if (itemDisplay != this) {
+                itemDisplay.selected = false;
+                itemDisplay.unhighlight();
+            }
+        }
+        rewardSelect.unGreyOutItemBtn();
+    }
 }

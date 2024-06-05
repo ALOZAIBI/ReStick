@@ -33,8 +33,12 @@ public class Zone : MonoBehaviour
     //list of gameObject that contain ability that can be rewarded here
     public List<GameObject> abilityRewardPool = new List<GameObject>();
 
+    //list of gameObject that contain items that can be rewarded here
+    public List<GameObject> itemRewardPool = new List<GameObject>();
+
     //contains the abilities to be rewarded as children
     public GameObject abilityContainer;
+
 
     //string containing ability names. This list is filled when zone save file is loaded.
     //These string names will be used to fetch abilities from ability factory

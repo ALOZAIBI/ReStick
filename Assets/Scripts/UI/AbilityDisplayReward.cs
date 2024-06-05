@@ -9,7 +9,7 @@ public class AbilityDisplayReward : MonoBehaviour
 
     public Ability ability;
     //to be able to deselect everything else when this is selected
-    public RewardSelect rewardSelect;
+    public RewardSelectAbility rewardSelect;
     //wether this is selected or not
     public bool selected;
     //used to color what is selected
@@ -88,13 +88,13 @@ public class AbilityDisplayReward : MonoBehaviour
         selected = true;
         highlight();
         //deselects alll others
-        foreach(AbilityDisplayReward deSelect in rewardSelect.listReward) {
+        foreach(AbilityDisplayReward deSelect in rewardSelect.listAbilityReward) {
             if(deSelect != this) {
                 deSelect.selected = false;
                 deSelect.unHighlight();
             }
         }
         //and ungreys out the confirmselection button
-        rewardSelect.unGreyOutBtn();
+        rewardSelect.unGreyOutAbilityBtn();
     }
 }

@@ -94,8 +94,8 @@ public class Tutorial : MonoBehaviour
         positionTextBox(rt.GetAnchorTop(),rt.GetAnchorTop()*1.2f, 0.2f, 0.8f);
         text.text = "Pick a reward";
 
-        RewardSelect rewardSelect = chooseRewardScreen.GetComponent<RewardSelect>();
-        foreach(AbilityDisplayReward reward in rewardSelect.listReward) {
+        RewardSelectAbility rewardSelect = chooseRewardScreen.GetComponent<RewardSelectAbility>();
+        foreach(AbilityDisplayReward reward in rewardSelect.listAbilityReward) {
             AddListener(reward.self, endChooseRewardTutorial);
         }
     }

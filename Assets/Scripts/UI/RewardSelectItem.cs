@@ -3,46 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardSelect : MonoBehaviour
+public class RewardSelectItem : MonoBehaviour
 {
-    public UIManager uiManager;
 
-    //object to be instantiated
-    public GameObject abilityDisplayReward;
+    public GameObject itemDisplayReward;
 
     //so that AbilityDisplayReward can deselect everything else when it is selected
-    public List<AbilityDisplayReward> listReward = new List<AbilityDisplayReward>();
+    public List<ItemDisplay> listItemReward = new List<ItemDisplay>();
 
-    //to send the ability to playerInventory
+    //to send the reward to inventory
     public PlayerManager playerManager;
 
     public Button confirmSelection;
 
-
-
     private void Start() {
         confirmSelection.onClick.AddListener(addToInventory);
     }
-
     //adds the selected ability to inventory
     public void addToInventory() {
-        //index will be used to know which ability from zoneRewards to send to AbilityInventory
+        //index will be used to know which item from zoneRewards to send to itemInventory
         int index = 0;
-        bool aSelectionIsMade=false;
-        foreach(AbilityDisplayReward traversal in listReward) {
-            //once it reaches a selected one add the ability to inventory
-            if(traversal.selected == true) {
+        bool aSelectionIsMade = false;
+        foreach (ItemDisplay traversal in listItemReward) {
+            //once it reaches a selected one add the item to inventory
+            if (traversal.selected == true) {
                 aSelectionIsMade = true;
-                //here temp is an actual ability and not a display
-                GameObject temp = uiManager.zone.abilityRewardPool[index];
-                temp.transform.parent = playerManager.abilityInventory.transform;
+                //We add the item to inventory
+                GameObject item = UIManager.singleton.itemFactory.objectFromName(traversal.item.itemName);
+                item.transform.parent = playerManager.itemInventory.transform;
+
             }
             index++;
         }
         if (aSelectionIsMade) {
             //Debug.Log("as election is made");
             //deletes all displayws
-            foreach (AbilityDisplayReward toBeDeleted in listReward) {
+            foreach (ItemDisplay toBeDeleted in listItemReward) {
                 Destroy(toBeDeleted.gameObject);
                 //goes to next step in gameWonScreen
             }
@@ -51,46 +47,46 @@ public class RewardSelect : MonoBehaviour
             //saves characters in map
             UIManager.singleton.saveMapSave();
             //then carries on in gameWonScreen
-            uiManager.gameWonScreen.displayContents();
-        //clears the list to be reinitialized in another zone
-        listReward.Clear();
+            UIManager.singleton.gameWonScreen.displayContents();
+            //clears the list to be reinitialized in another zone
+            listItemReward.Clear();
         }
-        SaveSystem.setRewardProgress(1);
+        //SaveSystem.setRewardProgress(1);
     }
     //Displays the abilities and greys out the Button.
-    public void displayAbilities() {
+    public void displayItems() {
+        Debug.Log("DISPLAY ITEMS CAKLLED");
         //hides contents of gameWonScreen so that rewards are displayed first
-        uiManager.gameWonScreen.contents.SetActive(false);
+        UIManager.singleton.gameWonScreen.contents.SetActive(false);
         //creates reward Displays
-        for(int i = 0; i < uiManager.zone.abilityRewardPool.Count; i++) {
-            AbilityDisplayReward rewardDisplay = Instantiate(abilityDisplayReward).GetComponent<AbilityDisplayReward>();
+        for (int i = 0; i < 3; i++) {
+            Debug.Log("ITEM RTEWAARD DISPLY INSRTANT");
+            ItemDisplay rewardDisplay = Instantiate(itemDisplayReward).GetComponent<ItemDisplay>();
+            rewardDisplay.reward = true;
             //make it a child
             rewardDisplay.transform.parent = gameObject.transform;
-            listReward.Add(rewardDisplay);
+            listItemReward.Add(rewardDisplay);
             //to connect this to the reward
             rewardDisplay.rewardSelect = this;
-            //gets the ability from zone
-            Ability temp = uiManager.zone.abilityRewardPool[i].GetComponent<Ability>();
-            rewardDisplay.ability = temp;
-            rewardDisplay.abilityName.text = temp.abilityName;
-            rewardDisplay.description.text = temp.description;
+
+            Item temp = UIManager.singleton.itemFactory.randomItem().GetComponent<Item>();
+
+            rewardDisplay.item = temp;
+            rewardDisplay.itemName.text = temp.itemName;
+            rewardDisplay.itemDescription.text = temp.description;
             //sets the scale for some reason if I dont do this the scale is set to 167
             rewardDisplay.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
-        Debug.Log("Debug poolCount"+uiManager.zone.abilityRewardPool.Count);
         //greys out the button;
-        greyOutBtn();
+        greyOutItemBtn();
         //the button will be ungreyed out in AbilityRewardDisplayScript
-
-        //Tutorial stuff
-        uiManager.tutorial.beginChooseRewardTutorial();
     }
 
-    public void greyOutBtn() {
+    public void greyOutItemBtn() {
         Image image = confirmSelection.GetComponent<Image>();
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0.3f);
     }
-    public void unGreyOutBtn() {
+    public void unGreyOutItemBtn() {
         Image image = confirmSelection.GetComponent<Image>();
         image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }
