@@ -22,6 +22,22 @@ public class Item : MonoBehaviour {
     public float LS;
     public float size;
 
+    public enum RaritiesList {
+        Common,
+        Rare,
+        Epic,
+        Legendary
+    }
+    [SerializeField] public RaritiesList Rarities;
+    public int rarity;
+
+    private void Start() {
+        rarity = (int)Rarities;
+    }
+
+    public void OnValidate() {
+        rarity = (int)Rarities;
+    }
 
     //Applies stats
     //This is only done once then followed by a save
@@ -73,6 +89,10 @@ public class Item : MonoBehaviour {
     }
 
     public virtual void afterAttack() {
+
+    }
+
+    public virtual void continuous() {
 
     }
 }

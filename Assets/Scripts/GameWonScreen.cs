@@ -28,10 +28,10 @@ public class GameWonScreen : MonoBehaviour
         //Random number between 0 and 100
         int random = UnityEngine.Random.Range(0, 100);
         //20% chance to get a reward
-        if (random < 0) {
+        if (random < 25) {
             displayAbilityRewards();
         }
-        else if(random<100){
+        else if(random<45){
             Debug.Log("WILL REWRA ITEM");
             displayItemRewards();
         }

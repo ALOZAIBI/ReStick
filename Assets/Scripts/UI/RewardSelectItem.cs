@@ -29,7 +29,7 @@ public class RewardSelectItem : MonoBehaviour
             if (traversal.selected == true) {
                 aSelectionIsMade = true;
                 //We add the item to inventory
-                GameObject item = UIManager.singleton.itemFactory.objectFromName(traversal.item.itemName);
+                GameObject item = Instantiate(UIManager.singleton.itemFactory.objectFromName(traversal.item.itemName));
                 item.transform.parent = playerManager.itemInventory.transform;
 
             }
@@ -72,8 +72,9 @@ public class RewardSelectItem : MonoBehaviour
             Item temp = UIManager.singleton.itemFactory.randomItem().GetComponent<Item>();
 
             rewardDisplay.item = temp;
-            rewardDisplay.itemName.text = temp.itemName;
-            rewardDisplay.itemDescription.text = temp.description;
+            Debug.Log("THIS IS THE ITEM MYLEAGUE");
+            //rewardDisplay.itemName.text = temp.itemName;
+            //rewardDisplay.itemDescription.text = temp.description;
             //sets the scale for some reason if I dont do this the scale is set to 167
             rewardDisplay.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4755260406917719725}
-  - component: {fileID: -5218975460630753932}
+  - component: {fileID: 6532050742927430237}
   m_Layer: 0
-  m_Name: HealOnKill
+  m_Name: Eternal Growth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5218975460630753932
+--- !u!114 &6532050742927430237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,22 +41,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 8328399976907063504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b7d38452f310ce42a6faa471f90a57c, type: 3}
+  m_Script: {fileID: 11500000, guid: 84a82392c7935d146938ccd8f3e8e4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  itemName: Healer On Killer
-  description: Heal 5% of your HP per kill
+  itemName: Ceaseless upgrade
+  description: Ceaseless upgrade
   PD: 0
   MD: 0
   INF: 0
-  HP: 0
+  HP: 30
   AS: 0
   CDR: 0
   MS: 0
   Range: 0
   LS: 0
   size: 0
-  Rarities: 0
-  rarity: 0
-  healPercent: 5
+  Rarities: 3
+  rarity: 3
+  timeSinceLastBuff: 0
+  timeBetweenBuffs: 1
+  buffObject: {fileID: 4146658564243946327, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
+  buffPD: 1
+  buffMD: 1
+  buffINF: 1
+  buffHP: 2
+  buffAS: 0.01
+  buffCDR: 0.005
+  buffMS: 0.01
+  buffRange: 0
+  buffLS: 0.002
+  buffsize: 0.01
+  buffDuration: 5000

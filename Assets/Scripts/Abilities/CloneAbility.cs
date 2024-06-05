@@ -43,6 +43,15 @@ public class CloneAbility : Ability
             clone.abilities[index] = temp;
             index++;
         }
+
+        //Clones the items
+        index = 0;
+        foreach (Item item in character.target.items) {
+            Item temp = Instantiate(item);
+            clone.items[index] = temp;
+            index++;
+        }
+
         if (clone.team != character.team) {
             //if the clone is of an enemy make it allied.
             clone.team = character.team;

@@ -285,6 +285,11 @@ public class Character : MonoBehaviour {
             temp.character = this;
             temp.applyStats();
         }
+
+        foreach(Item item in items) {
+            item.character = this;
+            item.onZoneStart();
+        }
         //to force the character to go through the moveTowardsFunction gets the stats on round start
         timeSinceDestinationUpdate = 100;
         previousMovementState = 99;
@@ -1632,9 +1637,14 @@ public class Character : MonoBehaviour {
         killsLastFrame = 0;
         averageLevelOfKillsLastFrame.Clear();
     }
-
+    private void itemOnDeath() {
+        foreach(Item temp in items) {
+            temp.onDeath();
+        }
+    }
     public void handleDeath() {
         if (HP <= 0) {
+            itemOnDeath();
             //remove character from the zone's character list
             zone.charactersInside.Remove(this);
             gameObject.SetActive(false);
@@ -1882,6 +1892,12 @@ public class Character : MonoBehaviour {
         drawToBeControlledIndicator();
         //display Range Indicator and ability indicators....
     }
+
+    private void itemContinuous() {
+        foreach (Item item in items) {
+            item.continuous();
+        }
+    }
     void FixedUpdate()
     {
         
@@ -1920,6 +1936,8 @@ public class Character : MonoBehaviour {
         else {
             manualTargettingCDRemaining = 0;
         }
+
+        itemContinuous();
     }
 
     private void Update() {

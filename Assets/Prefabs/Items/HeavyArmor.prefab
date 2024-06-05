@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4755260406917719725}
-  - component: {fileID: -5218975460630753932}
+  - component: {fileID: -3267153252851543489}
   m_Layer: 0
-  m_Name: HealOnKill
+  m_Name: HeavyArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5218975460630753932
+--- !u!114 &-3267153252851543489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,22 +41,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8328399976907063504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b7d38452f310ce42a6faa471f90a57c, type: 3}
+  m_Script: {fileID: 11500000, guid: 58407450f76907f4e9acf9fd16a1e53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  itemName: Healer On Killer
-  description: Heal 5% of your HP per kill
+  itemName: Heavy Armor
+  description: 
   PD: 0
   MD: 0
   INF: 0
-  HP: 0
-  AS: 0
+  HP: 200
+  AS: -0.2
   CDR: 0
-  MS: 0
+  MS: -1
   Range: 0
   LS: 0
-  size: 0
-  Rarities: 0
-  rarity: 0
-  healPercent: 5
+  size: 0.2
+  Rarities: 1
+  rarity: 1
