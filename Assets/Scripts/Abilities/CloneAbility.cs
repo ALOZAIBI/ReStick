@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CloneAbility : Ability
 {
-    public override void doAbility() {
+    public override bool doAbility() {
         if(available) {
             calculateAmt();
             playAnimation("castRaise");
+            return true;
         }
+        return false;
     }
     public override void executeAbility() {
         character.selectTarget(targetStrategy);

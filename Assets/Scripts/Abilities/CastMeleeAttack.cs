@@ -29,13 +29,15 @@ public class CastMeleeAttack : Ability
 
 
     public float selfRootDuration;
-    public override void doAbility() {
+    public override bool doAbility() {
         if(available && character.selectTarget(targetStrategy, rangeAbility)) {
             calculateAmt();
             lockedTarget = character.target;
             Debug.Log("LockedTarget:" + lockedTarget.name);
             playAnimation(animationToPlay);
+            return true;
         }
+        return false;
     }
 
     public override void executeAbility() {

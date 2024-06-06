@@ -63,7 +63,7 @@ public class LaunchProjectiles : Ability
         executeAbilityOnEvent = false;
     }
 
-    public override void doAbility() {
+    public override bool doAbility() {
         if (abilityStarted||(available && character.selectTarget(targetStrategy, rangeAbility))) {
             Debug.Log("LAUNCH PROJECTILE DONE");
             calculateAmt();
@@ -114,7 +114,9 @@ public class LaunchProjectiles : Ability
                     character.animationManager.forceStop();
                 }
             }
+            return true;
         }
+        return false;
     }
 
     private void createProjectile(float angle) {

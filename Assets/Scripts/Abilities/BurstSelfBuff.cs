@@ -28,12 +28,14 @@ public class BurstSelfBuff : Ability
         base.Start();
         updateDescription();
     }
-    public override void doAbility() {
+    public override bool doAbility() {
         //selects target
         if (available && buffNotOnTarget()) {
             calculateAmt();
             playAnimation("castRaise");
+            return true;
         }
+        return false;
     }
 
     public override void executeAbility() {

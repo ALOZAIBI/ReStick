@@ -34,7 +34,7 @@ public class MagicAvalanche : Ability
         base.Start();
         updateDescription();
     }
-    public override void doAbility() {
+    public override bool doAbility() {
         if (available && character.selectTarget(targetStrategy,rangeAbility)) {
             calculateAmt();
             ballAmount = (int)valueAmt.getAmtValueFromName(this, "NumberOfBalls");
@@ -112,7 +112,9 @@ public class MagicAvalanche : Ability
                 currentDelayBetweenBall = 0;
                 channelStart = true;
             }
+            return true;
         }
+        return false;
 
     }
     public override void updateDescription() {

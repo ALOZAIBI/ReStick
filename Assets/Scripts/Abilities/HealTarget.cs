@@ -8,7 +8,7 @@ public class HealTarget : Ability
         base.Start();
         updateDescription();
     }
-    public override void doAbility() {      //Added the check if interruptible to not make this function called every frame.
+    public override bool doAbility() {      //Added the check if interruptible to not make this function called every frame.
 
         if (character.animationManager.interruptible && available) {
             //If there is a character within range that is not at full HP, select it as a target
@@ -16,8 +16,10 @@ public class HealTarget : Ability
                 Debug.Log("Character selected is " + character.target.name);
                 calculateAmt();
                 playAnimation("castRaise");
+                return true;
             }
         }
+        return false;
     }
 
     public override void executeAbility() {

@@ -12,11 +12,13 @@ public class Summon : Ability
         }
     }
     //Summons the prefabObject and sets up some stats
-    public override void doAbility() {
+    public override bool doAbility() {
         if (available) {
             calculateAmt();
             playAnimation("castRaise");
+            return true;
         }
+        return false;
     }
     public override void executeAbility() {
         //Summons the character in a slightly random position from the casting character

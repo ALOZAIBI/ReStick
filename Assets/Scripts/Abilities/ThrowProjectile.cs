@@ -33,13 +33,14 @@ public class ThrowProjectile : Ability
         base.Start();
         updateDescription();
     }
-    public override void doAbility() {
+    public override bool doAbility() {
         if (available&& character.selectTarget(targetStrategy,rangeAbility)) {
             calculateAmt();
             playAnimation("castRaise");
             lockedTarget = character.target;
+            return true;
         }
-
+        return false;
     }
 
     public override void executeAbility() {

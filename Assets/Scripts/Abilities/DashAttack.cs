@@ -39,18 +39,20 @@ public class DashAttack : Ability
     private void FixedUpdate() {
         cooldown();
     }
-    public override void doAbility() {
+    public override bool doAbility() {
         if (available&& character.selectTarget(targetStrategy,rangeAbility) && canUseDash()) {
             calculateAmt();
             playAnimation("castDash");
             //executeAbility();
-            
+            return true;
         }
         //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
         //It is done outside the initial if statement so that we can go through the if Dead or null check. Becaise if there are no characters within range then the ability won't be executed and won't go through the check.
         if (character.currentDashingAbility == this) {
             executeAbility();
+            return true;
         }
+        return false;
     }
 
     public override void executeAbility() {

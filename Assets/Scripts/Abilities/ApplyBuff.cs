@@ -28,15 +28,18 @@ public class ApplyBuff : Ability
         base.Start();
         updateDescription();
     }
-    public override void doAbility() {
+    public override bool doAbility() {
         //Added the check if interruptible to not make this function called every frame.
         if (character.animationManager.interruptible && available) {
             //selects target
             if (character.selectTarget(targetStrategy, rangeAbility,excludeTargets())) {
                 calculateAmt();
                 playAnimation("castRaise");
+                return true;
             }
         }
+
+        return false;
     }
     public override void executeAbility() {
         //creates buff

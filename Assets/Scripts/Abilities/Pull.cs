@@ -19,7 +19,7 @@ public class Pull : Ability
         arm.positionCount = 2;
     }
 
-    public override void doAbility() {
+    public override bool doAbility() {
         //Calculate the range of the ability
         calculateAmt();
         rangeAbility = valueAmt.getAmtValueFromName(this,"Range");
@@ -27,7 +27,9 @@ public class Pull : Ability
         if (available && character.selectTarget(targetStrategy, rangeAbility)) {
             playAnimation("castRaise");
             lockedTarget = character.target;
+            return true;
         }
+        return false;
     }
     
     public override void updateDescription() {

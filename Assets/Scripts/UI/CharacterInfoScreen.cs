@@ -235,9 +235,15 @@ public class CharacterInfoScreen : MonoBehaviour
     //If this Character Info Screen is opened from the inventory screen
     public bool inventoryScreen;
 
+    //How long the activation display will be shown
+    public float topStatAbilityActivationDuration = 0.5f;
+
+    public List<bool> topStatAbilityActivated = new List<bool>(new bool[MAX_ABILITIES]);
+    public List<float> topStatAbilityActivationTime = new List<float>(new float[MAX_ABILITIES]);
     [SerializeField]private List<SlicedFilledImage> topstatAbilityDisplays = new List<SlicedFilledImage>(new SlicedFilledImage[MAX_ABILITIES]);
     [SerializeField]private List<Image> topstatAbilityDisplaysFill = new List<Image>(new Image[MAX_ABILITIES]);
     [SerializeField]private List<Image> topstatAbilityDisplaysBorder = new List<Image>(new Image[MAX_ABILITIES]);
+    [SerializeField]private List<Image> topstatAbilityDisplayActivation = new List<Image>(new Image[MAX_ABILITIES]);
 
     const int ARCHETYPESELECTLEVEL = 20;
 
@@ -1253,6 +1259,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
             topstatAbilityDisplaysFill[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
             topstatAbilityDisplaysFill[i].SetAlpha(0.4f);
+
         }
         //Sets the remaining to inactive
         for(int i = MAX_ABILITIES; i > character.abilities.Count; i--) {
@@ -1269,6 +1276,29 @@ public class CharacterInfoScreen : MonoBehaviour
         //float x = 0.5f + Mathf.PingPong(Time.unscaledTime * 0.5f, 0.7f);
         //confirmAddAbilityBtnImage.color = new Color(x, x, x);
 
+    }
+
+    public void displayAbilityActivation(int index) {
+        topStatAbilityActivated[index] = true;
+        topStatAbilityActivationTime[index] = 0;
+        Debug.Log("ACTIVATION OF" + index);
+    }
+    private void handleTopStatAbilityDisplayActivation() {
+        for(int i = 0; i < MAX_ABILITIES; i++) {
+            //If it is activated display the activation
+            if (topStatAbilityActivated[i]) {
+                Debug.Log("IOTSACTIVATIOED" + i);
+                topstatAbilityDisplayActivation[i].gameObject.SetActive(true);
+                //Count up the time
+                topStatAbilityActivationTime[i] += Time.unscaledDeltaTime;
+                //If the time is up, deactivate the activation
+                if (topStatAbilityActivationTime[i] >= topStatAbilityActivationDuration) {
+                    topStatAbilityActivated[i] = false;
+                    topStatAbilityActivationTime[i] = 0;
+                    topstatAbilityDisplayActivation[i].gameObject.SetActive(false);
+                }
+            }
+        }
     }
     public bool openingFullScreen;
     private void Update() {
@@ -1422,5 +1452,6 @@ public class CharacterInfoScreen : MonoBehaviour
             statsBorder.pixelsPerUnitMultiplier = 1;
         }
 
+        handleTopStatAbilityDisplayActivation();
     }
 }

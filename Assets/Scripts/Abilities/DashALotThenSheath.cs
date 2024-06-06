@@ -8,12 +8,14 @@ public class DashALotThenSheath : Ability {
     private Aura aura;
     [SerializeField]private List<Character> enemiesHit = new List<Character>();
     [SerializeField]private Character toDashTo;
-    public override void doAbility() {
+    public override bool doAbility() {
+        bool done = false;
         if (available && step == 0&& character.selectTarget((int)Character.TargetList.ClosestEnemy, rangeAbility) && canUseDash()) {
             Debug.Log("Dashing alot casted");
             calculateAmt();
             character.currentDashingAbility = this;
             playAnimation("castRaise");
+            done = true;
         }
         else
         //This step checks if all enies have been hit
@@ -22,18 +24,22 @@ public class DashALotThenSheath : Ability {
             //To end the dash animation from step 2 before perhaps redoing it to go to step 3 or 2 again
             character.animationManager.keepAbilityMakeInterupttible();
             executeAbility();
+            done = true;
         }
         //Dashes to all enemies that haven't been hit (goes back to step 1 after each completed dash)
         if(available && step == 2 && canUseDash()) {
             calculateAmt();
             playAnimation("castDash");
             executeAbility();
+            done = true;
         }//Dashes back to the original position and deals damage and start cooldown
         if(available && step == 3 && canUseDash()) {
             calculateAmt();
             playAnimation("castDash");
             executeAbility();
+            done = true;
         }
+        return done;
     }
 
     public override void executeAbility() {

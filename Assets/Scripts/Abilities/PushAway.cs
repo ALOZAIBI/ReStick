@@ -9,12 +9,14 @@ public class PushAway : Ability {
 
 
     //prefabObject will hold the buff that will slowthem
-    public override void doAbility() {
+    public override bool doAbility() {
         //this ability will only be cast if there are enemies within the radius
         if (available && character.selectTarget((int)Character.TargetList.ClosestEnemy,rangeAbility)) {
             calculateAmt();
             playAnimation("castAoePush");
+            return true;
         }
+        return false;
     }
     public override void executeAbility() {
 

@@ -199,8 +199,8 @@ public abstract class Ability : MonoBehaviour
 
     }
     #endif
-    //executes this ability
-    public abstract void doAbility();
+    //executes this ability returns true if the ability was executed(To be used for UI activation)
+    public abstract bool doAbility();
 
   
     //Some abilities do reset on round start
