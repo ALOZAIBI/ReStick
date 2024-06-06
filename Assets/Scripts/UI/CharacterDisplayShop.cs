@@ -105,7 +105,7 @@ public class CharacterDisplayShop : MonoBehaviour {
                 UIManager.singleton.saveMapSave();
   
                 //save shop PurchaseInfo
-                SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
+                SaveSystem.saveShopAbilitiesItemsAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
             }
         }
     }

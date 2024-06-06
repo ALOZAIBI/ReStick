@@ -6,13 +6,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopScreen : MonoBehaviour {
+
+    public GameObject itemDisplayObj;
+
     public GameObject abilityDisplayObj;
     public GameObject sellAbilityDisplayObj;
 
     public GameObject characterDisplayObj;
     public GameObject characterPlayerPartyDisplayObj;
 
-
+    public GameObject itemArea;
     public GameObject abilityArea;
     public GameObject characterArea;
     public GameObject characterPlayerPartyArea;
@@ -48,6 +51,7 @@ public class ShopScreen : MonoBehaviour {
     //1 is Hospital/Training Area
     public int pageIndex;
 
+    public List<ItemDisplay> listItems = new List<ItemDisplay>();
     //so that AbilityDisplayShop can deselect everything else when it is selected
     public List<AbilityDisplayShop> listAbilities = new List<AbilityDisplayShop>();
     //Haven't done yet but should do same as listAbilities
@@ -101,6 +105,13 @@ public class ShopScreen : MonoBehaviour {
                 Destroy(child.gameObject);
         }
     }
+
+    private void closeItems() {
+        foreach(Transform child in itemArea.transform) {
+            if (child.tag != "DontDelete")
+                Destroy(child.gameObject);
+        }
+    }
     
     public void closeCharacters() {
         foreach (Transform child in characterArea.transform) {
@@ -118,6 +129,7 @@ public class ShopScreen : MonoBehaviour {
     public void closeBuyScreen() {
         closeAbilities();
         closeCharacters();
+        closeItems();
         //closeCharactersPlayerParty();
         listAbilities.Clear();
         listCharacters.Clear();
@@ -136,6 +148,25 @@ public class ShopScreen : MonoBehaviour {
         closeBuyScreen();
         closeSellScreen();
         UIManager.singleton.shopScreenHidden.hidden = true;
+    }
+    public void displayItems() {
+        //Creates itemDisplays
+        for(int i = 0; i < shop.itemHolder.transform.childCount; i++) {
+            //Creates the display and makes it a child of itemArea
+            ItemDisplay itemDisplay = Instantiate(itemDisplayObj, itemArea.transform).GetComponent<ItemDisplay>();
+            itemDisplay.shop = true;
+            itemDisplay.shopIndex = i;
+
+            Item temp = shop.itemHolder.transform.GetChild(i).GetComponent<Item>();
+            itemDisplay.item = temp;
+            //Marks if it was purchased
+            itemDisplay.purchased = shop.itemPurchased[i];
+            //Display if it was sold
+            if (itemDisplay.purchased) {
+                itemDisplay.displaySold();
+            }
+            listItems.Add(itemDisplay);
+        }
     }
     public void displayAbilities() {
         //creates ability Displays
@@ -179,6 +210,7 @@ public class ShopScreen : MonoBehaviour {
     private void displayBuyScreen() {
         closeBuyScreen();
         displayAbilities();
+        displayItems();
         displayCharacters();
 
         buyScreen.SetActive(true);
@@ -208,9 +240,9 @@ public class ShopScreen : MonoBehaviour {
             image.SetAlpha(1);
         }
 
-        displaySellableItems();
+        displaySellableAbilities();
     }
-    private void displaySellableItems() {
+    private void displaySellableAbilities() {
         //creates ability Displays
         for (int i = 0; i < UIManager.singleton.playerParty.abilityInventory.transform.childCount; i++) {
             //creates the display and makes it a child of abilityArea

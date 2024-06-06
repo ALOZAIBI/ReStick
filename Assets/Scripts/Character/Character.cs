@@ -253,6 +253,12 @@ public class Character : MonoBehaviour {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
 
         initRoundStart();
+
+        //Since we can no longer modify the target strategy I will simply just reset it here to prevent bugs after manually selecting target
+        //This is just a spaghetti fix but fuck it
+        if (team == (int)teamList.Player && !summoned)
+            attackTargetStrategy = (int)TargetList.ClosestEnemy;
+
         animationManager = GetComponent<AnimationManager>();
         //Connect to UIManager
         //setup level cap

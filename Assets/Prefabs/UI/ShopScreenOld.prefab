@@ -594,34 +594,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastUsedCharacter: {fileID: 0}
   characterInfoScreen: {fileID: 0}
-  statPointTextContainer: {fileID: 0}
-  statPointDisplay: {fileID: 0}
-  addPD: {fileID: 0}
-  subPD: {fileID: 0}
   PDIcon: {fileID: 0}
-  addMD: {fileID: 0}
-  subMD: {fileID: 0}
   MDIcon: {fileID: 0}
-  addINF: {fileID: 0}
-  subINF: {fileID: 0}
   INFIcon: {fileID: 0}
-  addAS: {fileID: 0}
-  subAS: {fileID: 0}
   ASIcon: {fileID: 0}
-  addCDR: {fileID: 0}
-  subCDR: {fileID: 0}
   CDRIcon: {fileID: 0}
-  addMS: {fileID: 0}
-  subMS: {fileID: 0}
   MSIcon: {fileID: 0}
-  addRNG: {fileID: 0}
-  subRNG: {fileID: 0}
   RNGIcon: {fileID: 0}
-  addLS: {fileID: 0}
-  subLS: {fileID: 0}
   LSIcon: {fileID: 0}
-  addHP: {fileID: 0}
-  subHP: {fileID: 0}
   HPIcon: {fileID: 0}
   PDAmt: 5
   MDAmt: 4
@@ -632,21 +612,31 @@ MonoBehaviour:
   RNGAmt: 1
   LSAmt: 0.04
   HPAmt: 40
-  textLayoutGroup1: {fileID: 0}
-  textLayoutGroup2: {fileID: 0}
-  iconLayoutGroup1: {fileID: 0}
-  iconLayoutGroup2: {fileID: 0}
-  numberLayoutGroup1: {fileID: 0}
-  numberLayoutGroup2: {fileID: 0}
-  column1: {fileID: 0}
-  column2: {fileID: 0}
-  applyChangesBtn: {fileID: 0}
-  resetChangesBtn: {fileID: 0}
   SPUsedBuffer: 0
   applied: 0
+  upgradeOptions: {fileID: 0}
+  applyChangesBtn: {fileID: 0}
+  resetChangesBtn: {fileID: 0}
   abilityDisplayStatDifferences: {fileID: 0}
   abilityDisplayList: []
+  clickedUpgrade1: 0
+  upgrade1Btn: {fileID: 0}
+  textUpgrade1: {fileID: 0}
+  iconHolder1: {fileID: 0}
+  upgrade1Image: {fileID: 0}
+  clickedUpgrade2: 0
+  upgrade2Btn: {fileID: 0}
+  textUpgrade2: {fileID: 0}
+  iconHolder2: {fileID: 0}
+  upgrade2Image: {fileID: 0}
+  clickedUpgrade3: 0
+  upgrade3Btn: {fileID: 0}
+  textUpgrade3: {fileID: 0}
+  iconHolder3: {fileID: 0}
+  upgrade3Image: {fileID: 0}
+  rerollBtn: {fileID: 0}
   createdAbilityDisplays: 0
+  instantiatedStuff: []
 --- !u!1 &2846979025517862908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,14 +1353,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3988d7a8c516cef46903a4b70d281ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDisplayObj: {fileID: 0}
   abilityDisplayObj: {fileID: 2748952500276560411, guid: 5bc6a2f160f7a7342a19577e994492c2, type: 3}
+  sellAbilityDisplayObj: {fileID: 0}
   characterDisplayObj: {fileID: 5763673684709246824, guid: 762752a44362d1a41ae5333a6ff5a70f, type: 3}
   characterPlayerPartyDisplayObj: {fileID: 5763673684709246824, guid: 031038c71c6ed4249bd1f8bc3f058c12, type: 3}
+  itemArea: {fileID: 0}
   abilityArea: {fileID: 3004161489195633423}
   characterArea: {fileID: 3004161488918003319}
   characterPlayerPartyArea: {fileID: 3004161489745597466}
+  sellAbilityArea: {fileID: 0}
   closeBtn: {fileID: 3004161489192918717}
   buyLifeShardBtn: {fileID: 0}
+  buyScreen: {fileID: 0}
+  sellScreen: {fileID: 0}
+  goToBuyScreenBtn: {fileID: 0}
+  goToSellScreenBtn: {fileID: 0}
+  buyScreenBtnImages: []
+  sellScreenBtnImages: []
   commonCost: 100
   rareCost: 200
   epicCost: 450
@@ -1379,8 +1379,10 @@ MonoBehaviour:
   shop: {fileID: 0}
   hospitalTrainingScreen: {fileID: 2016664474245454668}
   pageIndex: 0
+  listItems: []
   listAbilities: []
   listCharacters: []
+  listSellableAbilities: []
 --- !u!61 &3004161488759063313
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6932,6 +6934,7 @@ MonoBehaviour:
   LS: {fileID: 0}
   SP: {fileID: 0}
   healthBar: {fileID: 0}
+  selectCharacterTxt: {fileID: 0}
   characterPortrait: {fileID: 0}
   character: {fileID: 0}
   levelText: {fileID: 0}
@@ -6940,6 +6943,7 @@ MonoBehaviour:
   heal10PercentBtn: {fileID: 0}
   reviveOrHealToFullBtn: {fileID: 0}
   healAndRevivePartyBtn: {fileID: 0}
+  closeBtn: {fileID: 0}
   costPerHp: 0
   costForRevive: 0
 --- !u!114 &4571784901897118863

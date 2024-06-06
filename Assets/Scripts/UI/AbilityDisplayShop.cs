@@ -88,6 +88,12 @@ public class AbilityDisplayShop : MonoBehaviour
                     deSelect.unHighlight();
                 }
             }
+            foreach (ItemDisplay itemDisplay in UIManager.singleton.shopScreen.listItems) {
+                if (itemDisplay != this) {
+                    itemDisplay.selected = false;
+                    itemDisplay.showThatNextClickWillPurchase.SetActive(false);
+                }
+            }
         }
         //if already selected then clicked again
         else if (!purchased) {
@@ -101,7 +107,7 @@ public class AbilityDisplayShop : MonoBehaviour
                 //Since Shops are only in maps we save to map
                 UIManager.singleton.saveMapSave();
                 //save shop PurchaseInfo
-                SaveSystem.saveShopAbilitiesAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
+                SaveSystem.saveShopAbilitiesItemsAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
             }
         }
         

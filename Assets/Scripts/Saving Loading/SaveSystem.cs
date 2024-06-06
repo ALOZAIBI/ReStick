@@ -215,9 +215,9 @@ static class SaveSystem
                 Debug.Log("FIle doesn't exist in " + charSave);
         }
     }
-    public static void saveShopAbilitiesAndPurchaseInfo(Shop shop) {
+    
+    public static void saveShopAbilitiesItemsAndPurchaseInfo(Shop shop) {
         //creates a list of abilityNames from the abilities in shop
-        List<string>abilityNames = new List<string>();
         ShopData data = new ShopData(shop);
         string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
 
@@ -234,7 +234,7 @@ static class SaveSystem
         }
     }
     //returns false if there is no savefile
-    public static bool loadShopAbilitiesAndPurchaseInfo(Shop shop) {
+    public static bool loadShopAbilitiesItemsAndPurchaseInfo(Shop shop) {
         string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
@@ -246,6 +246,7 @@ static class SaveSystem
                 ShopData data= JsonConvert.DeserializeObject<ShopData>(reader.ReadString());
 
                 UIManager.singleton.abilityFactory.addRequestedAbilitiesToShop(shop,data.abilityNames);
+                UIManager.singleton.itemFactory.addRequestedItemsToShop(shop, data.itemNames);
                 data.purchaseInfoToShop(shop);
                 return true;
             }

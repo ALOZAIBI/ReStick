@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class ItemDisplay : MonoBehaviour
     public TextMeshProUGUI itemDescription;
 
     public Image wholeThingImage;
+    public Image rarityGem;
     //When adding this button is used to add item, otherwise this item displays the remove btn
     public Button wholeThingBtn;
     public Button removeBtn;
@@ -27,6 +29,17 @@ public class ItemDisplay : MonoBehaviour
     public bool reward = false;
     public RewardSelectItem rewardSelect;
     public bool selected = false;
+
+    //If this is true the display will be clickable to buy the item
+    public bool shop = false;
+    public bool purchased = false;
+    //Used to know which item this is to save if it's purchased etc..
+    public int shopIndex;
+    public GameObject priceObj;
+    public TextMeshProUGUI priceTxt;
+    public GameObject showThatNextClickWillPurchase;
+    //The image to display when thign is sold
+    public GameObject soldImage;
 
     [SerializeField] private GameObject PWR;
     [SerializeField] private TextMeshProUGUI PWRText;
@@ -54,6 +67,11 @@ public class ItemDisplay : MonoBehaviour
 
         if (reward) {
             wholeThingBtn.onClick.AddListener(selectReward);
+        }
+        else if(shop) {
+            priceObj.SetActive(true);
+            priceTxt.text = getPrice().ToString();
+            wholeThingBtn.onClick.AddListener(clickShop);
         }
         else
             wholeThingBtn.onClick.AddListener(click);
@@ -96,7 +114,99 @@ public class ItemDisplay : MonoBehaviour
             LSText.text = item.LS.ToString();
         }
 
+        //Set rarity gem color
+        switch (item.rarity) {
+            case (int)Item.RaritiesList.Common:
+                rarityGem.color = ColorPalette.singleton.commonRarity;
+                break;
+
+            case (int)Item.RaritiesList.Rare:
+                rarityGem.color = ColorPalette.singleton.rareRarity;
+                break;
+
+            case (int)Item.RaritiesList.Epic:
+                rarityGem.color = ColorPalette.singleton.epicRarity;
+                break;
+
+            case (int)Item.RaritiesList.Legendary:
+                rarityGem.color = ColorPalette.singleton.legendaryRarity;
+                break;
+        }
+
+
     }
+
+    #region shop
+    private int getPrice() {
+        switch (item.rarity) {
+            case (int)Item.RaritiesList.Common:
+                return UIManager.singleton.shopScreen.commonCost;
+            case (int)Item.RaritiesList.Rare:
+                return UIManager.singleton.shopScreen.rareCost;
+            case (int)Item.RaritiesList.Epic:
+                return UIManager.singleton.shopScreen.epicCost;
+            case (int)Item.RaritiesList.Legendary:
+                return UIManager.singleton.shopScreen.legendaryCost;
+            default:
+                return 0;
+        }
+    }
+    private void clickShop() {
+        //If this is clicked show that next click will buy and remove that from all others
+        if (!selected) {
+            showThatNextClickWillPurchase.SetActive(true);
+            selected = true;
+            //Remove from all others
+            foreach (ItemDisplay itemDisplay in UIManager.singleton.shopScreen.listItems) {
+                if (itemDisplay != this) {
+                    itemDisplay.selected = false;
+                    itemDisplay.showThatNextClickWillPurchase.SetActive(false);
+                }
+            }
+            //deselects alll others
+            foreach (AbilityDisplayShop deSelect in UIManager.singleton.shopScreen.listAbilities) {
+                if (deSelect != this) {
+                    deSelect.selected = false;
+                    deSelect.unHighlight();
+                }
+            }
+            foreach (CharacterDisplayShop deSelect in UIManager.singleton.shopScreen.listCharacters) {
+                if (deSelect != this) {
+                    deSelect.selected = false;
+                    deSelect.unHighlight();
+                }
+            }
+        }
+        //If it was already selected clicking it will purchase
+        else if(!purchased){
+            //If can afford
+            if(UIManager.singleton.playerParty.gold>= getPrice()) {
+                markPurchased();
+                //Deduct the gold
+                UIManager.singleton.playerParty.gold -= getPrice();
+                //Add to inventory
+                Instantiate(item, UIManager.singleton.playerParty.itemInventory.transform);
+                //We save in map since shop is only in map
+                UIManager.singleton.saveMapSave();
+                //Save shop purchaseInfo
+                SaveSystem.saveShopAbilitiesItemsAndPurchaseInfo(UIManager.singleton.shopScreen.shop);
+            }
+        }
+    }
+
+    private void markPurchased() {
+        purchased = true;
+        UIManager.singleton.shopScreen.shop.itemPurchased[shopIndex]=true;
+        displaySold();
+    }
+    public void displaySold() {
+        wholeThingImage.SetAlpha(0.1f);
+        soldImage.SetActive(true);
+        //Rotate the sold image randomly along the z axis
+        soldImage.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-40,40));
+    }
+    #endregion shop
+
 
     //If we're in adding mode, add this item to the character
     private void click() {

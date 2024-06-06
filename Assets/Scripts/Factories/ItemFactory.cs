@@ -8,11 +8,30 @@ public class ItemFactory : MonoBehaviour
     //Contains all items
     public List<GameObject> items = new List<GameObject>();
 
+    //List per rarity
+    public List<GameObject> common = new List<GameObject>();
+
+    public List<GameObject> rare = new List<GameObject>();
+
+    public List<GameObject> epic = new List<GameObject>();
+
+    public List<GameObject> legendary = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         foreach(Transform child in transform) {
             items.Add(child.gameObject);
+            Item temp = child.GetComponent<Item>();
+            if (temp.rarity == (int)Item.RaritiesList.Common)
+                common.Add(child.gameObject);
+            if (temp.rarity == (int)Item.RaritiesList.Rare) 
+                  rare.Add(child.gameObject);
+            if (temp.rarity == (int)Item.RaritiesList.Epic) 
+                  epic.Add(child.gameObject);
+            if (temp.rarity == (int)Item.RaritiesList.Legendary)
+                legendary.Add(child.gameObject);
+
         }
     }
 
@@ -48,9 +67,33 @@ public class ItemFactory : MonoBehaviour
         }
     }
 
-    //Returns a random item from the list
+    public void addRequestedItemsToShop(Shop shop,List<string> itemNames) {
+        foreach(string name in itemNames) {
+            GameObject obj = objectFromName(name);
+            Instantiate(obj, shop.itemHolder.transform);
+        }
+    }
+    //Returns a random item based on the rarity
     public GameObject randomItem() {
-        return items[Random.Range(0, items.Count)];
+        int randomRarity = Random.Range(0, 100);
+        int randomItem;
+        if (randomRarity < 5) {
+            randomItem = Random.Range(0, legendary.Count);
+            return legendary[randomItem];
+        }
+        else if (randomRarity < 20) {
+            randomItem = Random.Range(0, epic.Count);
+            return epic[randomItem];
+        }
+        else if (randomRarity < 55) {
+            randomItem = Random.Range(0, rare.Count);
+            return rare[randomItem];
+        }
+        else {
+            randomItem = Random.Range(0, common.Count);
+            return common[randomItem];
+        }
+        
     }
 
 
