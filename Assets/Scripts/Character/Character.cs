@@ -333,6 +333,7 @@ public class Character : MonoBehaviour {
             }
             //Debug.Log(temp.abilityName + "  |  " + temp.character.name);
             temp.calculateAmt();
+            temp.reset();
         }
     }
     public void ownTheItems() {

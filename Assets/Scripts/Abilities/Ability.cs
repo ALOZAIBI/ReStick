@@ -201,6 +201,12 @@ public abstract class Ability : MonoBehaviour
     #endif
     //executes this ability
     public abstract void doAbility();
+
+  
+    //Some abilities do reset on round start
+    public virtual void reset() {
+
+    }
     public virtual void executeAbility() {
         //Some abilities need to play an animation before executing. Once the animation is played call this function.
     }

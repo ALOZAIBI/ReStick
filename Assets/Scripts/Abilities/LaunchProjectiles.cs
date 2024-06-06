@@ -70,7 +70,7 @@ public class LaunchProjectiles : Ability
             lockedTarget = character.target;
             //So that the animation is only played once
             if (!abilityStarted) {
-                resetStuff();
+                reset();
                 playAnimation("castRaise");
                 //So that the wave is launched immediately
                 delaySinceLastWave = delayBetweenWaves;
@@ -215,7 +215,7 @@ public class LaunchProjectiles : Ability
         }
     }
 
-    private void resetStuff() {
+    public override void reset() {
         numProjectilesLaunched = 0;
         delaySinceLastProjectile = 0;
         numWavesLaunched = 0;
