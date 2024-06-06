@@ -19,6 +19,9 @@ public class Zone : MonoBehaviour
     //zone completed or not
     public bool completed = false;
 
+    //If true this zone will for sure give reward
+    public bool forceReward = false;
+
     [SerializeField] private UIManager uIManager;
 
     [SerializeField] private PlayerManager playerParty;

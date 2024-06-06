@@ -27,7 +27,17 @@ public class GameWonScreen : MonoBehaviour
     public void zoneWon() {
         //Random number between 0 and 100
         int random = UnityEngine.Random.Range(0, 100);
-        //20% chance to get a reward
+        //If the zone I'm in forces a reward
+        if (UIManager.singleton.zone.forceReward) {
+            //50% chacne get ability reward
+            if (random < 50) {
+                displayAbilityRewards();
+            }
+            else {
+                displayItemRewards();
+            }
+        }
+        else//20% chance to get a reward
         if (random < 25) {
             displayAbilityRewards();
         }
