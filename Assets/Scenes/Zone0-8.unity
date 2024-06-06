@@ -1523,6 +1523,10 @@ PrefabInstance:
       propertyPath: CDR
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 7910574298216608049, guid: 4b5665d01e6dc284abc10d5ec4eb4162, type: 3}
+      propertyPath: movementStrategy
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7910574298216608050, guid: 4b5665d01e6dc284abc10d5ec4eb4162, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -12920,6 +12924,7 @@ MonoBehaviour:
   playerParty: {fileID: 0}
   goldSoFar: 0
   abilityRewardPool: []
+  itemRewardPool: []
   abilityContainer: {fileID: 724667374}
   abilityNames: []
   placeableOverlay: {fileID: 0}
