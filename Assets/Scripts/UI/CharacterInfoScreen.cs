@@ -235,15 +235,11 @@ public class CharacterInfoScreen : MonoBehaviour
     //If this Character Info Screen is opened from the inventory screen
     public bool inventoryScreen;
 
-    //How long the activation display will be shown
-    public float topStatAbilityActivationDuration = 0.5f;
 
-    public List<bool> topStatAbilityActivated = new List<bool>(new bool[MAX_ABILITIES]);
-    public List<float> topStatAbilityActivationTime = new List<float>(new float[MAX_ABILITIES]);
     [SerializeField]private List<SlicedFilledImage> topstatAbilityDisplays = new List<SlicedFilledImage>(new SlicedFilledImage[MAX_ABILITIES]);
     [SerializeField]private List<Image> topstatAbilityDisplaysFill = new List<Image>(new Image[MAX_ABILITIES]);
     [SerializeField]private List<Image> topstatAbilityDisplaysBorder = new List<Image>(new Image[MAX_ABILITIES]);
-    [SerializeField]private List<Image> topstatAbilityDisplayActivation = new List<Image>(new Image[MAX_ABILITIES]);
+    [SerializeField]private List<UIAnimation> topstatAbilityDisplayActivation = new List<UIAnimation>(new UIAnimation[MAX_ABILITIES]);
 
     const int ARCHETYPESELECTLEVEL = 20;
 
@@ -1246,15 +1242,17 @@ public class CharacterInfoScreen : MonoBehaviour
 
             topstatAbilityDisplays[i].fillAmount = (character.abilities[i].getCDAfterChange() - character.abilities[i].abilityNext) / character.abilities[i].getCDAfterChange();
             topstatAbilityDisplays[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
-            topstatAbilityDisplays[i].SetAlpha(0.8f);
 
             if (character.abilities[i].available) {
                 topstatAbilityDisplaysBorder[i].color = Color.white;
                 topstatAbilityDisplaysBorder[i].SetAlpha(.4f);
+
+                topstatAbilityDisplays[i].SetAlpha(0.8f);
             }
             else {
                 topstatAbilityDisplaysBorder[i].color = Color.grey;
                 topstatAbilityDisplaysBorder[i].SetAlpha(0.4f);
+                topstatAbilityDisplays[i].SetAlpha(0.4f);
             }
 
             topstatAbilityDisplaysFill[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
@@ -1279,27 +1277,9 @@ public class CharacterInfoScreen : MonoBehaviour
     }
 
     public void displayAbilityActivation(int index) {
-        topStatAbilityActivated[index] = true;
-        topStatAbilityActivationTime[index] = 0;
-        Debug.Log("ACTIVATION OF" + index);
+        topstatAbilityDisplayActivation[index].startAnimation();
     }
-    private void handleTopStatAbilityDisplayActivation() {
-        for(int i = 0; i < MAX_ABILITIES; i++) {
-            //If it is activated display the activation
-            if (topStatAbilityActivated[i]) {
-                Debug.Log("IOTSACTIVATIOED" + i);
-                topstatAbilityDisplayActivation[i].gameObject.SetActive(true);
-                //Count up the time
-                topStatAbilityActivationTime[i] += Time.unscaledDeltaTime;
-                //If the time is up, deactivate the activation
-                if (topStatAbilityActivationTime[i] >= topStatAbilityActivationDuration) {
-                    topStatAbilityActivated[i] = false;
-                    topStatAbilityActivationTime[i] = 0;
-                    topstatAbilityDisplayActivation[i].gameObject.SetActive(false);
-                }
-            }
-        }
-    }
+
     public bool openingFullScreen;
     private void Update() {
         if (uiManager.charInfoScreenHidden.hidden == false && !inventoryScreen)
@@ -1452,6 +1432,5 @@ public class CharacterInfoScreen : MonoBehaviour
             statsBorder.pixelsPerUnitMultiplier = 1;
         }
 
-        handleTopStatAbilityDisplayActivation();
     }
 }

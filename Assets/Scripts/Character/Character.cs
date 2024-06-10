@@ -1633,15 +1633,11 @@ public class Character : MonoBehaviour {
         }
     }
 
+
     //executes all available abilities
     private void doAbilities() {
-
-        for(int i = 0; i < abilities.Count; i++) {
-            //If ability is done, display the activation
-            if (abilities[i].doAbility()) {
-                uiManager.characterInfoScreen.displayAbilityActivation(i);
-            }
-
+        foreach (Ability temp in abilities) {
+            temp.doAbility();
         }
     }
 
