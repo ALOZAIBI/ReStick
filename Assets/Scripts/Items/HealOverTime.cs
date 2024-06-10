@@ -24,6 +24,7 @@ public class HealOverTime : Item
             if (character.HP > character.HPMax) {
                 character.HP = character.HPMax;
             }
+            startItemActivation();
         }
     }
 

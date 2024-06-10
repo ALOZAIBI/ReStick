@@ -1304,6 +1304,9 @@ public class CharacterInfoScreen : MonoBehaviour
     public void displayAbilityActivation(int index) {
         topstatAbilityDisplayActivation[index].startAnimation();
     }
+    public void displayItemActivation(int index) {
+        topstatItemDisplayActivation[index].startAnimation();
+    }
     #endregion
     private void FixedUpdate() {
         ////make the upgrade stats color pulsate

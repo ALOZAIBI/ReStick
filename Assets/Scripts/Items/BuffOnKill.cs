@@ -47,6 +47,7 @@ public class BuffOnKill : Item
 
         buff.applyBuff();
 
+        startItemActivation();
     }
 
     public void refreshDuration() {

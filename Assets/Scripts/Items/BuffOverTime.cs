@@ -54,6 +54,8 @@ public class BuffOverTime : Item
 
 
             buff.applyBuff();
+
+            startItemActivation();
         }
     }
 

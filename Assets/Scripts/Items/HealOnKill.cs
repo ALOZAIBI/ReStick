@@ -9,5 +9,7 @@ public class HealOnKill : Item
 
     public override void onKill() {
         character.HP += character.HPMax * character.killsLastFrame * (healPercent / 100);
+        startItemActivation();
+
     }
 }

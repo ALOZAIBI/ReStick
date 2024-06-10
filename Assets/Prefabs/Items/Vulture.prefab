@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4755260406917719725}
-  - component: {fileID: -3267153252851543489}
+  - component: {fileID: 2140249875947079964}
   m_Layer: 0
-  m_Name: HeavyArmor
+  m_Name: Vulture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3267153252851543489
+--- !u!114 &2140249875947079964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,21 +41,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 8328399976907063504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58407450f76907f4e9acf9fd16a1e53b, type: 3}
+  m_Script: {fileID: 11500000, guid: 39c760ad22a940542872c11139aa5546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  itemName: Heavy Armor
+  itemName: Vulture
   description: 
   PD: 0
   MD: 0
   INF: 0
-  HP: 150
-  AS: -0.1
+  HP: 0
+  AS: 0
   CDR: 0
-  MS: -0.6
+  MS: 0
   Range: 0
   LS: 0
-  size: 0.2
+  size: 0
   Rarities: 1
   rarity: 1
+  buffObject: {fileID: 0}
+  buffPD: 3
+  buffMD: 0
+  buffINF: 0
+  buffHP: 0
+  buffAS: 0.1
+  buffCDR: 0
+  buffMS: 0
+  buffRange: 0
+  buffLS: 0
+  buffsize: 0
+  buffDuration: 3

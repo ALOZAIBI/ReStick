@@ -72,6 +72,18 @@ public class Item : MonoBehaviour {
         }
     }
 
+    protected void startItemActivation() {
+        //Plays the UI Activation animation, if this is the character currently selected
+        if (character == UIManager.singleton.characterInfoScreen.character) {
+            //Find the index of the ability in the character's ability list
+            for (int i = 0; i < character.items.Count; i++) {
+                if (character.items[i] == this) {
+                    UIManager.singleton.characterInfoScreen.displayItemActivation(i);
+                    break;
+                }
+            }
+        }
+    }
 
     //To do when zone starts
     public virtual void onZoneStart() {

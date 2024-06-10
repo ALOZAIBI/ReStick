@@ -66,7 +66,9 @@ public class CloneOnDeath : Item
             clone.zone.charactersInside.Add(clone);
 
         }
-        
+        startItemActivation();
+
+
     }
 
 

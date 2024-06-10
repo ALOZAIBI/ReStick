@@ -77,15 +77,15 @@ public class ItemFactory : MonoBehaviour
     public GameObject randomItem() {
         int randomRarity = Random.Range(0, 100);
         int randomItem;
-        if (randomRarity < 5) {
+        if (randomRarity < 7) {
             randomItem = Random.Range(0, legendary.Count);
             return legendary[randomItem];
         }
-        else if (randomRarity < 20) {
+        else if (randomRarity < 22) {
             randomItem = Random.Range(0, epic.Count);
             return epic[randomItem];
         }
-        else if (randomRarity < 55) {
+        else if (randomRarity < 65) {
             randomItem = Random.Range(0, rare.Count);
             return rare[randomItem];
         }

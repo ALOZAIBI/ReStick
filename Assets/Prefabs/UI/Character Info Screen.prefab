@@ -1158,7 +1158,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4, y: 4}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2503040536008922904
 CanvasRenderer:
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1587b28a0f06f41aa06d2eb96a97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.3
   sprites:
   - {fileID: 21300000, guid: 0250ccb2020293c40bca38ce8106f190, type: 3}
   - {fileID: 21300000, guid: ee0bfbfa45179d54eac1f5d9af4062ee, type: 3}
@@ -1813,7 +1813,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4, y: 4}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3456680165276540525
 CanvasRenderer:
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1587b28a0f06f41aa06d2eb96a97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.3
   sprites:
   - {fileID: 21300000, guid: 0250ccb2020293c40bca38ce8106f190, type: 3}
   - {fileID: 21300000, guid: ee0bfbfa45179d54eac1f5d9af4062ee, type: 3}
@@ -1914,7 +1914,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4, y: 4}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5903017062886179419
 CanvasRenderer:
@@ -1966,7 +1966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1587b28a0f06f41aa06d2eb96a97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.3
   sprites:
   - {fileID: 21300000, guid: 0250ccb2020293c40bca38ce8106f190, type: 3}
   - {fileID: 21300000, guid: ee0bfbfa45179d54eac1f5d9af4062ee, type: 3}
@@ -3035,7 +3035,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4, y: 4}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8611404169575570922
 CanvasRenderer:
@@ -3087,7 +3087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1587b28a0f06f41aa06d2eb96a97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.3
   sprites:
   - {fileID: 21300000, guid: 0250ccb2020293c40bca38ce8106f190, type: 3}
   - {fileID: 21300000, guid: ee0bfbfa45179d54eac1f5d9af4062ee, type: 3}
@@ -3538,6 +3538,7 @@ MonoBehaviour:
   addAbilityPanel: {fileID: 8476113468753618151}
   addAbilityDisplaysArea: {fileID: 4178204643281265760}
   cancelAddingAbilityBtn: {fileID: 8935885896334687544}
+  cancelAddingItemBtn: {fileID: 0}
   confirmAddAbilityBtn: {fileID: 0}
   confirmAddAbilityBtnImage: {fileID: 0}
   hideUIInitValues: {x: 0, y: 0}
@@ -3988,7 +3989,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4, y: 4}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4401248497923001399
 CanvasRenderer:
@@ -4040,7 +4041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1587b28a0f06f41aa06d2eb96a97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.3
   sprites:
   - {fileID: 21300000, guid: 0250ccb2020293c40bca38ce8106f190, type: 3}
   - {fileID: 21300000, guid: ee0bfbfa45179d54eac1f5d9af4062ee, type: 3}
