@@ -241,6 +241,12 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField]private List<Image> topstatAbilityDisplaysBorder = new List<Image>(new Image[MAX_ABILITIES]);
     [SerializeField]private List<UIAnimation> topstatAbilityDisplayActivation = new List<UIAnimation>(new UIAnimation[MAX_ABILITIES]);
 
+
+    [SerializeField]private List<Image> topstatItemDisplays = new List<Image>(new Image[MAX_ITEMS]);
+    [SerializeField]private List<Image> topstatItemDisplaysFill = new List<Image>(new Image[MAX_ITEMS]);
+    [SerializeField]private List<Image> topstatItemDisplaysBorder = new List<Image>(new Image[MAX_ITEMS]);
+    [SerializeField]private List<UIAnimation> topstatItemDisplayActivation = new List<UIAnimation>(new UIAnimation[MAX_ITEMS]);
+
     const int ARCHETYPESELECTLEVEL = 20;
 
     [SerializeField]private SelectArchetype selectArchetype;
@@ -1233,6 +1239,21 @@ public class CharacterInfoScreen : MonoBehaviour
         startFocusing();
     }
 
+    public void displayTopStatItems() {
+        for(int i = 0; i < character.items.Count; i++) {
+            topstatItemDisplays[i].gameObject.SetActive(true);
+            topstatItemDisplaysBorder[i].gameObject.SetActive(true);
+            topstatItemDisplaysFill[i].gameObject.SetActive(true);
+        }
+
+        //Sets the remaining to inactive
+        for(int i = MAX_ITEMS; i>character.items.Count;i--) {
+            topstatItemDisplays[i-1].gameObject.SetActive(false);
+            topstatItemDisplaysBorder[i-1].gameObject.SetActive(false);
+            topstatItemDisplaysFill[i-1].gameObject.SetActive(false);
+        }
+    }
+
     //Displays CDs in top left corner under topstatdisplay
     public void displayTopStatAbilities() {
         for (int i = 0; i < character.abilities.Count; i++) {
@@ -1266,6 +1287,10 @@ public class CharacterInfoScreen : MonoBehaviour
             topstatAbilityDisplaysFill[i-1].gameObject.SetActive(false);
         }
     }
+
+    public void displayAbilityActivation(int index) {
+        topstatAbilityDisplayActivation[index].startAnimation();
+    }
     #endregion
     private void FixedUpdate() {
         ////make the upgrade stats color pulsate
@@ -1276,17 +1301,17 @@ public class CharacterInfoScreen : MonoBehaviour
 
     }
 
-    public void displayAbilityActivation(int index) {
-        topstatAbilityDisplayActivation[index].startAnimation();
-    }
+    
 
     public bool openingFullScreen;
     private void Update() {
         if (uiManager.charInfoScreenHidden.hidden == false && !inventoryScreen)
             viewCharacterTopStatDisplay(character);
 
-        if (!inventoryScreen && character!=null)
+        if (!inventoryScreen && character != null) {
             displayTopStatAbilities();
+            displayTopStatItems();
+        }
 
         if (opening)
             time += Time.unscaledDeltaTime;
