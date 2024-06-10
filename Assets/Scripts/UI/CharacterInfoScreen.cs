@@ -84,6 +84,7 @@ public class CharacterInfoScreen : MonoBehaviour
     public RectTransform addAbilityPanel;
     public RectTransform addAbilityDisplaysArea;
     public Button cancelAddingAbilityBtn;
+    public Button cancelAddingItemBtn;
 
     public Button confirmAddAbilityBtn;
     public Image confirmAddAbilityBtnImage;
@@ -279,6 +280,7 @@ public class CharacterInfoScreen : MonoBehaviour
         confirmTargettingBtn.onClick.AddListener(startUnfocusing);
         addAbilityBtn.onClick.AddListener(addAbility);
         cancelAddingAbilityBtn.onClick.AddListener(cancelAddingAbility);
+        cancelAddingItemBtn.onClick.AddListener(cancelAddingItem);
         xpPanelBtn = xpPanel.GetComponent<Button>();
 
         statsPanelBtn.onClick.AddListener(displayUpgradeStatsOrPickArchetype);
@@ -597,6 +599,13 @@ public class CharacterInfoScreen : MonoBehaviour
     }
     public void startUnfocusing() {
         if(focused) {
+            closeInventoryItems();
+
+            //Moves the addItemPanel back to CharacterInfoScreen
+            addItemPanel.transform.parent = uiManager.characterInfoScreen.transform;
+            //Sets the addItemPanel to inactive
+            addItemPanel.gameObject.SetActive(false);
+
             //setting the focus image to be inactive done in the update method
             targetSelector.gameObject.SetActive(false);
             targetSelector.transform.SetParent(this.transform);
@@ -821,6 +830,10 @@ public class CharacterInfoScreen : MonoBehaviour
         addAbilityPanel.transform.parent = uiManager.characterInfoScreen.transform;
         //Sets the addAbilityPanel to inactive
         addAbilityPanel.gameObject.SetActive(false);
+    }
+    private void cancelAddingItem() {
+        startUnfocusing();
+
     }
     private void closeInventoryAbilities() {
         //Closes all ability displays
