@@ -29,7 +29,7 @@ public class CharacterDisplayShop : MonoBehaviour {
         //price depends on how many characters the player has.
         //First character costs 70, then increment by 120 for each new Character
         //We do -3 cuz  -2 for the children  of playerParty and -1 for to make the first cost only 70
-        price = 70+120*((UIManager.singleton.playerParty.transform.childCount-3));
+        price = 70+120*((UIManager.singleton.playerParty.transform.childCount-5));
         priceText.text = price + "";
         //sets the image
         characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;

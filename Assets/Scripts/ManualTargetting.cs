@@ -25,7 +25,7 @@ public class ManualTargetting : MonoBehaviour
     [SerializeField] private LineRenderer lineToTargetToBe;
 
     //The CD on each character's manual targetting
-    public const int manualTargettingCD = 10;
+    public const int manualTargettingCD = 0;
 
     // Start is called before the first frame update
     void Start()
