@@ -44,6 +44,7 @@ public class ThrowProjectile : Ability
     }
 
     public override void executeAbility() {
+        base.executeAbility();
         //If the target dies before the ability is executed then try to find another target in range, if there is no in range, then simply cancel the ability
         if (lockedTarget == null || !lockedTarget.alive) {
             if (character.selectTarget(targetStrategy, rangeAbility)) {

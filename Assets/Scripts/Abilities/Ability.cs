@@ -207,8 +207,21 @@ public abstract class Ability : MonoBehaviour
     public virtual void reset() {
 
     }
+    protected void startAbilityActivation() {
+        //Plays the UI Activation animation, if this is the character currently selected
+        if (character == UIManager.singleton.characterInfoScreen.character) {
+            //Find the index of the ability in the character's ability list
+            for (int i = 0; i < character.abilities.Count; i++) {
+                if (character.abilities[i] == this) {
+                    UIManager.singleton.characterInfoScreen.displayAbilityActivation(i);
+                    break;
+                }
+            }
+        }
+    }
     public virtual void executeAbility() {
         //Some abilities need to play an animation before executing. Once the animation is played call this function.
+       startAbilityActivation();
     }
     /// <summary>
     /// Sends the ability to be cast and the animation that will cast it
@@ -256,16 +269,7 @@ public abstract class Ability : MonoBehaviour
         if(character.currentDashingAbility == this) {
             character.currentDashingAbility = null;
         }
-        //Plays the UI Activation animation, if this is the character currently selected
-        if (character == UIManager.singleton.characterInfoScreen.character) {
-            //Find the index of the ability in the character's ability list
-            for (int i = 0; i < character.abilities.Count; i++) {
-                if (character.abilities[i] == this) {
-                    UIManager.singleton.characterInfoScreen.displayAbilityActivation(i);
-                    break;
-                }
-            }
-        }
+        
     }
 
     protected bool canUseDash() {
@@ -302,6 +306,7 @@ public abstract class Ability : MonoBehaviour
         if (victim.currentDashingAbility != null) {
             victim.animationManager.forceStop();
             victim.currentDashingAbility.step = 0;
+            Debug.Log("The ability" + victim.currentDashingAbility.abilityName + " has been interrupted." + " of character " + victim.name);
             victim.currentDashingAbility.startCooldown();
         }
             

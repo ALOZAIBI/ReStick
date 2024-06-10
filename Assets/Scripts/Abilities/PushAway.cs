@@ -19,6 +19,7 @@ public class PushAway : Ability {
         return false;
     }
     public override void executeAbility() {
+        base.executeAbility();
 
         //Holds list of enemies affected by the ability (within rangeability)
         Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, (rangeAbility), mask);

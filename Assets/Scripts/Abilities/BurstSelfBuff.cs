@@ -39,6 +39,7 @@ public class BurstSelfBuff : Ability
     }
 
     public override void executeAbility() {
+        base.executeAbility();
         //AA Reset 
         character.AtkNext = 0;
         //creates buff

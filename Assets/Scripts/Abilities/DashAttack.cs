@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class DashAttack : Ability
@@ -40,22 +41,24 @@ public class DashAttack : Ability
         cooldown();
     }
     public override bool doAbility() {
+        bool done = false;
         if (available&& character.selectTarget(targetStrategy,rangeAbility) && canUseDash()) {
             calculateAmt();
             playAnimation("castDash");
             //executeAbility();
-            return true;
+            done = true;
         }
         //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
         //It is done outside the initial if statement so that we can go through the if Dead or null check. Becaise if there are no characters within range then the ability won't be executed and won't go through the check.
         if (character.currentDashingAbility == this) {
             executeAbility();
-            return true;
+            done = true;
         }
-        return false;
+        return done;
     }
 
     public override void executeAbility() {
+        base.executeAbility();
         //If my target is dead or null cancel the ability
         if (character.target == null || !character.target.alive) {
             character.agent.enabled = true;

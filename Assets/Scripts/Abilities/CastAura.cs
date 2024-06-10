@@ -50,6 +50,7 @@ public class CastAura : Ability
     }
 
     public override void executeAbility() {
+        base.executeAbility();
         GameObject temp = Instantiate(prefabObject);
         temp.transform.localScale = new Vector3(rangeAbility * 2, rangeAbility * 2, rangeAbility * 2);
         aura = temp.GetComponent<Aura>();

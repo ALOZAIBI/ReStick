@@ -21,6 +21,7 @@ public class Summon : Ability
         return false;
     }
     public override void executeAbility() {
+        base.executeAbility();
         //Summons the character in a slightly random position from the casting character
         GameObject objSummoned = Instantiate(prefabObject, character.transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0), character.transform.rotation);
         Character charSummoned = objSummoned.GetComponent<Character>();

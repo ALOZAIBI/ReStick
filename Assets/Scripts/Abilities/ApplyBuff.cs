@@ -42,6 +42,7 @@ public class ApplyBuff : Ability
         return false;
     }
     public override void executeAbility() {
+        base.executeAbility();
         //creates buff
         Buff buff = Instantiate(prefabObject, character.target.transform.position, Quaternion.identity).GetComponent<Buff>();
         buff.PD = PD;

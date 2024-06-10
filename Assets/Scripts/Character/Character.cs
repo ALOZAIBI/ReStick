@@ -1463,7 +1463,7 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
 
                     if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
-                        Debug.Log("Character is excluded" + temp.name);
+                        //Debug.Log("Character is excluded" + temp.name);
                         continue;
                     }
 

@@ -122,6 +122,7 @@ public class DashALotThenSheath : Ability {
                 character.transform.position = Vector2.MoveTowards(character.transform.position, toDashTo.transform.position, valueAmt.getAmtValueFromName(this,"DashSpeed") * Time.fixedDeltaTime);
                 //Once in Range MarkAsHit
                 if (Vector2.Distance(character.transform.position, toDashTo.transform.position) < 0.5f) {
+                    startAbilityActivation();
                     enemiesHit.Add(toDashTo);
                     //Goes back to checking if all hit
                     step = 1;

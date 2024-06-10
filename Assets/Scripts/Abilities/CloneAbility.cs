@@ -13,6 +13,7 @@ public class CloneAbility : Ability
         return false;
     }
     public override void executeAbility() {
+        base.executeAbility();
         character.selectTarget(targetStrategy);
         //cooldown is set before the ability is executed so that if this character is cloned the clone ability won't be ready again to not cause cloning to go to infinity instantly
         startCooldown();
