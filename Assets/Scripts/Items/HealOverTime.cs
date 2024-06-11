@@ -10,6 +10,8 @@ public class HealOverTime : Item
     [SerializeField] private float timeSinceLastHeal;
     [SerializeField] private float timeBetweenHeals;
 
+    [SerializeField] private SimpleFX regenFX;
+
     public override void onZoneStart() {
         timeSinceLastHeal = 0;
     }
@@ -23,6 +25,11 @@ public class HealOverTime : Item
             character.HP += healAmount;
             if (character.HP > character.HPMax) {
                 character.HP = character.HPMax;
+            }
+            if (regenFX != null) {
+                //Instantiate regenFX on character
+                SimpleFX fx = Instantiate(regenFX, character.transform.position, Quaternion.identity);
+                fx.keepOnTarget.target = character.gameObject;
             }
             startItemActivation();
         }

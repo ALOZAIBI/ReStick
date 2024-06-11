@@ -6,6 +6,8 @@ public class BuffingAura : Aura
 {
     [SerializeField] private CreateFXOnTargetsWithin createFXOnTargetsWithin;
 
+    [SerializeField] private SimpleCreateFXOnTargetsWithin simpleCreateFXOnTargetsWithin;
+
     private new void Start() {
         base.Start();
         //Sets up the FXCreator
@@ -13,6 +15,11 @@ public class BuffingAura : Aura
             createFXOnTargetsWithin.caster = caster;
             createFXOnTargetsWithin.ally = heal;
             createFXOnTargetsWithin.enemy = damage;
+        }
+        if(simpleCreateFXOnTargetsWithin!=null) {
+            simpleCreateFXOnTargetsWithin.caster = caster;
+            simpleCreateFXOnTargetsWithin.ally = heal;
+            simpleCreateFXOnTargetsWithin.enemy = damage;
         }
     }
     //deals damage to enemies that this passes over

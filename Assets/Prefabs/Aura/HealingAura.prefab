@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6330922870570894010}
   - component: {fileID: 4074138880490405865}
   - component: {fileID: -8712153692495336169}
+  - component: {fileID: -7637901341317511671}
   m_Layer: 2
   m_Name: HealingAura
   m_TagString: Untagged
@@ -131,6 +132,24 @@ MonoBehaviour:
   time: 0
   sizeTarget: 0
   createFXOnTargetsWithin: {fileID: 0}
+  simpleCreateFXOnTargetsWithin: {fileID: -7637901341317511671}
+--- !u!114 &-7637901341317511671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6616426771428068873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb99f1524086034a807d2f3d2c9d3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleFX: []
+  simpleFXPrefab: {fileID: 4745525532140077734, guid: 39c6d6bbe9a0b024db1540b403114aa7, type: 3}
+  caster: {fileID: 0}
+  enemy: 0
+  ally: 0
 --- !u!1001 &6264315137550442070
 PrefabInstance:
   m_ObjectHideFlags: 0

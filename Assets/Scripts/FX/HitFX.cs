@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//For playing FX animations that have multiple parts
 public class HitFX : MonoBehaviour
 {
     public KeepOnTarget keepOnTarget;
