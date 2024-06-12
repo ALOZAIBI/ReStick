@@ -207,6 +207,8 @@ public abstract class Ability : MonoBehaviour
     public virtual void reset() {
 
     }
+    //Used to trigger an item's afterAbility effect
+    //Used to play the UI activation
     protected void startAbilityActivation() {
         //Plays the UI Activation animation, if this is the character currently selected
         if (character == UIManager.singleton.characterInfoScreen.character) {
@@ -218,6 +220,8 @@ public abstract class Ability : MonoBehaviour
                 }
             }
         }
+        //character's item's afterAbility effect(Can pass this as parameter if needed)
+        character.itemAfterAbility();
     }
     public virtual void executeAbility() {
         //Some abilities need to play an animation before executing. Once the animation is played call this function.

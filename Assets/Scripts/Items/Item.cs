@@ -102,11 +102,17 @@ public class Item : MonoBehaviour {
 
     }
 
+
     public virtual void afterAttack() {
 
     }
 
     public virtual void continuous() {
+
+    }
+
+    //For example in sheen, afterAttack will trigger an animation, after thaat animation is done we'll do the effect of sheen
+    public virtual void afterAnimation() {
 
     }
 }

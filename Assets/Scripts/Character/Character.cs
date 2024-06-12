@@ -1553,6 +1553,11 @@ public class Character : MonoBehaviour {
             }
         }
     }
+    private void itemAfterAttack() {
+        foreach(Item item in items) {
+            item.afterAttack();
+        }
+    }
     public void executeAttackRanged(Character animationTarget) {
         GameObject temp = Instantiate(projectile, transform.position, transform.rotation);
         Projectile instantiatedProjectile = temp.GetComponent<Projectile>();
@@ -1568,6 +1573,8 @@ public class Character : MonoBehaviour {
         //When character has more than 3.5f AS there is no stopping movement
         if (AS < 3.5f)
             startCooldown(1 / (AS * 2.5f), (int)ActionAvailable.Moving);
+
+        itemAfterAttack();
     }
     public void executeAttackMelee(Character animationTarget) {
         //since the targetting might change before the animaiton is done, we save the target in the animationmanager then call it here
@@ -1577,6 +1584,9 @@ public class Character : MonoBehaviour {
         //When character has more than 5 AS there is no stopping movement
         if (AS < 5)
             startCooldown(1 / (AS * 2), (int)ActionAvailable.Moving);
+
+        itemAfterAttack();
+
     }
     //This will happen at the beginning of the attack animation
     public void startAttackCooldown() {
@@ -1640,7 +1650,12 @@ public class Character : MonoBehaviour {
             temp.doAbility();
         }
     }
-
+    //Called by the abilitie's startAbilityActivation function
+    public void itemAfterAbility() {
+        foreach(Item item in items) {
+            item.afterAbility();
+        }
+    }
     //resets kills last frame at the end of this frame. always keep last in the update function
     private void resetKillsLastFrame() {
         killsLastFrame = 0;

@@ -65,7 +65,6 @@ public class LaunchProjectiles : Ability
 
     public override bool doAbility() {
         if (abilityStarted||(available && character.selectTarget(targetStrategy, rangeAbility))) {
-            Debug.Log("LAUNCH PROJECTILE DONE");
             calculateAmt();
             lockedTarget = character.target;
             //So that the animation is only played once

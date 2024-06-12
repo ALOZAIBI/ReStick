@@ -21,12 +21,10 @@ public class UIAnimation : MonoBehaviour {
         index = 0; 
         image.sprite = sprites[index];
         //timer = 0;
-        Debug.Log("Animation started "+gameObject.activeSelf);
     }
 
     private void Update() {
         if (((timer += Time.unscaledDeltaTime) >= (duration / sprites.Length)) && index<sprites.Length) {
-            Debug.Log("Amni,matiuon;l");
             timer = 0;
             image.sprite = sprites[index];
             if (loop) {
