@@ -10,11 +10,12 @@ public class UIAnimation : MonoBehaviour {
     [SerializeField] private int index = 0;
     [SerializeField] private float timer = 0;
 
-    private bool animating = false;
+    [SerializeField] private bool loop = false;
 
     private void Start() {
         image = GetComponent<Image>();
     }
+    //Manually restart animation.
     public void startAnimation() {
         gameObject.SetActive(true);
         index = 0; 
@@ -22,12 +23,17 @@ public class UIAnimation : MonoBehaviour {
         //timer = 0;
         Debug.Log("Animation started "+gameObject.activeSelf);
     }
+
     private void Update() {
         if (((timer += Time.unscaledDeltaTime) >= (duration / sprites.Length)) && index<sprites.Length) {
             Debug.Log("Amni,matiuon;l");
             timer = 0;
             image.sprite = sprites[index];
-            index++;
+            if (loop) {
+                index = (index + 1) % sprites.Length;
+            }
+            else
+                index++;
         }
         if (index > sprites.Length - 1) {
             gameObject.SetActive(false);
