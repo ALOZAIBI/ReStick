@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class ProjectileSimpleHit : Projectile
 {
@@ -36,9 +38,25 @@ public class ProjectileSimpleHit : Projectile
         if (homing) {
             //Actually make it homing
             setAngle(currAngle);
-            //If I am homing and the target is dead, destroy the projectile
+            //If I am homing and the target is dead change my target a random character nearby
             if (!target.alive) {
-                Destroy(gameObject);
+                LayerMask mask = LayerMask.GetMask("Characters");
+                //List of enemies within range
+                List<Collider2D> colliders = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, (5), mask));
+
+                //Exclude allies
+                for (int i = 0; i < colliders.Count; i++) {
+                    if (colliders[i].GetComponent<Character>().team == shooter.team) {
+                        colliders.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+
+                //Selects a random target
+                int randomIndex = Random.Range(0, colliders.Count);
+                Character charTarget = colliders[randomIndex].GetComponent<Character>();
+                target = charTarget;
             }
         }
         //Move the projectile opposite it's y axis

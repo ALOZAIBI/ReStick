@@ -60,20 +60,20 @@ public class LaunchHomingProjectiles : Ability
             if (character.selectTarget(targetStrategy, rangeAbility)) {
                 Debug.Log("Character within range");
                 //List of enemies within range
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, (rangeAbility), mask);
+                List<Collider2D> colliders = new List<Collider2D>(Physics2D.OverlapCircleAll(character.transform.position, (rangeAbility), mask));
 
-                //Exclude the character itself
-                for (int i = 0; i < colliders.Length; i++) {
-                    if (colliders[i].gameObject == character.gameObject) {
-                        List<Collider2D> tempList = new List<Collider2D>(colliders);
-                        tempList.RemoveAt(i);
-                        colliders = tempList.ToArray();
-                        break;
+                //Exclude allies
+                for (int i = 0; i < colliders.Count; i++) {
+                    if (colliders[i].GetComponent<Character>().team == character.team) {
+                        colliders.RemoveAt(i);
+                        i--;
                     }
                 }
 
+
+
                 //Selects a random target
-                int randomIndex = Random.Range(0, colliders.Length);
+                int randomIndex = Random.Range(0, colliders.Count);
                 Character target = colliders[randomIndex].GetComponent<Character>();
 
                 //Creates a projectile targetting the target
