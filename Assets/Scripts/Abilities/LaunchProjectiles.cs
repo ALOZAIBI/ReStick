@@ -135,7 +135,6 @@ public class LaunchProjectiles : Ability
         projectile.growSpeed = growSpeed;
         projectile.target = lockedTarget;
         projectile.setAngle(angle);
-        Debug.Log("Projectile has no target" + projectile.name + projectile.shooter);
         //tells it this abilityName
         projectile.castingAbilityName = abilityName;
         //if there is a buff in this ability

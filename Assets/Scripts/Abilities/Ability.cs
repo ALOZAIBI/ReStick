@@ -203,7 +203,7 @@ public abstract class Ability : MonoBehaviour
     public abstract bool doAbility();
 
   
-    //Some abilities do reset on round start
+    //Some abilities need to reset on round start or on cooldown
     public virtual void reset() {
 
     }
@@ -266,6 +266,7 @@ public abstract class Ability : MonoBehaviour
 
     //if an ability has a cooldown call this inside doAbility()
     public void startCooldown() {
+        reset();
         //starts the CD
         abilityNext = CD - CD*character.CDR;
         available = false;

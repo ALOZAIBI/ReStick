@@ -8,18 +8,24 @@ public class ProjectileSimpleHit : Projectile
     //If homing is set to true, keep updating the angle of the projectile to the target
     [SerializeField]private bool homing = false;
 
+    //If indirectAngle is set to true, the projectile will start a bit off angle then correct its course
+    [SerializeField] private bool indirectAngle = false;
+
+    [SerializeField] private float speedOfCorrection = 100;
+
+    private float currAngle = 0;
+
     //direction is set in the Ability ThrowProjectile
     private void Start() {
         //does base start to make the projectile die after lifetime
         base.Start();
 
+        if (indirectAngle) {
+            //Set the angle to be a random angle
+            currAngle = Random.Range(-180, 180);
+        }
         if (homing) {
-            Debug.Log("Homing");
-            //DEbugs the information of the projectile
-            Debug.Log("Target: " + target);
-            Debug.Log("Shooter: " + shooter);
-            Debug.Log("Speed: " + speed);
-            setAngleToFollowTarget();
+            setAngle(currAngle);
         }
         
         //The angle of the object is set by the ability
@@ -28,10 +34,25 @@ public class ProjectileSimpleHit : Projectile
     //travels in target direction
     public override void trajectory() {
         if (homing) {
-            setAngleToFollowTarget();
+            //Actually make it homing
+            setAngle(currAngle);
+            //If I am homing and the target is dead, destroy the projectile
+            if (!target.alive) {
+                Destroy(gameObject);
+            }
         }
         //Move the projectile opposite it's y axis
         transform.position += speed * Time.fixedDeltaTime * -transform.up;
+
+        //If it's indirect angle, slowly correct the angle
+        if (indirectAngle) {
+            if (currAngle < 0) {
+                currAngle += Time.fixedDeltaTime * speedOfCorrection;
+            }
+            else if (currAngle > 0) {
+                currAngle -= Time.fixedDeltaTime * speedOfCorrection;
+            }
+        }
         
     }
 

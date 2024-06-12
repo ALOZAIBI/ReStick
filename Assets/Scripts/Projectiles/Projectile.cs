@@ -109,9 +109,4 @@ public abstract class Projectile : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, angle + 90+angleAwayFromTarget);
     }
 
-    //For homing Projectiles
-    public void setAngleToFollowTarget() {
-        float angle = Mathf.Atan2(target.transform.position.y - transform.position.y, target.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle + 90);
-    }
 }
