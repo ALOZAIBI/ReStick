@@ -49,6 +49,7 @@ public class Sheen : Item
 
     private void createProjectile() {
 
+        startItemActivation();
         //creates the projectile
         GameObject objProjectile = Instantiate(projectileObject, character.transform.position, character.transform.rotation);
         Projectile projectile = objProjectile.GetComponent<Projectile>();

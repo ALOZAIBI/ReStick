@@ -51,6 +51,10 @@ public class ProjectileSimpleHit : Projectile
                         i--;
                     }
                 }
+                //If there are no enemies nearby, destroy the projectile
+                if (colliders.Count == 0) {
+                    Destroy(gameObject);
+                }
 
 
                 //Selects a random target
