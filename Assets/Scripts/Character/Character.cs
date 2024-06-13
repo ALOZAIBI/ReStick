@@ -284,7 +284,8 @@ public class Character : MonoBehaviour {
 
         }
 
-        ownTheAbility(true);
+        //Reset cd if not summoned
+        ownTheAbility(!summoned);
         ownTheItems();
         //applies the stats
         foreach (BonusStats temp in bonusStats) {

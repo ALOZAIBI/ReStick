@@ -51,6 +51,7 @@ public class CloneAbility : Ability
         index = 0;
         foreach (Item item in character.target.items) {
             Item temp = Instantiate(item);
+            temp.reset();
             clone.items[index] = temp;
             index++;
         }

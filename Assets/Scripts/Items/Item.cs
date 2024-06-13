@@ -115,4 +115,10 @@ public class Item : MonoBehaviour {
     public virtual void afterAnimation() {
 
     }
+
+    //This needs to be done in some cases. Take this for example
+    //We are cloning/ so sheen is cloned but we want the clone to have the list of hitFXs reset
+    public virtual void reset() {
+
+    }
 }

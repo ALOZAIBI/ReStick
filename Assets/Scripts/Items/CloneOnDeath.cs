@@ -17,7 +17,7 @@ public class CloneOnDeath : Item
         }
         for(int i = 0; i < numOfClones; i++) {
             //summons the clone in a position near the summoner
-            Character clone = Instantiate(character.gameObject, character.transform.position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0), character.transform.rotation).GetComponent<Character>();
+            Character clone = Instantiate(character.gameObject, character.transform.position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), character.transform.position.z), character.transform.rotation).GetComponent<Character>();
             clone.summoned = true;
             clone.summoner = character;
 
@@ -31,9 +31,16 @@ public class CloneOnDeath : Item
             int index = 0;
             foreach (Ability ability in character.abilities) {
                 Ability temp = Instantiate(ability);
-                temp.available = true;
-                temp.abilityNext = 0;
+                //Debugging just the first guy
+                if(i == 0)
+                    Debug.Log("Before:"+temp.abilityNext +" " + temp.available);
+                //temp.available = true;
+                //temp.abilityNext = 0;
+                temp.setRandomCD();
                 clone.abilities[index] = temp;
+                if(i == 0) {
+                    Debug.Log("After:" + clone.abilities[index].abilityNext +" " + clone.abilities[index].available); 
+                }
                 index++;
             }
 
@@ -41,6 +48,7 @@ public class CloneOnDeath : Item
             index = 0;
             foreach (Item item in character.items) {
                 Item temp = Instantiate(item);
+                temp.reset();
                 if (temp is CloneOnDeath) {
                     CloneOnDeath cloneOnDeath = (CloneOnDeath)temp;
                     cloneOnDeath.timesToClone--;

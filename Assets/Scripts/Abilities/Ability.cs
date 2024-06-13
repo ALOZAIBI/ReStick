@@ -357,6 +357,17 @@ public abstract class Ability : MonoBehaviour
             return (CD);
         }
     }   
+    
+    //So that after cloning CD's are random
+    public void setRandomCD() {
+        abilityNext = Random.Range(0, CD - CD * character.CDR);
+        if(abilityNext > 0) {
+            available = false;
+        }
+        else {
+            available = true;
+        }
+    }
 
     
 }

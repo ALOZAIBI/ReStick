@@ -66,4 +66,11 @@ public class Sheen : Item
         projectile.castingAbilityName = itemName;
     }
 
+    //Reset
+    public override void reset() {
+        listOfsheenFXs.Clear();
+        currentStacks = 0;
+
+    }
+
 }
