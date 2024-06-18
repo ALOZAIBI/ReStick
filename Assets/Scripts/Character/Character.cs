@@ -1825,7 +1825,7 @@ public class Character : MonoBehaviour {
             item.onKill();
         }
     }
-    //Shares XP TO ALL ACTIVE PLAYERPARTY MEMBERS
+    //Shares XP TO ALL DROPPED PLAYERPARTY MEMBERS EVEN IF THEY DIED
     private void increasePartyXP(int level) {
         //only applies if the caller is a player Character
         if (this.team != (int)teamList.Player)
@@ -1835,7 +1835,7 @@ public class Character : MonoBehaviour {
         foreach (Transform child in UIManager.singleton.playerParty.transform) {
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
-                if (temp.gameObject.activeSelf && temp.alive)
+                if (temp.dropped)
                     activeCharacters++;
             }
         }
@@ -1843,7 +1843,7 @@ public class Character : MonoBehaviour {
         foreach (Transform child in UIManager.singleton.playerParty.transform) {
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
-                if (temp.gameObject.activeSelf && temp.alive)
+                if (temp.dropped)
                     temp.xpProgress += (float)level / activeCharacters;
             }
         }
