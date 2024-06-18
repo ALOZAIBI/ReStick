@@ -32,7 +32,7 @@ public class ApplyBuff : Ability
         //Added the check if interruptible to not make this function called every frame.
         if (character.animationManager.interruptible && available) {
             //selects target
-            if (character.selectTarget(targetStrategy, rangeAbility,excludeTargets())) {
+            if (character.selectTarget(targetStrategy,rangeAbility,excludeTargets())) {
                 calculateAmt();
                 playAnimation("castRaise");
                 return true;
@@ -111,6 +111,24 @@ public class ApplyBuff : Ability
         //cooldown this ability
         startCooldown();
     }
+
+    //Excludes targets that already have the buff or a similar debuff(root,silence, blind)
+    public override List<Character> excludeTargets() {
+
+        List<Character> alreadyHaveBuff = new List<Character>();
+        foreach (Character c in character.zone.charactersInside) {
+
+            foreach (Buff b in c.buffs) {
+                if (b.code == getCodeString() || (b.snare && root && true) || (b.silence && silence && true) || (b.blind && blind && true)) {
+                    alreadyHaveBuff.Add(c);
+                    break;
+                }
+            }
+
+        }
+        return alreadyHaveBuff;
+    }
+
     public override void updateDescription() {
         if (character != null) {
 
@@ -201,35 +219,6 @@ public class ApplyBuff : Ability
             } 
         }
         catch {};
-    }
-
-    public override List<Character> excludeTargets() {
-        List<Character> alreadyHasBuff = new List<Character>();
-
-        foreach(Character c in character.zone.charactersInside) {
-        //If target already has buff, exclude them from targets
-            if (buffOnTarget(c)) {
-                alreadyHasBuff.Add(c);
-            }
-        }
-
-        return alreadyHasBuff;
-
-    }
-
-    //This will be used to exclude the targets that have already been buffed by this ability.
-    private bool buffOnTarget(Character target) {
-        try {
-            foreach (Buff temp in target.buffs) {
-                //if buff is already applied return true
-                if (temp.code == getCodeString()) {
-                    return true;
-                }
-            }
-        }
-        catch { return false; };
-        //otherwise return True which does doAbility()
-        return false;
     }
 
     private void FixedUpdate() {
