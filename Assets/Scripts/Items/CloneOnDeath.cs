@@ -67,7 +67,7 @@ public class CloneOnDeath : Item
             clone.HP = clone.HPMax;
 
             //Make the size half of the summoner
-            clone.transform.localScale = new Vector3(character.transform.localScale.x / 1.5f, character.transform.localScale.y / 1.5f, character.transform.localScale.z / 1.5f);
+            clone.transform.localScale = new Vector3(character.transform.localScale.x / 1.18f, character.transform.localScale.y / 1.18f, character.transform.localScale.z / 1.18f);
 
 
             //Adds the clone to the zone

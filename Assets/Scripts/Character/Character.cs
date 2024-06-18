@@ -340,6 +340,7 @@ public class Character : MonoBehaviour {
     public void ownTheItems() {
         foreach (Item item in items) {
             item.character = this;
+            item.reset();
         }
     }
     //sends position to next frame to be used to check for isIdle

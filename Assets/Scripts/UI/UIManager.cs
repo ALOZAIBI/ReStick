@@ -592,6 +592,7 @@ public class UIManager : MonoBehaviour
         deleteAllCharacters();
         deleteAllInventory();
         deleteAllPlayerAbilities();
+        deleteAllPlayerItems();
         SaveSystem.loadCharactersInMap();
         SaveSystem.loadInventoryInMap();
     }
@@ -600,6 +601,11 @@ public class UIManager : MonoBehaviour
     public void deleteAllPlayerAbilities() {
         foreach(Transform child in playerParty.activeAbilities.transform) { 
         Destroy(child.gameObject);
+        }
+    }
+    public void deleteAllPlayerItems() {
+        foreach (Transform child in playerParty.activeItems.transform) {
+            Destroy(child.gameObject);
         }
     }
     //this is to be called before loading characters So that there are no duplicates
