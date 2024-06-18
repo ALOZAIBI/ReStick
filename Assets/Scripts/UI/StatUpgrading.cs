@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.TextCore.Text;
-using System;
+//using System;
 using UnityEngine.SceneManagement;
-using static System.TimeZoneInfo;
 using Unity.VisualScripting;
 using System.Net.NetworkInformation;
 
@@ -121,15 +120,17 @@ public class StatUpgrading : MonoBehaviour {
         upgrade3Btn.onClick.AddListener(upgrade3Clicked);
 
         stats = new (string, GameObject, float)[9];
+        //Main stats (More likely to be rolled)
         stats[0] = ("Physical Damage", PDIcon,PDAmt);
         stats[1] = ("Magic Damage", MDIcon,MDAmt);
         stats[2] = ("Influence", INFIcon,INFAmt);
-        stats[3] = ("Attack Speed", ASIcon,ASAmt);
+        stats[3] = ("Health", HPIcon,HPAmt);
+        //Other stats
         stats[4] = ("Cooldown Reduction", CDRIcon, CDRAmt);
         stats[5] = ("Movement Speed", MSIcon,MSAmt);
         stats[6] = ("Range", RNGIcon,RNGAmt);
         stats[7] = ("Lifesteal", LSIcon,LSAmt);
-        stats[8] = ("Health", HPIcon,HPAmt);
+        stats[8] = ("Attack Speed", ASIcon,ASAmt);
 
         upgrade1Image = upgrade1Btn.GetComponent<Image>();
         upgrade2Image = upgrade2Btn.GetComponent<Image>();
@@ -168,10 +169,26 @@ public class StatUpgrading : MonoBehaviour {
             upgrade3Image.SetAlpha(1f);
     }
     private void setUpgrades() {
+
+        //The indices used for the RNG (Depends on if mainStat or not)
+        int indexOfFirstMainStat = 0;
+        int indexOfFirstOtherStat = 4;
+        int firstIndex,secondIndex;
+        //First stat
+        //75% chance of getting a main stat
+        int mainStat = Random.Range(0, 100);
+        if(mainStat <= 75) {
+            firstIndex = indexOfFirstMainStat;
+            secondIndex = indexOfFirstOtherStat;
+        }
+        else {
+            firstIndex = indexOfFirstOtherStat;
+            secondIndex = stats.Length;
+        }
         //Get a random int from length of statsArray without it being in statsUsedIndices
-        int randomIndex = UnityEngine.Random.Range(0, stats.Length);
+        int randomIndex = Random.Range(firstIndex, secondIndex);
         while (statsUsedIndices.Contains(randomIndex)) {
-            randomIndex = UnityEngine.Random.Range(0, stats.Length);
+            randomIndex = Random.Range(firstIndex, secondIndex);
         }
         statsUsedIndices.Add(randomIndex);
         upgrade1 = stats[randomIndex];
@@ -183,9 +200,20 @@ public class StatUpgrading : MonoBehaviour {
         rt.SetStretchToAnchors();
         instantiatedStuff.Add(icon);
 
-        randomIndex = UnityEngine.Random.Range(0, stats.Length);
+        //Second stat
+        mainStat = Random.Range(0, 100);
+        if (mainStat <= 75) {
+            firstIndex = indexOfFirstMainStat;
+            secondIndex = indexOfFirstOtherStat;
+        }
+        else {
+            firstIndex = indexOfFirstOtherStat;
+            secondIndex = stats.Length;
+        }
+        //Get a random int from length of statsArray without it being in statsUsedIndices
+        randomIndex = Random.Range(firstIndex, secondIndex);
         while (statsUsedIndices.Contains(randomIndex)) {
-            randomIndex = UnityEngine.Random.Range(0, stats.Length);
+            randomIndex = Random.Range(firstIndex, secondIndex);
         }
         statsUsedIndices.Add(randomIndex);
         upgrade2 = stats[randomIndex];
@@ -196,9 +224,20 @@ public class StatUpgrading : MonoBehaviour {
         rt.SetStretchToAnchors();
         instantiatedStuff.Add(icon);
 
-        randomIndex = UnityEngine.Random.Range(0, stats.Length);
+        //Third stat
+        mainStat = Random.Range(0, 100);
+        if (mainStat <= 75) {
+            firstIndex = indexOfFirstMainStat;
+            secondIndex = indexOfFirstOtherStat;
+        }
+        else {
+            firstIndex = indexOfFirstOtherStat;
+            secondIndex = stats.Length;
+        }
+        //Get a random int from length of statsArray without it being in statsUsedIndices
+        randomIndex = Random.Range(firstIndex, secondIndex);
         while (statsUsedIndices.Contains(randomIndex)) {
-            randomIndex = UnityEngine.Random.Range(0, stats.Length);
+            randomIndex = Random.Range(firstIndex, secondIndex);
         }
         statsUsedIndices.Add(randomIndex);
         upgrade3 = stats[randomIndex];
