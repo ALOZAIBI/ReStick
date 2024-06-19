@@ -91,9 +91,9 @@ public class Item : MonoBehaviour {
     public virtual void onZoneStart() {
 
     }
-
-    public virtual void onDeath(Character killer=null) {
-
+    //Returns true if the character holding this item remains alive (Revived)
+    public virtual bool onDeath(Character killer=null) {
+        return false;
     }
 
     public virtual void onKill() {

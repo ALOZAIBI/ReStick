@@ -38,7 +38,6 @@ public class TimeControl : MonoBehaviour
         Time.timeScale = 1;
         currTimeScale = 1;
         displayCurrScale.text = currTimeScale + "x";
-        Debug.Log("Time reset");
     }
 
     private void scaleDown() {

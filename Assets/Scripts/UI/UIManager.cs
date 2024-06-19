@@ -307,7 +307,6 @@ public class UIManager : MonoBehaviour
         sceneToLoad = zone.belongsToMap;
         inZone = false;
         loadScene();
-        Debug.Log("TEST IGNORE");
     }
     //once player completes all maps then goes back to world
     public void wonToWorld() {
@@ -355,7 +354,6 @@ public class UIManager : MonoBehaviour
     }
 
     public bool checkGameOver() {
-        Debug.Log("GAME OVER MAN");
 
         if (playerParty.lifeShards < 0) {
             gameOverScreen.setup();

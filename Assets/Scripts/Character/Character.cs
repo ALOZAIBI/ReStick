@@ -320,6 +320,8 @@ public class Character : MonoBehaviour {
         animationManager.abilityBuffer = null;
         animationManager.animator.SetBool("interrupt", false);
         animationManager.interruptible = true;
+
+        dieNextFrame = false;
     }
     /// <summary>
     /// Tells the abilities that this owns them and resets their cd if resetCD is true
@@ -1663,31 +1665,24 @@ public class Character : MonoBehaviour {
         killsLastFrame = 0;
         averageLevelOfKillsLastFrame.Clear();
     }
-    private void itemOnDeath(Character killer) {
+    /// <summary>
+    /// Returns True if the character will remain alive (Revived by item for example)
+    /// </summary>
+    /// <param name="killer"></param>
+    private bool itemOnDeath(Character killer) {
+        bool stillAlive = false;
         foreach(Item temp in items) {
-            temp.onDeath(killer);
+            if(temp.onDeath(killer))
+                stillAlive = true;
         }
+        return stillAlive;
     }
 
+    public bool dieNextFrame = false;
     public void die(Character killer) {
         //remove character from the zone's character list
-        alive = false;
-        
-        itemOnDeath(killer);
-
-        //If the character is dead we remove it from the zone's list of characters
-        //The character might be revived by itemOnDeath so we check if it's still alive
-        if (!alive) {
-            zone.charactersInside.Remove(this);
-            gameObject.SetActive(false);
-
-            //if the character is not a player character and is not summoned instantiate a coin
-            if (team != (int)teamList.Player && !summoned) {
-                GameObject temp = Instantiate(coin, transform.position, Quaternion.identity);
-                temp.GetComponent<Coin>().valueInGold = calculateGold(level);
-            }
-
-        }
+        dieNextFrame = !itemOnDeath(killer);
+        Debug.Log("THis cahjarcater iwll die next frame "+dieNextFrame);
     }
     //public void handleDeath() {
     //    if (HP <= 0) {
@@ -1941,6 +1936,18 @@ public class Character : MonoBehaviour {
     }
     void FixedUpdate()
     {
+
+        if (dieNextFrame) {
+            zone.charactersInside.Remove(this);
+            gameObject.SetActive(false);
+            alive = false;
+
+            //if the character is not a player character and is not summoned instantiate a coin
+            if (team != (int)teamList.Player && !summoned) {
+                GameObject temp = Instantiate(coin, transform.position, Quaternion.identity);
+                temp.GetComponent<Coin>().valueInGold = calculateGold(level);
+            }
+        }
         
         if (xpProgress >= xpCap)
             levelUp();

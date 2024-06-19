@@ -7,15 +7,16 @@ using UnityEngine;
 public class ReviveOnDeath : Item
 {
     [SerializeField] private bool revived = false;
-    public override void onDeath(Character c = null) {
-        //If not already revived and character is dead (We check if dead since we might have multiple items with this effect and we wouldn't want them all to be used to revive just once)
-        if (!revived && !character.alive) {
+    public override bool onDeath(Character c = null) {
+        //If not already revived and we should check if character is dead (TODO)(We check if dead since we might have multiple items with this effect and we wouldn't want them all to be used to revive just once)
+        if (!revived) {
             Debug.Log("Supposed to revive");
             startItemActivation();
-            character.alive = true;
             character.HP = character.HPMax;
             revived = true;
+            return true;
         }
+        return false;
     }
 
     public override void reset() {

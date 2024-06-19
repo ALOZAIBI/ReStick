@@ -11,9 +11,9 @@ public class CloneOnDeath : Item
     [SerializeField] public int timesToClone=1;
 
 
-    public override void onDeath(Character k = null) {
+    public override bool onDeath(Character k = null) {
         if(timesToClone <=0) {
-            return;
+            return false;
         }
         for(int i = 0; i < numOfClones; i++) {
             //summons the clone in a position near the summoner
@@ -71,12 +71,12 @@ public class CloneOnDeath : Item
 
 
             //Adds the clone to the zone
-            clone.zone.charactersInside.Add(clone);
+            character.zone.charactersInside.Add(clone);
 
         }
         startItemActivation();
 
-
+        return false;
     }
 
 

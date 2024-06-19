@@ -30,12 +30,9 @@ public class PlayerManager : MonoBehaviour
     /// Used to update the bools that determine wether a new item or ability has been added to the inventory
     /// </summary>
     public void setNewStuffNotifications() {
-        Debug.Log("SETTING NOTIFICAITONS");
         newItems = itemInventory.transform.childCount > oldItemCount;
         newAbilities = abilityInventory.transform.childCount > oldAbilityCount;
 
-        Debug.Log("New Items: " + newItems);
-        Debug.Log("New Abilities: " + newAbilities);
     }
     //Used to update the old counts(Will be used when viewing the inventory)
     public void setOldItemCount() {
