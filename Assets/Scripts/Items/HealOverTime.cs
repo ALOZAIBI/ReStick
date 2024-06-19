@@ -12,8 +12,16 @@ public class HealOverTime : Item
 
     [SerializeField] private SimpleFX regenFX;
 
+
+    //For example in devil's contract we want to start round with atleast 80% hp
+    [SerializeField] private float roundStartSetHPPercentMin = 0;
     public override void onZoneStart() {
         timeSinceLastHeal = 0;
+
+        //If the character is below the minimum hp, set it to the minimum hp
+        if(character.HP < character.HPMax * roundStartSetHPPercentMin) {
+            character.HP = character.HPMax * roundStartSetHPPercentMin;
+        }
     }
 
     public override void continuous() {
