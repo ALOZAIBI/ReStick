@@ -64,7 +64,8 @@ public class LaunchProjectiles : Ability
     }
 
     public override bool doAbility() {
-        if (abilityStarted||(available && character.selectTarget(targetStrategy, rangeAbility))) {
+        if ((abilityStarted || available)&& character.selectTarget(targetStrategy, rangeAbility)) {
+            Debug.Log("My targe tis0" + character.target);
             calculateAmt();
             lockedTarget = character.target;
             //So that the animation is only played once
@@ -106,7 +107,6 @@ public class LaunchProjectiles : Ability
                     }
                 }
 
-                //What would happen if level is reloaded before all projectiles are launched??
                 //Once all waves are launched, the ability is done
                 if (numWavesLaunched == numWaves) {
                     abilityStarted = false;
