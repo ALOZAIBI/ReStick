@@ -45,6 +45,7 @@ public class Item : MonoBehaviour {
         character = c;
         character.PD += PD;
         character.MD += MD;
+        character.INF += INF;
         character.HP += HP;
         character.HPMax += HP;
         character.AS += AS;
@@ -59,6 +60,7 @@ public class Item : MonoBehaviour {
         if(character != null) {
             character.PD -= PD;
             character.MD -= MD;
+            character.INF -= INF;
             character.HP -= HP;
             character.HPMax -= HP;
             character.AS -= AS;

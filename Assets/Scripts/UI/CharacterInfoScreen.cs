@@ -40,7 +40,9 @@ public class CharacterInfoScreen : MonoBehaviour
     [SerializeField] private Transform targettingIconParent;
 
     public Button abilityScreenBtn;
+    [SerializeField] private GameObject newAbilityNotification;
     public Button itemScreenBtn;
+    [SerializeField] private GameObject newItemNotification;
 
     //Selecting target for attacking and also moving for now.
     public MovementStrategySelector movementSelector;
@@ -615,6 +617,9 @@ public class CharacterInfoScreen : MonoBehaviour
             time2 = transitionTime;
             unFocusing = true;
             focusing = false;
+
+            //Update the notifications
+            setNotifications();
         }
     }
     //handles focusing and unfocusing siomilar to handlePanels
@@ -727,6 +732,22 @@ public class CharacterInfoScreen : MonoBehaviour
         displayCharacterItems(currChar);
         startOpening();
 
+        setNotifications();
+
+    }
+
+    private void setNotifications() {
+        setAbilityNotification();
+        setItemNotification();
+    }
+
+    private void setAbilityNotification() {
+        newAbilityNotification.SetActive(UIManager.singleton.playerParty.newAbilities);
+        UIManager.singleton.playerParty.setOldAbilityCount();
+    }
+    private void setItemNotification() {
+        newItemNotification.SetActive(UIManager.singleton.playerParty.newItems);
+        UIManager.singleton.playerParty.setOldItemCount();
     }
 
     public void viewCharacterTopStatDisplay(Character currChar) {
@@ -954,8 +975,11 @@ public class CharacterInfoScreen : MonoBehaviour
         }
     }
     private void startFocusingItemInventory() {
+
         focusElement = 9;
         startFocusing();
+        //Since after cliking this we'd have seen the new items, we can update the notification
+        uiManager.playerParty.newItems = false;
     }
     private void closeInventoryItems() {
         foreach (Transform child in addItemDisplaysArea.transform) {
@@ -1250,6 +1274,8 @@ public class CharacterInfoScreen : MonoBehaviour
     private void addAbility() {
         focusElement = 6;
         startFocusing();
+        //Since after clicking this we'd have seen the new abilities so we set the notifications to false
+        uiManager.playerParty.newAbilities = false;
     }
 
     public void displayTopStatItems() {

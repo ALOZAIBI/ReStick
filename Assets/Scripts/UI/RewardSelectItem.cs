@@ -29,8 +29,7 @@ public class RewardSelectItem : MonoBehaviour
             if (traversal.selected == true) {
                 aSelectionIsMade = true;
                 //We add the item to inventory
-                GameObject item = Instantiate(UIManager.singleton.itemFactory.objectFromName(traversal.item.itemName));
-                item.transform.parent = playerManager.itemInventory.transform;
+                UIManager.singleton.itemFactory.addRequestedItemToInventory(traversal.item.itemName);
 
             }
             index++;

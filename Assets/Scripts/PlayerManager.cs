@@ -18,6 +18,33 @@ public class PlayerManager : MonoBehaviour
     private int initLifeShards;
     private int initGold;
 
+    //Says if there are items or abilities that player just got and hasn't seen yet
+    //Will be used for notifications
+    public bool newItems = false;
+    public bool newAbilities = false;
+
+    public int oldItemCount = 0;
+    public int oldAbilityCount = 0;
+
+    /// <summary>
+    /// Used to update the bools that determine wether a new item or ability has been added to the inventory
+    /// </summary>
+    public void setNewStuffNotifications() {
+        Debug.Log("SETTING NOTIFICAITONS");
+        newItems = itemInventory.transform.childCount > oldItemCount;
+        newAbilities = abilityInventory.transform.childCount > oldAbilityCount;
+
+        Debug.Log("New Items: " + newItems);
+        Debug.Log("New Abilities: " + newAbilities);
+    }
+    //Used to update the old counts(Will be used when viewing the inventory)
+    public void setOldItemCount() {
+        oldItemCount = itemInventory.transform.childCount;
+    }
+    public void setOldAbilityCount() {
+        oldAbilityCount = abilityInventory.transform.childCount;
+    }
+
     private void Start() {
         initLifeShards = lifeShards;
         initGold = gold;

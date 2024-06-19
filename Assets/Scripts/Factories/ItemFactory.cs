@@ -64,9 +64,16 @@ public class ItemFactory : MonoBehaviour
             //Debug.Log("ABILIT DEBUG+"+name);
             GameObject obj = objectFromName(name);
             Instantiate(obj, UIManager.singleton.playerParty.itemInventory.transform);
+            UIManager.singleton.playerParty.setNewStuffNotifications();
+
         }
     }
 
+    public void addRequestedItemToInventory(string abilityName) {
+        GameObject obj = objectFromName(abilityName);
+        Instantiate(obj, UIManager.singleton.playerParty.itemInventory.transform);
+        UIManager.singleton.playerParty.setNewStuffNotifications();
+    }
     public void addRequestedItemsToShop(Shop shop,List<string> itemNames) {
         foreach(string name in itemNames) {
             GameObject obj = objectFromName(name);

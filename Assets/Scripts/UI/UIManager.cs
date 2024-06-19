@@ -264,6 +264,7 @@ public class UIManager : MonoBehaviour
     //loads map and removes buffs
     public void loadScene() {
 
+
         //clearBuffs();
         //resets position of camera
         //Camera.main.transform.position = new Vector3(0, 0, -10);

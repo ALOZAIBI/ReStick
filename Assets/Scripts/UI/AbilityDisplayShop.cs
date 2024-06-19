@@ -103,7 +103,7 @@ public class AbilityDisplayShop : MonoBehaviour
                 //deduct from player gold
                 UIManager.singleton.playerParty.gold -= price;
                 //add to inventroy
-                Instantiate(ability, UIManager.singleton.playerParty.abilityInventory.transform);
+                UIManager.singleton.abilityFactory.addRequestedAbilityToInventory(ability.abilityName);
                 //Since Shops are only in maps we save to map
                 UIManager.singleton.saveMapSave();
                 //save shop PurchaseInfo

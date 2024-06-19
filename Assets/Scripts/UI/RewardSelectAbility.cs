@@ -33,9 +33,7 @@ public class RewardSelectAbility : MonoBehaviour
             //once it reaches a selected one add the ability to inventory
             if(traversal.selected == true) {
                 aSelectionIsMade = true;
-                //here temp is an actual ability and not a display
-                GameObject temp = uiManager.zone.abilityRewardPool[index];
-                temp.transform.parent = playerManager.abilityInventory.transform;
+                uiManager.abilityFactory.addRequestedAbilityToInventory(traversal.ability.abilityName);
             }
             index++;
         }

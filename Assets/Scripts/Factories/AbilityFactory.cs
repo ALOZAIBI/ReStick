@@ -130,5 +130,12 @@ public class AbilityFactory : MonoBehaviour
             GameObject obj = objectFromName(name);
             Instantiate(obj, UIManager.singleton.playerParty.abilityInventory.transform);
         }
+        UIManager.singleton.playerParty.setNewStuffNotifications();
+    }
+    public void addRequestedAbilityToInventory(string abilityName) {
+        Debug.Log("WILL ADD ABILITY "+abilityName);
+        GameObject obj = objectFromName(abilityName);
+        Instantiate(obj, UIManager.singleton.playerParty.abilityInventory.transform);
+        UIManager.singleton.playerParty.setNewStuffNotifications();
     }
 }

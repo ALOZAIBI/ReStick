@@ -217,6 +217,7 @@ static class SaveSystem
     }
     
     public static void saveShopAbilitiesItemsAndPurchaseInfo(Shop shop) {
+
         //creates a list of abilityNames from the abilities in shop
         ShopData data = new ShopData(shop);
         string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/mapSave/shop/shopAbilitiesAndPurchaseInfo/abilitiesAndPurchaseInfo.xrt";

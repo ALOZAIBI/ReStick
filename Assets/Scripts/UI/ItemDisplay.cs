@@ -185,7 +185,7 @@ public class ItemDisplay : MonoBehaviour
                 //Deduct the gold
                 UIManager.singleton.playerParty.gold -= getPrice();
                 //Add to inventory
-                Instantiate(item, UIManager.singleton.playerParty.itemInventory.transform);
+                UIManager.singleton.itemFactory.addRequestedItemToInventory(item.itemName);
                 //We save in map since shop is only in map
                 UIManager.singleton.saveMapSave();
                 //Save shop purchaseInfo
