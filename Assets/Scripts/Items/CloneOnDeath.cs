@@ -11,7 +11,7 @@ public class CloneOnDeath : Item
     [SerializeField] public int timesToClone=1;
 
 
-    public override void onDeath() {
+    public override void onDeath(Character k = null) {
         if(timesToClone <=0) {
             return;
         }

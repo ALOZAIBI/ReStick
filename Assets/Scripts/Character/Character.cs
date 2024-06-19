@@ -1663,25 +1663,38 @@ public class Character : MonoBehaviour {
         killsLastFrame = 0;
         averageLevelOfKillsLastFrame.Clear();
     }
-    private void itemOnDeath() {
+    private void itemOnDeath(Character killer) {
         foreach(Item temp in items) {
-            temp.onDeath();
+            temp.onDeath(killer);
         }
     }
-    public void handleDeath() {
-        if (HP <= 0) {
-            itemOnDeath();
-            //remove character from the zone's character list
+
+    public void die(Character killer) {
+        //remove character from the zone's character list
+        alive = false;
+        
+        itemOnDeath(killer);
+
+        //If the character is dead we remove it from the zone's list of characters
+        //The character might be revived by itemOnDeath so we check if it's still alive
+        if (!alive) {
             zone.charactersInside.Remove(this);
             gameObject.SetActive(false);
-            alive = false;
+
             //if the character is not a player character and is not summoned instantiate a coin
-            if(team != (int)teamList.Player && !summoned) {
+            if (team != (int)teamList.Player && !summoned) {
                 GameObject temp = Instantiate(coin, transform.position, Quaternion.identity);
                 temp.GetComponent<Coin>().valueInGold = calculateGold(level);
             }
+
         }
     }
+    //public void handleDeath() {
+    //    if (HP <= 0) {
+    //        itemOnDeath();
+            
+    //    }
+    //}
     //to prevent HP going over the maximum
     private void capHP() {
         if (HP > HPMax)
@@ -1818,6 +1831,8 @@ public class Character : MonoBehaviour {
             }
         }
 
+        victim.die(this);
+
 
     }
     private void itemOnKill(Character victim) {
@@ -1930,7 +1945,6 @@ public class Character : MonoBehaviour {
         if (xpProgress >= xpCap)
             levelUp();
 
-        handleDeath();
         //Sometimes after debuffs the AS is less than 0 so it is importatnt to prevent attacking in that case, otherways it'll be a machinegun
         if (!(blind>0)&&AS>0)
             attack();

@@ -92,7 +92,7 @@ public class Item : MonoBehaviour {
 
     }
 
-    public virtual void onDeath() {
+    public virtual void onDeath(Character killer=null) {
 
     }
 
