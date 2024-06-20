@@ -49,7 +49,6 @@ public class CreateFXOnTargetsWithin : MonoBehaviour
             //If the character doesn't have FX on them create one and add it to the list
             if(enemy && character.team!=caster.team && !characterHasFX(character)) {
                 HitFX hitFX = Instantiate(hitFXPrefab, character.transform.position, Quaternion.identity);
-                Debug.Log("Crewated hitfx");
                 hitFX.keepOnTarget.target = character.gameObject;
                 HitFXs.Add(hitFX);
             }

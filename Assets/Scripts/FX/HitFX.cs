@@ -35,7 +35,6 @@ public class HitFX : MonoBehaviour
 
     public void playEndAnimation() {
         animator.SetTrigger("End");
-        Debug.Log("End");
     }
 
     public void refreshDuration() {

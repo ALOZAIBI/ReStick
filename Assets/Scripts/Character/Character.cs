@@ -287,11 +287,7 @@ public class Character : MonoBehaviour {
         //Reset cd if not summoned
         ownTheAbility(!summoned);
         ownTheItems();
-        //applies the stats
-        foreach (BonusStats temp in bonusStats) {
-            temp.character = this;
-            temp.applyStats();
-        }
+
 
         foreach(Item item in items) {
             item.character = this;
@@ -1682,7 +1678,7 @@ public class Character : MonoBehaviour {
     public void die(Character killer) {
         //remove character from the zone's character list
         dieNextFrame = !itemOnDeath(killer);
-        Debug.Log("THis cahjarcater iwll die next frame "+dieNextFrame);
+        Debug.Log(this+" will die next frame "+dieNextFrame + " My killer is "+killer);
     }
     //public void handleDeath() {
     //    if (HP <= 0) {
@@ -1767,8 +1763,12 @@ public class Character : MonoBehaviour {
         victim.HP -= damageAmount;
 
         HP += damageAmount * LS * LSAmount;
-        if (victim.HP <= 0)
+        //We do the dieNextFrame check so that the character get's killed by 1 dude only
+        if (victim.HP <= 0 && !victim.dieNextFrame && victim.alive) {
+            Debug.Log("Killing " + victim + " " + victim.dieNextFrame + " Alive "+victim.alive);
             kill(victim);
+            Debug.Log("Killed " + victim + " " + victim.dieNextFrame + " Alive " + victim.alive);
+        }
         //if summoned also increase the summoner's total damage and apply the heal from lifesteal to them too
         if (summoned) {
             summoner.totalDamage += damageAmount;
@@ -1947,6 +1947,7 @@ public class Character : MonoBehaviour {
                 GameObject temp = Instantiate(coin, transform.position, Quaternion.identity);
                 temp.GetComponent<Coin>().valueInGold = calculateGold(level);
             }
+            dieNextFrame = false;
         }
         
         if (xpProgress >= xpCap)
