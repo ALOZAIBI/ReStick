@@ -9,6 +9,7 @@ public class CloneOnDeath : Item
     //Summon 2 weaker clones of the character on death
     [SerializeField]public int numOfClones;
     [SerializeField] public int timesToClone=1;
+    [SerializeField]private SimpleFX summonFX;
 
 
     public override bool onDeath(Character k = null) {
@@ -26,8 +27,11 @@ public class CloneOnDeath : Item
                     CloneOnDeath cloneOnDeath = (CloneOnDeath)item;
                     cloneOnDeath.timesToClone--;
                 }
-
             }
+
+            SimpleFX fx = Instantiate(summonFX, summoned.transform.position, summoned.transform.rotation);
+            fx.transform.localScale = summoned.transform.localScale;
+            fx.keepOnTarget.target = summoned.gameObject;   
         }
         startItemActivation();
         //Debug.Log("End of On Death "+ character.name);

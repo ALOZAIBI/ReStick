@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CloneAbility : Ability
 {
+    [SerializeField]private SimpleFX summonFX;
     public override bool doAbility() {
         if(available) {
             calculateAmt();
@@ -17,69 +18,31 @@ public class CloneAbility : Ability
         character.selectTarget(targetStrategy);
         //cooldown is set before the ability is executed so that if this character is cloned the clone ability won't be ready again to not cause cloning to go to infinity instantly
         startCooldown();
-        //summons the clone in a position near the summoner
-        Character clone = Instantiate(character.target.gameObject, character.transform.position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0), character.transform.rotation).GetComponent<Character>();
-        clone.summoned = true;
-        clone.summoner = character;
+        Character clone = character.summon(character.target,valueAmt.getAmtValueFromName(this, "CloneQuality"));
 
-        if (clone.buffs.Count > 0) {
-            Debug.Log("Clone name" + clone.name);
-            //the .ToArray is used to prevent the error of modifying the list while iterating through it.
-            foreach(Buff tempBuff in clone.buffs.ToArray()) {
-                tempBuff.removeBuffAppliedStats(clone);
+
+        //Ensures that this ability is set on CD for the clone
+        foreach (Ability ability in clone.abilities) {
+            if (ability is CloneAbility) {
+                ability.startCooldown();
             }
         }
 
-        //clones the abilities
-        int index = 0;
-        foreach (Ability ability in character.target.abilities) {
-            Ability temp = Instantiate(ability);
-            //the clone ability's cd will not be ready so that the cloning won't go to infinity instantly
-            if (temp is CloneAbility) {
-                temp.startCooldown();
-            }
-            //however all other abilities will be ready.
-            else {
-                temp.available = true;
-                temp.abilityNext = 0;
-            }
-            clone.abilities[index] = temp;
-            index++;
-        }
+        //Create FX on the summoned character
+        SimpleFX fx = Instantiate(summonFX, clone.transform.position, clone.transform.rotation);
+        fx.transform.localScale = clone.transform.localScale;
+        fx.keepOnTarget.target = clone.gameObject;
 
-        //Clones the items
-        index = 0;
-        foreach (Item item in character.target.items) {
-            Item temp = Instantiate(item);
-            temp.reset();
-            clone.items[index] = temp;
-            index++;
-        }
+        //Create FX on the summoner
+        SimpleFX fx2 = Instantiate(summonFX, character.transform.position, character.transform.rotation);
+        fx2.transform.localScale = character.transform.localScale;
+        fx2.keepOnTarget.target = character.gameObject;
 
-        if (clone.team != character.team) {
-            //if the clone is of an enemy make it allied.
-            clone.team = character.team;
-            //maybe decrease the amount to make enemy clones even weaker otherwise OP innit.
-            valueAmt.getAmtValueFromName(this,"CloneQuality");
-        }
 
-        //Changes movement strategy to be appropriate for a clone
-        if(clone.movementStrategy == (int)Character.MovementStrategies.DontMove) {
-            clone.movementStrategy = (int)Character.MovementStrategies.Default;
-        }
-
-        clone.PD = clone.PD * valueAmt.getAmtValueFromName(this, "CloneQuality");
-        clone.MD = clone.MD * valueAmt.getAmtValueFromName(this, "CloneQuality");
-        clone.INF = clone.INF * valueAmt.getAmtValueFromName(this, "CloneQuality");
-        clone.HP = clone.HP * valueAmt.getAmtValueFromName(this, "CloneQuality");
-        clone.HPMax = clone.HPMax * valueAmt.getAmtValueFromName(this, "CloneQuality");
-        clone.name = character.target.name + " Clone";
         SpriteRenderer sprite = clone.GetComponent<SpriteRenderer>();
         //darken the color of the clone
         sprite.color = new Color(sprite.color.r * 0.5f, sprite.color.g * 0.5f, sprite.color.b * 0.5f);
 
-        //adds to zone
-        clone.zone.charactersInside.Add(clone);
     }
     public override void updateDescription() {
         if (character == null)
