@@ -1763,6 +1763,7 @@ public class Character : MonoBehaviour {
         victim.HP -= damageAmount;
 
         HP += damageAmount * LS * LSAmount;
+
         //We do the dieNextFrame check so that the character get's killed by 1 dude only
         if (victim.HP <= 0 && !victim.dieNextFrame && victim.alive) {
             //Debug.Log("Killing " + victim + " " + victim.dieNextFrame + " Alive "+victim.alive);

@@ -30,10 +30,16 @@ public class HealOverTime : Item
             timeSinceLastHeal = 0;
 
             float healAmount = character.HPMax * healPercent;
-            character.HP += healAmount;
-            if (character.HP > character.HPMax) {
-                character.HP = character.HPMax;
+            if (healAmount > 0) { 
+                character.HP += healAmount;
+                if (character.HP > character.HPMax) {
+                    character.HP = character.HPMax;
+                }
             }
+            else {
+                character.damage(character, -healAmount,false);
+            }
+            //This can damage self like in devil's contract
             if (regenFX != null) {
                 //Instantiate regenFX on character
                 SimpleFX fx = Instantiate(regenFX, character.transform.position, Quaternion.identity);
