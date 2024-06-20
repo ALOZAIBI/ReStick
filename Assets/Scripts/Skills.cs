@@ -78,6 +78,7 @@ public static class Skills
             summoned.transform.localScale = summoned.transform.localScale * size;
         }
 
+        summoned.zone = summoner.zone;
         //Adds the clone to the zone
         summoner.zone.charactersInside.Add(summoned);
 

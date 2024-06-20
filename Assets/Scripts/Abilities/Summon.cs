@@ -5,6 +5,7 @@ using UnityEngine;
 public class Summon : Ability
 {
     [SerializeField] private SimpleFX summonFX;
+    private int debugName = 0;
     public override void Start() {
         base.Start();
         updateDescription();
@@ -25,6 +26,8 @@ public class Summon : Ability
         base.executeAbility();
         float strength = valueAmt.getAmtValueFromName(this, "SummonQuality");
         Character charSummoned = character.summon( prefabObject.GetComponent<Character>(), strength);
+        charSummoned.name = charSummoned.name + debugName;
+        debugName++;
         
         charSummoned.attackTargetStrategy = targetStrategy;
         charSummoned.movementStrategy = (int)Character.MovementStrategies.Default;
