@@ -25,12 +25,15 @@ public static class Skills
     /// <param name="posRange">The number used to randomly position summoned relative to summoner</param>
     /// <param name="setRandomCD">If the summoned should have the CDs randomly set, If false all abilities will be available</param>
     /// <returns></returns>
-    public static Character summon(this Character summoner,Character toSummon,float strength,float size,float posRange=2,bool setRandomCD = false) {
-        Debug.Log("Beginning summoning" + summoner.name + toSummon.name);
+    public static Character summon(this Character summoner,Character toSummon,float strength,float size=1,float posRange=2,bool setRandomCD = false) {
+        //Debug.Log("Beginning summoning" + summoner.name + toSummon.name);
         Character summoned = Object.Instantiate(toSummon.gameObject, summoner.transform.position + new Vector3(Random.Range(-posRange, posRange), Random.Range(-posRange, posRange), 0), summoner.transform.rotation).GetComponent<Character>();
 
         summoned.summoned = true;
         summoned.summoner = summoner;
+
+        summoned.team = summoner.team;
+        summoned.movementStrategy = (int)Character.MovementStrategies.Default;
 
         //Removes the buffs from the summoned Character
         //the .ToArray is used to prevent the error of modifying the list while iterating through it.
@@ -72,16 +75,16 @@ public static class Skills
 
         //Modifies the size
         if(size > 0) {
-            summoned.transform.localScale = summoner.transform.localScale * size;
+            summoned.transform.localScale = summoned.transform.localScale * size;
         }
 
         //Adds the clone to the zone
-        summoned.zone.charactersInside.Add(summoned);
+        summoner.zone.charactersInside.Add(summoned);
 
         summoned.alive = true;
         summoned.dieNextFrame = false;
 
-        Debug.Log("Summoning complete" + summoner.name + toSummon.name);
+        //Debug.Log("Summoning complete" + summoner.name + toSummon.name);
         return summoned;
     }
 

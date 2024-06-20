@@ -15,9 +15,9 @@ public class CloneOnDeath : Item
         if(timesToClone <=0) {
             return false;
         }
-        Debug.Log("On Death " + character.name);
+        //Debug.Log("On Death " + character.name);
         for(int i = 0; i < numOfClones; i++) {
-            Debug.Log("Iteration " + i);
+            //Debug.Log("Iteration " + i);
             Character summoned = character.summon(character, (1f / numOfClones), (1 / 1.2f), 2, true);
 
             //Decrements this item
@@ -30,7 +30,7 @@ public class CloneOnDeath : Item
             }
         }
         startItemActivation();
-        Debug.Log("End of On Death "+ character.name);
+        //Debug.Log("End of On Death "+ character.name);
 
         return false;
     }

@@ -1734,10 +1734,10 @@ public class Character : MonoBehaviour {
             }
             //else(mouse is not clicked)
             else {
-                Debug.Log("guessing once");
+                //Debug.Log("guessing once");
                 //if is a click and not hold
                 if (mouseHoldDuration < 0.2f) {
-                    Debug.Log("Open Character Screen");
+                    //Debug.Log("Open Character Screen");
                     uiManager.viewCharacter(this);
                     drawIndicators();
                 }
@@ -1745,7 +1745,7 @@ public class Character : MonoBehaviour {
                 held = false;
                 mouseHoldDuration = 0;
                 click = false;
-                Debug.Log("Click is set to false" + click);
+                //Debug.Log("Click is set to false" + click);
                 //uiManager.placingScreenHidden.hidden = false;
                 camMov.pannable = true;
                 //held = false;
@@ -1765,9 +1765,9 @@ public class Character : MonoBehaviour {
         HP += damageAmount * LS * LSAmount;
         //We do the dieNextFrame check so that the character get's killed by 1 dude only
         if (victim.HP <= 0 && !victim.dieNextFrame && victim.alive) {
-            Debug.Log("Killing " + victim + " " + victim.dieNextFrame + " Alive "+victim.alive);
+            //Debug.Log("Killing " + victim + " " + victim.dieNextFrame + " Alive "+victim.alive);
             kill(victim);
-            Debug.Log("Killed " + victim + " " + victim.dieNextFrame + " Alive " + victim.alive);
+            //Debug.Log("Killed " + victim + " " + victim.dieNextFrame + " Alive " + victim.alive);
         }
         //if summoned also increase the summoner's total damage and apply the heal from lifesteal to them too
         if (summoned) {
