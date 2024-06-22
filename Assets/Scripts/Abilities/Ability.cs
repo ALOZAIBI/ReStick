@@ -121,7 +121,7 @@ public abstract class Ability : MonoBehaviour
         abilityType = (int)abilityTypeList;
         rarity = ((int)Rarities);
 
-        color = ColorPalette.singleton.getIndicatorColor(abilityType);
+        color = ColorPalette.singleton.getTypeColor(abilityType);
     }
     
     //use onValidate only in values that aren't supposed to change when game starts.

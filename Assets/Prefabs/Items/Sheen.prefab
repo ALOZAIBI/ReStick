@@ -46,9 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   itemName: Sheen
-  description: 
-  PD: 0
-  MD: 0
+  description: After using an Ability, your next attack fires a projectile Dealing
+    50% MD + 10%PD
+  PD: 5
+  MD: 10
   INF: 0
   HP: 0
   AS: 0
@@ -57,12 +58,14 @@ MonoBehaviour:
   Range: 0
   LS: 0
   size: 0
-  Rarities: 0
-  rarity: 0
+  Rarities: 1
+  rarity: 1
+  itemTypesList: 1
+  type: 1
   maxStacks: 5
   currentStacks: 0
-  PDScaling: 5
-  MDScaling: 0
+  PDScaling: 0.1
+  MDScaling: 0.5
   sheenFx: {fileID: 5468586799078680565, guid: 30b1406cbf28b77459f9320db4f1e979, type: 3}
   listOfsheenFXs: []
   projectileObject: {fileID: 4082228363635627907, guid: 9ec2f25d0b0e33e4198651d58c657cd2, type: 3}

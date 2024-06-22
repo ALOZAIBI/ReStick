@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   itemName: Ceaseless upgrade
-  description: Ceaseless upgrade
+  description: Gain Stats Over Time
   PD: 0
   MD: 0
   INF: 0
@@ -59,17 +59,19 @@ MonoBehaviour:
   size: 0
   Rarities: 3
   rarity: 3
+  itemTypesList: 7
+  type: 7
   timeSinceLastBuff: 0
   timeBetweenBuffs: 1
   buffObject: {fileID: 4146658564243946327, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
-  buffPD: 1
-  buffMD: 1
-  buffINF: 1
-  buffHP: 2
-  buffAS: 0.01
-  buffCDR: 0.005
+  buffPD: 1.5
+  buffMD: 1.5
+  buffINF: 1.5
+  buffHP: 4
+  buffAS: 0.03
+  buffCDR: 0.008
   buffMS: 0.01
   buffRange: 0
   buffLS: 0.002
-  buffsize: 0.01
+  buffsize: 0.015
   buffDuration: 5000

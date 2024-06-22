@@ -1283,6 +1283,7 @@ public class CharacterInfoScreen : MonoBehaviour
             topstatItemDisplays[i].gameObject.SetActive(true);
             topstatItemDisplaysBorder[i].gameObject.SetActive(true);
             topstatItemDisplaysFill[i].gameObject.SetActive(true);
+            topstatItemDisplaysFill[i].color = ColorPalette.singleton.getTypeColor(character.items[i].type);
         }
 
         //Sets the remaining to inactive
@@ -1301,7 +1302,7 @@ public class CharacterInfoScreen : MonoBehaviour
             topstatAbilityDisplaysFill[i].gameObject.SetActive(true);
 
             topstatAbilityDisplays[i].fillAmount = (character.abilities[i].getCDAfterChange() - character.abilities[i].abilityNext) / character.abilities[i].getCDAfterChange();
-            topstatAbilityDisplays[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
+            topstatAbilityDisplays[i].color = ColorPalette.singleton.getTypeColor(character.abilities[i].abilityType);
 
             if (character.abilities[i].available) {
                 topstatAbilityDisplaysBorder[i].color = Color.white;
@@ -1315,7 +1316,7 @@ public class CharacterInfoScreen : MonoBehaviour
                 topstatAbilityDisplays[i].SetAlpha(0.4f);
             }
 
-            topstatAbilityDisplaysFill[i].color = ColorPalette.singleton.getIndicatorColor(character.abilities[i].abilityType);
+            topstatAbilityDisplaysFill[i].color = ColorPalette.singleton.getTypeColor(character.abilities[i].abilityType);
             topstatAbilityDisplaysFill[i].SetAlpha(0.4f);
 
         }

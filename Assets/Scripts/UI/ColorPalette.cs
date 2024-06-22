@@ -64,7 +64,8 @@ public class ColorPalette : MonoBehaviour
                 return defaultColor;
         }
     }
-    public Color getIndicatorColor(int val) {
+
+    public Color getTypeColor(int val) {
         switch (val) {
             case (int)Ability.AbilityTypeList.MagicDamage:
                 return magicAbilityIndicator;

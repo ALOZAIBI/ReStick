@@ -23,7 +23,7 @@ public class AbilityDisplaySell: AbilityDisplayShop {
         if (ability.rarity == (int)Ability.RaritiesList.Legendary) {
             rarity.color = ColorPalette.singleton.legendaryRarity;
         }
-        background.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+        background.color = ColorPalette.singleton.getTypeColor(ability.abilityType);
         unHighlight();
     }
     //selected click again to buy

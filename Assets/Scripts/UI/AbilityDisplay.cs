@@ -64,7 +64,7 @@ public class AbilityDisplay : MonoBehaviour
 
         
         showScaling();
-        self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+        self.color = ColorPalette.singleton.getTypeColor(ability.abilityType);
         abilityName.text = ability.abilityName;
         description.text = ability.description;
         //sets the cooldownBar fill amount to CD remaining

@@ -133,6 +133,8 @@ public class ItemDisplay : MonoBehaviour
                 break;
         }
 
+        //Set whole thing color
+        wholeThingImage.color = ColorPalette.singleton.getTypeColor(item.type);
 
     }
 

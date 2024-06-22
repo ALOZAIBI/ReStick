@@ -31,12 +31,30 @@ public class Item : MonoBehaviour {
     [SerializeField] public RaritiesList Rarities;
     public int rarity;
 
+    //Determines the color of the item/what the character will look like
+    //We are setting this to the ability equivalent so that identical types will have teh same value in order to easily use the ColorPalette function
+    public enum ItemTypesList { 
+        PhysicalDamage = Ability.AbilityTypeList.PhysicalDamage,
+        MagicDamage = Ability.AbilityTypeList.MagicDamage,
+        Influence = Ability.AbilityTypeList.Buff,
+        Heal = Ability.AbilityTypeList.Heal,//Heal like on kill heal
+        Health = Ability.AbilityTypeList.HealthDamage,//Health stat
+        SelfBuff = Ability.AbilityTypeList.SelfBuff,
+        Special = Ability.AbilityTypeList.Special,//Summons/revives etc..
+        Other = Ability.AbilityTypeList.Other//Other stats
+    }
+    [SerializeField] public ItemTypesList itemTypesList;
+
+    public int type = (int)ItemTypesList.Other;
+
     private void Start() {
         rarity = (int)Rarities;
+        type = (int)itemTypesList;
     }
 
     public void OnValidate() {
         rarity = (int)Rarities;
+        type = (int)itemTypesList;
     }
 
     //Applies stats
@@ -54,6 +72,48 @@ public class Item : MonoBehaviour {
         character.Range += Range;
         character.LS += LS;
         character.gameObject.transform.localScale += new Vector3(size, size, size);
+
+        applyArchetypeLook();
+    }
+
+    //After equipping item, change the look of the character
+    //The code is very barebones for now, but it will be expanded upon
+    public void applyArchetypeLook() {
+        int currArchetype = character.prefabIndex;
+        int votesForWizard = 0,wizardIndex = 1;
+        int votesForSpikyBoi = 0,spikyBoiIndex = 2;
+
+        foreach(Item i in character.items) {
+            switch (i.type) {
+                case (int)ItemTypesList.MagicDamage:
+                case (int)ItemTypesList.Influence:
+                    votesForWizard++;
+                    break;
+
+                case (int)ItemTypesList.Health:
+                    votesForSpikyBoi++;
+                    break;
+            }
+        }
+
+        //See which stat has most votes, if equal, then check what the currArchetype is and keep it the same
+        if(votesForWizard > 0 && votesForWizard > votesForSpikyBoi) {
+            character.prefabIndex = wizardIndex;
+        } 
+        else if(votesForSpikyBoi > 0 && votesForSpikyBoi > votesForWizard) {
+            character.prefabIndex = spikyBoiIndex;
+        }
+        else if(votesForWizard == 0 && votesForSpikyBoi == 0) {
+            character.prefabIndex = 0;
+        }
+        else {
+            character.prefabIndex = currArchetype;
+        }
+
+        //Modify the character's look
+        Character temp = UIManager.singleton.characterFactory.characters[character.prefabIndex].GetComponent<Character>();
+        character.animationManager.animator.runtimeAnimatorController = temp.animationManager.animator.runtimeAnimatorController;
+
     }
 
     public void removeStats() {
@@ -69,6 +129,8 @@ public class Item : MonoBehaviour {
             character.Range -= Range;
             character.LS -= LS;
             character.gameObject.transform.localScale -= new Vector3(size, size, size);
+
+            applyArchetypeLook();
 
             character = null;
         }

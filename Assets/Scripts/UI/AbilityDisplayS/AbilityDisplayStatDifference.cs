@@ -68,7 +68,7 @@ public class AbilityDisplayStatDifference : AbilityDisplay
         //Sets the display to active
         valueDisplay[index].SetActive(true);
         //Gives it color
-        image[index].color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+        image[index].color = ColorPalette.singleton.getTypeColor(ability.abilityType);
         image[index].Darken();
         //Gives it text
         valueName[index].text = ability.valueNames[index];
@@ -87,7 +87,7 @@ public class AbilityDisplayStatDifference : AbilityDisplay
         //Sets the display to active
         valueDisplay[index].SetActive(true);
         //Gives it color
-        image[index].color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+        image[index].color = ColorPalette.singleton.getTypeColor(ability.abilityType);
         image[index].Darken();
         //Text is already set in the editor
         initialValueTxt[index].text = coolDownInit.ToString("F2");
@@ -103,7 +103,7 @@ public class AbilityDisplayStatDifference : AbilityDisplay
         showScaling();
         ability = abilityToDisplay;
 
-        self.color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+        self.color = ColorPalette.singleton.getTypeColor(ability.abilityType);
         abilityName.text = ability.abilityName;
     }
     // Update is called once per frame

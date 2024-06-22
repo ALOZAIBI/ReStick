@@ -102,7 +102,7 @@ public class Indicators : MonoBehaviour
         int index = 0;
         foreach(Ability ability in character.abilities) {
             if (ability.hasTarget || ability.rangeAbility > 0) {
-                Color color = ColorPalette.singleton.getIndicatorColor(ability.abilityType);
+                Color color = ColorPalette.singleton.getTypeColor(ability.abilityType);
                 //instantiate as child and save the corresponding renderers
                 LineRenderer temp1 = Instantiate(indicatorPrefab, transform).GetComponent<LineRenderer>();
                 temp1.positionCount = circleQuality;
