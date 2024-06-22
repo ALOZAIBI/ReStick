@@ -29,6 +29,8 @@ public class CloneOnDeath : Item
                 }
             }
 
+            summoned.name += "" + i;
+
             SimpleFX fx = Instantiate(summonFX, summoned.transform.position, summoned.transform.rotation);
             fx.transform.localScale = summoned.transform.localScale;
             fx.keepOnTarget.target = summoned.gameObject;   

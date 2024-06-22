@@ -234,6 +234,8 @@ public class Character : MonoBehaviour {
 
     [SerializeField] private GameObject coin;
 
+    public bool dieNextFrame = false;
+
     //Text that appears on top of the character when zone starts indicating it's targetting strategy
 
 
@@ -253,6 +255,8 @@ public class Character : MonoBehaviour {
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
 
         initRoundStart();
+
+        Debug.Log("DBG:" + this.name + " My Renderer:" + this.GetComponent<Renderer>().enabled + " Active" + this.isActiveAndEnabled + "Layer I'm in" + this.gameObject.layer);
 
         //Since we can no longer modify the target strategy I will simply just reset it here to prevent bugs after manually selecting target
         //This is just a spaghetti fix but fuck it
@@ -1535,6 +1539,49 @@ public class Character : MonoBehaviour {
         Destroy(temp.gameObject, 10);
     }
 
+    public void DebugClone(GameObject clone) {
+        if (clone == null) {
+            Debug.LogError("DBG:Clone is null");
+            return;
+        }
+
+        SpriteRenderer sr = clone.GetComponent<SpriteRenderer>();
+        if (sr == null) {
+            Debug.LogError("DBG:No SpriteRenderer attached to the clone.");
+        }
+        else {
+            Debug.Log("DBG:SpriteRenderer found.");
+            Debug.Log("DBG:SpriteRenderer enabled: " + sr.enabled);
+            Debug.Log("DBG:Sprite color: " + sr.color);
+            Debug.Log("DBG:Sprite sorting layer: " + sr.sortingLayerName);
+            Debug.Log("DBG:Sprite order in layer: " + sr.sortingOrder);
+        }
+
+        Debug.Log("DBG:Clone position: " + clone.transform.position);
+        Debug.Log("DBG:Clone active in hierarchy: " + clone.activeInHierarchy);
+        Debug.Log("DBG:Clone layer: " + LayerMask.LayerToName(clone.layer));
+    }
+
+    //Used to debug on mobile
+    public void displayDebugText() {
+        TargettingText temp = Instantiate(targettingText, transform.position, Quaternion.identity).GetComponent<TargettingText>();
+        temp.target = gameObject;
+        temp.debugging = true;
+        //Check how many times this character is present in the  zone.charactersinside
+        int count = 0;
+        foreach (Character tempChar in zone.charactersInside) {
+            if (tempChar == this)
+                count++;
+        }
+        //temp.text.text = name+" Active:"+gameObject.activeSelf+ " Alive:"+alive + "TimesInZone:"+count
+        //    +"Pos:"+transform.position;
+        temp.text.text = name+" Active:"
+            + "Pos:" + transform.position + "Scale:"+transform.localScale;
+
+
+        GetComponent<SpriteRenderer>().enabled = true;
+        Destroy(temp.gameObject, 2);
+    }
     //idea to incorporate animation
     //when attack is supposed to happen instead of doing the damage and stuff call another function that 
     //runs the attack animation then on the specified frame deal the damage and stuff.
@@ -1674,7 +1721,6 @@ public class Character : MonoBehaviour {
         return stillAlive;
     }
 
-    public bool dieNextFrame = false;
     public void die(Character killer) {
         //remove character from the zone's character list
         dieNextFrame = !itemOnDeath(killer);

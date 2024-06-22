@@ -27,7 +27,7 @@ public static class Skills
     /// <returns></returns>
     public static Character summon(this Character summoner,Character toSummon,float strength,float size=1,float posRange=2,bool setRandomCD = false) {
         //Debug.Log("Beginning summoning" + summoner.name + toSummon.name);
-        Character summoned = Object.Instantiate(toSummon.gameObject, summoner.transform.position + new Vector3(Random.Range(-posRange, posRange), Random.Range(-posRange, posRange), 0), summoner.transform.rotation).GetComponent<Character>();
+        Character summoned = Object.Instantiate(toSummon.gameObject, summoner.transform.position + new Vector3(Random.Range(-posRange, posRange), Random.Range(-posRange, posRange), -1), summoner.transform.rotation).GetComponent<Character>();
 
         summoned.summoned = true;
         summoned.summoner = summoner;
@@ -86,6 +86,9 @@ public static class Skills
         summoned.dieNextFrame = false;
 
         //Debug.Log("Summoning complete" + summoner.name + toSummon.name);
+
+        Debug.Log("DBG:" + summoned.name + " Summoned Renderer:" + summoned.GetComponent<Renderer>().enabled + " Active" + summoned.isActiveAndEnabled + "Layer I'm in" + summoned.gameObject.layer);
+        summoned.DebugClone(summoned.gameObject);
         return summoned;
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Tilemaps;
 //THIS IS A CHILD OF CAMERA SINCE HIDEUI NEEDS LOCAL POSITION RELATIVE TO PARENT WHICH IS CAMERA
 
 //this is also a gameManager it manages lots of stuff wtf
@@ -142,6 +143,8 @@ public class UIManager : MonoBehaviour
 
     public CoinManager coinManager;
 
+    public Button debuggingBtn;
+
     private void Awake() {
         singleton = this;
     }
@@ -182,8 +185,26 @@ public class UIManager : MonoBehaviour
         openHospitalBtn.onClick.AddListener(openHospital);
 
         camMov = Camera.main.GetComponent<CameraMovement>();
-    }
 
+        debuggingBtn.onClick.AddListener(debug);
+    }
+    //Debugtype 0 only does to allies, 1 only does to enemies
+    int debugType = 0;
+    public void debug() {
+        foreach(Character c in zone.charactersInside) {
+            if (debugType == 0) {
+                if (c.team == (int)Character.teamList.Player)
+                    c.displayDebugText();
+            }
+            else {
+                if (c.team != (int)Character.teamList.Player)
+                    c.displayDebugText();
+            }
+        }
+        debugType = (debugType + 1) % 2;
+
+        zone.tileMapToShowFully.GetComponent<TilemapRenderer>().enabled = debugType == 0;
+    }
     //on first time clicking character Display its info in the topstatDisplay
     //then if character is clicked again or more info button was clicked open the charInfoScreen
     public void viewCharacter(Character charSel) {
