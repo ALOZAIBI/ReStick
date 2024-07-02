@@ -41,26 +41,39 @@ public class ProjectileSimpleHit : Projectile
             //If I am homing and the target is dead change my target a random character nearby
             if (!target.alive) {
                 LayerMask mask = LayerMask.GetMask("Characters");
-                //List of enemies within range
-                List<Collider2D> colliders = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, (5), mask));
+                //Check if enemies are within range until one is found
+                List<Collider2D> colliders=null;
+                for(int i = 1; i < 5; i++) {
+                    //List of enemies within range
+                    List<Collider2D> tempCollider = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, 5*i, mask));
 
-                //Exclude allies
-                for (int i = 0; i < colliders.Count; i++) {
-                    if (colliders[i].GetComponent<Character>().team == shooter.team) {
-                        colliders.RemoveAt(i);
-                        i--;
+                    //Exclude allies
+                    for (int j = 0; j < tempCollider.Count; j++) {
+                        if (tempCollider[j].GetComponent<Character>().team == shooter.team) {
+                            tempCollider.RemoveAt(j);
+                            j--;
+                        }
                     }
-                }
-                //If there are no enemies nearby, destroy the projectile
-                if (colliders.Count == 0) {
-                    Destroy(gameObject);
+                    //If found atleast one enemy, break
+                    if (tempCollider.Count > 0) {
+                        colliders = tempCollider;
+                        break;
+                    }
+                    
                 }
 
+                if (colliders != null) {
+                    //If there are no enemies nearby, destroy the projectile
+                    if (colliders.Count == 0) {
+                        Destroy(gameObject);
+                    }
 
-                //Selects a random target
-                int randomIndex = Random.Range(0, colliders.Count);
-                Character charTarget = colliders[randomIndex].GetComponent<Character>();
-                target = charTarget;
+
+                    //Selects a random target
+                    int randomIndex = Random.Range(0, colliders.Count);
+                    Character charTarget = colliders[randomIndex].GetComponent<Character>();
+                    target = charTarget;
+                }
             }
         }
         //Move the projectile opposite it's y axis
