@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8328399976907063504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4755260406917719725}
+  - component: {fileID: 84914497195071823}
+  m_Layer: 0
+  m_Name: Popular Kid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4755260406917719725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328399976907063504}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1989313, y: 2.80525, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &84914497195071823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328399976907063504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87a91c576c79bb4dac63a3eac281e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  itemName: Popular Kid
+  description: Grow depending on how many characters around
+  PD: 0
+  MD: 0
+  INF: 0
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  Rarities: 3
+  rarity: 3
+  itemTypesList: 0
+  type: 0
+  ally: 1
+  enemy: 1
+  range: 5
+  buffObject: {fileID: 0}
+  buffPD: 2
+  buffMD: 2
+  buffINF: 2
+  buffHP: 10
+  buffAS: 0
+  buffCDR: 0
+  buffMS: 0
+  buffRange: 0
+  buffLS: 0
+  buffsize: 0.1
+  timeSinceLastBuff: 0
+  timeBetweenBuffs: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 8

@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &870547624296513000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4503232329290177429}
+  - component: {fileID: 9127961492321068151}
+  m_Layer: 0
+  m_Name: Summoner's Calling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4503232329290177429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870547624296513000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1989313, y: 2.80525, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9127961492321068151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870547624296513000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87a91c576c79bb4dac63a3eac281e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  itemName: Summoner's Calling
+  description: Gain 2 MD 2 INF 2%CDR for each nearby ally
+  PD: 0
+  MD: 10
+  INF: 10
+  HP: 0
+  AS: 0
+  CDR: 0.1
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  Rarities: 1
+  rarity: 1
+  itemTypesList: 7
+  type: 7
+  ally: 1
+  enemy: 0
+  withinRanged: 5
+  buffObject: {fileID: 4146658564243946327, guid: 7bbfc79a6bb05ec4f95f4dd319ab15e0, type: 3}
+  buffPD: 0
+  buffMD: 2
+  buffINF: 2
+  buffHP: 0
+  buffAS: 0
+  buffCDR: 0.02
+  buffMS: 0
+  buffRange: 0
+  buffLS: 0
+  buffsize: 0.1
+  timeSinceLastBuff: 0
+  timeBetweenBuffs: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 8

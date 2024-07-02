@@ -74,7 +74,8 @@ public class Buff : MonoBehaviour
         }
     }
     //applies the buff
-    public void applyBuff() {
+    //In some cases we'll just increase the HPmax and not the HP (such as in buffOnCharacterAround when resetting the buff(otherwise the buff would heal the character))
+    public void applyBuff(bool increaseHP = true) {
 
         if (!applied) {
             gameObject.SetActive(true);
@@ -83,7 +84,8 @@ public class Buff : MonoBehaviour
             target.INF += INF;
             //increases HP cap and HP
             target.HPMax += HP;
-            target.HP += HP;
+            if (increaseHP)
+                target.HP += HP;
 
             setMinimumAS();
             target.AS += AS;
@@ -104,8 +106,9 @@ public class Buff : MonoBehaviour
             target.gameObject.transform.localScale += new Vector3(size, size, size);
             //increase range with size otherwise character becomes too big and pushes it's target with it's collision and can't hit
             target.Range += 0.75f*size;
-            //adds this buff to buff list
-            target.buffs.Add(this);
+            //adds this buff to buff list if it is not already there
+            if(!target.buffs.Contains(this))
+                target.buffs.Add(this);
             startDuration();
             applied = true;
             Debug.Log("Applying buff on " + target.name);
@@ -205,7 +208,11 @@ public class Buff : MonoBehaviour
     //}
 
     //In some cases we want to removeThe stats without deleting the buff Object, like when cloning a target that has a buff on it. The clone will initially have the buff(the same object that the cloned target has) so if we delete the object it iwll be removed from both the clone and the original target.
-    public void removeBuffAppliedStats(Character toBeRemovedFrom) {
+
+    //In that case removeFromBuffs should be true
+    //However in the cxase of buffoncharacterAround we want to keep updating the buff so we only remove the stats withtout removing the buff from thtet lsit of buffs
+
+    public void removeBuffAppliedStats(Character toBeRemovedFrom,bool removeFromBuffs=true) {
         toBeRemovedFrom.PD -= PD;
         toBeRemovedFrom.MD -= MD;
         toBeRemovedFrom.INF -= INF;
@@ -224,7 +231,10 @@ public class Buff : MonoBehaviour
 
         toBeRemovedFrom.gameObject.transform.localScale -= new Vector3(size, size, size);
         toBeRemovedFrom.Range -= 0.75f * size;//see apply buff
-        toBeRemovedFrom.buffs.Remove(this);
+        if (removeFromBuffs)
+            toBeRemovedFrom.buffs.Remove(this);
+
+        applied = false;
         Debug.Log("Buff:" + code + "Not in stats anymore ");
     }
     //removes the applied stats then deletes this gameobject

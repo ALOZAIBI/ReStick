@@ -24,10 +24,9 @@ public class BuffOverTime : Item
     public float buffDuration;
 
 
-    public override void onZoneStart() {
+    public override void reset() {
         timeSinceLastBuff = 0;
     }
-
     public override void continuous() {
         timeSinceLastBuff += Time.fixedDeltaTime;
         if (timeSinceLastBuff >= timeBetweenBuffs) {
