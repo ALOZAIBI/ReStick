@@ -16,6 +16,9 @@ public class ZoneGenerator : MonoBehaviour
     //To be added to the seed
     [SerializeField] private int zoneNumber;
 
+    //This will be used to determine which enemies and how many to spawn etc...
+    [SerializeField] private int difficulty;
+
 
     //Place the ground tiles in a square
     private void Start() {
@@ -58,5 +61,12 @@ public class ZoneGenerator : MonoBehaviour
         }
     }
 
+    //------------Types of Zones
+    //Circle
+    //Square
+    //Bridge connecting multiple islands
     
+
+    //------------Enemy Spawning
+    //
 }
