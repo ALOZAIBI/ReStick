@@ -67,7 +67,7 @@ MonoBehaviour:
   - 0
   - 0
   MDRatio:
-  - 0.3
+  - 0.8
   - 0
   - 0
   INFRatio:
@@ -101,14 +101,19 @@ MonoBehaviour:
   hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 3241d0bb6b8e8a948ab20bab948d77b2, type: 3}
   buffPrefab: {fileID: 4146658564243946327, guid: 293db5ee274df68409367609920f436b, type: 3}
+  executeAbilityOnEvent: 1
   Rarities: 2
   rarity: 2
   targetStrategy: 1
   canTargetAlly: 0
   canTargetEnemy: 1
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 6
   abilityType: 6
   numberOfValues: 3
+  animationToPlay: 
   PD: 0
   MD: 0
   INF: 0
@@ -122,3 +127,5 @@ MonoBehaviour:
   root: 1
   silence: 1
   blind: 1
+  initSize: 0
+  growSpeed: 0

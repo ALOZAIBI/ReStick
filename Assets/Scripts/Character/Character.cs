@@ -1825,7 +1825,7 @@ public class Character : MonoBehaviour {
         totalDamage += damageAmount;
     }
     private int calculateGold(int level) {
-        return 11 * (1 + Mathf.CeilToInt(level / 4));
+        return 9 * (1 + Mathf.CeilToInt(level / 4));
     }
     //increase killer's kill stats and xp
     public void kill(Character victim) {

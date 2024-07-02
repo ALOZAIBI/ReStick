@@ -129,8 +129,9 @@ public class SceneSelect : MonoBehaviour
 
     //thanks chat gpt
     public void DisplayName() {
-        string result = sceneToLoad.Replace("Map", "").Replace("Zone", "");
-        nameTxt.text = result;
+        //string result = sceneToLoad.Replace("Map", "").Replace("Zone", "");
+        //nameTxt.text = result;
+        //nameTxt.text = "";
     }
     public static bool IsPointerOverGameObject() {
         // Check mouse
