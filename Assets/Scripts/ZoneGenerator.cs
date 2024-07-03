@@ -11,7 +11,15 @@ public class ZoneGenerator : MonoBehaviour
 
     [SerializeField]private Tilemap walkeableTileMap;
 
-    [SerializeField]private Vector2Int zoneSize;
+    [SerializeField]private Tilemap collisionTileMap;
+
+    [SerializeField]private int zoneSize;
+
+    //0 = [4,8[ 
+    //1 = [8,15[
+    //2 = [15,30[
+    //3 = [30,60[
+    [SerializeField]private int sizeClass;
 
     //To be added to the seed
     [SerializeField] private int zoneNumber;
@@ -25,23 +33,88 @@ public class ZoneGenerator : MonoBehaviour
         //Set the seed
         Random.InitState(zoneGenManager.seed + zoneNumber);
 
-        int rng = Random.Range(0, 1000000);
-        //Generate the zone's seed. 50% chance of being a square or a circle
-        if(rng%2 == 0) {
+        #region Zone Size
+        // ----------Set Size----------
+        int randomSizeClass = Random.Range(0, 100);
+        //15% chance of being size class 0
+        if(randomSizeClass < 15) {
+            sizeClass = 0;
+        }
+        //50% chance of being size class 1
+        else if(randomSizeClass < 65) {
+            sizeClass = 1;
+        }
+        //25% chance of being size class 2
+        else if(randomSizeClass < 90) {
+            sizeClass = 2;
+        }
+        //10% chance of being size class 3
+        else {
+            sizeClass = 3;
+        }
+
+        
+        //get random size using size class
+        switch(sizeClass) {
+            case 0:
+                zoneSize = Random.Range(4, 8);
+                break;
+            case 1:
+                zoneSize = Random.Range(8, 15);
+                break;
+            case 2:
+                zoneSize = Random.Range(15, 30);
+                break;
+            case 3:
+                zoneSize = Random.Range(30, 60);
+                break;
+            default:
+                Debug.LogError("Size class not found");
+                break;
+        }
+        #endregion
+
+        //----------Draw Base---------
+        int shape = Random.Range(0, 2);
+        //50% chance of being a square or a circle
+        if(shape%2 == 0) {
             drawSquare(new Vector3Int(0, 0, 0), zoneSize, walkeableTileMap, zoneGenManager.groundTile);
         }
         else
-            drawCircle(new Vector3Int(0, 0, 0), zoneSize.x, walkeableTileMap, zoneGenManager.groundTile);
+            drawCircle(new Vector3Int(0, 0, 0), zoneSize, walkeableTileMap, zoneGenManager.groundTile);
+        
+        //----------Draw Perimeter---------
+        if(shape%2 == 0) {
+            drawSquarePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, zoneGenManager.wallTile);
+        }
+        else
+            drawCirclePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, zoneGenManager.wallTile);
 
-        print("Rng" + rng);
+
+        print("Rng" + shape);
     }
 
     //Draw tiles in a square with position as center
-    private void drawSquare(Vector3Int pos,Vector2Int size, Tilemap tilemap, TileBase tile) {
+    private void drawSquare(Vector3Int pos,int size, Tilemap tilemap, TileBase tile) {
 
-        for(int x = pos.x - (size.x/2); x < pos.x + (size.x / 2); x++) {
-            for(int y = pos.y - (size.y/2); y < pos.y + (size.y / 2); y++) {
+        for(int x = pos.x - (size/2); x < pos.x + (size / 2); x++) {
+            for(int y = pos.y - (size/2); y < pos.y + (size / 2); y++) {
                 tilemap.SetTile(new Vector3Int(x,y, 0), tile);
+            }
+        }
+    }
+
+    private void drawSquarePerimeter(Vector3Int pos,int size,Tilemap tilemap,TileBase tile) {
+        int xStartPos = pos.x - (size / 2);
+        int xEndPos = pos.x + (size / 2);
+
+        int yStartPos = pos.y - (size / 2);
+        int yEndPos = pos.y + (size / 2);
+        for (int x = xStartPos; x < xEndPos; x++) {
+            for (int y = yStartPos; y < yEndPos; y++) {
+                //If it is an edge (Start or end of x or y)
+                if (y == yStartPos || y == yEndPos-1 || x == xStartPos ||x == xEndPos-1)
+                    tilemap.SetTile(new Vector3Int(x,y,0), tile);
             }
         }
     }
@@ -51,11 +124,24 @@ public class ZoneGenerator : MonoBehaviour
     }
 
     //Draw tiles in a circle
-    private void drawCircle(Vector3Int pos,int radius, Tilemap tilemap, TileBase tile) {
-        for(int x = pos.x - (radius/2); x < pos.x + (radius / 2); x++) {
-            for(int y = pos.y - (radius/2); y < pos.y + (radius / 2); y++) {
-                if(inCircle(pos, radius/2, new Vector2Int(x,y))) {
+    private void drawCircle(Vector3Int pos,int diameter, Tilemap tilemap, TileBase tile) {
+        for(int x = pos.x - (diameter/2); x < pos.x + (diameter / 2); x++) {
+            for(int y = pos.y - (diameter/2); y < pos.y + (diameter / 2); y++) {
+                if(inCircle(pos, diameter/2, new Vector2Int(x,y))) {
                     tilemap.SetTile(new Vector3Int(x,y, 0), tile);
+                }
+            }
+        }
+    }
+    private bool onCirclePerimeter(Vector3Int center, int radius, Vector2Int point) {
+        return (point.x - center.x) * (point.x - center.x) + (point.y - center.y) * (point.y - center.y) == radius * radius;
+    }
+    private void drawCirclePerimeter(Vector3Int pos, int diameter, Tilemap tilemap, TileBase tile) {
+        diameter -= 1;
+        for (int x = pos.x - (diameter / 2); x < pos.x + (diameter / 2); x++) {
+            for (int y = pos.y - (diameter / 2); y < pos.y + (diameter / 2); y++) {
+                if (onCirclePerimeter(pos, (diameter / 2), new Vector2Int(x, y))) {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
                 }
             }
         }
@@ -65,7 +151,7 @@ public class ZoneGenerator : MonoBehaviour
     //Circle
     //Square
     //Bridge connecting multiple islands
-    
+
 
     //------------Enemy Spawning
     //

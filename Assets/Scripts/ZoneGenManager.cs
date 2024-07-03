@@ -9,6 +9,8 @@ public class ZoneGenManager : MonoBehaviour
     //The base ground tile
     public TileBase groundTile;
 
+    public TileBase wallTile;
+
     public int seed;
 
     private void Start() {

@@ -842,6 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundTile: {fileID: 11400000, guid: 70d3a729056d00b4dacf559bbaa33694, type: 2}
+  wallTile: {fileID: 11400000, guid: 54f0401e5a9bfd14a9a5a37eb3871e0c, type: 2}
   seed: 10
 --- !u!4 &1558728378
 Transform:
@@ -923,8 +924,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneGenManager: {fileID: 1558728377}
   walkeableTileMap: {fileID: 1884627746}
-  zoneSize: {x: 12, y: 12}
+  collisionTileMap: {fileID: 250589905}
+  zoneSize: 0
+  sizeClass: 0
   zoneNumber: 0
+  difficulty: 0
 --- !u!1 &1884627742
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneName: 
   charactersInside: []
-  belongsToMap: Map0
+  belongsToMap: Map3
   started: 0
   completed: 0
   forceReward: 0
