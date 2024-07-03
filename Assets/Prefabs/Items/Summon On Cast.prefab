@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8328399976907063504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4755260406917719725}
+  - component: {fileID: -3174568281065465309}
+  m_Layer: 0
+  m_Name: Summon On Cast
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4755260406917719725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328399976907063504}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1989313, y: 2.80525, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3174568281065465309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328399976907063504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35371b732fcd78d4193772ca07b6cd55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  itemName: Summon On Cast
+  description: Summon a pop after every ability. Scales with MD and INF
+  PD: 0
+  MD: 10
+  INF: 10
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  Rarities: 1
+  rarity: 1
+  itemTypesList: 7
+  type: 7
+  summonPrefab: {fileID: 1204772192751909186, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
+  summonFX: {fileID: 7922805838419918743, guid: 1b1e9c27930daf24691cab4c9cb4a350, type: 3}
