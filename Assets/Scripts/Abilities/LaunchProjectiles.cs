@@ -84,7 +84,7 @@ public class LaunchProjectiles : Ability
                         playAnimation("castRaise");
                         //If the angle is 360, first projectile will always be launched at 0
                         if (angle == 360 && numProjectilesLaunched == 0) {
-                            startAbilityActivation();
+                            startAbilityActivation(true);
                             createProjectile(0);
                         }
                         else {
@@ -92,7 +92,7 @@ public class LaunchProjectiles : Ability
                             float angleBetweenProjectiles = numProjectiles > 1 ? angle / (numProjectiles - 1) : 0;
                             float angleAwayFromCenter = angle / 2 + -angleBetweenProjectiles * numProjectilesLaunched;
                             createProjectile(angleAwayFromCenter);
-                            startAbilityActivation();
+                            startAbilityActivation(true);
                         }
                         delaySinceLastProjectile = 0;
                         numProjectilesLaunched++;
