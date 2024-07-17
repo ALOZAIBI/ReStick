@@ -153,8 +153,8 @@ public class Zone : MonoBehaviour
     //if there are no enemies alive and there is atleast 1 playerCharacter alive show win screen
     private void zoneWon() {
         if (enemiesAlive == 0 && alliesAlive > 0) {
-            uIManager.coinManager.zoneEnded = true;
             endZone();
+            uIManager.coinManager.zoneEnded = true;
             //pauses the game and displays game won
             uIManager.pausePlay(true);
             uIManager.displayGameWon(belongsToMap);

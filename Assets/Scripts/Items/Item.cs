@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Item : MonoBehaviour {
@@ -162,6 +163,9 @@ public class Item : MonoBehaviour {
 
     }
 
+    public virtual void onTakeDamage(Character theDamager,float damageAmount) {
+
+    }
     public virtual void afterAbility() {
 
     }

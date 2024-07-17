@@ -1800,13 +1800,24 @@ public class Character : MonoBehaviour {
     }
     #endregion
 
+    public void takeDamage(Character theDamager,float damageAmount) {
+        HP -= damageAmount;
+        itemOnTakeDamage(theDamager,damageAmount);
+    }
+    public void itemOnTakeDamage(Character theDamager,float damageAmount) {
+        foreach(Item item in items) {
+            item.onTakeDamage(theDamager,damageAmount);
+        }
+
+    }
     //IF apply LS is true apply 100% LS 
     public void damage(Character victim, float damageAmount, bool applyLS) {
         damage(victim, damageAmount, applyLS ? 1 : 0);
     }
     //Deal Damage then heal from that damage based on LS and LSAmount
     public void damage(Character victim, float damageAmount, float LSAmount) {
-        victim.HP -= damageAmount;
+
+        victim.takeDamage(this, damageAmount);
 
         HP += damageAmount * LS * LSAmount;
 
