@@ -480,6 +480,8 @@ public class StatUpgrading : MonoBehaviour {
             Destroy(go);
         }
 
+        closeAbilityDisplays();
+
 
     }
     //resets changes when backButton is clicked or CloseUI Button Clicked
