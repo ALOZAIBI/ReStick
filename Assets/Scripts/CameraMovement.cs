@@ -9,6 +9,15 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Vector2 dragOrigin;
     [SerializeField] private Vector2 dragDifference;
+    //The drag origin will only be gotten after we have crossed the posDifference threshold
+    [SerializeField] private bool gotDragOrigin = false;
+
+    //Used to make sure we don't accidentally unlock camera
+    [SerializeField] private Vector2 posOrigin;
+    [SerializeField] private Vector2 posDifference;
+    [SerializeField] private Vector3 posCurr;
+    //The magnitude of posDifference has to be greater than this to unlock the camera
+    [SerializeField] private float posDifferenceThreshold = 200;
 
     [SerializeField] private float zoomMin;
     [SerializeField] private float zoomMax;
@@ -39,44 +48,79 @@ public class CameraMovement : MonoBehaviour
             return;
         }
         //to prevent weird stuff when two touches happen(to zoom for instance) we seperate the functionality of mouse and touch
-        
+
         if (Input.touchCount > 0) {
-            //If touchcount changed from previous frame recalculate the drag origin
-            if(!touching || Input.touchCount != touchCount)
-                dragOrigin = (Vector2)cam.ScreenToWorldPoint(avgPosOfTouches());
-            touching = true;
-            touchCount = Input.touchCount;
-            if (touching) {
-                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(avgPosOfTouches());
-                //To unlock the camera from character drag difference has to be greater than 0.1
-                if (dragDifference.magnitude > 0.2f) {
-                    characterToFocusOn = null;
+            //If touchcount changed from previous frame recalculate posOrigin
+            if (!touching || Input.touchCount != touchCount) {
+                posOrigin = avgPosOfTouches();
+                posCurr = posOrigin;
+                //If camera isn't focusing on a character then we can get the dragOrigin
+                if (characterToFocusOn == null) {
+                    dragOrigin = (Vector2)cam.ScreenToWorldPoint(posCurr);
+                    gotDragOrigin = true;
                 }
+                touchCount = Input.touchCount;
+                touching = true;
+            }
+            if (touching) {
+                posCurr = avgPosOfTouches();
+                posDifference = posOrigin - (Vector2)posCurr;
+                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(posCurr);
+                
                 //Only move camera if no character currently being focused on
-                if (characterToFocusOn == null)
+                if (characterToFocusOn == null) {
+                    dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(posCurr);
                     cam.transform.position += (Vector3)dragDifference;
+                }
+                //If we have passed the threshold of posDifference then we can get the dragOrigin and unlock the camera
+                else if (!gotDragOrigin && posDifference.magnitude > posDifferenceThreshold) {
+                    characterToFocusOn = null;
+                    dragOrigin = (Vector2)cam.ScreenToWorldPoint(posCurr);
+                    gotDragOrigin = true;
+                }
+            }
+
+        }
+        else if (Input.GetMouseButton(0)) {
+
+            //If the click happens to be the first
+            if (Input.GetMouseButtonDown(0)) {
+                posOrigin = Input.mousePosition;
+                posCurr = posOrigin;
+                //If camera isn't focusing on a character then we can get the dragOrigin
+                if (characterToFocusOn == null) {
+                    dragOrigin = (Vector2)cam.ScreenToWorldPoint(posCurr);
+                    gotDragOrigin = true;
+                }
+            }
+            {
+                posCurr = Input.mousePosition;
+                posDifference = posOrigin - (Vector2)posCurr;
+            }
+
+            //Only move camera if no character currently being focused on
+            if (characterToFocusOn == null) {
+                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(posCurr);
+                cam.transform.position += (Vector3)dragDifference;
+            }
+            //If we have passed the threshold of posDifference then we can get the dragOrigin and unlock the camera
+            else if (!gotDragOrigin && posDifference.magnitude > posDifferenceThreshold) {
+                characterToFocusOn = null;
+                dragOrigin = (Vector2)cam.ScreenToWorldPoint(posCurr);
+                gotDragOrigin = true;
             }
         }
         else {
             //resets touching to false ot be able to find first touch
             touching = false;
-            //gets position of initial click
-            if (Input.GetMouseButtonDown(0)) {
-                dragOrigin = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+            gotDragOrigin = false;
 
-            }
-
-            if (Input.GetMouseButton(0)) {
-                dragDifference = dragOrigin - (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-                //To unlock the camera from character drag difference has to be greater than 0.1
-                if (dragDifference.magnitude > 0.2f) {
-                    characterToFocusOn = null;
-                }
-                //Only move camera if no character currently being focused on
-                if (characterToFocusOn == null)
-                    cam.transform.position += (Vector3)dragDifference;
-            }
+            posCurr = Vector3.zero;
+            posOrigin = Vector2.zero;
+            posDifference = Vector2.zero;
         }
+        
+
 
     }
 
