@@ -5,7 +5,14 @@ https://github.com/user-attachments/assets/0d362269-ed82-4cd7-9431-b6b597f5b6a0
 
 
 # Some Abilities/Items
-Clips of some abilities/Items
+![image](https://github.com/user-attachments/assets/195ee392-bfec-4975-9412-43a34abe374e)
+
+
+
+https://github.com/user-attachments/assets/31b7ddcd-569c-4668-82cd-940df94d67ff
+
+
+
 
 ### Huge Item/Ability Combo
 Clip of summon on death + Kaisa
