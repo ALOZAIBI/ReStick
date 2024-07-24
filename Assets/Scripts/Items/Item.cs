@@ -82,12 +82,15 @@ public class Item : MonoBehaviour {
         int currArchetype = character.prefabIndex;
         int votesForWizard = 0,wizardIndex = 1;
         int votesForSpikyBoi = 0,spikyBoiIndex = 2;
+        int votesForWhiteWizard = 0,whiteWizardIndex = 3;
 
         foreach(Item i in character.items) {
             switch (i.type) {
                 case (int)ItemTypesList.MagicDamage:
-                case (int)ItemTypesList.Influence:
                     votesForWizard++;
+                    break;
+                case (int)ItemTypesList.Influence:
+                    votesForWhiteWizard++;
                     break;
 
                 case (int)ItemTypesList.Health:
@@ -96,18 +99,15 @@ public class Item : MonoBehaviour {
             }
         }
 
-        //See which stat has most votes, if equal, then check what the currArchetype is and keep it the same
-        if(votesForWizard > 0 && votesForWizard > votesForSpikyBoi) {
+        //see which archetype has the most votes and change the character's prefabIndex to that
+        if(votesForWizard > votesForSpikyBoi && votesForWizard > votesForWhiteWizard) {
             character.prefabIndex = wizardIndex;
-        } 
-        else if(votesForSpikyBoi > 0 && votesForSpikyBoi > votesForWizard) {
+        }
+        else if(votesForSpikyBoi > votesForWizard && votesForSpikyBoi > votesForWhiteWizard) {
             character.prefabIndex = spikyBoiIndex;
         }
-        else if(votesForWizard == 0 && votesForSpikyBoi == 0) {
-            character.prefabIndex = 0;
-        }
-        else {
-            character.prefabIndex = currArchetype;
+        else if(votesForWhiteWizard > votesForWizard && votesForWhiteWizard > votesForSpikyBoi) {
+            character.prefabIndex = whiteWizardIndex;
         }
 
         //Modify the character's look
