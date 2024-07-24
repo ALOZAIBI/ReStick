@@ -19,7 +19,7 @@ public class CloneOnDeath : Item
         //Debug.Log("On Death " + character.name);
         for(int i = 0; i < numOfClones; i++) {
             //Debug.Log("Iteration " + i);
-            Character summoned = character.summon(character, (1f / numOfClones), (1 / 1.2f), 2, true);
+            Character summoned = character.summon(character, (1f / numOfClones), (1 / 1.2f), 2, false);
 
             //Decrements this item
             foreach (Item item in summoned.items) {
