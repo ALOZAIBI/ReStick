@@ -27,6 +27,9 @@ public class AbilityDisplayAddAbility : AbilityDisplay
             uiManager.characterInfoScreen.displayCharacterAbilities(uiManager.characterInfoScreen.character);
         }
 
+
+        //Updates the character's archetype look
+        characterInfoScreen.character.applyArchetypeLook();
         //saves adding the ability
         if (SceneManager.GetActiveScene().name == "World") {
             uiManager.saveWorldSave();

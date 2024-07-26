@@ -101,14 +101,21 @@ MonoBehaviour:
   hasTarget: 1
   prefabObject: {fileID: 3637706766136786258, guid: 066c12bce1222a64a8cdd37d578acca7, type: 3}
   buffPrefab: {fileID: 0}
+  executeAbilityOnEvent: 1
   Rarities: 3
   rarity: 3
   targetStrategy: 1
   canTargetAlly: 0
   canTargetEnemy: 1
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 1
+  archetypePrimary: 2
+  archetypeSecondary: 1
   abilityType: 1
   numberOfValues: 3
+  animationToPlay: 
   PD: 0
   MD: 0
   INF: 0
@@ -122,3 +129,5 @@ MonoBehaviour:
   root: 0
   silence: 0
   blind: 0
+  initSize: 0
+  growSpeed: 0

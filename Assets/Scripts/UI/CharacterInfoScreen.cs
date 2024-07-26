@@ -252,7 +252,6 @@ public class CharacterInfoScreen : MonoBehaviour
 
     const int ARCHETYPESELECTLEVEL = 20;
 
-    [SerializeField]private SelectArchetype selectArchetype;
 
 
     public void Start() {
@@ -578,13 +577,6 @@ public class CharacterInfoScreen : MonoBehaviour
                 statUpgrading.applyChangesBtn.transform.SetParent(uiManager.focus.transform);
                 xpPanelBtn.enabled = false;
                 statsPanelBtn.enabled = false;
-            }
-            if(focusElement == 8) {
-                selectArchetype.characterInfoScreen = this;
-                selectArchetype.gameObject.SetActive(true);
-                selectArchetype.setupAndView(character);
-                //Focus it
-                selectArchetype.transform.SetParent(uiManager.focus.transform);
             }
             //If add item
             if(focusElement == 9) {
@@ -1454,8 +1446,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
             statUpgrading.upgradeOptions.transform.SetParent(transform);
             statUpgrading.upgradeOptions.gameObject.SetActive(false);
-            selectArchetype.transform.SetParent(transform);
-            selectArchetype.gameObject.SetActive(false);
+
             healthBar.transform.SetParent(transform);
             setPanelStuffActive(true);
             //redisplays abilities

@@ -45,7 +45,16 @@ public class Item : MonoBehaviour {
     }
     [SerializeField] public ItemTypesList itemTypesList;
 
+    //Used for the color of the item in item Display
     public int type = (int)ItemTypesList.Other;
+
+
+
+    //Used to choose the icon of the item
+    //Used to choose the look of the character
+    public Archetype.ArchetypeList archetypePrimary;
+
+    public Archetype.ArchetypeList archetypeSecondary;
 
     private void Start() {
         rarity = (int)Rarities;
@@ -73,47 +82,8 @@ public class Item : MonoBehaviour {
         character.LS += LS;
         character.gameObject.transform.localScale += new Vector3(size, size, size);
 
-        applyArchetypeLook();
-    }
-
-    //After equipping item, change the look of the character
-    //The code is very barebones for now, but it will be expanded upon
-    public void applyArchetypeLook() {
-        int currArchetype = character.prefabIndex;
-        int votesForWizard = 0,wizardIndex = 1;
-        int votesForSpikyBoi = 0,spikyBoiIndex = 2;
-        int votesForWhiteWizard = 0,whiteWizardIndex = 3;
-
-        foreach(Item i in character.items) {
-            switch (i.type) {
-                case (int)ItemTypesList.MagicDamage:
-                    votesForWizard++;
-                    break;
-                case (int)ItemTypesList.Influence:
-                    votesForWhiteWizard++;
-                    break;
-
-                case (int)ItemTypesList.Health:
-                    votesForSpikyBoi++;
-                    break;
-            }
-        }
-
-        //see which archetype has the most votes and change the character's prefabIndex to that
-        if(votesForWizard > votesForSpikyBoi && votesForWizard > votesForWhiteWizard) {
-            character.prefabIndex = wizardIndex;
-        }
-        else if(votesForSpikyBoi > votesForWizard && votesForSpikyBoi > votesForWhiteWizard) {
-            character.prefabIndex = spikyBoiIndex;
-        }
-        else if(votesForWhiteWizard > votesForWizard && votesForWhiteWizard > votesForSpikyBoi) {
-            character.prefabIndex = whiteWizardIndex;
-        }
-
-        //Modify the character's look
-        Character temp = UIManager.singleton.characterFactory.characters[character.prefabIndex].GetComponent<Character>();
-        character.animationManager.animator.runtimeAnimatorController = temp.animationManager.animator.runtimeAnimatorController;
-
+        //applyArchetypeLook();
+        character.applyArchetypeLook();
     }
 
     public void removeStats() {
@@ -130,7 +100,7 @@ public class Item : MonoBehaviour {
             character.LS -= LS;
             character.gameObject.transform.localScale -= new Vector3(size, size, size);
 
-            applyArchetypeLook();
+            character.applyArchetypeLook();
 
             character = null;
         }

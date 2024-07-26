@@ -482,6 +482,9 @@ public class TargetSelector : MonoBehaviour
         ability.character = null;
         //Starts unfocusing
         characterInfoScreen.startUnfocusing();
+
+        //Updates archetype
+        characterInfoScreen.character.applyArchetypeLook();
         //saves removing the ability
         if (SceneManager.GetActiveScene().name == "World") {
             UIManager.singleton.saveWorldSave();

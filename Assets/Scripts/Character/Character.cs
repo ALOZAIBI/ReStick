@@ -1593,7 +1593,16 @@ public class Character : MonoBehaviour {
             //we can't rely on range as a conditional since range does increase when character size is buffed but that doesn't mean that they become ranged
             //nvm for now we rely on range
             if (Range > 2.1f || usesProjectile) {
-                try { animationManager.attack(true); } catch { /*No attack animation*/executeAttackRanged(target); startAttackCooldown(); }
+                try { animationManager.attack(true);
+                    if (name == "Kiter") {
+                        Debug.Log("Kiter is attacking");
+                    }
+                } catch { /*No attack animation*/executeAttackRanged(target); startAttackCooldown();
+
+                    if (name == "Kiter") {
+                        Debug.Log("Kiter is attackingCaught");
+                    }
+                }
             }
             else {
                 try { animationManager.attack(false); } catch { /*No attack animation*/executeAttackMelee(target); startAttackCooldown(); }
@@ -1622,6 +1631,10 @@ public class Character : MonoBehaviour {
             startCooldown(1 / (AS * 2.5f), (int)ActionAvailable.Moving);
 
         itemAfterAttack();
+
+        if(name=="Kiter") {
+            Debug.Log("Kiter Executed Attack");
+        }
     }
     public void executeAttackMelee(Character animationTarget) {
         //since the targetting might change before the animaiton is done, we save the target in the animationmanager then call it here

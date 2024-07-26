@@ -112,6 +112,8 @@ MonoBehaviour:
   hitFX: {fileID: 0}
   hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 4
+  archetypePrimary: 1
+  archetypeSecondary: 4
   abilityType: 4
   numberOfValues: 3
   animationToPlay: 
@@ -135,6 +137,8 @@ MonoBehaviour:
   delayBetweenProjectiles: 0
   numWaves: 5
   delayBetweenWaves: 1
+  numProjectilesLaunched: 0
+  numWavesLaunched: 0
 --- !u!114 &6587147419296334743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +218,8 @@ MonoBehaviour:
   hitFX: {fileID: 0}
   hitFXColor: {r: 0, g: 0, b: 0, a: 0}
   abilityTypeList: 4
+  archetypePrimary: 0
+  archetypeSecondary: 0
   abilityType: 4
   numberOfValues: 3
   animationToPlay: 

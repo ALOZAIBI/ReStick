@@ -114,6 +114,10 @@ public abstract class Ability : MonoBehaviour
         Other
     }
     [SerializeField] AbilityTypeList abilityTypeList;
+
+    public Archetype.ArchetypeList archetypePrimary;
+    public Archetype.ArchetypeList archetypeSecondary;
+
     public int abilityType;
     [HideInInspector]public int numberOfValues;
     [SerializeField] protected string animationToPlay;
