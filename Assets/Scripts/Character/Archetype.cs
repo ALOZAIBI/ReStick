@@ -17,7 +17,7 @@ public static class Archetype{
         Ranger
     }
 
-    //Change the look of character depending on items and abilities(Abilities Influence More)
+    //Change the look of character depending on items and abilities
     public static void applyArchetypeLook(this Character character) {
         //Number of archetypes
         int numOfArch = 9;
@@ -61,10 +61,10 @@ public static class Archetype{
                 }
             }
             else {
-                archetypeVotes[(int)a.archetypePrimary, 0]+=2;
+                archetypeVotes[(int)a.archetypePrimary, 0]++;
                 //If there is a secondary archetype, increment that as well
                 if (a.archetypeSecondary != Archetype.ArchetypeList.None) {
-                    archetypeVotes[(int)a.archetypeSecondary, 0]+=2;
+                    archetypeVotes[(int)a.archetypeSecondary, 0]++;
                 }
             }
         }
@@ -90,7 +90,7 @@ public static class Archetype{
             }
         }
 
-        if (maxVotes >= 3) {
+        if (maxVotes >= 1) {
 
             character.prefabIndex = archetypeVotes[maxArchetypeNumber, 1];
 
