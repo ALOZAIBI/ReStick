@@ -97,9 +97,13 @@ public class BuffOnCharactersAround : Item
             buff.MD = buffMD * count;
             buff.INF = buffINF * count;
             //If the amount of HP given now is more than before we should increase the HP (Not always (we don't want the item to be regenning health every proc))
-            //TODO: it still heals more than it should(We have 10 characters arond, then we have 11 characters around, it should only heal the difference but it isn't currently)
+            //why we introduced healAmt(without it the following would happen) (We have 10 characters arond, then we have 11 characters around, it should only heal the difference but it doesn't without the help of healAmt)
             bool shouldIncreaseHP = false;
+            //The amount to heal
+            float healAmt = 0;
             if(buffHP * count > buff.HP) {
+                //healAmt is the difference which would be used to heal the charactecr
+                healAmt = (buffHP * count) - buff.HP;
                 buff.HP = buffHP * count;
                 shouldIncreaseHP = true;
             }
@@ -118,9 +122,10 @@ public class BuffOnCharactersAround : Item
 
             buff.duration = timeBetweenBuffs+2;
 
-            buff.applyBuff(shouldIncreaseHP);
+            //If healAmt = 0 applyBuff automatically ignores it
+            buff.applyBuff(shouldIncreaseHP,healAmt);
 
-            if(count >0)
+            if(count >0 && shouldIncreaseHP)
                 startItemActivation();
         }
     }

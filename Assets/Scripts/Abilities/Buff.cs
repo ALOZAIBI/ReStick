@@ -75,7 +75,8 @@ public class Buff : MonoBehaviour
     }
     //applies the buff
     //In some cases we'll just increase the HPmax and not the HP (such as in buffOnCharacterAround when resetting the buff(otherwise the buff would heal the character))
-    public void applyBuff(bool increaseHP = true) {
+    //amtToHeal by default is 0, when it is 0 just ignore it, otherwise increase the target.HP by that amount
+    public void applyBuff(bool increaseHP = true,float amtToHeal = 0) {
 
         if (!applied) {
             gameObject.SetActive(true);
@@ -84,8 +85,13 @@ public class Buff : MonoBehaviour
             target.INF += INF;
             //increases HP cap and HP
             target.HPMax += HP;
-            if (increaseHP)
-                target.HP += HP;
+            if (increaseHP) {
+                if(!Mathf.Approximately(0,amtToHeal)) {
+                    target.HP += amtToHeal;
+                }
+                else
+                    target.HP += HP;
+            }
 
             setMinimumAS();
             target.AS += AS;

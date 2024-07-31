@@ -41,7 +41,7 @@ public class HealTarget : Ability
         foreach (Character c in character.zone.charactersInside) {
             //If it's an ally and it's at full HP, add it to the list
             if (c.team == character.team && Mathf.Approximately(c.HP, c.HPMax)) {
-                //Debug.Log("Added " + c.name + " to fullHP");
+                Debug.Log("Added " + c.name + " to fullHP");
                 fullHP.Add(c);
             }
         }

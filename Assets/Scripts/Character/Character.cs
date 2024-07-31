@@ -1467,7 +1467,7 @@ public class Character : MonoBehaviour {
                 foreach (Character temp in zone.charactersInside) {
 
                     if (toBeExcluded != null && toBeExcluded.Contains(temp)) {
-                        //Debug.Log("Character is excluded" + temp.name);
+                        Debug.Log("Character is excluded" + temp.name);
                         continue;
                     }
 
@@ -1486,8 +1486,8 @@ public class Character : MonoBehaviour {
                             }
                         }
                 }
-                //if there's only enemy remaining target nothing
-                if (minHPAlly.team != team)
+                //if there's only enemy remaining target nothing or if the target is excluded
+                if (minHPAlly.team != team || (toBeExcluded!=null && toBeExcluded.Contains(minHPAlly)))
                     minHPAlly = null;
                 target = minHPAlly;
                 break;
