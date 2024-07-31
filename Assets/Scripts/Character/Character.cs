@@ -1594,14 +1594,10 @@ public class Character : MonoBehaviour {
             //nvm for now we rely on range
             if (Range > 2.1f || usesProjectile) {
                 try { animationManager.attack(true);
-                    if (name == "Kiter") {
-                        Debug.Log("Kiter is attacking");
-                    }
+
                 } catch { /*No attack animation*/executeAttackRanged(target); startAttackCooldown();
 
-                    if (name == "Kiter") {
-                        Debug.Log("Kiter is attackingCaught");
-                    }
+
                 }
             }
             else {
@@ -1632,9 +1628,7 @@ public class Character : MonoBehaviour {
 
         itemAfterAttack();
 
-        if(name=="Kiter") {
-            Debug.Log("Kiter Executed Attack");
-        }
+
     }
     public void executeAttackMelee(Character animationTarget) {
         //since the targetting might change before the animaiton is done, we save the target in the animationmanager then call it here

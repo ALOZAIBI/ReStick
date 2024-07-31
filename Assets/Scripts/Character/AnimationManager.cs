@@ -70,9 +70,6 @@ public class AnimationManager : MonoBehaviour {
 
     public void startAttackCooldown() {
         character.startAttackCooldown();
-        if (name == "Kiter") {
-            Debug.Log("ATK CD STARTED");
-        }
     }
     public void attack(bool ranged) {
         ////if there's an animation buffered(ability or attack) then interrupt
