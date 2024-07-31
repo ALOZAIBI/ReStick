@@ -13,7 +13,7 @@ public class DashALotThenSheath : Ability {
         if (available && step == 0&& character.selectTarget((int)Character.TargetList.ClosestEnemy, rangeAbility) && canUseDash()) {
             Debug.Log("Dashing alot casted");
             calculateAmt();
-            character.currentDashingAbility = this;
+            character.CurrentDashingAbility = this;
             playAnimation("castRaise");
             done = true;
         }

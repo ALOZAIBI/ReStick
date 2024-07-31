@@ -14,6 +14,7 @@ public class ProjectileDirect : Projectile {
             if(victim == target) {
                 shooter.damage(victim, DMG, true);
                 Destroy(gameObject);
+                applyHitFX(victim);
             }
 
         }

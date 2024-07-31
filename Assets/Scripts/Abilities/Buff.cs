@@ -124,8 +124,8 @@ public class Buff : MonoBehaviour
     private void interruptDash(Character victim) {
         //Since dashes disable navmeshagent, we need to reenable it when interrupting.
         victim.agent.enabled = true;
-        if (victim.currentDashingAbility != null) {
-            victim.currentDashingAbility.startCooldown();
+        if (victim.CurrentDashingAbility != null) {
+            victim.CurrentDashingAbility.startCooldown();
             victim.animationManager.forceStop();
         }
     }

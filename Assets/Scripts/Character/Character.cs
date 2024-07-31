@@ -106,7 +106,26 @@ public class Character : MonoBehaviour {
     public Indicators indicators;
 
     //Used to prevent multiple Dashing abilities from being used at the same time and allows for stuns and pushes to interrupt dashes.
-    public Ability currentDashingAbility;
+    private Ability _currentDashingAbility;
+
+    public Ability CurrentDashingAbility {
+        get {
+
+            return _currentDashingAbility;
+        }
+        set {
+            _currentDashingAbility = value;
+            trailRenderer.emitting = value != null;
+            //Sets the color of the trail to be the same as the ability's hit fx
+            if (_currentDashingAbility != null && _currentDashingAbility.hitFXColor.a != 0) {
+                trailRenderer.startColor = _currentDashingAbility.hitFXColor;
+                trailRenderer.endColor = _currentDashingAbility.hitFXColor;
+            }
+
+        }
+    }
+
+    public TrailRenderer trailRenderer;
 
     public enum teamList {
         Player,
@@ -315,7 +334,7 @@ public class Character : MonoBehaviour {
         zsRange = Range;
         zsLS = LS;
 
-        currentDashingAbility = null;
+        CurrentDashingAbility = null;
 
         animationManager.abilityBuffer = null;
         animationManager.animator.SetBool("interrupt", false);

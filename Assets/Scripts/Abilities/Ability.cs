@@ -83,7 +83,7 @@ public abstract class Ability : MonoBehaviour
     [SerializeField]protected int step;
 
     [SerializeField]protected HitFX hitFX;
-    [SerializeField]protected Color hitFXColor;
+    [SerializeField]public Color hitFXColor;
     ////Buff Values
     //public float PD;
     //public float MD;
@@ -276,15 +276,15 @@ public abstract class Ability : MonoBehaviour
         abilityNext = CD - CD*character.CDR;
         available = false;
         step = 0;
-        if(character.currentDashingAbility == this) {
-            character.currentDashingAbility = null;
+        if(character.CurrentDashingAbility == this) {
+            character.CurrentDashingAbility = null;
         }
         
     }
 
     protected bool canUseDash() {
         //if the character is not dashing or is dashing with this ability then enable doing the ability
-        if(character.currentDashingAbility == null || character.currentDashingAbility == this) {
+        if(character.CurrentDashingAbility == null || character.CurrentDashingAbility == this) {
             return true;
         }
         else {
@@ -313,11 +313,11 @@ public abstract class Ability : MonoBehaviour
     protected void interruptDash(Character victim) {
         //Since dashes disable navmeshagent, we need to reenable it when interrupting.
         victim.agent.enabled = true;
-        if (victim.currentDashingAbility != null) {
+        if (victim.CurrentDashingAbility != null) {
             victim.animationManager.forceStop();
-            victim.currentDashingAbility.step = 0;
-            Debug.Log("The ability" + victim.currentDashingAbility.abilityName + " has been interrupted." + " of character " + victim.name);
-            victim.currentDashingAbility.startCooldown();
+            victim.CurrentDashingAbility.step = 0;
+            Debug.Log("The ability" + victim.CurrentDashingAbility.abilityName + " has been interrupted." + " of character " + victim.name);
+            victim.CurrentDashingAbility.startCooldown();
         }
             
         //Later when you have a dash animation, the animation would hold the ability that is being cast in the buffer, so we need to put that ability on cooldown since it has been interuppted.

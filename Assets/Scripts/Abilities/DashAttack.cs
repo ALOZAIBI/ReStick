@@ -50,7 +50,7 @@ public class DashAttack : Ability
         }
         //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
         //It is done outside the initial if statement so that we can go through the if Dead or null check. Becaise if there are no characters within range then the ability won't be executed and won't go through the check.
-        if (character.currentDashingAbility == this) {
+        if (character.CurrentDashingAbility == this) {
             executeAbility();
             done = true;
         }
@@ -66,7 +66,7 @@ public class DashAttack : Ability
             Debug.Log("Cancel dashAbility");
             return;
         }
-        character.currentDashingAbility = this;
+        character.CurrentDashingAbility = this;
         //dashes to target
         character.agent.enabled = false;//to allow the target to dash through obstacles
         character.transform.position = Vector2.MoveTowards(character.transform.position, character.target.transform.position, valueAmt.getAmtValueFromName(this, "DashSpeed") * Time.fixedDeltaTime);

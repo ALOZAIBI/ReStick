@@ -34,6 +34,8 @@ public abstract class Projectile : MonoBehaviour
 
     public HitFX hitFX;
     public Color hitFXColor;
+
+    public TrailRenderer trailRenderer;
     //handles the trajectory of the projectile. Some projectiles will have an angle that makes it not travel directly to the target but at an angle away from them
     //This would be used for example when we launch multiple projectile in a cone
     public virtual void trajectory(float angle) {
@@ -53,6 +55,15 @@ public abstract class Projectile : MonoBehaviour
         //Starts with initSize
         if(initSize != 0 && targetSize != 0) {
             transform.localScale = new Vector3(initSize, initSize, initSize);
+        }
+    }
+
+    private void OnDestroy() {
+        //To keep the trail going even after the projectile is gone
+        if(trailRenderer!= null) {
+            trailRenderer.emitting = false;
+            trailRenderer.transform.parent = null;
+            trailRenderer.autodestruct = true;
         }
     }
 
@@ -98,9 +109,11 @@ public abstract class Projectile : MonoBehaviour
         applyHitFX(character.transform.position);
     }
     public void applyHitFX(Vector3 position) {
-        HitFX temp = Instantiate(hitFX, position,Quaternion.identity);
-        temp.gameObject.SetActive(true);
-        temp.GetComponent<SpriteRenderer>().color = hitFXColor;
+        if (hitFX != null) {
+            HitFX temp = Instantiate(hitFX, position, Quaternion.identity);
+            temp.gameObject.SetActive(true);
+            temp.GetComponent<SpriteRenderer>().color = hitFXColor;
+        }
     }
 
     //Sets the angle so that it is visually right
