@@ -122,6 +122,10 @@ public class Character : MonoBehaviour {
                 trailRenderer.endColor = _currentDashingAbility.hitFXColor;
             }
 
+            if(_currentDashingAbility == null) {
+                animationManager.stopDashAnimation();
+            }
+
         }
     }
 

@@ -96,6 +96,12 @@ public class AnimationManager : MonoBehaviour {
             character.executeAttackMelee(target);
     }
 
+
+    //Without this dashing animation was played on loop untill another animation plays
+    public void stopDashAnimation() {
+        animator.SetTrigger("stopDash");
+    }
+
     //This is how the abilities work
     //If toBeCast==null >>>> animtion.cast>after some animation> animation.castEvent()>>> executeAbility()
     //Casts the ability with the raise animation
