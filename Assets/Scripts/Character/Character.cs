@@ -275,7 +275,7 @@ public class Character : MonoBehaviour {
 
         initRoundStart();
 
-        Debug.Log("DBG:" + this.name + " My Renderer:" + this.GetComponent<Renderer>().enabled + " Active" + this.isActiveAndEnabled + "Layer I'm in" + this.gameObject.layer);
+        //Debug.Log("DBG:" + this.name + " My Renderer:" + this.GetComponent<Renderer>().enabled + " Active" + this.isActiveAndEnabled + "Layer I'm in" + this.gameObject.layer);
 
         //Since we can no longer modify the target strategy I will simply just reset it here to prevent bugs after manually selecting target
         //This is just a spaghetti fix but fuck it

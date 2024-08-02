@@ -47,6 +47,7 @@ public class DashAttack : Ability
             playAnimation("castDash");
             //executeAbility();
             done = true;
+            Debug.Log("I'm doing the dash");
         }
         //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
         //It is done outside the initial if statement so that we can go through the if Dead or null check. Becaise if there are no characters within range then the ability won't be executed and won't go through the check.

@@ -45,7 +45,7 @@ public class ProjectileSimpleHit : Projectile
                 List<Collider2D> colliders=null;
                 for(int i = 1; i < 5; i++) {
                     //List of enemies within range
-                    List<Collider2D> tempCollider = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, 5*i, mask));
+                    List<Collider2D> tempCollider = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, 8*i, mask));
 
                     //Exclude allies
                     for (int j = 0; j < tempCollider.Count; j++) {
