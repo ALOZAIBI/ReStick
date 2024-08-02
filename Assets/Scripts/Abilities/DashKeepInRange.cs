@@ -69,6 +69,8 @@ public class DashKeepInRange : Ability
                 direction = pointToDashTo - (Vector2)character.transform.position;
                 direction.Normalize();  
 
+                character.invulnerable++;
+
                 pointSet = true;
 
             }
@@ -137,11 +139,13 @@ public class DashKeepInRange : Ability
 
             //Reset auto attack timer
             character.AtkNext = 0;
+
+            character.invulnerable--;
         }
 
     }
     public override void updateDescription() {
-        description = "Dash until the enemies are at max range";
+        description = "Dash tactically, invulnerable while dashing";
     }
 
     public override void reset() {

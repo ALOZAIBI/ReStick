@@ -27,6 +27,15 @@ public class Character : MonoBehaviour {
     public float Range;
     public float LS;
 
+
+    //dmgReduction is usually used for items whereas  invulnerable is temporary state that is currently applied by dashkeepinrange
+    //Between 1 and 0. If 1 take no damage if 0 take full damage
+    public float dmgReduction;
+
+    //If more than 0 the character will not take damage
+    //This can stack(so that if a 2 buffs apply invunerability just 1 buff ending won't end the invunerability)
+    public int invulnerable = 0;
+
     public bool alive = true;
 
     //Interesting Stats
@@ -1830,9 +1839,16 @@ public class Character : MonoBehaviour {
     }
     #endregion
 
-    public void takeDamage(Character theDamager,float damageAmount) {
-        HP -= damageAmount;
-        itemOnTakeDamage(theDamager,damageAmount);
+    //Return the damageTaken ( this might be reduced with invulnerability/dmg reduction)
+    public float takeDamage(Character theDamager,float damageAmount) {
+        float damageTaken = 0;
+        if (invulnerable <= 0) {
+            damageTaken = damageAmount * (1 - dmgReduction);
+            HP -= damageTaken;
+            //The OnTakeDamage applies before reducing the damage taken with dmgreduction
+            itemOnTakeDamage(theDamager, damageAmount);
+        }
+        return damageTaken;
     }
     public void itemOnTakeDamage(Character theDamager,float damageAmount) {
         foreach(Item item in items) {
@@ -1847,9 +1863,10 @@ public class Character : MonoBehaviour {
     //Deal Damage then heal from that damage based on LS and LSAmount
     public void damage(Character victim, float damageAmount, float LSAmount) {
 
-        victim.takeDamage(this, damageAmount);
+        //dmgDealt is the damage the victim actually took after taking into account invulnerability/dmg reduction
+        float dmgDealt = victim.takeDamage(this, damageAmount);
 
-        HP += damageAmount * LS * LSAmount;
+        HP += dmgDealt * LS * LSAmount;
 
         //We do the dieNextFrame check so that the character get's killed by 1 dude only
         if (victim.HP <= 0 && !victim.dieNextFrame && victim.alive) {
