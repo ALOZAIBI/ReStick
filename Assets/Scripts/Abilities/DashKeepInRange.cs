@@ -2,13 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This ability required way more math/thinking than expected.
+//Anyways this is the idea of how it will be implemented.
+// Select Random Enemy e within ability range
+// Select random point on circle of radius caster's range with center as e
+// Dash to that point
+// If there are enemies around (within range of caster) then keep dashing in that direction(using angle)
 public class DashKeepInRange : Ability
 {
-    [SerializeField]private Vector2 directionOffset;
-    private bool offsetSet = false;
+    [SerializeField]private Vector2 pointToDashTo;
+    [SerializeField] private float angle;
+    private Vector2 direction;
+    private LayerMask mask;
+
+    private float rangeLeeWay = 0.2f;
+
+    private bool pointSet = false;
     public override void Start() {
         base.Start();
         updateDescription();
+        mask = LayerMask.GetMask("Characters");
     }
 
     private void FixedUpdate() {
@@ -18,19 +31,51 @@ public class DashKeepInRange : Ability
     public override bool doAbility() {
         bool done = false;
         rangeAbility = character.Range + valueAmt.getAmtValueFromName(this, "Range");
+        calculateAmt();
+
         //If available and there is a character within the ability range
         if (available && character.selectTarget(targetStrategy, rangeAbility) && canUseDash()) {
             startAbilityActivation();
-            calculateAmt();
+
+            if (!pointSet) {
+                //Gets a random enemy within the ability's range
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, rangeAbility,mask);
+                List<Character> enemies = new List<Character>();
+                foreach(Collider2D c in colliders) {
+                    Character temp = c.GetComponent<Character>();
+                    if (temp.team != character.team) {
+                        enemies.Add(temp);
+                    }
+                }
+                if (enemies.Count == 0) {
+                    return false;
+                }
+                //Select a random enemy
+                Character enemy = enemies[Random.Range(0, enemies.Count)];
+
+                //Generate random angle (to find point on radius) in radians
+                float angleForPointOnRadiusRD = Random.Range(0, 360) * Mathf.Deg2Rad;
+
+                //Using trigonmetry (Cah) to find the x of the point on the radius we at this point have the angle and the hypotenuse(character range)
+
+                float xP = Mathf.Cos(angleForPointOnRadiusRD) * (character.Range - rangeLeeWay);
+
+                //Using trignometry (Toa) to find the y of the point on the radius
+
+                float yP = Mathf.Tan(angleForPointOnRadiusRD) * xP;
+
+                pointToDashTo = new Vector2(enemy.transform.position.x + xP, enemy.transform.position.y + yP);
+
+                direction = pointToDashTo - (Vector2)character.transform.position;
+                direction.Normalize();  
+
+                pointSet = true;
+
+            }
+
             playAnimation("castDash");
             done = true;
-            if (!offsetSet) {
-                //Get a random vector2 that will be used to offset the character's position
-                directionOffset = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-                //Normalize the vector2
-                directionOffset.Normalize();
-                offsetSet = true;
-            }
+
         }
         //This is done since the dash animation does castEventDoNotInterrupt which prevents the above playAnimation from triggering. So we are triggering it here once the playAnimation has been triggered atleasst once
         //It is done outside the initial if statement so that we can go through the if Dead or null check. Becaise if there are no characters within range then the ability won't be executed and won't go through the check.
@@ -41,31 +86,58 @@ public class DashKeepInRange : Ability
         return done;
     }
 
-    public override void executeAbility() {
-        //If the character is within maxRange of the enemies then stop dashing
-        float minDistance = 1000;
-        foreach (Character c in character.zone.charactersInside) {
-            if (c.team != character.team) {
+    //So now in step 0 we will be dashing  to the pointtoDashTo
+    //Then in step 1 we check if there are any enemies within range of the caster if yes we will keep dashing in the direction of the angle
 
-                float distance = Vector2.Distance(c.transform.position, character.transform.position);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                }
+    public override void executeAbility() {
+
+        character.CurrentDashingAbility = this;
+        character.agent.enabled = false;
+
+
+        if (step == 0) {
+            character.transform.position = Vector2.MoveTowards(character.transform.position, (Vector3)pointToDashTo, valueAmt.getAmtValueFromName(this, "Speed") * Time.fixedDeltaTime);
+
+            //Once we are close enough to the point we will move to the next step
+            if (Vector2.Distance(character.transform.position, pointToDashTo) < 0.1f) {
+                step++;
             }
         }
-        Debug.Log("Min distance is"+minDistance);
-        //The -0.3f is to make sure that the character is slightly within range
-        if(minDistance >= character.Range - 0.3f && minDistance <= character.Range + 0.3f) {
-            character.agent.enabled = true;
-            character.animationManager.forceStop();
-            startCooldown();
-            return;
+
+        if(step == 1) {
+            //Check if there are enemies inside the range of the caster by more than the leeway
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, character.Range - (rangeLeeWay+0.3f), mask);
+            bool continueDashing = false;
+            foreach (Collider2D c in colliders) {
+                Character temp = c.GetComponent<Character>();
+                if (temp.team != character.team) {
+                    continueDashing = true;
+                    break;
+                }
+            }
+            //Continue moving at the angle
+            if (continueDashing) {
+
+
+                character.transform.position = Vector2.MoveTowards(character.transform.position, pointToDashTo + direction*100f, valueAmt.getAmtValueFromName(this, "Speed") * Time.fixedDeltaTime);
+
+            }
+            else {
+                //If there are no enemies in range then we stop
+                step++;
+            
+            }
         }
-        character.CurrentDashingAbility = this;
-        //To allow the target to dash through obstacles
-        character.agent.enabled = false;
-        //Move In the direction
-        character.transform.position = Vector2.MoveTowards(character.transform.position, character.transform.position + (Vector3)directionOffset, valueAmt.getAmtValueFromName(this, "Speed") * Time.fixedDeltaTime);
+
+        //If we have reached the end of the ability
+        if (step == 2) {
+            startCooldown();
+            character.animationManager.forceStop();
+            character.agent.enabled = true;
+
+            //Reset auto attack timer
+            character.AtkNext = 0;
+        }
 
     }
     public override void updateDescription() {
@@ -73,7 +145,10 @@ public class DashKeepInRange : Ability
     }
 
     public override void reset() {
-        offsetSet = false;
+        pointSet = false;
+        angle = 0;
+        pointToDashTo = Vector2.zero;
+        step = 0;
     }
 
 }
