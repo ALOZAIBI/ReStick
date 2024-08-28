@@ -10,6 +10,7 @@ public class AbilityDisplayReward : MonoBehaviour
     public Ability ability;
     //to be able to deselect everything else when this is selected
     public RewardSelectAbility rewardSelect;
+
     //wether this is selected or not
     public bool selected;
     //used to color what is selected
@@ -34,7 +35,13 @@ public class AbilityDisplayReward : MonoBehaviour
     [SerializeField] private StatIcon LS;
     [SerializeField] private StatIcon CD;
     [SerializeField] private StatIcon LVL;
-    private void Start() {
+
+    //Sets the abilityDisplay
+    public void init(Ability ability) {
+        this.ability = ability;
+
+        abilityName.text = ability.abilityName;
+        description.text = ability.description;
 
         //Summs the raio array to get total ratio, This will be used to display the scaling of the ability(in descending order)
         HP.ratio = ability.HPMaxRatio.getSumOfValues() + ability.HPRatio.getSumOfValues();
@@ -45,12 +52,14 @@ public class AbilityDisplayReward : MonoBehaviour
         MS.ratio = ability.MSRatio.getSumOfValues();
         LVL.ratio = ability.LVLRatio.getSumOfValues();
 
-        //delete whatever isn't applicable
+        //hide whatever isn't applicable
         foreach (Transform child in iconHolder) {
             StatIcon temp = child.GetComponent<StatIcon>();
             if (temp.ratio == 0) {
-                Destroy(temp.gameObject);
+                temp.gameObject.SetActive(false);
             }
+            else
+                temp.gameObject.SetActive(true);
         }
 
         self.onClick.AddListener(select);
@@ -69,7 +78,7 @@ public class AbilityDisplayReward : MonoBehaviour
         }
         background.color = ColorPalette.singleton.getTypeColor(ability.abilityType);
 
-        //unHighlight();
+        highlight();
     }
 
     public void highlight() {
@@ -88,13 +97,12 @@ public class AbilityDisplayReward : MonoBehaviour
         selected = true;
         highlight();
         //deselects alll others
-        foreach(AbilityDisplayReward deSelect in rewardSelect.listAbilityReward) {
+        foreach(AbilityDisplayReward deSelect in RewardManager.singleton.abilityRewarder.displays) {
             if(deSelect != this) {
                 deSelect.selected = false;
                 deSelect.unHighlight();
             }
         }
-        //and ungreys out the confirmselection button
-        rewardSelect.unGreyOutAbilityBtn();
+        RewardManager.singleton.unGreyOutConfirmBtn();
     }
 }

@@ -38,7 +38,7 @@ public class AbilityFactory : MonoBehaviour
     }
     //takes Drop Rates as paramter
     //then returns an ability GameObject with the droprate of each rarity taken into account
-    private GameObject randomAbility( int rareDR, int epicDR, int legendaryDR) {
+    private GameObject randomAbilityGO( int rareDR, int epicDR, int legendaryDR) {
         int randomRarity = Random.Range(0, 100);
         int randomAbility;
         if (randomRarity < legendaryDR) {
@@ -57,6 +57,11 @@ public class AbilityFactory : MonoBehaviour
             randomAbility = Random.Range(0, common.Count);
             return common[randomAbility];
         }
+    }
+
+    //Used for rewards
+    public Ability randomAbility() {
+        return randomAbilityGO(40, 20, 5).GetComponent<Ability>();
     }
     //returns the gameObject from the abilities list given the ability's name
     private GameObject objectFromName(string name) {
@@ -78,7 +83,7 @@ public class AbilityFactory : MonoBehaviour
     }
     public void addRandomAbilityToShop(Shop shop,int amount) {
         for(int i = 0;i < amount; i++) {
-            Instantiate(randomAbility(48,23,7),shop.abilityHolder.transform);
+            Instantiate(randomAbilityGO(48,23,7),shop.abilityHolder.transform);
         }
     }
     public void addRequestedAbilitiesToShop(Shop shop, List<string> abilityNames) {
@@ -92,7 +97,7 @@ public class AbilityFactory : MonoBehaviour
     public void addRandomAbilityToZone(Zone zone,int amount) {
         for (int i = 0; i < amount; i++) {
 
-            addsObjectToZone(zone, randomAbility(40, 20, 5));
+            addsObjectToZone(zone, randomAbilityGO(40, 20, 5));
         }
     }
 

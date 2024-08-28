@@ -78,26 +78,26 @@ public class Tutorial : MonoBehaviour
     }
 
     public void beginChooseRewardTutorial() {
-        if (chooseRewardTutorialDone)
-            return;
+        //if (chooseRewardTutorialDone)
+        //    return;
 
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
 
-        nextBtn.gameObject.SetActive(false);
-        textBox.gameObject.SetActive(true);
+        //nextBtn.gameObject.SetActive(false);
+        //textBox.gameObject.SetActive(true);
 
-        objectsToBeFocused.Add(chooseRewardScreen.transform);
-        focus();
+        //objectsToBeFocused.Add(chooseRewardScreen.transform);
+        //focus();
 
-        //Positions it above reward screen
-        RectTransform rt = chooseRewardScreen.GetComponent<RectTransform>();
-        positionTextBox(rt.GetAnchorTop(),rt.GetAnchorTop()*1.2f, 0.2f, 0.8f);
-        text.text = "Pick a reward";
+        ////Positions it above reward screen
+        //RectTransform rt = chooseRewardScreen.GetComponent<RectTransform>();
+        //positionTextBox(rt.GetAnchorTop(),rt.GetAnchorTop()*1.2f, 0.2f, 0.8f);
+        //text.text = "Pick a reward";
 
-        RewardSelectAbility rewardSelect = chooseRewardScreen.GetComponent<RewardSelectAbility>();
-        foreach(AbilityDisplayReward reward in rewardSelect.listAbilityReward) {
-            AddListener(reward.self, endChooseRewardTutorial);
-        }
+        //RewardSelectAbility rewardSelect = chooseRewardScreen.GetComponent<RewardSelectAbility>();
+        //foreach(AbilityDisplayReward reward in rewardSelect.listAbilityReward) {
+        //    AddListener(reward.self, endChooseRewardTutorial);
+        //}
     }
 
     public void endChooseRewardTutorial() {

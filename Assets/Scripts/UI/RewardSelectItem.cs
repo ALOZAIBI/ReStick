@@ -46,7 +46,7 @@ public class RewardSelectItem : MonoBehaviour
             //saves characters in map
             UIManager.singleton.saveMapSave();
             //then carries on in gameWonScreen
-            UIManager.singleton.gameWonScreen.displayContents();
+            UIManager.singleton.gameWonScreen.displayProgression();
             //clears the list to be reinitialized in another zone
             listItemReward.Clear();
         }

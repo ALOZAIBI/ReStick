@@ -5,67 +5,45 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//Displays progression
+//Calls rewardManager
 public class GameWonScreen : MonoBehaviour
 {
-    public RewardSelectAbility rewardSelectAbility;
-    public RewardSelectItem rewardSelectItem;
-    private HideUI rewardSelectItemHidden;
-    private HideUI rewardSelectAbilityHidden;
-    public CharacterDisplay characterDisplay;
+
     public Button goToNextZoneBtn;
     public Button goBackToMapBtn;
     public GameObject contents;
     public int rewardEveryNZone;
 
+
+
     private void Start() {
-        rewardSelectAbilityHidden = rewardSelectAbility.GetComponent<HideUI>();
-        rewardSelectItemHidden = rewardSelectItem.GetComponent<HideUI>();
-        //goToNextZoneBtn.onClick.AddListener(goToNextLevelIfPossible);
         goBackToMapBtn.onClick.AddListener(goToMap);
     }
 
     public void zoneWon() {
-        //Random number between 0 and 100
-        int random = UnityEngine.Random.Range(0, 100);
-        //If the zone I'm in forces a reward
-        if (UIManager.singleton.zone.forceReward) {
-            //50% chacne get ability reward
-            if (random < 50) {
-                displayAbilityRewards();
-            }
-            else {
-                displayItemRewards();
-            }
-        }
-        else//20% chance to get a reward
-        if (random < 25) {
-            displayAbilityRewards();
-        }
-        else if(random<45){
-            Debug.Log("WILL REWRA ITEM");
-            displayItemRewards();
-        }
-        else {
-            displayContents();
+        goBackToMapBtn.gameObject.SetActive(false);
+        if (!RewardManager.singleton.displayRewards()) {
+            //If no reward received just display progression
+            displayProgression();
+            //And save progression
+            saveProgression();
         }
     }
 
+    //Saves progression (Zone completion + Whatever rewards we got + however the character's progressed)
+    public void saveProgression() {
+        SaveSystem.saveZone(UIManager.singleton.zone);
+        UIManager.singleton.saveMapSave();
+    }
+
     //contents i.e character progression gold earned, and buttons
-    public void displayContents() {
-        rewardSelectAbilityHidden.hidden = true;
-        rewardSelectItemHidden.hidden = true;
+    public void displayProgression() {
+        RewardManager.singleton.abilityRewarder.hideUI.hidden = true;
         contents.SetActive(true);
+        goBackToMapBtn.gameObject.SetActive(true);
     }
-    private void displayAbilityRewards() {
-        contents.SetActive(false);
-        rewardSelectAbilityHidden.hidden = false;
-        rewardSelectAbility.displayAbilities();
-    }
-    private void displayItemRewards() {
-        contents.SetActive(false);
-        rewardSelectItemHidden.hidden = false;
-        rewardSelectItem.displayItems();
-    }
+
     //leaves to UIManager's SceneName
     public void goToMap() {
         //saves the zone
