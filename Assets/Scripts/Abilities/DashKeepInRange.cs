@@ -15,9 +15,14 @@ public class DashKeepInRange : Ability
     private Vector2 direction;
     private LayerMask mask;
 
-    private float rangeLeeWay = 0.2f;
+    //To make sure that the pointToDashTo is on the ground
+    private LayerMask ground;
+    //If 0.9 then it is okay when we are at 90% of our range
+
+    private float rangeLeeWayPercent = 0.9f;
 
     private bool pointSet = false;
+    private bool rangeIsSet = false;
     public override void Start() {
         base.Start();
         updateDescription();
@@ -30,14 +35,31 @@ public class DashKeepInRange : Ability
 
     public override bool doAbility() {
         bool done = false;
-        rangeAbility = character.Range + valueAmt.getAmtValueFromName(this, "Range");
+        float maxRange = character.Range + valueAmt.getAmtValueFromName(this, "Range");
         calculateAmt();
 
-        //If available and there is a character within the ability range
-        if (available && character.selectTarget(targetStrategy, rangeAbility) && canUseDash()) {
-            startAbilityActivation();
+        //The range will start low then will slowly increase(It will prioritize closer enemies)
+        if (available && canUseDash()) {
+            rangeAbility = maxRange / 5;
+            for(int i = 1; i < 5; i++) {
+                rangeAbility *= i;
+                //If there is a character within that range
+                if(character.selectTarget(targetStrategy, rangeAbility)) {
+                    rangeIsSet = true;
+                    break;
+                }
+            }
+
+            //Return false (not done)
+            if (!rangeIsSet) {
+                return done;
+            }
+        }
+        //If we found a target and set the range
+        if (rangeIsSet) {
 
             if (!pointSet) {
+                startAbilityActivation();
                 //Gets a random enemy within the ability's range
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, rangeAbility,mask);
                 List<Character> enemies = new List<Character>();
@@ -58,7 +80,7 @@ public class DashKeepInRange : Ability
 
                 //Using trigonmetry (Cah) to find the x of the point on the radius we at this point have the angle and the hypotenuse(character range)
 
-                float xP = Mathf.Cos(angleForPointOnRadiusRD) * (character.Range - rangeLeeWay);
+                float xP = Mathf.Cos(angleForPointOnRadiusRD) * (character.Range*rangeLeeWayPercent);
 
                 //Using trignometry (Toa) to find the y of the point on the radius
 
@@ -107,8 +129,8 @@ public class DashKeepInRange : Ability
         }
 
         if(step == 1) {
-            //Check if there are enemies inside the range of the caster by more than the leeway
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, character.Range - (rangeLeeWay+0.3f), mask);
+            //Check if there are enemies inside the range of the caster 
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(character.transform.position, character.Range*rangeLeeWayPercent, mask);
             bool continueDashing = false;
             foreach (Collider2D c in colliders) {
                 Character temp = c.GetComponent<Character>();
@@ -150,6 +172,7 @@ public class DashKeepInRange : Ability
 
     public override void reset() {
         pointSet = false;
+        rangeIsSet = false;
         angle = 0;
         pointToDashTo = Vector2.zero;
         step = 0;
