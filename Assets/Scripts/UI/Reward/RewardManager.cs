@@ -7,6 +7,7 @@ public class RewardManager : MonoBehaviour {
     public static RewardManager singleton;
 
     public AbilityRewarder abilityRewarder;
+    public ItemRewarder itemRewarder;
 
     public Button confirmBtn;
     public HideUI confirmBtnHidden;
@@ -19,22 +20,33 @@ public class RewardManager : MonoBehaviour {
     //Returns true if a reward has been displayed
     public bool displayRewards() {
         bool thereIsReward = false;
+        float random = Random.Range(0, 100);
         //If the zone I'm in forces a reward
         if (UIManager.singleton.zone.forceReward) {
             //Get Either an ability or an item
-            if (Random.Range(0, 100) < 100) {
+            if (random < 50) {
                 abilityRewarder.setUpRewards();
                 thereIsReward = true;
             }
             else {
-                //displayItemRewards();
+                itemRewarder.setUpRewards();
+                thereIsReward = true;
             }
         }
         //Different percentc chances to get different rewards
         else {
-            //For now however always get an ability
-            abilityRewarder.setUpRewards();
-            thereIsReward = true;
+            //20% chance to get a reward
+            if (random < 20) {
+                //Get Either an ability or an item(for now , later will add more types of rewards)
+                if (Random.Range(0, 100) < 50) {
+                    abilityRewarder.setUpRewards();
+                    thereIsReward = true;
+                }
+                else {
+                    itemRewarder.setUpRewards();
+                    thereIsReward = true;
+                }
+            }
         }
 
         confirmBtnHidden.hidden = !thereIsReward;
@@ -42,8 +54,11 @@ public class RewardManager : MonoBehaviour {
     }
 
     public void confirmReward() {
-        if(abilityRewarder.gameObject.activeSelf)
+        //Whatever isn't hidden is the current reward thing so we apply it
+        if(!abilityRewarder.hideUI.hidden)
             abilityRewarder.applyReward();
+        else if (!itemRewarder.hideUI.hidden)
+            itemRewarder.applyReward();
 
         confirmBtnHidden.hidden = true;
         //Display progression(Next step after rewards) + Save

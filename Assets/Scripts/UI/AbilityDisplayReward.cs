@@ -8,8 +8,6 @@ public class AbilityDisplayReward : MonoBehaviour
 {
 
     public Ability ability;
-    //to be able to deselect everything else when this is selected
-    public RewardSelectAbility rewardSelect;
 
     //wether this is selected or not
     public bool selected;

@@ -58,7 +58,6 @@ public class UIManager : MonoBehaviour
     
     //Zone Won Screen Stuff
     public GameWonScreen gameWonScreen;
-    public RewardSelectAbility rewardSelectScreen;
 
     //Map Won Screen Stuff
     public Image mapWonScreen;

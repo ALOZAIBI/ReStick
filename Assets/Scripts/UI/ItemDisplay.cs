@@ -27,7 +27,6 @@ public class ItemDisplay : MonoBehaviour
 
     //Reward stuff
     public bool reward = false;
-    public RewardSelectItem rewardSelect;
     public bool selected = false;
 
     //If this is true the display will be clickable to buy the item
@@ -60,7 +59,11 @@ public class ItemDisplay : MonoBehaviour
     [SerializeField] private GameObject LS;
     [SerializeField] private TextMeshProUGUI LSText;
 
-    void Start() {
+    private void Start() {
+        init(item);
+    }
+    public void init(Item item) {
+        this.item = item;
         itemName.text = item.itemName;
         itemDescription.text = item.description;
         wholeThingImage = wholeThingBtn.GetComponent<Image>();
@@ -264,12 +267,12 @@ public class ItemDisplay : MonoBehaviour
         selected = true;
         highlight();
         //Deselect all others
-        foreach (ItemDisplay itemDisplay in rewardSelect.listItemReward) {
+        foreach (ItemDisplay itemDisplay in RewardManager.singleton.itemRewarder.displays) {
             if (itemDisplay != this) {
                 itemDisplay.selected = false;
                 itemDisplay.unhighlight();
             }
         }
-        rewardSelect.unGreyOutItemBtn();
+        RewardManager.singleton.unGreyOutConfirmBtn();
     }
 }

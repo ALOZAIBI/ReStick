@@ -40,6 +40,7 @@ public class GameWonScreen : MonoBehaviour
     //contents i.e character progression gold earned, and buttons
     public void displayProgression() {
         RewardManager.singleton.abilityRewarder.hideUI.hidden = true;
+        RewardManager.singleton.itemRewarder.hideUI.hidden = true;
         contents.SetActive(true);
         goBackToMapBtn.gameObject.SetActive(true);
     }
