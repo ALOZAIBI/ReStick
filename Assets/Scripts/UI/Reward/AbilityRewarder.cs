@@ -24,13 +24,6 @@ public class AbilityRewarder : MonoBehaviour, RewarderInterface
             index++;
         }
         if (aSelectionIsMade) {
-            //Debug.Log("as election is made");
-            //deletes all displayws
-            foreach (AbilityDisplayReward toBeDeleted in displays) {
-                Destroy(toBeDeleted.gameObject);
-                //goes to next step in gameWonScreen
-            }
-            //Saves zone Completion + MapSave after this has been from gameWonScreen
             hideRewards();
         }
     }
