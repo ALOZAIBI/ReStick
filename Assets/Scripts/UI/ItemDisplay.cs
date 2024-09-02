@@ -217,12 +217,7 @@ public class ItemDisplay : MonoBehaviour
     private void click() {
         if (adding) {
             //Adds the item
-            characterInfoScreen.character.items.Add(item);
-            //Sets parent of item to playerParty's active items
-            item.transform.SetParent(UIManager.singleton.playerParty.activeItems.transform);
-
-            //Applies the stats
-            item.applyStats(characterInfoScreen.character);
+            characterInfoScreen.character.addItem(item);
 
             characterInfoScreen.startUnfocusing();
 

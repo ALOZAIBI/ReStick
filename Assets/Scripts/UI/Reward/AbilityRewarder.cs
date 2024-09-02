@@ -10,7 +10,7 @@ public class AbilityRewarder : MonoBehaviour, RewarderInterface
 
     public HideUI hideUI;
 
-    public void applyReward() {
+    public void receiveReward() {
 
         //index will be used to know which ability from zoneRewards to send to AbilityInventory
         int index = 0;
@@ -24,7 +24,8 @@ public class AbilityRewarder : MonoBehaviour, RewarderInterface
             index++;
         }
         if (aSelectionIsMade) {
-            hideRewards();
+            //This is now called from rewardManager since it will use the hidden values before resetting them
+            //hideRewards();
         }
     }
 

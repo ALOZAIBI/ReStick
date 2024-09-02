@@ -16,9 +16,7 @@ public class AbilityDisplayAddAbility : AbilityDisplay
 
     private void addToCharacter() {
         //Adds the clicked ability to the selected character(selected in charInfoScreen)
-        characterInfoScreen.character.abilities.Add(ability);
-        //Sets parent of ability to playerParty's active abilities
-        ability.transform.parent = uiManager.playerParty.activeAbilities.transform;
+        characterInfoScreen.character.addAbility(ability);
         //Starts unfocusing
         characterInfoScreen.startUnfocusing();
 
@@ -27,9 +25,6 @@ public class AbilityDisplayAddAbility : AbilityDisplay
             uiManager.characterInfoScreen.displayCharacterAbilities(uiManager.characterInfoScreen.character);
         }
 
-
-        //Updates the character's archetype look
-        characterInfoScreen.character.applyArchetypeLook();
         //saves adding the ability
         if (SceneManager.GetActiveScene().name == "World") {
             uiManager.saveWorldSave();

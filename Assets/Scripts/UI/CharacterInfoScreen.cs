@@ -814,7 +814,7 @@ public class CharacterInfoScreen : MonoBehaviour
             count++;
         }
         //if the character is player and has less than 5 abilities and zone not started and there are abilities to add available
-        if (character.team == (int)Character.teamList.Player && character.abilities.Count < 5 && !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount > 0) {
+        if (character.team == (int)Character.teamList.Player && character.abilities.Count < MAX_ABILITIES && !uiManager.zoneStarted() && uiManager.playerParty.abilityInventory.transform.childCount > 0) {
             addAbilityBtn.gameObject.SetActive(true);
             //puts the add ability on the first free slot
             addAbilityBtn.transform.parent = abilityPlaceholders[character.abilities.Count];

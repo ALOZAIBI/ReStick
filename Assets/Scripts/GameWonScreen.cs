@@ -23,6 +23,7 @@ public class GameWonScreen : MonoBehaviour
 
     public void zoneWon() {
         goBackToMapBtn.gameObject.SetActive(false);
+        contents.SetActive(false);
         if (!RewardManager.singleton.displayRewards()) {
             //If no reward received just display progression
             displayProgression();

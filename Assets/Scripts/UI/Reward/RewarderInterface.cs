@@ -12,5 +12,5 @@ interface RewarderInterface
     public void setUpRewards();
 
     //Adds to inventory in case of ability/items will apply to a character if it's a heal will add to gold if gold etc..
-    public void applyReward();
+    public void receiveReward();
 }

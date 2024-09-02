@@ -7,7 +7,7 @@ public class ItemRewarder : MonoBehaviour, RewarderInterface {
     public List<ItemDisplay> displays = new List<ItemDisplay>();
 
     public HideUI hideUI;
-    public void applyReward() {
+    public void receiveReward() {
         //index will be used to know which item from zoneRewards to send to itemInventory
         int index = 0;
         bool aSelectionIsMade = false;
@@ -22,7 +22,8 @@ public class ItemRewarder : MonoBehaviour, RewarderInterface {
             index++;
         }
         if (aSelectionIsMade) {
-            hideRewards();
+            //This is now called from rewardManager since it will use the hidden values before resetting them
+            //hideRewards();
         }
     }
 

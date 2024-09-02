@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//More than just UIEXtensions
 public static class UIExtensions {
     #region RectTransform
     public static void SetLeft(this RectTransform rt, float left) {
@@ -141,5 +142,16 @@ public static class UIExtensions {
         return sum;
     }
 
+    public static void addAbility(this Character character,Ability ability) {
+        character.abilities.Add(ability);
+        ability.transform.parent = UIManager.singleton.playerParty.activeAbilities.transform;
+        character.applyArchetypeLook();
+    }
+
+    public static void addItem(this Character character, Item item) {
+        character.items.Add(item);
+        item.transform.parent = UIManager.singleton.playerParty.activeItems.transform;
+        item.applyStats(character);
+    }
 
 }
