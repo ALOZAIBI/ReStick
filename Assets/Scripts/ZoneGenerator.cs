@@ -82,13 +82,14 @@ public class ZoneGenerator : MonoBehaviour
         }
         else
             drawCircle(new Vector3Int(0, 0, 0), zoneSize, walkeableTileMap, zoneGenManager.groundTile);
-        
+
         //----------Draw Perimeter---------
-        if(shape%2 == 0) {
+        if (shape % 2 == 0) {
             drawSquarePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, zoneGenManager.wallTile);
         }
-        else
-            drawCirclePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, zoneGenManager.wallTile);
+        else {
+            drawCirclePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, zoneGenManager.wallTile,1);
+        }
 
 
         print("Rng" + shape);
@@ -119,7 +120,7 @@ public class ZoneGenerator : MonoBehaviour
         }
     }
     //Returns true if point is inside the circle with center and radius
-    private bool inCircle(Vector3Int center,int radius,Vector2Int point) {
+    private bool inCircle(Vector3Int center,float radius,Vector2Int point) {
         return (point.x - center.x) * (point.x - center.x) + (point.y - center.y) * (point.y - center.y) <= radius * radius;
     }
 
@@ -136,14 +137,34 @@ public class ZoneGenerator : MonoBehaviour
     private bool onCirclePerimeter(Vector3Int center, int radius, Vector2Int point) {
         return (point.x - center.x) * (point.x - center.x) + (point.y - center.y) * (point.y - center.y) == radius * radius;
     }
-    private void drawCirclePerimeter(Vector3Int pos, int diameter, Tilemap tilemap, TileBase tile) {
-        diameter -= 1;
-        for (int x = pos.x - (diameter / 2); x < pos.x + (diameter / 2); x++) {
-            for (int y = pos.y - (diameter / 2); y < pos.y + (diameter / 2); y++) {
-                if (onCirclePerimeter(pos, (diameter / 2), new Vector2Int(x, y))) {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+
+    //https://www.redblobgames.com/grids/circle-drawing/#outline
+    private void drawCirclePerimeter(Vector3Int pos, int diameter, Tilemap tilemap, TileBase tile,int addedThickness=0) {
+        float radius = (diameter) / 2;
+        for(int r = 0; r<= Mathf.Floor((radius) * Mathf.Sqrt(0.5f)); r++) {
+            int d = Mathf.FloorToInt(Mathf.Sqrt(radius * radius - r * r));
+            tilemap.SetTile(new Vector3Int(pos.x - d, pos.y +r,0), tile);
+            tilemap.SetTile(new Vector3Int(pos.x + d, pos.y + r, 0), tile);
+            tilemap.SetTile(new Vector3Int(pos.x - d, pos.y - r, 0), tile);
+            tilemap.SetTile(new Vector3Int(pos.x + d, pos.y - r, 0), tile);
+            tilemap.SetTile(new Vector3Int(pos.x - r, pos.y + d, 0), tile);
+            tilemap.SetTile(new Vector3Int(pos.x + r, pos.y + d, 0), tile);
+            tilemap.SetTile(new Vector3Int(pos.x - r, pos.y - d, 0), tile);
+            tilemap.SetTile(new Vector3Int(pos.x + r, pos.y - d, 0), tile);
+
+            if (addedThickness > 0) {
+                for(int i = 1; i <= addedThickness; i++) {
+                    tilemap.SetTile(new Vector3Int(pos.x - d, pos.y + r + i, 0), tile);
+                    tilemap.SetTile(new Vector3Int(pos.x + d, pos.y + r + i, 0), tile);
+                    tilemap.SetTile(new Vector3Int(pos.x - d, pos.y - r - i, 0), tile);
+                    tilemap.SetTile(new Vector3Int(pos.x + d, pos.y - r - i, 0), tile);
+                    tilemap.SetTile(new Vector3Int(pos.x - r - i, pos.y + d, 0), tile);
+                    tilemap.SetTile(new Vector3Int(pos.x + r + i, pos.y + d, 0), tile);
+                    tilemap.SetTile(new Vector3Int(pos.x - r - i, pos.y - d, 0), tile);
+                    tilemap.SetTile(new Vector3Int(pos.x + r + i, pos.y - d, 0), tile);
                 }
             }
+
         }
     }
 
