@@ -11763,7 +11763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5876027325742050838, guid: 5f1d77c1a7661424dbce44d1e1290278, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -81
+      value: -81.000244
       objectReference: {fileID: 0}
     - target: {fileID: 6475397733600614512, guid: 5f1d77c1a7661424dbce44d1e1290278, type: 3}
       propertyPath: m_Name
@@ -17682,11 +17682,11 @@ RectTransform:
   m_Father: {fileID: 197084216}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.53752327}
+  m_AnchorMax: {x: 1, y: 0.81112355}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: -0.94697165, y: 1.8190591}
 --- !u!1 &852106290
 GameObject:
   m_ObjectHideFlags: 0
@@ -29173,7 +29173,11 @@ MonoBehaviour:
   confirmBtnHidden: {fileID: 430644678}
   characterDisplay: {fileID: 1493588135775174512, guid: 3a3575f3ff496ef4b8355381d29bf1c3, type: 3}
   charDisplayPanel: {fileID: 1388178656}
+  rewardPanel: {fileID: 840671005}
   rewardApplicationHidden: {fileID: 197084219}
+  rewardToApply: {fileID: 0}
+  abilityDisplay: {fileID: -7948614011890712003, guid: e35349b53f106d24e8451d21288b35b1, type: 3}
+  itemDisplay: {fileID: 5188309052017860301, guid: 0d9aa8bfaf34a9240bda0da69c6fc4dc, type: 3}
 --- !u!1 &1862862705
 GameObject:
   m_ObjectHideFlags: 0

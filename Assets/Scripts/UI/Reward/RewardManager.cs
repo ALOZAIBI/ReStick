@@ -15,9 +15,14 @@ public class RewardManager : MonoBehaviour {
     //To immediately add the abiliy/item to a specific character
     public CharacterDisplayRewardApplication characterDisplay;
     public Transform charDisplayPanel;
+    //Holds the reward to be applied
+    public Transform rewardPanel;
     public HideUI rewardApplicationHidden;
     //Could be item/ability
     public GameObject rewardToApply;
+    //Ti display the reward that's about to be applied
+    [SerializeField] private AbilityDisplayReward abilityDisplay;
+    [SerializeField] private ItemDisplay itemDisplay;
 
     private void Start() {
         singleton = this;
@@ -90,6 +95,25 @@ public class RewardManager : MonoBehaviour {
                 display.GetComponent<Button>().onClick.AddListener(() => applyRewardToCharacter(display.character, display));
             }
         }
+
+        if (rewardToApply.GetComponent<Ability>() != null) {
+            AbilityDisplayReward temp = Instantiate(abilityDisplay, rewardPanel);
+            //temp.GetComponent<Button>().interactable = false;
+            temp.init(rewardToApply.GetComponent<Ability>());
+        }
+
+        if (rewardToApply.GetComponent<Item>() != null) { 
+            ItemDisplay temp = Instantiate(itemDisplay, rewardPanel);
+            temp.GetComponent <Button>().interactable = false;
+            temp.item = rewardToApply.GetComponent<Item>();
+            RectTransform rt = temp.GetComponent<RectTransform>();
+            rt.SetAnchorLeft(0.1f);
+            rt.SetAnchorRight(0.9f);
+            rt.SetAnchorBottom(0);
+            rt.SetAnchorTop(1);
+            rt.SetStretchToAnchors();
+
+        }
     }
 
     public void applyRewardToCharacter(Character character,CharacterDisplayRewardApplication display) {
@@ -130,6 +154,11 @@ public class RewardManager : MonoBehaviour {
             Destroy(toDelete.gameObject);
         }
         rewardApplicationHidden.hidden = true;
+
+        //Deletes the children of rewardPanel
+        foreach (Transform toDelete in rewardPanel) { 
+            Destroy(toDelete.gameObject);
+        }
 
 
         //Display progression(Next step after rewards) + Save
