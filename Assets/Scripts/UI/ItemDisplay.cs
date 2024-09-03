@@ -80,42 +80,66 @@ public class ItemDisplay : MonoBehaviour
             wholeThingBtn.onClick.AddListener(click);
 
         removeBtn.onClick.AddListener(removeItem);
-        if (item.PD != 0 ){
+        if (item.PD != 0) {
             PWR.SetActive(true);
             PWRText.text = item.PD.ToString();
         }
+        else
+            PWR.SetActive(false);
+
         if (item.MD != 0) {
             MGC.SetActive(true);
             MGCText.text = item.MD.ToString();
         }
+        else
+            MGC.SetActive(false);
+
         if (item.INF != 0) {
             INF.SetActive(true);
             INFText.text = item.INF.ToString();
         }
+        else
+            INF.SetActive(false);
+
         if (item.HP != 0) {
             HP.SetActive(true);
             HPText.text = item.HP.ToString();
         }
+        else
+            HP.SetActive(false);
+        
         if (item.AS != 0) {
             AS.SetActive(true);
             ASText.text = item.AS.ToString();
         }
+        else
+            AS.SetActive(false);
+
         if (item.CDR != 0) {
             CDR.SetActive(true);
             CDRText.text = item.CDR.ToString();
         }
+        else
+        CDR.SetActive(false);
+
         if (item.MS != 0) {
             MS.SetActive(true);
             MSText.text = item.MS.ToString();
         }
+        else
+        MS.SetActive(false);
         if (item.Range != 0) {
             Range.SetActive(true);
             RangeText.text = item.Range.ToString();
         }
+        else
+        Range.SetActive(false);
         if (item.LS != 0) {
             LS.SetActive(true);
             LSText.text = item.LS.ToString();
         }
+        else
+            LS.SetActive(false);
 
         //Set rarity gem color
         switch (item.rarity) {

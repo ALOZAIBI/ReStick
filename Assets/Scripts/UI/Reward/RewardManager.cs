@@ -33,8 +33,8 @@ public class RewardManager : MonoBehaviour {
     //Returns true if a reward has been displayed
     public bool displayRewards() {
         bool thereIsReward = false;
-        float random = Random.Range(0, 100);
         //If the zone I'm in forces a reward
+        float random = Random.Range(0, 100);
         if (UIManager.singleton.zone.forceReward) {
             //Get Either an ability or an item
             if (random < 50) {
@@ -49,7 +49,7 @@ public class RewardManager : MonoBehaviour {
         //Different percentc chances to get different rewards
         else {
             //20% chance to get a reward
-            if (random < 20) {
+            if (random < 45) {
                 //Get Either an ability or an item(for now , later will add more types of rewards)
                 if (Random.Range(0, 100) < 50) {
                     abilityRewarder.setUpRewards();
@@ -87,22 +87,37 @@ public class RewardManager : MonoBehaviour {
         abilityRewarder.hideRewards();
         itemRewarder.hideRewards();
 
+        int type;//0 Ability, 1 Item
+
+        if (rewardToApply.GetComponent<Ability>() != null)
+            type = 0;
+        else if(rewardToApply.GetComponent<Item>()!=null)
+            type = 1;
+        else type = 2;
+
         //We instantiate all the char displays in the chardisplay panel
         foreach (Transform child in UIManager.singleton.playerParty.transform) {
             if (child.CompareTag("Character")) {
                 CharacterDisplayRewardApplication display = Instantiate(characterDisplay, charDisplayPanel);
                 display.character = child.GetComponent<Character>();
-                display.GetComponent<Button>().onClick.AddListener(() => applyRewardToCharacter(display.character, display));
+                display.GetComponent<Button>().onClick.AddListener(() => applyRewardToCharacter(display.character, display,type));
+
+                //If the reward is an ability and the character already has max abilities disable clicking it
+                if (type == 0 && display.character.abilities.Count >= CharacterInfoScreen.MAX_ABILITIES)
+                    display.GetComponent<Button>().interactable = false;
+
+                else if(type == 1 && display.character.items.Count >= CharacterInfoScreen.MAX_ITEMS)
+                    display.GetComponent <Button>().interactable = false;
             }
         }
 
-        if (rewardToApply.GetComponent<Ability>() != null) {
+        if (type == 0) {
             AbilityDisplayReward temp = Instantiate(abilityDisplay, rewardPanel);
             //temp.GetComponent<Button>().interactable = false;
             temp.init(rewardToApply.GetComponent<Ability>());
         }
 
-        if (rewardToApply.GetComponent<Item>() != null) { 
+        if (type == 1) { 
             ItemDisplay temp = Instantiate(itemDisplay, rewardPanel);
             temp.GetComponent <Button>().interactable = false;
             temp.item = rewardToApply.GetComponent<Item>();
@@ -116,14 +131,14 @@ public class RewardManager : MonoBehaviour {
         }
     }
 
-    public void applyRewardToCharacter(Character character,CharacterDisplayRewardApplication display) {
+    public void applyRewardToCharacter(Character character,CharacterDisplayRewardApplication display,int typeOfReward) {
         Debug.Log("I'll reward this charcater !!" + character.name);
         //if the rewardToApply is an ability
-        if (rewardToApply.GetComponent<Ability>() != null) {
+        if (typeOfReward == 0) {
             character.addAbility(rewardToApply.GetComponent<Ability>());
         }
         //if the rewardToApply is an item
-        else if (rewardToApply.GetComponent<Item>() != null) {
+        else if (typeOfReward == 1) {
             character.addItem(rewardToApply.GetComponent<Item>());
         }
 
