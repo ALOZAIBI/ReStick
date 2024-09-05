@@ -13,6 +13,8 @@ public class ZoneGenManager : MonoBehaviour
 
     public int seed;
 
+    public Character[] listOfSpawneableEnemies;
+
 
     private void Start() {
         singleton = this;

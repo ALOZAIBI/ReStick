@@ -75,6 +75,14 @@ public class Character : MonoBehaviour {
 
     //level stuff
     public int level = 1;
+    [SerializeField] private bool overrideDP;
+    //Used for proc Gen, it will be equals to level unless overridden
+    public float difficultyPoints;
+
+    private void OnValidate() {
+        if(!overrideDP)
+            difficultyPoints = level;
+    }
     //how much xp in current level
     public float xpProgress = 0;
     //how much xp needed to level up

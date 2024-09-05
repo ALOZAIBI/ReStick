@@ -1036,6 +1036,29 @@ MonoBehaviour:
   groundTile: {fileID: 11400000, guid: 70d3a729056d00b4dacf559bbaa33694, type: 2}
   wallTile: {fileID: 11400000, guid: 54f0401e5a9bfd14a9a5a37eb3871e0c, type: 2}
   seed: 0
+  listOfSpawneableEnemies:
+  - {fileID: 2188304198075914647, guid: 9f6e7a3a2b953cc4bbbc1841e9112cde, type: 3}
+  - {fileID: 7025225886394636828, guid: 5a8959250642ae541a1b50aacfc22ea7, type: 3}
+  - {fileID: 7729010245940618880, guid: 89f89c947e633ce468e9f2b73664e2e0, type: 3}
+  - {fileID: 7729010245940618880, guid: 8f1a14d18e283d2408c403b8fbe2a638, type: 3}
+  - {fileID: 5065661158407500166, guid: a03c53ceadf3e51498fc2dae5e9f1f17, type: 3}
+  - {fileID: 5065661158407500166, guid: 45253de2fdc22f942a5be19bd468d784, type: 3}
+  - {fileID: 4340312175667041596, guid: f2ca3dc5c9500b94590e642229fef096, type: 3}
+  - {fileID: 1204772192751909199, guid: 19ec100e8a0972843a260b145a0182f9, type: 3}
+  - {fileID: 2188304198075914647, guid: fa1a92d94663bcd45a60a0ac853384df, type: 3}
+  - {fileID: 2188304198075914647, guid: 920745c222550d84ea87b18fa471cabe, type: 3}
+  - {fileID: 7910574298216608049, guid: 4b5665d01e6dc284abc10d5ec4eb4162, type: 3}
+  - {fileID: 1204772192751909199, guid: ad5d1a1a36778ab418823c8bc2c0b505, type: 3}
+  - {fileID: 4254537352894640666, guid: 40795f0df70f86c43bb38cbd8efeea35, type: 3}
+  - {fileID: 4215390622916315655, guid: 312c64dbf582fee4ab572792ec5e7d7a, type: 3}
+  - {fileID: 4254537352894640666, guid: 91ed63df100f43c46ab812dd848ffe63, type: 3}
+  - {fileID: 4254537352894640666, guid: 5dcf5f73b3b16ff4e83f257185bdbe3b, type: 3}
+  - {fileID: 4254537352894640666, guid: 0f7b11c40f5436d43b817ad89b2f2dd4, type: 3}
+  - {fileID: 4254537352894640666, guid: a7e64ce41cda5d642b12426c07bba6f8, type: 3}
+  - {fileID: 4254537352894640666, guid: 8d3e81c5467b4f14fadf638ad0a700d5, type: 3}
+  - {fileID: 7729010245940618880, guid: b27f5af8cadf5574db0ff6784765295b, type: 3}
+  - {fileID: 5923659249023979235, guid: e789dc83191833c42844b1ac2441f5a5, type: 3}
+  - {fileID: 5065661158407500166, guid: bc043abc2c0f83d478f111a7286d6f04, type: 3}
 --- !u!1 &58352716
 GameObject:
   m_ObjectHideFlags: 0
@@ -19273,7 +19296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 103.09}
+  m_AnchoredPosition: {x: 0, y: 103.09009}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &958176870
@@ -22794,6 +22817,7 @@ MonoBehaviour:
   focusOpacity: 0.85
   screenBlink: {fileID: 370272009}
   zone: {fileID: 0}
+  zoneNumber: 0
   inZone: 0
   abilityFactory: {fileID: 423047159}
   characterFactory: {fileID: 1629964745}

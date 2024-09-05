@@ -120,9 +120,9 @@ public class SceneSelect : MonoBehaviour
                 child.gameObject.SetActive(false);
             }
         }
+        UIManager.singleton.zoneNumber = number;
         DontDestroyOnLoad(dontDestroys);
         UIManager.singleton.loadSceneBlink(sceneToLoad);
-        UIManager.singleton.zoneNumber = number;
     }
 
     private void Update() {
