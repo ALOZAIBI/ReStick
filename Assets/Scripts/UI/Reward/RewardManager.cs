@@ -12,6 +12,8 @@ public class RewardManager : MonoBehaviour {
     public Button confirmBtn;
     public HideUI confirmBtnHidden;
 
+    public Button addToInventoryBtn;
+
     //To immediately add the abiliy/item to a specific character
     public CharacterDisplayRewardApplication characterDisplay;
     public Transform charDisplayPanel;
@@ -27,7 +29,8 @@ public class RewardManager : MonoBehaviour {
     private void Start() {
         singleton = this;
         confirmBtn.onClick.AddListener(confirmReward);
-
+        //Since the item is added to inventory before being prompted to add character, simply ending reward application will keep the reward in inventory
+        addToInventoryBtn.onClick.AddListener(endRewardApplication);
     }
 
     //Returns true if a reward has been displayed
@@ -103,11 +106,15 @@ public class RewardManager : MonoBehaviour {
                 display.GetComponent<Button>().onClick.AddListener(() => applyRewardToCharacter(display.character, display,type));
 
                 //If the reward is an ability and the character already has max abilities disable clicking it
-                if (type == 0 && display.character.abilities.Count >= CharacterInfoScreen.MAX_ABILITIES)
+                if (type == 0 && display.character.abilities.Count >= CharacterInfoScreen.MAX_ABILITIES) {
                     display.GetComponent<Button>().interactable = false;
+                    display.characerPortrait.SetAlpha(0.3f);
+                }
 
-                else if(type == 1 && display.character.items.Count >= CharacterInfoScreen.MAX_ITEMS)
-                    display.GetComponent <Button>().interactable = false;
+                else if (type == 1 && display.character.items.Count >= CharacterInfoScreen.MAX_ITEMS) {
+                    display.GetComponent<Button>().interactable = false;
+                    display.characerPortrait.SetAlpha(0.3f);
+                }
             }
         }
 
