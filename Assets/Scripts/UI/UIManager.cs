@@ -113,6 +113,8 @@ public class UIManager : MonoBehaviour
 
     //used to restartZone
     public Zone zone;
+    //This will be used for procGen ( To determine difficulty + to set the seed)
+    public int zoneNumber;
 
     //needed to determine what closeUI does
     public bool inZone;

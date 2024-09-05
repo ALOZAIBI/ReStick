@@ -22,6 +22,8 @@ public class SceneSelect : MonoBehaviour
 
     public bool map;
     public bool zone;
+    //Passes this value to UIManager to later be used by proc gen
+    public int number;
 
     public bool completed;
     public class CannotBeMapAndZone : Exception {
@@ -120,6 +122,7 @@ public class SceneSelect : MonoBehaviour
         }
         DontDestroyOnLoad(dontDestroys);
         UIManager.singleton.loadSceneBlink(sceneToLoad);
+        UIManager.singleton.zoneNumber = number;
     }
 
     private void Update() {

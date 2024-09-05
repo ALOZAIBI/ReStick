@@ -4,15 +4,18 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+//To ensure that the zone generator is executed before the zone script starts
+[DefaultExecutionOrder(-100)]
 public class ZoneGenerator : MonoBehaviour
 {
-    //Temp later will be accessible from the game manager
-    public ZoneGenManager zoneGenManager;
 
     [SerializeField]private Tilemap walkeableTileMap;
 
     [SerializeField]private Tilemap collisionTileMap;
 
+    [SerializeField]private Tilemap placeableAreaTileMap;
+
+    //From the zoneSize we can get the extremities of the zone -+(zoneSize/2)
     [SerializeField]private int zoneSize;
 
     //0 = [4,8[ 
@@ -21,17 +24,17 @@ public class ZoneGenerator : MonoBehaviour
     //3 = [30,60[
     [SerializeField]private int sizeClass;
 
-    //To be added to the seed
-    [SerializeField] private int zoneNumber;
 
     //This will be used to determine which enemies and how many to spawn etc...
-    [SerializeField] private int difficulty;
+    [SerializeField] private int difficultyPoints;
 
 
     //Place the ground tiles in a square
     private void Start() {
         //Set the seed
-        Random.InitState(zoneGenManager.seed + zoneNumber);
+        Random.InitState(ZoneGenManager.singleton.seed + UIManager.singleton.zoneNumber);
+
+        Debug.Log("Seed " + ZoneGenManager.singleton.seed + " ZoneNumber " + UIManager.singleton.zoneNumber);
 
         #region Zone Size
         // ----------Set Size----------
@@ -57,10 +60,10 @@ public class ZoneGenerator : MonoBehaviour
         //get random size using size class
         switch(sizeClass) {
             case 0:
-                zoneSize = Random.Range(4, 8);
+                zoneSize = Random.Range(6, 10);
                 break;
             case 1:
-                zoneSize = Random.Range(8, 15);
+                zoneSize = Random.Range(10, 15);
                 break;
             case 2:
                 zoneSize = Random.Range(15, 30);
@@ -74,32 +77,70 @@ public class ZoneGenerator : MonoBehaviour
         }
         #endregion
 
+        #region Draw Shape
         //----------Draw Base---------
         int shape = Random.Range(0, 2);
         //50% chance of being a square or a circle
         if(shape%2 == 0) {
-            drawSquare(new Vector3Int(0, 0, 0), zoneSize, walkeableTileMap, zoneGenManager.groundTile);
+            drawSquare(new Vector3Int(0, 0, 0), zoneSize, walkeableTileMap, ZoneGenManager.singleton.groundTile);
         }
         else
-            drawCircle(new Vector3Int(0, 0, 0), zoneSize, walkeableTileMap, zoneGenManager.groundTile);
+            drawCircle(new Vector3Int(0, 0, 0), zoneSize, walkeableTileMap, ZoneGenManager.singleton.groundTile);
 
         //----------Draw Perimeter---------
         if (shape % 2 == 0) {
-            drawSquarePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, zoneGenManager.wallTile);
+            drawSquarePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, ZoneGenManager.singleton.wallTile);
         }
         else {
-            drawCirclePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, zoneGenManager.wallTile,1);
+            drawCirclePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, ZoneGenManager.singleton.wallTile,1);
         }
+        #endregion
+
+        #region PlacementArea
+        //For now placement area is just a simple square
+        //Get random placementArea size which is at most half the size of the zone and at least 3(Half the minimum size of the zone)
+        int placementAreaSize = Random.Range(3, (zoneSize) / 2);
+
+        //Get Random Coordiante for the placement area
+        int x = Random.Range(-(zoneSize) / 2, (zoneSize) / 2);
+        int y = Random.Range(-(zoneSize) / 2, (zoneSize) / 2);
+
+        //Draw the placement area
+        drawSquare(new Vector3Int(x, y, 0), placementAreaSize, placeableAreaTileMap, ZoneGenManager.singleton.groundTile,walkeableTileMap,collisionTileMap);
 
 
-        print("Rng" + shape);
+        #endregion
+
+
     }
 
-    //Draw tiles in a square with position as center
-    private void drawSquare(Vector3Int pos,int size, Tilemap tilemap, TileBase tile) {
+    /// <summary>
+    /// Draw Tiles in a square with pos as center, needsToBeOn and exclude are used to draw placementArea
+    /// </summary>
+    /// <param name="pos">center</param>
+    /// <param name="size">size of square</param>
+    /// <param name="tilemap">tilemap to draw on</param>
+    /// <param name="tile">tile used</param>
+    /// <param name="needsToBeOn">if this is set, we'll only paint on tiles that are filled with this tilemap</param>
+    /// <param name="exclude">if this is set, we won't paint on places this tilemap has tiles</param>
+    private void drawSquare(Vector3Int pos,int size, Tilemap tilemap, TileBase tile,Tilemap needsToBeOn = null,Tilemap exclude = null) {
 
         for(int x = pos.x - (size/2); x < pos.x + (size / 2); x++) {
             for(int y = pos.y - (size/2); y < pos.y + (size / 2); y++) {
+                //If it has to be on another tilemap , we check if that tile on that tilemap has a tile placed
+                if (needsToBeOn != null) {
+                    //If it doesn't have a tile we jump to the next iteration on the loop
+                    if (!needsToBeOn.HasTile(new Vector3Int(x, y, 0))) {
+                        continue;
+                    }
+                }
+                //If it has to exclude another tilemap, we check if that tile on that tilemap has a tile placed
+                if (exclude != null) {
+                    //If it has a tile we jump to the next iteration on the loop
+                    if (exclude.HasTile(new Vector3Int(x, y, 0))) {
+                        continue;
+                    }
+                }
                 tilemap.SetTile(new Vector3Int(x,y, 0), tile);
             }
         }

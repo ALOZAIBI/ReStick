@@ -812,53 +812,6 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!1 &1558728376
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1558728378}
-  - component: {fileID: 1558728377}
-  m_Layer: 0
-  m_Name: ZoneGenManager (Temp here later in mainscene)\
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1558728377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558728376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85261aaf0403d8f498da651de21a6f8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTile: {fileID: 11400000, guid: 70d3a729056d00b4dacf559bbaa33694, type: 2}
-  wallTile: {fileID: 11400000, guid: 54f0401e5a9bfd14a9a5a37eb3871e0c, type: 2}
-  seed: 10
---- !u!4 &1558728378
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558728376}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17930317, y: -2.039812, z: 62.01569}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1808451147
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,13 +875,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dfeda042a9b2247a57ab3a559a6820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneGenManager: {fileID: 1558728377}
   walkeableTileMap: {fileID: 1884627746}
   collisionTileMap: {fileID: 250589905}
+  placeableAreaTileMap: {fileID: 560353734}
   zoneSize: 0
   sizeClass: 0
-  zoneNumber: 0
-  difficulty: 0
+  difficultyPoints: 0
 --- !u!1 &1884627742
 GameObject:
   m_ObjectHideFlags: 0
