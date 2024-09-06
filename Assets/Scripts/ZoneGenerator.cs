@@ -42,7 +42,16 @@ public class ZoneGenerator : MonoBehaviour
 
         Debug.Log("Seed " + ZoneGenManager.singleton.seed + " ZoneNumber " + UIManager.singleton.zoneNumber);
 
-        #region Zone Size
+        setSize();
+
+        genShape();
+     
+        genPlacementArea();
+
+        spawnEnemies();
+    }
+
+    private void setSize() {
         // ----------Set Size----------
         int randomSizeClass = Random.Range(0, 100);
         //15% chance of being size class 0
@@ -81,11 +90,11 @@ public class ZoneGenerator : MonoBehaviour
                 Debug.LogError("Size class not found");
                 break;
         }
-        #endregion
 
 
+    }
 
-        #region Draw Shape
+    private void genShape() {
         //----------Draw Base---------
         int shape = Random.Range(0, 2);
         //50% chance of being a square or a circle
@@ -102,11 +111,12 @@ public class ZoneGenerator : MonoBehaviour
         else {
             drawCirclePerimeter(new Vector3Int(0, 0, 0), zoneSize, collisionTileMap, ZoneGenManager.singleton.wallTile, 1);
         }
-        #endregion
 
-        
         navMeshSurface.BuildNavMesh();
-        #region PlacementArea
+
+    }
+
+    private void genPlacementArea() {
         //For now placement area is just a simple square
         //Get random placementArea size which is at most half the size of the zone and at least 3(Half the minimum size of the zone)
         int placementAreaSize = Random.Range(3, (zoneSize) / 2);
@@ -118,40 +128,50 @@ public class ZoneGenerator : MonoBehaviour
         //Draw the placement area
         drawSquare(new Vector3Int(placementAreaX, placementAreaY, 0), placementAreaSize, placeableAreaTileMap, ZoneGenManager.singleton.groundTile, walkeableTileMap, new[] { collisionTileMap });
 
+    }
 
-        #endregion
-
-        #region Enemy Spawning
+    private void spawnEnemies() {
         //Difficulty Points isn't exactly zoneNumber, add some leeway
         difficultyPoints = UIManager.singleton.zoneNumber + Random.Range(-UIManager.singleton.zoneNumber * .25f, UIManager.singleton.zoneNumber * .25f) + 1;
 
         float totalDPsoFar = 0;
 
-        while (totalDPsoFar < difficultyPoints - 0.75f) {
+        int iterations = 0;
+        int maxIter = 100;
+        while (totalDPsoFar < (difficultyPoints - 0.5f) && iterations < maxIter) {
+            Debug.Log("A:"+ iterations+" DP"+totalDPsoFar);
             //Get random enemy who's DP is at most 3/4 the DP of the zone and that is less than the remaining DP
             Character enemy = ZoneGenManager.singleton.listOfSpawneableEnemies[Random.Range(0, ZoneGenManager.singleton.listOfSpawneableEnemies.Length)];
-            while (enemy.difficultyPoints > difficultyPoints - totalDPsoFar && enemy.difficultyPoints < 0.75f * difficultyPoints) {
+            while ((enemy.difficultyPoints > difficultyPoints - totalDPsoFar || enemy.difficultyPoints < 0.75f * difficultyPoints) && iterations < maxIter) {
                 enemy = ZoneGenManager.singleton.listOfSpawneableEnemies[Random.Range(0, ZoneGenManager.singleton.listOfSpawneableEnemies.Length)];
+                iterations++;
             }
 
+            Debug.Log("B:" + iterations + " DP" + totalDPsoFar);
             //Get random position for the enemy that isn't on an excluded tile
             float enemyX = Random.Range(-(zoneSize) / 2f, (zoneSize) / 2);
             float enemyY = Random.Range(-(zoneSize) / 2f, (zoneSize) / 2);
-            while (!canPlaceOnTile(enemyX, enemyY, walkeableTileMap, new[] {collisionTileMap,placeableAreaTileMap})) {
+            while (!canPlaceOnTile(enemyX, enemyY, walkeableTileMap, new[] { collisionTileMap, placeableAreaTileMap }) && iterations < maxIter) {
                 enemyX = Random.Range(-(zoneSize) / 2f, (zoneSize) / 2);
                 enemyY = Random.Range(-(zoneSize) / 2f, (zoneSize) / 2);
+                iterations++;
             }
 
-            //Spawn the enemy
-            Character temp = Instantiate(enemy, new Vector3(enemyX, enemyY, 0), Quaternion.Euler(0,0,0));
+            iterations++;
 
-            Debug.Log(temp.transform.rotation);
+
+            //Spawn the enemy
+            Character temp = Instantiate(enemy, new Vector3(enemyX, enemyY, 0), Quaternion.Euler(0, 0, 0));
+
+            Debug.Log("Spawned "+temp.name);
             //Add the DP of the enemy to the total DP
             totalDPsoFar += enemy.difficultyPoints;
-        }
-        #endregion
-    }
 
+            Debug.Log("C:" + iterations + " DP" + totalDPsoFar);
+        }
+
+        Debug.Log(totalDPsoFar+" Total HERE");
+    }
     private bool canPlaceOnTile(float x,float y,Tilemap needsToBeOn = null, Tilemap[] exclude = null) {
         //If it has to be on another tilemap , we check if that tile on that tilemap has a tile placed
         if (needsToBeOn!=null && !needsToBeOn.HasTile(new Vector3Int((int)x, (int)y, 0))) {
