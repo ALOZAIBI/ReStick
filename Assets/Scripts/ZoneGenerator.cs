@@ -138,12 +138,20 @@ public class ZoneGenerator : MonoBehaviour
 
         int iterations = 0;
         int maxIter = 100;
-        while (totalDPsoFar < (difficultyPoints - 0.5f) && iterations < maxIter) {
+        while (totalDPsoFar <= (difficultyPoints - 0.5f) && iterations < maxIter) {
+
+            //So that in the next while loop we don't recheck the same enemy
+            List<Character> thisEnemyPool = new List<Character>(ZoneGenManager.singleton.listOfSpawneableEnemies);
+
             Debug.Log("A:"+ iterations+" DP"+totalDPsoFar);
             //Get random enemy who's DP is at most 3/4 the DP of the zone and that is less than the remaining DP
             Character enemy = ZoneGenManager.singleton.listOfSpawneableEnemies[Random.Range(0, ZoneGenManager.singleton.listOfSpawneableEnemies.Length)];
-            while ((enemy.difficultyPoints > difficultyPoints - totalDPsoFar || enemy.difficultyPoints < 0.75f * difficultyPoints) && iterations < maxIter) {
-                enemy = ZoneGenManager.singleton.listOfSpawneableEnemies[Random.Range(0, ZoneGenManager.singleton.listOfSpawneableEnemies.Length)];
+            while ((enemy.difficultyPoints > difficultyPoints - totalDPsoFar || enemy.difficultyPoints > 0.75f * difficultyPoints) && iterations < maxIter) {
+                int randIndex = Random.Range(0, thisEnemyPool.Count);
+                enemy = thisEnemyPool[randIndex];
+                thisEnemyPool.RemoveAt(randIndex);
+                Debug.Log("Removed "+enemy.name + " DP"+enemy.difficultyPoints);
+                
                 iterations++;
             }
 
