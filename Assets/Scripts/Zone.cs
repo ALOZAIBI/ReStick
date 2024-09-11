@@ -110,6 +110,9 @@ public class Zone : MonoBehaviour
         uIManager.tutorial.beginUpgradingStatsTutorial();
 
         uIManager.coinManager.setUp();
+
+        if(zoneName == "ProcGen" && uIManager.zoneNumber == 0)
+            forceReward = true;
     }
     //draws an overlay using placeable Tile over the placeable tilemap
     private void drawPlaceableOverlay() {

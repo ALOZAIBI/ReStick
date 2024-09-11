@@ -20,6 +20,7 @@ public class Map : MonoBehaviour
         uiManager.exitBtn.gameObject.SetActive(false);
 
         //Focuses camera on the next level
+        Debug.Log("MAP STARTED");
         Transform nextLevel = getNextLevel();
         Camera.main.transform.position = new Vector3(0, nextLevel.position.y, Camera.main.transform.position.z);
 
@@ -76,8 +77,16 @@ public class Map : MonoBehaviour
         int maxCompleted = 0;
         foreach (SceneSelect tempSelect in sceneSelectors) {
             if (tempSelect.completed) {
-                //Get the level number by extracting the number after the - from the sceneToLoad
-                int levelNumber = int.Parse(tempSelect.sceneToLoad.Split('-')[1]);
+
+                int levelNumber;
+                //If it's a procGen directly get the number from the attribute
+                if(tempSelect.sceneToLoad == "ProcGen") {
+                    levelNumber = tempSelect.number;
+                }
+                else
+                    //Get the level number by extracting the number after the - from the sceneToLoad
+                    levelNumber = int.Parse(tempSelect.sceneToLoad.Split('-')[1]);
+                //Debug.Log("LevelNumber =" + levelNumber + " MaxCompleted =" + maxCompleted + " SceneToLoad =" + tempSelect.sceneToLoad + tempSelect.number);
                 //Debug.Log("DBG " + tempSelect.sceneToLoad + " is completed?" + tempSelect.completed + " LevelNumber =" +levelNumber);
                 if (levelNumber > maxCompleted) {
                     maxCompleted = levelNumber;
@@ -90,7 +99,13 @@ public class Map : MonoBehaviour
         //Debug.Log("DBG Max completed" + maxCompleted);
         //Finds the sceneSelector with level number 1 higher than the highest completed level
         foreach (SceneSelect tempSelect in sceneSelectors) {
-            if (tempSelect.sceneToLoad.Split('-')[1] == (maxCompleted + 1).ToString()) {
+            int currLevel;
+            if(tempSelect.sceneToLoad == "ProcGen") {
+                currLevel = tempSelect.number;
+            }
+            else
+                currLevel = int.Parse(tempSelect.sceneToLoad.Split('-')[1]);
+            if (currLevel == (maxCompleted + 1)) {
                 //Debug.Log("DBG Next Level isss " + tempSelect.sceneToLoad);
                 return tempSelect.transform;
             }

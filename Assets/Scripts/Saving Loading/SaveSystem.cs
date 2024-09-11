@@ -555,8 +555,8 @@ static class SaveSystem
         ZoneData data = new ZoneData(zone);
 
         //xrt is just a random file extension im using because it soiunds and looks cool
-        string path = Application.persistentDataPath +"/"+ UIManager.singleton.saveSlot+ "/zones"+ "/" + zone.zoneName + ".xrt";
-        using(FileStream fs = File.Open(path, FileMode.Create)) {
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/zones" + "/" + zone.zoneName + (UIManager.singleton.zoneNumber > 0 ? UIManager.singleton.zoneNumber : "") + ".xrt";
+        using (FileStream fs = File.Open(path, FileMode.Create)) {
             BinaryWriter writer = new BinaryWriter(fs);
             //the 2 lines that follow are the encrypted version
             //byte[] plainTextBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
@@ -574,7 +574,7 @@ static class SaveSystem
     //returns true if saveFile exists 
     //this function is called in zoneStart to load the zone if a savefile exists
     public static bool loadZone(Zone zone) {
-        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/zones" + "/" + zone.zoneName + ".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/zones" + "/" + zone.zoneName + (UIManager.singleton.zoneNumber > 0 ? UIManager.singleton.zoneNumber : "") + ".xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
@@ -596,7 +596,7 @@ static class SaveSystem
     }
     //loads wether or not a Zone has been completed to SceneSelect
     public static bool loadCompletionSceneSelect(SceneSelect sceneSelect) {
-        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/zones" + "/" + sceneSelect.sceneToLoad + ".xrt";
+        string path = Application.persistentDataPath + "/" + UIManager.singleton.saveSlot + "/zones" + "/" + sceneSelect.sceneToLoad + (sceneSelect.number > 0 ? sceneSelect.number : "") + ".xrt";
         if (File.Exists(path)) {
             using (FileStream fs = File.Open(path, FileMode.Open)) {
                 BinaryReader reader = new BinaryReader(fs);
