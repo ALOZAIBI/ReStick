@@ -25,11 +25,13 @@ public class GameWonScreen : MonoBehaviour
         goBackToMapBtn.gameObject.SetActive(false);
         contents.SetActive(false);
         if (!RewardManager.singleton.displayRewards()) {
+            UIManager.singleton.openShop();
             //If no reward received just display progression
             displayProgression();
             //And save progression
             saveProgression();
         }
+            
     }
 
     //Saves progression (Zone completion + Whatever rewards we got + however the character's progressed)

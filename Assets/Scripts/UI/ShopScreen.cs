@@ -60,6 +60,7 @@ public class ShopScreen : MonoBehaviour {
     //so that AbilityDisplaySell can deselect everything else when it is selected
     public List<AbilityDisplaySell> listSellableAbilities = new List<AbilityDisplaySell>();
 
+
     private void Start() {
         closeBtn.onClick.AddListener(closeScreen);
         buyLifeShardBtn.onClick.AddListener(buyLifeShard);
@@ -144,11 +145,13 @@ public class ShopScreen : MonoBehaviour {
         closeSellAbilities();
         listSellableAbilities.Clear();
     }
-    private void closeScreen() {
+
+    public void closeScreen() {
         closeBuyScreen();
         closeSellScreen();
         UIManager.singleton.shopScreenHidden.hidden = true;
     }
+
     public void displayItems() {
         //Creates itemDisplays
         for(int i = 0; i < shop.itemHolder.transform.childCount; i++) {

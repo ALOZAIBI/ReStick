@@ -34,6 +34,11 @@ public class RewardManager : MonoBehaviour {
     }
 
     //Returns true if a reward has been displayed
+
+    /// <summary>
+    /// Returns true if a reward has been displayed
+    /// </summary>
+    /// <returns></returns>
     public bool displayRewards() {
         bool thereIsReward = false;
         //If the zone I'm in forces a reward
