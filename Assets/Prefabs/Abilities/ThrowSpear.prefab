@@ -1,0 +1,240 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2723336176844124478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2723336176844124476}
+  - component: {fileID: 8565727505767744152}
+  - component: {fileID: 2723336176844124479}
+  m_Layer: 0
+  m_Name: ThrowSpear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2723336176844124476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723336176844124478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0231647, y: -0.13104515, z: 0.0023247432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8565727505767744152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723336176844124478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662de711ab8625d4eb761e91cd76af1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  lockedTarget: {fileID: 0}
+  abilityName: Throw Spear
+  description: Throw Magic ting
+  color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
+  CD: 5
+  rangeAbility: 9
+  available: 1
+  abilityNext: 0
+  valueNames:
+  - Damage
+  - BuffStrength
+  - BuffDuration
+  baseAmt:
+  - 2
+  - 0
+  - 0
+  PDRatio:
+  - 1.2
+  - 0
+  - 0
+  MDRatio:
+  - 0
+  - 0
+  - 0
+  INFRatio:
+  - 0
+  - 0
+  - 0
+  HPMaxRatio:
+  - 0
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  - 0
+  LVLRatio:
+  - 0
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 0
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
+  - 0
+  hasTarget: 1
+  prefabObject: {fileID: 3820233349437345150, guid: 15105ab37c51aa842b2e95dea713ca2a, type: 3}
+  buffPrefab: {fileID: 0}
+  executeAbilityOnEvent: 1
+  Rarities: 0
+  rarity: 0
+  targetStrategy: 1
+  canTargetAlly: 0
+  canTargetEnemy: 1
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
+  abilityTypeList: 0
+  archetypePrimary: 8
+  archetypeSecondary: 5
+  abilityType: 0
+  numberOfValues: 3
+  animationToPlay: 
+  PD: 0
+  MD: 0
+  INF: 0
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  root: 0
+  silence: 0
+  blind: 0
+  initSize: 0
+  growSpeed: 0
+  numProjectiles: 1
+  angle: 0
+  delayBetweenProjectiles: 0
+  numWaves: 1
+  delayBetweenWaves: 1
+  numProjectilesLaunched: 0
+  numWavesLaunched: 0
+--- !u!114 &2723336176844124479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723336176844124478}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1f245ba2adb554d9f7c17969e7f85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  lockedTarget: {fileID: 0}
+  abilityName: Magic Hit
+  description: Throw Magic ting
+  color: {r: 0, g: 0, b: 0, a: 0}
+  buffFXColor: {r: 0, g: 0, b: 0, a: 0}
+  CD: 4
+  rangeAbility: 8
+  available: 1
+  abilityNext: 0
+  valueNames:
+  - Damage
+  - BuffStrength
+  - BuffDuration
+  baseAmt:
+  - 10
+  - 0
+  - 0
+  PDRatio:
+  - 0
+  - 0
+  - 0
+  MDRatio:
+  - 1.2
+  - 0
+  - 0
+  INFRatio:
+  - 0
+  - 0
+  - 0
+  HPMaxRatio:
+  - 0
+  - 0
+  - 0
+  HPRatio:
+  - 0
+  - 0
+  - 0
+  LVLRatio:
+  - 0
+  - 0
+  - 0
+  MSRatio:
+  - 0
+  - 0
+  - 0
+  ASRatio:
+  - 0
+  - 0
+  - 0
+  valueAmt:
+  - 0
+  - 0
+  - 0
+  hasTarget: 1
+  prefabObject: {fileID: 3637706766136786258, guid: ccac6962a1de7ea4c94c7203c25f2dca, type: 3}
+  buffPrefab: {fileID: 0}
+  executeAbilityOnEvent: 1
+  Rarities: 0
+  rarity: 0
+  targetStrategy: 1
+  canTargetAlly: 0
+  canTargetEnemy: 1
+  step: 0
+  hitFX: {fileID: 0}
+  hitFXColor: {r: 0, g: 0, b: 0, a: 0}
+  abilityTypeList: 1
+  archetypePrimary: 0
+  archetypeSecondary: 0
+  abilityType: 1
+  numberOfValues: 3
+  animationToPlay: 
+  PD: 0
+  MD: 0
+  INF: 0
+  HP: 0
+  AS: 0
+  CDR: 0
+  MS: 0
+  Range: 0
+  LS: 0
+  size: 0
+  root: 0
+  silence: 0
+  blind: 0
+  initSize: 0
+  growSpeed: 0

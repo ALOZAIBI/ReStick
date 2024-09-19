@@ -30,13 +30,16 @@ public class GameWonScreen : MonoBehaviour
         float random = Random.Range(0, 100);
 
         //50% chance to get a reward
-        if (random < 0) {
+        if (random < 50) {
             RewardManager.singleton.displayRewards();
         }
         //20% chance to get shop
-        else if (random < 100) {
+        else if (random < 70) {
             UIManager.singleton.openShop();
-
+        }
+        else {
+            displayProgression();
+            saveProgression();
         }
             
     }
