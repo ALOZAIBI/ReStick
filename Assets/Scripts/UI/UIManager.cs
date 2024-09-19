@@ -502,9 +502,6 @@ public class UIManager : MonoBehaviour
         shopScreenHidden.hidden = false;
         shopScreen.setupShopScreen();
     }
-    public void closeShop() {
-        shopScreen.closeScreen();
-    }
 
     public void openHospital() {
         //closeUIBtn.gameObject.SetActive(true);

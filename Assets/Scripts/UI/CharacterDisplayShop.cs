@@ -115,6 +115,7 @@ public class CharacterDisplayShop : MonoBehaviour {
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.characterPurchased[index] = true;
         displaySold();
+        UIManager.singleton.updateGoldtextToCurrent();
     }
 
     public void displaySold() {

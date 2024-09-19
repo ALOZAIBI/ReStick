@@ -57,7 +57,7 @@ public class RewardManager : MonoBehaviour {
         //Different percentc chances to get different rewards
         else {
             //20% chance to get a reward
-            if (random < 45) {
+            if (random < 30) {
                 //Get Either an ability or an item(for now , later will add more types of rewards)
                 if (Random.Range(0, 100) < 50) {
                     abilityRewarder.setUpRewards();

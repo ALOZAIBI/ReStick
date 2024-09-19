@@ -27,15 +27,15 @@ public class Shop : MonoBehaviour
     private bool click = false;
 
     //Deletes the children of all holders
-    private void clean() {
+    public void clean() {
         foreach(Transform child in itemHolder.transform) 
             Destroy(child.gameObject);
         
         foreach (Transform child in abilityHolder.transform)
-            Destroy(child.transform);
+            Destroy(child.gameObject);
 
         foreach (Transform child in characterHolder.transform)
-            Destroy(child.transform);
+            Destroy(child.gameObject);
     }
     public void setup() {
 

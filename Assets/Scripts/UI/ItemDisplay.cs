@@ -227,6 +227,7 @@ public class ItemDisplay : MonoBehaviour
         purchased = true;
         UIManager.singleton.shopScreen.shop.itemPurchased[shopIndex]=true;
         displaySold();
+        UIManager.singleton.updateGoldtextToCurrent();
     }
     public void displaySold() {
         wholeThingImage.SetAlpha(0.1f);

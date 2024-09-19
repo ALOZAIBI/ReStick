@@ -117,6 +117,7 @@ public class AbilityDisplayShop : MonoBehaviour
         //marks the corresponding index to purchased
         UIManager.singleton.shopScreen.shop.abilitiyPurchased[index] = true;
         displaySold();
+        UIManager.singleton.updateGoldtextToCurrent();
     }
 
     public void displaySold() {
