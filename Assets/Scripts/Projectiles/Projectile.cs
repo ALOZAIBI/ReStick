@@ -17,6 +17,9 @@ public abstract class Projectile : MonoBehaviour
     public float initSize;
     public float targetSize;
     public float growSpeed;
+
+    public string loopSoundName;
+    public string hitSoundName;
     //debuff or buff that this projectile applies
     //the buff will be added by the ability creating the projectile
     public Buff buff;
@@ -56,6 +59,8 @@ public abstract class Projectile : MonoBehaviour
         if(initSize != 0 && targetSize != 0) {
             transform.localScale = new Vector3(initSize, initSize, initSize);
         }
+
+        AudioManager.singleton.Play(gameObject,loopSoundName);
     }
 
     private void OnDestroy() {
