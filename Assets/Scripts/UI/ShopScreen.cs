@@ -137,21 +137,24 @@ public class ShopScreen : MonoBehaviour {
 
         shop.clean();
     }
-    private void closeSellAbilities() {
-        foreach (Transform child in sellAbilityArea.transform) {
-            if (child.tag != "DontDelete")
-                Destroy(child.gameObject);
-        }
-    }
-    public void closeSellScreen() {
-        closeSellAbilities();
-        listSellableAbilities.Clear();
-    }
+    //private void closeSellAbilities() {
+    //    foreach (Transform child in sellAbilityArea.transform) {
+    //        if (child.tag != "DontDelete")
+    //            Destroy(child.gameObject);
+    //    }
+    //}
+    //public void closeSellScreen() {
+    //    closeSellAbilities();
+    //    listSellableAbilities.Clear();
+    //}
 
     public void closeScreen() {
         closeBuyScreen();
-        closeSellScreen();
+        //closeSellScreen();
         UIManager.singleton.shopScreenHidden.hidden = true;
+
+        UIManager.singleton.gameWonScreen.displayProgression();
+        UIManager.singleton.gameWonScreen.saveProgression();
     }
 
     public void displayItems() {
@@ -219,20 +222,20 @@ public class ShopScreen : MonoBehaviour {
         displayCharacters();
 
         buyScreen.SetActive(true);
-        sellScreen.SetActive(false);
+        //sellScreen.SetActive(false);
         //grey out the sellScreenBtn images
-        foreach (Image image in sellScreenBtnImages) {
-            image.SetAlpha(0.5f);
-        }
+        //foreach (Image image in sellScreenBtnImages) {
+        //    image.SetAlpha(0.5f);
+        //}
 
         //Ungrey the buyScreenBtn images
-        foreach (Image image in buyScreenBtnImages) {
-            image.SetAlpha(1);
-        }
+        //foreach (Image image in buyScreenBtnImages) {
+        //    image.SetAlpha(1);
+        //}
 
     }
     public void displaySellScreen() {
-        closeSellScreen();
+        //closeSellScreen();
         buyScreen.SetActive(false);
         sellScreen.SetActive(true);
         //grey out the buyScreenBtn images

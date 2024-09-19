@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,12 +23,20 @@ public class GameWonScreen : MonoBehaviour
     public void zoneWon() {
         goBackToMapBtn.gameObject.SetActive(false);
         contents.SetActive(false);
-        if (!RewardManager.singleton.displayRewards()) {
+        if (UIManager.singleton.zone.forceReward) {
+            RewardManager.singleton.displayRewards();
+            return;
+        }
+        float random = Random.Range(0, 100);
+
+        //50% chance to get a reward
+        if (random < 0) {
+            RewardManager.singleton.displayRewards();
+        }
+        //20% chance to get shop
+        else if (random < 100) {
             UIManager.singleton.openShop();
-            //If no reward received just display progression
-            displayProgression();
-            //And save progression
-            saveProgression();
+
         }
             
     }

@@ -35,43 +35,30 @@ public class RewardManager : MonoBehaviour {
 
     //Returns true if a reward has been displayed
 
-    /// <summary>
-    /// Returns true if a reward has been displayed
-    /// </summary>
-    /// <returns></returns>
-    public bool displayRewards() {
-        bool thereIsReward = false;
+
+    public void displayRewards() {
         //If the zone I'm in forces a reward
         float random = Random.Range(0, 100);
-        if (UIManager.singleton.zone.forceReward) {
-            //Get Either an ability or an item
-            if (random < 50) {
-                abilityRewarder.setUpRewards();
-                thereIsReward = true;
-            }
-            else {
-                itemRewarder.setUpRewards();
-                thereIsReward = true;
-            }
-        }
-        //Different percentc chances to get different rewards
-        else {
-            //20% chance to get a reward
-            if (random < 30) {
+        //if (UIManager.singleton.zone.forceReward) {
+        //    //Get Either an ability or an item
+        //    if (random < 50) {
+        //        abilityRewarder.setUpRewards();
+        //        thereIsReward = true;
+        //    }
+        //    else {
+        //        itemRewarder.setUpRewards();
+        //        thereIsReward = true;
+        //    }
+        //}
                 //Get Either an ability or an item(for now , later will add more types of rewards)
-                if (Random.Range(0, 100) < 50) {
-                    abilityRewarder.setUpRewards();
-                    thereIsReward = true;
-                }
-                else {
-                    itemRewarder.setUpRewards();
-                    thereIsReward = true;
-                }
-            }
+        if (Random.Range(0, 100) < 50) {
+            abilityRewarder.setUpRewards();
+        }
+        else {
+            itemRewarder.setUpRewards();
         }
 
-        confirmBtnHidden.hidden = !thereIsReward;
-        return thereIsReward;
+        confirmBtnHidden.hidden = false;
     }
 
     public void confirmReward() {
