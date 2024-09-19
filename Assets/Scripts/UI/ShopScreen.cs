@@ -134,8 +134,6 @@ public class ShopScreen : MonoBehaviour {
         //closeCharactersPlayerParty();
         listAbilities.Clear();
         listCharacters.Clear();
-
-        shop.clean();
     }
     //private void closeSellAbilities() {
     //    foreach (Transform child in sellAbilityArea.transform) {
@@ -155,6 +153,7 @@ public class ShopScreen : MonoBehaviour {
 
         UIManager.singleton.gameWonScreen.displayProgression();
         UIManager.singleton.gameWonScreen.saveProgression();
+        shop.clean();
     }
 
     public void displayItems() {

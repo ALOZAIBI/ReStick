@@ -14,6 +14,9 @@ public class GameWonScreen : MonoBehaviour
     public GameObject contents;
     public int rewardEveryNZone;
 
+    [SerializeField] private float rewardChance=50;
+    [SerializeField] private float shopChance=20;
+
 
 
     private void Start() {
@@ -30,11 +33,11 @@ public class GameWonScreen : MonoBehaviour
         float random = Random.Range(0, 100);
 
         //50% chance to get a reward
-        if (random < 50) {
+        if (random < rewardChance) {
             RewardManager.singleton.displayRewards();
         }
         //20% chance to get shop
-        else if (random < 70) {
+        else if (random < shopChance) {
             UIManager.singleton.openShop();
         }
         else {
