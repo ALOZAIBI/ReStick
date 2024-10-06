@@ -126,6 +126,8 @@ public class UIManager : MonoBehaviour
     //Used to fetch random items for rewards and shop
     public ItemFactory itemFactory;
 
+    public MiscBonusFactory miscBonusFactory;
+
     //Used to fetch archetypes
     public Transform archetypeList;
     //used to deal with Hiding and unHiding UI ELEMENTS

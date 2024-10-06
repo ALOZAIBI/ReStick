@@ -8,6 +8,7 @@ public class RewardManager : MonoBehaviour {
 
     public AbilityRewarder abilityRewarder;
     public ItemRewarder itemRewarder;
+    public MiscBonusRewarder miscBonusRewarder;
 
     public Button confirmBtn;
     public HideUI confirmBtnHidden;
@@ -37,25 +38,19 @@ public class RewardManager : MonoBehaviour {
 
 
     public void displayRewards() {
-        //If the zone I'm in forces a reward
-        float random = Random.Range(0, 100);
-        //if (UIManager.singleton.zone.forceReward) {
-        //    //Get Either an ability or an item
-        //    if (random < 50) {
-        //        abilityRewarder.setUpRewards();
-        //        thereIsReward = true;
-        //    }
-        //    else {
-        //        itemRewarder.setUpRewards();
-        //        thereIsReward = true;
-        //    }
-        //}
+        int random = Random.Range(0, 100);
+
+        random = 90;
                 //Get Either an ability or an item(for now , later will add more types of rewards)
-        if (Random.Range(0, 100) < 50) {
+
+        if (random < 34) {
             abilityRewarder.setUpRewards();
         }
-        else {
+        else if(random<67){
             itemRewarder.setUpRewards();
+        }
+        else if(random < 100) {
+            miscBonusRewarder.setUpRewards();
         }
 
         confirmBtnHidden.hidden = false;
@@ -67,9 +62,18 @@ public class RewardManager : MonoBehaviour {
             abilityRewarder.receiveReward();
         else if (!itemRewarder.hideUI.hidden)
             itemRewarder.receiveReward();
+        else if (!miscBonusRewarder.hideUI.hidden)
+            miscBonusRewarder.receiveReward();
 
         confirmBtnHidden.hidden = true;
 
+        //If the reward doesn't require selecting a character, we skip the application step
+        if (rewardToApply.GetComponent<MiscBonus>() != null) {
+            if ((int)rewardToApply.GetComponent<MiscBonus>().type == (int)MiscBonus.myType.Gold || (int)rewardToApply.GetComponent<MiscBonus>().type == (int)MiscBonus.myType.Life) {
+                endRewardApplication();
+                return;
+            }
+        }
         startRewardApplication();
     }
 
@@ -158,6 +162,7 @@ public class RewardManager : MonoBehaviour {
             //The reward object is the last item added to inventory
             rewardToApply = UIManager.singleton.playerParty.itemInventory.transform.GetChild(UIManager.singleton.playerParty.itemInventory.transform.childCount - 1).gameObject;
         }
+
 
         Debug.Log(abilityRewarder.hideUI.hidden + " " + itemRewarder.hideUI.hidden);
     }

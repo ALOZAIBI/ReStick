@@ -35,6 +35,12 @@ public class ColorPalette : MonoBehaviour
     public Color specialAbilityIndicator;
     public Color otherAbilityIndicator;
 
+
+    public Color xpMisc;
+    public Color goldMisc;
+    public Color hpMisc;
+    public Color lifeMisc;
+
     //public static Color neutralHealthBar;
 
 

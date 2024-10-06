@@ -57,6 +57,7 @@ public class GameWonScreen : MonoBehaviour
     public void displayProgression() {
         RewardManager.singleton.abilityRewarder.hideUI.hidden = true;
         RewardManager.singleton.itemRewarder.hideUI.hidden = true;
+        RewardManager.singleton.miscBonusRewarder.hideUI.hidden = true;
         contents.SetActive(true);
         goBackToMapBtn.gameObject.SetActive(true);
     }
