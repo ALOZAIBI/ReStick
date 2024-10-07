@@ -22,7 +22,7 @@ public class MiscBonusFactory : MonoBehaviour
     public MiscBonus randomMiscBonus() {
         MiscBonus bonus = Instantiate(emptyBonus);
 
-        int randomType = Random.Range(0, 3);
+        int randomType = Random.Range(0, 4);
 
         switch (randomType) {
             case 0:

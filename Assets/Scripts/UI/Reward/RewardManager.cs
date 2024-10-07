@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ public class RewardManager : MonoBehaviour {
     //Ti display the reward that's about to be applied
     [SerializeField] private AbilityDisplayReward abilityDisplay;
     [SerializeField] private ItemDisplay itemDisplay;
+    [SerializeField] private MiscBonusDisplay miscBonusDisplay;
 
     private void Start() {
         singleton = this;
@@ -85,14 +87,18 @@ public class RewardManager : MonoBehaviour {
         //We reset the hidden values
         abilityRewarder.hideRewards();
         itemRewarder.hideRewards();
+        miscBonusRewarder.hideRewards();
 
         int type;//0 Ability, 1 Item
 
         if (rewardToApply.GetComponent<Ability>() != null)
             type = 0;
-        else if(rewardToApply.GetComponent<Item>()!=null)
+        else if (rewardToApply.GetComponent<Item>() != null)
             type = 1;
-        else type = 2;
+        else if (rewardToApply.GetComponent<MiscBonus>() != null)
+            type = 2;
+        else
+            type = 3;
 
         //We instantiate all the char displays in the chardisplay panel
         foreach (Transform child in UIManager.singleton.playerParty.transform) {
@@ -130,7 +136,12 @@ public class RewardManager : MonoBehaviour {
             rt.SetAnchorBottom(0);
             rt.SetAnchorTop(1);
             rt.SetStretchToAnchors();
-
+        }
+        if (type == 2) {
+            //Here 
+            MiscBonusDisplay temp = Instantiate(miscBonusDisplay, rewardPanel);
+            temp.init(rewardToApply.GetComponent<MiscBonus>());
+            
         }
     }
 
@@ -143,6 +154,18 @@ public class RewardManager : MonoBehaviour {
         //if the rewardToApply is an item
         else if (typeOfReward == 1) {
             character.addItem(rewardToApply.GetComponent<Item>());
+        }
+        //if the rewardToAPply is a misc bonus
+        else if(typeOfReward == 2) {
+            MiscBonus bonus = rewardToApply.GetComponent<MiscBonus>();
+            switch ((int)bonus.type) {
+                case (int)MiscBonus.myType.HP:
+                    character.HP += bonus.bonusAmt;
+                    break;
+                case (int)MiscBonus.myType.XP:
+                    character.xpProgress += bonus.bonusAmt;
+                    break;
+            }
         }
 
         //To prevent new thing notification when we decite to add immediately to character
