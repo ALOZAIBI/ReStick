@@ -12,8 +12,11 @@ public class CharacterDisplayRewardApplication : MonoBehaviour
 
     [SerializeField] public Image characerPortrait;
     [SerializeField] private CharacterHealthBar healthBar;
+
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI level;
+
+    [SerializeField] private Image xpBar;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +30,10 @@ public class CharacterDisplayRewardApplication : MonoBehaviour
         name.text = character.name;
 
         level.text = character.level.ToString();
+
+        xpBar.fillAmount = character.xpProgress / character.xpCap;
     }
     //The onclick listener will be added by the rewardManager
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

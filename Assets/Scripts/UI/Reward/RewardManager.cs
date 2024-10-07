@@ -167,7 +167,7 @@ public class RewardManager : MonoBehaviour {
                     break;
             }
         }
-
+        //Do UI animation here maybe
         //To prevent new thing notification when we decite to add immediately to character
         UIManager.singleton.playerParty.setNewStuffNotifications();
         //Maybe add animation of updating the sprite when archetyper changes dues to item or ability

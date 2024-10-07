@@ -53,11 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872177, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.75
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872177, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.90625
+      value: 1.7428571
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: HP
@@ -84,6 +84,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: _hP
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: HPMax
       value: 400
       objectReference: {fileID: 0}
@@ -99,6 +103,10 @@ PrefabInstance:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 2910958788233983746, guid: 3506250d3ecd14340b42fcb8ff2716bb, type: 3}
+    - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
+      propertyPath: difficultyPoints
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1105442034894872179, guid: 58ce1167619601d4ca7c7e053160a981, type: 3}
       propertyPath: abilities.Array.size
       value: 3

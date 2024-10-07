@@ -18,7 +18,19 @@ public class Character : MonoBehaviour {
     public float PD;
     public float MD;
     public float INF;
-    public float HP;
+
+    [SerializeField]private float _hP;
+    public float HP {
+        get {
+            return _hP;
+        }
+
+        set {
+            _hP = value;
+            capHP();
+        }
+    }
+
     public float HPMax;
     public float AS;
     //CDR is a percentage if it is at 1.00 it iss (100%) 
@@ -83,8 +95,19 @@ public class Character : MonoBehaviour {
         if(!overrideDP)
             difficultyPoints = level;
     }
+    [SerializeField]private float _xpProgress;
     //how much xp in current level
-    public float xpProgress = 0;
+    public float xpProgress {
+        get {
+            return _xpProgress;
+        }
+
+        set {
+            _xpProgress = value;
+            if (_xpProgress >= xpCap)
+                levelUp();
+        }
+    }
     //how much xp needed to level up
     public int xpCap = 1;
     //points that can be used on stats (gained wen leveling up)
@@ -2063,8 +2086,6 @@ public class Character : MonoBehaviour {
             dieNextFrame = false;
         }
         
-        if (xpProgress >= xpCap)
-            levelUp();
 
         //Sometimes after debuffs the AS is less than 0 so it is importatnt to prevent attacking in that case, otherways it'll be a machinegun
         if (!(blind>0)&&AS>0)
@@ -2082,7 +2103,7 @@ public class Character : MonoBehaviour {
             //}
             doAbilities();
         }
-        capHP();
+
         previousMovementState = movementState; // this will be used to see if the movementState changed or not
         resetKillsLastFrame();//always keep me last in update
 
