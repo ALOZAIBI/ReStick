@@ -42,13 +42,12 @@ public class RewardManager : MonoBehaviour {
     public void displayRewards() {
         int random = Random.Range(0, 100);
 
-        random = 90;
-                //Get Either an ability or an item(for now , later will add more types of rewards)
+        //Get Either an ability or an item(for now , later will add more types of rewards)
 
-        if (random < 34) {
+        if (random < 40) {
             abilityRewarder.setUpRewards();
         }
-        else if(random<67){
+        else if(random<80){
             itemRewarder.setUpRewards();
         }
         else if(random < 100) {
@@ -70,7 +69,7 @@ public class RewardManager : MonoBehaviour {
         confirmBtnHidden.hidden = true;
 
         //If the reward doesn't require selecting a character, we skip the application step
-        if (rewardToApply.GetComponent<MiscBonus>() != null) {
+        if (rewardToApply !=null && rewardToApply.GetComponent<MiscBonus>() != null) {
             if ((int)rewardToApply.GetComponent<MiscBonus>().type == (int)MiscBonus.myType.Gold || (int)rewardToApply.GetComponent<MiscBonus>().type == (int)MiscBonus.myType.Life) {
                 endRewardApplication();
                 return;
