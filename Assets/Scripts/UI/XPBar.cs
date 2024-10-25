@@ -19,4 +19,8 @@ public class XPBar : MonoBehaviour
 
         levelText.text = character.level.ToString();
     }
+
+    private void Update() {
+        manualDisplayXP();
+    }
 }

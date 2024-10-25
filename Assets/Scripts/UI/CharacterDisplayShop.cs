@@ -6,14 +6,9 @@ using TMPro;
 using UnityEngine.EventSystems;
 
 
-public class CharacterDisplayShop : MonoBehaviour {
-    public Character character;
+public class CharacterDisplayShop : CharacterDisplay {
 
-    [SerializeField] private Image characerPortrait;
-    [SerializeField] private CharacterHealthBar healthBar;
-    [SerializeField] private TextMeshProUGUI name;
 
-    [SerializeField] private Button self;
     [SerializeField] private Image background;
 
     public GameObject sold;
@@ -25,21 +20,12 @@ public class CharacterDisplayShop : MonoBehaviour {
     public bool purchased;
 
     public int index;
-    private void Start() {
-        //price depends on how many characters the player has.
-        //First character costs 70, then increment by 120 for each new Character
-        //We do -3 cuz  -2 for the children  of playerParty and -1 for to make the first cost only 70
+    private new void Start() {
+        base.Start();
         price = 50+120*((UIManager.singleton.playerParty.transform.childCount-5));
         priceText.text = price + "";
-        //sets the image
-        characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
-        characerPortrait.color = character.GetComponent<SpriteRenderer>().color;
-        //sets the HPbar
-        healthBar.character = character;
-        //sets the name
-        name.text = character.name;
 
-        self.onClick.AddListener(select);
+        btn.onClick.AddListener(select);
         //change alpha to 0.3 if purchased
         if (purchased) {
             displaySold();

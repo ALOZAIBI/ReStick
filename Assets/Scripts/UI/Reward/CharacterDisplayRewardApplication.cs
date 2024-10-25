@@ -6,34 +6,18 @@ using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 //This is used to quickly equip item/ability that we just received from reward
-public class CharacterDisplayRewardApplication : MonoBehaviour
+public class CharacterDisplayRewardApplication : CharacterDisplay
 {
-    public Character character;
 
-    [SerializeField] public Image characerPortrait;
-    [SerializeField] private CharacterHealthBar healthBar;
-
-    [SerializeField] private TextMeshProUGUI name;
-    [SerializeField] private TextMeshProUGUI level;
-
-    [SerializeField] private Image xpBar;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //sets the image
-        characerPortrait.sprite = character.GetComponent<SpriteRenderer>().sprite;
-        characerPortrait.color = character.GetComponent<SpriteRenderer>().color;
-        //sets the HPbar
-        healthBar.character = character;
-        //sets the name
-        name.text = character.name;
-
-        level.text = character.level.ToString();
-
-        xpBar.fillAmount = character.xpProgress / character.xpCap;
+    //To make the btn accessible from reward manager.
+    //The btn's listener will be set there
+    public Button getBtn() {
+        return btn;
     }
-    //The onclick listener will be added by the rewardManager
 
-
+    //When the reward isn't applicable to the character, we disable the button and change the color of the character portrait
+    public void disable() {
+        btn.interactable = false;
+        characterPortrait.SetAlpha(0.3f);
+    }
 }

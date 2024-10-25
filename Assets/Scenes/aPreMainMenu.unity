@@ -4890,6 +4890,10 @@ PrefabInstance:
       propertyPath: shop
       value: 
       objectReference: {fileID: 933827037}
+    - target: {fileID: 1060005785080922174, guid: 9a8773e17a064b046a90b5d9c5e739e2, type: 3}
+      propertyPath: characterDisplayObj
+      value: 
+      objectReference: {fileID: 4442515018930391489, guid: d111f2afed4dfec42a76b1b2aaf7aea4, type: 3}
     - target: {fileID: 1275865372541376103, guid: 9a8773e17a064b046a90b5d9c5e739e2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -10999,17 +11003,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f1d77c1a7661424dbce44d1e1290278, type: 3}
---- !u!114 &683074349 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7322668786561046170, guid: 5f1d77c1a7661424dbce44d1e1290278, type: 3}
-  m_PrefabInstance: {fileID: 683074348}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e007fc7ae913764f9bebc3bb3289414, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &683074350 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3502616839146296694, guid: 5f1d77c1a7661424dbce44d1e1290278, type: 3}
@@ -18498,7 +18491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1289686732}
-  characterDisplay: {fileID: 5763673684709246824, guid: 3db134d8b49574b43b0f6dd3077a0126, type: 3}
+  characterDisplay: {fileID: 6226064171895707051, guid: 150447e08fc64144aa5e1e540beba626, type: 3}
   startBtn: {fileID: 764848802}
 --- !u!114 &982835551
 MonoBehaviour:
@@ -18540,7 +18533,7 @@ MonoBehaviour:
   m_ChildAlignment: 7
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 200, y: 200}
+  m_CellSize: {x: 230, y: 250}
   m_Spacing: {x: 50, y: 50}
   m_Constraint: 1
   m_ConstraintCount: 3
@@ -20112,6 +20105,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3004161488759063318, guid: e5a79a322d85ef247a4b1f3a6850f4b7, type: 3}
+      propertyPath: characterDisplayObj
+      value: 
+      objectReference: {fileID: 4442515018930391489, guid: d111f2afed4dfec42a76b1b2aaf7aea4, type: 3}
     - target: {fileID: 3004161489533697567, guid: e5a79a322d85ef247a4b1f3a6850f4b7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -21913,8 +21910,6 @@ MonoBehaviour:
   inventoryScreen: {fileID: 1502936969}
   shopScreen: {fileID: 200273590}
   openShopButton: {fileID: 1511415605}
-  hospitalScreen: {fileID: 683074349}
-  openHospitalBtn: {fileID: 1511415604}
   characterInfoScreen: {fileID: 178290664}
   playerParty: {fileID: 1233151475}
   character: {fileID: 0}
@@ -21967,7 +21962,6 @@ MonoBehaviour:
   gameOverScreenHidden: {fileID: 0}
   topStatDisplayHidden: {fileID: 0}
   shopScreenHidden: {fileID: 0}
-  hospitalScreenHidden: {fileID: 0}
   menuUIHidden: {fileID: 0}
   coinManager: {fileID: 965494466}
   debuggingBtn: {fileID: 648422794}
@@ -24304,17 +24298,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c19e53953c7c2749902ccf81300523d, type: 3}
---- !u!114 &1511415604 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3840930470545941685, guid: 8c19e53953c7c2749902ccf81300523d, type: 3}
-  m_PrefabInstance: {fileID: 1511415603}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1511415605 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6910093741333512679, guid: 8c19e53953c7c2749902ccf81300523d, type: 3}
@@ -28909,7 +28892,7 @@ MonoBehaviour:
   confirmBtn: {fileID: 430644674}
   confirmBtnHidden: {fileID: 430644678}
   addToInventoryBtn: {fileID: 958176870}
-  characterDisplay: {fileID: 1493588135775174512, guid: 3a3575f3ff496ef4b8355381d29bf1c3, type: 3}
+  characterDisplay: {fileID: 5410246971014649639, guid: ea14fa6684243504f98434f2a5effc1a, type: 3}
   charDisplayPanel: {fileID: 1388178656}
   rewardPanel: {fileID: 840671005}
   rewardApplicationHidden: {fileID: 197084219}

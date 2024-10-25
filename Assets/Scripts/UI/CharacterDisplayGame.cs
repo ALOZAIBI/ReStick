@@ -69,10 +69,7 @@ public class CharacterDisplayGame : CharacterDisplay, IPointerDownHandler {
                         }
                         catch { /*Maybe fixes stuff?*/}
 
-                        Image image = gameObject.GetComponent<Image>();
-                        Color temp = image.color;
-                        temp.a = 0.1f;
-                        image.color = temp;
+                        characterPortraitBox.SetAlpha(0.2f);
                         //this is done to update collider position when timescale is set to 0 so that the character dragged in is correctly clickable.
                         Physics.SyncTransforms();
                         //Debug.Log("PHYSICS STYNCED");
@@ -104,11 +101,9 @@ public class CharacterDisplayGame : CharacterDisplay, IPointerDownHandler {
                     RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,LayerMask.GetMask("Placeable"));
                     //if it doesn't hit a placeable layer remove the character
                     if(hit.collider == null) {
-                        //reset the characterDisplay color
-                        Image image = gameObject.GetComponent<Image>();
-                        Color temp = image.color;
-                        temp.a = 1f;
-                        image.color = temp;
+
+                        characterPortraitBox.SetAlpha(1f);
+
                         //removes character
                         character.gameObject.SetActive(false);
                         character.dropped = false;

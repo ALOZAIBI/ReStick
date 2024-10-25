@@ -28,7 +28,7 @@ public class CharacterPlacingScreen : MonoBehaviour
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
                 //instantiates a charcaterDisplay
-                CharacterDisplay display = Instantiate(characterDisplay).GetComponent<CharacterDisplay>();
+                CharacterDisplayGame display = Instantiate(characterDisplay).GetComponent<CharacterDisplayGame>();
                 display.character = temp;
                 //sets this display as a child 
                 display.transform.parent = transform;

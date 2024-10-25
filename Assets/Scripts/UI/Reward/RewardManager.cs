@@ -104,17 +104,15 @@ public class RewardManager : MonoBehaviour {
             if (child.CompareTag("Character")) {
                 CharacterDisplayRewardApplication display = Instantiate(characterDisplay, charDisplayPanel);
                 display.character = child.GetComponent<Character>();
-                display.GetComponent<Button>().onClick.AddListener(() => applyRewardToCharacter(display.character, display,type));
+                display.getBtn().onClick.AddListener(() => applyRewardToCharacter(display.character, display,type));
 
                 //If the reward is an ability and the character already has max abilities disable clicking it
                 if (type == 0 && display.character.abilities.Count >= CharacterInfoScreen.MAX_ABILITIES) {
-                    display.GetComponent<Button>().interactable = false;
-                    display.characerPortrait.SetAlpha(0.3f);
+                    display.disable();
                 }
-
+                //If the reward is an item and the character already has max items disable clicking it
                 else if (type == 1 && display.character.items.Count >= CharacterInfoScreen.MAX_ITEMS) {
-                    display.GetComponent<Button>().interactable = false;
-                    display.characerPortrait.SetAlpha(0.3f);
+                    display.disable();
                 }
             }
         }

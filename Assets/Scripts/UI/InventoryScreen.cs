@@ -63,7 +63,7 @@ public class InventoryScreen : MonoBehaviour
             if (child.tag == "Character") {
                 Character temp = child.GetComponent<Character>();
                 //instantiates a charcaterDisplay
-                InventoryCharacterDisplay display = Instantiate(inventoryCharacterDisplay,characterHolder).GetComponent<InventoryCharacterDisplay>();
+                CharacterDisplayInventory display = Instantiate(inventoryCharacterDisplay,characterHolder).GetComponent<CharacterDisplayInventory>();
                 display.character = temp;
                 ////sets the scale for some reason if I dont do this the scale is set to 167
                 //display.gameObject.transform.localScale = new Vector3(1, 1, 1);
