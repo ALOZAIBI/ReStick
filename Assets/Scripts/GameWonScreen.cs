@@ -11,7 +11,9 @@ public class GameWonScreen : MonoBehaviour
 
     public Button goToNextZoneBtn;
     public Button goBackToMapBtn;
+
     public GameObject contents;
+    public CharacterDisplayProgression characterDisplayProgression;
     public int rewardEveryNZone;
 
     [SerializeField] private float rewardChance=50;
@@ -59,7 +61,24 @@ public class GameWonScreen : MonoBehaviour
         RewardManager.singleton.itemRewarder.hideUI.hidden = true;
         RewardManager.singleton.miscBonusRewarder.hideUI.hidden = true;
         contents.SetActive(true);
+        createProgressionDisplays();
         goBackToMapBtn.gameObject.SetActive(true);
+    }
+    private void deleteDisplays() {
+        foreach (Transform child in contents.transform) {
+            if(!child.CompareTag("DontDelete"))
+                Destroy(child.gameObject);
+        }
+    }
+    private void createProgressionDisplays() {
+        deleteDisplays();
+        //Foreach character that was placed create a progression display for it
+        foreach(Character character in UIManager.singleton.playerParty.getCharacters()) {
+            if (character.dropped) {
+                CharacterDisplayProgression display =  Instantiate(characterDisplayProgression, contents.transform);
+                display.character = character;
+            }
+        }
     }
 
     //leaves to UIManager's SceneName

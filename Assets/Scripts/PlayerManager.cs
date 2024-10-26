@@ -71,6 +71,17 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    //Returns list of characters that are children of the player party
+    public List<Character> getCharacters() {
+        List<Character> characters = new List<Character>();
+        foreach (Transform child in transform) {
+            if (child.CompareTag("Character")) {
+                characters.Add(child.GetComponent<Character>());
+            }
+        }
+        return characters;
+    }
+
 
     //if you're gonan change the number of children the player party has onAwake look at the save slot selector code and modify the amount of hcildren
 }

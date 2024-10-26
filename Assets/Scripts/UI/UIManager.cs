@@ -620,7 +620,8 @@ public class UIManager : MonoBehaviour
     }
     public void deleteAllPlayerItems() {
         foreach (Transform child in playerParty.activeItems.transform) {
-            Destroy(child.gameObject);
+            if(!child.CompareTag("DontDelete"))
+                Destroy(child.gameObject);
         }
     }
     //this is to be called before loading characters So that there are no duplicates

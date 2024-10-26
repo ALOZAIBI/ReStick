@@ -11,7 +11,7 @@ public abstract class CharacterDisplay : MonoBehaviour
     [SerializeField] protected Image characterPortrait;
     [SerializeField] protected Image characterPortraitBox;
     [SerializeField] protected CharacterHealthBar healthBar;
-    [SerializeField] private XPBar xpBar;
+    [SerializeField] protected XPBar xpBar;
 
     [SerializeField] protected TextMeshProUGUI nameTxt;
     [SerializeField] protected TextMeshProUGUI levelTxt;

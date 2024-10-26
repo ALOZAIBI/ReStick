@@ -54,7 +54,7 @@ public class Character : MonoBehaviour {
     public int totalKills = 0;
     public float totalDamage = 0;
 
-    //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI 
+    //on Zone start stats. (Used to emphaseize buffs and debuffs in the UI) And to show progression in the case of HP and XP
     [HideInInspector] public float zsPD;
     [HideInInspector] public float zsMD;
     [HideInInspector] public float zsINF;
@@ -65,6 +65,9 @@ public class Character : MonoBehaviour {
     [HideInInspector] public float zsMS;
     [HideInInspector] public float zsRange;
     [HideInInspector] public float zsLS;
+
+     public float zsXPProgress;
+     public int zsLevel;
 
     //[HideInInspector]public int zsTotalKills;
     //[HideInInspector]public float zsTotalDamage;
@@ -377,6 +380,9 @@ public class Character : MonoBehaviour {
         zsMS = MS;
         zsRange = Range;
         zsLS = LS;
+
+        zsXPProgress = xpProgress;
+        zsLevel = level;
 
         CurrentDashingAbility = null;
 
@@ -1994,12 +2000,16 @@ public class Character : MonoBehaviour {
             }
         }
     }
+
+    public static int getXPCap(int level) {
+        return level + (level * ((level - 1) / 2));
+    }
     private void levelUp() {
         xpProgress -= xpCap;
         level++;
         statPoints++;
         //update xpCap depending on level
-        xpCap = level + (level * ((level - 1) / 2));
+        xpCap = getXPCap(level);
 
         //(this only applies to player characters that are not summoned)
         if (!summoned && team == (int)teamList.Player) {
