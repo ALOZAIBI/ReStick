@@ -32,7 +32,7 @@ public abstract class CharacterDisplay : MonoBehaviour
         xpBar.character = character;
         //sets the name
         nameTxt.text = character.name;
-        levelTxt.text = character.level.ToString();
+        //levelTxt.text = character.level.ToString();
     }
 
 

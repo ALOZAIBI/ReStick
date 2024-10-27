@@ -39,7 +39,7 @@ public class GameWonScreen : MonoBehaviour
             RewardManager.singleton.displayRewards();
         }
         //20% chance to get shop
-        else if (random < shopChance) {
+        else if (random < rewardChance + shopChance) {
             UIManager.singleton.openShop();
         }
         else {

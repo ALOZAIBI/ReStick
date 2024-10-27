@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 112083777551496437, guid: f07da81307a82a04b852c51688989a34, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4343899115893363245, guid: f07da81307a82a04b852c51688989a34, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -101,17 +105,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f07da81307a82a04b852c51688989a34, type: 3}
---- !u!114 &140146294919352121 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7618444103454747986, guid: f07da81307a82a04b852c51688989a34, type: 3}
-  m_PrefabInstance: {fileID: 7515312455176135275}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1158668642190122682 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8673838468414569681, guid: f07da81307a82a04b852c51688989a34, type: 3}
@@ -135,7 +128,7 @@ MonoBehaviour:
   healthBar: {fileID: 4076463612900124881}
   xpBar: {fileID: 7188108924616322134}
   nameTxt: {fileID: 6467060898698686266}
-  levelTxt: {fileID: 140146294919352121}
+  levelTxt: {fileID: 0}
   btn: {fileID: 5951163646283496308}
 --- !u!114 &4076463612900124881 stripped
 MonoBehaviour:

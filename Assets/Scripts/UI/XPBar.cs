@@ -27,6 +27,10 @@ public class XPBar : MonoBehaviour
     private float currentTimeBeforeAnimating = 0;
 
 
+    //Returns the string in the format Lv. "int"
+    public static string getLevelText(int level) {
+        return "Lv." + level.ToString();
+    }
 
 
     private void Start() {
@@ -39,7 +43,7 @@ public class XPBar : MonoBehaviour
     public void manualDisplayXP(float xpProgress, float xpCap, int level) {
         xpBar.fillAmount = xpProgress / xpCap;
 
-        levelText.text = level.ToString();
+        levelText.text = getLevelText(level);
     }
 
     public void displayProgression(float xpProgressPrev, int levelPrev) {
@@ -61,7 +65,7 @@ public class XPBar : MonoBehaviour
 
             if(xpBar.fillAmount >= 0.99f) {
                 levelDiff--;
-                levelText.text = (character.level - levelDiff).ToString();
+                levelText.text = getLevelText((character.level - levelDiff));
                 xpBar.fillAmount = 0;
                 lerpT = 0;
             }

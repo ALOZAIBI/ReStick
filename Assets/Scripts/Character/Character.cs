@@ -369,6 +369,8 @@ public class Character : MonoBehaviour {
 
         holdPosition = transform.position;
 
+        capHP();
+
         MovNext = 0;
         AtkNext = 0;
         zsPD = PD;
