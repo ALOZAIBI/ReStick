@@ -450,6 +450,8 @@ static class SaveSystem
                     //this is the non-encrypted version
                     CharacterData data = JsonConvert.DeserializeObject<CharacterData>(reader.ReadString());
 
+                    Debug.Log("About to load character"+data.charName);
+
                     UIManager.singleton.characterFactory.addCharacterAsChild(data,UIManager.singleton.playerParty.transform);
                     
                     //Debug.Log("Character loaded" + data.charName + data.HP);

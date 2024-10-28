@@ -52,8 +52,11 @@ public class CharacterFactory : MonoBehaviour
         temp.totalKills = data.totalKills;
         temp.totalDamage = data.totalDamage;
         temp.level = data.level;
-        temp.xpProgress = data.xpProgress;
+
+        //xpCap has to be before xpProgress, otherwise the character will level up a lot due to the setter of xpProgress
         temp.xpCap = data.xpCap;
+        temp.xpProgress = data.xpProgress;
+
         temp.statPoints = data.statPoints;
         temp.team = data.team;
         temp.attackTargetStrategy = data.attackTargetStrategy;

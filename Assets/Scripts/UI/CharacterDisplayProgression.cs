@@ -11,6 +11,7 @@ public class CharacterDisplayProgression : CharacterDisplay
     private new void Start() {
         base.Start();
         xpBar.automaticUpdate = false;
+        healthBar.automaticUpdate = false;
 
         prevLevelText.text = XPBar.getLevelText(character.zsLevel);
         prevLevelText.gameObject.SetActive(character.zsLevel != character.level);

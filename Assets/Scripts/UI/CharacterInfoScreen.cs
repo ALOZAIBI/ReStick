@@ -1151,7 +1151,7 @@ public class CharacterInfoScreen : MonoBehaviour
 
         //fills the HP bar correctly
         healthBar.character = currChar;
-        healthBar.manualDisplayHealth();
+        healthBar.manualDisplayHealth(currChar.HP,currChar.HPMax);
 
         levelText.text = "LVL: " + currChar.level;
         
