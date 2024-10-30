@@ -537,6 +537,10 @@ public class CharacterInfoScreen : MonoBehaviour
         //Grows the right anchor to the right
         targetSelectBtnPanel.SetAnchorRight(Mathf.Lerp(targetSelectBtnPanel.GetAnchorLeft(), statsPanelAnchorR,time/transitionTime));
     }
+    public void showUpgradeStats() {
+        focusElement = 7;
+        startFocusing();
+    }
     private void startFocusing() {
         if (!focused) {
             uiManager.focus.gameObject.SetActive(true);

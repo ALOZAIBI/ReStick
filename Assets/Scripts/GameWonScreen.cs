@@ -14,13 +14,17 @@ public class GameWonScreen : MonoBehaviour
 
     public GameObject contents;
     public CharacterDisplayProgression characterDisplayProgression;
+    private int numOfDisplaysCreated = 0;
+    [SerializeField]private int numOfDisplaysDone = 0;
+    private List<Character> charactersLeveledUp = new List<Character>();
+
     public int rewardEveryNZone;
 
     [SerializeField] private float rewardChance=50;
     [SerializeField] private float shopChance=20;
 
 
-
+    [ButtonInvoke(nameof(declareADisplayDone))] public bool countUpCharDisplayDone;
     private void Start() {
         goBackToMapBtn.onClick.AddListener(goToMap);
     }
@@ -55,6 +59,16 @@ public class GameWonScreen : MonoBehaviour
         UIManager.singleton.saveMapSave();
     }
 
+    public void declareADisplayDone() {
+        numOfDisplaysDone++;
+        if (numOfDisplaysDone == numOfDisplaysCreated) {
+            //Will display the first character that has leveld up 
+            UIManager.singleton.characterInfoScreen.viewCharacterFullScreen(charactersLeveledUp[0]);
+            UIManager.singleton.characterInfoScreen.time = UIManager.singleton.characterInfoScreen.transitionTime;
+            UIManager.singleton.charInfoScreenHidden.hidden = false;
+            UIManager.singleton.characterInfoScreen.showUpgradeStats();
+        }
+    }
     //contents i.e character progression gold earned, and buttons
     public void displayProgression() {
         RewardManager.singleton.abilityRewarder.hideUI.hidden = true;
@@ -69,6 +83,7 @@ public class GameWonScreen : MonoBehaviour
             if(!child.CompareTag("DontDelete"))
                 Destroy(child.gameObject);
         }
+        numOfDisplaysCreated = 0;
     }
     private void createProgressionDisplays() {
         deleteDisplays();
@@ -77,6 +92,11 @@ public class GameWonScreen : MonoBehaviour
             if (character.dropped) {
                 CharacterDisplayProgression display =  Instantiate(characterDisplayProgression, contents.transform);
                 display.character = character;
+                numOfDisplaysCreated++;
+                //If character has leveled up, add it to the list
+                if (character.zsLevel != character.level) {
+                    charactersLeveledUp.Add(character);
+                }
             }
         }
     }
